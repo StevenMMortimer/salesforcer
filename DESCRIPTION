@@ -1,14 +1,13 @@
 Package: salesforcer
 Title: An R package connecting to Salesforce APIs using tidy principles
-Version: 0.0.0.9999
+Version: 0.0.0.9000
 Date: 2018-03-07
-Description: A package that connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs and 
-emphasizes the use of tidy data principles and the tidyverse
+Description: A package that connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs and emphasizes the use of tidy data principles and the tidyverse
 Authors@R: c(
     person("Steven", "Mortimer", , "reportmort@gmail.com", c("aut", "cre"))
     )
-URL: https://github.com/ReportMort/salesforcer
-BugReports: https://github.com/ReportMort/salesforcer/issues
+URL: https://github.com/StevenMMortimer/salesforcer
+BugReports: https://github.com/StevenMMortimer/salesforcer/issues
 Encoding: UTF-8
 Depends:
     R (>= 3.1.0)
