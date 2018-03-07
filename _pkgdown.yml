@@ -1,9 +1,5 @@
 url: http://google.com
 
-template:
-  package: tidytemplate
-  default_assets: false
-
 home:
   strip_header: true
 
@@ -11,10 +7,9 @@ navbar:
   type: default
   left:
   - text: Intro
-    href: articles/dplyr.html
+    href: articles/salesforcer.html
   - text: Reference
     href: reference/index.html
-  - text: Articles
   - text: News
     href: news/index.html
   right:
