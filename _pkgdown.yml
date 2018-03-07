@@ -6,8 +6,6 @@ home:
 navbar:
   type: default
   left:
-  - text: Intro
-    href: articles/salesforcer.html
   - text: Reference
     href: reference/index.html
   - text: News

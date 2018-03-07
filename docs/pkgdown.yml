@@ -3,6 +3,6 @@ pkgdown: 0.1.0.9000
 pkgdown_sha: 17f683717d0a1547f13a08a259b34c58927452d6
 articles: {}
 urls:
-  reference: http://google.com/reference
-  article: http://google.com/articles
+  reference: https://stevenmmortimer.github.io/salesforcer//reference
+  article: https://stevenmmortimer.github.io/salesforcer//articles
 
