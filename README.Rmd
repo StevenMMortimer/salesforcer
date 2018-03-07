@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# salesforcer <img src="man/figures/salesforcer-hex.png" align="right" style="max-width:120px;" />
+# salesforcer <img src="man/figures/salesforcer-hex.png" align="right" width="120" />
 
 [![Build Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer)
