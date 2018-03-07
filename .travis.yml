@@ -1,0 +1,21 @@
+language: r
+sudo: required
+warnings_are_errors: false
+r_check_args: "--no-build-vignettes --no-manual --timings"
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+env:
+  global:
+  - CRAN: http://cran.rstudio.com
+  - NOT_CRAN: true
+r_github_packages:
+- jimhester/covr
+r_packages:
+- dplyr
+- knitr
+- rmarkdown
+- testthat
+after_success:
+- Rscript -e 'library(covr);codecov()'
