@@ -5,7 +5,8 @@
 \title{SOQL Query}
 \usage{
 sf_query(soql, target_object = NULL, queryall = FALSE, batch_size = 500,
-  api_type = c("REST", "SOAP", "Bulk", "Async"), next_records_url = NULL)
+  api_type = c("REST", "SOAP", "Bulk", "Async"), next_records_url = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{soql}{placeholder}
@@ -19,6 +20,8 @@ sf_query(soql, target_object = NULL, queryall = FALSE, batch_size = 500,
 \item{api_type}{placeholder}
 
 \item{next_records_url}{placeholder}
+
+\item{verbose}{logical; do you want informative messages?}
 }
 \value{
 \code{tibble}

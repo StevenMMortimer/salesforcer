@@ -19,7 +19,7 @@ sf_auth(username = NULL, password = NULL, security_token = NULL,
 \item{security_token}{Salesforce security token. Note: A new security token is 
 generated whenever your password is changed.}
 
-\item{login_url}{Custom Login Url; defaults to https://login.salesforce.com}
+\item{login_url}{a custom login url; defaults to https://login.salesforce.com}
 
 \item{token}{optional; an actual token object or the path to a valid token
 stored as an \code{.rds} file}

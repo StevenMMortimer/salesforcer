@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • salesforcer</title>
+<title>Backwards compatible version of rforcecom.login — rforcecom.login • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,7 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Backwards compatible version of rforcecom.login — rforcecom.login" />
+
+<meta property="og:description" content="Backwards compatible version of rforcecom.login" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -40,7 +43,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -78,76 +81,46 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.0.0.9000</small>
-      </h1>
+    <h1>Backwards compatible version of rforcecom.login</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    
+    <p>Backwards compatible version of rforcecom.login</p>
+    
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <pre class="usage"><span class='fu'>rforcecom.login</span>(<span class='no'>username</span>, <span class='no'>password</span>, <span class='kw'>loginURL</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>apiVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>username</th>
+      <td><p>Your username for login to the Salesforce.com. In many cases, username is your E-mail address.</p></td>
+    </tr>
+    <tr>
+      <th>password</th>
+      <td><p>Your password for login to the Salesforce.com. Note: DO NOT FORGET your Security Token. (Ex.) If your password is "Pass1234" and your security token is "XYZXYZXYZXYZ", you should set "Pass1234XYZXYZXYZXYZ".</p></td>
+    </tr>
+    <tr>
+      <th>loginURL</th>
+      <td><p>(optional) Login URL. If your environment is sandbox specify (ex:) "https://test.salesforce.com/".</p></td>
+    </tr>
+    <tr>
+      <th>apiVersion</th>
+      <td><p>(optional) Version of the REST API and SOAP API that you want to use. (ex:) "35.0" Supported versions from v20.0 and up.</p></td>
+    </tr>
+    </table>
+    
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="return_true.html">return_true</a></code> </p>
-          </td>
-          <td><p>Always Returns TRUE</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rforcecom.login.html">rforcecom.login</a></code> </p>
-          </td>
-          <td><p>Backwards compatible version of rforcecom.login</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rforcecom.query.html">rforcecom.query</a></code> </p>
-          </td>
-          <td><p>Backwards compatible version of rforcecom.query</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="salesforcer.html">salesforcer</a></code> </p>
-          </td>
-          <td><p><code>salesforcer</code> package</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_auth.html">sf_auth</a></code> </p>
-          </td>
-          <td><p>Log in to Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_query.html">sf_query</a></code> </p>
-          </td>
-          <td><p>SOQL Query</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 

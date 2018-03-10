@@ -103,8 +103,9 @@ sf_auth <- function(username = NULL,
                                            base_url = "https://login.salesforce.com/services/oauth2",
                                            authorize = "authorize", access = "token", revoke = "revoke")
       
-      sf_token <- oauth2.0_token(sf_oauth_endpoints,
-                                 sf_oauth_app)
+      sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
+                                 app = sf_oauth_app, 
+                                 cache = cache)
   
       stopifnot(is_legit_token(sf_token, verbose = TRUE))
       
@@ -178,4 +179,58 @@ is_legit_token <- function(x, verbose = FALSE) {
   
   TRUE
   
+}
+
+#' Produce Salesforce token
+#'
+#' If token is not already available, call \code{\link{sf_auth}} to either load
+#' from cache or initiate OAuth2.0 flow. Return the token -- not "bare" but,
+#' rather, prepared for inclusion in downstream requests. Use
+#' \code{access_token()} to reveal the actual access token, suitable for use
+#' with \code{curl}.
+#'
+#' @importFrom httr config
+#' @return a \code{request} object (an S3 class provided by \code{httr})
+#'
+#' @keywords internal
+sf_token <- function(verbose = FALSE) {
+  if (!token_available(verbose = verbose)) sf_auth(verbose = verbose)
+  config(token = .state$token)
+}
+
+#' Check token availability
+#'
+#' Check if a token is available in \code{\link{salesforcer}}' internal
+#' \code{.state} environment.
+#'
+#' @return logical
+#'
+#' @keywords internal
+token_available <- function(verbose = TRUE) {
+  
+  if (is.null(.state$token)) {
+    if (verbose) {
+      if (file.exists(".httr-oauth")) {
+        message("A .httr-oauth file exists in current working ",
+                "directory.\nWhen/if needed, the credentials cached in ",
+                ".httr-oauth will be used for this session.\nOr run sf_auth() ",
+                "for explicit authentication and authorization.")
+      } else {
+        message("No .httr-oauth file exists in current working directory.\n",
+                "When/if needed, 'salesforcer' will initiate authentication ",
+                "and authorization.\nOr run gs_auth() to trigger this ",
+                "explicitly.")
+      }
+    }
+    return(FALSE)
+  }
+  
+  TRUE
+  
+}
+
+## useful when debugging
+access_token <- function() {
+  if (!token_available(verbose = TRUE)) return(NULL)
+  .state$token$credentials$access_token
 }

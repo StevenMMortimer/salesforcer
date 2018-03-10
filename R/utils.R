@@ -23,6 +23,9 @@ catch_errors <- function(x){
 #' @keywords internal
 VERB_n <- function(VERB, n = 5) {
   function(url, headers=character(0), ...) {
+    
+    if(length(url) == 0) stop("User not authenticated. Log in using sf_auth()")
+    
     for (i in seq_len(n)) {
       
       if(is.null(.state$auth_method)){
