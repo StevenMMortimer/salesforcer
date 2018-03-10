@@ -13,3 +13,4 @@
 ^\.httr-oauth$
 ^docs$
 ^tic\.R$
+man-roxygen
