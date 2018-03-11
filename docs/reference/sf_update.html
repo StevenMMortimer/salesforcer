@@ -144,12 +144,17 @@ which API to use when making the request</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>contacts_to_update</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>Id</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"003x000000xxxxxZZZ"</span>, <span class='st'>"003x000000xxxxxZZZ"</span>),
-                             <span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"TestTest"</span>, <span class='st'>"TestTest"</span>),
-                             <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Contact New 1"</span>, <span class='st'>"Contact New 2"</span>))
-<span class='fu'>sf_update</span>(<span class='no'>contacts_to_update</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
+<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
+                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
+<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
 
-<span class='fu'>sf_update</span>(<span class='no'>contacts_to_update</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk"</span>)
+<span class='no'>update_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"TestTest"</span>, <span class='no'>n</span>),
+                          <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
+                          <span class='kw'>Id</span> <span class='kw'>=</span> <span class='no'>new_contacts_result</span>$<span class='no'>id</span>)
+<span class='no'>updated_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>update_contacts</span>, <span class='st'>"Contact"</span>)
+<span class='no'>updated_contacts_result2</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>update_contacts</span>, <span class='st'>"Contact"</span>,
+                                      <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

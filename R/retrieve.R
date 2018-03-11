@@ -1,18 +1,17 @@
-#' Delete Records
+#' Retrieve Records By Id
 #' 
-#' Deletes one or more new records to your organization’s data.
+#' Retrieves one or more new records to your organization’s data.
 #' 
-#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite toJSON fromJSON
 #' @importFrom stats quantile
 #' @importFrom utils head
-#' @importFrom dplyr select_ as_tibble
+#' @importFrom dplyr select as_tibble everything
 #' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
 #' that can be passed in the request
+#' @param fields character; one or more strings indicating the fields to be returned 
+#' on the records
 #' @template object
-#' @param all_or_none logical; allows a call to roll back all changes unless all 
-#' records are processed successfully.
-#' @template api_type
 #' @template verbose
 #' @return \code{tibble}
 #' @examples
@@ -20,23 +19,18 @@
 #' n <- 3
 #' new_contacts <- tibble(FirstName = rep("Test", n),
 #'                        LastName = paste0("Contact", 1:n))
-#' new_contacts_result1 <- sf_create(new_contacts, "Contact")
-#' deleted_contacts_result1 <- sf_delete(new_contacts_result1$id, 
-#'                                       object="Contact")   
-#' 
-#' new_contacts_result2 <- sf_create(new_contacts, "Contact")
-#' deleted_contacts_result2 <- sf_delete(new_contacts_result2$id, 
-#'                                       object="Contact", 
-#'                                       api_type="Bulk")                             
+#' new_contacts_result <- sf_create(new_contacts, object="Contact")
+#' retrieved_records <- sf_retrieve(ids=new_contacts_result$id,
+#'                                  fields=c("LastName"),
+#'                                  object="Contact")
 #' }
 #' @export
-sf_delete <- function(ids,
-                      object,
-                      all_or_none = FALSE,
-                      api_type = c("REST", "SOAP", "Bulk", "Async"),
-                      verbose = FALSE){
+sf_retrieve <- function(ids,
+                        fields,
+                        object,
+                        verbose = FALSE){
   
-  which_api <- match.arg(api_type)
+  which_api <- "REST"
   
   if(!is.data.frame(ids)){
     if(is.null(names(ids))){
@@ -51,10 +45,11 @@ sf_delete <- function(ids,
   
   # REST implementation
   if(which_api == "REST"){
-
-    # this type of request can only handle 200 records at a time
-    batch_size <- 200
-    composite_url <- make_composite_url()
+    
+    # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections_retrieve.htm?search_text=retrieve%20multiple
+    # this type of request can only handle 2000 records at a time
+    batch_size <- 2000
+    composite_url <- paste0(make_composite_url(), "/", object)
     
     # break up larger datasets, batch the data
     row_num <- nrow(ids)
@@ -69,17 +64,19 @@ sf_delete <- function(ids,
         message(paste0("Processing Batch # ", head(batch, 1) + 1))
       } 
       temp <- ids[batch_id == batch, , drop=FALSE]
-      httr_response <- rDELETE(url = composite_url, 
-                               headers = c("Accept"="application/json; charset=UTF-8"),
-                               query = list(allOrNone = tolower(all_or_none), 
-                                            ids = paste0(temp$id, collapse=",")))
+      httr_response <- rPOST(url = composite_url,
+                             headers = c("Accept"="application/json", 
+                                         "Content-Type"="application/json"),
+                             body = toJSON(list(ids=ids$id, 
+                                                fields=fields),
+                                           auto_unbox = FALSE))
       catch_errors(httr_response)
       response_parsed <- content(httr_response, "text", encoding="UTF-8")
-      resultset <- bind_rows(resultset, fromJSON(response_parsed))
+      resultset <- bind_rows(resultset, fromJSON(response_parsed) %>% select_(.dots =  unique(c("Id", fields))))
     }
     resultset <- as_tibble(resultset)
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(ids %>% select_("id"), object, operation="delete")
+    #resultset <- sf_bulk_operation(input_data, object, operation="insert")
   } else {
     stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
   }

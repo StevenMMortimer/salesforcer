@@ -31,13 +31,16 @@ Deletes one or more new records to your organization’s data.
 }
 \examples{
 \dontrun{
-contacts_to_delete <- tibble(Id = c("003x000000xxxxxZZZ", "003x000000xxxxxZZZ"))
-sf_delete(contacts_to_delete, object="Contact") 
+n <- 3
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact", 1:n))
+new_contacts_result1 <- sf_create(new_contacts, "Contact")
+deleted_contacts_result1 <- sf_delete(new_contacts_result1$id, 
+                                      object="Contact")   
 
-contacts_to_delete <- c("003x000000xxxxxZZZ", "003x000000xxxxxZZZ")
-sf_delete(contacts_to_delete, object="Contact")   
-
-contacts_to_delete <- c("003x000000xxxxxZZZ", "003x000000xxxxxZZZ")
-sf_delete(contacts_to_delete, object="Contact", api_type="Bulk")                             
+new_contacts_result2 <- sf_create(new_contacts, "Contact")
+deleted_contacts_result2 <- sf_delete(new_contacts_result2$id, 
+                                      object="Contact", 
+                                      api_type="Bulk")                             
 }
 }

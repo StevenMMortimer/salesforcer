@@ -31,11 +31,16 @@ Updates one or more new records to your organization’s data.
 }
 \examples{
 \dontrun{
-contacts_to_update <- tibble(Id = c("003x000000xxxxxZZZ", "003x000000xxxxxZZZ"),
-                             FirstName = c("TestTest", "TestTest"),
-                             LastName = c("Contact New 1", "Contact New 2"))
-sf_update(contacts_to_update, object="Contact") 
+n <- 3
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact", 1:n))
+new_contacts_result <- sf_create(new_contacts, "Contact")
 
-sf_update(contacts_to_update, object="Contact", api_type="Bulk")                             
+update_contacts <- tibble(FirstName = rep("TestTest", n),
+                          LastName = paste0("Contact", 1:n), 
+                          Id = new_contacts_result$id)
+updated_contacts_result1 <- sf_update(update_contacts, "Contact")
+updated_contacts_result2 <- sf_update(update_contacts, "Contact", 
+                                      api_type="Bulk")                          
 }
 }

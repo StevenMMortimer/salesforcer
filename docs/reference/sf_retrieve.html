@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Delete Records — sf_delete • salesforcer</title>
+<title>Retrieve Records By Id — sf_retrieve • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Delete Records — sf_delete" />
+<meta property="og:title" content="Retrieve Records By Id — sf_retrieve" />
 
-<meta property="og:description" content="Deletes one or more new records to your organization’s data." />
+<meta property="og:description" content="Retrieves one or more new records to your organization’s data." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -97,15 +97,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Delete Records</h1>
+    <h1>Retrieve Records By Id</h1>
     </div>
 
     
-    <p>Deletes one or more new records to your organization’s data.</p>
+    <p>Retrieves one or more new records to your organization’s data.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_delete</span>(<span class='no'>ids</span>, <span class='no'>object</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>,
-  <span class='st'>"Bulk"</span>, <span class='st'>"Async"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_retrieve</span>(<span class='no'>ids</span>, <span class='no'>fields</span>, <span class='no'>object</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -117,19 +116,14 @@
 that can be passed in the request</p></td>
     </tr>
     <tr>
+      <th>fields</th>
+      <td><p>character; one or more strings indicating the fields to be returned 
+on the records</p></td>
+    </tr>
+    <tr>
       <th>object</th>
       <td><p>character; the name of the Salesforcer object that the 
 function is operating against</p></td>
-    </tr>
-    <tr>
-      <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all 
-records are processed successfully.</p></td>
-    </tr>
-    <tr>
-      <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
-which API to use when making the request</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -147,14 +141,10 @@ which API to use when making the request</p></td>
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
 <span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
                        <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
-<span class='no'>deleted_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_delete</span>(<span class='no'>new_contacts_result1</span>$<span class='no'>id</span>,
-                                      <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
-
-<span class='no'>new_contacts_result2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
-<span class='no'>deleted_contacts_result2</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_delete</span>(<span class='no'>new_contacts_result2</span>$<span class='no'>id</span>,
-                                      <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>,
-                                      <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk"</span>)
+<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+<span class='no'>retrieved_records</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_retrieve</span>(<span class='kw'>ids</span><span class='kw'>=</span><span class='no'>new_contacts_result</span>$<span class='no'>id</span>,
+                                 <span class='kw'>fields</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"LastName"</span>),
+                                 <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

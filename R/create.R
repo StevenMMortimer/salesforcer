@@ -16,10 +16,10 @@
 #' @return \code{tibble}
 #' @examples
 #' \dontrun{
-#' n <- 500
+#' n <- 3
 #' new_contacts <- tibble(FirstName = rep("Test", n), 
 #'                        LastName = paste0("Contact", 1:n))
-#' sf_create(new_contacts, object="Contact")                            
+#' new_contacts_result <- sf_create(new_contacts, object="Contact")                            
 #' }
 #' @export
 sf_create <- function(input_data,
