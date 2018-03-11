@@ -2,7 +2,7 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.login}
 \alias{rforcecom.login}
-\title{Backwards compatible version of rforcecom.login}
+\title{salesforcer's backwards compatible version of rforcecom.login}
 \usage{
 rforcecom.login(username, password, loginURL = NULL, apiVersion = NULL)
 }
@@ -15,6 +15,11 @@ rforcecom.login(username, password, loginURL = NULL, apiVersion = NULL)
 
 \item{apiVersion}{(optional) Version of the REST API and SOAP API that you want to use. (ex:) "35.0" Supported versions from v20.0 and up.}
 }
+\value{
+\item{sessionID}{Session ID.}
+\item{instanceURL}{Instance URL.}
+\item{apiVersion}{API Version.}
+}
 \description{
-Backwards compatible version of rforcecom.login
+salesforcer's backwards compatible version of rforcecom.login
 }

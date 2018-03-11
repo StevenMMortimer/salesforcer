@@ -14,12 +14,13 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
+    httr,
     dplyr,
     xml2,
-    httr,
+    XML,
+    jsonlite,
     purrr,
-    XML, 
-    RCurl
+    readr
 Suggests:
     knitr,
     testthat,

@@ -17,4 +17,7 @@ This function is an early and simple approach to converting an
 XML node or document into a more typical R list containing the data values. 
 It differs from xmlToList by not including attributes at all in the output.
 }
+\note{
+This function is meant to be used internally. Only use when debugging.
+}
 \keyword{internal}

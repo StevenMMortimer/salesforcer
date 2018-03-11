@@ -8,7 +8,7 @@ salesforcer <img src="man/figures/salesforcer-hex.png" align="right" width="120"
 Overview
 --------
 
-salesforcer is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
+salesforcer implements elements of the following APIs - SOAP - REST - Bulk (2.0 for insert, delete, update, and upsert; 1.0 for query and hardDelete) - Async - Metadata - Reporting - Analytics
 
 Installation
 ------------

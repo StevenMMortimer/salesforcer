@@ -72,7 +72,7 @@ sf_auth <- function(username = NULL,
       xml_add_sibling("password", paste0(password, security_token))
 
     # POST the data using httr package and handle response
-    httr_response <- rPOST(url = sprintf('%s/services/Soap/u/%s', login_url, getOption("salesforcer.api_version")),
+    httr_response <- rPOST(url = make_login_url(login_url),
                            headers = c("SOAPAction"="login", "Content-Type"="text/xml"), 
                            body = as.character(body))
     catch_errors(httr_response)

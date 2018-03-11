@@ -2,10 +2,18 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.query}
 \alias{rforcecom.query}
-\title{Backwards compatible version of rforcecom.query}
+\title{salesforcer's backwards compatible version of rforcecom.query}
 \usage{
-rforcecom.query()
+rforcecom.query(session, soqlQuery, queryAll = FALSE)
+}
+\arguments{
+\item{session}{Session data}
+
+\item{soqlQuery}{character; a valid SOQL string}
+
+\item{queryAll}{logical; indicating if the query recordset should include 
+deleted and archived records (available only when querying Task and Event records)}
 }
 \description{
-Backwards compatible version of rforcecom.query
+salesforcer's backwards compatible version of rforcecom.query
 }

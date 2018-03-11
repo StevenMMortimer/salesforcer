@@ -15,4 +15,7 @@ query_parser(xml)
 \description{
 A function specifically for parsing SOQL query XML into data.frames
 }
+\note{
+This function is meant to be used internally. Only use when debugging.
+}
 \keyword{internal}

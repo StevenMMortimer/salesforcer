@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SOQL Query — sf_query • salesforcer</title>
+<title>Perform SOQL Query — sf_query • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="SOQL Query — sf_query" />
+<meta property="og:title" content="Perform SOQL Query — sf_query" />
 
-<meta property="og:description" content="Query Salesforce" />
+<meta property="og:description" content="Executes a query against the specified object and returns data that matches 
+the specified criteria." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -83,14 +84,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SOQL Query</h1>
+    <h1>Perform SOQL Query</h1>
     </div>
 
     
-    <p>Query Salesforce</p>
+    <p>Executes a query against the specified object and returns data that matches 
+the specified criteria.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='kw'>target_object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>, <span class='st'>"Async"</span>), <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
@@ -99,27 +101,33 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>soql</th>
-      <td><p>placeholder</p></td>
+      <td><p>character; a string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")</p></td>
     </tr>
     <tr>
-      <th>target_object</th>
-      <td><p>placeholder</p></td>
+      <th>object</th>
+      <td><p>character; the name of the Salesforcer object that the 
+function is operating against</p></td>
     </tr>
     <tr>
       <th>queryall</th>
-      <td><p>placeholder</p></td>
+      <td><p>logical; indicating if the query recordset should include 
+deleted and archived records (available only when querying Task and Event records)</p></td>
     </tr>
     <tr>
       <th>batch_size</th>
-      <td><p>placeholder</p></td>
+      <td><p>numeric; a number between 200 and 2000 indicating the number of 
+records per page that are returned. Speed benchmarks should be done to better 
+understand the speed implications of choosing either endpoint.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p>placeholder</p></td>
+      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+which API to use when making the request</p></td>
     </tr>
     <tr>
       <th>next_records_url</th>
-      <td><p>placeholder</p></td>
+      <td><p>character (leave as NULL); a string used internally 
+by the function to paginate through to more records until complete</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -131,7 +139,28 @@
 
     <p><code>tibble</code></p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
+    <p>Bulk API query doesn't support the following SOQL:</p><ul>
+<li><p>COUNT</p></li>
+<li><p>ROLLUP</p></li>
+<li><p>SUM</p></li>
+<li><p>GROUP BY CUBE</p></li>
+<li><p>OFFSET</p></li>
+<li><p>Nested SOQL queries</p></li>
+<li><p>Relationship fields</p></li>
+</ul><p>Additionally, Bulk API can't access or query compound address or compound geolocation fields.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/</a></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>sf_query</span>(<span class='st'>"SELECT Id, Account.Name, Email FROM Contact LIMIT 10"</span>)
+<span class='fu'>sf_query</span>(<span class='st'>"SELECT Id, Email FROM Contact LIMIT 10"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -139,7 +168,13 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#note">Note</a></li>
+
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
