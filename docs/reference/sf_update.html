@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Records — sf_create • salesforcer</title>
+<title>Update Records — sf_update • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Create Records — sf_create" />
+<meta property="og:title" content="Update Records — sf_update" />
 
-<meta property="og:description" content="Adds one or more new records to your organization’s data." />
+<meta property="og:description" content="Updates one or more new records to your organization’s data." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -97,14 +97,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Records</h1>
+    <h1>Update Records</h1>
     </div>
 
     
-    <p>Adds one or more new records to your organization’s data.</p>
+    <p>Updates one or more new records to your organization’s data.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_create</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>,
+    <pre class="usage"><span class='fu'>sf_update</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>,
   <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>, <span class='st'>"Async"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -113,7 +113,8 @@
     <tr>
       <th>input_data</th>
       <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
+<code>tbl_df</code>; data can be coerced into a <code>data.frame</code> and there must be 
+a column called Id (case-insensitive) that can be passed in the request</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -143,10 +144,12 @@ which API to use when making the request</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>500</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+<span class='no'>contacts_to_update</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>Id</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"003x000000xxxxxZZZ"</span>, <span class='st'>"003x000000xxxxxZZZ"</span>),
+                             <span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"TestTest"</span>, <span class='st'>"TestTest"</span>),
+                             <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Contact New 1"</span>, <span class='st'>"Contact New 2"</span>))
+<span class='fu'>sf_update</span>(<span class='no'>contacts_to_update</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+
+<span class='fu'>sf_update</span>(<span class='no'>contacts_to_update</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

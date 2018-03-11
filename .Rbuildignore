@@ -3,6 +3,8 @@
 .Rprofile
 ^README\.Rmd$
 ^README-.*\.png$
+^index\.Rmd$
+^index\.md$
 ^LICENSE\.md$
 ^CONDUCT\.md$
 ^cran-comments\.md$

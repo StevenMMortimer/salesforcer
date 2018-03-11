@@ -51,8 +51,10 @@ catch_errors <- function(x){
         stop(sprintf("%s: %s", response_parsed$exceptionCode, response_parsed$exceptionMessage))
       } else if(!is.null(response_parsed$error$exceptionCode)){
         stop(sprintf("%s: %s", response_parsed$error$exceptionCode, response_parsed$error$exceptionMessage))
-      } else {
-        stop(sprintf("%s: %s", response_parsed[[1]]$Error$errorCode[[1]], response_parsed[[1]]$Error$message[[1]]))  
+      } else if(!is.null(response_parsed[[1]]$Error$errorCode[[1]])){
+        stop(sprintf("%s: %s", response_parsed[[1]]$Error$errorCode[[1]], response_parsed[[1]]$Error$message[[1]]))
+      }  else {
+        stop(sprintf("%s: %s", response_parsed[[1]]$errorCode, response_parsed[[1]]$message))  
       }
     } else {
       error_message <- response_parsed %>%

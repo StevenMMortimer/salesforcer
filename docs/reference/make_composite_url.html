@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Records — sf_create • salesforcer</title>
+<title>Composite URL Generator — make_composite_url • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Create Records — sf_create" />
+<meta property="og:title" content="Composite URL Generator — make_composite_url" />
 
-<meta property="og:description" content="Adds one or more new records to your organization’s data." />
+<meta property="og:description" content="Composite URL Generator" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -97,67 +97,27 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Records</h1>
+    <h1>Composite URL Generator</h1>
     </div>
 
     
-    <p>Adds one or more new records to your organization’s data.</p>
+    <p>Composite URL Generator</p>
     
 
-    <pre class="usage"><span class='fu'>sf_create</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>,
-  <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>, <span class='st'>"Async"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
-function is operating against</p></td>
-    </tr>
-    <tr>
-      <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all 
-records are processed successfully.</p></td>
-    </tr>
-    <tr>
-      <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
-which API to use when making the request</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='fu'>make_composite_url</span>()</pre>
+        
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><code>tibble</code></p>
+    <p>This function is meant to be used internally. Only use when debugging.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>500</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#note">Note</a></li>
+          </ul>
 
   </div>
 </div>

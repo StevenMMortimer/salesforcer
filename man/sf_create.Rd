@@ -8,7 +8,8 @@ sf_create(input_data, object, all_or_none = FALSE, api_type = c("REST",
   "SOAP", "Bulk", "Async"), verbose = FALSE)
 }
 \arguments{
-\item{input_data}{data to create new records}
+\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
+\code{tbl_df}; data can be coerced into a \code{data.frame}}
 
 \item{object}{character; the name of the Salesforcer object that the 
 function is operating against}
@@ -30,8 +31,8 @@ Adds one or more new records to your organization’s data.
 \examples{
 \dontrun{
 n <- 500
-new_contacts <- data.frame(FirstName = rep("Test", n), 
-                           LastName = paste0("Contact", 1:n))
+new_contacts <- tibble(FirstName = rep("Test", n), 
+                       LastName = paste0("Contact", 1:n))
 sf_create(new_contacts, object="Contact")                            
 }
 }

@@ -54,16 +54,15 @@ make_query_url <- function(soql, queryall, next_records_url){
   return(query_url)
 }
 
-#' Create URL Generator
+#' Composite URL Generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-make_create_url <- function(target_object){
-  sprintf("%s/services/data/v%s/composite/tree/%s/",
+make_composite_url <- function(){
+  sprintf("%s/services/data/v%s/composite/sobjects",
           salesforcer_state()$instance_url,
-          getOption("salesforcer.api_version"),
-          target_object)
+          getOption("salesforcer.api_version"))
 }
 
 #' Bulk Create Job URL Generator

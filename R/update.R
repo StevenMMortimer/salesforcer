@@ -1,13 +1,14 @@
-#' Create Records
+#' Update Records
 #' 
-#' Adds one or more new records to your organization’s data.
+#' Updates one or more new records to your organization’s data.
 #' 
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom stats quantile
 #' @importFrom utils head
 #' @importFrom dplyr select as_tibble everything
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
-#' \code{tbl_df}; data can be coerced into a \code{data.frame}
+#' \code{tbl_df}; data can be coerced into a \code{data.frame} and there must be 
+#' a column called Id (case-insensitive) that can be passed in the request
 #' @template object
 #' @param all_or_none logical; allows a call to roll back all changes unless all 
 #' records are processed successfully.
@@ -16,13 +17,16 @@
 #' @return \code{tibble}
 #' @examples
 #' \dontrun{
-#' n <- 500
-#' new_contacts <- tibble(FirstName = rep("Test", n), 
-#'                        LastName = paste0("Contact", 1:n))
-#' sf_create(new_contacts, object="Contact")                            
+#' contacts_to_update <- tibble(Id = c("003x000000xxxxxZZZ", "003x000000xxxxxZZZ"),
+#'                              FirstName = c("TestTest", "TestTest"),
+#'                              LastName = c("Contact New 1", "Contact New 2"))
+#' sf_update(contacts_to_update, object="Contact") 
+#' 
+#' sf_update(contacts_to_update, object="Contact", api_type="Bulk")                             
 #' }
 #' @export
-sf_create <- function(input_data,
+#' @export
+sf_update <- function(input_data,
                       object,
                       all_or_none = FALSE,
                       api_type = c("REST", "SOAP", "Bulk", "Async"),
@@ -36,7 +40,12 @@ sf_create <- function(input_data,
   if(which_api == "REST"){
     if(!is.data.frame(input_data)){
       input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
-    }  
+    }
+    if(any(grepl("ID|Id", names(input_data), ignore.case=FALSE))){
+      idx <- grep("ID|Id", names(input_data))
+      names(input_data)[idx] <- "id"
+    }
+    stopifnot("id" %in% names(input_data))
     
     # add attributes to insert multiple records at a time
     # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm?search_text=update%20multiple
@@ -59,8 +68,8 @@ sf_create <- function(input_data,
       if(batch_msg_flg){
         message(paste0("Processing Batch # ", head(batch, 1) + 1))
       } 
-      temp <- input_data[batch_id == batch, , drop=FALSE]
-      httr_response <- rPOST(url = composite_url,
+      temp <- input_data[batch_id == batch, , drop=FALSE]  
+      httr_response <- rPATCH(url = composite_url,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
                              body = toJSON(list(allOrNone=tolower(all_or_none), 
@@ -72,7 +81,7 @@ sf_create <- function(input_data,
     }
     resultset <- as_tibble(resultset)
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(input_data, object, operation="insert")
+    resultset <- sf_bulk_operation(input_data, object, operation="update")
   } else {
     stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
   }
