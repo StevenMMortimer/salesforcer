@@ -1,5 +1,10 @@
 url: https://stevenmmortimer.github.io/salesforcer/
 
+template:
+  params:
+    bootswatch: spacelab
+    ganalytics: UA-98603021-1
+
 home:
   strip_header: true
 
