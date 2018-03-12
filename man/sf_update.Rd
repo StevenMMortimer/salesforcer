@@ -13,7 +13,7 @@ sf_update(input_data, object, all_or_none = FALSE, api_type = c("REST",
 a column called Id (case-insensitive) that can be passed in the request}
 
 \item{object}{character; the name of the Salesforcer object that the 
-function is operating against}
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{all_or_none}{logical; allows a call to roll back all changes unless all 
 records are processed successfully.}

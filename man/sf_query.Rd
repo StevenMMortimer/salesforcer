@@ -9,10 +9,10 @@ sf_query(soql, object = NULL, queryall = FALSE, batch_size = 1000,
   ..., verbose = FALSE)
 }
 \arguments{
-\item{soql}{character; a string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")}
+\item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
 \item{object}{character; the name of the Salesforcer object that the 
-function is operating against}
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{queryall}{logical; indicating if the query recordset should include 
 deleted and archived records (available only when querying Task and Event records)}

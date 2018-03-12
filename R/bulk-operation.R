@@ -2,18 +2,21 @@
 #' 
 #' This function initializes a Job in the Salesforce Bulk API
 #'
+#' @importFrom jsonlite toJSON
+#' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
 #' @param operation a character string defining the type of operation being performed
 #' @template object
-#' @param contentType a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'
-#' @param externalIdFieldName a character string identifying a custom field that has the "External ID" attribute on the target object. 
+#' @param content_type a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'
+#' @param external_id_fieldname a character string identifying a custom field that has the "External ID" attribute on the target object. 
 #' This field is only used when performing upserts. It will be ignored for all other operations.
-#' @param concurrencyMode a character string either "Parallel" or "Serial" that specifies whether batches should be completed
+#' @param concurrency_mode a character string either "Parallel" or "Serial" that specifies whether batches should be completed
 #' sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.
-#' @param lineEnding a character string indicating the The line ending used for CSV job data, 
+#' @param line_ending a character string indicating the The line ending used for CSV job data, 
 #' marking the end of a data row. The default is "LF", but could be "CRLF" for Windows created files. 
-#' @param columnDelimiter a character string indicating the column delimiter used for CSV job data. 
+#' @param column_delimiter a character string indicating the column delimiter used for CSV job data. 
 #' The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
 #' "SEMICOLON", and "TAB".
+#' @template verbose
 #' @return A \code{list} parameters defining the created job, including id
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
@@ -34,33 +37,44 @@
 #' 
 #' # insert attachments
 #' job_info <- sf_bulk_create_job(operation='insert', object='Attachment')
+#' 
+#' # query leads
+#' job_info <- sf_bulk_create_job(operation='query', object='Lead')
 #' }
 #' @export
 sf_bulk_create_job <- function(operation=c("insert", "delete", "upsert", "update", 
                                            "hardDelete", "query"), 
                                object,
-                               contentType=c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
-                               externalIdFieldName=NULL,
-                               concurrencyMode=c("Parallel", "Serial"),
-                               lineEnding = NULL,
-                               columnDelimiter = NULL){
+                               content_type=c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
+                               external_id_fieldname=NULL,
+                               concurrency_mode=c("Parallel", "Serial"),
+                               line_ending = NULL,
+                               column_delimiter = NULL, 
+                               verbose=FALSE){
 
   # validate inputs
   operation <- match.arg(operation)
-  contentType <- match.arg(contentType)
-  concurrencyMode <- match.arg(concurrencyMode)
+  content_type <- match.arg(content_type)
+  concurrency_mode <- match.arg(concurrency_mode)
   
   if(operation == 'upsert'){
-    stopifnot(!is.null(externalIdFieldName))
+    stopifnot(!is.null(external_id_fieldname))
   }
   
-  # form body from arugments
-  request_body <- as.list(environment())
+  # form body from arguments
+  request_body <- list(operation = operation, 
+                       object = object, 
+                       contentType = content_type, 
+                       externalIdFieldName = external_id_fieldname,
+                       concurrencyMode = concurrency_mode,
+                       lineEnding = line_ending, 
+                       columnDelimiter = column_delimiter)
+  request_body[sapply(request_body, is.null)] <- NULL
   
   if(operation %in% c("insert", "delete", "upsert", "update")){
     # Bulk 2.0 only supports "insert", "delete", "upsert", "update", not "hardDelete" or "query"
     bulk_version <- "2.0"  
-    if(is.null(lineEnding)){
+    if(is.null(line_ending)){
       if(get_os()=='windows'){
         request_body$lineEnding <- "CRLF"
       } else {
@@ -68,19 +82,51 @@ sf_bulk_create_job <- function(operation=c("insert", "delete", "upsert", "update
       }
     }
     request_body$concurrencyMode <- NULL
+    accept_type <- 'json'
+    body <- toJSON(request_body, auto_unbox=TRUE, pretty=TRUE)
   } else {
     bulk_version <- "1.0"
+    accept_type <- 'xml'
+    
+    # build xml for Bulk 1.0 request
+    body <- xml_new_document()
+    
+    # build the xml request for the SOAP API
+    body %>%
+      xml_add_child("jobInfo",
+                    "xmlns" = "http://www.force.com/2009/06/asyncapi/dataload") %>%
+      xml_add_child("operation", operation) %>%
+      xml_add_sibling("object", object)
+    
+      if(operation == "upsert"){
+        body %>% 
+          xml_add_child("externalIdFieldName", external_id_fieldname)
+      }
+      body %>% 
+        xml_add_child("concurrencyMode", concurrency_mode) %>%
+        xml_add_child("contentType", content_type)
+      
+    body <- as.character(body)
   }
 
   # send request
   bulk_create_job_url <- make_bulk_create_job_url(bulk_version)
+  if (verbose){
+    message(bulk_create_job_url)
+    message(body)
+  }
   httr_response <- rPOST(url = bulk_create_job_url,
-                         headers = c("Accept"="application/json", 
-                                     "Content-Type"="application/json"), 
-                         body = request_body, 
-                         encode = "json")
+                         headers = c("Accept"=sprintf("application/%s", accept_type),
+                                     "Content-Type"=sprintf("application/%s", accept_type)), 
+                         body = body)
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, encoding="UTF-8")
+  if(bulk_version == "2.0"){
+    response_parsed <- content(httr_response, encoding="UTF-8")
+  }
+  if(bulk_version == "1.0"){
+    response_parsed <- content(httr_response, as="text", encoding="UTF-8")
+    response_parsed <- xmlToList(response_parsed)
+  }
   return(response_parsed)
 }
 

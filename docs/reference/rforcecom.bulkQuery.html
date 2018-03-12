@@ -120,12 +120,12 @@ necessary to pass the session in each function call.</p></td>
     </tr>
     <tr>
       <th>soqlQuery</th>
-      <td><p>a character string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")</p></td>
+      <td><p>character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")</p></td>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>a character string defining the target salesforce object that the operation will be performed on. 
-This must match the target object in the query</p></td>
+      <td><p>character; the name of the Salesforcer object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>

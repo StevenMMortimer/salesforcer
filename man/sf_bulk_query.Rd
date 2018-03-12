@@ -4,14 +4,14 @@
 \alias{sf_bulk_query}
 \title{Run Bulk Query}
 \usage{
-sf_bulk_query(soql, object, interval_seconds = 5, max_attempts = 100,
-  verbose = FALSE)
+sf_bulk_query(soql, object = NULL, interval_seconds = 5,
+  max_attempts = 100, verbose = FALSE)
 }
 \arguments{
-\item{soql}{character; a string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")}
+\item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
-\item{object}{a character string defining the target salesforce object that the operation will be performed on. 
-This must match the target object in the query}
+\item{object}{character; the name of the Salesforcer object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{interval_seconds}{an integer defining the seconds between attempts to check for job completion}
 
@@ -29,7 +29,7 @@ bulk query API jobs
 \examples{
 \dontrun{
 # select all Ids from Account object
-ids <- sf_bulk_query(soql='Select Id from Account', object='Account')
+ids <- sf_bulk_query(soql='SELECT Id FROM Account', object='Account')
 }
 }
 \references{

@@ -13,7 +13,8 @@ ignored in all backward compatible calls because the authorization credentials
 are stored in an environment internal to the salesforcer package, so it is no longer 
 necessary to pass the session in each function call.}
 
-\item{objectName}{An object name. (ex: "Account", "Contact", "CustomObject__c")}
+\item{objectName}{character; the name of the Salesforcer object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{fields}{Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )}
 }

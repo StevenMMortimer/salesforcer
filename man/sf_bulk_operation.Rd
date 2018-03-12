@@ -13,7 +13,7 @@ sf_bulk_operation(input_data, object, operation = c("insert", "delete",
 \code{tbl_df}; data can be coerced into .csv file for submitting as batch request}
 
 \item{object}{character; the name of the Salesforcer object that the 
-function is operating against}
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{operation}{character string defining the type of operation being performed}
 

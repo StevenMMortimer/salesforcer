@@ -5,30 +5,33 @@
 \title{Create Bulk API Job}
 \usage{
 sf_bulk_create_job(operation = c("insert", "delete", "upsert", "update",
-  "hardDelete", "query"), object, contentType = c("CSV", "ZIP_CSV", "ZIP_XML",
-  "ZIP_JSON"), externalIdFieldName = NULL, concurrencyMode = c("Parallel",
-  "Serial"), lineEnding = NULL, columnDelimiter = NULL)
+  "hardDelete", "query"), object, content_type = c("CSV", "ZIP_CSV",
+  "ZIP_XML", "ZIP_JSON"), external_id_fieldname = NULL,
+  concurrency_mode = c("Parallel", "Serial"), line_ending = NULL,
+  column_delimiter = NULL, verbose = FALSE)
 }
 \arguments{
 \item{operation}{a character string defining the type of operation being performed}
 
 \item{object}{character; the name of the Salesforcer object that the 
-function is operating against}
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{contentType}{a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'}
+\item{content_type}{a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'}
 
-\item{externalIdFieldName}{a character string identifying a custom field that has the "External ID" attribute on the target object. 
+\item{external_id_fieldname}{a character string identifying a custom field that has the "External ID" attribute on the target object. 
 This field is only used when performing upserts. It will be ignored for all other operations.}
 
-\item{concurrencyMode}{a character string either "Parallel" or "Serial" that specifies whether batches should be completed
+\item{concurrency_mode}{a character string either "Parallel" or "Serial" that specifies whether batches should be completed
 sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.}
 
-\item{lineEnding}{a character string indicating the The line ending used for CSV job data, 
+\item{line_ending}{a character string indicating the The line ending used for CSV job data, 
 marking the end of a data row. The default is "LF", but could be "CRLF" for Windows created files.}
 
-\item{columnDelimiter}{a character string indicating the column delimiter used for CSV job data. 
+\item{column_delimiter}{a character string indicating the column delimiter used for CSV job data. 
 The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
 "SEMICOLON", and "TAB".}
+
+\item{verbose}{logical; do you want informative messages?}
 }
 \value{
 A \code{list} parameters defining the created job, including id
@@ -54,6 +57,9 @@ job_info <- sf_bulk_create_job(operation='upsert',
 
 # insert attachments
 job_info <- sf_bulk_create_job(operation='insert', object='Attachment')
+
+# query leads
+job_info <- sf_bulk_create_job(operation='query', object='Lead')
 }
 }
 \references{

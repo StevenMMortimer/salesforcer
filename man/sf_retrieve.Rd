@@ -15,7 +15,7 @@ that can be passed in the request}
 on the records}
 
 \item{object}{character; the name of the Salesforcer object that the 
-function is operating against}
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{verbose}{logical; do you want informative messages?}
 }

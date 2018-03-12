@@ -94,8 +94,7 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
 #' bulk query API jobs
 #'
 #' @template soql
-#' @param object a character string defining the target salesforce object that the operation will be performed on. 
-#' This must match the target object in the query
+#' @template object
 #' @param interval_seconds an integer defining the seconds between attempts to check for job completion
 #' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
 #' @template verbose
@@ -104,14 +103,18 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object
-#' ids <- sf_bulk_query(soql='Select Id from Account', object='Account')
+#' ids <- sf_bulk_query(soql='SELECT Id FROM Account', object='Account')
 #' }
 #' @export
 sf_bulk_query <- function(soql,
-                          object,
+                          object=NULL,
                           interval_seconds=5,
                           max_attempts=100, 
                           verbose=FALSE){
+  if(is.null(object)){
+    object <- gsub("(.*)from\\s+([A-Za-z_]+)\\b.*", "\\2", soql, ignore.case = TRUE, perl=TRUE)
+    message(sprintf("Guessed target object from query string: %s", object))
+  }
   
   job_info <- sf_bulk_create_job(operation = "query", object = object)
   batch_query_info <- sf_bulk_submit_query(job_id = job_info$id, 

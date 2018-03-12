@@ -2,7 +2,6 @@ context("RForcecom Compatibility")
 
 salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
 salesforcer_token <- readRDS("salesforcer_token.rds")
-options(salesforcer.api_version="42.0")
 
 test_that("testing rforcecom.login compatibility", {
 
@@ -10,8 +9,12 @@ test_that("testing rforcecom.login compatibility", {
   password <- salesforcer_test_settings$password
   security_token <- salesforcer_test_settings$security_token
 
-  session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token))
-  session2 <- salesforcer::rforcecom.login(username, paste0(password, security_token))
+  # must set the API Version here because new calls to session will not 
+  # create a new sessionId and then we are stuck with version 35.0 (the default from RForcecom::rforcecom.login)
+  session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
+                                         apiVersion=getOption("salesforcer.api_version"))
+  session2 <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
+                                           apiVersion=getOption("salesforcer.api_version"))
 
   expect_equal(session1, session2)
 })
@@ -21,7 +24,7 @@ password <- salesforcer_test_settings$password
 security_token <- salesforcer_test_settings$security_token
 session <- RForcecom::rforcecom.login(username=username, 
                                       password=paste0(password, security_token), 
-                                      apiVersion = "42.0")
+                                      apiVersion = getOption("salesforcer.api_version"))
 
 sf_auth(token = salesforcer_token)
 

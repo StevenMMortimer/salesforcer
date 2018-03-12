@@ -74,12 +74,6 @@ sf_query <- function(soql,
       resultset <- bind_rows(resultset, next_records)
     }
   } else if(which_api == "Bulk"){
-    # Bulk implementation
-    if(is.null(object) & which_api == "Bulk"){
-      object <- gsub("(.*)from\\s+([A-Za-z_]+)\\b.*", "\\2", soql, ignore.case = TRUE, perl=TRUE)
-      message(sprintf("Guessed target object from query string: %s", object))
-      #stop("The Bulk API requires the object to be explicitly passed.")
-    }
     resultset <- sf_bulk_query(soql=soql, object=object, verbose=verbose, ...)
   } else {
     # SOAP?? 

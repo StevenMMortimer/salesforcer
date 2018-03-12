@@ -37,7 +37,7 @@ rforcecom.login <- function(username, password, loginURL="https://login.salesfor
 #' salesforcer's backwards compatible version of rforcecom.query
 #' 
 #' @template session
-#' @param soqlQuery character; a valid SOQL string
+#' @template soqlQuery
 #' @param queryAll  logical; indicating if the query recordset should include 
 #' deleted and archived records (available only when querying Task and Event records)
 #' @return Result dataset.
@@ -52,9 +52,8 @@ rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
 #' salesforcer's backwards compatible version of rforcecom.bulkQuery
 #' 
 #' @template session
-#' @param soqlQuery a character string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")
-#' @param object a character string defining the target salesforce object that the operation will be performed on. 
-#' This must match the target object in the query
+#' @template soqlQuery
+#' @template object
 #' @param interval_seconds an integer defining the seconds between attempts to check for job completion
 #' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
 #' @template verbose
@@ -92,7 +91,7 @@ rforcecom.getServerTimestamp <- function(session){
 #'
 #' @importFrom dplyr select mutate
 #' @template session
-#' @param objectName An object name. (ex: "Account", "Contact", "CustomObject__c")
+#' @template objectName
 #' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
 #' @return \code{data.frame} containing the id and success indicator of the record creation process
 #' @export
@@ -115,7 +114,7 @@ rforcecom.create <- function(session, objectName, fields){
 #' salesforcer's backwards compatible version of rforcecom.update
 #'
 #' @template session
-#' @param objectName An object name. (ex: "Account", "Contact", "CustomObject__c")
+#' @template objectName
 #' @param id Record ID to update. (ex: "999x000000xxxxxZZZ")
 #' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
 #' @return \code{NULL} if successful otherwise the function errors out
@@ -135,7 +134,7 @@ rforcecom.update <- function(session, objectName, id, fields){
 #' salesforcer's backwards compatible version of rforcecom.delete
 #'
 #' @template session
-#' @param objectName An object name. (ex: "Account", "Contact", "CustomObject__c")
+#' @template objectName
 #' @param id Record ID to delete. (ex: "999x000000xxxxxZZZ")
 #' @return \code{NULL} if successful otherwise the function errors out
 #' @export

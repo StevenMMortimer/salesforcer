@@ -105,9 +105,10 @@
     
 
     <pre class="usage"><span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>,
-  <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>), <span class='no'>object</span>, <span class='kw'>contentType</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>, <span class='st'>"ZIP_XML"</span>,
-  <span class='st'>"ZIP_JSON"</span>), <span class='kw'>externalIdFieldName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>concurrencyMode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Parallel"</span>,
-  <span class='st'>"Serial"</span>), <span class='kw'>lineEnding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>columnDelimiter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>), <span class='no'>object</span>, <span class='kw'>content_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>,
+  <span class='st'>"ZIP_XML"</span>, <span class='st'>"ZIP_JSON"</span>), <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>concurrency_mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Parallel"</span>, <span class='st'>"Serial"</span>), <span class='kw'>line_ending</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>column_delimiter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -119,32 +120,36 @@
     <tr>
       <th>object</th>
       <td><p>character; the name of the Salesforcer object that the 
-function is operating against</p></td>
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
-      <th>contentType</th>
+      <th>content_type</th>
       <td><p>a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'</p></td>
     </tr>
     <tr>
-      <th>externalIdFieldName</th>
+      <th>external_id_fieldname</th>
       <td><p>a character string identifying a custom field that has the "External ID" attribute on the target object. 
 This field is only used when performing upserts. It will be ignored for all other operations.</p></td>
     </tr>
     <tr>
-      <th>concurrencyMode</th>
+      <th>concurrency_mode</th>
       <td><p>a character string either "Parallel" or "Serial" that specifies whether batches should be completed
 sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.</p></td>
     </tr>
     <tr>
-      <th>lineEnding</th>
+      <th>line_ending</th>
       <td><p>a character string indicating the The line ending used for CSV job data, 
 marking the end of a data row. The default is "LF", but could be "CRLF" for Windows created files.</p></td>
     </tr>
     <tr>
-      <th>columnDelimiter</th>
+      <th>column_delimiter</th>
       <td><p>a character string indicating the column delimiter used for CSV job data. 
 The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
 "SEMICOLON", and "TAB".</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical; do you want informative messages?</p></td>
     </tr>
     </table>
     
@@ -175,6 +180,9 @@ The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PI
 
 <span class='co'># insert attachments</span>
 <span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Attachment'</span>)
+
+<span class='co'># query leads</span>
+<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'query'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Lead'</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

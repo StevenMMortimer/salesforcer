@@ -14,10 +14,10 @@ ignored in all backward compatible calls because the authorization credentials
 are stored in an environment internal to the salesforcer package, so it is no longer 
 necessary to pass the session in each function call.}
 
-\item{soqlQuery}{a character string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")}
+\item{soqlQuery}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
-\item{object}{a character string defining the target salesforce object that the operation will be performed on. 
-This must match the target object in the query}
+\item{object}{character; the name of the Salesforcer object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{interval_seconds}{an integer defining the seconds between attempts to check for job completion}
 

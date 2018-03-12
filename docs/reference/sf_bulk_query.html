@@ -106,20 +106,20 @@ bulk query API jobs" />
 bulk query API jobs</p>
     
 
-    <pre class="usage"><span class='fu'>sf_bulk_query</span>(<span class='no'>soql</span>, <span class='no'>object</span>, <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_bulk_query</span>(<span class='no'>soql</span>, <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>soql</th>
-      <td><p>character; a string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")</p></td>
+      <td><p>character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")</p></td>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>a character string defining the target salesforce object that the operation will be performed on. 
-This must match the target object in the query</p></td>
+      <td><p>character; the name of the Salesforcer object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>
@@ -147,7 +147,7 @@ This must match the target object in the query</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'># select all Ids from Account object</span>
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_query</span>(<span class='kw'>soql</span><span class='kw'>=</span><span class='st'>'Select Id from Account'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_query</span>(<span class='kw'>soql</span><span class='kw'>=</span><span class='st'>'SELECT Id FROM Account'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
