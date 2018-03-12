@@ -1,7 +1,7 @@
 library(testthat)
-library(RForcecom)
-library(dplyr)
-library(salesforcer)
+suppressWarnings(suppressMessages(library(RForcecom)))
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(salesforcer)))
 
 if (identical(tolower(Sys.getenv("NOT_CRAN")), "true") & 
     identical(tolower(Sys.getenv("TRAVIS_PULL_REQUEST")), "false")) {

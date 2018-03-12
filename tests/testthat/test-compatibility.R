@@ -2,6 +2,7 @@ context("RForcecom Compatibility")
 
 salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
 salesforcer_token <- readRDS("salesforcer_token.rds")
+options(salesforcer.api_version="42.0")
 
 test_that("testing rforcecom.login compatibility", {
 
@@ -37,7 +38,7 @@ test_that("testing rforcecom.query compatibility", {
 
 test_that("testing rforcecom.bulkQuery compatibility", {
   
-  soql <- "SELECT Id, Account.Name, Email FROM Contact LIMIT 10"
+  soql <- "SELECT Id, Email FROM Contact LIMIT 10"
   object <- "Contact"
   
   result1 <- RForcecom::rforcecom.bulkQuery(session, soqlQuery=soql, object=object)
@@ -51,7 +52,7 @@ test_that("testing rforcecom.create compatibility", {
 
   object <- "Contact"
   fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
-    
+  
   result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
   result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
   
@@ -99,13 +100,25 @@ test_that("testing rforcecom.update compatibility", {
   delete_result1 <- sf_delete(ids=c(create_result1$id, create_result2$id), object)
 })
 
-# test_that("testing rforcecom.retrieve compatibility", {
-#   
-# })
-
 test_that("testing rforcecom.getServerTimestamp compatibility", {
   result1 <- RForcecom::rforcecom.getServerTimestamp(session)
   result2 <- salesforcer::rforcecom.getServerTimestamp(session)
   expect_equal(round(result1, units = "mins"),
                round(result2, units = "mins"))
 })
+
+# test_that("testing rforcecom.retrieve compatibility", {
+#   
+# })
+
+# test_that("testing rforcecom.upsert compatibility", {
+#   
+# })
+
+# test_that("testing rforcecom.search compatibility", {
+#   
+# })
+
+# test_that("testing rforcecom.bulkAction compatibility", {
+#   
+# })
