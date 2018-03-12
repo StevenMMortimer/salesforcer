@@ -46,7 +46,7 @@ Package features include:
   * OAuth 2.0 and Basic authentication methods (`sf_auth()`)
   * CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs 
   * Query operations via REST and Bulk APIs (`sf_query()`)
-  * Backwards compatible functions from the `RForcecom` package (`rforcecom.login()`, 
+  * Backwards compatible functions from the **RForcecom** package (`rforcecom.login()`, 
   `rforcecom.query()`)
   * Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
 

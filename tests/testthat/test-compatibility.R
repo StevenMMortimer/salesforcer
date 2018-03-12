@@ -18,7 +18,9 @@ test_that("testing rforcecom.login compatibility", {
 username <- salesforcer_test_settings$username
 password <- salesforcer_test_settings$password
 security_token <- salesforcer_test_settings$security_token
-session <- RForcecom::rforcecom.login(username, paste0(password, security_token))
+session <- RForcecom::rforcecom.login(username=username, 
+                                      password=paste0(password, security_token), 
+                                      apiVersion = "42.0")
 
 sf_auth(token = salesforcer_token)
 
@@ -45,14 +47,22 @@ test_that("testing rforcecom.bulkQuery compatibility", {
   expect_equal(nrow(result1), nrow(result2))
 })
 
+test_that("testing rforcecom.create compatibility", {
 
-# test_that("testing rforcecom.query compatibility", {
-#   
-#   result1 <- RForcecom::rforcecom.query()
-#   result2 <- salesforcer::rforcecom.query()
-#   
-# })
-# 
+  object <- "Contact"
+  fields <- c(FirstName="Test", LastName="Contact-Compatibility999")
+    
+  result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
+  result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
+  
+  expect_equal(names(result1), c("id", "success"))
+  expect_is(result1, "data.frame")
+  expect_is(result2, "data.frame")
+  expect_equal(sort(names(result1)), sort(names(result2)))
+  expect_equal(nrow(result1), nrow(result2))
+})
+
+
 # test_that("testing rforcecom.query compatibility", {
 #   
 #   result1 <- RForcecom::rforcecom.query()

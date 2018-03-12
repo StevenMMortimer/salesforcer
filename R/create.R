@@ -28,12 +28,16 @@ sf_create <- function(input_data,
                       api_type = c("REST", "SOAP", "Bulk", "Async"),
                       verbose = FALSE){
   
+  # This resource is available in API version 42.0 and later.
+  stopifnot(as.numeric(getOption("salesforcer.api_version")) >= 42.0)
+  
   # check that the input data is named (we need to know the fields)
   stopifnot(!is.null(names(input_data)))
   which_api <- match.arg(api_type)
   
   # REST implementation
   if(which_api == "REST"){
+    
     if(!is.data.frame(input_data)){
       input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
     }  

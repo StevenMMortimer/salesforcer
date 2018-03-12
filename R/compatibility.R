@@ -100,7 +100,7 @@ rforcecom.create <- function(session, objectName, fields){
   .Deprecated("sf_create")
   
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
-  created_records <- sf_create(fields, objectName)
+  created_records <- sf_create(input_data=fields, object=objectName)
   
   result <- created_records %>% 
     select(id, success) %>%

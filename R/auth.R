@@ -105,7 +105,8 @@ sf_auth <- function(username = NULL,
       
       sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
                                  app = sf_oauth_app, 
-                                 cache = cache)
+                                 cache = cache, 
+                                 use_basic_auth = TRUE)
   
       stopifnot(is_legit_token(sf_token, verbose = TRUE))
       
@@ -124,7 +125,7 @@ sf_auth <- function(username = NULL,
       .state$auth_method <- "OAuth"
       .state$token <- token
       .state$session_id <- NULL
-      .state$instance_url <- sf_token$credentials$instance_url
+      .state$instance_url <- token$credentials$instance_url
       
     } else if (inherits(token, "character")) {
       

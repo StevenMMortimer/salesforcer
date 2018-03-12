@@ -30,6 +30,9 @@ sf_retrieve <- function(ids,
                         object,
                         verbose = FALSE){
   
+  # This resource is available in API version 42.0 and later.
+  stopifnot(as.numeric(getOption("salesforcer.api_version")) >= 42.0)
+  
   which_api <- "REST"
   
   if(!is.data.frame(ids)){

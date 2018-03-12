@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 author: "Steven M. Mortimer"
-date: "2018-03-11"
+date: "2018-03-12"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -35,15 +35,13 @@ If you wanted more control you would specify those options like so:
 
 
 ```r
-options(rdfp.client_id = "012345678901-99thisisatest99.apps.googleusercontent.com")
-options(rdfp.client_secret = "Th1s1sMyC1ientS3cr3t")
+options(salesforcer.consumer_key = "012345678901-99thisisatest99connected33app22key")
+options(salesforcer.consumer_secret = "Th1s1sMyConsumerS3cr3t")
 
 sf_auth()
 ```
 
 
-
-### STUFF
 
 ### Check out the Tests
 
@@ -53,7 +51,7 @@ These tests are an excellent source of examples because they cover most all case
 utilizing the package functions. 
 
 For example, if you're not sure on how to how to create and delete the records you just created, then check 
-out the test for `sf_delete()` at https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R.
+out the test for `sf_delete()` at https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-auth.R.
 
 Here is the unit test code at that link:
 

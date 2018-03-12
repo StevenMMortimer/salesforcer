@@ -36,6 +36,9 @@ sf_delete <- function(ids,
                       api_type = c("REST", "SOAP", "Bulk", "Async"),
                       verbose = FALSE){
   
+  # This resource is available in API version 42.0 and later.
+  stopifnot(as.numeric(getOption("salesforcer.api_version")) >= 42.0)
+  
   which_api <- match.arg(api_type)
   
   if(!is.data.frame(ids)){
