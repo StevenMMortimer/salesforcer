@@ -4,7 +4,29 @@
 \alias{rforcecom.bulkQuery}
 \title{salesforcer's backwards compatible version of rforcecom.bulkQuery}
 \usage{
-rforcecom.bulkQuery()
+rforcecom.bulkQuery(session, soqlQuery, object, interval_seconds = 5,
+  max_attempts = 100, verbose = FALSE)
+}
+\arguments{
+\item{session}{\code{list}; a list containing "sessionID", "instanceURL", and "
+apiVersion" as returned by \code{RForcecom::rforcecom.login()}. This argument is
+ignored in all backward compatible calls because the authorization credentials 
+are stored in an environment internal to the salesforcer package, so it is no longer 
+necessary to pass the session in each function call.}
+
+\item{soqlQuery}{a character string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")}
+
+\item{object}{a character string defining the target salesforce object that the operation will be performed on. 
+This must match the target object in the query}
+
+\item{interval_seconds}{an integer defining the seconds between attempts to check for job completion}
+
+\item{max_attempts}{an integer defining then max number attempts to check for job completion before stopping}
+
+\item{verbose}{logical; do you want informative messages?}
+}
+\value{
+A \code{data.frame} of the recordset returned by query
 }
 \description{
 salesforcer's backwards compatible version of rforcecom.bulkQuery

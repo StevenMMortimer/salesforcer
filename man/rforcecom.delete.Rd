@@ -4,7 +4,21 @@
 \alias{rforcecom.delete}
 \title{salesforcer's backwards compatible version of rforcecom.delete}
 \usage{
-rforcecom.delete()
+rforcecom.delete(session, objectName, id)
+}
+\arguments{
+\item{session}{\code{list}; a list containing "sessionID", "instanceURL", and "
+apiVersion" as returned by \code{RForcecom::rforcecom.login()}. This argument is
+ignored in all backward compatible calls because the authorization credentials 
+are stored in an environment internal to the salesforcer package, so it is no longer 
+necessary to pass the session in each function call.}
+
+\item{objectName}{An object name. (ex: "Account", "Contact", "CustomObject__c")}
+
+\item{id}{Record ID to delete. (ex: "999x000000xxxxxZZZ")}
+}
+\value{
+\code{NULL} if successful otherwise the function errors out
 }
 \description{
 salesforcer's backwards compatible version of rforcecom.delete

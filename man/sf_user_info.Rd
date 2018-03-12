@@ -6,6 +6,14 @@
 \usage{
 sf_user_info()
 }
+\value{
+\code{list}
+}
 \description{
 Retrieves personal information for the user associated with the current session.
+}
+\examples{
+\dontrun{
+sf_user_info()
+}
 }

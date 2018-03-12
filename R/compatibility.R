@@ -11,7 +11,7 @@
 #' @export
 rforcecom.login <- function(username, password, loginURL=NULL, apiVersion=NULL){
   
-  #.Deprecated(new="sf_auth", msg="This function is strictly for backward-compatability to RForcecom and pipes into salesforcer::sf_auth()")
+  .Deprecated("sf_auth")
   
   if(!is.null(loginURL)){
     message("Ignoring loginURL. If needed, set in options like so: options(salesforcer.login_url = \"https://login.salesforce.com\")")
@@ -33,61 +33,148 @@ rforcecom.login <- function(username, password, loginURL=NULL, apiVersion=NULL){
 
 #' salesforcer's backwards compatible version of rforcecom.query
 #' 
-#' @param session Session data
+#' @template session
 #' @param soqlQuery character; a valid SOQL string
 #' @param queryAll  logical; indicating if the query recordset should include 
 #' deleted and archived records (available only when querying Task and Event records)
+#' @return Result dataset.
 #' @export
 rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
   
-  #.Deprecated(new="sf_query", msg="This function is strictly for backward-compatability to RForcecom and pipes into salesforcer::sf_auth()")
+  .Deprecated("sf_query")
  
   sf_query(soql=soqlQuery, queryall=queryAll)
 }
 
-# functions waiting to be made compatible
-
-#' salesforcer's backwards compatible version of rforcecom.create
+#' salesforcer's backwards compatible version of rforcecom.bulkQuery
 #' 
+#' @template session
+#' @param soqlQuery a character string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")
+#' @param object a character string defining the target salesforce object that the operation will be performed on. 
+#' This must match the target object in the query
+#' @param interval_seconds an integer defining the seconds between attempts to check for job completion
+#' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
+#' @template verbose
+#' @return A \code{data.frame} of the recordset returned by query
 #' @export
-rforcecom.create <- function(){TRUE}
-
-#' salesforcer's backwards compatible version of rforcecom.retrieve
-#' 
-#' @export
-rforcecom.retrieve <- function(){TRUE}
-
-#' salesforcer's backwards compatible version of rforcecom.update
-#' 
-#' @export
-rforcecom.update <- function(){TRUE}
-
-#' salesforcer's backwards compatible version of rforcecom.upsert
-#' 
-#' @export
-rforcecom.upsert <- function(){TRUE}
-
-#' salesforcer's backwards compatible version of rforcecom.delete
-#' 
-#' @export
-rforcecom.delete <- function(){TRUE}
-
-#' salesforcer's backwards compatible version of rforcecom.search
-#' 
-#' @export
-rforcecom.search <- function(){TRUE}
+rforcecom.bulkQuery <- function(session,
+                                soqlQuery,
+                                object,
+                                interval_seconds=5,
+                                max_attempts=100, 
+                                verbose=FALSE){
+  
+  .Deprecated("sf_query")
+  
+  sf_query(soql = soqlQuery, 
+           object = object,
+           api_type = "Bulk", 
+           interval_seconds = 5,
+           max_attempts = 100)
+}
 
 #' salesforcer's backwards compatible version of rforcecom.getServerTimestamp
 #' 
 #' @export
-rforcecom.getServerTimestamp <- function(){TRUE}
+rforcecom.getServerTimestamp <- function(){
+  .Deprecated("sf_server_timestamp")
+  result <- sf_server_timestamp()
+  # format like rforcecom.getServerTimestamp()
+  result <- as.POSIXlt(result, tz="GMT")
+  return(result)
+}
 
-#' salesforcer's backwards compatible version of rforcecom.bulkAction
-#' 
+#' salesforcer's backwards compatible version of rforcecom.create
+#'
+#' @importFrom dplyr select mutate
+#' @template session
+#' @param objectName An object name. (ex: "Account", "Contact", "CustomObject__c")
+#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
+#' @return \code{data.frame} containing the id and success indicator of the record creation process
 #' @export
-rforcecom.bulkAction <- function(){TRUE}
+rforcecom.create <- function(session, objectName, fields){
+  
+  .Deprecated("sf_create")
+  
+  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
+  created_records <- sf_create(fields, objectName)
+  
+  result <- created_records %>% 
+    select(id, success) %>%
+    mutate(id = factor(id), 
+           success = factor(success)) %>%
+    as.data.frame()
+  
+  return(result)
+}
 
-#' salesforcer's backwards compatible version of rforcecom.bulkQuery
-#' 
+#' salesforcer's backwards compatible version of rforcecom.update
+#'
+#' @template session
+#' @param objectName An object name. (ex: "Account", "Contact", "CustomObject__c")
+#' @param id Record ID to update. (ex: "999x000000xxxxxZZZ")
+#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
+#' @return \code{NULL} if successful otherwise the function errors out
 #' @export
-rforcecom.bulkQuery <- function(){TRUE}
+rforcecom.update <- function(session, objectName, id, fields){
+  
+  .Deprecated("sf_update")
+
+  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
+  fields$id <- id
+  updated_records <- sf_update(fields, objectName)
+  
+  # rforcecom.update returns NULL if successful??
+  return(NULL)
+}
+
+#' salesforcer's backwards compatible version of rforcecom.delete
+#'
+#' @template session
+#' @param objectName An object name. (ex: "Account", "Contact", "CustomObject__c")
+#' @param id Record ID to delete. (ex: "999x000000xxxxxZZZ")
+#' @return \code{NULL} if successful otherwise the function errors out
+#' @export
+rforcecom.delete <- function(session, objectName, id){
+  
+  .Deprecated("sf_delete")
+  
+  deleted_records <- sf_delete(id, objectName)
+  
+  # rforcecom.delete returns NULL if successful??
+  return(NULL)
+}
+
+
+
+
+
+# functions waiting to be made compatible --------------------------------------
+
+#' #' salesforcer's backwards compatible version of rforcecom.retrieve
+#' #' 
+#' #' @export
+#' rforcecom.retrieve <- function(){
+#'   .Deprecated("sf_retrieve")
+#' }
+#' 
+#' #' salesforcer's backwards compatible version of rforcecom.upsert
+#' #' 
+#' #' @export
+#' rforcecom.upsert <- function(){
+#'   .Deprecated("sf_upsert")
+#' }
+#' 
+#' #' salesforcer's backwards compatible version of rforcecom.search
+#' #' 
+#' #' @export
+#' rforcecom.search <- function(){
+#'   .Deprecated("sf_search")
+#' }
+#' 
+#' #' salesforcer's backwards compatible version of rforcecom.bulkAction
+#' #' 
+#' #' @export
+#' rforcecom.bulkAction <- function(){
+#'   .Deprecated("sf_bulk_operation")
+#' }

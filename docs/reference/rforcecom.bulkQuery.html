@@ -104,14 +104,56 @@
     <p>salesforcer's backwards compatible version of rforcecom.bulkQuery</p>
     
 
-    <pre class="usage"><span class='fu'>rforcecom.bulkQuery</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>rforcecom.bulkQuery</span>(<span class='no'>session</span>, <span class='no'>soqlQuery</span>, <span class='no'>object</span>, <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>session</th>
+      <td><p><code>list</code>; a list containing "sessionID", "instanceURL", and "
+apiVersion" as returned by <code><a href='http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.login'>RForcecom::rforcecom.login()</a></code>. This argument is
+ignored in all backward compatible calls because the authorization credentials 
+are stored in an environment internal to the salesforcer package, so it is no longer 
+necessary to pass the session in each function call.</p></td>
+    </tr>
+    <tr>
+      <th>soqlQuery</th>
+      <td><p>a character string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")</p></td>
+    </tr>
+    <tr>
+      <th>object</th>
+      <td><p>a character string defining the target salesforce object that the operation will be performed on. 
+This must match the target object in the query</p></td>
+    </tr>
+    <tr>
+      <th>interval_seconds</th>
+      <td><p>an integer defining the seconds between attempts to check for job completion</p></td>
+    </tr>
+    <tr>
+      <th>max_attempts</th>
+      <td><p>an integer defining then max number attempts to check for job completion before stopping</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical; do you want informative messages?</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>data.frame</code> of the recordset returned by query</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

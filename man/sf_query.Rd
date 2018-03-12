@@ -6,7 +6,7 @@
 \usage{
 sf_query(soql, object = NULL, queryall = FALSE, batch_size = 1000,
   api_type = c("REST", "SOAP", "Bulk", "Async"), next_records_url = NULL,
-  verbose = FALSE)
+  ..., verbose = FALSE)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query. (ex: "SELECT Id, Name FROM Account")}
@@ -26,6 +26,8 @@ which API to use when making the request}
 
 \item{next_records_url}{character (leave as NULL); a string used internally 
 by the function to paginate through to more records until complete}
+
+\item{...}{Other arguments passed on to \code{\link{sf_bulk_query}}.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

@@ -17,6 +17,7 @@
 #' @template api_type
 #' @param next_records_url character (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
+#' @param ... Other arguments passed on to \code{\link{sf_bulk_query}}.
 #' @template verbose
 #' @return \code{tibble}
 #'@references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -42,7 +43,8 @@ sf_query <- function(soql,
                      queryall=FALSE,
                      batch_size=1000,
                      api_type=c("REST", "SOAP", "Bulk", "Async"),
-                     next_records_url=NULL, 
+                     next_records_url=NULL,
+                     ...,
                      verbose=FALSE){
   
   which_api <- match.arg(api_type)
@@ -78,7 +80,7 @@ sf_query <- function(soql,
       message(sprintf("Guessed target object from query string: %s", object))
       #stop("The Bulk API requires the object to be explicitly passed.")
     }
-    resultset <- sf_bulk_query(soql=soql, object=object, verbose=verbose)
+    resultset <- sf_bulk_query(soql=soql, object=object, verbose=verbose, ...)
   } else {
     # SOAP?? 
     # https://developer.salesforce.com/page/Enterprise_Query

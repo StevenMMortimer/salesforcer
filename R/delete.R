@@ -60,15 +60,20 @@ sf_delete <- function(ids,
     row_num <- nrow(ids)
     batch_id <- (seq.int(row_num)-1) %/% batch_size
     
-    message("Splitting data into ", max(batch_id)+1, " Batches")
+    if(verbose) message("Splitting data into ", max(batch_id)+1, " Batches")
     message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
     resultset <- NULL
     for(batch in seq(0, max(batch_id))){
-      batch_msg_flg <- batch %in% message_flag
-      if(batch_msg_flg){
-        message(paste0("Processing Batch # ", head(batch, 1) + 1))
-      } 
+      
+      if(verbose){
+        batch_msg_flg <- batch %in% message_flag
+        if(batch_msg_flg){
+          message(paste0("Processing Batch # ", head(batch, 1) + 1))
+        } 
+      }
+      
       temp <- ids[batch_id == batch, , drop=FALSE]
+      if(verbose) message(composite_url)
       httr_response <- rDELETE(url = composite_url, 
                                headers = c("Accept"="application/json; charset=UTF-8"),
                                query = list(allOrNone = tolower(all_or_none), 
@@ -79,7 +84,7 @@ sf_delete <- function(ids,
     }
     resultset <- as_tibble(resultset)
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(ids %>% select_("id"), object, operation="delete")
+    resultset <- sf_bulk_operation(ids %>% select_("id"), object, operation="delete", verbose=verbose)
   } else {
     stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
   }

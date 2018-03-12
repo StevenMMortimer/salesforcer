@@ -64,15 +64,20 @@ sf_update <- function(input_data,
     row_num <- nrow(input_data)
     batch_id <- (seq.int(row_num)-1) %/% batch_size
     
-    message("Splitting data into ", max(batch_id)+1, " Batches")
+    if(verbose) message("Splitting data into ", max(batch_id)+1, " Batches")
     message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
     resultset <- NULL
     for(batch in seq(0, max(batch_id))){
-      batch_msg_flg <- batch %in% message_flag
-      if(batch_msg_flg){
-        message(paste0("Processing Batch # ", head(batch, 1) + 1))
-      } 
+      
+      if(verbose){
+        batch_msg_flg <- batch %in% message_flag
+        if(batch_msg_flg){
+          message(paste0("Processing Batch # ", head(batch, 1) + 1))
+        } 
+      }
+      
       temp <- input_data[batch_id == batch, , drop=FALSE]  
+      if(verbose) message(composite_url)
       httr_response <- rPATCH(url = composite_url,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
@@ -85,7 +90,7 @@ sf_update <- function(input_data,
     }
     resultset <- as_tibble(resultset)
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(input_data, object, operation="update")
+    resultset <- sf_bulk_operation(input_data, object, operation="update", verbose=verbose)
   } else {
     stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
   }

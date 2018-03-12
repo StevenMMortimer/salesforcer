@@ -20,7 +20,8 @@ Imports:
     XML,
     jsonlite,
     purrr,
-    readr
+    readr,
+    lubridate
 Suggests:
     knitr,
     testthat,

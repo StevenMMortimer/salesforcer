@@ -73,20 +73,27 @@
 <div class="contents">
 
 <p><br><img src="reference/figures/logo.png" align="right"></p>
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p><code>salesforcer</code> implements elements of the following APIs:</p>
+<p><strong>salesforcer</strong> is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the following APIs:</p>
 <ul>
-<li>SOAP</li>
 <li>REST</li>
 <li>Bulk (2.0 for insert, delete, update, and upsert; 1.0 for query and hardDelete)</li>
+<li>SOAP</li>
+</ul>
+<p>Future APIs to support:</p>
+<ul>
 <li>Async</li>
 <li>Metadata</li>
 <li>Reporting</li>
 <li>Analytics</li>
 </ul>
-</div>
+<p>Package features include:</p>
+<ul>
+<li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
+<li>CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs</li>
+<li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
+<li>Backwards compatible functions from the <code>RForcecom</code> package (<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>)</li>
+<li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -98,9 +105,61 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(salesforcer)</code></pre></div>
-<hr>
-<p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<div id="using-against-the-rest-api" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-against-the-rest-api" class="anchor"></a>Using against the REST API</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(salesforcer)
+
+<span class="kw"><a href="reference/sf_auth.html">sf_auth</a></span>()
+
+<span class="co"># pull down information of person logged in</span>
+<span class="co"># it's a simple easy call to get started </span>
+<span class="co"># and confirm a connection to the APIs</span>
+user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_user_info.html">sf_user_info</a></span>()
+
+<span class="co"># Create some records</span>
+
+<span class="co"># Now query those records by Id</span>
+my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id, </span>
+<span class="st">                           Account.Name, </span>
+<span class="st">                           FirstName, </span>
+<span class="st">                           LastName </span>
+<span class="st">                    FROM Contact </span>
+<span class="st">                    WHERE Id in ('%s')"</span>, 
+                   <span class="kw">paste0</span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))
+
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)
+
+<span class="co"># Update some of those records</span>
+queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>)
+
+updated_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_update.html">sf_update</a></span>(queried_records)
+
+<span class="co"># Finally delete those records</span>
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)</code></pre></div>
+</div>
+<div id="using-against-the-bulk-api" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-against-the-bulk-api" class="anchor"></a>Using against the Bulk API</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># For really large inserts, updates, deletes, upserts, queries </span>
+<span class="co"># you can just add "api_type" = "Bulk" to most functions to get </span>
+<span class="co"># the benefits of using the Bulk API instead of the REST API (fewer calls, speedier)</span>
+<span class="co"># create bulk</span>
+<span class="co"># delete bulk</span>
+<span class="co"># query bulk</span></code></pre></div>
+</div>
+<div id="accessing-metadata" class="section level3">
+<h3 class="hasAnchor">
+<a href="#accessing-metadata" class="anchor"></a>Accessing Metadata</h3>
+<p>In future iterations of the package <strong>salesforcer</strong> will connect to the Metadata API; however, currently, there are RESTful calls that will return metatdata.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#sf_describe_global()</span>
+<span class="co">#sf_describe_object()</span>
+<span class="co">#sf_describe_layout()</span>
+<span class="co">#sf_describe_tabs()</span></code></pre></div>
+</div>
 </div>
 </div>
   </div>
