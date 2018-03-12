@@ -18,3 +18,4 @@
 man-roxygen
 tests/testthat/salesforcer_token.rds.enc 
 tests/testthat/salesforcer_test_settings.rds.enc
+tests/testthat/.httr-oauth
