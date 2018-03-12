@@ -1,5 +1,11 @@
 context("Authorization")
 
+message(paste0(list.files('.'), collapse=", "))
+
+message(paste0(list.files('./tests/testthat'), collapse=", "))
+
+stop(paste0(list.files('./tests/testthat'), collapse=", "))
+
 salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
 salesforcer_token <- readRDS("salesforcer_token.rds")
 
