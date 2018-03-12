@@ -1,9 +1,8 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-# Default configuration for use with tic package
-# Usually you shouldn't need to change the first part of the file
-
-# DO NOT CHANGE THE CODE BELOW
-before_install: R -q -e 'install.packages(c("remotes", "curl")); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'
+before_install:
+- openssl aes-256-cbc -K $encrypted_6d77e6316a8d_key -iv $encrypted_6d77e6316a8d_iv
+  -in salesforcer_token.rds.enc -out tests/testthat/salesforcer_token.rds -d
+- R -q -e 'install.packages(c("remotes", "curl")); remotes::install_github("ropenscilabs/tic");
+  tic::prepare_all_stages(); tic::before_install()'
 install: R -q -e 'tic::install()'
 after_install: R -q -e 'tic::after_install()'
 before_script: R -q -e 'tic::before_script()'
@@ -18,17 +17,11 @@ deploy:
     all_branches: true
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
-# DO NOT CHANGE THE CODE ABOVE
-
-# Custom parts:
-
-# Header
 language: r
 sudo: false
 dist: trusty
 cache: packages
 latex: false
-
 matrix:
   include:
   - r: oldrel
@@ -36,13 +29,9 @@ matrix:
     env:
     - BUILD_PKGDOWN: true
   - r: devel
-
-#env
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
   - MAKEFLAGS="-j 2"
   - TRAVIS_CXXFLAGS="-Wall -Wextra -pedantic -Werror"
-
-#services
-services:
+services: 

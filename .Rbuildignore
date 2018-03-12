@@ -16,3 +16,4 @@
 ^docs$
 ^tic\.R$
 man-roxygen
+tests/testthat/salesforcer_token.rds.enc 
