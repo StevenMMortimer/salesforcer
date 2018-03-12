@@ -1,9 +1,9 @@
 context("Authorization")
 
 message(paste0(list.files('.'), collapse=", "))
-
+message('hi1')
 message(paste0(list.files('./tests/testthat'), collapse=", "))
-
+message('hi2')
 stop(paste0(list.files('./tests/testthat'), collapse=", "))
 
 salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
