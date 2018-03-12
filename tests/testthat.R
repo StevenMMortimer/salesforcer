@@ -1,4 +1,5 @@
 library(testthat)
+library(RForcecom)
 library(salesforcer)
 
 if (identical(tolower(Sys.getenv("NOT_CRAN")), "true") & 
