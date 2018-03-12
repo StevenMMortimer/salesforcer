@@ -4,7 +4,8 @@
 \alias{rforcecom.login}
 \title{salesforcer's backwards compatible version of rforcecom.login}
 \usage{
-rforcecom.login(username, password, loginURL = NULL, apiVersion = NULL)
+rforcecom.login(username, password,
+  loginURL = "https://login.salesforce.com/", apiVersion = "35.0")
 }
 \arguments{
 \item{username}{Your username for login to the Salesforce.com. In many cases, username is your E-mail address.}

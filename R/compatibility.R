@@ -9,15 +9,17 @@
 #' \item{instanceURL}{Instance URL.}
 #' \item{apiVersion}{API Version.}
 #' @export
-rforcecom.login <- function(username, password, loginURL=NULL, apiVersion=NULL){
+rforcecom.login <- function(username, password, loginURL="https://login.salesforce.com/", apiVersion="35.0"){
   
   .Deprecated("sf_auth")
   
   if(!is.null(loginURL)){
-    message("Ignoring loginURL. If needed, set in options like so: options(salesforcer.login_url = \"https://login.salesforce.com\")")
+    options(salesforcer.login_url = loginURL)
+    #message("Ignoring loginURL. If needed, set in options like so: options(salesforcer.login_url = \"https://login.salesforce.com\")")
   }
   if(!is.null(apiVersion)){
-    message("Ignoring apiVersion. If needed, set in options like so: options(salesforcer.api_version = \"42.0\")")
+    options(salesforcer.api_version = apiVersion)
+    #message("Ignoring apiVersion. If needed, set in options like so: options(salesforcer.api_version = \"42.0\")")
   }
   
   sf_auth(username=username, 
@@ -25,10 +27,11 @@ rforcecom.login <- function(username, password, loginURL=NULL, apiVersion=NULL){
           security_token = "")
   
   current_state <- salesforcer_state()
+  session <- c("sessionID" = current_state$session_id, 
+               "instanceURL" = paste0(current_state$instance_url, "/"), 
+               "apiVersion" = getOption("salesforcer.api_version"))
   
-  return(c(sessionID = current_state$session_id, 
-           instanceURL = current_state$instance_url, 
-           apiVersion = getOption("salesforcer.api_version")))
+  return(unlist(session))
 }
 
 #' salesforcer's backwards compatible version of rforcecom.query
