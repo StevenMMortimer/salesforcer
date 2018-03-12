@@ -105,8 +105,7 @@ sf_auth <- function(username = NULL,
       
       sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
                                  app = sf_oauth_app, 
-                                 cache = cache, 
-                                 use_basic_auth = TRUE)
+                                 cache = cache)
   
       stopifnot(is_legit_token(sf_token, verbose = TRUE))
       

@@ -4,10 +4,8 @@ salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
 salesforcer_token <- readRDS("salesforcer_token.rds")
 
 test_that("testing OAuth auth", {
-  
   sf_auth(token = salesforcer_token)
-  t <- salesforcer_state()$token
-  expect_true(token_exists())
+  expect_true(token_available())
 })
 
 test_that("testing basic auth", {
