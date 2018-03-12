@@ -99,13 +99,13 @@ test_that("testing rforcecom.update compatibility", {
   delete_result1 <- sf_delete(ids=c(create_result1$id, create_result2$id), object)
 })
 
-
-test_that("testing rforcecom.retrieve compatibility", {
-  
-})
+# test_that("testing rforcecom.retrieve compatibility", {
+#   
+# })
 
 test_that("testing rforcecom.getServerTimestamp compatibility", {
   result1 <- RForcecom::rforcecom.getServerTimestamp(session)
   result2 <- salesforcer::rforcecom.getServerTimestamp(session)
-  expect_equal(result1, result2)
+  expect_equal(round(result1, units = "mins"),
+               round(result2, units = "mins"))
 })
