@@ -49,6 +49,9 @@ test_that("testing rforcecom.bulkQuery compatibility", {
 })
 
 test_that("testing rforcecom.create compatibility", {
+  
+  version <- getOption("salesforcer.api_version")
+  expect_equal(as.numeric(version), as.numeric("42.0"))
 
   object <- "Contact"
   fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
