@@ -104,13 +104,27 @@
     <p>salesforcer's backwards compatible version of rforcecom.getServerTimestamp</p>
     
 
-    <pre class="usage"><span class='fu'>rforcecom.getServerTimestamp</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>rforcecom.getServerTimestamp</span>(<span class='no'>session</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>session</th>
+      <td><p><code>list</code>; a list containing "sessionID", "instanceURL", and "
+apiVersion" as returned by <code><a href='http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.login'>RForcecom::rforcecom.login()</a></code>. This argument is
+ignored in all backward compatible calls because the authorization credentials 
+are stored in an environment internal to the salesforcer package, so it is no longer 
+necessary to pass the session in each function call.</p></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

@@ -78,8 +78,9 @@ rforcecom.bulkQuery <- function(session,
 
 #' salesforcer's backwards compatible version of rforcecom.getServerTimestamp
 #' 
+#' @template session
 #' @export
-rforcecom.getServerTimestamp <- function(){
+rforcecom.getServerTimestamp <- function(session){
   .Deprecated("sf_server_timestamp")
   result <- sf_server_timestamp()
   # format like rforcecom.getServerTimestamp()
