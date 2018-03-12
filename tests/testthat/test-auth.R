@@ -1,5 +1,8 @@
 context("Authorization")
 
+salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
+salesforcer_token <- readRDS("salesforcer_token.rds")
+
 test_that("testing OAuth auth", {
   
   sf_auth(token = salesforcer_token)

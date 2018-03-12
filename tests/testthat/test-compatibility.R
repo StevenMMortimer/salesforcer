@@ -1,5 +1,7 @@
 context("RForcecom Compatibility")
 
+salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
+
 test_that("testing rforcecom.login compatibility", {
 
   username <- salesforcer_test_settings$username
