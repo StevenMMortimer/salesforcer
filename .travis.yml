@@ -1,9 +1,9 @@
 before_install:
 - openssl aes-256-cbc -K $encrypted_6d77e6316a8d_key -iv $encrypted_6d77e6316a8d_iv
-  -in salesforcer_test_settings.rds.enc -out tests/testthat/salesforcer_test_settings.rds
+  -in tests/testthat/salesforcer_test_settings.rds.enc -out tests/testthat/salesforcer_test_settings.rds
   -d
 - openssl aes-256-cbc -K $encrypted_6d77e6316a8d_key -iv $encrypted_6d77e6316a8d_iv
-  -in salesforcer_token.rds.enc -out tests/testthat/salesforcer_token.rds -d
+  -in tests/testthat/salesforcer_token.rds.enc -out tests/testthat/salesforcer_token.rds -d
 - R -q -e 'install.packages(c("remotes", "curl")); remotes::install_github("ropenscilabs/tic");
   tic::prepare_all_stages(); tic::before_install()'
 install: R -q -e 'tic::install()'
