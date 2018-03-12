@@ -25,6 +25,7 @@ vignettes/*.pdf
 .httr-oauth
 salesforcer_test_settings.rds
 salesforcer_token.rds
+salesforcer.tar
 
 # knitr and R markdown default cache directories
 /*_cache/

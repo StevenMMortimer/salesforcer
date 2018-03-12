@@ -16,6 +16,5 @@
 ^docs$
 ^tic\.R$
 man-roxygen
-tests/testthat/salesforcer_token.rds.enc 
-tests/testthat/salesforcer_test_settings.rds.enc
+tests/testthat/salesforcer.tar.enc
 tests/testthat/.httr-oauth
