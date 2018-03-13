@@ -61,7 +61,7 @@ If you encounter a clear bug, please file a minimal reproducible example on [git
 
 ### Authenticate
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 
+First, load the **salesforcer** package and login. There are two ways to authenticate: 
 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
 passwords do not have to be shared/embedded within scripts. User credentials will 
 be stored in locally cached file entitled ".httr-oauth" in the current working 
@@ -271,7 +271,7 @@ and are grateful to these developers for their contributions to open source.
 More information can be found at https://StevenMMortimer.github.io/salesforcer.  
 
 
-[Top of README](#salesforcer-)
+[Top](#salesforcer-)
 
 ---
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).

@@ -48,7 +48,7 @@ Usage
 
 ### Authenticate
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth" in the current working directory.
+First, load the **salesforcer** package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth" in the current working directory.
 
 ``` r
 suppressWarnings(suppressMessages(library(dplyr)))
@@ -90,8 +90,8 @@ created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0qFQAR TRUE    <list [0]>
-#> 2 0036A00000Pt0qGQAR TRUE    <list [0]>
+#> 1 0036A00000Pt5INQAZ TRUE    <list [0]>
+#> 2 0036A00000Pt5IOQAZ TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -106,8 +106,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0qFQAR Test      Contact-Create-1
-#> 2 0036A00000Pt0qGQAR Test      Contact-Create-2
+#> 1 0036A00000Pt5INQAZ Test      Contact-Create-1
+#> 2 0036A00000Pt5IOQAZ Test      Contact-Create-2
 ```
 
 ### Query
@@ -128,8 +128,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0qFQAR Test      Contact-Create-1
-#> 2 0036A00000Pt0qGQAR Test      Contact-Create-2
+#> 1 0036A00000Pt5INQAZ Test      Contact-Create-1
+#> 2 0036A00000Pt5IOQAZ Test      Contact-Create-2
 ```
 
 ### Update
@@ -146,8 +146,8 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0qFQAR TRUE    <list [0]>
-#> 2 0036A00000Pt0qGQAR TRUE    <list [0]>
+#> 1 0036A00000Pt5INQAZ TRUE    <list [0]>
+#> 2 0036A00000Pt5IOQAZ TRUE    <list [0]>
 ```
 
 ### Delete
@@ -160,8 +160,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0qFQAR TRUE    <list [0]>
-#> 2 0036A00000Pt0qGQAR TRUE    <list [0]>
+#> 1 0036A00000Pt5INQAZ TRUE    <list [0]>
+#> 2 0036A00000Pt5IOQAZ TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -190,9 +190,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000Pt0qKQAR true   
-#> 2 false   0036A00000Pt0qLQAR true   
-#> 3 true    0036A00000Pt0qPQAR true
+#> 1 false   0036A00000Pt5ISQAZ true   
+#> 2 false   0036A00000Pt5ITQAZ true   
+#> 3 true    0036A00000Pt5IcQAJ true
 ```
 
 ### Using the Bulk API
@@ -247,3 +247,5 @@ Credits
 -------
 
 This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the **googlesheets** package (<https://github.com/jennybc/googlesheets>). Methods are inspired by the **RForcecom** package (<https://github.com/hiratake55/RForcecom>). We acknowledge and are grateful to these developers for their contributions to open source.
+
+[Top](#)

@@ -49,7 +49,7 @@ Usage
 
 ### Authenticate
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth" in the current working directory.
+First, load the **salesforcer** package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth" in the current working directory.
 
 ``` r
 suppressWarnings(suppressMessages(library(dplyr)))
@@ -91,8 +91,8 @@ created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0nkQAB TRUE    <list [0]>
-#> 2 0036A00000Pt0nlQAB TRUE    <list [0]>
+#> 1 0036A00000Pt4EeQAJ TRUE    <list [0]>
+#> 2 0036A00000Pt4EfQAJ TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -107,8 +107,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0nkQAB Test      Contact-Create-1
-#> 2 0036A00000Pt0nlQAB Test      Contact-Create-2
+#> 1 0036A00000Pt4EeQAJ Test      Contact-Create-1
+#> 2 0036A00000Pt4EfQAJ Test      Contact-Create-2
 ```
 
 ### Query
@@ -129,8 +129,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0nkQAB Test      Contact-Create-1
-#> 2 0036A00000Pt0nlQAB Test      Contact-Create-2
+#> 1 0036A00000Pt4EeQAJ Test      Contact-Create-1
+#> 2 0036A00000Pt4EfQAJ Test      Contact-Create-2
 ```
 
 ### Update
@@ -147,8 +147,8 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0nkQAB TRUE    <list [0]>
-#> 2 0036A00000Pt0nlQAB TRUE    <list [0]>
+#> 1 0036A00000Pt4EeQAJ TRUE    <list [0]>
+#> 2 0036A00000Pt4EfQAJ TRUE    <list [0]>
 ```
 
 ### Delete
@@ -161,8 +161,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0nkQAB TRUE    <list [0]>
-#> 2 0036A00000Pt0nlQAB TRUE    <list [0]>
+#> 1 0036A00000Pt4EeQAJ TRUE    <list [0]>
+#> 2 0036A00000Pt4EfQAJ TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -191,9 +191,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000Pt0npQAB true   
-#> 2 false   0036A00000Pt0nqQAB true   
-#> 3 true    0036A00000Pt0nuQAB true
+#> 1 false   0036A00000Pt4EtQAJ true   
+#> 2 false   0036A00000Pt4EuQAJ true   
+#> 3 true    0036A00000Pt4F3QAJ true
 ```
 
 ### Using the Bulk API
@@ -213,8 +213,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt0oEQAR true        Test      Contact-Create-1
-#> 2 0036A00000Pt0oFQAR true        Test      Contact-Create-2
+#> 1 0036A00000Pt4FDQAZ true        Test      Contact-Create-1
+#> 2 0036A00000Pt4FEQAZ true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -238,8 +238,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0oEQAR Test      Contact-Create-1
-#> 2 0036A00000Pt0oFQAR Test      Contact-Create-2
+#> 1 0036A00000Pt4FDQAZ Test      Contact-Create-1
+#> 2 0036A00000Pt4FEQAZ Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
@@ -248,8 +248,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   sf__Id             sf__Created id   
 #>   <chr>              <chr>       <chr>
-#> 1 0036A00000Pt0oEQAR false       <NA> 
-#> 2 0036A00000Pt0oFQAR false       <NA> 
+#> 1 0036A00000Pt4FDQAZ false       <NA> 
+#> 2 0036A00000Pt4FEQAZ false       <NA> 
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3
@@ -291,7 +291,7 @@ More Information
 
 More information can be found at <https://StevenMMortimer.github.io/salesforcer>.
 
-[Top of README](#salesforcer-)
+[Top](#salesforcer-)
 
 ------------------------------------------------------------------------
 

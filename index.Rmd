@@ -62,7 +62,7 @@ If you encounter a clear bug, please file a minimal reproducible example on [git
 
 ### Authenticate
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 
+First, load the **salesforcer** package and login. There are two ways to authenticate: 
 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
 passwords do not have to be shared/embedded within scripts. User credentials will 
 be stored in locally cached file entitled ".httr-oauth" in the current working 
@@ -263,3 +263,5 @@ components are mostly verbatim copies of the routines established in the **googl
 package (https://github.com/jennybc/googlesheets). Methods are inspired by the 
 **RForcecom** package (https://github.com/hiratake55/RForcecom). We acknowledge 
 and are grateful to these developers for their contributions to open source.
+
+[Top](#)

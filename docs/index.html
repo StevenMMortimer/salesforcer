@@ -144,7 +144,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="authenticate" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authenticate" class="anchor"></a>Authenticate</h3>
-<p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
+<p>First, load the <strong>salesforcer</strong> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
 <span class="kw">library</span>(salesforcer)
 
@@ -178,8 +178,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt2meQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt2mfQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt403QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt404QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -192,8 +192,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt2meQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt2mfQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt403QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt404QAB Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -212,8 +212,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt2meQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt2mfQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt403QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt404QAB Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -228,8 +228,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt2meQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt2mfQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt403QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt404QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -240,8 +240,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt2meQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt2mfQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt403QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt404QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -268,9 +268,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000Pt2mtQAB true   </span>
-<span class="co">#&gt; 2 false   0036A00000Pt2muQAB true   </span>
-<span class="co">#&gt; 3 true    0036A00000Pt2n3QAB true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000Pt40DQAR true   </span>
+<span class="co">#&gt; 2 false   0036A00000Pt40EQAR true   </span>
+<span class="co">#&gt; 3 true    0036A00000Pt40SQAR true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
@@ -322,6 +322,7 @@ deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="referenc
 <h2 class="hasAnchor">
 <a href="#credits" class="anchor"></a>Credits</h2>
 <p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the <strong>RForcecom</strong> package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
+<p><a href="#">Top</a></p>
 </div>
 </div>
   </div>
