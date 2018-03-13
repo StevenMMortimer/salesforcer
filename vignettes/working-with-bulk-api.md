@@ -1,5 +1,5 @@
 ---
-title: "Getting Started"
+title: "Working with Bulk API"
 author: "Steven M. Mortimer"
 date: "2018-03-12"
 output:
@@ -23,7 +23,14 @@ instead of the SOAP or REST APIs. Here is the difference in using the REST API v
 the Bulk API to do an insert:
 
 
+
+
 ```r
+
+suppressWarnings(suppressMessages(library(dplyr)))
+library(salesforcer)
+sf_auth()
+
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))

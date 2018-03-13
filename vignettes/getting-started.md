@@ -25,7 +25,7 @@ directory.
 
 
 ```r
-library(dplyr)
+suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 sf_auth()
 ```

@@ -1,7 +1,7 @@
 ---
-title: "Getting Started"
+title: "Transitioning from RForcecom"
 author: "Steven M. Mortimer"
-date: "2018-03-11"
+date: "2018-03-12"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -15,46 +15,111 @@ vignette: >
 
 
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 
-1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
-passwords do not have to be shared/embedded within scripts. User credentials will 
-be stored in locally cached file entitled ".httr-oauth" in the current working 
-directory.
+While writing the **salesforcer** package we were keenly aware that many folks 
+are already using the **RForcecom** package to connect to Salesforce. In order 
+to foster adoption and switching between the packages **salesforcer** replicates 
+the functionality of many **RForcecom** functions so that you will only need to swap 
+out `library(RForcecom)` for `library(salesforcer)` and still have your production 
+tested scripts perform as usual.
+
+### Authentication
+
+**salesforcer** supports OAuth 2.0 authentication which is preferred, but for 
+backward compatibility provides the username-password authentication routine 
+implemented by **RForcecom**. Here is an example running the function from 
+each of the packages side-by-side and producing the same result.
+
+
 
 
 ```r
+suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
+
+# the RForcecom way
+session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
+                                       apiVersion=getOption("salesforcer.api_version"))
+session1
+
+# replicated in salesforcer package
+session2 <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
+                                         apiVersion=getOption("salesforcer.api_version"))
+session2
 ```
 
-Just a note, that it's not necessary to setup your own Connected App in Salesforce 
-to use OAuth 2.0 authentication. The only difference is that the authentication 
-will be run through the client created and associated with the `salesforcer` 
-package. By using the package client, you will *NOT* be giving access to Salesforce 
-to anyone, the package is just the medium for you to connect to your own data. 
-If you wanted more control you would specify those options like so: 
+
+
+Note that we must set the API version here because  calls to session will not create 
+a new sessionId and then we are stuck with version 35.0 (the default from 
+RForcecom::rforcecom.login). Some functions in **salesforcer** implement API calls 
+that are only available after version 35.0.
+
+### CRUD Operations
+
+"CRUD" operations (Create, Retrieve, Update, Delete) in the **RForcecom** package 
+only operate on one record at a time. One benefit to using the **salesforcer** package 
+is that these operations will accept a named vector (one record) or an entire `data.frame`
+or `tbl_df` of records to churn through. However, rest assured that the replicated 
+functions behave exactly the same way if you are hesitant to making the switch.
 
 
 ```r
-options(rdfp.client_id = "012345678901-99thisisatest99.apps.googleusercontent.com")
-options(rdfp.client_secret = "Th1s1sMyC1ientS3cr3t")
+object <- "Contact"
+fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
 
-sf_auth()
+# the RForcecom way
+result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
+result1
+
+# replicated in salesforcer package
+result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
+result2
 ```
 
+Here is an example showing the reduction in code of using **salesforcer** if you 
+would like to create multiple records.
 
 
-### STUFF
+```r
+n <- 2
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact-Create-", 1:n))
+rforcecom_results <- NULL
+# the RForcecom way
+for(i in 1:nrow(new_contacts)){
+  temp <- RForcecom::rforcecom.create(session, 
+                                      objectName = "Contact", 
+                                      fields = unlist(slice(new_contacts,i)))
+  rforcecom_results <- bind_rows(rforcecom_results, temp)
+}
+rforcecom_results
 
-### Check out the Tests
+# the better way in salesforcer to do multiple records
+salesforcer_results <- sf_create(new_contacts, "Contact")
+salesforcer_results
+```
 
-The **salesforcer** package has quite a bit of unit test coverage to track any 
-changes made between newly released versions of the Salesforce API (typically 4 each year). 
-These tests are an excellent source of examples because they cover most all cases of 
-utilizing the package functions. 
+### Query
 
-For example, if you're not sure on how to how to create and delete the records you just created, then check 
-out the test for `sf_delete()` at https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R.
-
-Here is the unit test code at that link:
+**salesforcer** also has better printing and type-casting when returning query result
+thanks to features of the readr package.
 
 
+```r
+this_soql <- "SELECT Id, Email FROM Contact"
+
+# the RForcecom way
+result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
+result1
+
+# replicated in salesforcer package
+result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
+result2
+
+# the better way in salesforcer to do multiple records
+salesforcer_results <- sf_query(this_soql)
+salesforcer_results
+```
+
+In the future more features will be migrated from **RForcecom** to make the 
+transition as seamless as possible.
