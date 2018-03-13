@@ -52,9 +52,6 @@ test_that("testing rforcecom.bulkQuery compatibility", {
 })
 
 test_that("testing rforcecom.create compatibility", {
-  
-  version <- getOption("salesforcer.api_version")
-  expect_equal(as.numeric(version), as.numeric("42.0"))
 
   object <- "Contact"
   fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
@@ -106,6 +103,42 @@ test_that("testing rforcecom.update compatibility", {
   delete_result1 <- sf_delete(ids=c(create_result1$id, create_result2$id), object)
 })
 
+test_that("testing rforcecom.upsert compatibility", {
+  
+  object <- "Contact"
+  this_external_id <- "TestUpsert1"
+  new_contact <- c(FirstName="Test", 
+                   LastName="Contact-Upsert-Compatibility", 
+                   My_External_Id__c=this_external_id)
+  create_result1 <- sf_create(new_contact, "Contact")
+  fields <- c(FirstName="Test", 
+              LastName="Contact-Upsert-Compatibility2")
+  result1 <- RForcecom::rforcecom.upsert(session, 
+                                         objectName=object, 
+                                         externalIdField="My_External_Id__c", 
+                                         externalId = this_external_id,
+                                         fields)
+  
+  this_external_id <- "TestUpsert2"
+  new_contact <- c(FirstName="Test", 
+                   LastName="Contact-Upsert-Compatibility", 
+                   My_External_Id__c=this_external_id)
+  create_result2 <- sf_create(new_contact, "Contact")
+  fields <- c(FirstName="Test", 
+              LastName="Contact-Upsert-Compatibility2")
+  result2 <- salesforcer::rforcecom.upsert(session, 
+                                           objectName=object, 
+                                           externalIdField="My_External_Id__c", 
+                                           externalId = this_external_id,
+                                           fields)
+  
+  expect_null(result1)
+  expect_equal(result1, result2)
+  
+  # clean up
+  delete_result1 <- sf_delete(ids=c(create_result1$id, create_result2$id), object)
+})
+
 test_that("testing rforcecom.getServerTimestamp compatibility", {
   result1 <- RForcecom::rforcecom.getServerTimestamp(session)
   result2 <- salesforcer::rforcecom.getServerTimestamp(session)
@@ -114,10 +147,6 @@ test_that("testing rforcecom.getServerTimestamp compatibility", {
 })
 
 # test_that("testing rforcecom.retrieve compatibility", {
-#   
-# })
-
-# test_that("testing rforcecom.upsert compatibility", {
 #   
 # })
 

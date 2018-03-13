@@ -7,14 +7,47 @@ template:
 
 home:
   strip_header: true
-
+  
 navbar:
   type: default
   left:
-  - text: Reference
-    href: reference/index.html
-  - text: News
-    href: news/index.html
+    - text: "Articles"
+      menu: 
+      -  text: Getting Started
+         href: articles/getting-started.html
+      -  text: Working with Bulk API
+         href: articles/working-with-bulk-api.html
+    - text: Reference
+      href: reference/index.html
+    - text: News
+      href: news/index.html
   right:
-  - icon: fa-github fa-lg
-    href: https://github.com/StevenMMortimer/salesforcer
+    - icon: fa-github fa-lg
+      href: https://github.com/StevenMMortimer/salesforcer
+      
+reference:
+  - title: Authentication
+    desc: Functions used for authenticating
+    contents:
+      - '`sf_auth`'
+  - title: Query Functions
+    desc: Functions used for querying
+    contents:
+      - '`sf_query`'
+  - title: CRUD Functions
+    desc: Functions used for create, retrieve, update, and delete records.
+    contents:
+      - '`sf_create`'
+      - '`sf_retrieve`'
+      - '`sf_update`'
+      - '`sf_upsert`'
+      - '`sf_delete`'
+  - title: Salesforce Org Utility Functions
+    desc: Functions used for basic calls to understand the org.
+    contents:
+      - '`sf_user_info`'
+      - '`sf_server_timestamp`'
+      - '`sf_list_rest_api_versions`'
+      - '`sf_list_resources`'
+      - '`sf_list_api_limits`'
+      - '`sf_list_objects`'

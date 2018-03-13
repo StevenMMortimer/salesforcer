@@ -107,14 +107,14 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
 #' }
 #' @export
 sf_bulk_query <- function(soql,
-                          object=NULL,
+                          object,
                           interval_seconds=5,
                           max_attempts=100, 
                           verbose=FALSE){
-  if(is.null(object)){
-    object <- gsub("(.*)from\\s+([A-Za-z_]+)\\b.*", "\\2", soql, ignore.case = TRUE, perl=TRUE)
-    message(sprintf("Guessed target object from query string: %s", object))
-  }
+  # if(is.null(object)){
+  #   object <- gsub("(.*)from\\s+([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE, perl=TRUE)
+  #   message(sprintf("Guessed target object from query string: %s", object))
+  # }
   
   job_info <- sf_bulk_create_job(operation = "query", object = object)
   batch_query_info <- sf_bulk_submit_query(job_id = job_info$id, 

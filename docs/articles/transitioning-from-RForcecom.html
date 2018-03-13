@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Getting Started • salesforcer</title>
+<title>Transitioning from RForcecom • salesforcer</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Transitioning from RForcecom">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
 <meta name="twitter:card" content="summary">
@@ -41,6 +41,21 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -67,7 +82,7 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>Getting Started</h1>
+      <h1>Transitioning from RForcecom</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
             <h4 class="date">2018-03-12</h4>
@@ -76,23 +91,75 @@
     
     
 <div class="contents">
-<p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(salesforcer)</code></pre></div>
-<p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the <code>salesforcer</code> package. By using the package client, you will <em>NOT</em> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">rdfp.client_id =</span> <span class="st">"012345678901-99thisisatest99.apps.googleusercontent.com"</span>)
-<span class="kw">options</span>(<span class="dt">rdfp.client_secret =</span> <span class="st">"Th1s1sMyC1ientS3cr3t"</span>)
+<p>While writing the <strong>salesforcer</strong> package we were keenly aware that many folks are already using the <strong>RForcecom</strong> package to connect to Salesforce. In order to foster adoption and switching between the packages <strong>salesforcer</strong> replicates the functionality of many <strong>RForcecom</strong> functions so that you will only need to swap out <code>library(RForcecom)</code> for <code>library(salesforcer)</code> and still have your production tested scripts perform as usual.</p>
+<div id="authentication" class="section level3">
+<h3 class="hasAnchor">
+<a href="#authentication" class="anchor"></a>Authentication</h3>
+<p><strong>salesforcer</strong> supports OAuth 2.0 authentication which is preferred, but for backward compatibility provides the username-password authentication routine implemented by <strong>RForcecom</strong>. Here is an example running the function from each of the packages side-by-side and producing the same result.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
+<span class="kw">library</span>(salesforcer)
 
-<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</code></pre></div>
-<div id="stuff" class="section level3">
-<h3 class="hasAnchor">
-<a href="#stuff" class="anchor"></a>STUFF</h3>
+<span class="co"># the RForcecom way</span>
+session1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.login">rforcecom.login</a></span>(username, <span class="kw">paste0</span>(password, security_token), 
+                                       <span class="dt">apiVersion=</span><span class="kw">getOption</span>(<span class="st">"salesforcer.api_version"</span>))
+session1
+
+<span class="co"># replicated in salesforcer package</span>
+session2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.login">rforcecom.login</a></span>(username, <span class="kw">paste0</span>(password, security_token), 
+                                         <span class="dt">apiVersion=</span><span class="kw">getOption</span>(<span class="st">"salesforcer.api_version"</span>))
+session2</code></pre></div>
+<p>Note that we must set the API version here because calls to session will not create a new sessionId and then we are stuck with version 35.0 (the default from RForcecom::rforcecom.login). Some functions in <strong>salesforcer</strong> implement API calls that are only available after version 35.0.</p>
 </div>
-<div id="check-out-the-tests" class="section level3">
+<div id="crud-operations" class="section level3">
 <h3 class="hasAnchor">
-<a href="#check-out-the-tests" class="anchor"></a>Check out the Tests</h3>
-<p>The <strong>salesforcer</strong> package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions.</p>
-<p>For example, if you’re not sure on how to how to create and delete the records you just created, then check out the test for <code><a href="../reference/sf_delete.html">sf_delete()</a></code> at <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R" class="uri">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R</a>.</p>
-<p>Here is the unit test code at that link:</p>
+<a href="#crud-operations" class="anchor"></a>CRUD Operations</h3>
+<p>“CRUD” operations (Create, Retrieve, Update, Delete) in the <strong>RForcecom</strong> package only operate on one record at a time. One benefit to using the <strong>salesforcer</strong> package is that these operations will accept a named vector (one record) or an entire <code>data.frame</code> or <code>tbl_df</code> of records to churn through. However, rest assured that the replicated functions behave exactly the same way if you are hesitant to making the switch.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object &lt;-<span class="st"> "Contact"</span>
+fields &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">FirstName=</span><span class="st">"Test"</span>, <span class="dt">LastName=</span><span class="st">"Contact-Create-Compatibility"</span>)
+
+<span class="co"># the RForcecom way</span>
+result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
+result1
+
+<span class="co"># replicated in salesforcer package</span>
+result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
+result2</code></pre></div>
+<p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
+new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
+rforcecom_results &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="co"># the RForcecom way</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(new_contacts)){
+  temp &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.create">rforcecom.create</a></span>(session, 
+                                      <span class="dt">objectName =</span> <span class="st">"Contact"</span>, 
+                                      <span class="dt">fields =</span> <span class="kw">unlist</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(new_contacts,i)))
+  rforcecom_results &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(rforcecom_results, temp)
+}
+rforcecom_results
+
+<span class="co"># the better way in salesforcer to do multiple records</span>
+salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
+salesforcer_results</code></pre></div>
+</div>
+<div id="query" class="section level3">
+<h3 class="hasAnchor">
+<a href="#query" class="anchor"></a>Query</h3>
+<p><strong>salesforcer</strong> also has better printing and type-casting when returning query result thanks to features of the readr package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">this_soql &lt;-<span class="st"> "SELECT Id, Email FROM Contact"</span>
+
+<span class="co"># the RForcecom way</span>
+result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.query">rforcecom.query</a></span>(session, <span class="dt">soqlQuery =</span> this_soql)
+result1
+
+<span class="co"># replicated in salesforcer package</span>
+result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.query">rforcecom.query</a></span>(session, <span class="dt">soqlQuery =</span> this_soql)
+result2
+
+<span class="co"># the better way in salesforcer to do multiple records</span>
+salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(this_soql)
+salesforcer_results</code></pre></div>
+<p>In the future more features will be migrated from <strong>RForcecom</strong> to make the transition as seamless as possible.</p>
 </div>
 </div>
   </div>

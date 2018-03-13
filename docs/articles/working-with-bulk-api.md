@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 author: "Steven M. Mortimer"
-date: "2018-03-11"
+date: "2018-03-12"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -15,46 +15,56 @@ vignette: >
 
 
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 
-1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
-passwords do not have to be shared/embedded within scripts. User credentials will 
-be stored in locally cached file entitled ".httr-oauth" in the current working 
-directory.
+### Using the Bulk API
+
+For really large inserts, updates, deletes, upserts, queries you can just add 
+"api_type" = "Bulk" to most functions to get the benefits of using the Bulk API 
+instead of the SOAP or REST APIs. Here is the difference in using the REST API vs. 
+the Bulk API to do an insert:
 
 
 ```r
-library(salesforcer)
+n <- 2
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact-Create-", 1:n))
+# REST
+rest_created_records <- sf_create(new_contacts, "Contact", api_type="REST")
+rest_created_records
+# Bulk
+bulk_created_records <- sf_create(new_contacts, "Contact", api_type="Bulk")
+bulk_created_records
 ```
 
-Just a note, that it's not necessary to setup your own Connected App in Salesforce 
-to use OAuth 2.0 authentication. The only difference is that the authentication 
-will be run through the client created and associated with the `salesforcer` 
-package. By using the package client, you will *NOT* be giving access to Salesforce 
-to anyone, the package is just the medium for you to connect to your own data. 
-If you wanted more control you would specify those options like so: 
+There are some differences in the way each API returns response information; however, 
+the end result is exactly the same for these two calls. Also, note that this 
+package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries 
+since Salesforce has not yet implemented it in 2.0. 
+
+Here is a simple workflow of adding, querying, and deleting records using the Bulk API.
 
 
 ```r
-options(rdfp.client_id = "012345678901-99thisisatest99.apps.googleusercontent.com")
-options(rdfp.client_secret = "Th1s1sMyC1ientS3cr3t")
+# just add api_type="Bulk" to most calls!
+# create bulk
+object <- "Contact"
+n <- 2
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact-Create-", 1:n))
+created_records <- sf_create(new_contacts, object, api_type="Bulk")
+created_records
 
-sf_auth()
+# query bulk
+my_soql <- sprintf("SELECT Id,
+                           FirstName, 
+                           LastName
+                    FROM Contact 
+                    WHERE Id in ('%s')", 
+                   paste0(created_records$successfulResults$sf__Id , collapse="','"))
+
+queried_records <- sf_query(my_soql, object=object, api_type="Bulk")
+queried_records
+
+# delete bulk
+deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
+deleted_records
 ```
-
-
-
-### STUFF
-
-### Check out the Tests
-
-The **salesforcer** package has quite a bit of unit test coverage to track any 
-changes made between newly released versions of the Salesforce API (typically 4 each year). 
-These tests are an excellent source of examples because they cover most all cases of 
-utilizing the package functions. 
-
-For example, if you're not sure on how to how to create and delete the records you just created, then check 
-out the test for `sf_delete()` at https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R.
-
-Here is the unit test code at that link:
-
-

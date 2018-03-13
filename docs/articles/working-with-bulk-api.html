@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Getting Started • salesforcer</title>
+<title>Working with Bulk API • salesforcer</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Working with Bulk API">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
 <meta name="twitter:card" content="summary">
@@ -41,6 +41,21 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -67,7 +82,7 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>Getting Started</h1>
+      <h1>Working with Bulk API</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
             <h4 class="date">2018-03-12</h4>
@@ -76,23 +91,49 @@
     
     
 <div class="contents">
-<p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(salesforcer)</code></pre></div>
-<p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the <code>salesforcer</code> package. By using the package client, you will <em>NOT</em> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">rdfp.client_id =</span> <span class="st">"012345678901-99thisisatest99.apps.googleusercontent.com"</span>)
-<span class="kw">options</span>(<span class="dt">rdfp.client_secret =</span> <span class="st">"Th1s1sMyC1ientS3cr3t"</span>)
+<div id="using-the-bulk-api" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h3>
+<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. Here is the difference in using the REST API vs. the Bulk API to do an insert:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
+<span class="kw">library</span>(salesforcer)
+<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()
 
-<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</code></pre></div>
-<div id="stuff" class="section level3">
-<h3 class="hasAnchor">
-<a href="#stuff" class="anchor"></a>STUFF</h3>
-</div>
-<div id="check-out-the-tests" class="section level3">
-<h3 class="hasAnchor">
-<a href="#check-out-the-tests" class="anchor"></a>Check out the Tests</h3>
-<p>The <strong>salesforcer</strong> package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions.</p>
-<p>For example, if you’re not sure on how to how to create and delete the records you just created, then check out the test for <code><a href="../reference/sf_delete.html">sf_delete()</a></code> at <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R" class="uri">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-blank.R</a>.</p>
-<p>Here is the unit test code at that link:</p>
+n &lt;-<span class="st"> </span><span class="dv">2</span>
+new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
+<span class="co"># REST</span>
+rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)
+rest_created_records
+<span class="co"># Bulk</span>
+bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+bulk_created_records</code></pre></div>
+<p>There are some differences in the way each API returns response information; however, the end result is exactly the same for these two calls. Also, note that this package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries since Salesforce has not yet implemented it in 2.0.</p>
+<p>Here is a simple workflow of adding, querying, and deleting records using the Bulk API.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just add api_type="Bulk" to most calls!</span>
+<span class="co"># create bulk</span>
+object &lt;-<span class="st"> "Contact"</span>
+n &lt;-<span class="st"> </span><span class="dv">2</span>
+new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+created_records
+
+<span class="co"># query bulk</span>
+my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
+<span class="st">                           FirstName, </span>
+<span class="st">                           LastName</span>
+<span class="st">                    FROM Contact </span>
+<span class="st">                    WHERE Id in ('%s')"</span>, 
+                   <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
+
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+queried_records
+
+<span class="co"># delete bulk</span>
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+deleted_records</code></pre></div>
 </div>
 </div>
   </div>

@@ -148,24 +148,79 @@ rforcecom.delete <- function(session, objectName, id){
   return(NULL)
 }
 
+#' salesforcer's backwards compatible version of rforcecom.upsert
+#' 
+#' @template session
+#' @template objectName
+#' @param externalIdField An external Key's field name. (ex: "AccountMaster__c")
+#' @param externalId An external Key's ID. (ex: "999x000000xxxxxZZZ")
+#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
+#' @return \code{NULL} if successful otherwise the function errors out
+#' @export
+rforcecom.upsert <- function(session, objectName, 
+                             externalIdField, externalId, 
+                             fields){
+  
+  .Deprecated("sf_upsert")
 
-
+  fields[externalIdField] <- externalId
+  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
+  upserted_records <- sf_upsert(input_data=fields, 
+                                object=objectName, 
+                                external_id_fieldname = externalIdField)
+  
+  # rforcecom.upsert returns NULL if successful??
+  return(NULL)
+}
 
 
 # functions waiting to be made compatible --------------------------------------
 
+ 
 #' #' salesforcer's backwards compatible version of rforcecom.retrieve
-#' #' 
+#' #'
 #' #' @export
-#' rforcecom.retrieve <- function(){
+#' rforcecom.retrieve <- function(session, objectName, 
+#'                                fields, limit=NULL, id=NULL, 
+#'                                offset=NULL, order=NULL, 
+#'                                inverse=NULL, nullsLast=NULL){
 #'   .Deprecated("sf_retrieve")
-#' }
-#' 
-#' #' salesforcer's backwards compatible version of rforcecom.upsert
-#' #' 
-#' #' @export
-#' rforcecom.upsert <- function(){
-#'   .Deprecated("sf_upsert")
+#'   
+#'   # Make SOQL
+#'   fieldList <- paste(fields, collapse=", ")
+#'   soqlQuery <- paste("SELECT", fieldList, "FROM", objectName, sep=" ")
+#'   
+#'   # Add an id
+#'   if(!is.null(id)){
+#'     soqlQuery <- paste(soqlQuery, " WHERE Id ='", id, "'", sep="")
+#'   }
+#'   
+#'   # Add order phrase
+#'   if(!is.null(order)){
+#'     if(is.list(order)){ orderList <- paste(order, collapse=", ") }
+#'     else{ orderList <- order }
+#'     soqlQuery <- paste(soqlQuery, " ORDER BY ", orderList, sep="")
+#'     if(!is.null(inverse) && inverse == T){
+#'       soqlQuery <- paste(soqlQuery, " DESC", sep="")
+#'     }
+#'     if(!is.null(nullsLast) && nullsLast == T){
+#'       soqlQuery <- paste(soqlQuery, " NULLS LAST", sep="")
+#'     }
+#'   }
+#'   
+#'   # Add limit phrase
+#'   if(!is.null(limit)){
+#'     soqlQuery <- paste(soqlQuery, " LIMIT ",limit, sep="")
+#'   }
+#'   
+#'   # Add offset phrase
+#'   if(!is.null(offset)){
+#'     soqlQuery <- paste(soqlQuery, " OFFSET ",offset, sep="")
+#'   }
+#'   
+#'   # Send a query
+#'   resultSet <- rforcecom.query(session, soqlQuery)
+#'   return(resultSet)
 #' }
 #' 
 #' #' salesforcer's backwards compatible version of rforcecom.search

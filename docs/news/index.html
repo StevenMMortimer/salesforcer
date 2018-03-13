@@ -69,7 +69,22 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
+    </li>
+  </ul>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -108,18 +123,22 @@
 <a href="#features" class="anchor"></a>Features</h2>
 <ul>
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="../reference/sf_auth.html">sf_auth()</a></code>)</li>
+<li>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</li>
 <li>CRUD operations (Create, Retrieve, Update, Delete) for REST and Bulk APIs:</li>
 <li><code><a href="../reference/sf_create.html">sf_create()</a></code></li>
 <li><code><a href="../reference/sf_retrieve.html">sf_retrieve()</a></code></li>
 <li><code><a href="../reference/sf_update.html">sf_update()</a></code></li>
 <li><code><a href="../reference/sf_upsert.html">sf_upsert()</a></code></li>
 <li><code><a href="../reference/sf_delete.html">sf_delete()</a></code></li>
-<li>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</li>
 <li>Backwards compatibile versions of <strong>RForcecom</strong> package functions:</li>
 <li><code><a href="../reference/rforcecom.login.html">rforcecom.login()</a></code></li>
 <li><code><a href="../reference/rforcecom.getServerTimestamp.html">rforcecom.getServerTimestamp()</a></code></li>
 <li><code><a href="../reference/rforcecom.query.html">rforcecom.query()</a></code></li>
 <li><code><a href="../reference/rforcecom.bulkQuery.html">rforcecom.bulkQuery()</a></code></li>
+<li><code><a href="../reference/rforcecom.create.html">rforcecom.create()</a></code></li>
+<li><code><a href="../reference/rforcecom.update.html">rforcecom.update()</a></code></li>
+<li><code><a href="../reference/rforcecom.upsert.html">rforcecom.upsert()</a></code></li>
+<li><code><a href="../reference/rforcecom.delete.html">rforcecom.delete()</a></code></li>
 <li>Basic utility calls:</li>
 <li><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code></li>
 <li><code><a href="../reference/sf_server_timestamp.html">sf_server_timestamp()</a></code></li>

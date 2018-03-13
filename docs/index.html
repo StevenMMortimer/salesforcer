@@ -41,6 +41,21 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="articles/working-with-bulk-api.html">Working with Bulk API</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -73,27 +88,39 @@
 <div class="contents">
 
 <p><br><img src="reference/figures/logo.png" align="right"></p>
-<p><strong>salesforcer</strong> is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the following APIs:</p>
-<ul>
-<li>REST</li>
-<li>Bulk (2.0 for insert, delete, update, and upsert; 1.0 for query and hardDelete)</li>
-<li>SOAP</li>
-</ul>
-<p>Future APIs to support:</p>
-<ul>
-<li>Async</li>
-<li>Metadata</li>
-<li>Reporting</li>
-<li>Analytics</li>
-</ul>
+<p><strong>salesforcer</strong> is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the SOAP, REST and Bulk APIs.</p>
 <p>Package features include:</p>
 <ul>
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs</li>
 <li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
-<li>Backwards compatible functions from the <strong>RForcecom</strong> package (<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>)</li>
+<li>Backwards compatible functions from the <strong>RForcecom</strong> package package (<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>, <code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code>)</li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
 </ul>
+<div id="table-of-contents" class="section level2">
+<h2 class="hasAnchor">
+<a href="#table-of-contents" class="anchor"></a>Table of Contents</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li>
+<a href="#usage">Usage</a>
+<ul>
+<li><a href="#authenticate">Authenticate</a></li>
+<li><a href="#create">Create</a></li>
+<li><a href="#retrieve">Retrieve</a></li>
+<li><a href="#query">Query</a></li>
+<li><a href="#update">Update</a></li>
+<li><a href="#delete">Delete</a></li>
+<li><a href="#upsert">Upsert</a></li>
+<li><a href="#using-the-bulk-api">Using the Bulk API</a></li>
+<li><a href="#accessing-metadata">Accessing Metadata</a></li>
+</ul>
+</li>
+<li><a href="#future">Future</a></li>
+<li><a href="#credits">Credits</a></li>
+<li><a href="#more-information">More Information</a></li>
+</ul>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -105,23 +132,63 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div id="using-against-the-rest-api" class="section level3">
+<div id="authenticate" class="section level3">
 <h3 class="hasAnchor">
-<a href="#using-against-the-rest-api" class="anchor"></a>Using against the REST API</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<a href="#authenticate" class="anchor"></a>Authenticate</h3>
+<p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
 <span class="kw">library</span>(salesforcer)
 
+<span class="co"># Using OAuth 2.0 authentication</span>
 <span class="kw"><a href="reference/sf_auth.html">sf_auth</a></span>()
+
+<span class="co"># Using Basic Username-Password authentication</span>
+<span class="kw"><a href="reference/sf_auth.html">sf_auth</a></span>(<span class="dt">username =</span> <span class="st">"test@gmail.com"</span>, 
+        <span class="dt">password =</span> <span class="st">"{PASSWORD_HERE}"</span>,
+        <span class="dt">security_token =</span> <span class="st">"{SECURITY_TOKEN_HERE}"</span>)
 
 <span class="co"># pull down information of person logged in</span>
 <span class="co"># it's a simple easy call to get started </span>
 <span class="co"># and confirm a connection to the APIs</span>
 user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_user_info.html">sf_user_info</a></span>()
-
-<span class="co"># Create some records</span>
-
-<span class="co"># Now query those records by Id</span>
-my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id, </span>
+<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>active)
+<span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>user_id)</code></pre></div>
+</div>
+<div id="create" class="section level3">
+<h3 class="hasAnchor">
+<a href="#create" class="anchor"></a>Create</h3>
+<p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
+new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
+<span class="co">#&gt; Auto-refreshing stale OAuth token.</span>
+created_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   id                 success errors    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
+<span class="co">#&gt; 1 0036A00000Psxi3QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Psxi4QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+</div>
+<div id="retrieve" class="section level3">
+<h3 class="hasAnchor">
+<a href="#retrieve" class="anchor"></a>Retrieve</h3>
+<p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, 
+                                 <span class="dt">fields=</span><span class="kw">c</span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), 
+                                 <span class="dt">object=</span><span class="st">"Contact"</span>)
+retrieved_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0036A00000Psxi3QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Psxi4QAB Test      Contact-Create-2</span></code></pre></div>
+</div>
+<div id="query" class="section level3">
+<h3 class="hasAnchor">
+<a href="#query" class="anchor"></a>Query</h3>
+<p>Query is a little more flexible requires knowledge of Salesforcer’s proprietary form of SQL called SOQL (Salesforcer Object Query Language). Here is an example where we also grab the data we just created.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id, </span>
 <span class="st">                           Account.Name, </span>
 <span class="st">                           FirstName, </span>
 <span class="st">                           LastName </span>
@@ -130,26 +197,94 @@ my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span clas
                    <span class="kw">paste0</span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)
-
-<span class="co"># Update some of those records</span>
+queried_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0036A00000Psxi3QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Psxi4QAB Test      Contact-Create-2</span></code></pre></div>
+</div>
+<div id="update" class="section level3">
+<h3 class="hasAnchor">
+<a href="#update" class="anchor"></a>Update</h3>
+<p>After creating records you can update them using <code><a href="reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce uses unique 18-character identifiers for each record and uses that to know which record to update with the information you provide. Simply include a field or column in your dataset called “Id” so the API can find the record and update with the fields you provide. Here is an example where we update the records we created earlier.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Update some of those records</span>
 queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>)
 
-updated_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_update.html">sf_update</a></span>(queried_records)
-
-<span class="co"># Finally delete those records</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)</code></pre></div>
+updated_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object=</span><span class="st">"Contact"</span>)
+updated_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   id                 success errors    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
+<span class="co">#&gt; 1 0036A00000Psxi3QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Psxi4QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
-<div id="using-against-the-bulk-api" class="section level3">
+<div id="delete" class="section level3">
 <h3 class="hasAnchor">
-<a href="#using-against-the-bulk-api" class="anchor"></a>Using against the Bulk API</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># For really large inserts, updates, deletes, upserts, queries </span>
-<span class="co"># you can just add "api_type" = "Bulk" to most functions to get </span>
-<span class="co"># the benefits of using the Bulk API instead of the REST API (fewer calls, speedier)</span>
+<a href="#delete" class="anchor"></a>Delete</h3>
+<p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)
+deleted_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   id                 success errors    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
+<span class="co">#&gt; 1 0036A00000Psxi3QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Psxi4QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+</div>
+<div id="upsert" class="section level3">
+<h3 class="hasAnchor">
+<a href="#upsert" class="anchor"></a>Upsert</h3>
+<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at <a href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/" class="uri">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
+new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n), 
+                       <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
+
+upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                            <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, <span class="dv">1</span><span class="op">:</span>n), 
+                            <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])
+new_record &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="st">"Test"</span>,
+                     <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, n<span class="op">+</span><span class="dv">1</span>), 
+                     <span class="dt">My_External_Id__c=</span>letters[n<span class="op">+</span><span class="dv">1</span>])
+upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(upserted_contacts, new_record)
+
+upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, 
+                              <span class="dt">object=</span><span class="st">"Contact"</span>, 
+                              <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)
+upserted_records
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   created id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
+<span class="co">#&gt; 1 false   0036A00000Psxi8QAB true   </span>
+<span class="co">#&gt; 2 false   0036A00000Psxi9QAB true   </span>
+<span class="co">#&gt; 3 true    0036A00000PsxiDQAR true</span></code></pre></div>
+</div>
+<div id="using-the-bulk-api" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h3>
+<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just add api_type="Bulk" to most calls!</span>
 <span class="co"># create bulk</span>
+object &lt;-<span class="st"> "Contact"</span>
+n &lt;-<span class="st"> </span><span class="dv">2</span>
+new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
+                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+
+<span class="co"># query bulk</span>
+my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
+<span class="st">                           FirstName, </span>
+<span class="st">                           LastName</span>
+<span class="st">                    FROM Contact </span>
+<span class="st">                    WHERE Id in ('%s')"</span>, 
+                   <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
+
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+
 <span class="co"># delete bulk</span>
-<span class="co"># query bulk</span></code></pre></div>
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)</code></pre></div>
 </div>
 <div id="accessing-metadata" class="section level3">
 <h3 class="hasAnchor">
@@ -160,6 +295,17 @@ deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="referenc
 <span class="co">#sf_describe_layout()</span>
 <span class="co">#sf_describe_tabs()</span></code></pre></div>
 </div>
+</div>
+<div id="future" class="section level2">
+<h2 class="hasAnchor">
+<a href="#future" class="anchor"></a>Future</h2>
+<p>Future APIs to support:</p>
+<ul>
+<li>Async</li>
+<li>Metadata</li>
+<li>Reporting</li>
+<li>Analytics</li>
+</ul>
 </div>
 <div id="credits" class="section level2">
 <h2 class="hasAnchor">

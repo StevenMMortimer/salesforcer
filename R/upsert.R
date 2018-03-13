@@ -97,9 +97,9 @@ sf_upsert <- function(input_data,
         message(base_soap_url)
       }
       httr_response <- rPOST(url = base_soap_url,
-                            headers = c("SOAPAction"="upsert",
-                                        "Content-Type"="text/xml"),
-                            body = as(xml_dat, "character"))
+                             headers = c("SOAPAction"="upsert",
+                                         "Content-Type"="text/xml"),
+                             body = as(xml_dat, "character"))
       catch_errors(httr_response)
       response_parsed <- content(httr_response, encoding="UTF-8")
       this_set <- response_parsed %>%
