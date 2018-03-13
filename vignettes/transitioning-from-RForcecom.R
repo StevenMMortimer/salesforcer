@@ -27,13 +27,13 @@ library(salesforcer)
 # the RForcecom way
 session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
                                        apiVersion=getOption("salesforcer.api_version"))
-session1['sessionId'] <- "{MASKED}"
+session1['sessionID'] <- "{MASKED}"
 session1
 
 # replicated in salesforcer package
 session2 <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
                                          apiVersion=getOption("salesforcer.api_version"))
-session2['sessionId'] <- "{MASKED}"
+session2['sessionID'] <- "{MASKED}"
 session2
 
 ## ---- include=FALSE------------------------------------------------------
@@ -57,8 +57,9 @@ result2
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-rforcecom_results <- NULL
+
 # the RForcecom way
+rforcecom_results <- NULL
 for(i in 1:nrow(new_contacts)){
   temp <- RForcecom::rforcecom.create(session, 
                                       objectName = "Contact", 
@@ -76,13 +77,13 @@ this_soql <- "SELECT Id, Email FROM Contact"
 
 # the RForcecom way
 result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
-result1
+head(result1)
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
 result2
 
-# the better way in salesforcer to do multiple records
+# the better way in salesforcer to query
 salesforcer_results <- sf_query(this_soql)
 salesforcer_results
 

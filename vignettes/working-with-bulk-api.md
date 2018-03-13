@@ -40,8 +40,8 @@ rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt1oFQAR TRUE    <list [0]>
-#> 2 0036A00000Pt1oGQAR TRUE    <list [0]>
+#> 1 0036A00000Pt30vQAB TRUE    <list [0]>
+#> 2 0036A00000Pt30wQAB TRUE    <list [0]>
 # Bulk
 bulk_created_records <- sf_create(new_contacts, "Contact", api_type="Bulk")
 bulk_created_records
@@ -49,8 +49,8 @@ bulk_created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt1oPQAR true        Test      Contact-Create-1
-#> 2 0036A00000Pt1oQQAR true        Test      Contact-Create-2
+#> 1 0036A00000Pt310QAB true        Test      Contact-Create-1
+#> 2 0036A00000Pt311QAB true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -83,8 +83,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt1oyQAB true        Test      Contact-Create-1
-#> 2 0036A00000Pt1ozQAB true        Test      Contact-Create-2
+#> 1 0036A00000Pt315QAB true        Test      Contact-Create-1
+#> 2 0036A00000Pt316QAB true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -108,8 +108,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt1oyQAB Test      Contact-Create-1
-#> 2 0036A00000Pt1ozQAB Test      Contact-Create-2
+#> 1 0036A00000Pt315QAB Test      Contact-Create-1
+#> 2 0036A00000Pt316QAB Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
@@ -118,8 +118,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   sf__Id             sf__Created id   
 #>   <chr>              <chr>       <chr>
-#> 1 0036A00000Pt1oyQAB false       <NA> 
-#> 2 0036A00000Pt1ozQAB false       <NA> 
+#> 1 0036A00000Pt315QAB false       <NA> 
+#> 2 0036A00000Pt316QAB false       <NA> 
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3

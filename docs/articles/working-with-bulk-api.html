@@ -112,8 +112,8 @@ rest_created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt1aDQAR TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt1aEQAR TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 1 0036A00000Pt2xwQAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt2xxQAB TRUE    &lt;list [0]&gt;</span>
 <span class="co"># Bulk</span>
 bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
 bulk_created_records
@@ -121,8 +121,8 @@ bulk_created_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt1aNQAR true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt1aOQAR true        Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt2y1QAB true        Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt2y2QAB true        Test      Contact-Create-2</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 4</span>
@@ -146,8 +146,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt1bLQAR true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt1bMQAR true        Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt2yQQAR true        Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt2yRQAR true        Test      Contact-Create-2</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 4</span>
@@ -171,8 +171,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt1bLQAR Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt1bMQAR Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt2yQQAR Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt2yRQAR Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
@@ -181,8 +181,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   sf__Id             sf__Created id   </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000Pt1bLQAR false       &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000Pt1bMQAR false       &lt;NA&gt; </span>
+<span class="co">#&gt; 1 0036A00000Pt2yQQAR false       &lt;NA&gt; </span>
+<span class="co">#&gt; 2 0036A00000Pt2yRQAR false       &lt;NA&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 3</span>
