@@ -82,6 +82,9 @@
     <li>
       <a href="articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
+    <li>
+      <a href="articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -124,7 +127,13 @@
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs</li>
 <li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
-<li>Backwards compatible functions from the <strong>RForcecom</strong> package package (<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>, <code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code>)</li>
+<li>Backwards compatible functions from the <strong>RForcecom</strong> package, such as:
+<ul>
+<li>
+<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>, <code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code>
+</li>
+</ul>
+</li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
 </ul>
 <div id="table-of-contents" class="section level2">
@@ -166,7 +175,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h3 class="hasAnchor">
 <a href="#authenticate" class="anchor"></a>Authenticate</h3>
 <p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
 <span class="kw">library</span>(salesforcer)
 
 <span class="co"># Using OAuth 2.0 authentication</span>
@@ -197,8 +206,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PsxcyQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PsxczQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PsxjuQAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000PsxjvQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -211,8 +220,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PsxcyQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxczQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PsxjuQAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000PsxjvQAB Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -231,8 +240,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PsxcyQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxczQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PsxjuQAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000PsxjvQAB Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -247,8 +256,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PsxcyQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PsxczQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PsxjuQAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000PsxjvQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -259,8 +268,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PsxcyQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PsxczQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PsxjuQAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000PsxjvQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -287,9 +296,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000Psxd3QAB true   </span>
-<span class="co">#&gt; 2 false   0036A00000Psxd4QAB true   </span>
-<span class="co">#&gt; 3 true    0036A00000Psxd8QAB true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000PsxjzQAB true   </span>
+<span class="co">#&gt; 2 false   0036A00000Psxk0QAB true   </span>
+<span class="co">#&gt; 3 true    0036A00000Psxk4QAB true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
@@ -307,8 +316,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PsxdDQAR true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxdEQAR true        Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Psxk9QAB true        Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000PsxkAQAR true        Test      Contact-Create-2</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 4</span>
@@ -332,8 +341,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PsxdDQAR Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxdEQAR Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Psxk9QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000PsxkAQAR Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
@@ -342,8 +351,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   sf__Id             sf__Created id   </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000PsxdDQAR false       &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000PsxdEQAR false       &lt;NA&gt; </span>
+<span class="co">#&gt; 1 0036A00000Psxk9QAB false       &lt;NA&gt; </span>
+<span class="co">#&gt; 2 0036A00000PsxkAQAR false       &lt;NA&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 3</span>

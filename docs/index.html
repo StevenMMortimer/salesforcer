@@ -54,6 +54,9 @@
     <li>
       <a href="articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
+    <li>
+      <a href="articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -94,7 +97,13 @@
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs</li>
 <li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
-<li>Backwards compatible functions from the <strong>RForcecom</strong> package package (<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>, <code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code>)</li>
+<li>Backwards compatible functions from the <strong>RForcecom</strong> package, such as:
+<ul>
+<li>
+<code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>, <code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code>
+</li>
+</ul>
+</li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
 </ul>
 <div id="table-of-contents" class="section level2">
@@ -167,8 +176,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Psxi3QAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Psxi4QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Psxl7QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Psxl8QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -181,8 +190,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Psxi3QAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Psxi4QAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Psxl7QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Psxl8QAB Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -201,8 +210,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Psxi3QAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Psxi4QAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Psxl7QAB Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Psxl8QAB Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -217,8 +226,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Psxi3QAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Psxi4QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Psxl7QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Psxl8QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -229,8 +238,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Psxi3QAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Psxi4QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Psxl7QAB TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Psxl8QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -257,9 +266,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000Psxi8QAB true   </span>
-<span class="co">#&gt; 2 false   0036A00000Psxi9QAB true   </span>
-<span class="co">#&gt; 3 true    0036A00000PsxiDQAR true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000PsxlCQAR true   </span>
+<span class="co">#&gt; 2 false   0036A00000PsxlDQAR true   </span>
+<span class="co">#&gt; 3 true    0036A00000PsxlHQAR true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
