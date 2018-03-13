@@ -61,13 +61,20 @@ sf_auth()
 sf_auth(username = "test@gmail.com", 
         password = "{PASSWORD_HERE}",
         security_token = "{SECURITY_TOKEN_HERE}")
+```
 
+After logging in with `sf_auth()`, you can check your connectivity by looking at the information returned about the current user. It should be information about you!
+
+``` r
 # pull down information of person logged in
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
+#> Auto-refreshing stale OAuth token.
 sprintf("User Id: %s", user_info$id)
+#> [1] "User Id: 0056A000000MPRjQAO"
 sprintf("User Active?: %s", user_info$isActive)
+#> [1] "User Active?: TRUE"
 ```
 
 ### Create
@@ -79,13 +86,12 @@ n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact")
-#> Auto-refreshing stale OAuth token.
 created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0PdQAJ TRUE    <list [0]>
-#> 2 0036A00000Pt0PeQAJ TRUE    <list [0]>
+#> 1 0036A00000Pt0qFQAR TRUE    <list [0]>
+#> 2 0036A00000Pt0qGQAR TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -100,8 +106,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0PdQAJ Test      Contact-Create-1
-#> 2 0036A00000Pt0PeQAJ Test      Contact-Create-2
+#> 1 0036A00000Pt0qFQAR Test      Contact-Create-1
+#> 2 0036A00000Pt0qGQAR Test      Contact-Create-2
 ```
 
 ### Query
@@ -122,8 +128,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0PdQAJ Test      Contact-Create-1
-#> 2 0036A00000Pt0PeQAJ Test      Contact-Create-2
+#> 1 0036A00000Pt0qFQAR Test      Contact-Create-1
+#> 2 0036A00000Pt0qGQAR Test      Contact-Create-2
 ```
 
 ### Update
@@ -140,8 +146,8 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0PdQAJ TRUE    <list [0]>
-#> 2 0036A00000Pt0PeQAJ TRUE    <list [0]>
+#> 1 0036A00000Pt0qFQAR TRUE    <list [0]>
+#> 2 0036A00000Pt0qGQAR TRUE    <list [0]>
 ```
 
 ### Delete
@@ -154,8 +160,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0PdQAJ TRUE    <list [0]>
-#> 2 0036A00000Pt0PeQAJ TRUE    <list [0]>
+#> 1 0036A00000Pt0qFQAR TRUE    <list [0]>
+#> 2 0036A00000Pt0qGQAR TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -184,9 +190,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000Pt0PiQAJ true   
-#> 2 false   0036A00000Pt0PjQAJ true   
-#> 3 true    0036A00000Pt0PnQAJ true
+#> 1 false   0036A00000Pt0qKQAR true   
+#> 2 false   0036A00000Pt0qLQAR true   
+#> 3 true    0036A00000Pt0qPQAR true
 ```
 
 ### Using the Bulk API

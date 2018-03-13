@@ -62,13 +62,20 @@ sf_auth()
 sf_auth(username = "test@gmail.com", 
         password = "{PASSWORD_HERE}",
         security_token = "{SECURITY_TOKEN_HERE}")
+```
 
+After logging in with `sf_auth()`, you can check your connectivity by looking at the information returned about the current user. It should be information about you!
+
+``` r
 # pull down information of person logged in
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
+#> Auto-refreshing stale OAuth token.
 sprintf("User Id: %s", user_info$id)
+#> [1] "User Id: 0056A000000MPRjQAO"
 sprintf("User Active?: %s", user_info$isActive)
+#> [1] "User Active?: TRUE"
 ```
 
 ### Create
@@ -80,13 +87,12 @@ n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact")
-#> Auto-refreshing stale OAuth token.
 created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0MAQAZ TRUE    <list [0]>
-#> 2 0036A00000Pt0MBQAZ TRUE    <list [0]>
+#> 1 0036A00000Pt0nkQAB TRUE    <list [0]>
+#> 2 0036A00000Pt0nlQAB TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -101,8 +107,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0MAQAZ Test      Contact-Create-1
-#> 2 0036A00000Pt0MBQAZ Test      Contact-Create-2
+#> 1 0036A00000Pt0nkQAB Test      Contact-Create-1
+#> 2 0036A00000Pt0nlQAB Test      Contact-Create-2
 ```
 
 ### Query
@@ -123,8 +129,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0MAQAZ Test      Contact-Create-1
-#> 2 0036A00000Pt0MBQAZ Test      Contact-Create-2
+#> 1 0036A00000Pt0nkQAB Test      Contact-Create-1
+#> 2 0036A00000Pt0nlQAB Test      Contact-Create-2
 ```
 
 ### Update
@@ -141,8 +147,8 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0MAQAZ TRUE    <list [0]>
-#> 2 0036A00000Pt0MBQAZ TRUE    <list [0]>
+#> 1 0036A00000Pt0nkQAB TRUE    <list [0]>
+#> 2 0036A00000Pt0nlQAB TRUE    <list [0]>
 ```
 
 ### Delete
@@ -155,8 +161,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt0MAQAZ TRUE    <list [0]>
-#> 2 0036A00000Pt0MBQAZ TRUE    <list [0]>
+#> 1 0036A00000Pt0nkQAB TRUE    <list [0]>
+#> 2 0036A00000Pt0nlQAB TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -185,9 +191,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000Pt0MFQAZ true   
-#> 2 false   0036A00000Pt0MGQAZ true   
-#> 3 true    0036A00000Pt0MKQAZ true
+#> 1 false   0036A00000Pt0npQAB true   
+#> 2 false   0036A00000Pt0nqQAB true   
+#> 3 true    0036A00000Pt0nuQAB true
 ```
 
 ### Using the Bulk API
@@ -207,8 +213,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt0MPQAZ true        Test      Contact-Create-1
-#> 2 0036A00000Pt0MQQAZ true        Test      Contact-Create-2
+#> 1 0036A00000Pt0oEQAR true        Test      Contact-Create-1
+#> 2 0036A00000Pt0oFQAR true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -232,8 +238,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt0MPQAZ Test      Contact-Create-1
-#> 2 0036A00000Pt0MQQAZ Test      Contact-Create-2
+#> 1 0036A00000Pt0oEQAR Test      Contact-Create-1
+#> 2 0036A00000Pt0oFQAR Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
@@ -242,8 +248,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   sf__Id             sf__Created id   
 #>   <chr>              <chr>       <chr>
-#> 1 0036A00000Pt0MPQAZ false       <NA> 
-#> 2 0036A00000Pt0MQQAZ false       <NA> 
+#> 1 0036A00000Pt0oEQAR false       <NA> 
+#> 2 0036A00000Pt0oFQAR false       <NA> 
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3

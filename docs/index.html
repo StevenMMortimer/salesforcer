@@ -154,14 +154,17 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co"># Using Basic Username-Password authentication</span>
 <span class="kw"><a href="reference/sf_auth.html">sf_auth</a></span>(<span class="dt">username =</span> <span class="st">"test@gmail.com"</span>, 
         <span class="dt">password =</span> <span class="st">"{PASSWORD_HERE}"</span>,
-        <span class="dt">security_token =</span> <span class="st">"{SECURITY_TOKEN_HERE}"</span>)
-
-<span class="co"># pull down information of person logged in</span>
+        <span class="dt">security_token =</span> <span class="st">"{SECURITY_TOKEN_HERE}"</span>)</code></pre></div>
+<p>After logging in with <code><a href="reference/sf_auth.html">sf_auth()</a></code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># pull down information of person logged in</span>
 <span class="co"># it's a simple easy call to get started </span>
 <span class="co"># and confirm a connection to the APIs</span>
 user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_user_info.html">sf_user_info</a></span>()
+<span class="co">#&gt; Auto-refreshing stale OAuth token.</span>
 <span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)
-<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)</code></pre></div>
+<span class="co">#&gt; [1] "User Id: 0056A000000MPRjQAO"</span>
+<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)
+<span class="co">#&gt; [1] "User Active?: TRUE"</span></code></pre></div>
 </div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
@@ -171,13 +174,12 @@ user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_u
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
 created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
-<span class="co">#&gt; Auto-refreshing stale OAuth token.</span>
 created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt0TfQAJ TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt0TgQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt1UjQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt1UkQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -190,8 +192,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt0TfQAJ Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt0TgQAJ Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt1UjQAJ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt1UkQAJ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -210,8 +212,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt0TfQAJ Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt0TgQAJ Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt1UjQAJ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt1UkQAJ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -226,8 +228,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt0TfQAJ TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt0TgQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt1UjQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt1UkQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -238,8 +240,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt0TfQAJ TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt0TgQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt1UjQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt1UkQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -266,9 +268,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000Pt0TkQAJ true   </span>
-<span class="co">#&gt; 2 false   0036A00000Pt0TlQAJ true   </span>
-<span class="co">#&gt; 3 true    0036A00000Pt0TpQAJ true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000Pt1UyQAJ true   </span>
+<span class="co">#&gt; 2 false   0036A00000Pt1UzQAJ true   </span>
+<span class="co">#&gt; 3 true    0036A00000Pt1V3QAJ true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">

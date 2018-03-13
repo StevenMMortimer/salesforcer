@@ -88,7 +88,12 @@ sf_auth()
 sf_auth(username = "test@gmail.com", 
         password = "{PASSWORD_HERE}",
         security_token = "{SECURITY_TOKEN_HERE}")
+```
 
+After logging in with `sf_auth()`, you can check your connectivity by looking at 
+the information returned about the current user. It should be information about you!
+
+```{r}
 # pull down information of person logged in
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs

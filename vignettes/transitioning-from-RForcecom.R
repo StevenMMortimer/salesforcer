@@ -12,7 +12,7 @@ library(dplyr)
 library(salesforcer)
 ## I grab the settings from the testing directory because that's where it is to be
 ## found on Travis
-salesforcer_test_settings <- readRDS(file.path("..", 
+salesforcer_test_settings <- readRDS(file.path("..",
                                                "tests", 
                                                "testthat",
                                                "salesforcer_test_settings.rds"))
@@ -27,16 +27,19 @@ library(salesforcer)
 # the RForcecom way
 session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
                                        apiVersion=getOption("salesforcer.api_version"))
+session1['sessionId'] <- "{MASKED}"
 session1
 
 # replicated in salesforcer package
 session2 <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
                                          apiVersion=getOption("salesforcer.api_version"))
+session2['sessionId'] <- "{MASKED}"
 session2
 
 ## ---- include=FALSE------------------------------------------------------
 # keep using the session, just rename it to "session"
-session <- session2
+session <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
+                                         apiVersion=getOption("salesforcer.api_version"))
 
 ## ---- warning=FALSE------------------------------------------------------
 object <- "Contact"

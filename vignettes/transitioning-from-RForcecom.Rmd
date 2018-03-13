@@ -58,17 +58,20 @@ library(salesforcer)
 # the RForcecom way
 session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
                                        apiVersion=getOption("salesforcer.api_version"))
+session1['sessionId'] <- "{MASKED}"
 session1
 
 # replicated in salesforcer package
 session2 <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
                                          apiVersion=getOption("salesforcer.api_version"))
+session2['sessionId'] <- "{MASKED}"
 session2
 ```
 
 ```{r, include=FALSE}
 # keep using the session, just rename it to "session"
-session <- session2
+session <- salesforcer::rforcecom.login(username, paste0(password, security_token), 
+                                         apiVersion=getOption("salesforcer.api_version"))
 ```
 
 Note that we must set the API version here because  calls to session will not create 
