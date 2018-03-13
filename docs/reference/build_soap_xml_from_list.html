@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>/Users/steven.mortimer/github/salesforcer/NEWS.md • salesforcer</title>
+<title>Build XML Request Body — build_soap_xml_from_list • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,12 +22,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="/Users/steven.mortimer/github/salesforcer/NEWS.md" />
+<meta property="og:title" content="Build XML Request Body — build_soap_xml_from_list" />
+
+<meta property="og:description" content="Parse data into XML format" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -55,7 +57,7 @@
   </head>
 
   <body>
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -65,15 +67,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">salesforcer</a>
+      <a class="navbar-brand" href="../index.html">salesforcer</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="news/index.html">News</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
       
@@ -93,46 +95,78 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>/Users/steven.mortimer/github/salesforcer/NEWS.md</h1>
+    <h1>Build XML Request Body</h1>
     </div>
 
-<div id="salesforcer-0-0-0-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#salesforcer-0-0-0-9000" class="anchor"></a>salesforcer 0.0.0.9000</h1>
-<div id="features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h2>
-<ul>
-<li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
-<li>CRUD operations (Create, Retrieve, Update, Delete) for REST and Bulk APIs:</li>
-<li><code><a href="reference/sf_create.html">sf_create()</a></code></li>
-<li><code><a href="reference/sf_retrieve.html">sf_retrieve()</a></code></li>
-<li><code><a href="reference/sf_update.html">sf_update()</a></code></li>
-<li><code><a href="reference/sf_upsert.html">sf_upsert()</a></code></li>
-<li><code><a href="reference/sf_delete.html">sf_delete()</a></code></li>
-<li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
-<li>Backwards compatibile versions of <strong>RForcecom</strong> package functions:</li>
-<li><code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code></li>
-<li><code><a href="reference/rforcecom.getServerTimestamp.html">rforcecom.getServerTimestamp()</a></code></li>
-<li><code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code></li>
-<li><code><a href="reference/rforcecom.bulkQuery.html">rforcecom.bulkQuery()</a></code></li>
-<li>Basic utility calls:</li>
-<li><code><a href="reference/sf_user_info.html">sf_user_info()</a></code></li>
-<li><code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code></li>
-<li><code><a href="reference/sf_list_rest_api_versions.html">sf_list_rest_api_versions()</a></code></li>
-<li><code><a href="reference/sf_list_resources.html">sf_list_resources()</a></code></li>
-<li><code><a href="reference/sf_list_api_limits.html">sf_list_api_limits()</a></code></li>
-<li><code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code></li>
-</ul>
-</div>
-</div>
+    
+    <p>Parse data into XML format</p>
+    
+
+    <pre class="usage"><span class='fu'>build_soap_xml_from_list</span>(<span class='no'>input_data</span>, <span class='no'>operation</span>, <span class='no'>object</span>, <span class='no'>external_id_fieldname</span>,
+  <span class='kw'>root_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>character</span>(<span class='fl'>0</span>)), <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>input_data</th>
+      <td><p>a <code>data.frame</code> of data to fill the XML body</p></td>
+    </tr>
+    <tr>
+      <th>operation</th>
+      <td><p>character; a string defining the type of operation being 
+performed (e.g. "insert", "update", "upsert", "delete")</p></td>
+    </tr>
+    <tr>
+      <th>object</th>
+      <td><p>character; the name of the Salesforcer object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+    </tr>
+    <tr>
+      <th>external_id_fieldname</th>
+      <td><p>character; string identifying a custom field on the 
+object that has been set as an "External ID" field. This field is used to reference 
+objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
+    </tr>
+    <tr>
+      <th>root_name</th>
+      <td><p>character; the name of the root node if created</p></td>
+    </tr>
+    <tr>
+      <th>ns</th>
+      <td><p>named vector; a collection of character strings indicating the namespace 
+definitions of the root node if created</p></td>
+    </tr>
+    <tr>
+      <th>root</th>
+      <td><p><code>XMLNode</code>; a node to be used as the root</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a XML document</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>This function is meant to be used internally. Only use when debugging.</p>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
 
+      <li><a href="#note">Note</a></li>
+          </ul>
+
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">

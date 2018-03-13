@@ -5,8 +5,9 @@
 \title{Run Bulk Operation}
 \usage{
 sf_bulk_operation(input_data, object, operation = c("insert", "delete",
-  "upsert", "update"), wait_for_results = TRUE, interval_seconds = 3,
-  max_attempts = 200, verbose = FALSE)
+  "upsert", "update"), external_id_fieldname = NULL,
+  wait_for_results = TRUE, interval_seconds = 3, max_attempts = 200,
+  verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -16,6 +17,10 @@ sf_bulk_operation(input_data, object, operation = c("insert", "delete",
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{operation}{character string defining the type of operation being performed}
+
+\item{external_id_fieldname}{character; string identifying a custom field on the 
+object that has been set as an "External ID" field. This field is used to reference 
+objects during upserts to determine if the record already exists in Salesforce or not.}
 
 \item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
 so that the batch results of individual records can be obtained}

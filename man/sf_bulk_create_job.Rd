@@ -11,15 +11,17 @@ sf_bulk_create_job(operation = c("insert", "delete", "upsert", "update",
   column_delimiter = NULL, verbose = FALSE)
 }
 \arguments{
-\item{operation}{a character string defining the type of operation being performed}
+\item{operation}{character; a string defining the type of operation being 
+performed (e.g. "insert", "update", "upsert", "delete")}
 
 \item{object}{character; the name of the Salesforcer object that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{content_type}{a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'}
 
-\item{external_id_fieldname}{a character string identifying a custom field that has the "External ID" attribute on the target object. 
-This field is only used when performing upserts. It will be ignored for all other operations.}
+\item{external_id_fieldname}{character; string identifying a custom field on the 
+object that has been set as an "External ID" field. This field is used to reference 
+objects during upserts to determine if the record already exists in Salesforce or not.}
 
 \item{concurrency_mode}{a character string either "Parallel" or "Serial" that specifies whether batches should be completed
 sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.}

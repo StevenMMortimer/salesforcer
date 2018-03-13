@@ -4,11 +4,10 @@
 #'
 #' @importFrom jsonlite toJSON
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
-#' @param operation a character string defining the type of operation being performed
+#' @template operation
 #' @template object
 #' @param content_type a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'
-#' @param external_id_fieldname a character string identifying a custom field that has the "External ID" attribute on the target object. 
-#' This field is only used when performing upserts. It will be ignored for all other operations.
+#' @template external_id_fieldname
 #' @param concurrency_mode a character string either "Parallel" or "Serial" that specifies whether batches should be completed
 #' sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.
 #' @param line_ending a character string indicating the The line ending used for CSV job data, 
@@ -482,6 +481,7 @@ sf_bulk_get_job_records <- function(job_id,
 #' \code{tbl_df}; data can be coerced into .csv file for submitting as batch request
 #' @template object
 #' @param operation character string defining the type of operation being performed
+#' @template external_id_fieldname
 #' @param wait_for_results logical; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
 #' @param interval_seconds an integer defining the seconds between attempts to check for job completion
@@ -502,6 +502,7 @@ sf_bulk_get_job_records <- function(job_id,
 sf_bulk_operation <- function(input_data,
                               object,
                               operation = c("insert", "delete", "upsert", "update"),
+                              external_id_fieldname=NULL,
                               wait_for_results = TRUE,
                               interval_seconds = 3,
                               max_attempts = 200,
@@ -509,7 +510,7 @@ sf_bulk_operation <- function(input_data,
 
   operation <- match.arg(operation)
   
-  job_info <- sf_bulk_create_job(operation, object)
+  job_info <- sf_bulk_create_job(operation, object, external_id_fieldname=external_id_fieldname)
   batches_info <- sf_bulk_create_batches(job_info$id, input_data)
   
   if(wait_for_results){

@@ -5,8 +5,10 @@
 #' 
 #' @importFrom dplyr bind_rows
 #' @importFrom httr content
-#' @importFrom xml2 xml_find_first xml_text
+#' @importFrom purrr map_df
 #' @importFrom readr type_convert
+#' @importFrom dplyr as_tibble
+#' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 #' @template soql
 #' @template object
 #' @param queryall logical; indicating if the query recordset should include 
@@ -61,7 +63,10 @@ sf_query <- function(soql,
                                       "Sforce-Query-Options"=sprintf("batchSize=%.0f", batch_size)))
     catch_errors(httr_response)
     response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
-    resultset <- query_parser(response_parsed)
+    resultset <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//records') %>%
+      map_df(xml_nodeset_to_df)
     suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
     
     next_records_url <- response_parsed %>% 
@@ -82,70 +87,6 @@ sf_query <- function(soql,
   }
   
   return(resultset)
-}
-
-#' xmlToList2
-#' 
-#' This function is an early and simple approach to converting an 
-#' XML node or document into a more typical R list containing the data values. 
-#' It differs from xmlToList by not including attributes at all in the output.
-#' 
-#' @importFrom XML xmlApply xmlSApply xmlValue xmlAttrs xmlParse xmlSize xmlRoot
-#' @param node the XML node or document to be converted to an R list
-#' @return \code{list} parsed from the supplied node
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-xmlToList2 <- function(node){
-  if (is.character(node)) 
-    node = xmlParse(node)
-  if (inherits(node, "XMLAbstractDocument")) 
-    node = xmlRoot(node)
-  if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode")))) 
-    xmlValue(node)
-  else if (xmlSize(node) == 0) 
-    xmlAttrs(node)
-  else {
-    if (is.list(node)) {
-      tmp = vals = xmlSApply(node, xmlToList2)
-      tt = xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
-    }
-    else {
-      tmp = vals = xmlApply(node, xmlToList2)
-      tt = xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
-    }
-    vals[tt] = lapply(vals[tt], function(x) x[[1]])
-    if (any(tt) && length(vals) == 1) 
-      vals[[1]]
-    else vals
-  }
-}
-
-
-#' query_parser
-#' 
-#' A function specifically for parsing SOQL query XML into data.frames
-#' 
-#' @importFrom xml2 xml_find_all
-#' @importFrom purrr map_df
-#' @importFrom utils capture.output
-#' @param xml a \code{xml_document}
-#' @return \code{data.frame} parsed from the supplied xml
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-query_parser <- function(xml){
-  
-  dat <- xml %>% 
-    xml_find_all('records') %>%
-    map_df(function(x){
-      # capture any xmlToList grumblings about Namespace prefix
-      invisible(capture.output(x_vals <- unlist(xmlToList2(as.character(x)))))
-      return(as.data.frame(t(x_vals), stringsAsFactors=FALSE))
-    }) %>% 
-    as.data.frame()
-  
-  return(dat)
 }
 
 # async-queries/

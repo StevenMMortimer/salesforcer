@@ -5,7 +5,7 @@
 \title{Update Records}
 \usage{
 sf_update(input_data, object, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk", "Async"), verbose = FALSE)
+  "SOAP", "Bulk", "Async"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -16,10 +16,12 @@ a column called Id (case-insensitive) that can be passed in the request}
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{all_or_none}{logical; allows a call to roll back all changes unless all 
-records are processed successfully.}
+records are processed successfully}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
 which API to use when making the request}
+
+\item{...}{Other arguments passed on to \code{\link{sf_bulk_operation}}.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

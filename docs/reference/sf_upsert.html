@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Bulk API Job — sf_bulk_create_job • salesforcer</title>
+<title>Upsert Records — sf_upsert • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Create Bulk API Job — sf_bulk_create_job" />
+<meta property="og:title" content="Upsert Records — sf_upsert" />
 
-<meta property="og:description" content="This function initializes a Job in the Salesforce Bulk API" />
+<meta property="og:description" content="Upserts one or more new records to your organization’s data." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -97,35 +97,29 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Bulk API Job</h1>
+    <h1>Upsert Records</h1>
     </div>
 
     
-    <p>This function initializes a Job in the Salesforce Bulk API</p>
+    <p>Upserts one or more new records to your organization’s data.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>,
-  <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>), <span class='no'>object</span>, <span class='kw'>content_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>,
-  <span class='st'>"ZIP_XML"</span>, <span class='st'>"ZIP_JSON"</span>), <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>concurrency_mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Parallel"</span>, <span class='st'>"Serial"</span>), <span class='kw'>line_ending</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>column_delimiter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_upsert</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='no'>external_id_fieldname</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk"</span>, <span class='st'>"Async"</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>operation</th>
-      <td><p>character; a string defining the type of operation being 
-performed (e.g. "insert", "update", "upsert", "delete")</p></td>
+      <th>input_data</th>
+      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
+<code>tbl_df</code>; data can be coerced into a <code>data.frame</code> and there must be 
+a column called Id (case-insensitive) that can be passed in the request</p></td>
     </tr>
     <tr>
       <th>object</th>
       <td><p>character; the name of the Salesforcer object that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
-    </tr>
-    <tr>
-      <th>content_type</th>
-      <td><p>a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'</p></td>
     </tr>
     <tr>
       <th>external_id_fieldname</th>
@@ -134,20 +128,18 @@ object that has been set as an "External ID" field. This field is used to refere
 objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
     </tr>
     <tr>
-      <th>concurrency_mode</th>
-      <td><p>a character string either "Parallel" or "Serial" that specifies whether batches should be completed
-sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.</p></td>
+      <th>all_or_none</th>
+      <td><p>logical; allows a call to roll back all changes unless all 
+records are processed successfully</p></td>
     </tr>
     <tr>
-      <th>line_ending</th>
-      <td><p>a character string indicating the The line ending used for CSV job data, 
-marking the end of a data row. The default is "LF", but could be "CRLF" for Windows created files.</p></td>
+      <th>api_type</th>
+      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+which API to use when making the request</p></td>
     </tr>
     <tr>
-      <th>column_delimiter</th>
-      <td><p>a character string indicating the column delimiter used for CSV job data. 
-The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
-"SEMICOLON", and "TAB".</p></td>
+      <th>...</th>
+      <td><p>Other arguments passed on to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -157,34 +149,28 @@ The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PI
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>list</code> parameters defining the created job, including id</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/</a></p>
+    <p><code>tibble</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># insert into Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
+                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact-Create-"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
+                       <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='no'>n</span>])
+<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
 
-<span class='co'># delete from Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'delete'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>upserted_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
+                            <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact-Upsert-"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
+                            <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='no'>n</span>])
+<span class='no'>new_record</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='st'>"Test"</span>,
+                     <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact-Upsert-"</span>, <span class='no'>n</span>+<span class='fl'>1</span>),
+                     <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='no'>n</span>+<span class='fl'>1</span>])
+<span class='no'>upserted_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_rows</span>(<span class='no'>upserted_contacts</span>, <span class='no'>new_record</span>)
 
-<span class='co'># update into Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'update'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
-
-<span class='co'># upsert into Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'upsert'</span>,
-                               <span class='kw'>externalIdFieldName</span><span class='kw'>=</span><span class='st'>'My_External_Id__c'</span>,
-                               <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
-
-<span class='co'># insert attachments</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Attachment'</span>)
-
-<span class='co'># query leads</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'query'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Lead'</span>)
+<span class='no'>upserted_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_upsert</span>(<span class='no'>upserted_contacts</span>,
+                                       <span class='st'>"Contact"</span>,
+                                       <span class='st'>"My_External_Id__c"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -193,8 +179,6 @@ The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PI
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

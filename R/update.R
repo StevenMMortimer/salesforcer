@@ -10,9 +10,9 @@
 #' \code{tbl_df}; data can be coerced into a \code{data.frame} and there must be 
 #' a column called Id (case-insensitive) that can be passed in the request
 #' @template object
-#' @param all_or_none logical; allows a call to roll back all changes unless all 
-#' records are processed successfully.
+#' @template all_or_none
 #' @template api_type
+#' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
 #' @template verbose
 #' @return \code{tibble}
 #' @examples
@@ -34,6 +34,7 @@ sf_update <- function(input_data,
                       object,
                       all_or_none = FALSE,
                       api_type = c("REST", "SOAP", "Bulk", "Async"),
+                      ...,
                       verbose = FALSE){
   
   # This resource is available in API version 42.0 and later.

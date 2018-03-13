@@ -96,3 +96,8 @@ In future iterations of the package **salesforcer** will connect to the Metadata
 #sf_describe_layout()
 #sf_describe_tabs()
 ```
+
+Credits
+-------
+
+This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the **googlesheets** package (<https://github.com/jennybc/googlesheets>). Methods are inspired by the **RForcecom** package (<https://github.com/hiratake55/RForcecom>). We acknowledge and are grateful to these developers for their contributions to open source.

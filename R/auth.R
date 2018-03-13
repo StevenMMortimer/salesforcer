@@ -195,7 +195,7 @@ is_legit_token <- function(x, verbose = FALSE) {
 #' @keywords internal
 sf_token <- function(verbose = FALSE) {
   if (!token_available(verbose = verbose)) sf_auth(verbose = verbose)
-  config(token = .state$token)
+  invisible(config(token = .state$token))
 }
 
 #' Check token availability
@@ -207,7 +207,6 @@ sf_token <- function(verbose = FALSE) {
 #'
 #' @keywords internal
 token_available <- function(verbose = TRUE) {
-  
   if (is.null(.state$token)) {
     if (verbose) {
       if (file.exists(".httr-oauth")) {
@@ -224,9 +223,7 @@ token_available <- function(verbose = TRUE) {
     }
     return(FALSE)
   }
-  
   TRUE
-  
 }
 
 ## useful when debugging

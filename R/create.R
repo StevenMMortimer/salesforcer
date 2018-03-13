@@ -9,9 +9,9 @@
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into a \code{data.frame}
 #' @template object
-#' @param all_or_none logical; allows a call to roll back all changes unless all 
-#' records are processed successfully.
+#' @template all_or_none
 #' @template api_type
+#' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
 #' @template verbose
 #' @return \code{tibble}
 #' @examples
@@ -26,6 +26,7 @@ sf_create <- function(input_data,
                       object,
                       all_or_none = FALSE,
                       api_type = c("REST", "SOAP", "Bulk", "Async"),
+                      ...,
                       verbose = FALSE){
   
   # This resource is available in API version 42.0 and later.
@@ -81,7 +82,7 @@ sf_create <- function(input_data,
     }
     resultset <- as_tibble(resultset)
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(input_data, object, operation="insert", verbose=verbose)
+    resultset <- sf_bulk_operation(input_data, object, operation="insert", verbose=verbose, ...)
   } else {
     stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
   }
