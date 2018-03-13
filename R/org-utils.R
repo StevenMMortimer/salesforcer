@@ -10,7 +10,9 @@
 #' }
 #' @export
 sf_user_info <- function(){
-  httr_response <- rGET("https://login.salesforce.com/services/oauth2/userinfo")
+  # ensure we are authenticated first so the url can be formed
+  chatter_url <- make_chatter_url()
+  httr_response <- rGET(sprintf("%s%s", chatter_url, "me"))
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')
   return(response_parsed)

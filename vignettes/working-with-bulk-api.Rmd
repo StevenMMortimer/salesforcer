@@ -15,7 +15,6 @@ vignette: >
 
 ```{r, echo = FALSE}
 NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-NOT_CRAN <- FALSE
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -36,7 +35,7 @@ suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 ## I grab the token from the testing directory because that's where it is to be
 ## found on Travis
-token_path <- file.path("..", "tests", "testthat", "salesforcer_token.rds")
+token_path <- file.path("..",  "tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
 

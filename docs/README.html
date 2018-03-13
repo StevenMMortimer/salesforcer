@@ -190,8 +190,8 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co"># it's a simple easy call to get started </span>
 <span class="co"># and confirm a connection to the APIs</span>
 user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_user_info.html">sf_user_info</a></span>()
-<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>active)
-<span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>user_id)</code></pre></div>
+<span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)
+<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)</code></pre></div>
 </div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
@@ -206,8 +206,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PsxjuQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PsxjvQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt0MAQAZ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt0MBQAZ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -220,8 +220,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PsxjuQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxjvQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt0MAQAZ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt0MBQAZ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -240,8 +240,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PsxjuQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxjvQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt0MAQAZ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt0MBQAZ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -256,8 +256,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PsxjuQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PsxjvQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt0MAQAZ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt0MBQAZ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -268,8 +268,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PsxjuQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PsxjvQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt0MAQAZ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt0MBQAZ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -296,9 +296,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000PsxjzQAB true   </span>
-<span class="co">#&gt; 2 false   0036A00000Psxk0QAB true   </span>
-<span class="co">#&gt; 3 true    0036A00000Psxk4QAB true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000Pt0MFQAZ true   </span>
+<span class="co">#&gt; 2 false   0036A00000Pt0MGQAZ true   </span>
+<span class="co">#&gt; 3 true    0036A00000Pt0MKQAZ true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
@@ -316,8 +316,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Psxk9QAB true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxkAQAR true        Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt0MPQAZ true        Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt0MQQAZ true        Test      Contact-Create-2</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 4</span>
@@ -341,8 +341,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Psxk9QAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PsxkAQAR Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt0MPQAZ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt0MQQAZ Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
@@ -351,8 +351,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   sf__Id             sf__Created id   </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000Psxk9QAB false       &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000PsxkAQAR false       &lt;NA&gt; </span>
+<span class="co">#&gt; 1 0036A00000Pt0MPQAZ false       &lt;NA&gt; </span>
+<span class="co">#&gt; 2 0036A00000Pt0MQQAZ false       &lt;NA&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 3</span>

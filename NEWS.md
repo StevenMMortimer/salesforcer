@@ -1,4 +1,15 @@
-# salesforcer 0.1.0
+# salesforcer 0.1.0.9000
+
+## Features
+
+* Nothing yet!
+
+## Bug Fixes
+
+* `sf_user_info()` returning `argument is of length zero` because token is not 
+automatically refreshed before calling GET
+
+# salesforcer 0.1.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0)
 
 ## Features
 

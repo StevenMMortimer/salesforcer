@@ -15,7 +15,6 @@ vignette: >
 
 ```{r, echo = FALSE}
 NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-NOT_CRAN <- FALSE
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -67,8 +66,8 @@ the information returned about the current user. It should be information about 
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Active?: %s", user_info$active)
-sprintf("User Id: %s", user_info$user_id)
+sprintf("User Id: %s", user_info$id)
+sprintf("User Active?: %s", user_info$isActive)
 ```
 
 ### Create

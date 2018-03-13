@@ -1,7 +1,7 @@
 ---
-title: "Getting Started"
+title: "Working with Bulk API"
 author: "Steven M. Mortimer"
-date: "2018-03-12"
+date: "2018-03-13"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -23,16 +23,43 @@ instead of the SOAP or REST APIs. Here is the difference in using the REST API v
 the Bulk API to do an insert:
 
 
+
+
 ```r
+
+suppressWarnings(suppressMessages(library(dplyr)))
+library(salesforcer)
+sf_auth()
+
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 # REST
 rest_created_records <- sf_create(new_contacts, "Contact", api_type="REST")
 rest_created_records
+#> # A tibble: 2 x 3
+#>   id                 success errors    
+#>   <chr>              <lgl>   <list>    
+#> 1 0036A00000Pt0P9QAJ TRUE    <list [0]>
+#> 2 0036A00000Pt0PAQAZ TRUE    <list [0]>
 # Bulk
 bulk_created_records <- sf_create(new_contacts, "Contact", api_type="Bulk")
 bulk_created_records
+#> $successfulResults
+#> # A tibble: 2 x 4
+#>   sf__Id             sf__Created FirstName LastName        
+#>   <chr>              <chr>       <chr>     <chr>           
+#> 1 0036A00000Pt0PEQAZ true        Test      Contact-Create-1
+#> 2 0036A00000Pt0PFQAZ true        Test      Contact-Create-2
+#> 
+#> $failedResults
+#> # A tibble: 0 x 4
+#> # ... with 4 variables: sf__Id <chr>, sf__Error <chr>, FirstName <chr>,
+#> #   LastName <chr>
+#> 
+#> $unprocessedRecords
+#> # A tibble: 0 x 2
+#> # ... with 2 variables: FirstName <chr>, LastName <chr>
 ```
 
 There are some differences in the way each API returns response information; however, 
@@ -52,6 +79,21 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, object, api_type="Bulk")
 created_records
+#> $successfulResults
+#> # A tibble: 2 x 4
+#>   sf__Id             sf__Created FirstName LastName        
+#>   <chr>              <chr>       <chr>     <chr>           
+#> 1 0036A00000Pt0PJQAZ true        Test      Contact-Create-1
+#> 2 0036A00000Pt0PKQAZ true        Test      Contact-Create-2
+#> 
+#> $failedResults
+#> # A tibble: 0 x 4
+#> # ... with 4 variables: sf__Id <chr>, sf__Error <chr>, FirstName <chr>,
+#> #   LastName <chr>
+#> 
+#> $unprocessedRecords
+#> # A tibble: 0 x 2
+#> # ... with 2 variables: FirstName <chr>, LastName <chr>
 
 # query bulk
 my_soql <- sprintf("SELECT Id,
@@ -63,8 +105,27 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql, object=object, api_type="Bulk")
 queried_records
+#> # A tibble: 2 x 3
+#>   Id                 FirstName LastName        
+#>   <chr>              <chr>     <chr>           
+#> 1 0036A00000Pt0PJQAZ Test      Contact-Create-1
+#> 2 0036A00000Pt0PKQAZ Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
 deleted_records
+#> $successfulResults
+#> # A tibble: 2 x 3
+#>   sf__Id             sf__Created id   
+#>   <chr>              <chr>       <chr>
+#> 1 0036A00000Pt0PJQAZ false       <NA> 
+#> 2 0036A00000Pt0PKQAZ false       <NA> 
+#> 
+#> $failedResults
+#> # A tibble: 0 x 3
+#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, id <chr>
+#> 
+#> $unprocessedRecords
+#> # A tibble: 0 x 1
+#> # ... with 1 variable: id <chr>
 ```

@@ -3,6 +3,17 @@
 
 <br> <img src="man/figures/logo.png" align="right" />
 
+**salesforcer** is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the SOAP, REST and Bulk APIs.
+
+Package features include:
+
+-   OAuth 2.0 and Basic authentication methods (`sf_auth()`)
+-   CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs
+-   Query operations via REST and Bulk APIs (`sf_query()`)
+-   Backwards compatible functions from the **RForcecom** package, such as:
+    -   `rforcecom.login()`, `rforcecom.query()`, `rforcecom.create()`, `rforcecom.update()`
+-   Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
+
 Table of Contents
 -----------------
 
@@ -17,18 +28,9 @@ Table of Contents
     -   [Upsert](#upsert)
     -   [Using the Bulk API](#using-the-bulk-api)
     -   [Accessing Metadata](#accessing-metadata)
+-   [Future](#future)
 -   [Credits](#credits)
 -   [More Information](#more-information)
-
-**salesforcer** is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the SOAP, REST and Bulk APIs.
-
-Package features include:
-
--   OAuth 2.0 and Basic authentication methods (`sf_auth()`)
--   CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs
--   Query operations via REST and Bulk APIs (`sf_query()`)
--   Backwards compatible functions from the **RForcecom** package package (`rforcecom.login()`, `rforcecom.query()`, `rforcecom.create()`, `rforcecom.update()`)
--   Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
 
 Installation
 ------------
@@ -49,7 +51,7 @@ Usage
 First, load the `salesforcer` package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth" in the current working directory.
 
 ``` r
-library(dplyr)
+suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 
 # Using OAuth 2.0 authentication
@@ -64,8 +66,8 @@ sf_auth(username = "test@gmail.com",
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Active?: %s", user_info$active)
-sprintf("User Id: %s", user_info$user_id)
+sprintf("User Id: %s", user_info$id)
+sprintf("User Active?: %s", user_info$isActive)
 ```
 
 ### Create
@@ -77,12 +79,13 @@ n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact")
+#> Auto-refreshing stale OAuth token.
 created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PsxbRQAR TRUE    <list [0]>
-#> 2 0036A00000PsxbSQAR TRUE    <list [0]>
+#> 1 0036A00000Pt0PdQAJ TRUE    <list [0]>
+#> 2 0036A00000Pt0PeQAJ TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -97,8 +100,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000PsxbRQAR Test      Contact-Create-1
-#> 2 0036A00000PsxbSQAR Test      Contact-Create-2
+#> 1 0036A00000Pt0PdQAJ Test      Contact-Create-1
+#> 2 0036A00000Pt0PeQAJ Test      Contact-Create-2
 ```
 
 ### Query
@@ -119,8 +122,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000PsxbRQAR Test      Contact-Create-1
-#> 2 0036A00000PsxbSQAR Test      Contact-Create-2
+#> 1 0036A00000Pt0PdQAJ Test      Contact-Create-1
+#> 2 0036A00000Pt0PeQAJ Test      Contact-Create-2
 ```
 
 ### Update
@@ -137,8 +140,8 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PsxbRQAR TRUE    <list [0]>
-#> 2 0036A00000PsxbSQAR TRUE    <list [0]>
+#> 1 0036A00000Pt0PdQAJ TRUE    <list [0]>
+#> 2 0036A00000Pt0PeQAJ TRUE    <list [0]>
 ```
 
 ### Delete
@@ -151,8 +154,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PsxbRQAR TRUE    <list [0]>
-#> 2 0036A00000PsxbSQAR TRUE    <list [0]>
+#> 1 0036A00000Pt0PdQAJ TRUE    <list [0]>
+#> 2 0036A00000Pt0PeQAJ TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -181,9 +184,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000PsxbWQAR true   
-#> 2 false   0036A00000PsxbXQAR true   
-#> 3 true    0036A00000PsxbbQAB true
+#> 1 false   0036A00000Pt0PiQAJ true   
+#> 2 false   0036A00000Pt0PjQAJ true   
+#> 3 true    0036A00000Pt0PnQAJ true
 ```
 
 ### Using the Bulk API

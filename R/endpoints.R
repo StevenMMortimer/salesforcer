@@ -9,6 +9,19 @@ make_login_url <- function(login_url){
           getOption("salesforcer.api_version"))
 }
 
+#' Chatter URL Generator
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_chatter_url <- function(){
+  # ensure we are authenticated first so the url can be formed
+  sf_token()
+  sprintf("%s/services/data/v%s/chatter/users/",
+          salesforcer_state()$instance_url,
+          getOption("salesforcer.api_version"))
+}
+
 #' Base REST API URL Generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.

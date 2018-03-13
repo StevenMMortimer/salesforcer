@@ -93,8 +93,8 @@ sf_auth(username = "test@gmail.com",
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Active?: %s", user_info$active)
-sprintf("User Id: %s", user_info$user_id)
+sprintf("User Id: %s", user_info$id)
+sprintf("User Active?: %s", user_info$isActive)
 ```
 
 ### Create
