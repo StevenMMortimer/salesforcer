@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check token availability — token_available • salesforcer</title>
+<title>Check that an Authorized Salesforce Session Exists — sf_auth_check • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,10 +27,14 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Check token availability — token_available" />
+<meta property="og:title" content="Check that an Authorized Salesforce Session Exists — sf_auth_check" />
 
-<meta property="og:description" content="Check if a token is available in salesforcer's internal
-.state environment." />
+<meta property="og:description" content="Before the user makes any calls requiring an authorized session, check if an 
+OAuth token or session is not already available, call sf_auth to 
+by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+launch browser flow. Return the bare token. Use
+access_token() to reveal the actual access token, suitable for use
+with curl." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,19 +120,34 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check token availability</h1>
+    <h1>Check that an Authorized Salesforce Session Exists</h1>
     </div>
 
     
-    <p>Check if a token is available in <code><a href='salesforcer.html'>salesforcer</a></code>'s internal
-<code>.state</code> environment.</p>
+    <p>Before the user makes any calls requiring an authorized session, check if an 
+OAuth token or session is not already available, call <code><a href='sf_auth.html'>sf_auth</a></code> to 
+by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+launch browser flow. Return the bare token. Use
+<code>access_token()</code> to reveal the actual access token, suitable for use
+with <code>curl</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>token_available</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-        
+    <pre class="usage"><span class='fu'>sf_auth_check</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical; do you want informative messages?</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>logical</p>
+    <p>a <code>Token2.0</code> object (an S3 class provided by <code>httr</code>) or a 
+a character string of the sessionId element of the current authorized 
+API session</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -139,6 +158,7 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 

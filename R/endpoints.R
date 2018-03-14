@@ -16,7 +16,7 @@ make_login_url <- function(login_url){
 #' @export
 make_chatter_url <- function(){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/data/v%s/chatter/users/",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"))
@@ -29,7 +29,7 @@ make_chatter_url <- function(){
 #' @export
 make_base_rest_url <- function(){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/data/v%s/",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"))
@@ -42,7 +42,7 @@ make_base_rest_url <- function(){
 #' @export
 make_base_soap_url <- function(){
   # ensure we are authenticated first so the url can be formed
-  sf_token()  
+  sf_auth_check()  
   sprintf('%s/services/Soap/u/%s', 
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"))
@@ -56,7 +56,7 @@ make_base_soap_url <- function(){
 #' @export
 make_query_url <- function(soql, queryall, next_records_url){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   if(!is.null(next_records_url)){
     # pull more records from a previous query
     query_url <- sprintf('%s%s', 
@@ -80,7 +80,7 @@ make_query_url <- function(soql, queryall, next_records_url){
 #' @export
 make_composite_url <- function(){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/data/v%s/composite/sobjects",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"))
@@ -93,7 +93,7 @@ make_composite_url <- function(){
 #' @export
 make_bulk_create_job_url <- function(bulk_version="1.0"){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   if(bulk_version == "2.0"){
     sprintf("%s/services/data/v%s/jobs/ingest",
             salesforcer_state()$instance_url,
@@ -112,7 +112,7 @@ make_bulk_create_job_url <- function(bulk_version="1.0"){
 #' @export
 make_bulk_get_job_url <- function(job_id){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/data/v%s/jobs/ingest/%s",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
@@ -126,7 +126,7 @@ make_bulk_get_job_url <- function(job_id){
 #' @export
 make_bulk_end_job_generic_url <- function(job_id, bulk_version="2.0"){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   if(bulk_version == "2.0"){
     sprintf("%s/services/data/v%s/jobs/ingest/%s",
             salesforcer_state()$instance_url,
@@ -147,7 +147,7 @@ make_bulk_end_job_generic_url <- function(job_id, bulk_version="2.0"){
 #' @export
 make_bulk_delete_job_url <- function(job_id){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/data/v%s/jobs/ingest/%s",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
@@ -162,7 +162,7 @@ make_bulk_delete_job_url <- function(job_id){
 #' @export
 make_bulk_batches_url <- function(job_id, bulk_version="2.0"){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   if(bulk_version == "2.0"){
     sprintf("%s/services/data/v%s/jobs/ingest/%s/batches/",
             salesforcer_state()$instance_url,
@@ -183,7 +183,7 @@ make_bulk_batches_url <- function(job_id, bulk_version="2.0"){
 #' @export
 make_bulk_query_url <- function(job_id){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/async/%s/job/%s/batch",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
@@ -197,7 +197,7 @@ make_bulk_query_url <- function(job_id){
 #' @export
 make_bulk_batch_status_url <- function(job_id, batch_id){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/async/%s/job/%s/batch/%s",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
@@ -211,7 +211,7 @@ make_bulk_batch_status_url <- function(job_id, batch_id){
 #' @export
 make_bulk_batch_details_url <- function(job_id, batch_id){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/async/%s/job/%s/batch/%s/result",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
@@ -225,7 +225,7 @@ make_bulk_batch_details_url <- function(job_id, batch_id){
 #' @export
 make_bulk_query_result_url <- function(job_id, batch_id, result_id){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   sprintf("%s/services/async/%s/job/%s/batch/%s/result/%s",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
@@ -242,7 +242,7 @@ make_bulk_job_records_url <- function(job_id,
                                                       "failedResults", 
                                                       "unprocessedRecords")){
   # ensure we are authenticated first so the url can be formed
-  sf_token()
+  sf_auth_check()
   record_type <- match.arg(record_type)
   sprintf("%s/services/data/v%s/jobs/ingest/%s/%s/",
           salesforcer_state()$instance_url,

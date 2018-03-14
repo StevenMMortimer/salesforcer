@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check token availability — token_available • salesforcer</title>
+<title>Return access_token attribute of OAuth 2.0 Token — sf_access_token • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,10 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Check token availability — token_available" />
+<meta property="og:title" content="Return access_token attribute of OAuth 2.0 Token — sf_access_token" />
 
-<meta property="og:description" content="Check if a token is available in salesforcer's internal
-.state environment." />
+<meta property="og:description" content="Return access_token attribute of OAuth 2.0 Token" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,19 +115,28 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check token availability</h1>
+    <h1>Return access_token attribute of OAuth 2.0 Token</h1>
     </div>
 
     
-    <p>Check if a token is available in <code><a href='salesforcer.html'>salesforcer</a></code>'s internal
-<code>.state</code> environment.</p>
+    <p>Return access_token attribute of OAuth 2.0 Token</p>
     
 
-    <pre class="usage"><span class='fu'>token_available</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-        
+    <pre class="usage"><span class='fu'>sf_access_token</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical; do you want informative messages?</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>logical</p>
+    <p>character; a string of the access_token element of the current token in 
+force; otherwise NULL</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -139,6 +147,7 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 

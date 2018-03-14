@@ -181,31 +181,73 @@ is_legit_token <- function(x, verbose = FALSE) {
   
 }
 
-#' Produce Salesforce token
+#' Check that an Authorized Salesforce Session Exists
 #'
-#' If token is not already available, call \code{\link{sf_auth}} to either load
-#' from cache or initiate OAuth2.0 flow. Return the token -- not "bare" but,
-#' rather, prepared for inclusion in downstream requests. Use
+#' Before the user makes any calls requiring an authorized session, check if an 
+#' OAuth token or session is not already available, call \code{\link{sf_auth}} to 
+#' by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+#' launch browser flow. Return the bare token. Use
 #' \code{access_token()} to reveal the actual access token, suitable for use
 #' with \code{curl}.
 #'
-#' @importFrom httr config
-#' @return a \code{request} object (an S3 class provided by \code{httr})
-#'
+#' @template verbose
+#' @return a \code{Token2.0} object (an S3 class provided by \code{httr}) or a 
+#' a character string of the sessionId element of the current authorized 
+#' API session
+#' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-sf_token <- function(verbose = FALSE) {
-  if (!token_available(verbose = verbose)) sf_auth(verbose = verbose)
-  invisible(config(token = .state$token))
+#' @export
+sf_auth_check <- function(verbose = FALSE) {
+  if (!token_available(verbose) & !session_id_available(verbose)) {
+    # not auth'ed at all before a call that requires auth, so
+    # start up the OAuth 2.0 workflow that should work seamlessly
+    # if a cached file exists
+    sf_auth(verbose = verbose)
+    res <- .state$token
+  } else if(token_available(verbose)) {
+    res <- .state$token
+  } else if(session_id_available(verbose)) {
+    res <- .state$session_id
+  } else {
+    # somehow we've got a token and session id, just return the token
+    res <- .state$token
+  }
+  invisible(res)
+}
+
+#' Check session_id availability
+#'
+#' Check if a session_id is available in \code{\link{salesforcer}}'s internal
+#' \code{.state} environment.
+#'
+#' @return logical
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+session_id_available <- function(verbose = TRUE) {
+  if (is.null(.state$session_id)) {
+    if (verbose) {
+      message("The session_id is NULL in salesforcer's internal .state environment. ", 
+              "This can occur if the user is authorized using OAuth 2.0, which doesn't ", 
+              "require a session_id, or the user is not yet performed any authorization ", 
+              "routine.\n",
+              "When/if needed, 'salesforcer' will initiate authentication ",
+              "and authorization.\nOr run sf_auth() to trigger this explicitly.")
+    }
+    return(FALSE)
+  }
+  TRUE
 }
 
 #' Check token availability
 #'
-#' Check if a token is available in \code{\link{salesforcer}}' internal
+#' Check if a token is available in \code{\link{salesforcer}}'s internal
 #' \code{.state} environment.
 #'
 #' @return logical
-#'
+#' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
+#' @export
 token_available <- function(verbose = TRUE) {
   if (is.null(.state$token)) {
     if (verbose) {
@@ -217,8 +259,7 @@ token_available <- function(verbose = TRUE) {
       } else {
         message("No .httr-oauth file exists in current working directory.\n",
                 "When/if needed, 'salesforcer' will initiate authentication ",
-                "and authorization.\nOr run gs_auth() to trigger this ",
-                "explicitly.")
+                "and authorization.\nOr run sf_auth() to trigger this explicitly.")
       }
     }
     return(FALSE)
@@ -226,8 +267,28 @@ token_available <- function(verbose = TRUE) {
   TRUE
 }
 
-## useful when debugging
-access_token <- function() {
-  if (!token_available(verbose = TRUE)) return(NULL)
+#' Return access_token attribute of OAuth 2.0 Token
+#'
+#' @template verbose
+#' @return character; a string of the access_token element of the current token in 
+#' force; otherwise NULL
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_access_token <- function(verbose = TRUE) {
+  if (!token_available(verbose = verbose)) return(NULL)
   .state$token$credentials$access_token
+}
+
+#' Return session_id resulting from Basic auth routine
+#'
+#' @template verbose
+#' @return character; a string of the sessionId element of the current authorized 
+#' API session; otherwise NULL
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_session_id <- function(verbose = TRUE) {
+  if (!session_available(verbose = verbose)) return(NULL)
+  .state$session_id
 }

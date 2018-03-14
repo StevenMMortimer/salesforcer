@@ -9,6 +9,10 @@
 * `sf_user_info()` returning `argument is of length zero` because token is not 
 automatically refreshed before calling GET
 
+* `sf_token()` ignoring basic auth'ed sessions since it was only looking for a token 
+using `token_avaiable()`. Replace with `sf_auth_check()` so now it considers a 
+session or a token to be "available" (#1).
+
 # salesforcer 0.1.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0)
 
 ## Features
