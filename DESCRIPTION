@@ -1,8 +1,8 @@
 Package: salesforcer
-Title: An R package connecting to Salesforce APIs using tidy principles
+Title: An R Package Connecting to Salesforce APIs using Tidy Principles
 Version: 0.1.0
 Date: 2018-03-12
-Description: A package that connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs and emphasizes the use of tidy data principles and the tidyverse.
+Description: This package connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs, and utilizes tidy data principles.
 Authors@R: c(
     person("Steven", "Mortimer", , "reportmort@gmail.com", c("aut", "cre"))
     )
