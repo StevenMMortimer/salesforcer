@@ -174,7 +174,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="authenticate" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authenticate" class="anchor"></a>Authenticate</h3>
-<p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
+<p>First, load the <strong>salesforcer</strong> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
 <span class="kw">library</span>(salesforcer)
 
@@ -208,8 +208,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt0nkQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt0nlQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt4EeQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt4EfQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -222,8 +222,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt0nkQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt0nlQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt4EeQAJ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt4EfQAJ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -242,8 +242,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt0nkQAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt0nlQAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt4EeQAJ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt4EfQAJ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -258,8 +258,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt0nkQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt0nlQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt4EeQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt4EfQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -270,8 +270,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt0nkQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt0nlQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Pt4EeQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Pt4EfQAJ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -298,9 +298,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000Pt0npQAB true   </span>
-<span class="co">#&gt; 2 false   0036A00000Pt0nqQAB true   </span>
-<span class="co">#&gt; 3 true    0036A00000Pt0nuQAB true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000Pt4EtQAJ true   </span>
+<span class="co">#&gt; 2 false   0036A00000Pt4EuQAJ true   </span>
+<span class="co">#&gt; 3 true    0036A00000Pt4F3QAJ true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
@@ -318,8 +318,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt0oEQAR true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt0oFQAR true        Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt4FDQAZ true        Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt4FEQAZ true        Test      Contact-Create-2</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 4</span>
@@ -343,8 +343,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt0oEQAR Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt0oFQAR Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000Pt4FDQAZ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Pt4FEQAZ Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
@@ -353,8 +353,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   sf__Id             sf__Created id   </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000Pt0oEQAR false       &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000Pt0oFQAR false       &lt;NA&gt; </span>
+<span class="co">#&gt; 1 0036A00000Pt4FDQAZ false       &lt;NA&gt; </span>
+<span class="co">#&gt; 2 0036A00000Pt4FEQAZ false       &lt;NA&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $failedResults</span>
 <span class="co">#&gt; # A tibble: 0 x 3</span>
@@ -394,7 +394,7 @@ deleted_records
 <h2 class="hasAnchor">
 <a href="#more-information" class="anchor"></a>More Information</h2>
 <p>More information can be found at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a>.</p>
-<p><a href="#salesforcer-">Top of README</a></p>
+<p><a href="#salesforcer-">Top</a></p>
 <hr>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>

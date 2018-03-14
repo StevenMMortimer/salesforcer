@@ -81,8 +81,7 @@ VERB_n <- function(VERB, n = 5) {
       
       if(is.null(current_state$auth_method)){
         out <- VERB(url = url, add_headers(headers), ...)
-      }
-      else if(current_state$auth_method=='OAuth'){
+      } else if(current_state$auth_method=='OAuth'){
         if(grepl("/services/data/v[0-9]{2}.[0-9]{1}/jobs/ingest", url)){
           out <- VERB(url = url, add_headers(c(headers, "Authorization"=sprintf("Bearer %s", current_state$token$credentials$access_token))), ...)  
         } else if(grepl("/services/async", url)){

@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>An R package connecting to Salesforce APIs using tidy principles • salesforcer</title>
+<title>An R Package Connecting to Salesforce APIs using Tidy Principles • salesforcer</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="An R package connecting to Salesforce APIs using tidy principles">
-<meta property="og:description" content="A package that connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs and emphasizes the use of tidy data principles and the tidyverse.">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="An R Package Connecting to Salesforce APIs using Tidy Principles">
+<meta property="og:description" content="This package connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs, and utilizes tidy data principles.">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -178,8 +178,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt403QAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt404QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PtOHHQA3 TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000PtOHIQA3 TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -192,8 +192,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt403QAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt404QAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PtOHHQA3 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000PtOHIQA3 Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -212,8 +212,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Pt403QAB Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Pt404QAB Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PtOHHQA3 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000PtOHIQA3 Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -228,8 +228,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt403QAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt404QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PtOHHQA3 TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000PtOHIQA3 TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -240,8 +240,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt403QAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt404QAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000PtOHHQA3 TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000PtOHIQA3 TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -268,9 +268,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000Pt40DQAR true   </span>
-<span class="co">#&gt; 2 false   0036A00000Pt40EQAR true   </span>
-<span class="co">#&gt; 3 true    0036A00000Pt40SQAR true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000PtOHMQA3 true   </span>
+<span class="co">#&gt; 2 false   0036A00000PtOHNQA3 true   </span>
+<span class="co">#&gt; 3 true    0036A00000PtOHRQA3 true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
