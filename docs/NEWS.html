@@ -117,42 +117,46 @@
     </div>
 
 
-<div id="salesforcer-0-1-0-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#salesforcer-0-1-0-9000" class="anchor"></a>salesforcer 0.1.0.9000</h1>
-<div id="features" class="section level2">
+<div id="salesforcer-0-1-0-9000" class="section level2">
 <h2 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h2>
+<a href="#salesforcer-0-1-0-9000" class="anchor"></a>salesforcer 0.1.0.9000</h2>
+<div id="features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h3>
 <ul>
 <li>Nothing yet!</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p><code><a href="reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET</p></li>
 <li><p><code>sf_token()</code> ignoring basic auth’ed sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (#1).</p></li>
 </ul>
 </div>
 </div>
-<div id="salesforcer-0-1-0-release" class="section level1">
-<h1 class="hasAnchor">
-<a href="#salesforcer-0-1-0-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
-</h1>
-<div id="features-1" class="section level2">
+<div id="salesforcer-0-1-0-release" class="section level2">
 <h2 class="hasAnchor">
-<a href="#features-1" class="anchor"></a>Features</h2>
+<a href="#salesforcer-0-1-0-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
+</h2>
+<div id="features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features-1" class="anchor"></a>Features</h3>
 <ul>
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
-<li>CRUD operations (Create, Retrieve, Update, Delete) for REST and Bulk APIs:</li>
+<li>CRUD operations (Create, Retrieve, Update, Delete) for REST and Bulk APIs:
+<ul>
 <li><code><a href="reference/sf_create.html">sf_create()</a></code></li>
 <li><code><a href="reference/sf_retrieve.html">sf_retrieve()</a></code></li>
 <li><code><a href="reference/sf_update.html">sf_update()</a></code></li>
 <li><code><a href="reference/sf_upsert.html">sf_upsert()</a></code></li>
 <li><code><a href="reference/sf_delete.html">sf_delete()</a></code></li>
-<li>Backwards compatibile versions of <strong>RForcecom</strong> package functions:</li>
+</ul>
+</li>
+<li>Backwards compatibile versions of <strong>RForcecom</strong> package functions:
+<ul>
 <li><code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code></li>
 <li><code><a href="reference/rforcecom.getServerTimestamp.html">rforcecom.getServerTimestamp()</a></code></li>
 <li><code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code></li>
@@ -161,13 +165,18 @@
 <li><code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code></li>
 <li><code><a href="reference/rforcecom.upsert.html">rforcecom.upsert()</a></code></li>
 <li><code><a href="reference/rforcecom.delete.html">rforcecom.delete()</a></code></li>
-<li>Basic utility calls:</li>
+</ul>
+</li>
+<li>Basic utility calls:
+<ul>
 <li><code><a href="reference/sf_user_info.html">sf_user_info()</a></code></li>
 <li><code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code></li>
 <li><code><a href="reference/sf_list_rest_api_versions.html">sf_list_rest_api_versions()</a></code></li>
 <li><code><a href="reference/sf_list_resources.html">sf_list_resources()</a></code></li>
 <li><code><a href="reference/sf_list_api_limits.html">sf_list_api_limits()</a></code></li>
 <li><code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
