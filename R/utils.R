@@ -312,7 +312,7 @@ build_soap_xml_from_list <- function(input_data,
       idx <- grep("^ID$|^IDS$", names(input_data), ignore.case=TRUE)
       names(input_data)[idx] <- "Id"
     }
-    stopifnot("id" %in% names(input_data))
+    stopifnot("Id" %in% names(input_data))
   }
   
   if(which_operation %in% c("search", "query")){

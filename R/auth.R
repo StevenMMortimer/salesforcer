@@ -211,7 +211,7 @@ sf_auth_check <- function(verbose = FALSE) {
     if(time_diff_in_sec > 3600){
       # the token is probably expired even though we have it so refresh
       # TODO: must be better way to validate the token.
-      sf_auth(verbose = verbose)
+      sf_auth_refresh(verbose = verbose)
     }
     res <- .state$token
   } else if(session_id_available(verbose)) {
@@ -221,6 +221,28 @@ sf_auth_check <- function(verbose = FALSE) {
     res <- .state$token
   }
   invisible(res)
+}
+
+#' Refresh an existing Authorized Salesforce Token
+#'
+#' Force the current OAuth to refresh. This is only needed for times when you 
+#' load the token from outside the current working directory, it is expired, and 
+#' you're running in non-interactive mode.
+#'
+#' @template verbose
+#' @return a \code{Token2.0} object (an S3 class provided by \code{httr}) or a 
+#' a character string of the sessionId element of the current authorized 
+#' API session
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_auth_refresh <- function(verbose = FALSE) {
+  if(token_available(verbose)){
+    .state$token <- .state$token$refresh()
+  } else {
+    message("No token found. sf_auth_refresh only refreshes OAuth tokens")
+  }
+  invisible(.state$token)
 }
 
 #' Check session_id availability

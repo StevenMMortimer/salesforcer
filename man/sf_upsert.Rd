@@ -4,8 +4,8 @@
 \alias{sf_upsert}
 \title{Upsert Records}
 \usage{
-sf_upsert(input_data, object, external_id_fieldname, all_or_none = FALSE,
-  api_type = c("SOAP", "REST", "Bulk"), ..., verbose = FALSE)
+sf_upsert(input_data, object, external_id_fieldname, api_type = c("SOAP",
+  "REST", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -18,9 +18,6 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 \item{external_id_fieldname}{character; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
-
-\item{all_or_none}{logical; allows a call to roll back all changes unless all 
-records are processed successfully}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
 which API to use when making the request}
@@ -39,15 +36,15 @@ Upserts one or more new records to your organization’s data.
 \dontrun{
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
-                       LastName = paste0("Contact-Create-", 1:n), 
+                       LastName = paste0("Contact-Create-", 1:n),
                        My_External_Id__c=letters[1:n])
 new_contacts_result <- sf_create(new_contacts, "Contact")
 
 upserted_contacts <- tibble(FirstName = rep("Test", n),
-                            LastName = paste0("Contact-Upsert-", 1:n), 
+                            LastName = paste0("Contact-Upsert-", 1:n),
                             My_External_Id__c=letters[1:n])
 new_record <- tibble(FirstName = "Test",
-                     LastName = paste0("Contact-Upsert-", n+1), 
+                     LastName = paste0("Contact-Upsert-", n+1),
                      My_External_Id__c=letters[n+1])
 upserted_contacts <- bind_rows(upserted_contacts, new_record)
 

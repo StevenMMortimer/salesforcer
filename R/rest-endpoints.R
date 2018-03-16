@@ -90,7 +90,6 @@ make_parameterized_search_url <- function(search_string=NULL, params=NULL){
 #' Search URL Generator
 #' 
 #' @importFrom xml2 url_escape
-#' @importFrom httr build_url parse_url
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -101,11 +100,18 @@ make_search_url <- function(search_string){
 
 #' Describe Objects URL Generator
 #' 
-#' @importFrom xml2 url_escape
-#' @importFrom httr build_url parse_url
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
 make_describe_objects_url <- function(object){
   paste0(make_base_rest_url(), "sobjects/", object, "/")
+}
+
+#' Composite Batch URL Generator
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_composite_batch_url <- function(){
+  paste0(make_base_rest_url(), "composite/batch/")
 }

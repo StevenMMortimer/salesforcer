@@ -5,7 +5,7 @@
 \title{Create Records}
 \usage{
 sf_create(input_data, object, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk", "Async"), ..., verbose = FALSE)
+  "SOAP", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -33,8 +33,9 @@ Adds one or more new records to your organization’s data.
 \examples{
 \dontrun{
 n <- 3
-new_contacts <- tibble(FirstName = rep("Test", n), 
+new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact", 1:n))
-new_contacts_result <- sf_create(new_contacts, object="Contact")                            
+new_contacts_result <- sf_create(new_contacts, object="Contact")
+new_contacts_result <- sf_create(new_contacts, object="Contact", api_type="SOAP")
 }
 }

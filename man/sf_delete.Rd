@@ -5,7 +5,7 @@
 \title{Delete Records}
 \usage{
 sf_delete(ids, object, all_or_none = FALSE, api_type = c("REST", "SOAP",
-  "Bulk", "Async"), ..., verbose = FALSE)
+  "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 
