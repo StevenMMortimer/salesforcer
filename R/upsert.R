@@ -131,6 +131,7 @@ sf_upsert <- function(input_data,
       for(i in 1:nrow(temp)){
         this_id <- temp[i,external_id_fieldname]
         temptemp <- temp[,-(which(names(temp) == external_id_fieldname))]
+        temptemp <- temptemp[,!grepl("^ID$|^IDS$", names(temptemp), ignore.case=TRUE)]
         inner_requests[[i]] <- list(method="PATCH", 
                                     url=paste0("v", getOption("salesforcer.api_version"), 
                                                "/sobjects/", object, "/", 
