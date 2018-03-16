@@ -2,7 +2,7 @@
 
 ### Features
 
-* Nothing yet!
+  * Add `sf_search()` with REST and SOAP API support for SOSL and free text search
 
 ### Bug Fixes
 

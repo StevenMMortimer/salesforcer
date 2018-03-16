@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update Records — sf_update • salesforcer</title>
+<title>Auxiliary for Controlling Parametrized Searches — parameterized_search_control • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Update Records — sf_update" />
+<meta property="og:title" content="Auxiliary for Controlling Parametrized Searches — parameterized_search_control" />
 
-<meta property="og:description" content="Updates one or more new records to your organization’s data." />
+<meta property="og:description" content="A function for allowing finer grained control over how a search is performed
+when not using SOSL" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -115,68 +116,67 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update Records</h1>
+    <h1>Auxiliary for Controlling Parametrized Searches</h1>
     </div>
 
     
-    <p>Updates one or more new records to your organization’s data.</p>
+    <p>A function for allowing finer grained control over how a search is performed
+when not using SOSL</p>
     
 
-    <pre class="usage"><span class='fu'>sf_update</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>,
-  <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>parameterized_search_control</span>(<span class='kw'>objects</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fields_scope</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ALL"</span>, <span class='st'>"NAME"</span>,
+  <span class='st'>"EMAIL"</span>, <span class='st'>"PHONE"</span>, <span class='st'>"SIDEBAR"</span>), <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>overall_limit</span> <span class='kw'>=</span> <span class='fl'>2000</span>,
+  <span class='kw'>spell_correction</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code> and there must be 
-a column called Id (case-insensitive) that can be passed in the request</p></td>
+      <th>objects</th>
+      <td><p>character; objects to search and return in the response. Multiple 
+objects can be provided as a character vector</p></td>
     </tr>
     <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+      <th>fields_scope</th>
+      <td><p>character; scope of fields to search in order to limit the resources 
+used and improve performance</p></td>
     </tr>
     <tr>
-      <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all 
-records are processed successfully</p></td>
+      <th>fields</th>
+      <td><p>character; one or more fields to return in the response for each 
+sobject specified. If no fields are specified only the Ids of the matching records 
+are returned.</p></td>
     </tr>
     <tr>
-      <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
-which API to use when making the request</p></td>
+      <th>overall_limit</th>
+      <td><p>numeric; the maximum number of results to return across 
+all sobject parameters specified.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <th>spell_correction</th>
+      <td><p>logical; specifies whether spell correction should be
+enabled for a user’s search.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tibble</code></p>
+    <p><code>list</code> of parameters passed onto sf_search</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_search_parameterized.htm#resources_search_parameterized'>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_search_parameterized.htm#resources_search_parameterized</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
-
-<span class='no'>update_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"TestTest"</span>, <span class='no'>n</span>),
-                          <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                          <span class='kw'>Id</span> <span class='kw'>=</span> <span class='no'>new_contacts_result</span>$<span class='no'>id</span>)
-<span class='no'>updated_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>update_contacts</span>, <span class='st'>"Contact"</span>)
-<span class='no'>updated_contacts_result2</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>update_contacts</span>, <span class='st'>"Contact"</span>,
-                                      <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk"</span>)
+<span class='co'># free text search only on Contact record Phone fields</span>
+<span class='co'># this will improve the performance of the search</span>
+<span class='no'>my_phone_search</span> <span class='kw'>&lt;-</span> <span class='st'>"(336)"</span>
+<span class='no'>search_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_search.html'>sf_search</a></span>(<span class='no'>my_phone_search</span>,
+                           <span class='kw'>objects</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Contact"</span>, <span class='st'>"Lead"</span>),
+                           <span class='kw'>fields_scope</span> <span class='kw'>=</span> <span class='st'>"PHONE"</span>,
+                           <span class='kw'>fields</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Id"</span>, <span class='st'>"FirstName"</span>, <span class='st'>"LastName"</span>))
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -185,6 +185,8 @@ which API to use when making the request</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

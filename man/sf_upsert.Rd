@@ -5,7 +5,7 @@
 \title{Upsert Records}
 \usage{
 sf_upsert(input_data, object, external_id_fieldname, all_or_none = FALSE,
-  api_type = c("SOAP", "REST", "Bulk", "Async"), ..., verbose = FALSE)
+  api_type = c("SOAP", "REST", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

@@ -45,7 +45,7 @@ sf_upsert <- function(input_data,
                       object,
                       external_id_fieldname,
                       all_or_none = FALSE,
-                      api_type = c("SOAP", "REST", "Bulk", "Async"),
+                      api_type = c("SOAP", "REST", "Bulk"),
                       ...,
                       verbose = FALSE){
   
@@ -115,7 +115,7 @@ sf_upsert <- function(input_data,
                                    external_id_fieldname = external_id_fieldname,
                                    verbose=verbose, ...)
   } else {
-    stop("Queries using the REST and Aysnc APIs has not yet been implemented, use SOAP or Bulk")
+    stop("Upserts using the REST API have not yet been implemented, use SOAP or Bulk")
   }
   
   return(resultset)

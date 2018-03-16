@@ -1,7 +1,7 @@
 ---
 title: "Working with Bulk API"
 author: "Steven M. Mortimer"
-date: "`r Sys.Date()`"
+date: "2018-03-12"
 output:
   rmarkdown::html_vignette:
     toc: true

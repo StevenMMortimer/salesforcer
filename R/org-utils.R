@@ -11,7 +11,7 @@
 #' @export
 sf_user_info <- function(){
   # ensure we are authenticated first so the url can be formed
-  chatter_url <- make_chatter_url()
+  chatter_url <- make_chatter_users_url()
   httr_response <- rGET(sprintf("%s%s", chatter_url, "me"))
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')

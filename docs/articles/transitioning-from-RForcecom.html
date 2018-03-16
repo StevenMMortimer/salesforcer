@@ -88,7 +88,7 @@
       <h1>Transitioning from RForcecom</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2018-03-13</h4>
+            <h4 class="date">2018-03-12</h4>
           </div>
 
     
@@ -107,20 +107,12 @@ session1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span 
                                        <span class="dt">apiVersion=</span><span class="kw">getOption</span>(<span class="st">"salesforcer.api_version"</span>))
 session1[<span class="st">'sessionID'</span>] &lt;-<span class="st"> "{MASKED}"</span>
 session1
-<span class="co">#&gt;                      sessionID                    instanceURL </span>
-<span class="co">#&gt;                     "{MASKED}" "https://na50.salesforce.com/" </span>
-<span class="co">#&gt;                     apiVersion </span>
-<span class="co">#&gt;                         "42.0"</span>
 
 <span class="co"># replicated in salesforcer package</span>
 session2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.login">rforcecom.login</a></span>(username, <span class="kw">paste0</span>(password, security_token), 
                                          <span class="dt">apiVersion=</span><span class="kw">getOption</span>(<span class="st">"salesforcer.api_version"</span>))
 session2[<span class="st">'sessionID'</span>] &lt;-<span class="st"> "{MASKED}"</span>
-session2
-<span class="co">#&gt;                      sessionID                    instanceURL </span>
-<span class="co">#&gt;                     "{MASKED}" "https://na50.salesforce.com/" </span>
-<span class="co">#&gt;                     apiVersion </span>
-<span class="co">#&gt;                         "42.0"</span></code></pre></div>
+session2</code></pre></div>
 <p>Note that we must set the API version here because calls to session will not create a new sessionId and then we are stuck with version 35.0 (the default from RForcecom::rforcecom.login). Some functions in <strong>salesforcer</strong> implement API calls that are only available after version 35.0.</p>
 </div>
 <div id="crud-operations" class="section level3">
@@ -133,14 +125,10 @@ fields &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">
 <span class="co"># the RForcecom way</span>
 result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result1
-<span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000Pt44ZQAR    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
-result2
-<span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000Pt44eQAB    TRUE</span></code></pre></div>
+result2</code></pre></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
@@ -155,18 +143,10 @@ rforcecom_results &lt;-<span class="st"> </span><span class="ot">NULL</span>
   rforcecom_results &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(rforcecom_results, temp)
 }
 rforcecom_results
-<span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000Pt44jQAB    true</span>
-<span class="co">#&gt; 2 0036A00000Pt44oQAB    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
-salesforcer_results
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   id                 success errors    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000Pt44tQAB TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000Pt44uQAB TRUE    &lt;list [0]&gt;</span></code></pre></div>
+salesforcer_results</code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -177,49 +157,14 @@ salesforcer_results
 <span class="co"># the RForcecom way</span>
 result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.query">rforcecom.query</a></span>(session, <span class="dt">soqlQuery =</span> this_soql)
 <span class="kw">head</span>(result1)
-<span class="co">#&gt;                   Id                     Email</span>
-<span class="co">#&gt; 1 0036A000002C6MWQA0             rose@edge.com</span>
-<span class="co">#&gt; 2 0036A000002C6MXQA0             sean@edge.com</span>
-<span class="co">#&gt; 3 0036A000002C6MYQA0    jrogers@burlington.com</span>
-<span class="co">#&gt; 4 0036A000002C6MbQAK  barr_tim@grandhotels.com</span>
-<span class="co">#&gt; 5 0036A000002C6McQAK bond_john@grandhotels.com</span>
-<span class="co">#&gt; 6 0036A000002C6MdQAK          spavlova@uog.com</span>
 
 <span class="co"># replicated in salesforcer package</span>
 result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.query">rforcecom.query</a></span>(session, <span class="dt">soqlQuery =</span> this_soql)
 result2
-<span class="co">#&gt; # A tibble: 103 x 2</span>
-<span class="co">#&gt;    Id                 Email                    </span>
-<span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;                    </span>
-<span class="co">#&gt;  1 0036A000002C6MWQA0 rose@edge.com            </span>
-<span class="co">#&gt;  2 0036A000002C6MXQA0 sean@edge.com            </span>
-<span class="co">#&gt;  3 0036A000002C6MYQA0 jrogers@burlington.com   </span>
-<span class="co">#&gt;  4 0036A000002C6MbQAK barr_tim@grandhotels.com </span>
-<span class="co">#&gt;  5 0036A000002C6McQAK bond_john@grandhotels.com</span>
-<span class="co">#&gt;  6 0036A000002C6MdQAK spavlova@uog.com         </span>
-<span class="co">#&gt;  7 0036A000002C6MeQAK lboyle@uog.com           </span>
-<span class="co">#&gt;  8 0036A000002C6MfQAK b.levy@expressl&amp;t.net    </span>
-<span class="co">#&gt;  9 0036A000002C6MgQAK j.davis@expressl&amp;t.net   </span>
-<span class="co">#&gt; 10 0036A000002C6MhQAK jane_gray@uoa.edu        </span>
-<span class="co">#&gt; # ... with 93 more rows</span>
 
 <span class="co"># the better way in salesforcer to query</span>
 salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(this_soql)
-salesforcer_results
-<span class="co">#&gt; # A tibble: 103 x 2</span>
-<span class="co">#&gt;    Id                 Email                    </span>
-<span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;                    </span>
-<span class="co">#&gt;  1 0036A000002C6MWQA0 rose@edge.com            </span>
-<span class="co">#&gt;  2 0036A000002C6MXQA0 sean@edge.com            </span>
-<span class="co">#&gt;  3 0036A000002C6MYQA0 jrogers@burlington.com   </span>
-<span class="co">#&gt;  4 0036A000002C6MbQAK barr_tim@grandhotels.com </span>
-<span class="co">#&gt;  5 0036A000002C6McQAK bond_john@grandhotels.com</span>
-<span class="co">#&gt;  6 0036A000002C6MdQAK spavlova@uog.com         </span>
-<span class="co">#&gt;  7 0036A000002C6MeQAK lboyle@uog.com           </span>
-<span class="co">#&gt;  8 0036A000002C6MfQAK b.levy@expressl&amp;t.net    </span>
-<span class="co">#&gt;  9 0036A000002C6MgQAK j.davis@expressl&amp;t.net   </span>
-<span class="co">#&gt; 10 0036A000002C6MhQAK jane_gray@uoa.edu        </span>
-<span class="co">#&gt; # ... with 93 more rows</span></code></pre></div>
+salesforcer_results</code></pre></div>
 <p>In the future more features will be migrated from <strong>RForcecom</strong> to make the transition as seamless as possible.</p>
 </div>
 </div>

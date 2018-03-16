@@ -246,7 +246,7 @@ make_soap_xml_skeleton <- function(){
   header_node <- newXMLNode("soapenv:Header", parent=root)
   sheader_node <- newXMLNode("urn:SessionHeader", parent=header_node)
   sid_node <- newXMLNode("urn:sessionId",
-                         salesforcer_state()$token$credentials$access_token,
+                         sf_access_token(),
                          parent=sheader_node)
   return(root)
 }
@@ -269,49 +269,90 @@ make_soap_xml_skeleton <- function(){
 #' @keywords internal
 #' @export
 build_soap_xml_from_list <- function(input_data,
-                                     operation,
-                                     object,
-                                     external_id_fieldname,
+                                     operation = c("create", "retrieve", 
+                                                   "update", "upsert", 
+                                                   "delete", "search", "query"),
+                                     object=NULL,
+                                     external_id_fieldname=NULL,
                                      root_name = NULL, 
                                      ns = c(character(0)),
                                      root = NULL){
   
+  # ensure that if root is NULL that root_name is not also NULL
+  # this is so we have something to create the root node
   stopifnot(!is.null(root_name) | !is.null(root))
+  which_operation <- match.arg(operation)
   
   if (is.null(root))
     root <- newXMLNode(root_name, namespaceDefinitions = ns)
   
   body_node <- newXMLNode("soapenv:Body", parent=root)
-  operation_node <- newXMLNode(sprintf("urn:%s", operation),
+  operation_node <- newXMLNode(sprintf("urn:%s", which_operation),
                                parent=body_node)
   
-  if(operation == "upsert"){
+  if(which_operation == "upsert"){
+    stopifnot(!is.null(external_id_fieldname))
     external_field_node <- newXMLNode("urn:externalIDFieldName",
                                       external_id_fieldname,
                                       parent=operation_node)
   }
   
-  for(i in 1:nrow(input_data)){
+  # put everything into a data.frame format if it's not already
+  if(!is.data.frame(input_data)){
+    input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
+  }
+  
+  if(which_operation == "delete" & ncol(input_data) == 1){
+    names(input_data) <- "Id"
+  }
+  
+  if(which_operation %in% c("delete", "update")){
+    if(any(grepl("^ID$|^IDS$", names(input_data), ignore.case=TRUE))){
+      idx <- grep("^ID$|^IDS$", names(input_data), ignore.case=TRUE)
+      names(input_data)[idx] <- "Id"
+    }
+    stopifnot("id" %in% names(input_data))
+  }
+  
+  if(which_operation %in% c("search", "query")){
     
-    list <- as.list(input_data[i,,drop=FALSE])
+    element_name <- if(which_operation == "search") "urn:searchString" else "urn:queryString"
+    this_node <- newXMLNode(element_name, 
+                            input_data[1,1],
+                            parent=operation_node)
     
-    sobjects_node <- newXMLNode("urn:sObjects", parent=operation_node)
-    type_node <- newXMLNode("urn1:type", parent=sobjects_node)
-    xmlValue(type_node) <- object
+  } else if(which_operation == "delete"){
     
-    if(length(list) > 0){
-      for (i in 1:length(list)){
-        if (typeof(list[[i]]) == "list") {
-          this_node <- newXMLNode(names(list)[i], parent=sobjects_node)
-          build_soap_xml_from_list(list[[i]], 
-                                   operation=operation,
-                                   object=object,
-                                   external_id_fieldname=external_id_fieldname,
-                                   root=this_node)
-        } else {
-          if (!is.null(list[[i]])){
-            this_node <- newXMLNode(names(list)[i], parent=sobjects_node)
-            xmlValue(this_node) <- list[[i]]
+    for(i in 1:nrow(input_data)){
+      this_node <- newXMLNode("urn:ids", 
+                              input_data[i,"Id"],
+                              parent=operation_node)
+    }
+    
+  } else{
+    
+    for(i in 1:nrow(input_data)){
+      list <- as.list(input_data[i,,drop=FALSE])
+      this_row_node <- newXMLNode("urn:sObjects", parent=operation_node)
+      # if the body elements are objects we must list the type of object 
+      # under each block of XML for the row
+      type_node <- newXMLNode("urn1:type", parent=this_row_node)
+      xmlValue(type_node) <- object
+      
+      if(length(list) > 0){
+        for (i in 1:length(list)){
+          if (typeof(list[[i]]) == "list") {
+            this_node <- newXMLNode(names(list)[i], parent=this_row_node)
+            build_soap_xml_from_list(list[[i]], 
+                                     operation=operation,
+                                     object=object,
+                                     external_id_fieldname=external_id_fieldname,
+                                     root=this_node)
+          } else {
+            if (!is.null(list[[i]])){
+              this_node <- newXMLNode(names(list)[i], parent=this_row_node)
+              xmlValue(this_node) <- list[[i]]
+            }
           }
         }
       }

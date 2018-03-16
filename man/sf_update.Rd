@@ -5,7 +5,7 @@
 \title{Update Records}
 \usage{
 sf_update(input_data, object, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk", "Async"), ..., verbose = FALSE)
+  "SOAP", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

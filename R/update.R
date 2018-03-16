@@ -33,7 +33,7 @@
 sf_update <- function(input_data,
                       object,
                       all_or_none = FALSE,
-                      api_type = c("REST", "SOAP", "Bulk", "Async"),
+                      api_type = c("REST", "SOAP", "Bulk"),
                       ...,
                       verbose = FALSE){
   
@@ -49,8 +49,8 @@ sf_update <- function(input_data,
     if(!is.data.frame(input_data)){
       input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
     }
-    if(any(grepl("ID|Id", names(input_data), ignore.case=FALSE))){
-      idx <- grep("ID|Id", names(input_data))
+    if(any(grepl("^ID$|^IDS$", names(input_data), ignore.case=TRUE))){
+      idx <- grep("^ID$|^IDS$", names(input_data), ignore.case=TRUE)
       names(input_data)[idx] <- "id"
     }
     stopifnot("id" %in% names(input_data))
@@ -96,7 +96,7 @@ sf_update <- function(input_data,
   } else if(which_api == "Bulk"){
     resultset <- sf_bulk_operation(input_data, object, operation="update", verbose=verbose)
   } else {
-    stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
+    stop("Updates using the SOAP API have not yet been implemented, use REST or Bulk")
   }
   
   return(resultset)

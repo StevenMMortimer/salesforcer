@@ -7,7 +7,6 @@
 #' @importFrom httr content
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert
-#' @importFrom dplyr as_tibble
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 #' @template soql
 #' @template object

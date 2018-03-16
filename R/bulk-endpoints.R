@@ -1,91 +1,3 @@
-#' Login URL Generator
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-make_login_url <- function(login_url){
-  sprintf('%s/services/Soap/u/%s', 
-          login_url, 
-          getOption("salesforcer.api_version"))
-}
-
-#' Chatter URL Generator
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-make_chatter_url <- function(){
-  # ensure we are authenticated first so the url can be formed
-  sf_auth_check()
-  sprintf("%s/services/data/v%s/chatter/users/",
-          salesforcer_state()$instance_url,
-          getOption("salesforcer.api_version"))
-}
-
-#' Base REST API URL Generator
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-make_base_rest_url <- function(){
-  # ensure we are authenticated first so the url can be formed
-  sf_auth_check()
-  sprintf("%s/services/data/v%s/",
-          salesforcer_state()$instance_url,
-          getOption("salesforcer.api_version"))
-}
-
-#' Base SOAP API URL Generator
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-make_base_soap_url <- function(){
-  # ensure we are authenticated first so the url can be formed
-  sf_auth_check()  
-  sprintf('%s/services/Soap/u/%s', 
-          salesforcer_state()$instance_url,
-          getOption("salesforcer.api_version"))
-}
-
-#' Query URL Generator
-#' 
-#' @importFrom xml2 url_escape
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-make_query_url <- function(soql, queryall, next_records_url){
-  # ensure we are authenticated first so the url can be formed
-  sf_auth_check()
-  if(!is.null(next_records_url)){
-    # pull more records from a previous query
-    query_url <- sprintf('%s%s', 
-                         salesforcer_state()$instance_url, 
-                         next_records_url)
-  } else {
-    # set the url based on the query
-    query_url <- sprintf('%s/services/data/v%s/%s/?q=%s', 
-                         salesforcer_state()$instance_url,
-                         getOption("salesforcer.api_version"),
-                         if(queryall) "queryAll" else "query",
-                         url_escape(soql))
-  }
-  return(query_url)
-}
-
-#' Composite URL Generator
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-make_composite_url <- function(){
-  # ensure we are authenticated first so the url can be formed
-  sf_auth_check()
-  sprintf("%s/services/data/v%s/composite/sobjects",
-          salesforcer_state()$instance_url,
-          getOption("salesforcer.api_version"))
-}
-
 #' Bulk Create Job URL Generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -154,7 +66,7 @@ make_bulk_delete_job_url <- function(job_id){
           job_id)
 }
 
-#' Query URL Generator
+#' Bulk Batches URL Generator
 #' 
 #' @importFrom xml2 url_escape
 #' @note This function is meant to be used internally. Only use when debugging.

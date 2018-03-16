@@ -289,6 +289,6 @@ sf_access_token <- function(verbose = TRUE) {
 #' @keywords internal
 #' @export
 sf_session_id <- function(verbose = TRUE) {
-  if (!session_available(verbose = verbose)) return(NULL)
+  if (!session_id_available(verbose = verbose)) return(NULL)
   .state$session_id
 }

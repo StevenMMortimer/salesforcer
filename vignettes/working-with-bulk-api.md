@@ -1,7 +1,7 @@
 ---
 title: "Working with Bulk API"
 author: "Steven M. Mortimer"
-date: "2018-03-13"
+date: "2018-03-12"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -40,8 +40,8 @@ rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt30vQAB TRUE    <list [0]>
-#> 2 0036A00000Pt30wQAB TRUE    <list [0]>
+#> 1 0036A00000PuOlWQAV TRUE    <list [0]>
+#> 2 0036A00000PuOlXQAV TRUE    <list [0]>
 # Bulk
 bulk_created_records <- sf_create(new_contacts, "Contact", api_type="Bulk")
 bulk_created_records
@@ -49,8 +49,8 @@ bulk_created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt310QAB true        Test      Contact-Create-1
-#> 2 0036A00000Pt311QAB true        Test      Contact-Create-2
+#> 1 0036A00000PuOlbQAF true        Test      Contact-Create-1
+#> 2 0036A00000PuOlcQAF true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -83,8 +83,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt315QAB true        Test      Contact-Create-1
-#> 2 0036A00000Pt316QAB true        Test      Contact-Create-2
+#> 1 0036A00000PuOlgQAF true        Test      Contact-Create-1
+#> 2 0036A00000PuOlhQAF true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -108,8 +108,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt315QAB Test      Contact-Create-1
-#> 2 0036A00000Pt316QAB Test      Contact-Create-2
+#> 1 0036A00000PuOlgQAF Test      Contact-Create-1
+#> 2 0036A00000PuOlhQAF Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
@@ -117,9 +117,9 @@ deleted_records
 #> $successfulResults
 #> # A tibble: 2 x 3
 #>   sf__Id             sf__Created id   
-#>   <chr>              <chr>       <chr>
-#> 1 0036A00000Pt315QAB false       <NA> 
-#> 2 0036A00000Pt316QAB false       <NA> 
+#>   <chr>              <chr>       <lgl>
+#> 1 0036A00000PuOlgQAF false       NA   
+#> 2 0036A00000PuOlhQAF false       NA   
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3

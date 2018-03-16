@@ -1,7 +1,7 @@
 ---
 title: "Transitioning from RForcecom"
 author: "Steven M. Mortimer"
-date: "2018-03-13"
+date: "2018-03-12"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -81,13 +81,13 @@ fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
 result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
 result1
 #>                   id success
-#> 1 0036A00000Pt30WQAR    true
+#> 1 0036A00000PuOl7QAF    true
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
 result2
 #>                   id success
-#> 1 0036A00000Pt30bQAB    TRUE
+#> 1 0036A00000PuOlCQAV    TRUE
 ```
 
 Here is an example showing the reduction in code of using **salesforcer** if you 
@@ -109,8 +109,8 @@ for(i in 1:nrow(new_contacts)){
 }
 rforcecom_results
 #>                   id success
-#> 1 0036A00000Pt30gQAB    true
-#> 2 0036A00000Pt30lQAB    true
+#> 1 0036A00000PuOlHQAV    true
+#> 2 0036A00000PuOlMQAV    true
 
 # the better way in salesforcer to do multiple records
 salesforcer_results <- sf_create(new_contacts, "Contact")
@@ -118,8 +118,8 @@ salesforcer_results
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt30qQAB TRUE    <list [0]>
-#> 2 0036A00000Pt30rQAB TRUE    <list [0]>
+#> 1 0036A00000PuOlRQAV TRUE    <list [0]>
+#> 2 0036A00000PuOlSQAV TRUE    <list [0]>
 ```
 
 ### Query
@@ -145,7 +145,7 @@ head(result1)
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
 result2
-#> # A tibble: 21 x 2
+#> # A tibble: 41 x 2
 #>    Id                 Email                    
 #>    <chr>              <chr>                    
 #>  1 0036A000002C6MWQA0 rose@edge.com            
@@ -158,12 +158,12 @@ result2
 #>  8 0036A000002C6MfQAK b.levy@expressl&t.net    
 #>  9 0036A000002C6MgQAK j.davis@expressl&t.net   
 #> 10 0036A000002C6MhQAK jane_gray@uoa.edu        
-#> # ... with 11 more rows
+#> # ... with 31 more rows
 
 # the better way in salesforcer to query
 salesforcer_results <- sf_query(this_soql)
 salesforcer_results
-#> # A tibble: 21 x 2
+#> # A tibble: 41 x 2
 #>    Id                 Email                    
 #>    <chr>              <chr>                    
 #>  1 0036A000002C6MWQA0 rose@edge.com            
@@ -176,7 +176,7 @@ salesforcer_results
 #>  8 0036A000002C6MfQAK b.levy@expressl&t.net    
 #>  9 0036A000002C6MgQAK j.davis@expressl&t.net   
 #> 10 0036A000002C6MhQAK jane_gray@uoa.edu        
-#> # ... with 11 more rows
+#> # ... with 31 more rows
 ```
 
 In the future more features will be migrated from **RForcecom** to make the 

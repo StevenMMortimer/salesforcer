@@ -173,63 +173,81 @@ rforcecom.upsert <- function(session, objectName,
   return(NULL)
 }
 
+#' salesforcer's backwards compatible version of rforcecom.search
+#'
+#' @template session 
+#' @param queryString Query strings to search. (ex: "United", "Electoronics")
+#' @export
+rforcecom.search <- function(session, queryString){
+  .Deprecated("sf_search")
+  
+  queryString <- paste0("FIND {", queryString, "}", sep="")
+  resultset <- sf_search(search_string = queryString, is_sosl=TRUE)
+  return(resultset)
+}
+
+#' salesforcer's backwards compatible version of rforcecom.retrieve
+#'
+#' @template session 
+#' @template objectName
+#' @param fields A List of field names. (ex: c("Id", "Name", "Industry", 
+#' "AnnualRevenue)"))
+#' @param limit Number of the records to retrieve. (ex: 5)
+#' @param id Record ID to retrieve. (ex: "999x000000xxxxxZZZ")
+#' @param offset Specifies the starting row offset. (ex: "100")
+#' @param order A list for controling the order of query results. 
+#' (ex: "c("Industry","Name")")
+#' @param inverse If it is TRUE, the results are ordered in descending order. 
+#' This parameter works when order parameter has been set. (Default: FALSE)
+#' @param nullsLast If it is TRUE, null records list in last. If not null records 
+#' list in first. This parameter works when order parameter has been set. 
+#' (Default: FALSE)
+#' @export
+rforcecom.retrieve <- function(session, objectName,
+                               fields, limit=NULL, id=NULL,
+                               offset=NULL, order=NULL,
+                               inverse=NULL, nullsLast=NULL){
+  .Deprecated("sf_retrieve")
+
+  # Make SOQL
+  fieldList <- paste(fields, collapse=", ")
+  soqlQuery <- paste("SELECT", fieldList, "FROM", objectName, sep=" ")
+
+  # Add an id
+  if(!is.null(id)){
+    soqlQuery <- paste(soqlQuery, " WHERE Id ='", id, "'", sep="")
+  }
+
+  # Add order phrase
+  if(!is.null(order)){
+    if(is.list(order)){ orderList <- paste(order, collapse=", ") }
+    else{ orderList <- order }
+    soqlQuery <- paste(soqlQuery, " ORDER BY ", orderList, sep="")
+    if(!is.null(inverse) && inverse == T){
+      soqlQuery <- paste(soqlQuery, " DESC", sep="")
+    }
+    if(!is.null(nullsLast) && nullsLast == T){
+      soqlQuery <- paste(soqlQuery, " NULLS LAST", sep="")
+    }
+  }
+
+  # Add limit phrase
+  if(!is.null(limit)){
+    soqlQuery <- paste(soqlQuery, " LIMIT ",limit, sep="")
+  }
+
+  # Add offset phrase
+  if(!is.null(offset)){
+    soqlQuery <- paste(soqlQuery, " OFFSET ",offset, sep="")
+  }
+
+  # Send a query
+  suppressWarnings(resultSet <- rforcecom.query(session, soqlQuery))
+  return(resultSet)
+}
 
 # functions waiting to be made compatible --------------------------------------
 
- 
-#' #' salesforcer's backwards compatible version of rforcecom.retrieve
-#' #'
-#' #' @export
-#' rforcecom.retrieve <- function(session, objectName, 
-#'                                fields, limit=NULL, id=NULL, 
-#'                                offset=NULL, order=NULL, 
-#'                                inverse=NULL, nullsLast=NULL){
-#'   .Deprecated("sf_retrieve")
-#'   
-#'   # Make SOQL
-#'   fieldList <- paste(fields, collapse=", ")
-#'   soqlQuery <- paste("SELECT", fieldList, "FROM", objectName, sep=" ")
-#'   
-#'   # Add an id
-#'   if(!is.null(id)){
-#'     soqlQuery <- paste(soqlQuery, " WHERE Id ='", id, "'", sep="")
-#'   }
-#'   
-#'   # Add order phrase
-#'   if(!is.null(order)){
-#'     if(is.list(order)){ orderList <- paste(order, collapse=", ") }
-#'     else{ orderList <- order }
-#'     soqlQuery <- paste(soqlQuery, " ORDER BY ", orderList, sep="")
-#'     if(!is.null(inverse) && inverse == T){
-#'       soqlQuery <- paste(soqlQuery, " DESC", sep="")
-#'     }
-#'     if(!is.null(nullsLast) && nullsLast == T){
-#'       soqlQuery <- paste(soqlQuery, " NULLS LAST", sep="")
-#'     }
-#'   }
-#'   
-#'   # Add limit phrase
-#'   if(!is.null(limit)){
-#'     soqlQuery <- paste(soqlQuery, " LIMIT ",limit, sep="")
-#'   }
-#'   
-#'   # Add offset phrase
-#'   if(!is.null(offset)){
-#'     soqlQuery <- paste(soqlQuery, " OFFSET ",offset, sep="")
-#'   }
-#'   
-#'   # Send a query
-#'   resultSet <- rforcecom.query(session, soqlQuery)
-#'   return(resultSet)
-#' }
-#' 
-#' #' salesforcer's backwards compatible version of rforcecom.search
-#' #' 
-#' #' @export
-#' rforcecom.search <- function(){
-#'   .Deprecated("sf_search")
-#' }
-#' 
 #' #' salesforcer's backwards compatible version of rforcecom.bulkAction
 #' #' 
 #' #' @export
