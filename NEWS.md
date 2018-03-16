@@ -3,6 +3,7 @@
 ### Features
 
   * Add `sf_search()` with REST and SOAP API support for SOSL and free text search
+  * Add `sf_describe_objects()` with REST and SOAP API to return object metadata
 
 ### Bug Fixes
 

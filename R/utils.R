@@ -237,7 +237,7 @@ xml_nodeset_to_df <- function(this_node){
 #' @keywords internal
 #' @export
 make_soap_xml_skeleton <- function(){
-  
+  sf_auth_check()
   root <- newXMLNode("soapenv:Envelope", 
                      namespaceDefinitions = c("soapenv" = "http://schemas.xmlsoap.org/soap/envelope/",
                                               "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
@@ -271,7 +271,8 @@ make_soap_xml_skeleton <- function(){
 build_soap_xml_from_list <- function(input_data,
                                      operation = c("create", "retrieve", 
                                                    "update", "upsert", 
-                                                   "delete", "search", "query"),
+                                                   "delete", "search", 
+                                                   "query", "describeSObjects"),
                                      object=NULL,
                                      external_id_fieldname=NULL,
                                      root_name = NULL, 
@@ -329,7 +330,15 @@ build_soap_xml_from_list <- function(input_data,
                               parent=operation_node)
     }
     
-  } else{
+  } else if(which_operation == "describeSObjects"){
+    
+    for(i in 1:nrow(input_data)){
+      this_node <- newXMLNode("urn:sObjectType", 
+                              input_data[i,"sObjectType"],
+                              parent=operation_node)
+    }
+    
+  } else {
     
     for(i in 1:nrow(input_data)){
       list <- as.list(input_data[i,,drop=FALSE])

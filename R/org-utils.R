@@ -31,7 +31,8 @@ sf_user_info <- function(){
 #' }
 #' @export
 sf_server_timestamp <- function(){
-  httr_response <- rGET(make_base_rest_url(), 
+  base_rest_url <- make_base_rest_url()
+  httr_response <- rGET(base_rest_url, 
                         headers = c("Accept"="application/xml", 
                                     "X-PrettyPrint"="1"))
   catch_errors(httr_response)
@@ -53,6 +54,7 @@ sf_server_timestamp <- function(){
 #' }
 #' @export
 sf_list_rest_api_versions <- function(){
+  sf_auth_check()
   httr_response <- rGET(sprintf("%s/services/data/", salesforcer_state()$instance_url))
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')
@@ -72,7 +74,8 @@ sf_list_rest_api_versions <- function(){
 #' }
 #' @export
 sf_list_resources <- function(){
-  httr_response <- rGET(make_base_rest_url())
+  base_rest_url <- make_base_rest_url()
+  httr_response <- rGET(base_rest_url)
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')
   return(response_parsed)
@@ -119,7 +122,8 @@ sf_list_resources <- function(){
 #' }
 #' @export
 sf_list_api_limits <- function(){
-  httr_response <- rGET(sprintf("%s%s", make_base_rest_url(), "limits/"))
+  base_rest_url <- make_base_rest_url()
+  httr_response <- rGET(sprintf("%s%s", base_rest_url, "limits/"))
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')
   return(response_parsed)
@@ -137,7 +141,8 @@ sf_list_api_limits <- function(){
 #' }
 #' @export
 sf_list_objects <- function(){
-  httr_response <- rGET(sprintf("%s%s", make_base_rest_url(), "sobjects/"))
+  base_rest_url <- make_base_rest_url()
+  httr_response <- rGET(sprintf("%s%s", base_rest_url, "sobjects/"))
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')
   return(response_parsed)

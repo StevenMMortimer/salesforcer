@@ -205,6 +205,14 @@ sf_auth_check <- function(verbose = FALSE) {
     sf_auth(verbose = verbose)
     res <- .state$token
   } else if(token_available(verbose)) {
+    issued_timestamp <- as.numeric(substr(.state$token$credentials$issued_at, 1, 10))
+    nows_timestamp <- as.numeric(Sys.time())
+    time_diff_in_sec <- nows_timestamp - issued_timestamp
+    if(time_diff_in_sec > 3600){
+      # the token is probably expired even though we have it so refresh
+      # TODO: must be better way to validate the token.
+      sf_auth(verbose = verbose)
+    }
     res <- .state$token
   } else if(session_id_available(verbose)) {
     res <- .state$session_id

@@ -5,9 +5,9 @@
 \title{Build XML Request Body}
 \usage{
 build_soap_xml_from_list(input_data, operation = c("create", "retrieve",
-  "update", "upsert", "delete", "search", "query"), object = NULL,
-  external_id_fieldname = NULL, root_name = NULL, ns = c(character(0)),
-  root = NULL)
+  "update", "upsert", "delete", "search", "query", "describeSObjects"),
+  object = NULL, external_id_fieldname = NULL, root_name = NULL,
+  ns = c(character(0)), root = NULL)
 }
 \arguments{
 \item{input_data}{a \code{data.frame} of data to fill the XML body}

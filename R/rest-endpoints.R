@@ -98,3 +98,14 @@ make_search_url <- function(search_string){
   paste0(make_base_rest_url(), "search/?q=", 
          url_escape(search_string, reserved = "{}"))
 }
+
+#' Describe Objects URL Generator
+#' 
+#' @importFrom xml2 url_escape
+#' @importFrom httr build_url parse_url
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_describe_objects_url <- function(object){
+  paste0(make_base_rest_url(), "sobjects/", object, "/")
+}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build XML Request Body — build_soap_xml_from_list • salesforcer</title>
+<title>SObject Basic Information — sf_describe_objects • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Build XML Request Body — build_soap_xml_from_list" />
+<meta property="og:title" content="SObject Basic Information — sf_describe_objects" />
 
-<meta property="og:description" content="Parse data into XML format" />
+<meta property="og:description" content="Describes the individual metadata for the specified object." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -115,65 +115,46 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build XML Request Body</h1>
+    <h1>SObject Basic Information</h1>
     </div>
 
     
-    <p>Parse data into XML format</p>
+    <p>Describes the individual metadata for the specified object.</p>
     
 
-    <pre class="usage"><span class='fu'>build_soap_xml_from_list</span>(<span class='no'>input_data</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"create"</span>, <span class='st'>"retrieve"</span>,
-  <span class='st'>"update"</span>, <span class='st'>"upsert"</span>, <span class='st'>"delete"</span>, <span class='st'>"search"</span>, <span class='st'>"query"</span>, <span class='st'>"describeSObjects"</span>),
-  <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>character</span>(<span class='fl'>0</span>)), <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_describe_objects</span>(<span class='no'>objects</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk"</span>),
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input_data</th>
-      <td><p>a <code>data.frame</code> of data to fill the XML body</p></td>
-    </tr>
-    <tr>
-      <th>operation</th>
-      <td><p>character; a string defining the type of operation being 
-performed (e.g. "insert", "update", "upsert", "delete")</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
+      <th>objects</th>
+      <td><p>character; the name of one or more Salesforcer objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
-      <th>external_id_fieldname</th>
-      <td><p>character; string identifying a custom field on the 
-object that has been set as an "External ID" field. This field is used to reference 
-objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
+      <th>api_type</th>
+      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+which API to use when making the request</p></td>
     </tr>
     <tr>
-      <th>root_name</th>
-      <td><p>character; the name of the root node if created</p></td>
-    </tr>
-    <tr>
-      <th>ns</th>
-      <td><p>named vector; a collection of character strings indicating the namespace 
-definitions of the root node if created</p></td>
-    </tr>
-    <tr>
-      <th>root</th>
-      <td><p><code>XMLNode</code>; a node to be used as the root</p></td>
+      <th>verbose</th>
+      <td><p>logical; do you want informative messages?</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a XML document</p>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This function is meant to be used internally. Only use when debugging.</p>
+    <p><code>tibble</code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>account_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_describe_objects</span>(<span class='st'>"Account"</span>)
+<span class='no'>account_metadata_SOAP</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_describe_objects</span>(<span class='st'>"Account"</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"SOAP"</span>)
+<span class='no'>multiple_objs_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_describe_objects</span>(<span class='fu'>c</span>(<span class='st'>"Contact"</span>, <span class='st'>"Lead"</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,9 +162,9 @@ definitions of the root node if created</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
