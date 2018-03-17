@@ -171,7 +171,3 @@ test_that("testing rforcecom.search compatibility", {
   # rforcecom.search has a bug that wont return right data
   expect_is(result2, "data.frame")
 })
-
-# test_that("testing rforcecom.bulkAction compatibility", {
-#   
-# })

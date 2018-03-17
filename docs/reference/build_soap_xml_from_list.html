@@ -123,9 +123,10 @@
     
 
     <pre class="usage"><span class='fu'>build_soap_xml_from_list</span>(<span class='no'>input_data</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"create"</span>, <span class='st'>"retrieve"</span>,
-  <span class='st'>"update"</span>, <span class='st'>"upsert"</span>, <span class='st'>"delete"</span>, <span class='st'>"search"</span>, <span class='st'>"query"</span>, <span class='st'>"describeSObjects"</span>),
-  <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>character</span>(<span class='fl'>0</span>)), <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='st'>"update"</span>, <span class='st'>"upsert"</span>, <span class='st'>"delete"</span>, <span class='st'>"search"</span>, <span class='st'>"query"</span>, <span class='st'>"queryMore"</span>,
+  <span class='st'>"describeSObjects"</span>), <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>character</span>(<span class='fl'>0</span>)),
+  <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +144,11 @@ performed (e.g. "insert", "update", "upsert", "delete")</p></td>
       <th>object</th>
       <td><p>character; the name of the Salesforcer object that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+    </tr>
+    <tr>
+      <th>fields</th>
+      <td><p>character; one or more strings indicating the fields to be returned 
+on the records</p></td>
     </tr>
     <tr>
       <th>external_id_fieldname</th>

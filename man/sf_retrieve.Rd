@@ -4,7 +4,8 @@
 \alias{sf_retrieve}
 \title{Retrieve Records By Id}
 \usage{
-sf_retrieve(ids, fields, object, verbose = FALSE)
+sf_retrieve(ids, fields, object, api_type = c("REST", "SOAP", "Bulk"),
+  verbose = FALSE)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 
@@ -16,6 +17,9 @@ on the records}
 
 \item{object}{character; the name of the Salesforcer object that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+
+\item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+which API to use when making the request}
 
 \item{verbose}{logical; do you want informative messages?}
 }

@@ -36,13 +36,10 @@ sf_create <- function(input_data,
   # check that the input data is named (we need to know the fields)
   stopifnot(!is.null(names(input_data)))
   which_api <- match.arg(api_type)
+  input_data <- sf_input_data_validation(operation='create', input_data)
   
   # REST implementation
   if(which_api == "REST"){
-    
-    if(!is.data.frame(input_data)){
-      input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
-    }  
     
     # add attributes to insert multiple records at a time
     # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm?search_text=update%20multiple
@@ -83,10 +80,6 @@ sf_create <- function(input_data,
     }
     resultset <- as_tibble(resultset)
   } else if(which_api == "SOAP"){
-    
-    if(!is.data.frame(input_data)){
-      input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
-    }
     
     # limit this type of request to only 200 records at a time to prevent 
     # the XML from exceeding a size limit

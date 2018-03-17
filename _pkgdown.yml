@@ -32,10 +32,11 @@ reference:
     desc: Functions used for authenticating
     contents:
       - '`sf_auth`'
-  - title: Query Functions
-    desc: Functions used for querying
+  - title: Query/Search Functions
+    desc: Functions used for querying and searching
     contents:
       - '`sf_query`'
+      - '`sf_search`'
   - title: CRUD Functions
     desc: Functions used for create, retrieve, update, and delete records.
     contents:

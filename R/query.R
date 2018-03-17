@@ -43,7 +43,7 @@ sf_query <- function(soql,
                      object=NULL,
                      queryall=FALSE,
                      batch_size=1000,
-                     api_type=c("REST", "SOAP", "Bulk", "Async"),
+                     api_type=c("REST", "SOAP", "Bulk"),
                      next_records_url=NULL,
                      ...,
                      verbose=FALSE){
@@ -58,33 +58,93 @@ sf_query <- function(soql,
     
     # GET the url with the q (query) parameter set to the escaped SOQL string
     httr_response <- rGET(url = query_url,
-                          headers = c("Accept"="application/xml", 
+                          headers = c("Accept"="application/json", 
+                                      "Content-Type"="application/json",
                                       "Sforce-Query-Options"=sprintf("batchSize=%.0f", batch_size)))
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
-    resultset <- response_parsed %>%
-      xml_ns_strip() %>%
-      xml_find_all('.//records') %>%
-      map_df(xml_nodeset_to_df)
-    suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
+    response_parsed <- content(httr_response, "text", encoding="UTF-8")
+    response_parsed <- fromJSON(response_parsed, flatten=TRUE)
+    if(length(response_parsed$records)>0){
+      suppressMessages(
+        resultset <- response_parsed$records %>% 
+          select(-matches("^attributes\\.")) %>%
+          type_convert() %>% 
+          as_tibble()
+      ) 
+    } else {
+      resultset <- NULL
+    }
     
-    next_records_url <- response_parsed %>% 
-      xml_find_first('.//nextRecordsUrl') %>%
-      xml_text()
+    if(!response_parsed$done){
+      next_records_url <- response_parsed$nextRecordsUrl
+    }
     
     # check whether it has next record
-    if(!is.na(next_records_url)){
-      next_records <- sf_query(next_records_url=next_records_url)
+    if(!is.null(next_records_url)){
+      next_records <- sf_query(next_records_url=next_records_url,api_type=which_api)
       resultset <- bind_rows(resultset, next_records)
+    }
+  } else if(which_api == "SOAP"){
+    
+    if(!is.null(next_records_url)){
+      soap_action <- "queryMore"
+      r <- make_soap_xml_skeleton()
+      xml_dat <- build_soap_xml_from_list(input_data = next_records_url,
+                                          operation = "queryMore",
+                                          root=r)
+    } else {
+      soap_action <- "query"
+      r <- make_soap_xml_skeleton(list(QueryOptions=list(batchSize=batch_size)))
+      xml_dat <- build_soap_xml_from_list(input_data = soql,
+                                          operation = "query",
+                                          root=r)
+    }
+
+    base_soap_url <- make_base_soap_url()
+    if(verbose) {
+      message(base_soap_url)
+    }
+    httr_response <- rPOST(url = base_soap_url,
+                           headers = c("SOAPAction"=soap_action,
+                                       "Content-Type"="text/xml"),
+                           body = as(xml_dat, "character"))
+    catch_errors(httr_response)
+    response_parsed <- content(httr_response, encoding="UTF-8")
+    resultset <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//records')
+    if(length(resultset) > 0){
+      suppressMessages(
+        resultset <- resultset %>%
+          map_df(xml_nodeset_to_df) %>%
+          select(-matches("sf:type")) %>%
+          rename_at(.vars = vars(starts_with("sf:")), 
+                    .funs = funs(sub("^sf:", "", .))) %>%
+          select(-matches("Id1")) %>%
+          type_convert()
+      )
+    } else {
+      resultset <- NULL
+    }
+    
+    done_status <- response_parsed %>% 
+      xml_ns_strip() %>%
+      xml_find_first('.//done') %>%
+      xml_text()
+    
+    if(done_status == "false"){
+      query_locator <- response_parsed %>% 
+        xml_ns_strip() %>%
+        xml_find_first('.//queryLocator') %>%
+        xml_text()
+      next_records <- sf_query(next_records_url=query_locator,api_type=which_api)
+      resultset <- bind_rows(resultset, next_records)      
     }
   } else if(which_api == "Bulk"){
     resultset <- sf_bulk_query(soql=soql, object=object, verbose=verbose, ...)
   } else {
-    # SOAP?? 
-    # https://developer.salesforce.com/page/Enterprise_Query
-    stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
+    stop("Unknown API type")
   }
-  
   return(resultset)
 }
 

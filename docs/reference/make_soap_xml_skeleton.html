@@ -122,18 +122,14 @@
     <p>Create XML in preparate for sending to the SOAP API</p>
     
 
-    <pre class="usage"><span class='fu'>make_soap_xml_skeleton</span>()</pre>
+    <pre class="usage"><span class='fu'>make_soap_xml_skeleton</span>(<span class='kw'>soap_headers</span> <span class='kw'>=</span> <span class='fu'>list</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input_data</th>
-      <td><p>a <code>data.frame</code> of data to fill the XML body</p></td>
-    </tr>
-    <tr>
-      <th>externalIDFieldName</th>
-      <td><p>character; a string</p></td>
+      <th>soap_headers</th>
+      <td><p><code>list</code>; any number of SOAP headers</p></td>
     </tr>
     </table>
     
@@ -143,7 +139,28 @@
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function is meant to be used internally. Only use when debugging.</p>
+    <p>This function is meant to be used internally. Only use when debugging.
+Any of the following SOAP headers are allowed:</p><ul>
+<li><p>AllorNoneHeader</p></li>
+<li><p>AllowFieldTruncationHeader</p></li>
+<li><p>AssignmentRuleHeader</p></li>
+<li><p>CallOptions</p></li>
+<li><p>DisableFeedTrackingHeader</p></li>
+<li><p>EmailHeader</p></li>
+<li><p>LimitInfoHeader</p></li>
+<li><p>LocaleOptions</p></li>
+<li><p>LoginScopeHeader</p></li>
+<li><p>MruHeader</p></li>
+<li><p>OwnerChangeOptions</p></li>
+<li><p>PackageVersionHeader</p></li>
+<li><p>QueryOptions</p></li>
+<li><p>UserTerritoryDeleteHeader</p></li>
+</ul><p>Additionally, Bulk API can't access or query compound address or compound geolocation fields.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm'>https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
+    <a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/</a></p>
     
 
   </div>
@@ -155,6 +172,8 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#note">Note</a></li>
+
+      <li><a href="#references">References</a></li>
           </ul>
 
   </div>

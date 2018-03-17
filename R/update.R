@@ -43,15 +43,7 @@ sf_update <- function(input_data,
   # check that the input data is named (we need to know the fields)
   stopifnot(!is.null(names(input_data)))
   which_api <- match.arg(api_type)
-  
-  if(!is.data.frame(input_data)){
-    input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
-  }
-  if(any(grepl("^ID$|^IDS$", names(input_data), ignore.case=TRUE))){
-    idx <- grep("^ID$|^IDS$", names(input_data), ignore.case=TRUE)
-    names(input_data)[idx] <- "id"
-  }
-  stopifnot("id" %in% names(input_data))  
+  input_data <- sf_input_data_validation(operation='update', input_data)
   
   # REST implementation
   if(which_api == "REST"){

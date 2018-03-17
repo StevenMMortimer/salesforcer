@@ -41,17 +41,7 @@ sf_delete <- function(ids,
   stopifnot(as.numeric(getOption("salesforcer.api_version")) >= 42.0)
   
   which_api <- match.arg(api_type)
-  
-  if(!is.data.frame(ids)){
-    if(is.null(names(ids))){
-      ids <- as.data.frame(list(ids), stringsAsFactors = FALSE)
-      names(ids) <- "Id"
-    } else {
-      ids <- as.data.frame(as.list(ids), stringsAsFactors = FALSE)
-    }
-  }
-  names(ids) <- tolower(names(ids))
-  stopifnot("id" %in% names(ids))
+  ids <- sf_input_data_validation(ids, operation='delete')
   
   # REST implementation
   if(which_api == "REST"){
@@ -81,7 +71,7 @@ sf_delete <- function(ids,
       httr_response <- rDELETE(url = composite_url, 
                                headers = c("Accept"="application/json; charset=UTF-8"),
                                query = list(allOrNone = tolower(all_or_none), 
-                                            ids = paste0(temp$id, collapse=",")))
+                                            ids = paste0(temp$Id, collapse=",")))
       catch_errors(httr_response)
       response_parsed <- content(httr_response, "text", encoding="UTF-8")
       resultset <- bind_rows(resultset, fromJSON(response_parsed))
@@ -133,7 +123,7 @@ sf_delete <- function(ids,
     }
     suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(ids %>% select_("id"), object, operation="delete", verbose=verbose, ...)
+    resultset <- sf_bulk_operation(ids, object, operation="delete", verbose=verbose, ...)
   } else {
     stop("Unknown API type")
   }

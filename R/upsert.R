@@ -53,11 +53,7 @@ sf_upsert <- function(input_data,
   # check that the input data is named (we need to know the fields)
   stopifnot(!is.null(names(input_data)))
   which_api <- match.arg(api_type)
-  
-  if(!is.data.frame(input_data)){
-    input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)
-  }
-  # assume that there is an external id on this, no way to know for sure  
+  input_data <- sf_input_data_validation(operation='upsert', input_data)
   
   # SOAP implementation
   if(which_api == "SOAP"){
@@ -151,7 +147,9 @@ sf_upsert <- function(input_data,
       response_parsed <- fromJSON(response_parsed, flatten=TRUE)$results
       response_parsed <- response_parsed %>%
         rename_at(.vars = vars(starts_with("result.")), 
-                  .funs = funs(sub("^result\\.", "", .)))
+                  .funs = funs(sub("^result\\.", "", .))) %>%
+        select(-matches("statusCode")) %>%
+        as_tibble()
       resultset <- bind_rows(resultset, response_parsed)
     }
     suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))

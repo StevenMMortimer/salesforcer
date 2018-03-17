@@ -307,7 +307,11 @@ sf_bulk_delete_job <- function(job_id){
 #' @export
 sf_bulk_create_batches <- function(job_id, 
                                    input_data){
-
+  
+  job_status <- sf_bulk_get_job(job_id)
+  input_data <- sf_input_data_validation(operation=job_status$operation, 
+                                         input_data)
+  
   f <- tempfile()
   if(!is.data.frame(input_data)){
     input_data <- as.data.frame(input_data)
@@ -502,7 +506,7 @@ sf_bulk_get_job_records <- function(job_id,
 sf_bulk_operation <- function(input_data,
                               object,
                               operation = c("insert", "delete", "upsert", "update"),
-                              external_id_fieldname=NULL,
+                              external_id_fieldname = NULL,
                               wait_for_results = TRUE,
                               interval_seconds = 3,
                               max_attempts = 200,
@@ -526,7 +530,7 @@ sf_bulk_operation <- function(input_data,
       Sys.sleep(interval_seconds)
       job_status <- sf_bulk_get_job(job_info$id)
       if(job_status$state == 'Failed'){
-        stop(job_status$stateMessage)
+        stop(job_status$errorMessage)
       } else if(job_status$state == "JobComplete"){
         status_complete <- TRUE
       } else {

@@ -4,6 +4,12 @@
 
   * Add `sf_search()` with REST and SOAP API support for SOSL and free text search
   * Add `sf_describe_objects()` with REST and SOAP API to return object metadata
+  * Add SOAP API support for the following operations:
+    * `sf_create()`
+    * `sf_update()`
+    * `sf_delete()`
+    * `sf_retrieve()`
+  * Add REST API support for upsert (`sf_upsert()`)
 
 ### Bug Fixes
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Perform SOQL Query — sf_query • salesforcer</title>
+<title>Validate the input for an operation — sf_input_data_validation • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,10 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Perform SOQL Query — sf_query" />
+<meta property="og:title" content="Validate the input for an operation — sf_input_data_validation" />
 
-<meta property="og:description" content="Executes a query against the specified object and returns data that matches 
-the specified criteria." />
+<meta property="og:description" content="Validate the input for an operation" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,101 +115,27 @@ the specified criteria." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Perform SOQL Query</h1>
+    <h1>Validate the input for an operation</h1>
     </div>
 
     
-    <p>Executes a query against the specified object and returns data that matches 
-the specified criteria.</p>
+    <p>Validate the input for an operation</p>
     
 
-    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>), <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>soql</th>
-      <td><p>character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
-    </tr>
-    <tr>
-      <th>queryall</th>
-      <td><p>logical; indicating if the query recordset should include 
-deleted and archived records (available only when querying Task and Event records)</p></td>
-    </tr>
-    <tr>
-      <th>batch_size</th>
-      <td><p>numeric; a number between 200 and 2000 indicating the number of 
-records per page that are returned. Speed benchmarks should be done to better 
-understand the speed implications of choosing either endpoint.</p></td>
-    </tr>
-    <tr>
-      <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
-which API to use when making the request</p></td>
-    </tr>
-    <tr>
-      <th>next_records_url</th>
-      <td><p>character (leave as NULL); a string used internally 
-by the function to paginate through to more records until complete</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='sf_bulk_query.html'>sf_bulk_query</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>tibble</code></p>
-    
+    <pre class="usage"><span class='fu'>sf_input_data_validation</span>(<span class='no'>input_data</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+        
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Bulk API query doesn't support the following SOQL:</p><ul>
-<li><p>COUNT</p></li>
-<li><p>ROLLUP</p></li>
-<li><p>SUM</p></li>
-<li><p>GROUP BY CUBE</p></li>
-<li><p>OFFSET</p></li>
-<li><p>Nested SOQL queries</p></li>
-<li><p>Relationship fields</p></li>
-</ul><p>Additionally, Bulk API can't access or query compound address or compound geolocation fields.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/</a></p>
+    <p>This function is meant to be used internally. Only use when debugging.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>sf_query</span>(<span class='st'>"SELECT Id, Account.Name, Email FROM Contact LIMIT 10"</span>)
-<span class='fu'>sf_query</span>(<span class='st'>"SELECT Id, Email FROM Contact LIMIT 10"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#note">Note</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

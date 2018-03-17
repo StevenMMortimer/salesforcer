@@ -5,8 +5,8 @@
 \title{Perform SOQL Query}
 \usage{
 sf_query(soql, object = NULL, queryall = FALSE, batch_size = 1000,
-  api_type = c("REST", "SOAP", "Bulk", "Async"), next_records_url = NULL,
-  ..., verbose = FALSE)
+  api_type = c("REST", "SOAP", "Bulk"), next_records_url = NULL, ...,
+  verbose = FALSE)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}

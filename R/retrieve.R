@@ -12,6 +12,7 @@
 #' @param fields character; one or more strings indicating the fields to be returned 
 #' on the records
 #' @template object
+#' @template api_type
 #' @template verbose
 #' @return \code{tibble}
 #' @examples
@@ -28,23 +29,14 @@
 sf_retrieve <- function(ids,
                         fields,
                         object,
+                        api_type = c("REST", "SOAP", "Bulk"),
                         verbose = FALSE){
   
   # This resource is available in API version 42.0 and later.
   stopifnot(as.numeric(getOption("salesforcer.api_version")) >= 42.0)
   
-  which_api <- "REST"
-  
-  if(!is.data.frame(ids)){
-    if(is.null(names(ids))){
-      ids <- as.data.frame(list(ids), stringsAsFactors = FALSE)
-      names(ids) <- "Id"
-    } else {
-      ids <- as.data.frame(as.list(ids), stringsAsFactors = FALSE)
-    }
-  }
-  names(ids) <- tolower(names(ids))
-  stopifnot("id" %in% names(ids))
+  which_api <- match.arg(api_type)
+  ids <- sf_input_data_validation(ids, operation='retrieve')
   
   # REST implementation
   if(which_api == "REST"){
@@ -74,7 +66,7 @@ sf_retrieve <- function(ids,
       httr_response <- rPOST(url = composite_url,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
-                             body = toJSON(list(ids=ids$id, 
+                             body = toJSON(list(ids=ids$Id, 
                                                 fields=fields),
                                            auto_unbox = FALSE))
       catch_errors(httr_response)
@@ -82,11 +74,66 @@ sf_retrieve <- function(ids,
       resultset <- bind_rows(resultset, fromJSON(response_parsed) %>% select_(.dots =  unique(c("Id", fields))))
     }
     resultset <- as_tibble(resultset)
+  } else if(which_api == "SOAP"){
+    # limit this type of request to only 200 records at a time to prevent 
+    # the XML from exceeding a size limit
+    batch_size <- 200
+    base_soap_url <- make_base_soap_url()
+    
+    # break up larger datasets, batch the data
+    row_num <- nrow(ids)
+    batch_id <- (seq.int(row_num)-1) %/% batch_size
+    
+    if(verbose) message("Splitting data into ", max(batch_id)+1, " Batches")
+    message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
+    resultset <- NULL
+    for(batch in seq(0, max(batch_id))){
+      
+      if(verbose){
+        batch_msg_flg <- batch %in% message_flag
+        if(batch_msg_flg){
+          message(paste0("Processing Batch # ", head(batch, 1) + 1))
+        } 
+      }
+      
+      temp <- ids[batch_id == batch, , drop=FALSE]  
+      r <- make_soap_xml_skeleton()
+      xml_dat <- build_soap_xml_from_list(input_data = temp,
+                                          operation = "retrieve",
+                                          object = object,
+                                          fields = fields,
+                                          root=r)
+      if(verbose) {
+        message(base_soap_url)
+      }
+      httr_response <- rPOST(url = base_soap_url,
+                             headers = c("SOAPAction"="retrieve",
+                                         "Content-Type"="text/xml"),
+                             body = as(xml_dat, "character"))
+      catch_errors(httr_response)
+      response_parsed <- content(httr_response, encoding="UTF-8")
+      this_set <- response_parsed %>%
+        xml_ns_strip() %>%
+        xml_find_all('.//result')
+      if(length(this_set) > 0){
+        suppressMessages(
+          this_set <- this_set %>%
+            map_df(xml_nodeset_to_df) %>%
+            select(-matches("sf:type")) %>%
+            rename_at(.vars = vars(starts_with("sf:")), 
+                      .funs = funs(sub("^sf:", "", .))) %>%
+            select(-matches("Id1"))
+        )
+      } else {
+        this_set <- NULL
+      }
+      resultset <- bind_rows(resultset, this_set)
+    }
+    suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
   } else if(which_api == "Bulk"){
-    #resultset <- sf_bulk_operation(input_data, object, operation="insert")
+    stop("Retrieve is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
   } else {
-    stop("Queries using the SOAP and Aysnc APIs has not yet been implemented, use REST or Bulk")
+    stop("Unknown API type")
   }
-  
   return(resultset)
 }

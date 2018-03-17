@@ -6,7 +6,7 @@
 #' @importFrom httr content
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom purrr map_df
-#' @importFrom dplyr rename rename_at select matches starts_with funs vars
+#' @importFrom dplyr as_tibble rename rename_at select matches starts_with funs vars everything
 #' @importFrom readr type_convert
 #' @param search_string character; string to search using parameterized search 
 #' or SOSL. Note that is_sosl must be set to TRUE and the string valid in order 
@@ -48,7 +48,6 @@ sf_search <- function(search_string,
   
   which_api <- match.arg(api_type)
   
-  
   # REST implementation
   if(which_api == "REST"){
     
@@ -78,7 +77,8 @@ sf_search <- function(search_string,
         resultset <- resultset %>% 
           rename(sobject = `attributes.type`) %>%
           select(-matches("^attributes\\.")) %>%
-          type_convert()
+          type_convert() %>% 
+          as_tibble()
       ) 
     } else {
       resultset <- NULL
@@ -88,7 +88,7 @@ sf_search <- function(search_string,
     # TODO: should SOAP only take SOSL?
     if(!is_sosl){
       stop(paste("The SOAP API only takes SOSL formatted search strings.", 
-                 "Use \"REST\" if trying to do a free text search"))
+                 "Set is_sosl=TRUE or Use \"REST\" if trying to do a free text search"))
     }
     r <- make_soap_xml_skeleton()
     xml_dat <- build_soap_xml_from_list(input_data = search_string,
@@ -115,13 +115,16 @@ sf_search <- function(search_string,
           rename_at(.vars = vars(starts_with("sf:")), 
                     .funs = funs(sub("^sf:", "", .))) %>%
           select(-matches("Id1")) %>%
-          type_convert()
+          type_convert() %>%
+          select(sobject, everything())
       )
     } else {
       resultset <- NULL
     }
-  } else {
+  } else if(which_api == "Bulk"){
     stop("SOSL is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
+  } else {
+    stop("Unknown API type")
   }
   return(resultset)
 }
