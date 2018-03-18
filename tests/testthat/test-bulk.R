@@ -33,7 +33,7 @@ test_that("testing Bulk API Functionality", {
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
                    "contact(id, firstname, lastname, my_external_id__c),",
                    "lead(id, firstname, lastname)")
-  # sf_search _-----------------------------------------------------------------
+  # sf_search ------------------------------------------------------------------
   expect_error(
     searched_records <- sf_search(my_sosl, is_sosl=TRUE, api_type="Bulk") 
   )

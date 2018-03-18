@@ -87,7 +87,7 @@ sf_auth <- function(username = NULL,
     # set the global .state variable
     .state$auth_method <- "Basic"
     .state$token = NULL
-    .state$session_id <- login_reponse$result$sessionId
+    .state$session_id <- login_reponse$result$sessionId[[1]][1]
     .state$instance_url <- gsub('(https://[^/]+)/.*', '\\1', login_reponse$result$serverUrl)
   } else {
     

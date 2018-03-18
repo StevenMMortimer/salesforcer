@@ -30,7 +30,7 @@ test_that("testing SOAP API Functionality", {
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
                    "contact(id, firstname, lastname, my_external_id__c),",
                    "lead(id, firstname, lastname)")
-  # sf_search _-----------------------------------------------------------------
+  # sf_search ------------------------------------------------------------------
   searched_records <- sf_search(my_sosl, is_sosl=TRUE, api_type="SOAP")  
   expect_is(searched_records, "tbl_df")
   expect_equal(names(searched_records), c("sobject", "Id", "FirstName", "LastName", "My_External_Id__c"))

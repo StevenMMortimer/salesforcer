@@ -115,8 +115,7 @@ sf_search <- function(search_string,
           rename_at(.vars = vars(starts_with("sf:")), 
                     .funs = funs(sub("^sf:", "", .))) %>%
           select(-matches("Id1")) %>%
-          type_convert() %>%
-          select(sobject, everything())
+          type_convert()
       )
     } else {
       resultset <- NULL
@@ -125,6 +124,10 @@ sf_search <- function(search_string,
     stop("SOSL is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
   } else {
     stop("Unknown API type")
+  }
+  if(!is.null(resultset)){
+    resultset <- resultset %>%
+      select(sobject, everything())
   }
   return(resultset)
 }
