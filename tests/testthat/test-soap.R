@@ -6,9 +6,10 @@ sf_auth(token = salesforcer_token)
 test_that("testing SOAP API Functionality", {
   
   n <- 2
+  prefix <- "SOAP"
   new_contacts <- tibble(FirstName = rep("Test", n),
                          LastName = paste0("Contact-Create-", 1:n), 
-                         My_External_Id__c=letters[1:n])
+                         My_External_Id__c=paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
   created_records <- sf_create(new_contacts, "Contact", api_type="SOAP")
   expect_is(created_records, "tbl_df")
@@ -59,7 +60,7 @@ test_that("testing SOAP API Functionality", {
   
   new_record <- tibble(FirstName = "Test",
                        LastName = paste0("Contact-Upsert-", n+1), 
-                       My_External_Id__c=letters[n+1])
+                       My_External_Id__c=paste0(prefix, letters[n+1]))
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
 
   # sf_upsert ------------------------------------------------------------------
