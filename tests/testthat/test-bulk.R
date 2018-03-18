@@ -6,7 +6,7 @@ sf_auth(token = salesforcer_token)
 test_that("testing Bulk API Functionality", {
   
   n <- 2
-  prefix <- "Bulk"
+  prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
                          LastName = paste0("Contact-Create-", 1:n), 
                          My_External_Id__c=paste0(prefix, letters[1:n]))
