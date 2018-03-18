@@ -68,6 +68,7 @@ sf_query <- function(soql,
       suppressMessages(
         resultset <- response_parsed$records %>% 
           select(-matches("^attributes\\.")) %>%
+          select(-matches("\\.attributes\\.")) %>%
           type_convert() %>% 
           as_tibble()
       ) 

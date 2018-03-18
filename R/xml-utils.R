@@ -153,7 +153,7 @@ build_soap_xml_from_list <- function(input_data,
   # this is so we have something to create the root node
   stopifnot(!is.null(root_name) | !is.null(root))
   which_operation <- match.arg(operation)
-  input_data <- sf_input_data_validation(input_data, operation='retrieve')
+  input_data <- sf_input_data_validation(input_data, operation=which_operation)
   
   if (is.null(root))
     root <- newXMLNode(root_name, namespaceDefinitions = ns)

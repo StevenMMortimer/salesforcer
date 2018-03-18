@@ -15,9 +15,9 @@ test_that("testing input_data validation", {
   
   input_data <- c(Id=1,b=2,c=3)
   res3a <- sf_input_data_validation(input_data)
-  expect_equal(res4b, data.frame(Id=1,b=2,c=3))
+  expect_equal(res3a, data.frame(Id=1,b=2,c=3))
   res3b <- sf_input_data_validation(input_data, operation='delete')
-  expect_equal(res4b, data.frame(Id=1,b=2,c=3))
+  expect_equal(res3b, data.frame(Id=1,b=2,c=3))
   input_data <- input_data[-which(names(input_data)=="Id")]
   expect_error(sf_input_data_validation(input_data, operation='update'))
   

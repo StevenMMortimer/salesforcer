@@ -23,12 +23,10 @@ sf_describe_objects <- function(objects,
                                 verbose = FALSE){
 
   which_api <- match.arg(api_type)
+  objects <- data.frame(sObjectType=unlist(objects), stringsAsFactors = FALSE)
   
   listed_objects <- sf_list_objects()
   valid_object_names <- sapply(listed_objects$sobjects, FUN=function(x){x$name})
-  if(!is.data.frame(objects)){
-    objects <- data.frame(sObjectType=unlist(objects), stringsAsFactors = FALSE)
-  }
 
   not_matched_objs <- setdiff(objects$sObjectType, valid_object_names)
   if(length(not_matched_objs) > 0){
