@@ -4,7 +4,7 @@ Version: 0.1.0.9000
 Date: 2018-03-18
 Description: This package connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs, and utilizes tidy data principles.
 Authors@R: c(
-    person("Steven", "Mortimer", , "reportmort@gmail.com", c("aut", "cre"))
+    person(c("Steven", "M."), "Mortimer", , "reportmort@gmail.com", c("aut", "cre"))
     )
 URL: https://github.com/StevenMMortimer/salesforcer
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues

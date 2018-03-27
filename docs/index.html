@@ -90,7 +90,7 @@
     
 <div class="contents">
 
-<p><br><img src="reference/figures/logo.png" align="right"></p>
+<p><br><img src="reference/figures/logo-big.png" width="120px" align="right"></p>
 <p><strong>salesforcer</strong> is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the SOAP, REST and Bulk APIs.</p>
 <p>Package features include:</p>
 <ul>
@@ -177,8 +177,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PuinSQAR TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PuinTQAR TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RRdhMQAT TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RRdhNQAT TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -191,8 +191,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PuinSQAR Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PuinTQAR Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RRdhMQAT Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RRdhNQAT Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -211,8 +211,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000PuinSQAR NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000PuinTQAR NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RRdhMQAT NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RRdhNQAT NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -227,8 +227,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PuinSQAR TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PuinTQAR TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RRdhMQAT TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RRdhNQAT TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -239,8 +239,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000PuinSQAR TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000PuinTQAR TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RRdhMQAT TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RRdhNQAT TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -267,9 +267,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000PuinXQAR true   </span>
-<span class="co">#&gt; 2 false   0036A00000PuinYQAR true   </span>
-<span class="co">#&gt; 3 true    0036A00000PuincQAB true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000RRdhRQAT true   </span>
+<span class="co">#&gt; 2 false   0036A00000RRdhSQAT true   </span>
+<span class="co">#&gt; 3 true    0036A00000RRdhWQAT true</span></code></pre></div>
 </div>
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
@@ -339,7 +339,7 @@ deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="referenc
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Steven Mortimer <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Steven M. Mortimer <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
@@ -354,7 +354,7 @@ deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="referenc
 
 
       <footer><div class="copyright">
-  <p>Developed by Steven Mortimer.</p>
+  <p>Developed by Steven M. Mortimer.</p>
 </div>
 
 <div class="pkgdown">

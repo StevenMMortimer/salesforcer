@@ -1,6 +1,6 @@
 
-salesforcer <img src="man/figures/logo.png" align="right" />
-============================================================
+salesforcer <img src="man/figures/logo-big.png" width="120px" align="right" />
+==============================================================================
 
 [![Build Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/salesforcer)](http://cran.r-project.org/package=salesforcer) [![Coverage Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 
@@ -71,7 +71,6 @@ After logging in with `sf_auth()`, you can check your connectivity by looking at
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-#> Auto-refreshing stale OAuth token.
 sprintf("User Id: %s", user_info$id)
 #> [1] "User Id: 0056A000000MPRjQAO"
 sprintf("User Active?: %s", user_info$isActive)
@@ -91,8 +90,8 @@ created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt4EeQAJ TRUE    <list [0]>
-#> 2 0036A00000Pt4EfQAJ TRUE    <list [0]>
+#> 1 0036A00000RRdi0QAD TRUE    <list [0]>
+#> 2 0036A00000RRdi1QAD TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -107,8 +106,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt4EeQAJ Test      Contact-Create-1
-#> 2 0036A00000Pt4EfQAJ Test      Contact-Create-2
+#> 1 0036A00000RRdi0QAD Test      Contact-Create-1
+#> 2 0036A00000RRdi1QAD Test      Contact-Create-2
 ```
 
 ### Query
@@ -126,11 +125,11 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql)
 queried_records
-#> # A tibble: 2 x 3
-#>   Id                 FirstName LastName        
-#>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt4EeQAJ Test      Contact-Create-1
-#> 2 0036A00000Pt4EfQAJ Test      Contact-Create-2
+#> # A tibble: 2 x 4
+#>   Id                 Account FirstName LastName        
+#> * <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000RRdi0QAD NA      Test      Contact-Create-1
+#> 2 0036A00000RRdi1QAD NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -147,8 +146,8 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt4EeQAJ TRUE    <list [0]>
-#> 2 0036A00000Pt4EfQAJ TRUE    <list [0]>
+#> 1 0036A00000RRdi0QAD TRUE    <list [0]>
+#> 2 0036A00000RRdi1QAD TRUE    <list [0]>
 ```
 
 ### Delete
@@ -161,8 +160,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000Pt4EeQAJ TRUE    <list [0]>
-#> 2 0036A00000Pt4EfQAJ TRUE    <list [0]>
+#> 1 0036A00000RRdi0QAD TRUE    <list [0]>
+#> 2 0036A00000RRdi1QAD TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -191,9 +190,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000Pt4EtQAJ true   
-#> 2 false   0036A00000Pt4EuQAJ true   
-#> 3 true    0036A00000Pt4F3QAJ true
+#> 1 false   0036A00000RRdi5QAD true   
+#> 2 false   0036A00000RRdi6QAD true   
+#> 3 true    0036A00000RRdiAQAT true
 ```
 
 ### Using the Bulk API
@@ -213,8 +212,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000Pt4FDQAZ true        Test      Contact-Create-1
-#> 2 0036A00000Pt4FEQAZ true        Test      Contact-Create-2
+#> 1 0036A00000RRdiKQAT true        Test      Contact-Create-1
+#> 2 0036A00000RRdiLQAT true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -238,26 +237,26 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000Pt4FDQAZ Test      Contact-Create-1
-#> 2 0036A00000Pt4FEQAZ Test      Contact-Create-2
+#> 1 0036A00000RRdiKQAT Test      Contact-Create-1
+#> 2 0036A00000RRdiLQAT Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
 deleted_records
 #> $successfulResults
 #> # A tibble: 2 x 3
-#>   sf__Id             sf__Created id   
-#>   <chr>              <chr>       <chr>
-#> 1 0036A00000Pt4FDQAZ false       <NA> 
-#> 2 0036A00000Pt4FEQAZ false       <NA> 
+#>   sf__Id             sf__Created Id                
+#>   <chr>              <chr>       <chr>             
+#> 1 0036A00000RRdiKQAT false       0036A00000RRdiKQAT
+#> 2 0036A00000RRdiLQAT false       0036A00000RRdiLQAT
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3
-#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, id <chr>
+#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, Id <chr>
 #> 
 #> $unprocessedRecords
 #> # A tibble: 0 x 1
-#> # ... with 1 variable: id <chr>
+#> # ... with 1 variable: Id <chr>
 ```
 
 ### Accessing Metadata
