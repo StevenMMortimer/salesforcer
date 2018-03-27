@@ -32,7 +32,7 @@ sf_auth(token = salesforcer_token)
 
 test_that("testing rforcecom.query compatibility", {
   
-  soql <- "SELECT Id, Account.Name, Email FROM Contact LIMIT 10"
+  soql <- "SELECT Id, Account.Name, Email FROM Contact WHERE Email != NULL LIMIT 10"
   
   result1 <- RForcecom::rforcecom.query(session, soqlQuery=soql)
   suppressWarnings(result2 <- salesforcer::rforcecom.query(session, soqlQuery=soql))
