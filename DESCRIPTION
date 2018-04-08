@@ -1,7 +1,7 @@
 Package: salesforcer
 Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
-Version: 0.1.0.9000
-Date: 2018-04-07
+Version: 0.1.1
+Date: 2018-04-08
 Description: An implementation of the 'Salesforce' Platform APIs (REST, SOAP, 
     Bulk, and Metadata) <https://developer.salesforce.com/page/Salesforce_APIs>. 
     This package is an articulation of the most API methods into R. The API calls 

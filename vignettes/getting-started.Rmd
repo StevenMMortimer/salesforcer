@@ -26,14 +26,12 @@ knitr::opts_chunk$set(
 First, load the `salesforcer` package and login. There are two ways to authenticate: 
 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
 passwords do not have to be shared/embedded within scripts. User credentials will 
-be stored in locally cached file entitled ".httr-oauth" in the current working 
+be stored in locally cached file entitled ".httr-oauth-salesforcer" in the current working 
 directory.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
-## I grab the token from the testing directory because that's where it is to be
-## found on Travis
 token_path <- file.path("..", "tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
