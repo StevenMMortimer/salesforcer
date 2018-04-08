@@ -44,7 +44,7 @@ created_records
 ## ------------------------------------------------------------------------
 retrieved_records <- sf_retrieve(ids=created_records$id, 
                                  fields=c("FirstName", "LastName"), 
-                                 object="Contact")
+                                 object_name="Contact")
 retrieved_records
 
 ## ------------------------------------------------------------------------
@@ -64,7 +64,7 @@ queried_records
 queried_records <- queried_records %>%
   mutate(FirstName = "TestTest")
 
-updated_records <- sf_update(queried_records, object="Contact")
+updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
 
 ## ------------------------------------------------------------------------
@@ -87,7 +87,7 @@ new_record <- tibble(FirstName = "Test",
 upserted_contacts <- bind_rows(upserted_contacts, new_record)
 
 upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                              object="Contact", 
+                              object_name="Contact", 
                               external_id_fieldname="My_External_Id__c")
 upserted_records
 

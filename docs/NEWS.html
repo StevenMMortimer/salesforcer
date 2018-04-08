@@ -47,7 +47,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -126,6 +126,7 @@
 <ul>
 <li>Add <code><a href="reference/sf_search.html">sf_search()</a></code> with REST and SOAP API support for SOSL and free text search</li>
 <li>Add <code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code> with REST and SOAP API to return object metadata</li>
+<li>Add REST API support for upsert (<code><a href="reference/sf_upsert.html">sf_upsert()</a></code>)</li>
 <li>Add SOAP API support for the following operations:
 <ul>
 <li><code><a href="reference/sf_create.html">sf_create()</a></code></li>
@@ -134,7 +135,21 @@
 <li><code><a href="reference/sf_retrieve.html">sf_retrieve()</a></code></li>
 </ul>
 </li>
-<li>Add REST API support for upsert (<code><a href="reference/sf_upsert.html">sf_upsert()</a></code>)</li>
+<li>Add Metadata API support for the following operations:
+<ul>
+<li><code><a href="reference/sf_create_metadata.html">sf_create_metadata()</a></code></li>
+<li><code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code></li>
+<li><code><a href="reference/sf_update_metadata.html">sf_update_metadata()</a></code></li>
+<li><code><a href="reference/sf_upsert_metadata.html">sf_upsert_metadata()</a></code></li>
+<li><code><a href="reference/sf_delete_metadata.html">sf_delete_metadata()</a></code></li>
+<li><code><a href="reference/sf_describe_metadata.html">sf_describe_metadata()</a></code></li>
+<li><code><a href="reference/sf_list_metadata.html">sf_list_metadata()</a></code></li>
+<li><code><a href="reference/sf_rename_metadata.html">sf_rename_metadata()</a></code></li>
+<li><code>sf_retrieve_metdata()</code></li>
+<li><code>sf_deploy_metdata()</code></li>
+</ul>
+</li>
+<li>Make the default file name for a cached token <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">

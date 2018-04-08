@@ -4,14 +4,14 @@
 \alias{sf_create}
 \title{Create Records}
 \usage{
-sf_create(input_data, object, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk"), ..., verbose = FALSE)
+sf_create(input_data, object_name, all_or_none = FALSE, api_type = c("SOAP",
+  "REST", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; data can be coerced into a \code{data.frame}}
 
-\item{object}{character; the name of the Salesforcer object that the 
+\item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{all_or_none}{logical; allows a call to roll back all changes unless all 
@@ -35,7 +35,7 @@ Adds one or more new records to your organization’s data.
 n <- 3
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact", 1:n))
-new_contacts_result <- sf_create(new_contacts, object="Contact")
-new_contacts_result <- sf_create(new_contacts, object="Contact", api_type="SOAP")
+new_contacts_result <- sf_create(new_contacts, object_name="Contact")
+new_contacts_result <- sf_create(new_contacts, object_name="Contact", api_type="REST")
 }
 }

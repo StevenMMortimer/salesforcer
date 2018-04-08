@@ -59,7 +59,7 @@ session2
 
 
 
-Note that we must set the API version here because  calls to session will not create 
+Note that we must set the API version here because calls to session will not create 
 a new sessionId and then we are stuck with version 35.0 (the default from 
 RForcecom::rforcecom.login). Some functions in **salesforcer** implement API calls 
 that are only available after version 35.0.
@@ -81,13 +81,13 @@ fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
 result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
 result1
 #>                   id success
-#> 1 0036A00000PuOl7QAF    true
+#> 1 0036A00000RUoCIQA1    true
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
 result2
 #>                   id success
-#> 1 0036A00000PuOlCQAV    TRUE
+#> 1 0036A00000RUoCNQA1    true
 ```
 
 Here is an example showing the reduction in code of using **salesforcer** if you 
@@ -109,17 +109,17 @@ for(i in 1:nrow(new_contacts)){
 }
 rforcecom_results
 #>                   id success
-#> 1 0036A00000PuOlHQAV    true
-#> 2 0036A00000PuOlMQAV    true
+#> 1 0036A00000RUoCSQA1    true
+#> 2 0036A00000RUoCXQA1    true
 
 # the better way in salesforcer to do multiple records
-salesforcer_results <- sf_create(new_contacts, "Contact")
+salesforcer_results <- sf_create(new_contacts, object_name="Contact")
 salesforcer_results
-#> # A tibble: 2 x 3
-#>   id                 success errors    
-#>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PuOlRQAV TRUE    <list [0]>
-#> 2 0036A00000PuOlSQAV TRUE    <list [0]>
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <chr>  
+#> 1 0036A00000RUoCcQAL true   
+#> 2 0036A00000RUoCdQAL true
 ```
 
 ### Query
@@ -134,49 +134,49 @@ this_soql <- "SELECT Id, Email FROM Contact"
 # the RForcecom way
 result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
 head(result1)
-#>                   Id                     Email
-#> 1 0036A000002C6MWQA0             rose@edge.com
-#> 2 0036A000002C6MXQA0             sean@edge.com
-#> 3 0036A000002C6MYQA0    jrogers@burlington.com
-#> 4 0036A000002C6MbQAK  barr_tim@grandhotels.com
-#> 5 0036A000002C6McQAK bond_john@grandhotels.com
-#> 6 0036A000002C6MdQAK          spavlova@uog.com
+#>                   Id Email
+#> 1 0036A00000RUnyuQAD  <NA>
+#> 2 0036A00000RUnziQAD  <NA>
+#> 3 0036A00000RUnzjQAD  <NA>
+#> 4 0036A00000RUo9YQAT  <NA>
+#> 5 0036A00000RUo9iQAD  <NA>
+#> 6 0036A00000RUo9jQAD  <NA>
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
 result2
-#> # A tibble: 41 x 2
-#>    Id                 Email                    
-#>    <chr>              <chr>                    
-#>  1 0036A000002C6MWQA0 rose@edge.com            
-#>  2 0036A000002C6MXQA0 sean@edge.com            
-#>  3 0036A000002C6MYQA0 jrogers@burlington.com   
-#>  4 0036A000002C6MbQAK barr_tim@grandhotels.com 
-#>  5 0036A000002C6McQAK bond_john@grandhotels.com
-#>  6 0036A000002C6MdQAK spavlova@uog.com         
-#>  7 0036A000002C6MeQAK lboyle@uog.com           
-#>  8 0036A000002C6MfQAK b.levy@expressl&t.net    
-#>  9 0036A000002C6MgQAK j.davis@expressl&t.net   
-#> 10 0036A000002C6MhQAK jane_gray@uoa.edu        
-#> # ... with 31 more rows
+#> # A tibble: 523 x 2
+#>    Id                 Email
+#>  * <chr>              <chr>
+#>  1 0036A00000RUnyuQAD <NA> 
+#>  2 0036A00000RUnziQAD <NA> 
+#>  3 0036A00000RUnzjQAD <NA> 
+#>  4 0036A00000RUo9YQAT <NA> 
+#>  5 0036A00000RUo9iQAD <NA> 
+#>  6 0036A00000RUo9jQAD <NA> 
+#>  7 0036A00000RRdkLQAT <NA> 
+#>  8 0036A00000RRdkQQAT <NA> 
+#>  9 0036A00000RRdkkQAD <NA> 
+#> 10 0036A00000RRdklQAD <NA> 
+#> # ... with 513 more rows
 
 # the better way in salesforcer to query
 salesforcer_results <- sf_query(this_soql)
 salesforcer_results
-#> # A tibble: 41 x 2
-#>    Id                 Email                    
-#>    <chr>              <chr>                    
-#>  1 0036A000002C6MWQA0 rose@edge.com            
-#>  2 0036A000002C6MXQA0 sean@edge.com            
-#>  3 0036A000002C6MYQA0 jrogers@burlington.com   
-#>  4 0036A000002C6MbQAK barr_tim@grandhotels.com 
-#>  5 0036A000002C6McQAK bond_john@grandhotels.com
-#>  6 0036A000002C6MdQAK spavlova@uog.com         
-#>  7 0036A000002C6MeQAK lboyle@uog.com           
-#>  8 0036A000002C6MfQAK b.levy@expressl&t.net    
-#>  9 0036A000002C6MgQAK j.davis@expressl&t.net   
-#> 10 0036A000002C6MhQAK jane_gray@uoa.edu        
-#> # ... with 31 more rows
+#> # A tibble: 523 x 2
+#>    Id                 Email
+#>  * <chr>              <chr>
+#>  1 0036A00000RUnyuQAD <NA> 
+#>  2 0036A00000RUnziQAD <NA> 
+#>  3 0036A00000RUnzjQAD <NA> 
+#>  4 0036A00000RUo9YQAT <NA> 
+#>  5 0036A00000RUo9iQAD <NA> 
+#>  6 0036A00000RUo9jQAD <NA> 
+#>  7 0036A00000RRdkLQAT <NA> 
+#>  8 0036A00000RRdkQQAT <NA> 
+#>  9 0036A00000RRdkkQAD <NA> 
+#> 10 0036A00000RRdklQAD <NA> 
+#> # ... with 513 more rows
 ```
 
 In the future more features will be migrated from **RForcecom** to make the 

@@ -17,40 +17,44 @@ vignette: >
 
 ### Using the Bulk API
 
+First, load the `salesforcer` package and login. 
+
+
+
+
+```r
+suppressWarnings(suppressMessages(library(dplyr)))
+library(salesforcer)
+sf_auth()
+```
+
 For really large inserts, updates, deletes, upserts, queries you can just add 
 "api_type" = "Bulk" to most functions to get the benefits of using the Bulk API 
 instead of the SOAP or REST APIs. Here is the difference in using the REST API vs. 
 the Bulk API to do an insert:
 
 
-
-
 ```r
-
-suppressWarnings(suppressMessages(library(dplyr)))
-library(salesforcer)
-sf_auth()
-
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 # REST
-rest_created_records <- sf_create(new_contacts, "Contact", api_type="REST")
+rest_created_records <- sf_create(new_contacts, object_name="Contact", api_type="REST")
 rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PuOlWQAV TRUE    <list [0]>
-#> 2 0036A00000PuOlXQAV TRUE    <list [0]>
+#> 1 0036A00000RUnzdQAD TRUE    <list [0]>
+#> 2 0036A00000RUnzeQAD TRUE    <list [0]>
 # Bulk
-bulk_created_records <- sf_create(new_contacts, "Contact", api_type="Bulk")
+bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
 bulk_created_records
 #> $successfulResults
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000PuOlbQAF true        Test      Contact-Create-1
-#> 2 0036A00000PuOlcQAF true        Test      Contact-Create-2
+#> 1 0036A00000RUnziQAD true        Test      Contact-Create-1
+#> 2 0036A00000RUnzjQAD true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -77,14 +81,14 @@ object <- "Contact"
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object, api_type="Bulk")
+created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk")
 created_records
 #> $successfulResults
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000PuOlgQAF true        Test      Contact-Create-1
-#> 2 0036A00000PuOlhQAF true        Test      Contact-Create-2
+#> 1 0036A00000RUnznQAD true        Test      Contact-Create-1
+#> 2 0036A00000RUnzoQAD true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -103,29 +107,29 @@ my_soql <- sprintf("SELECT Id,
                     WHERE Id in ('%s')", 
                    paste0(created_records$successfulResults$sf__Id , collapse="','"))
 
-queried_records <- sf_query(my_soql, object=object, api_type="Bulk")
+queried_records <- sf_query(my_soql, object_name=object, api_type="Bulk")
 queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000PuOlgQAF Test      Contact-Create-1
-#> 2 0036A00000PuOlhQAF Test      Contact-Create-2
+#> 1 0036A00000RUnznQAD Test      Contact-Create-1
+#> 2 0036A00000RUnzoQAD Test      Contact-Create-2
 
 # delete bulk
-deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
+deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk")
 deleted_records
 #> $successfulResults
 #> # A tibble: 2 x 3
-#>   sf__Id             sf__Created id   
-#>   <chr>              <chr>       <lgl>
-#> 1 0036A00000PuOlgQAF false       NA   
-#> 2 0036A00000PuOlhQAF false       NA   
+#>   sf__Id             sf__Created Id                
+#>   <chr>              <chr>       <chr>             
+#> 1 0036A00000RUnznQAD false       0036A00000RUnznQAD
+#> 2 0036A00000RUnzoQAD false       0036A00000RUnzoQAD
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3
-#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, id <chr>
+#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, Id <chr>
 #> 
 #> $unprocessedRecords
 #> # A tibble: 0 x 1
-#> # ... with 1 variable: id <chr>
+#> # ... with 1 variable: Id <chr>
 ```

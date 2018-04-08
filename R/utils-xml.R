@@ -21,7 +21,9 @@ xmlToList2 <- function(node){
     xmlValue(node)
   } else if (xmlSize(node) == 0) {
     x <- xmlAttrs(node)
-    if(names(x) == "xsi:nil" & x == "true"){
+    if(length(names(x)) == 0){
+      NA
+    } else if(names(x) == "xsi:nil" & x == "true"){
       NA
     } else {
       x
@@ -91,27 +93,47 @@ xml_nodeset_to_df <- function(this_node){
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @keywords internal
 #' @export
-make_soap_xml_skeleton <- function(soap_headers=list()){
+make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){
+  
   sf_auth_check()
-  root <- newXMLNode("soapenv:Envelope", 
-                     namespaceDefinitions = c("soapenv" = "http://schemas.xmlsoap.org/soap/envelope/",
-                                              "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
-                                              "urn" = "urn:partner.soap.sforce.com",
-                                              "urn1" = "urn:sobject.partner.soap.sforce.com"))
+  
+  if(metadata_ns){
+    these_ns = c("soapenv" = "http://schemas.xmlsoap.org/soap/envelope/",
+                 "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
+                 "ns1" = "http://soap.sforce.com/2006/04/metadata")
+    ns_prefix <- "ns1"
+  } else {
+    these_ns <- c("soapenv" = "http://schemas.xmlsoap.org/soap/envelope/",
+                  "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
+                  "urn" = "urn:partner.soap.sforce.com",
+                  "urn1" = "urn:sobject.partner.soap.sforce.com")
+    ns_prefix <- "urn"
+  }
+  
+  root <- newXMLNode("soapenv:Envelope", namespaceDefinitions = these_ns)
   header_node <- newXMLNode("soapenv:Header", parent=root)
-  sheader_node <- newXMLNode("urn:SessionHeader", parent=header_node)
-  sid_node <- newXMLNode("urn:sessionId",
-                         sf_access_token(),
+  sheader_node <- newXMLNode(paste0(ns_prefix, ":", "SessionHeader"), 
+                             parent=header_node)
+                             #namespaceDefinitions = c(""))
+  
+  # get the current session id
+  this_session_id <- sf_access_token()
+  if(is.null(this_session_id)){
+    this_session_id <- sf_session_id()
+  }
+  if(is.null(this_session_id)){
+    stop("Could not find a session id in the environment. Try reauthenticating with sf_auth().")
+  }
+  
+  sid_node <- newXMLNode(paste0(ns_prefix, ":", "sessionId"),
+                         this_session_id,
                          parent=sheader_node)
   
   if(length(soap_headers)>0){
     for(i in 1:length(soap_headers)){
-      this_parent_node <- newXMLNode(paste0("urn:", names(soap_headers)[i]),
-                                     parent=header_node)
-      this_opt <- soap_headers[[i]]
-      opt_node <- newXMLNode(paste0("urn:", names(this_opt)),
-                             as.character(this_opt),
-                             parent=this_parent_node)
+      opt_node <- newXMLNode(paste0(ns_prefix, ":", names(soap_headers)[i]),
+                             as.character(soap_headers[[i]]),
+                             parent=header_node)
     }
   }
   return(root)
@@ -124,7 +146,7 @@ make_soap_xml_skeleton <- function(soap_headers=list()){
 #' @importFrom XML newXMLNode xmlValue<-
 #' @param input_data a \code{data.frame} of data to fill the XML body
 #' @template operation
-#' @template object
+#' @template object_name
 #' @param fields character; one or more strings indicating the fields to be returned 
 #' on the records
 #' @template external_id_fieldname
@@ -142,7 +164,7 @@ build_soap_xml_from_list <- function(input_data,
                                                    "delete", "search", 
                                                    "query", "queryMore", 
                                                    "describeSObjects"),
-                                     object=NULL,
+                                     object_name=NULL,
                                      fields=NULL,
                                      external_id_fieldname=NULL,
                                      root_name = NULL, 
@@ -170,13 +192,13 @@ build_soap_xml_from_list <- function(input_data,
   }
   
   if(which_operation == "retrieve"){
-    stopifnot(!is.null(object))
+    stopifnot(!is.null(object_name))
     stopifnot(!is.null(fields))
     field_list_node <- newXMLNode("urn:fieldList",
                                   paste0(fields, collapse=","),
                                   parent=operation_node)
     sobject_type_node <- newXMLNode("urn:sObjectType",
-                                    object,
+                                    object_name,
                                     parent=operation_node)
   }  
   
@@ -214,20 +236,20 @@ build_soap_xml_from_list <- function(input_data,
     for(i in 1:nrow(input_data)){
       list <- as.list(input_data[i,,drop=FALSE])
       this_row_node <- newXMLNode("urn:sObjects", parent=operation_node)
-      # if the body elements are objects we must list the type of object 
+      # if the body elements are objects we must list the type of object_name 
       # under each block of XML for the row
       type_node <- newXMLNode("urn1:type", parent=this_row_node)
-      xmlValue(type_node) <- object
+      xmlValue(type_node) <- object_name
       
       if(length(list) > 0){
         for (i in 1:length(list)){
           if (typeof(list[[i]]) == "list") {
             this_node <- newXMLNode(names(list)[i], parent=this_row_node)
             build_soap_xml_from_list(list[[i]], 
-                                     operation=operation,
-                                     object=object,
-                                     external_id_fieldname=external_id_fieldname,
-                                     root=this_node)
+                                     operation = operation,
+                                     object_name = object_name,
+                                     external_id_fieldname = external_id_fieldname,
+                                     root = this_node)
           } else {
             if (!is.null(list[[i]])){
               this_node <- newXMLNode(names(list)[i], parent=this_row_node)
@@ -236,6 +258,51 @@ build_soap_xml_from_list <- function(input_data,
           }
         }
       }
+    }
+  }
+  return(root)
+}
+
+#' Metadata List to XML Converter
+#' 
+#' This function converts a list of metadata to XML
+#'
+#' @concept metadata salesforce api
+#' @importFrom XML newXMLNode xmlValue<-
+#' @param input_data XML document serving as the basis upon which to add the list
+#' @param metatype a character indicating the element name of each record in the list
+#' @param root_name character; the name of the root node if created
+#' @param ns named vector; a collection of character strings indicating the namespace 
+#' definitions of the root node if created
+#' @param root \code{XMLNode}; a node to be used as the root
+#' @return A XML document with the sublist data added
+build_metadata_xml_from_list <- function(input_data,
+                                         metatype = NULL, 
+                                         root_name = NULL, 
+                                         ns = c(character(0)),
+                                         root = NULL){
+  
+  # ensure that if root is NULL that root_name is not also NULL
+  # this is so we have something to create the root node
+  stopifnot(!is.null(root_name) | !is.null(root))
+  
+  if (is.null(root))
+    root <- newXMLNode(root_name, namespaceDefinitions = ns)
+  
+  for(i in 1:length(input_data)){
+    if (!is.null(metatype)){
+      this <- newXMLNode("Metadata", attrs = c(`xsi:type`=paste0("ns2:", metatype)), parent=root,
+                         namespaceDefinitions = c("ns2"="http://soap.sforce.com/2006/04/metadata"),
+                         suppressNamespaceWarning = TRUE)
+    } else {
+      this <- newXMLNode(names(input_data)[i], parent=root, 
+                         suppressNamespaceWarning = TRUE)
+    }
+    if (typeof(input_data[[i]]) == "list"){
+      build_metadata_xml_from_list(input_data=input_data[[i]], root=this, metatype=NULL)
+    }
+    else{
+      xmlValue(this) <- input_data[[i]]
     }
   }
   return(root)

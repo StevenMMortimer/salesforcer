@@ -54,7 +54,6 @@ the information returned about the current user. It should be information about 
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-#> Auto-refreshing stale OAuth token.
 sprintf("User Id: %s", user_info$id)
 #> [1] "User Id: 0056A000000MPRjQAO"
 sprintf("User Active?: %s", user_info$isActive)
@@ -75,8 +74,8 @@ created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PuOksQAF TRUE    <list [0]>
-#> 2 0036A00000PuOktQAF TRUE    <list [0]>
+#> 1 0036A00000RUnyaQAD TRUE    <list [0]>
+#> 2 0036A00000RUnybQAD TRUE    <list [0]>
 ```
 
 ### Retrieve
@@ -88,13 +87,13 @@ data we just created.
 ```r
 retrieved_records <- sf_retrieve(ids=created_records$id, 
                                  fields=c("FirstName", "LastName"), 
-                                 object="Contact")
+                                 object_name="Contact")
 retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000PuOksQAF Test      Contact-Create-1
-#> 2 0036A00000PuOktQAF Test      Contact-Create-2
+#> 1 0036A00000RUnyaQAD Test      Contact-Create-1
+#> 2 0036A00000RUnybQAD Test      Contact-Create-2
 ```
 
 ### Query
@@ -114,11 +113,11 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql)
 queried_records
-#> # A tibble: 2 x 3
-#>   Id                 FirstName LastName        
-#>   <chr>              <chr>     <chr>           
-#> 1 0036A00000PuOksQAF Test      Contact-Create-1
-#> 2 0036A00000PuOktQAF Test      Contact-Create-2
+#> # A tibble: 2 x 4
+#>   Id                 Account FirstName LastName        
+#> * <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000RUnyaQAD NA      Test      Contact-Create-1
+#> 2 0036A00000RUnybQAD NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -135,13 +134,13 @@ provide. Here is an example where we update the records we created earlier.
 queried_records <- queried_records %>%
   mutate(FirstName = "TestTest")
 
-updated_records <- sf_update(queried_records, object="Contact")
+updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PuOksQAF TRUE    <list [0]>
-#> 2 0036A00000PuOktQAF TRUE    <list [0]>
+#> 1 0036A00000RUnyaQAD TRUE    <list [0]>
+#> 2 0036A00000RUnybQAD TRUE    <list [0]>
 ```
 
 ### Delete
@@ -156,8 +155,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000PuOksQAF TRUE    <list [0]>
-#> 2 0036A00000PuOktQAF TRUE    <list [0]>
+#> 1 0036A00000RUnyaQAD TRUE    <list [0]>
+#> 2 0036A00000RUnybQAD TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -186,15 +185,15 @@ new_record <- tibble(FirstName = "Test",
 upserted_contacts <- bind_rows(upserted_contacts, new_record)
 
 upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                              object="Contact", 
+                              object_name="Contact", 
                               external_id_fieldname="My_External_Id__c")
 upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000PuOkxQAF true   
-#> 2 false   0036A00000PuOkyQAF true   
-#> 3 true    0036A00000PuOl2QAF true
+#> 1 false   0036A00000RUnyfQAD true   
+#> 2 false   0036A00000RUnygQAD true   
+#> 3 true    0036A00000RUnykQAD true
 ```
 
 

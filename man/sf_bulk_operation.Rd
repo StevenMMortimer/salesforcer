@@ -4,7 +4,7 @@
 \alias{sf_bulk_operation}
 \title{Run Bulk Operation}
 \usage{
-sf_bulk_operation(input_data, object, operation = c("insert", "delete",
+sf_bulk_operation(input_data, object_name, operation = c("insert", "delete",
   "upsert", "update"), external_id_fieldname = NULL,
   wait_for_results = TRUE, interval_seconds = 3, max_attempts = 200,
   verbose = FALSE)
@@ -13,7 +13,7 @@ sf_bulk_operation(input_data, object, operation = c("insert", "delete",
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; data can be coerced into .csv file for submitting as batch request}
 
-\item{object}{character; the name of the Salesforcer object that the 
+\item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{operation}{character string defining the type of operation being performed}
@@ -41,7 +41,7 @@ new_contacts <- data.frame(FirstName = rep("Test", n),
                            LastName = paste0("Contact", 1:n))
 # insert new records into the Contact object
 inserts <- sf_bulk_operation(input_data=new_contacts, 
-                             object="Contact", 
+                             object_name="Contact", 
                              operation="insert")
 }
 }

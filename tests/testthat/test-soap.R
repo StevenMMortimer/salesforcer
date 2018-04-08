@@ -19,7 +19,7 @@ test_that("testing SOAP API Functionality", {
   # sf_retrieve ----------------------------------------------------------------
   retrieved_records <- sf_retrieve(ids=created_records$id,
                                    fields=c("FirstName", "LastName"),
-                                   object="Contact", 
+                                   object_name="Contact", 
                                    api_type="SOAP")
   expect_is(retrieved_records, "tbl_df")
   expect_equal(names(retrieved_records), c("Id", "FirstName", "LastName"))
@@ -53,7 +53,7 @@ test_that("testing SOAP API Functionality", {
     mutate(FirstName = "TestTest")
   
   # sf_update ------------------------------------------------------------------
-  updated_records <- sf_update(queried_records, object="Contact", api_type="SOAP")
+  updated_records <- sf_update(queried_records, object_name="Contact", api_type="SOAP")
   expect_is(updated_records, "tbl_df")
   expect_equal(names(updated_records), c("id", "success"))
   expect_equal(nrow(updated_records), n)
@@ -65,7 +65,7 @@ test_that("testing SOAP API Functionality", {
 
   # sf_upsert ------------------------------------------------------------------
   upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                                object="Contact", 
+                                object_name="Contact", 
                                 external_id_fieldname="My_External_Id__c", 
                                 api_type = "SOAP")
   expect_is(upserted_records, "tbl_df")

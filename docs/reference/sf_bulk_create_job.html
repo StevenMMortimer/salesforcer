@@ -49,7 +49,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -123,7 +123,7 @@
     
 
     <pre class="usage"><span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>,
-  <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>), <span class='no'>object</span>, <span class='kw'>content_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>,
+  <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>), <span class='no'>object_name</span>, <span class='kw'>content_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>,
   <span class='st'>"ZIP_XML"</span>, <span class='st'>"ZIP_JSON"</span>), <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>concurrency_mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Parallel"</span>, <span class='st'>"Serial"</span>), <span class='kw'>line_ending</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>column_delimiter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -137,8 +137,8 @@
 performed (e.g. "insert", "update", "upsert", "delete")</p></td>
     </tr>
     <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
+      <th>object_name</th>
+      <td><p>character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
@@ -185,24 +185,24 @@ The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PI
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'># insert into Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>'Account'</span>)
 
 <span class='co'># delete from Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'delete'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'delete'</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>'Account'</span>)
 
 <span class='co'># update into Account</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'update'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'update'</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>'Account'</span>)
 
 <span class='co'># upsert into Account</span>
 <span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'upsert'</span>,
                                <span class='kw'>externalIdFieldName</span><span class='kw'>=</span><span class='st'>'My_External_Id__c'</span>,
-                               <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+                               <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>'Account'</span>)
 
 <span class='co'># insert attachments</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Attachment'</span>)
+<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'insert'</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>'Attachment'</span>)
 
 <span class='co'># query leads</span>
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'query'</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Lead'</span>)
+<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_create_job</span>(<span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'query'</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>'Lead'</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

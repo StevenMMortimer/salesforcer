@@ -4,11 +4,11 @@
 \alias{sf_describe_objects}
 \title{SObject Basic Information}
 \usage{
-sf_describe_objects(objects, api_type = c("SOAP", "REST", "Bulk"),
+sf_describe_objects(object_names, api_type = c("SOAP", "REST", "Bulk"),
   verbose = FALSE)
 }
 \arguments{
-\item{objects}{character; the name of one or more Salesforcer objects that the 
+\item{object_names}{character; the name of one or more Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
@@ -17,7 +17,7 @@ which API to use when making the request}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-\code{tibble}
+\code{list}
 }
 \description{
 Describes the individual metadata for the specified object.

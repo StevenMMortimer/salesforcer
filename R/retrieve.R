@@ -11,7 +11,7 @@
 #' that can be passed in the request
 #' @param fields character; one or more strings indicating the fields to be returned 
 #' on the records
-#' @template object
+#' @template object_name
 #' @template api_type
 #' @template verbose
 #' @return \code{tibble}
@@ -20,15 +20,15 @@
 #' n <- 3
 #' new_contacts <- tibble(FirstName = rep("Test", n),
 #'                        LastName = paste0("Contact", 1:n))
-#' new_contacts_result <- sf_create(new_contacts, object="Contact")
+#' new_contacts_result <- sf_create(new_contacts, object_name="Contact")
 #' retrieved_records <- sf_retrieve(ids=new_contacts_result$id,
 #'                                  fields=c("LastName"),
-#'                                  object="Contact")
+#'                                  object_name="Contact")
 #' }
 #' @export
 sf_retrieve <- function(ids,
                         fields,
-                        object,
+                        object_name,
                         api_type = c("REST", "SOAP", "Bulk"),
                         verbose = FALSE){
   
@@ -44,7 +44,7 @@ sf_retrieve <- function(ids,
     # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections_retrieve.htm?search_text=retrieve%20multiple
     # this type of request can only handle 2000 records at a time
     batch_size <- 2000
-    composite_url <- paste0(make_composite_url(), "/", object)
+    composite_url <- paste0(make_composite_url(), "/", object_name)
     
     # break up larger datasets, batch the data
     row_num <- nrow(ids)
@@ -100,7 +100,7 @@ sf_retrieve <- function(ids,
       r <- make_soap_xml_skeleton()
       xml_dat <- build_soap_xml_from_list(input_data = temp,
                                           operation = "retrieve",
-                                          object = object,
+                                          object_name = object_name,
                                           fields = fields,
                                           root=r)
       if(verbose) {

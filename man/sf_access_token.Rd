@@ -4,7 +4,7 @@
 \alias{sf_access_token}
 \title{Return access_token attribute of OAuth 2.0 Token}
 \usage{
-sf_access_token(verbose = TRUE)
+sf_access_token(verbose = FALSE)
 }
 \arguments{
 \item{verbose}{logical; do you want informative messages?}

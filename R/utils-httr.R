@@ -24,9 +24,7 @@ catch_errors <- function(x){
         stop(sprintf("%s: %s", response_parsed[[1]]$errorCode, response_parsed[[1]]$message))  
       }
     } else {
-      error_message <- response_parsed %>%
-        xml_find_first('.//soapenv:Fault') %>%
-        as_list()
+      error_message <- response_parsed$Envelope$Body$Fault
       stop(error_message$faultstring[[1]][1])
     }
   }
@@ -48,7 +46,7 @@ VERB_n <- function(VERB, n = 5) {
       
       if(is.null(current_state$auth_method)){
         out <- VERB(url = url, add_headers(headers), ...)
-      } else if(current_state$auth_method=='OAuth'){
+      } else if(current_state$auth_method == 'OAuth'){
         if(grepl("/services/data/v[0-9]{2}.[0-9]{1}/jobs/ingest", url)){
           out <- VERB(url = url, add_headers(c(headers, "Authorization"=sprintf("Bearer %s", current_state$token$credentials$access_token))), ...)  
         } else if(grepl("/services/async", url)){
@@ -56,7 +54,7 @@ VERB_n <- function(VERB, n = 5) {
         } else {
           out <- VERB(url = url, config=config(token=current_state$token), add_headers(headers), ...)  
         }
-      } else if (current_state$auth_method=='Basic') {
+      } else if (current_state$auth_method == 'Basic') {
         out <- VERB(url = url, add_headers(c(headers, "Authorization"=sprintf("Bearer %s", current_state$session_id))), ...)
       }
       

@@ -13,7 +13,7 @@ ignored in all backward compatible calls because the authorization credentials
 are stored in an environment internal to the salesforcer package, so it is no longer 
 necessary to pass the session in each function call.}
 
-\item{objectName}{character; the name of the Salesforcer object that the 
+\item{objectName}{character; the name of the Salesforce object that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{id}{Record ID to update. (ex: "999x000000xxxxxZZZ")}

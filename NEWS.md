@@ -4,12 +4,26 @@
 
   * Add `sf_search()` with REST and SOAP API support for SOSL and free text search
   * Add `sf_describe_objects()` with REST and SOAP API to return object metadata
+  * Add REST API support for upsert (`sf_upsert()`)
   * Add SOAP API support for the following operations:
     * `sf_create()`
     * `sf_update()`
     * `sf_delete()`
     * `sf_retrieve()`
-  * Add REST API support for upsert (`sf_upsert()`)
+  * Add Metadata API support for the following operations:
+    * `sf_create_metadata()`
+    * `sf_read_metadata()`
+    * `sf_update_metadata()`
+    * `sf_upsert_metadata()`
+    * `sf_delete_metadata()`
+    * `sf_describe_metadata()`
+    * `sf_list_metadata()`
+    * `sf_rename_metadata()`
+    * `sf_retrieve_metdata()`
+    * `sf_deploy_metdata()`
+  * Make the default file name for a cached token `.httr-oauth-salesforcer` so that 
+  it does not clash with other package token names
+  
 
 ### Bug Fixes
 

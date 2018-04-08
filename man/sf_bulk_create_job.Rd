@@ -5,7 +5,7 @@
 \title{Create Bulk API Job}
 \usage{
 sf_bulk_create_job(operation = c("insert", "delete", "upsert", "update",
-  "hardDelete", "query"), object, content_type = c("CSV", "ZIP_CSV",
+  "hardDelete", "query"), object_name, content_type = c("CSV", "ZIP_CSV",
   "ZIP_XML", "ZIP_JSON"), external_id_fieldname = NULL,
   concurrency_mode = c("Parallel", "Serial"), line_ending = NULL,
   column_delimiter = NULL, verbose = FALSE)
@@ -14,7 +14,7 @@ sf_bulk_create_job(operation = c("insert", "delete", "upsert", "update",
 \item{operation}{character; a string defining the type of operation being 
 performed (e.g. "insert", "update", "upsert", "delete")}
 
-\item{object}{character; the name of the Salesforcer object that the 
+\item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{content_type}{a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'}
@@ -44,24 +44,24 @@ This function initializes a Job in the Salesforce Bulk API
 \examples{
 \dontrun{
 # insert into Account
-job_info <- sf_bulk_create_job(operation='insert', object='Account')
+job_info <- sf_bulk_create_job(operation='insert', object_name='Account')
 
 # delete from Account
-job_info <- sf_bulk_create_job(operation='delete', object='Account')
+job_info <- sf_bulk_create_job(operation='delete', object_name='Account')
 
 # update into Account
-job_info <- sf_bulk_create_job(operation='update', object='Account')
+job_info <- sf_bulk_create_job(operation='update', object_name='Account')
 
 # upsert into Account
 job_info <- sf_bulk_create_job(operation='upsert',
                                externalIdFieldName='My_External_Id__c',
-                               object='Account')
+                               object_name='Account')
 
 # insert attachments
-job_info <- sf_bulk_create_job(operation='insert', object='Attachment')
+job_info <- sf_bulk_create_job(operation='insert', object_name='Attachment')
 
 # query leads
-job_info <- sf_bulk_create_job(operation='query', object='Lead')
+job_info <- sf_bulk_create_job(operation='query', object_name='Lead')
 }
 }
 \references{

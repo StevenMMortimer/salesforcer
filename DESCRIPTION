@@ -1,10 +1,18 @@
 Package: salesforcer
-Title: An R Package Connecting to Salesforce APIs using Tidy Principles
+Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
 Version: 0.1.0.9000
-Date: 2018-03-18
-Description: This package connects to Salesforce via REST, SOAP, Bulk, and Metadata APIs, and utilizes tidy data principles.
+Date: 2018-04-07
+Description: An implementation of the 'Salesforce' Platform APIs (REST, SOAP, 
+    Bulk, and Metadata) <https://developer.salesforce.com/page/Salesforce_APIs>. 
+    This package is an articulation of the most API methods into R. The API calls 
+    return XML or JSON that is parsed into lists and tibbles using tidy data principles. 
+    For more details please see Salesforces's API references and this package's website 
+    <https://stevenmmortimer.github.io/salesforcer/> for more information, 
+    documentation, and examples.
 Authors@R: c(
-    person(c("Steven", "M."), "Mortimer", , "reportmort@gmail.com", c("aut", "cre"))
+    person(c("Steven", "M."), "Mortimer", , "reportmort@gmail.com", c("aut", "cre")),
+    person("Jennifer", "Bryan", , "jenny@rstudio.com", c("ctb")),
+    person("Joanna", "Zhao", , "joanna.zhao@alumni.ubc.ca", c("ctb"))
     )
 URL: https://github.com/StevenMMortimer/salesforcer
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues

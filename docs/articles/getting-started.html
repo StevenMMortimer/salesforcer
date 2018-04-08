@@ -22,7 +22,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -126,7 +126,7 @@ created_records</code></pre></div>
 <p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, 
                                  <span class="dt">fields=</span><span class="kw">c</span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), 
-                                 <span class="dt">object=</span><span class="st">"Contact"</span>)
+                                 <span class="dt">object_name=</span><span class="st">"Contact"</span>)
 retrieved_records</code></pre></div>
 </div>
 <div id="query" class="section level3">
@@ -152,7 +152,7 @@ queried_records</code></pre></div>
 queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>)
 
-updated_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object=</span><span class="st">"Contact"</span>)
+updated_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
 updated_records</code></pre></div>
 </div>
 <div id="delete" class="section level3">
@@ -181,7 +181,7 @@ new_record &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.
 upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(upserted_contacts, new_record)
 
 upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, 
-                              <span class="dt">object=</span><span class="st">"Contact"</span>, 
+                              <span class="dt">object_name=</span><span class="st">"Contact"</span>, 
                               <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)
 upserted_records</code></pre></div>
 </div>

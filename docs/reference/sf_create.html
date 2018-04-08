@@ -49,7 +49,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -122,8 +122,8 @@
     <p>Adds one or more new records to your organization’s data.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_create</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>,
-  <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_create</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>,
+  <span class='st'>"REST"</span>, <span class='st'>"Bulk"</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -134,8 +134,8 @@
 <code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
     </tr>
     <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
+      <th>object_name</th>
+      <td><p>character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
@@ -168,8 +168,8 @@ which API to use when making the request</p></td>
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
 <span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
                        <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>"Contact"</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"SOAP"</span>)
+<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"REST"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

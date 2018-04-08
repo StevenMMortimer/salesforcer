@@ -8,14 +8,8 @@ knitr::opts_chunk$set(
 )
 
 ## ----auth, include = FALSE-----------------------------------------------
-library(dplyr)
-library(salesforcer)
-## I grab the settings from the testing directory because that's where it is to be
-## found on Travis
-salesforcer_test_settings <- readRDS(file.path("..",
-                                               "tests", 
-                                               "testthat",
-                                               "salesforcer_test_settings.rds"))
+options_path <- file.path("..", "tests", "testthat", "salesforcer_test_settings.rds")
+salesforcer_test_settings <- readRDS(options_path)
 username <- salesforcer_test_settings$username
 password <- salesforcer_test_settings$password
 security_token <- salesforcer_test_settings$security_token
@@ -69,7 +63,7 @@ for(i in 1:nrow(new_contacts)){
 rforcecom_results
 
 # the better way in salesforcer to do multiple records
-salesforcer_results <- sf_create(new_contacts, "Contact")
+salesforcer_results <- sf_create(new_contacts, object_name="Contact")
 salesforcer_results
 
 ## ---- warning=FALSE------------------------------------------------------

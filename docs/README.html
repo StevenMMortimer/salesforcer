@@ -47,7 +47,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -118,16 +118,22 @@
 
 <div id="salesforcer" class="section level1">
 <h1 class="hasAnchor">
-<a href="#salesforcer" class="anchor"></a>salesforcer <img src="man/figures/logo.png" align="right">
+<a href="#salesforcer" class="anchor"></a>salesforcer <img src="man/figures/salesforcer.png" width="120px" align="right">
 </h1>
 <p><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="http://cran.r-project.org/package=salesforcer"><img src="http://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a> <a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></p>
-<p><strong>salesforcer</strong> is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the SOAP, REST and Bulk APIs.</p>
-<p>Package features include:</p>
+<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk, and Metadata APIs. Package features include:</p>
 <ul>
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
-<li>CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs</li>
-<li>Query operations via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
-<li>Backwards compatible functions from the <strong>RForcecom</strong> package, such as:
+<li>CRUD (Create, Retrieve, Update, Delete) methods for records using the REST and Bulk APIs</li>
+<li>Query records via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
+<li>Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API using:
+<ul>
+<li>
+<code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code>, <code><a href="reference/sf_create_metadata.html">sf_create_metadata()</a></code>, <code><a href="reference/sf_update_metadata.html">sf_update_metadata()</a></code>
+</li>
+</ul>
+</li>
+<li>Utilize backwards compatible functions for the <strong>RForcecom</strong> package, such as:
 <ul>
 <li>
 <code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>, <code><a href="reference/rforcecom.update.html">rforcecom.update()</a></code>
@@ -146,13 +152,10 @@
 <ul>
 <li><a href="#authenticate">Authenticate</a></li>
 <li><a href="#create">Create</a></li>
-<li><a href="#retrieve">Retrieve</a></li>
 <li><a href="#query">Query</a></li>
 <li><a href="#update">Update</a></li>
-<li><a href="#delete">Delete</a></li>
-<li><a href="#upsert">Upsert</a></li>
-<li><a href="#using-the-bulk-api">Using the Bulk API</a></li>
-<li><a href="#accessing-metadata">Accessing Metadata</a></li>
+<li><a href="#bulk-operations">Bulk Operations</a></li>
+<li><a href="#using-the-metadata-api">Using the Metadata API</a></li>
 </ul>
 </li>
 <li><a href="#future">Future</a></li>
@@ -166,7 +169,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this package is currently not on CRAN, so it should be installed from GitHub</span>
 <span class="co"># install.packages("devtools")</span>
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)</code></pre></div>
-<p>If you encounter a clear bug, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">github</a>.</p>
+<p>If you encounter a clear bug, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">GitHub</a>.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -174,8 +177,14 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="authenticate" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authenticate" class="anchor"></a>Authenticate</h3>
-<p>First, load the <strong>salesforcer</strong> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth” in the current working directory.</p>
+<p>First, load the <strong>salesforcer</strong> package and login. There are two ways to authenticate:</p>
+<ol>
+<li>OAuth 2.0</li>
+<li>Basic Username-Password</li>
+</ol>
+<p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
+<span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(purrr)))
 <span class="kw">library</span>(salesforcer)
 
 <span class="co"># Using OAuth 2.0 authentication</span>
@@ -207,22 +216,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000RRdc1QAD TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000RRdc2QAD TRUE    &lt;list [0]&gt;</span></code></pre></div>
-</div>
-<div id="retrieve" class="section level3">
-<h3 class="hasAnchor">
-<a href="#retrieve" class="anchor"></a>Retrieve</h3>
-<p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, 
-                                 <span class="dt">fields=</span><span class="kw">c</span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), 
-                                 <span class="dt">object=</span><span class="st">"Contact"</span>)
-retrieved_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RRdc1QAD Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RRdc2QAD Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUo8kQAD TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RUo8lQAD TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -241,8 +236,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RRdc1QAD NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RRdc2QAD NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUo8kQAD NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUo8lQAD NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -257,77 +252,21 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000RRdc1QAD TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000RRdc2QAD TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUo8kQAD TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RUo8lQAD TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
-<div id="delete" class="section level3">
+<div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
-<a href="#delete" class="anchor"></a>Delete</h3>
-<p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)
-deleted_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   id                 success errors    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000RRdc1QAD TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000RRdc2QAD TRUE    &lt;list [0]&gt;</span></code></pre></div>
-</div>
-<div id="upsert" class="section level3">
-<h3 class="hasAnchor">
-<a href="#upsert" class="anchor"></a>Upsert</h3>
-<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at <a href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/" class="uri">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
-new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n), 
-                       <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
-
-upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                            <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, <span class="dv">1</span><span class="op">:</span>n), 
-                            <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])
-new_record &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="st">"Test"</span>,
-                     <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, n<span class="op">+</span><span class="dv">1</span>), 
-                     <span class="dt">My_External_Id__c=</span>letters[n<span class="op">+</span><span class="dv">1</span>])
-upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(upserted_contacts, new_record)
-
-upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, 
-                              <span class="dt">object=</span><span class="st">"Contact"</span>, 
-                              <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)
-upserted_records
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   created id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000RRdc6QAD true   </span>
-<span class="co">#&gt; 2 false   0036A00000RRdc7QAD true   </span>
-<span class="co">#&gt; 3 true    0036A00000RRdcBQAT true</span></code></pre></div>
-</div>
-<div id="using-the-bulk-api" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h3>
-<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs.</p>
+<a href="#bulk-operations" class="anchor"></a>Bulk Operations</h3>
+<p>For really large inserts, updates, upserts, deletes, and queries you can just add “api_type” = “Bulk” to get the benefits of using the Bulk API instead of the SOAP or REST APIs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just add api_type="Bulk" to most calls!</span>
+
 <span class="co"># create bulk</span>
 object &lt;-<span class="st"> "Contact"</span>
 n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
 created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
-created_records
-<span class="co">#&gt; $successfulResults</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RRdcGQAT true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RRdcHQAT true        Test      Contact-Create-2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $failedResults</span>
-<span class="co">#&gt; # A tibble: 0 x 4</span>
-<span class="co">#&gt; # ... with 4 variables: sf__Id &lt;chr&gt;, sf__Error &lt;chr&gt;, FirstName &lt;chr&gt;,</span>
-<span class="co">#&gt; #   LastName &lt;chr&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $unprocessedRecords</span>
-<span class="co">#&gt; # A tibble: 0 x 2</span>
-<span class="co">#&gt; # ... with 2 variables: FirstName &lt;chr&gt;, LastName &lt;chr&gt;</span>
 
 <span class="co"># query bulk</span>
 my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
@@ -338,39 +277,100 @@ my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span clas
                    <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
-queried_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RRdcGQAT Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RRdcHQAT Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
-deleted_records
-<span class="co">#&gt; $successfulResults</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   sf__Id             sf__Created Id                </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;             </span>
-<span class="co">#&gt; 1 0036A00000RRdcGQAT false       0036A00000RRdcGQAT</span>
-<span class="co">#&gt; 2 0036A00000RRdcHQAT false       0036A00000RRdcHQAT</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $failedResults</span>
-<span class="co">#&gt; # A tibble: 0 x 3</span>
-<span class="co">#&gt; # ... with 3 variables: sf__Id &lt;chr&gt;, sf__Error &lt;chr&gt;, Id &lt;chr&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $unprocessedRecords</span>
-<span class="co">#&gt; # A tibble: 0 x 1</span>
-<span class="co">#&gt; # ... with 1 variable: Id &lt;chr&gt;</span></code></pre></div>
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)</code></pre></div>
 </div>
-<div id="accessing-metadata" class="section level3">
+<div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
-<a href="#accessing-metadata" class="anchor"></a>Accessing Metadata</h3>
-<p>In future iterations of the package <strong>salesforcer</strong> will connect to the Metadata API; however, currently, there are RESTful calls that will return metatdata.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#sf_describe_global()</span>
-<span class="co">#sf_describe_object()</span>
-<span class="co">#sf_describe_layout()</span>
-<span class="co">#sf_describe_tabs()</span></code></pre></div>
+<a href="#using-the-metadata-api" class="anchor"></a>Using the Metadata API</h3>
+<p>Salesforce is a very flexible platform. They provide the Metadata API for users to create, read, update and delete the objects in Salesforce. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_obj_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_read_metadata.html">sf_read_metadata</a></span>(<span class="dt">metadata_type=</span><span class="st">'CustomObject'</span>,
+                                    <span class="dt">object_names=</span><span class="kw">c</span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
+read_obj_result[[<span class="dv">1</span>]][<span class="kw">c</span>(<span class="st">'fullName'</span>, <span class="st">'label'</span>, <span class="st">'sharingModel'</span>, <span class="st">'enableHistory'</span>)]
+<span class="co">#&gt; $fullName</span>
+<span class="co">#&gt; [1] "Account"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $label</span>
+<span class="co">#&gt; [1] "Account"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $sharingModel</span>
+<span class="co">#&gt; [1] "ReadWrite"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $enableHistory</span>
+<span class="co">#&gt; [1] "false"</span>
+first_two_fields_idx &lt;-<span class="st"> </span><span class="kw">head</span>(<span class="kw">which</span>(<span class="kw">names</span>(read_obj_result[[<span class="dv">1</span>]]) <span class="op">==</span><span class="st"> 'fields'</span>), <span class="dv">2</span>)
+<span class="co"># show the first two returned fields of the Account object</span>
+read_obj_result[[<span class="dv">1</span>]][first_two_fields_idx]
+<span class="co">#&gt; $fields</span>
+<span class="co">#&gt; $fields$fullName</span>
+<span class="co">#&gt; [1] "AccountNumber"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields$trackFeedHistory</span>
+<span class="co">#&gt; [1] "false"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields</span>
+<span class="co">#&gt; $fields$fullName</span>
+<span class="co">#&gt; [1] "AccountSource"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields$trackFeedHistory</span>
+<span class="co">#&gt; [1] "false"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields$type</span>
+<span class="co">#&gt; [1] "Picklist"</span></code></pre></div>
+<p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using the function <code>sf_describe_object()</code> function which is actually part of the REST and SOAP APIs. It is recommended that you try out the various metadata functions <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="reference/sf_describe_metadata.html">sf_describe_metadata()</a></code> and <code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">describe_obj_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_describe_objects.html">sf_describe_objects</a></span>(<span class="dt">object_names=</span><span class="kw">c</span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
+describe_obj_result[[<span class="dv">1</span>]][<span class="kw">c</span>(<span class="st">'label'</span>, <span class="st">'queryable'</span>)]
+<span class="co">#&gt; $label</span>
+<span class="co">#&gt; [1] "Account"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $queryable</span>
+<span class="co">#&gt; [1] "true"</span>
+<span class="co"># show the first two returned fields of the Account object</span>
+the_type_field &lt;-<span class="st"> </span>describe_obj_result[[<span class="dv">1</span>]][[<span class="dv">58</span>]]
+the_type_field<span class="op">$</span>name
+<span class="co">#&gt; [1] "Type"</span>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_df</a></span>(the_type_field[<span class="kw">which</span>(<span class="kw">names</span>(the_type_field) <span class="op">==</span><span class="st"> "picklistValues"</span>)], as_tibble)
+<span class="co">#&gt; # A tibble: 7 x 4</span>
+<span class="co">#&gt;   active defaultValue label                      value                    </span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                    </span>
+<span class="co">#&gt; 1 true   false        Prospect                   Prospect                 </span>
+<span class="co">#&gt; 2 true   false        Customer - Direct          Customer - Direct        </span>
+<span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel       </span>
+<span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Resell…</span>
+<span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner     </span>
+<span class="co">#&gt; 6 true   false        Technology Partner         Technology Partner       </span>
+<span class="co">#&gt; 7 true   false        Other                      Other</span></code></pre></div>
+<p>Where the Metadata API really shines is when it comes to CRUD operations on metadata. In this example we will create an object, add fields to it, then delete that object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create an object</span>
+base_obj_name &lt;-<span class="st"> "Custom_Account1"</span>
+custom_object &lt;-<span class="st"> </span><span class="kw">list</span>()
+custom_object<span class="op">$</span>fullName &lt;-<span class="st"> </span><span class="kw">paste0</span>(base_obj_name, <span class="st">"__c"</span>)
+custom_object<span class="op">$</span>label &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">gsub</span>(<span class="st">"_"</span>, <span class="st">" "</span>, base_obj_name))
+custom_object<span class="op">$</span>pluralLabel &lt;-<span class="st"> </span><span class="kw">paste0</span>(base_obj_name, <span class="st">"s"</span>)
+custom_object<span class="op">$</span>nameField &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">displayFormat =</span> <span class="st">'AN-{0000}'</span>, 
+                                <span class="dt">label =</span> <span class="kw">paste0</span>(base_obj_name, <span class="st">' Number'</span>), 
+                                <span class="dt">type =</span> <span class="st">'AutoNumber'</span>)
+custom_object<span class="op">$</span>deploymentStatus &lt;-<span class="st"> 'Deployed'</span>
+custom_object<span class="op">$</span>sharingModel &lt;-<span class="st"> 'ReadWrite'</span>
+custom_object<span class="op">$</span>enableActivities &lt;-<span class="st"> 'true'</span>
+custom_object<span class="op">$</span>description &lt;-<span class="st"> </span><span class="kw">paste0</span>(base_obj_name, <span class="st">" created by the Metadata API"</span>)
+custom_object_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create_metadata.html">sf_create_metadata</a></span>(<span class="dt">metadata_type =</span> <span class="st">'CustomObject'</span>,
+                                           <span class="dt">metadata =</span> custom_object)
+
+<span class="co"># add fields to the object</span>
+custom_fields &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">fullName=</span><span class="kw">c</span>(<span class="kw">paste0</span>(base_obj_name, <span class="st">'__c.CustomField3__c'</span>), 
+                                   <span class="kw">paste0</span>(base_obj_name, <span class="st">'__c.CustomField4__c'</span>)), 
+                        <span class="dt">label=</span><span class="kw">c</span>(<span class="st">'Test Field3'</span>, <span class="st">'Test Field4'</span>), 
+                        <span class="dt">length=</span><span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">100</span>), 
+                        <span class="dt">type=</span><span class="kw">c</span>(<span class="st">'Text'</span>, <span class="st">'Text'</span>))
+create_fields_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create_metadata.html">sf_create_metadata</a></span>(<span class="dt">metadata_type =</span> <span class="st">'CustomField'</span>, 
+                                           <span class="dt">metadata =</span> custom_fields)
+
+<span class="co"># delete the object</span>
+deleted_custom_object_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete_metadata.html">sf_delete_metadata</a></span>(<span class="dt">metadata_type =</span> <span class="st">'CustomObject'</span>, 
+                                                   <span class="dt">object_names =</span> <span class="kw">c</span>(<span class="st">'Custom_Account1__c'</span>))</code></pre></div>
 </div>
 </div>
 <div id="future" class="section level2">
@@ -378,8 +378,6 @@ deleted_records
 <a href="#future" class="anchor"></a>Future</h2>
 <p>Future APIs to support:</p>
 <ul>
-<li>Async</li>
-<li>Metadata</li>
 <li>Reporting</li>
 <li>Analytics</li>
 </ul>
@@ -387,12 +385,13 @@ deleted_records
 <div id="credits" class="section level2">
 <h2 class="hasAnchor">
 <a href="#credits" class="anchor"></a>Credits</h2>
-<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the <strong>RForcecom</strong> package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
+<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more-information" class="anchor"></a>More Information</h2>
-<p>More information can be found at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a>.</p>
+<p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. Most all operations supported by the Salesforce APIs are available via this package. The details on formatting, attributes, and methods are better explained by <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a>.</p>
+<p>More information is also available on the <code>pkgdown</code> site at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a>.</p>
 <p><a href="#salesforcer-">Top</a></p>
 <hr>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>

@@ -4,14 +4,14 @@
 \alias{sf_query}
 \title{Perform SOQL Query}
 \usage{
-sf_query(soql, object = NULL, queryall = FALSE, batch_size = 1000,
+sf_query(soql, object_name = NULL, queryall = FALSE, batch_size = 1000,
   api_type = c("REST", "SOAP", "Bulk"), next_records_url = NULL, ...,
   verbose = FALSE)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
-\item{object}{character; the name of the Salesforcer object that the 
+\item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{queryall}{logical; indicating if the query recordset should include 

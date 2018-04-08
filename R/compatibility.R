@@ -53,7 +53,8 @@ rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
 #' 
 #' @template session
 #' @template soqlQuery
-#' @template object
+#' @param object character; the name of one Salesforce objects that the 
+#' function is operating against (e.g. "Account", "Contact", "CustomObject__c")
 #' @param interval_seconds an integer defining the seconds between attempts to check for job completion
 #' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
 #' @template verbose
@@ -69,7 +70,7 @@ rforcecom.bulkQuery <- function(session,
   .Deprecated("sf_query")
   
   sf_query(soql = soqlQuery, 
-           object = object,
+           object_name = object,
            api_type = "Bulk", 
            interval_seconds = 5,
            max_attempts = 100)
@@ -100,7 +101,7 @@ rforcecom.create <- function(session, objectName, fields){
   .Deprecated("sf_create")
   
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
-  created_records <- sf_create(input_data=fields, object=objectName)
+  created_records <- sf_create(input_data=fields, object_name=objectName)
   
   result <- created_records %>% 
     select(id, success) %>%
@@ -125,7 +126,7 @@ rforcecom.update <- function(session, objectName, id, fields){
 
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
   fields$id <- id
-  updated_records <- sf_update(fields, objectName)
+  updated_records <- sf_update(fields, object_name=objectName)
   
   # rforcecom.update returns NULL if successful??
   return(NULL)
@@ -142,7 +143,7 @@ rforcecom.delete <- function(session, objectName, id){
   
   .Deprecated("sf_delete")
   
-  deleted_records <- sf_delete(id, objectName)
+  deleted_records <- sf_delete(id, object_name=objectName)
   
   # rforcecom.delete returns NULL if successful??
   return(NULL)
@@ -165,8 +166,8 @@ rforcecom.upsert <- function(session, objectName,
 
   fields[externalIdField] <- externalId
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
-  upserted_records <- sf_upsert(input_data=fields, 
-                                object=objectName, 
+  upserted_records <- sf_upsert(input_data = fields, 
+                                object_name = objectName, 
                                 external_id_fieldname = externalIdField)
   
   # rforcecom.upsert returns NULL if successful??
@@ -207,50 +208,6 @@ rforcecom.retrieve <- function(session, objectName,
                                fields, limit=NULL, id=NULL,
                                offset=NULL, order=NULL,
                                inverse=NULL, nullsLast=NULL){
-  .Deprecated("sf_retrieve")
-
-  # Make SOQL
-  fieldList <- paste(fields, collapse=", ")
-  soqlQuery <- paste("SELECT", fieldList, "FROM", objectName, sep=" ")
-
-  # Add an id
-  if(!is.null(id)){
-    soqlQuery <- paste(soqlQuery, " WHERE Id ='", id, "'", sep="")
-  }
-
-  # Add order phrase
-  if(!is.null(order)){
-    if(is.list(order)){ orderList <- paste(order, collapse=", ") }
-    else{ orderList <- order }
-    soqlQuery <- paste(soqlQuery, " ORDER BY ", orderList, sep="")
-    if(!is.null(inverse) && inverse == T){
-      soqlQuery <- paste(soqlQuery, " DESC", sep="")
-    }
-    if(!is.null(nullsLast) && nullsLast == T){
-      soqlQuery <- paste(soqlQuery, " NULLS LAST", sep="")
-    }
-  }
-
-  # Add limit phrase
-  if(!is.null(limit)){
-    soqlQuery <- paste(soqlQuery, " LIMIT ",limit, sep="")
-  }
-
-  # Add offset phrase
-  if(!is.null(offset)){
-    soqlQuery <- paste(soqlQuery, " OFFSET ",offset, sep="")
-  }
-
-  # Send a query
-  suppressWarnings(resultSet <- rforcecom.query(session, soqlQuery))
-  return(resultSet)
+  stop("salesforcer does not support rforcecom.retrieve. Use sf_retrieve or sf_query instead.", call.=FALSE)
+  return(NULL)
 }
-
-# functions waiting to be made compatible --------------------------------------
-
-#' #' salesforcer's backwards compatible version of rforcecom.bulkAction
-#' #' 
-#' #' @export
-#' rforcecom.bulkAction <- function(){
-#'   .Deprecated("sf_bulk_operation")
-#' }

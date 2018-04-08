@@ -7,7 +7,7 @@
     salesforcer.consumer_key = "3MVG9CEn_O3jvv0yRMQezJ8PwesiIknRU9v9j778rv78UvJ2JTQzSG.QduxyMxYaldoNEhO0eVvw4ogCT58c5",
     salesforcer.consumer_secret = "3471656211653393546",
     salesforcer.callback_url = "http://localhost:1410/",
-    salesforcer.httr_oauth_cache = TRUE
+    salesforcer.httr_oauth_cache = ".httr-oauth-salesforcer"
   )
   toset <- !(names(op.salesforcer) %in% names(op))
   if(any(toset)) options(op.salesforcer[toset])

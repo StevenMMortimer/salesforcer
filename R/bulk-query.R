@@ -94,7 +94,7 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
 #' bulk query API jobs
 #'
 #' @template soql
-#' @template object
+#' @template object_name
 #' @param interval_seconds an integer defining the seconds between attempts to check for job completion
 #' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
 #' @template verbose
@@ -103,20 +103,20 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object
-#' ids <- sf_bulk_query(soql='SELECT Id FROM Account', object='Account')
+#' ids <- sf_bulk_query(soql='SELECT Id FROM Account', object_name='Account')
 #' }
 #' @export
 sf_bulk_query <- function(soql,
-                          object,
+                          object_name,
                           interval_seconds=5,
                           max_attempts=100, 
                           verbose=FALSE){
-  # if(is.null(object)){
-  #   object <- gsub("(.*)from\\s+([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE, perl=TRUE)
-  #   message(sprintf("Guessed target object from query string: %s", object))
+  # if(is.null(object_name)){
+  #   object_name <- gsub("(.*)from\\s+([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE, perl=TRUE)
+  #   message(sprintf("Guessed target object_name from query string: %s", object_name))
   # }
   
-  job_info <- sf_bulk_create_job(operation = "query", object = object)
+  job_info <- sf_bulk_create_job(operation = "query", object_name = object_name)
   batch_query_info <- sf_bulk_submit_query(job_id = job_info$id, 
                                            soql = soql)
   status_complete <- FALSE

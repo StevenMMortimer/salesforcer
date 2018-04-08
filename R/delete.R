@@ -9,7 +9,7 @@
 #' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
 #' that can be passed in the request
-#' @template object
+#' @template object_name
 #' @template all_or_none
 #' @template api_type
 #' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
@@ -20,18 +20,18 @@
 #' n <- 3
 #' new_contacts <- tibble(FirstName = rep("Test", n),
 #'                        LastName = paste0("Contact", 1:n))
-#' new_contacts_result1 <- sf_create(new_contacts, "Contact")
+#' new_contacts_result1 <- sf_create(new_contacts, object_name="Contact")
 #' deleted_contacts_result1 <- sf_delete(new_contacts_result1$id, 
-#'                                       object="Contact")   
+#'                                       object_name="Contact")   
 #' 
 #' new_contacts_result2 <- sf_create(new_contacts, "Contact")
 #' deleted_contacts_result2 <- sf_delete(new_contacts_result2$id, 
-#'                                       object="Contact", 
+#'                                       object_name="Contact", 
 #'                                       api_type="Bulk")                             
 #' }
 #' @export
 sf_delete <- function(ids,
-                      object,
+                      object_name,
                       all_or_none = FALSE,
                       api_type = c("REST", "SOAP", "Bulk"),
                       ...,
@@ -101,10 +101,10 @@ sf_delete <- function(ids,
       }
       
       temp <- ids[batch_id == batch, , drop=FALSE]  
-      r <- make_soap_xml_skeleton()
+      r <- make_soap_xml_skeleton(soap_headers=list(AllorNoneHeader = tolower(all_or_none)))
       xml_dat <- build_soap_xml_from_list(input_data = temp,
                                           operation = "delete",
-                                          object = object,
+                                          object_name = object_name,
                                           root=r)
       if(verbose) {
         message(base_soap_url)
@@ -123,7 +123,7 @@ sf_delete <- function(ids,
     }
     suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(ids, object, operation="delete", verbose=verbose, ...)
+    resultset <- sf_bulk_operation(ids, object_name=object_name, operation="delete", verbose=verbose, ...)
   } else {
     stop("Unknown API type")
   }

@@ -49,7 +49,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -124,7 +124,7 @@
 
     <pre class="usage"><span class='fu'>build_soap_xml_from_list</span>(<span class='no'>input_data</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"create"</span>, <span class='st'>"retrieve"</span>,
   <span class='st'>"update"</span>, <span class='st'>"upsert"</span>, <span class='st'>"delete"</span>, <span class='st'>"search"</span>, <span class='st'>"query"</span>, <span class='st'>"queryMore"</span>,
-  <span class='st'>"describeSObjects"</span>), <span class='kw'>object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='st'>"describeSObjects"</span>), <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>character</span>(<span class='fl'>0</span>)),
   <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
@@ -141,8 +141,8 @@
 performed (e.g. "insert", "update", "upsert", "delete")</p></td>
     </tr>
     <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
+      <th>object_name</th>
+      <td><p>character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>

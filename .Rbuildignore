@@ -13,8 +13,11 @@
 ^appveyor\.yml$
 ^_pkgdown\.yml$
 ^\.httr-oauth$
+^\.httr-oauth-salesforcer$
 ^docs$
 ^tic\.R$
 man-roxygen
 tests/testthat/salesforcer.tar.enc
+tests/testthat/package.zip
 tests/testthat/.httr-oauth
+tests/testthat/.httr-oauth-salesforcer

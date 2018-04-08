@@ -5,7 +5,7 @@
 #' @importFrom jsonlite toJSON
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
 #' @template operation
-#' @template object
+#' @template object_name
 #' @param content_type a character string being one of 'CSV','ZIP_CSV','ZIP_XML', or 'ZIP_JSON'
 #' @template external_id_fieldname
 #' @param concurrency_mode a character string either "Parallel" or "Serial" that specifies whether batches should be completed
@@ -21,29 +21,29 @@
 #' @examples
 #' \dontrun{
 #' # insert into Account
-#' job_info <- sf_bulk_create_job(operation='insert', object='Account')
+#' job_info <- sf_bulk_create_job(operation='insert', object_name='Account')
 #' 
 #' # delete from Account
-#' job_info <- sf_bulk_create_job(operation='delete', object='Account')
+#' job_info <- sf_bulk_create_job(operation='delete', object_name='Account')
 #' 
 #' # update into Account
-#' job_info <- sf_bulk_create_job(operation='update', object='Account')
+#' job_info <- sf_bulk_create_job(operation='update', object_name='Account')
 #' 
 #' # upsert into Account
 #' job_info <- sf_bulk_create_job(operation='upsert',
 #'                                externalIdFieldName='My_External_Id__c',
-#'                                object='Account')
+#'                                object_name='Account')
 #' 
 #' # insert attachments
-#' job_info <- sf_bulk_create_job(operation='insert', object='Attachment')
+#' job_info <- sf_bulk_create_job(operation='insert', object_name='Attachment')
 #' 
 #' # query leads
-#' job_info <- sf_bulk_create_job(operation='query', object='Lead')
+#' job_info <- sf_bulk_create_job(operation='query', object_name='Lead')
 #' }
 #' @export
 sf_bulk_create_job <- function(operation=c("insert", "delete", "upsert", "update", 
                                            "hardDelete", "query"), 
-                               object,
+                               object_name,
                                content_type=c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
                                external_id_fieldname=NULL,
                                concurrency_mode=c("Parallel", "Serial"),
@@ -62,7 +62,7 @@ sf_bulk_create_job <- function(operation=c("insert", "delete", "upsert", "update
   
   # form body from arguments
   request_body <- list(operation = operation, 
-                       object = object, 
+                       object = object_name, 
                        contentType = content_type, 
                        externalIdFieldName = external_id_fieldname,
                        concurrencyMode = concurrency_mode,
@@ -95,7 +95,7 @@ sf_bulk_create_job <- function(operation=c("insert", "delete", "upsert", "update
       xml_add_child("jobInfo",
                     "xmlns" = "http://www.force.com/2009/06/asyncapi/dataload") %>%
       xml_add_child("operation", operation) %>%
-      xml_add_sibling("object", object)
+      xml_add_sibling("object", object_name)
     
       if(operation == "upsert"){
         body %>% 
@@ -483,7 +483,7 @@ sf_bulk_get_job_records <- function(job_id,
 #'
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into .csv file for submitting as batch request
-#' @template object
+#' @template object_name
 #' @param operation character string defining the type of operation being performed
 #' @template external_id_fieldname
 #' @param wait_for_results logical; indicating whether to wait for the operation to complete 
@@ -499,12 +499,12 @@ sf_bulk_get_job_records <- function(job_id,
 #'                            LastName = paste0("Contact", 1:n))
 #' # insert new records into the Contact object
 #' inserts <- sf_bulk_operation(input_data=new_contacts, 
-#'                              object="Contact", 
+#'                              object_name="Contact", 
 #'                              operation="insert")
 #' }
 #' @export
 sf_bulk_operation <- function(input_data,
-                              object,
+                              object_name,
                               operation = c("insert", "delete", "upsert", "update"),
                               external_id_fieldname = NULL,
                               wait_for_results = TRUE,
@@ -514,7 +514,8 @@ sf_bulk_operation <- function(input_data,
 
   operation <- match.arg(operation)
   
-  job_info <- sf_bulk_create_job(operation, object, external_id_fieldname=external_id_fieldname)
+  job_info <- sf_bulk_create_job(operation, object_name=object_name, 
+                                 external_id_fieldname=external_id_fieldname)
   batches_info <- sf_bulk_create_batches(job_info$id, input_data)
   
   if(wait_for_results){

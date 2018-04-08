@@ -34,7 +34,7 @@ not require sharing passwords, but will require authorizing salesforcer
 as a connected app to view and manage your organization. You will be directed to 
 a web browser, asked to sign in to your Salesforce account, and to grant salesforcer 
 permission to operate on your behalf. By default, these user credentials are 
-cached in a file named .httr-oauth in the current working directory." />
+cached in a file named .httr-oauth-salesforcer in the current working directory." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -54,7 +54,7 @@ cached in a file named .httr-oauth in the current working directory." />
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -129,7 +129,7 @@ not require sharing passwords, but will require authorizing <code>salesforcer</c
 as a connected app to view and manage your organization. You will be directed to 
 a web browser, asked to sign in to your Salesforce account, and to grant <code>salesforcer</code> 
 permission to operate on your behalf. By default, these user credentials are 
-cached in a file named .httr-oauth in the current working directory.</p>
+cached in a file named <code>.httr-oauth-salesforcer</code> in the current working directory.</p>
     
 
     <pre class="usage"><span class='fu'>sf_auth</span>(<span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>security_token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -172,8 +172,9 @@ connected apps' consumer key, secret, and callback url</p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>logical indicating if <code>salesforcer</code> should cache
-credentials in the default cache file <code>.httr-oauth</code></p></td>
+      <td><p>logical or character; TRUE means to cache using the default cache 
+file <code>.httr-oauth-salesforcer</code>, FALSE means don't cache. A string means use 
+the specified path as the cache file.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -190,7 +191,7 @@ credentials in the default cache file <code>.httr-oauth</code></p></td>
         <span class='kw'>security_token</span> <span class='kw'>=</span> )
 
 <span class='co'># log in using OAuth 2.0</span>
-<span class='co'># Via brower or refresh of .httr-oauth</span>
+<span class='co'># Via brower or refresh of .httr-oauth-salesforcer</span>
 <span class='fu'>sf_auth</span>()
 
 <span class='co'># Save token and log in using it</span>

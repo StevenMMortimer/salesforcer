@@ -3,7 +3,7 @@ url: https://stevenmmortimer.github.io/salesforcer/
 template:
   params:
     bootswatch: spacelab
-    ganalytics: UA-98603021-1
+    ganalytics: UA-98603021-2
 
 home:
   strip_header: true
@@ -45,6 +45,19 @@ reference:
       - '`sf_update`'
       - '`sf_upsert`'
       - '`sf_delete`'
+  - title: Metadata Functions
+    desc: Functions used for create, retrieve, update, and delete metadata.
+    contents:
+      - '`sf_create_metadata`'
+      - '`sf_update_metadata`'
+      - '`sf_upsert_metadata`'
+      - '`sf_delete_metadata`'
+      - '`sf_rename_metadata`'
+      - '`sf_read_metadata`'
+      - '`sf_list_metadata`'
+      - '`sf_retrieve_metadata`'
+      - '`sf_describe_metadata`'
+      - '`sf_describe_objects`'
   - title: Salesforce Org Utility Functions
     desc: Functions used for basic calls to understand the org.
     contents:

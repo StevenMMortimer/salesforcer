@@ -1,17 +1,17 @@
 
-salesforcer <img src="man/figures/logo-big.png" width="120px" align="right" />
-==============================================================================
+salesforcer <img src="man/figures/salesforcer.png" width="120px" align="right" />
+=================================================================================
 
 [![Build Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/salesforcer)](http://cran.r-project.org/package=salesforcer) [![Coverage Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 
-**salesforcer** is an R package that connects to Salesforce APIs using tidy principles. The package implements most actions from the SOAP, REST and Bulk APIs.
-
-Package features include:
+**salesforcer** is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk, and Metadata APIs. Package features include:
 
 -   OAuth 2.0 and Basic authentication methods (`sf_auth()`)
--   CRUD operations (Create, Retrieve, Update, Delete) methods for REST and Bulk APIs
--   Query operations via REST and Bulk APIs (`sf_query()`)
--   Backwards compatible functions from the **RForcecom** package, such as:
+-   CRUD (Create, Retrieve, Update, Delete) methods for records using the REST and Bulk APIs
+-   Query records via REST and Bulk APIs (`sf_query()`)
+-   Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API using:
+    -   `sf_describe_objects()`, `sf_create_metadata()`, `sf_update_metadata()`
+-   Utilize backwards compatible functions for the **RForcecom** package, such as:
     -   `rforcecom.login()`, `rforcecom.query()`, `rforcecom.create()`, `rforcecom.update()`
 -   Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
 
@@ -22,13 +22,10 @@ Table of Contents
 -   [Usage](#usage)
     -   [Authenticate](#authenticate)
     -   [Create](#create)
-    -   [Retrieve](#retrieve)
     -   [Query](#query)
     -   [Update](#update)
-    -   [Delete](#delete)
-    -   [Upsert](#upsert)
-    -   [Using the Bulk API](#using-the-bulk-api)
-    -   [Accessing Metadata](#accessing-metadata)
+    -   [Bulk Operations](#bulk-operations)
+    -   [Using the Metadata API](#using-the-metadata-api)
 -   [Future](#future)
 -   [Credits](#credits)
 -   [More Information](#more-information)
@@ -42,17 +39,23 @@ Installation
 devtools::install_github("StevenMMortimer/salesforcer")
 ```
 
-If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/StevenMMortimer/salesforcer/issues).
+If you encounter a clear bug, please file a minimal reproducible example on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
 
 Usage
 -----
 
 ### Authenticate
 
-First, load the **salesforcer** package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth" in the current working directory.
+First, load the **salesforcer** package and login. There are two ways to authenticate:
+
+1.  OAuth 2.0
+2.  Basic Username-Password
+
+It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled ".httr-oauth-salesforcer" in the current working directory.
 
 ``` r
 suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(purrr)))
 library(salesforcer)
 
 # Using OAuth 2.0 authentication
@@ -90,24 +93,8 @@ created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RRdi0QAD TRUE    <list [0]>
-#> 2 0036A00000RRdi1QAD TRUE    <list [0]>
-```
-
-### Retrieve
-
-Retrieve pulls down a specific set of records and fields. It's very similar to running a query, but doesn't use SOQL. Here is an example where we retrieve the data we just created.
-
-``` r
-retrieved_records <- sf_retrieve(ids=created_records$id, 
-                                 fields=c("FirstName", "LastName"), 
-                                 object="Contact")
-retrieved_records
-#> # A tibble: 2 x 3
-#>   Id                 FirstName LastName        
-#>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RRdi0QAD Test      Contact-Create-1
-#> 2 0036A00000RRdi1QAD Test      Contact-Create-2
+#> 1 0036A00000RUo8kQAD TRUE    <list [0]>
+#> 2 0036A00000RUo8lQAD TRUE    <list [0]>
 ```
 
 ### Query
@@ -128,8 +115,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #> * <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000RRdi0QAD NA      Test      Contact-Create-1
-#> 2 0036A00000RRdi1QAD NA      Test      Contact-Create-2
+#> 1 0036A00000RUo8kQAD NA      Test      Contact-Create-1
+#> 2 0036A00000RUo8lQAD NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -146,83 +133,23 @@ updated_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RRdi0QAD TRUE    <list [0]>
-#> 2 0036A00000RRdi1QAD TRUE    <list [0]>
+#> 1 0036A00000RUo8kQAD TRUE    <list [0]>
+#> 2 0036A00000RUo8lQAD TRUE    <list [0]>
 ```
 
-### Delete
+### Bulk Operations
 
-You can also delete records in Salesforce. The method implements a "soft" delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.
-
-``` r
-deleted_records <- sf_delete(updated_records$id)
-deleted_records
-#> # A tibble: 2 x 3
-#>   id                 success errors    
-#>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RRdi0QAD TRUE    <list [0]>
-#> 2 0036A00000RRdi1QAD TRUE    <list [0]>
-```
-
-### Upsert
-
-Finally, Salesforce has a unique method called "upsert" that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an "External Id" field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. **NOTE**: You will need to create a custom field on the target object and ensure it is labeled as an "External Id" field. Read more at <http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/>.
-
-``` r
-n <- 2
-new_contacts <- tibble(FirstName = rep("Test", n),
-                       LastName = paste0("Contact-Create-", 1:n), 
-                       My_External_Id__c=letters[1:n])
-created_records <- sf_create(new_contacts, "Contact")
-
-upserted_contacts <- tibble(FirstName = rep("Test", n),
-                            LastName = paste0("Contact-Upsert-", 1:n), 
-                            My_External_Id__c=letters[1:n])
-new_record <- tibble(FirstName = "Test",
-                     LastName = paste0("Contact-Upsert-", n+1), 
-                     My_External_Id__c=letters[n+1])
-upserted_contacts <- bind_rows(upserted_contacts, new_record)
-
-upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                              object="Contact", 
-                              external_id_fieldname="My_External_Id__c")
-upserted_records
-#> # A tibble: 3 x 3
-#>   created id                 success
-#>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000RRdi5QAD true   
-#> 2 false   0036A00000RRdi6QAD true   
-#> 3 true    0036A00000RRdiAQAT true
-```
-
-### Using the Bulk API
-
-For really large inserts, updates, deletes, upserts, queries you can just add "api\_type" = "Bulk" to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs.
+For really large inserts, updates, upserts, deletes, and queries you can just add "api\_type" = "Bulk" to get the benefits of using the Bulk API instead of the SOAP or REST APIs.
 
 ``` r
 # just add api_type="Bulk" to most calls!
+
 # create bulk
 object <- "Contact"
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, object, api_type="Bulk")
-created_records
-#> $successfulResults
-#> # A tibble: 2 x 4
-#>   sf__Id             sf__Created FirstName LastName        
-#>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RRdiKQAT true        Test      Contact-Create-1
-#> 2 0036A00000RRdiLQAT true        Test      Contact-Create-2
-#> 
-#> $failedResults
-#> # A tibble: 0 x 4
-#> # ... with 4 variables: sf__Id <chr>, sf__Error <chr>, FirstName <chr>,
-#> #   LastName <chr>
-#> 
-#> $unprocessedRecords
-#> # A tibble: 0 x 2
-#> # ... with 2 variables: FirstName <chr>, LastName <chr>
 
 # query bulk
 my_soql <- sprintf("SELECT Id,
@@ -233,41 +160,110 @@ my_soql <- sprintf("SELECT Id,
                    paste0(created_records$successfulResults$sf__Id , collapse="','"))
 
 queried_records <- sf_query(my_soql, object=object, api_type="Bulk")
-queried_records
-#> # A tibble: 2 x 3
-#>   Id                 FirstName LastName        
-#>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RRdiKQAT Test      Contact-Create-1
-#> 2 0036A00000RRdiLQAT Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
-deleted_records
-#> $successfulResults
-#> # A tibble: 2 x 3
-#>   sf__Id             sf__Created Id                
-#>   <chr>              <chr>       <chr>             
-#> 1 0036A00000RRdiKQAT false       0036A00000RRdiKQAT
-#> 2 0036A00000RRdiLQAT false       0036A00000RRdiLQAT
-#> 
-#> $failedResults
-#> # A tibble: 0 x 3
-#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, Id <chr>
-#> 
-#> $unprocessedRecords
-#> # A tibble: 0 x 1
-#> # ... with 1 variable: Id <chr>
 ```
 
-### Accessing Metadata
+### Using the Metadata API
 
-In future iterations of the package **salesforcer** will connect to the Metadata API; however, currently, there are RESTful calls that will return metatdata.
+Salesforce is a very flexible platform. They provide the Metadata API for users to create, read, update and delete the objects in Salesforce. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the `sf_read_metadata()` function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the `metadata_type` argument is "CustomObject". Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.
 
 ``` r
-#sf_describe_global()
-#sf_describe_object()
-#sf_describe_layout()
-#sf_describe_tabs()
+read_obj_result <- sf_read_metadata(metadata_type='CustomObject',
+                                    object_names=c('Account', 'Contact'))
+read_obj_result[[1]][c('fullName', 'label', 'sharingModel', 'enableHistory')]
+#> $fullName
+#> [1] "Account"
+#> 
+#> $label
+#> [1] "Account"
+#> 
+#> $sharingModel
+#> [1] "ReadWrite"
+#> 
+#> $enableHistory
+#> [1] "false"
+first_two_fields_idx <- head(which(names(read_obj_result[[1]]) == 'fields'), 2)
+# show the first two returned fields of the Account object
+read_obj_result[[1]][first_two_fields_idx]
+#> $fields
+#> $fields$fullName
+#> [1] "AccountNumber"
+#> 
+#> $fields$trackFeedHistory
+#> [1] "false"
+#> 
+#> 
+#> $fields
+#> $fields$fullName
+#> [1] "AccountSource"
+#> 
+#> $fields$trackFeedHistory
+#> [1] "false"
+#> 
+#> $fields$type
+#> [1] "Picklist"
+```
+
+The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type "Picklist". You can get that information using the function `sf_describe_object()` function which is actually part of the REST and SOAP APIs. It is recommended that you try out the various metadata functions `sf_read_metadata()`, `sf_list_metadata()`, `sf_describe_metadata()` and `sf_describe_objects()` in order to see which information best suits your use case.
+
+``` r
+describe_obj_result <- sf_describe_objects(object_names=c('Account', 'Contact'))
+describe_obj_result[[1]][c('label', 'queryable')]
+#> $label
+#> [1] "Account"
+#> 
+#> $queryable
+#> [1] "true"
+# show the first two returned fields of the Account object
+the_type_field <- describe_obj_result[[1]][[58]]
+the_type_field$name
+#> [1] "Type"
+map_df(the_type_field[which(names(the_type_field) == "picklistValues")], as_tibble)
+#> # A tibble: 7 x 4
+#>   active defaultValue label                      value                    
+#>   <chr>  <chr>        <chr>                      <chr>                    
+#> 1 true   false        Prospect                   Prospect                 
+#> 2 true   false        Customer - Direct          Customer - Direct        
+#> 3 true   false        Customer - Channel         Customer - Channel       
+#> 4 true   false        Channel Partner / Reseller Channel Partner / Resell…
+#> 5 true   false        Installation Partner       Installation Partner     
+#> 6 true   false        Technology Partner         Technology Partner       
+#> 7 true   false        Other                      Other
+```
+
+Where the Metadata API really shines is when it comes to CRUD operations on metadata. In this example we will create an object, add fields to it, then delete that object.
+
+``` r
+# create an object
+base_obj_name <- "Custom_Account1"
+custom_object <- list()
+custom_object$fullName <- paste0(base_obj_name, "__c")
+custom_object$label <- paste0(gsub("_", " ", base_obj_name))
+custom_object$pluralLabel <- paste0(base_obj_name, "s")
+custom_object$nameField <- list(displayFormat = 'AN-{0000}', 
+                                label = paste0(base_obj_name, ' Number'), 
+                                type = 'AutoNumber')
+custom_object$deploymentStatus <- 'Deployed'
+custom_object$sharingModel <- 'ReadWrite'
+custom_object$enableActivities <- 'true'
+custom_object$description <- paste0(base_obj_name, " created by the Metadata API")
+custom_object_result <- sf_create_metadata(metadata_type = 'CustomObject',
+                                           metadata = custom_object)
+
+# add fields to the object
+custom_fields <- tibble(fullName=c(paste0(base_obj_name, '__c.CustomField3__c'), 
+                                   paste0(base_obj_name, '__c.CustomField4__c')), 
+                        label=c('Test Field3', 'Test Field4'), 
+                        length=c(100, 100), 
+                        type=c('Text', 'Text'))
+create_fields_result <- sf_create_metadata(metadata_type = 'CustomField', 
+                                           metadata = custom_fields)
+
+# delete the object
+deleted_custom_object_result <- sf_delete_metadata(metadata_type = 'CustomObject', 
+                                                   object_names = c('Custom_Account1__c'))
 ```
 
 Future
@@ -275,20 +271,20 @@ Future
 
 Future APIs to support:
 
--   Async
--   Metadata
 -   Reporting
 -   Analytics
 
 Credits
 -------
 
-This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the **googlesheets** package (<https://github.com/jennybc/googlesheets>). Methods are inspired by the **RForcecom** package (<https://github.com/hiratake55/RForcecom>). We acknowledge and are grateful to these developers for their contributions to open source.
+This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the **googlesheets** package (<https://github.com/jennybc/googlesheets>). We acknowledge and are grateful to these developers for their contributions to open source.
 
 More Information
 ----------------
 
-More information can be found at <https://StevenMMortimer.github.io/salesforcer>.
+Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. Most all operations supported by the Salesforce APIs are available via this package. The details on formatting, attributes, and methods are better explained by [Salesforce's documentation](https://developer.salesforce.com/page/Salesforce_APIs).
+
+More information is also available on the `pkgdown` site at <https://StevenMMortimer.github.io/salesforcer>.
 
 [Top](#salesforcer-)
 

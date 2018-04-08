@@ -8,7 +8,7 @@
 #' @importFrom dplyr select as_tibble everything
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into a \code{data.frame}
-#' @template object
+#' @template object_name
 #' @template all_or_none
 #' @template api_type
 #' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
@@ -19,14 +19,14 @@
 #' n <- 3
 #' new_contacts <- tibble(FirstName = rep("Test", n),
 #'                        LastName = paste0("Contact", 1:n))
-#' new_contacts_result <- sf_create(new_contacts, object="Contact")
-#' new_contacts_result <- sf_create(new_contacts, object="Contact", api_type="SOAP")
+#' new_contacts_result <- sf_create(new_contacts, object_name="Contact")
+#' new_contacts_result <- sf_create(new_contacts, object_name="Contact", api_type="REST")
 #' }
 #' @export
 sf_create <- function(input_data,
-                      object,
+                      object_name,
                       all_or_none = FALSE,
-                      api_type = c("REST", "SOAP", "Bulk"),
+                      api_type = c("SOAP", "REST", "Bulk"),
                       ...,
                       verbose = FALSE){
   
@@ -45,8 +45,8 @@ sf_create <- function(input_data,
     # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm?search_text=update%20multiple
     # this type of request can only handle 200 records at a time
     batch_size <- 200
-    input_data$attributes <- lapply(1:nrow(input_data), FUN=function(x, obj){list(type=obj, referenceId=paste0("ref" ,x))}, obj=object)
-    #input_data$attributes <- list(rep(list(type=object), nrow(input_data)))[[1]]
+    input_data$attributes <- lapply(1:nrow(input_data), FUN=function(x, obj){list(type=obj, referenceId=paste0("ref" ,x))}, obj=object_name)
+    #input_data$attributes <- list(rep(list(type=object_name), nrow(input_data)))[[1]]
     input_data <- input_data %>% select(attributes, everything())
     composite_url <- make_composite_url()
     
@@ -103,10 +103,10 @@ sf_create <- function(input_data,
       }
       
       temp <- input_data[batch_id == batch, , drop=FALSE]  
-      r <- make_soap_xml_skeleton()
+      r <- make_soap_xml_skeleton(soap_headers=list(AllorNoneHeader = tolower(all_or_none)))
       xml_dat <- build_soap_xml_from_list(input_data = temp,
                                           operation = "create",
-                                          object = object,
+                                          object_name = object_name,
                                           root=r)
       if(verbose) {
         message(base_soap_url)
@@ -125,7 +125,8 @@ sf_create <- function(input_data,
     }
     suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(input_data, object, operation="insert", verbose=verbose, ...)
+    resultset <- sf_bulk_operation(input_data, object_name = object_name, 
+                                   operation="insert", verbose = verbose, ...)
   } else {
     stop("Unknown API type")
   }

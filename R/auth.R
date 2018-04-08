@@ -8,7 +8,7 @@
 #' as a connected app to view and manage your organization. You will be directed to 
 #' a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer} 
 #' permission to operate on your behalf. By default, these user credentials are 
-#' cached in a file named .httr-oauth in the current working directory.
+#' cached in a file named \code{.httr-oauth-salesforcer} in the current working directory.
 #'
 #' @importFrom httr content oauth2.0_token oauth_app oauth_endpoint
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling xml_set_namespace xml_find_first xml_child
@@ -22,8 +22,9 @@
 #' @param consumer_key,consumer_secret,callback_url the "Consumer Key","Consumer Secret", 
 #' and "Callback URL" when using a connected app; defaults to the \code{salesforcer} 
 #' connected apps' consumer key, secret, and callback url
-#' @param cache logical indicating if \code{salesforcer} should cache
-#'   credentials in the default cache file \code{.httr-oauth}
+#' @param cache logical or character; TRUE means to cache using the default cache 
+#' file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use 
+#' the specified path as the cache file.
 #' @template verbose
 #' @examples
 #' \dontrun{
@@ -33,7 +34,7 @@
 #'         security_token = )
 #' 
 #' # log in using OAuth 2.0
-#' # Via brower or refresh of .httr-oauth
+#' # Via brower or refresh of .httr-oauth-salesforcer
 #' sf_auth()
 #' 
 #' # Save token and log in using it
@@ -240,7 +241,7 @@ sf_auth_refresh <- function(verbose = FALSE) {
   if(token_available(verbose)){
     .state$token <- .state$token$refresh()
   } else {
-    message("No token found. sf_auth_refresh only refreshes OAuth tokens")
+    message("No token found. sf_auth_refresh() only refreshes OAuth tokens")
   }
   invisible(.state$token)
 }
@@ -281,14 +282,14 @@ session_id_available <- function(verbose = TRUE) {
 token_available <- function(verbose = TRUE) {
   if (is.null(.state$token)) {
     if (verbose) {
-      if (file.exists(".httr-oauth")) {
-        message("A .httr-oauth file exists in current working ",
+      if (file.exists(".httr-oauth-salesforcer")) {
+        message("A '.httr-oauth-salesforcer' file exists in current working ",
                 "directory.\nWhen/if needed, the credentials cached in ",
-                ".httr-oauth will be used for this session.\nOr run sf_auth() ",
+                "'.httr-oauth-salesforcer' will be used for this session.\nOr run sf_auth() ",
                 "for explicit authentication and authorization.")
       } else {
-        message("No .httr-oauth file exists in current working directory.\n",
-                "When/if needed, 'salesforcer' will initiate authentication ",
+        message("No '.httr-oauth-salesforcer' file exists in current working directory.\n",
+                "When/if needed, salesforcer will initiate authentication ",
                 "and authorization.\nOr run sf_auth() to trigger this explicitly.")
       }
     }
@@ -305,7 +306,7 @@ token_available <- function(verbose = TRUE) {
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-sf_access_token <- function(verbose = TRUE) {
+sf_access_token <- function(verbose = FALSE) {
   if (!token_available(verbose = verbose)) return(NULL)
   .state$token$credentials$access_token
 }

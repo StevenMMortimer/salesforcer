@@ -38,14 +38,8 @@ implemented by **RForcecom**. Here is an example running the function from
 each of the packages side-by-side and producing the same result.
 
 ```{r auth, include = FALSE}
-library(dplyr)
-library(salesforcer)
-## I grab the settings from the testing directory because that's where it is to be
-## found on Travis
-salesforcer_test_settings <- readRDS(file.path("..",
-                                               "tests", 
-                                               "testthat",
-                                               "salesforcer_test_settings.rds"))
+options_path <- file.path("..", "tests", "testthat", "salesforcer_test_settings.rds")
+salesforcer_test_settings <- readRDS(options_path)
 username <- salesforcer_test_settings$username
 password <- salesforcer_test_settings$password
 security_token <- salesforcer_test_settings$security_token
@@ -74,7 +68,7 @@ session <- salesforcer::rforcecom.login(username, paste0(password, security_toke
                                          apiVersion=getOption("salesforcer.api_version"))
 ```
 
-Note that we must set the API version here because  calls to session will not create 
+Note that we must set the API version here because calls to session will not create 
 a new sessionId and then we are stuck with version 35.0 (the default from 
 RForcecom::rforcecom.login). Some functions in **salesforcer** implement API calls 
 that are only available after version 35.0.
@@ -119,7 +113,7 @@ for(i in 1:nrow(new_contacts)){
 rforcecom_results
 
 # the better way in salesforcer to do multiple records
-salesforcer_results <- sf_create(new_contacts, "Contact")
+salesforcer_results <- sf_create(new_contacts, object_name="Contact")
 salesforcer_results
 ```
 

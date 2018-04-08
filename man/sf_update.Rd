@@ -4,15 +4,15 @@
 \alias{sf_update}
 \title{Update Records}
 \usage{
-sf_update(input_data, object, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk"), ..., verbose = FALSE)
+sf_update(input_data, object_name, all_or_none = FALSE, api_type = c("SOAP",
+  "Rest", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; data can be coerced into a \code{data.frame} and there must be 
 a column called Id (case-insensitive) that can be passed in the request}
 
-\item{object}{character; the name of the Salesforcer object that the 
+\item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{all_or_none}{logical; allows a call to roll back all changes unless all 

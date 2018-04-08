@@ -22,7 +22,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -97,20 +97,19 @@
 <div id="using-the-bulk-api" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h3>
-<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. Here is the difference in using the REST API vs. the Bulk API to do an insert:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
+<p>First, load the <code>salesforcer</code> package and login.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
 <span class="kw">library</span>(salesforcer)
-<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()
-
-n &lt;-<span class="st"> </span><span class="dv">2</span>
+<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</code></pre></div>
+<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. Here is the difference in using the REST API vs. the Bulk API to do an insert:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
 <span class="co"># REST</span>
-rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)
+rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)
 rest_created_records
 <span class="co"># Bulk</span>
-bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
 bulk_created_records</code></pre></div>
 <p>There are some differences in the way each API returns response information; however, the end result is exactly the same for these two calls. Also, note that this package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries since Salesforce has not yet implemented it in 2.0.</p>
 <p>Here is a simple workflow of adding, querying, and deleting records using the Bulk API.</p>
@@ -120,7 +119,7 @@ object &lt;-<span class="st"> "Contact"</span>
 n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
 created_records
 
 <span class="co"># query bulk</span>
@@ -131,11 +130,11 @@ my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span clas
 <span class="st">                    WHERE Id in ('%s')"</span>, 
                    <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
-queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
 queried_records
 
 <span class="co"># delete bulk</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
 deleted_records</code></pre></div>
 </div>
 </div>

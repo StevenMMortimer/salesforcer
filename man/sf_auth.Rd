@@ -28,8 +28,9 @@ stored as an \code{.rds} file}
 and "Callback URL" when using a connected app; defaults to the \code{salesforcer} 
 connected apps' consumer key, secret, and callback url}
 
-\item{cache}{logical indicating if \code{salesforcer} should cache
-credentials in the default cache file \code{.httr-oauth}}
+\item{cache}{logical or character; TRUE means to cache using the default cache 
+file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use 
+the specified path as the cache file.}
 
 \item{verbose}{logical; do you want informative messages?}
 }
@@ -39,7 +40,7 @@ not require sharing passwords, but will require authorizing \code{salesforcer}
 as a connected app to view and manage your organization. You will be directed to 
 a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer} 
 permission to operate on your behalf. By default, these user credentials are 
-cached in a file named .httr-oauth in the current working directory.
+cached in a file named \code{.httr-oauth-salesforcer} in the current working directory.
 }
 \examples{
 \dontrun{
@@ -49,7 +50,7 @@ sf_auth(username = "test@gmail.com",
         security_token = )
 
 # log in using OAuth 2.0
-# Via brower or refresh of .httr-oauth
+# Via brower or refresh of .httr-oauth-salesforcer
 sf_auth()
 
 # Save token and log in using it

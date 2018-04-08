@@ -9,7 +9,7 @@
 #' @importFrom readr type_convert
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 #' @template soql
-#' @template object
+#' @template object_name
 #' @param queryall logical; indicating if the query recordset should include 
 #' deleted and archived records (available only when querying Task and Event records)
 #' @param batch_size numeric; a number between 200 and 2000 indicating the number of 
@@ -40,7 +40,7 @@
 #' }
 #' @export
 sf_query <- function(soql,
-                     object=NULL,
+                     object_name=NULL,
                      queryall=FALSE,
                      batch_size=1000,
                      api_type=c("REST", "SOAP", "Bulk"),
@@ -142,7 +142,10 @@ sf_query <- function(soql,
       resultset <- bind_rows(resultset, next_records)      
     }
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_query(soql=soql, object=object, verbose=verbose, ...)
+    if(is.null(object_name)){
+      stop("object_name is NULL. This argument must be provided when using the Bulk API.")
+    }
+    resultset <- sf_bulk_query(soql=soql, object_name=object_name, verbose=verbose, ...)
   } else {
     stop("Unknown API type")
   }

@@ -21,3 +21,16 @@ make_base_soap_url <- function(){
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"))
 }
+
+#' Base Metadata API URL Generator
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_base_metadata_url <- function(){
+  # ensure we are authenticated first so the url can be formed
+  sf_auth_check()  
+  sprintf('%s/services/Soap/m/%s', 
+          salesforcer_state()$instance_url,
+          getOption("salesforcer.api_version"))
+}

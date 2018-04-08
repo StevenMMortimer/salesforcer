@@ -70,6 +70,10 @@ sf_input_data_validation <- function(input_data, operation=''){
     }
   }
 
+  if(operation %in% c("describeSObjects") & ncol(input_data) == 1){
+    names(input_data) <- "sObjectType"
+  }
+  
   if(operation %in% c("delete", "retrieve") & ncol(input_data) == 1){
     names(input_data) <- "Id"
   }

@@ -13,8 +13,9 @@
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into a \code{data.frame} and there must be 
 #' a column called Id (case-insensitive) that can be passed in the request
-#' @template object
+#' @template object_name
 #' @template external_id_fieldname
+#' @template all_or_none
 #' @template api_type
 #' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
 #' @template verbose
@@ -25,7 +26,7 @@
 #' new_contacts <- tibble(FirstName = rep("Test", n),
 #'                        LastName = paste0("Contact-Create-", 1:n),
 #'                        My_External_Id__c=letters[1:n])
-#' new_contacts_result <- sf_create(new_contacts, "Contact")
+#' new_contacts_result <- sf_create(new_contacts, object_name="Contact")
 #' 
 #' upserted_contacts <- tibble(FirstName = rep("Test", n),
 #'                             LastName = paste0("Contact-Upsert-", 1:n),
@@ -36,13 +37,14 @@
 #' upserted_contacts <- bind_rows(upserted_contacts, new_record)
 #' 
 #' upserted_contacts_result1 <- sf_upsert(upserted_contacts, 
-#'                                        "Contact", 
+#'                                        object_name="Contact", 
 #'                                        "My_External_Id__c")
 #' }
 #' @export
 sf_upsert <- function(input_data,
-                      object,
+                      object_name,
                       external_id_fieldname,
+                      all_or_none = FALSE,
                       api_type = c("SOAP", "REST", "Bulk"),
                       ...,
                       verbose = FALSE){
@@ -58,9 +60,8 @@ sf_upsert <- function(input_data,
   # SOAP implementation
   if(which_api == "SOAP"){
     
-    # add attributes to insert multiple records at a time
-    # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm?search_text=update%20multiple
-    # this type of request can only handle 200 records at a time
+    # limit this type of request to only 200 records at a time to prevent 
+    # the XML from exceeding a size limit
     batch_size <- 200
     base_soap_url <- make_base_soap_url()
     
@@ -81,10 +82,10 @@ sf_upsert <- function(input_data,
       }
       
       temp <- input_data[batch_id == batch, , drop=FALSE]  
-      r <- make_soap_xml_skeleton()
+      r <- make_soap_xml_skeleton(soap_headers=list(AllorNoneHeader = tolower(all_or_none)))
       xml_dat <- build_soap_xml_from_list(input_data = temp,
                                           operation = "upsert",
-                                          object = object,
+                                          object_name = object_name,
                                           external_id_fieldname = external_id_fieldname,
                                           root=r)
       if(verbose) {
@@ -130,7 +131,7 @@ sf_upsert <- function(input_data,
         temptemp <- temptemp[,!grepl("^ID$|^IDS$", names(temptemp), ignore.case=TRUE)]
         inner_requests[[i]] <- list(method="PATCH", 
                                     url=paste0("v", getOption("salesforcer.api_version"), 
-                                               "/sobjects/", object, "/", 
+                                               "/sobjects/", object_name, "/", 
                                                external_id_fieldname, "/", this_id), 
                                     richInput=as.list(temptemp[i,]))
       }
@@ -154,8 +155,9 @@ sf_upsert <- function(input_data,
     }
     suppressWarnings(suppressMessages(resultset <- type_convert(resultset)))
   } else if(which_api == "Bulk"){
-    resultset <- sf_bulk_operation(input_data, object, 
-                                   operation="upsert", 
+    resultset <- sf_bulk_operation(input_data, 
+                                   object_name = object_name, 
+                                   operation = "upsert", 
                                    external_id_fieldname = external_id_fieldname,
                                    verbose=verbose, ...)
   } else {

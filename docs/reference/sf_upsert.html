@@ -49,7 +49,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98603021-1', 'auto');
+  ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
 </script>
@@ -122,8 +122,8 @@
     <p>Upserts one or more new records to your organization’s data.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_upsert</span>(<span class='no'>input_data</span>, <span class='no'>object</span>, <span class='no'>external_id_fieldname</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>,
-  <span class='st'>"REST"</span>, <span class='st'>"Bulk"</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_upsert</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='no'>external_id_fieldname</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk"</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -135,8 +135,8 @@
 a column called Id (case-insensitive) that can be passed in the request</p></td>
     </tr>
     <tr>
-      <th>object</th>
-      <td><p>character; the name of the Salesforcer object that the 
+      <th>object_name</th>
+      <td><p>character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
@@ -144,6 +144,11 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p>
       <td><p>character; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
+    </tr>
+    <tr>
+      <th>all_or_none</th>
+      <td><p>logical; allows a call to roll back all changes unless all 
+records are processed successfully</p></td>
     </tr>
     <tr>
       <th>api_type</th>
@@ -171,7 +176,7 @@ which API to use when making the request</p></td>
 <span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
                        <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact-Create-"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
                        <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='no'>n</span>])
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
+<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
 
 <span class='no'>upserted_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
                             <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact-Upsert-"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
@@ -182,7 +187,7 @@ which API to use when making the request</p></td>
 <span class='no'>upserted_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_rows</span>(<span class='no'>upserted_contacts</span>, <span class='no'>new_record</span>)
 
 <span class='no'>upserted_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_upsert</span>(<span class='no'>upserted_contacts</span>,
-                                       <span class='st'>"Contact"</span>,
+                                       <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>,
                                        <span class='st'>"My_External_Id__c"</span>)
 <span class='co'># }</span></pre>
   </div>

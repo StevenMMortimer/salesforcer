@@ -4,15 +4,15 @@
 \alias{sf_delete}
 \title{Delete Records}
 \usage{
-sf_delete(ids, object, all_or_none = FALSE, api_type = c("REST", "SOAP",
-  "Bulk"), ..., verbose = FALSE)
+sf_delete(ids, object_name, all_or_none = FALSE, api_type = c("REST",
+  "SOAP", "Bulk"), ..., verbose = FALSE)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
 that can be passed in the request}
 
-\item{object}{character; the name of the Salesforcer object that the 
+\item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{all_or_none}{logical; allows a call to roll back all changes unless all 
@@ -36,13 +36,13 @@ Deletes one or more new records to your organization’s data.
 n <- 3
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact", 1:n))
-new_contacts_result1 <- sf_create(new_contacts, "Contact")
+new_contacts_result1 <- sf_create(new_contacts, object_name="Contact")
 deleted_contacts_result1 <- sf_delete(new_contacts_result1$id, 
-                                      object="Contact")   
+                                      object_name="Contact")   
 
 new_contacts_result2 <- sf_create(new_contacts, "Contact")
 deleted_contacts_result2 <- sf_delete(new_contacts_result2$id, 
-                                      object="Contact", 
+                                      object_name="Contact", 
                                       api_type="Bulk")                             
 }
 }
