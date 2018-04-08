@@ -5,7 +5,7 @@
 \title{Perform SOQL Query}
 \usage{
 sf_query(soql, object_name = NULL, queryall = FALSE, batch_size = 1000,
-  api_type = c("REST", "SOAP", "Bulk"), next_records_url = NULL, ...,
+  api_type = c("SOAP", "REST", "Bulk"), next_records_url = NULL, ...,
   verbose = FALSE)
 }
 \arguments{

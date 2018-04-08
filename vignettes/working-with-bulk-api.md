@@ -44,8 +44,8 @@ rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUnzdQAD TRUE    <list [0]>
-#> 2 0036A00000RUnzeQAD TRUE    <list [0]>
+#> 1 0036A00000RUpr1QAD TRUE    <list [0]>
+#> 2 0036A00000RUpr2QAD TRUE    <list [0]>
 # Bulk
 bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
 bulk_created_records
@@ -53,8 +53,8 @@ bulk_created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RUnziQAD true        Test      Contact-Create-1
-#> 2 0036A00000RUnzjQAD true        Test      Contact-Create-2
+#> 1 0036A00000RUpr6QAD true        Test      Contact-Create-1
+#> 2 0036A00000RUpr7QAD true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -87,8 +87,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RUnznQAD true        Test      Contact-Create-1
-#> 2 0036A00000RUnzoQAD true        Test      Contact-Create-2
+#> 1 0036A00000RUprBQAT true        Test      Contact-Create-1
+#> 2 0036A00000RUprCQAT true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -112,8 +112,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RUnznQAD Test      Contact-Create-1
-#> 2 0036A00000RUnzoQAD Test      Contact-Create-2
+#> 1 0036A00000RUprBQAT Test      Contact-Create-1
+#> 2 0036A00000RUprCQAT Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk")
@@ -122,8 +122,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   sf__Id             sf__Created Id                
 #>   <chr>              <chr>       <chr>             
-#> 1 0036A00000RUnznQAD false       0036A00000RUnznQAD
-#> 2 0036A00000RUnzoQAD false       0036A00000RUnzoQAD
+#> 1 0036A00000RUprBQAT false       0036A00000RUprBQAT
+#> 2 0036A00000RUprCQAT false       0036A00000RUprCQAT
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3

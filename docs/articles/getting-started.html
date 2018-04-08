@@ -43,6 +43,8 @@
       <ul class="nav navbar-nav">
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa fas fa-book"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -60,10 +62,18 @@
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">
+    <span class="fa fa-file-code-o"></span>
+     
+    Reference
+  </a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -71,6 +81,7 @@
   <a href="https://github.com/StevenMMortimer/salesforcer">
     <span class="fa fa-github fa-lg"></span>
      
+    GitHub
   </a>
 </li>
       </ul>
@@ -109,7 +120,9 @@
 <span class="co"># and confirm a connection to the APIs</span>
 user_info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_user_info.html">sf_user_info</a></span>()
 <span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)
-<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)</code></pre></div>
+<span class="co">#&gt; [1] "User Id: 0056A000000MPRjQAO"</span>
+<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)
+<span class="co">#&gt; [1] "User Active?: TRUE"</span></code></pre></div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
 <a href="#create" class="anchor"></a>Create</h3>
@@ -118,7 +131,12 @@ user_info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/s
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
 created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
-created_records</code></pre></div>
+created_records
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
+<span class="co">#&gt; 1 0036A00000RUpsYQAT true   </span>
+<span class="co">#&gt; 2 0036A00000RUpsZQAT true</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -127,12 +145,17 @@ created_records</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, 
                                  <span class="dt">fields=</span><span class="kw">c</span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), 
                                  <span class="dt">object_name=</span><span class="st">"Contact"</span>)
-retrieved_records</code></pre></div>
+retrieved_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0036A00000RUpsYQAT Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUpsZQAT Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
-<p>Query is a little more flexible requires knowledge of Salesforcer’s proprietary form of SQL called SOQL (Salesforcer Object Query Language). Here is an example where we also grab the data we just created.</p>
+<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all <code>NA</code> since we have yet to provide information to link these Contacts with Accounts.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id, </span>
 <span class="st">                           Account.Name, </span>
 <span class="st">                           FirstName, </span>
@@ -142,25 +165,41 @@ retrieved_records</code></pre></div>
                    <span class="kw">paste0</span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)
-queried_records</code></pre></div>
+queried_records
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0036A00000RUpsYQAT NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUpsZQAT NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
 <a href="#update" class="anchor"></a>Update</h3>
-<p>After creating records you can update them using <code><a href="../reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce uses unique 18-character identifiers for each record and uses that to know which record to update with the information you provide. Simply include a field or column in your dataset called “Id” so the API can find the record and update with the fields you provide. Here is an example where we update the records we created earlier.</p>
+<p>After creating records you can update them using <code><a href="../reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Update some of those records</span>
 queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>)
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>Account)
 
 updated_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
-updated_records</code></pre></div>
+updated_records
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
+<span class="co">#&gt; 1 0036A00000RUpsYQAT true   </span>
+<span class="co">#&gt; 2 0036A00000RUpsZQAT true</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
 <a href="#delete" class="anchor"></a>Delete</h3>
 <p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)
-deleted_records</code></pre></div>
+deleted_records
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   id                 success errors    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
+<span class="co">#&gt; 1 0036A00000RUpsYQAT TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RUpsZQAT TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -183,7 +222,13 @@ upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http:/
 upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, 
                               <span class="dt">object_name=</span><span class="st">"Contact"</span>, 
                               <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)
-upserted_records</code></pre></div>
+upserted_records
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   created id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
+<span class="co">#&gt; 1 false   0036A00000RUpsdQAD true   </span>
+<span class="co">#&gt; 2 false   0036A00000RUpseQAD true   </span>
+<span class="co">#&gt; 3 true    0036A00000RUpsiQAD true</span></code></pre></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">

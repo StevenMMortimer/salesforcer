@@ -92,12 +92,18 @@ retrieved_records <- sf_retrieve(ids=created_records$id,
 retrieved_records
 ```
 
-### Query
-Query is a little more flexible requires knowledge of Salesforcer's proprietary 
-form of SQL called SOQL (Salesforcer Object Query Language). Here is an example 
-where we also grab the data we just created.
 
-```{r}
+### Query
+
+Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query 
+Language). SOQL is a powerful tool that allows you to return the attributes of records 
+on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, 
+even Attachments! Below is an example where we grab the data we just created 
+including Account object information for which the Contact record is associated 
+with. The Account column is all `NA` since we have yet to provide information to 
+link these Contacts with Accounts.
+
+```{r query-records}
 my_soql <- sprintf("SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -111,17 +117,20 @@ queried_records
 ```
 
 ### Update
-After creating records you can update them using `sf_update()`. Updating a record 
-requires you to pass the Salesforce `Id` of the record. Salesforce uses unique 
-18-character identifiers for each record and uses that to know which record to 
-update with the information you provide. Simply include a field or column in your 
-dataset called "Id" so the API can find the record and update with the fields you 
-provide. Here is an example where we update the records we created earlier.
 
-```{r}
+After creating records you can update them using `sf_update()`. Updating a record 
+requires you to pass the Salesforce `Id` of the record. Salesforce creates a unique 
+18-character identifier on each record and uses that to know which record to 
+attach the update information you provide. Simply include a field or column in your 
+update dataset called "Id" and the information will be matched. Here is an example 
+where we update each of the records we created earlier with a new first name 
+called "TestTest".
+
+```{r update-records}
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest")
+  mutate(FirstName = "TestTest") %>% 
+  select(-Account)
 
 updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records

@@ -43,7 +43,7 @@ sf_query <- function(soql,
                      object_name=NULL,
                      queryall=FALSE,
                      batch_size=1000,
-                     api_type=c("REST", "SOAP", "Bulk"),
+                     api_type=c("SOAP", "REST", "Bulk"),
                      next_records_url=NULL,
                      ...,
                      verbose=FALSE){
@@ -95,7 +95,7 @@ sf_query <- function(soql,
                                           root=r)
     } else {
       soap_action <- "query"
-      r <- make_soap_xml_skeleton(list(QueryOptions=list(batchSize=batch_size)))
+      r <- make_soap_xml_skeleton(soap_headers=list(QueryOptions=list(batchSize=batch_size)))
       xml_dat <- build_soap_xml_from_list(input_data = soql,
                                           operation = "query",
                                           root=r)

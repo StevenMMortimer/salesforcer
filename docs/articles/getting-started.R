@@ -10,8 +10,6 @@ knitr::opts_chunk$set(
 ## ----auth, include = FALSE-----------------------------------------------
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
-## I grab the token from the testing directory because that's where it is to be
-## found on Travis
 token_path <- file.path("..", "tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 
@@ -47,7 +45,7 @@ retrieved_records <- sf_retrieve(ids=created_records$id,
                                  object_name="Contact")
 retrieved_records
 
-## ------------------------------------------------------------------------
+## ----query-records-------------------------------------------------------
 my_soql <- sprintf("SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -59,10 +57,11 @@ my_soql <- sprintf("SELECT Id,
 queried_records <- sf_query(my_soql)
 queried_records
 
-## ------------------------------------------------------------------------
+## ----update-records------------------------------------------------------
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest")
+  mutate(FirstName = "TestTest") %>% 
+  select(-Account)
 
 updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records

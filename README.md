@@ -9,7 +9,7 @@ salesforcer <img src="man/figures/salesforcer.png" width="120px" align="right" /
 -   OAuth 2.0 and Basic authentication methods (`sf_auth()`)
 -   CRUD (Create, Retrieve, Update, Delete) methods for records using the REST and Bulk APIs
 -   Query records via REST and Bulk APIs (`sf_query()`)
--   Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API using:
+-   Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API with:
     -   `sf_describe_objects()`, `sf_create_metadata()`, `sf_update_metadata()`
 -   Utilize backwards compatible functions for the **RForcecom** package, such as:
     -   `rforcecom.login()`, `rforcecom.query()`, `rforcecom.create()`, `rforcecom.update()`
@@ -88,18 +88,18 @@ Salesforce has objects and those objects contain records. One default object is 
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, "Contact")
+created_records <- sf_create(new_contacts, object_name="Contact")
 created_records
-#> # A tibble: 2 x 3
-#>   id                 success errors    
-#>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUo8kQAD TRUE    <list [0]>
-#> 2 0036A00000RUo8lQAD TRUE    <list [0]>
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <chr>  
+#> 1 0036A00000RUptJQAT true   
+#> 2 0036A00000RUptKQAT true
 ```
 
 ### Query
 
-Query is a little more flexible requires knowledge of Salesforcer's proprietary form of SQL called SOQL (Salesforcer Object Query Language). Here is an example where we also grab the data we just created.
+Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all `NA` since we have yet to provide information to link these Contacts with Accounts.
 
 ``` r
 my_soql <- sprintf("SELECT Id, 
@@ -114,44 +114,42 @@ queried_records <- sf_query(my_soql)
 queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
-#> * <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000RUo8kQAD NA      Test      Contact-Create-1
-#> 2 0036A00000RUo8lQAD NA      Test      Contact-Create-2
+#>   <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000RUptJQAT NA      Test      Contact-Create-1
+#> 2 0036A00000RUptKQAT NA      Test      Contact-Create-2
 ```
 
 ### Update
 
-After creating records you can update them using `sf_update()`. Updating a record requires you to pass the Salesforce `Id` of the record. Salesforce uses unique 18-character identifiers for each record and uses that to know which record to update with the information you provide. Simply include a field or column in your dataset called "Id" so the API can find the record and update with the fields you provide. Here is an example where we update the records we created earlier.
+After creating records you can update them using `sf_update()`. Updating a record requires you to pass the Salesforce `Id` of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called "Id" and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called "TestTest".
 
 ``` r
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest")
+  mutate(FirstName = "TestTest") %>% 
+  select(-Account)
 
-updated_records <- sf_update(queried_records, object="Contact")
+updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
-#> # A tibble: 2 x 3
-#>   id                 success errors    
-#>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUo8kQAD TRUE    <list [0]>
-#> 2 0036A00000RUo8lQAD TRUE    <list [0]>
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <chr>  
+#> 1 0036A00000RUptJQAT true   
+#> 2 0036A00000RUptKQAT true
 ```
 
 ### Bulk Operations
 
-For really large inserts, updates, upserts, deletes, and queries you can just add "api\_type" = "Bulk" to get the benefits of using the Bulk API instead of the SOAP or REST APIs.
+For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides a [Bulk API](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm). In order to use the Bulk API in **salesforcer** you can just add `api_type = "Bulk"` to your functions and the operation will be executed using the Bulk API. It's that simple. The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in Bulk is usually quicker than running thousands of individuals calls when your data is large.
 
 ``` r
-# just add api_type="Bulk" to most calls!
-
-# create bulk
-object <- "Contact"
+# create contacts using the Bulk API
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object, api_type="Bulk")
+created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
 
-# query bulk
+# query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
                            FirstName, 
                            LastName
@@ -159,15 +157,15 @@ my_soql <- sprintf("SELECT Id,
                     WHERE Id in ('%s')", 
                    paste0(created_records$successfulResults$sf__Id , collapse="','"))
 
-queried_records <- sf_query(my_soql, object=object, api_type="Bulk")
+queried_records <- sf_query(my_soql, object_name="Contact", api_type="Bulk")
 
-# delete bulk
-deleted_records <- sf_delete(queried_records$Id, object=object, api_type="Bulk")
+# delete these records using the Bulk API
+deleted_records <- sf_delete(queried_records$Id, object_name="Contact", api_type="Bulk")
 ```
 
 ### Using the Metadata API
 
-Salesforce is a very flexible platform. They provide the Metadata API for users to create, read, update and delete the objects in Salesforce. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the `sf_read_metadata()` function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the `metadata_type` argument is "CustomObject". Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.
+Salesforce is a very flexible platform. Salesforce provides the [Metadata API](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm) for users to create, read, update and delete the objects, page layouts, and more. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the `sf_read_metadata()` function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the `metadata_type` argument is "CustomObject". Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.
 
 ``` r
 read_obj_result <- sf_read_metadata(metadata_type='CustomObject',
@@ -206,7 +204,7 @@ read_obj_result[[1]][first_two_fields_idx]
 #> [1] "Picklist"
 ```
 
-The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type "Picklist". You can get that information using the function `sf_describe_object()` function which is actually part of the REST and SOAP APIs. It is recommended that you try out the various metadata functions `sf_read_metadata()`, `sf_list_metadata()`, `sf_describe_metadata()` and `sf_describe_objects()` in order to see which information best suits your use case.
+The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type "Picklist". You can get that information using the function `sf_describe_object()` function which is actually part of the REST and SOAP APIs. It is recommended that you try out the various metadata functions `sf_read_metadata()`, `sf_list_metadata()`, `sf_describe_metadata()`, and `sf_describe_objects()` in order to see which information best suits your use case.
 
 ``` r
 describe_obj_result <- sf_describe_objects(object_names=c('Account', 'Contact'))
@@ -271,8 +269,8 @@ Future
 
 Future APIs to support:
 
--   Reporting
--   Analytics
+-   [Reports and Dashboards REST API](https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm)
+-   [Analytics REST API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm)
 
 Credits
 -------
@@ -282,7 +280,7 @@ This application uses other open source software components. The authentication 
 More Information
 ----------------
 
-Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. Most all operations supported by the Salesforce APIs are available via this package. The details on formatting, attributes, and methods are better explained by [Salesforce's documentation](https://developer.salesforce.com/page/Salesforce_APIs).
+Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to [Salesforce'sdocumentation](https://developer.salesforce.com/page/Salesforce_APIs) as they are explained better there.
 
 More information is also available on the `pkgdown` site at <https://StevenMMortimer.github.io/salesforcer>.
 

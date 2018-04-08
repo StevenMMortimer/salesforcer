@@ -8,7 +8,7 @@ output:
     toc_depth: 4
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{Getting Started}
+  %\VignetteIndexEntry{Transitioning from RForcecom}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -123,11 +123,11 @@ salesforcer_results
 thanks to features of the readr package.
 
 ```{r, warning=FALSE}
-this_soql <- "SELECT Id, Email FROM Contact"
+this_soql <- "SELECT Id, Email FROM Contact LIMIT 5"
 
 # the RForcecom way
 result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
-head(result1)
+result1
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)

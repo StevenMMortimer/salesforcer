@@ -18,7 +18,7 @@ vignette: >
 First, load the `salesforcer` package and login. There are two ways to authenticate: 
 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
 passwords do not have to be shared/embedded within scripts. User credentials will 
-be stored in locally cached file entitled ".httr-oauth" in the current working 
+be stored in locally cached file entitled ".httr-oauth-salesforcer" in the current working 
 directory.
 
 
@@ -71,11 +71,11 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact")
 created_records
-#> # A tibble: 2 x 3
-#>   id                 success errors    
-#>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUnyaQAD TRUE    <list [0]>
-#> 2 0036A00000RUnybQAD TRUE    <list [0]>
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <chr>  
+#> 1 0036A00000RUpqNQAT true   
+#> 2 0036A00000RUpqOQAT true
 ```
 
 ### Retrieve
@@ -92,14 +92,20 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RUnyaQAD Test      Contact-Create-1
-#> 2 0036A00000RUnybQAD Test      Contact-Create-2
+#> 1 0036A00000RUpqNQAT Test      Contact-Create-1
+#> 2 0036A00000RUpqOQAT Test      Contact-Create-2
 ```
 
+
 ### Query
-Query is a little more flexible requires knowledge of Salesforcer's proprietary 
-form of SQL called SOQL (Salesforcer Object Query Language). Here is an example 
-where we also grab the data we just created.
+
+Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query 
+Language). SOQL is a powerful tool that allows you to return the attributes of records 
+on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, 
+even Attachments! Below is an example where we grab the data we just created 
+including Account object information for which the Contact record is associated 
+with. The Account column is all `NA` since we have yet to provide information to 
+link these Contacts with Accounts.
 
 
 ```r
@@ -115,32 +121,35 @@ queried_records <- sf_query(my_soql)
 queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
-#> * <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000RUnyaQAD NA      Test      Contact-Create-1
-#> 2 0036A00000RUnybQAD NA      Test      Contact-Create-2
+#>   <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000RUpqNQAT NA      Test      Contact-Create-1
+#> 2 0036A00000RUpqOQAT NA      Test      Contact-Create-2
 ```
 
 ### Update
+
 After creating records you can update them using `sf_update()`. Updating a record 
-requires you to pass the Salesforce `Id` of the record. Salesforce uses unique 
-18-character identifiers for each record and uses that to know which record to 
-update with the information you provide. Simply include a field or column in your 
-dataset called "Id" so the API can find the record and update with the fields you 
-provide. Here is an example where we update the records we created earlier.
+requires you to pass the Salesforce `Id` of the record. Salesforce creates a unique 
+18-character identifier on each record and uses that to know which record to 
+attach the update information you provide. Simply include a field or column in your 
+update dataset called "Id" and the information will be matched. Here is an example 
+where we update each of the records we created earlier with a new first name 
+called "TestTest".
 
 
 ```r
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest")
+  mutate(FirstName = "TestTest") %>% 
+  select(-Account)
 
 updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
-#> # A tibble: 2 x 3
-#>   id                 success errors    
-#>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUnyaQAD TRUE    <list [0]>
-#> 2 0036A00000RUnybQAD TRUE    <list [0]>
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <chr>  
+#> 1 0036A00000RUpqNQAT true   
+#> 2 0036A00000RUpqOQAT true
 ```
 
 ### Delete
@@ -155,8 +164,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUnyaQAD TRUE    <list [0]>
-#> 2 0036A00000RUnybQAD TRUE    <list [0]>
+#> 1 0036A00000RUpqNQAT TRUE    <list [0]>
+#> 2 0036A00000RUpqOQAT TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -191,9 +200,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000RUnyfQAD true   
-#> 2 false   0036A00000RUnygQAD true   
-#> 3 true    0036A00000RUnykQAD true
+#> 1 false   0036A00000RUpqSQAT true   
+#> 2 false   0036A00000RUpqTQAT true   
+#> 3 true    0036A00000RUpqXQAT true
 ```
 
 

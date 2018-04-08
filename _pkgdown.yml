@@ -12,6 +12,7 @@ navbar:
   type: default
   left:
     - text: "Articles"
+      icon: fas fa-book
       menu: 
       -  text: Getting Started
          href: articles/getting-started.html
@@ -20,11 +21,14 @@ navbar:
       -  text: Transitioning from RForcecom
          href: articles/transitioning-from-RForcecom.html
     - text: Reference
+      icon: fa-file-code-o
       href: reference/index.html
     - text: News
+      icon: fa-newspaper-o
       href: news/index.html
   right:
-    - icon: fa-github fa-lg
+    - text: GitHub
+      icon: fa-github fa-lg
       href: https://github.com/StevenMMortimer/salesforcer
       
 reference:

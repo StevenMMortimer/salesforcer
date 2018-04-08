@@ -8,7 +8,7 @@ output:
     toc_depth: 4
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{Getting Started}
+  %\VignetteIndexEntry{Working with Bulk API}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

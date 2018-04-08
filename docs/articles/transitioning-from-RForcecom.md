@@ -81,13 +81,13 @@ fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
 result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
 result1
 #>                   id success
-#> 1 0036A00000RUoCIQA1    true
+#> 1 0036A00000RUpqcQAD    true
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
 result2
 #>                   id success
-#> 1 0036A00000RUoCNQA1    true
+#> 1 0036A00000RUpqhQAD    true
 ```
 
 Here is an example showing the reduction in code of using **salesforcer** if you 
@@ -109,8 +109,8 @@ for(i in 1:nrow(new_contacts)){
 }
 rforcecom_results
 #>                   id success
-#> 1 0036A00000RUoCSQA1    true
-#> 2 0036A00000RUoCXQA1    true
+#> 1 0036A00000RUpqmQAD    true
+#> 2 0036A00000RUpqrQAD    true
 
 # the better way in salesforcer to do multiple records
 salesforcer_results <- sf_create(new_contacts, object_name="Contact")
@@ -118,8 +118,8 @@ salesforcer_results
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUoCcQAL true   
-#> 2 0036A00000RUoCdQAL true
+#> 1 0036A00000RUpqwQAD true   
+#> 2 0036A00000RUpqxQAD true
 ```
 
 ### Query
@@ -135,48 +135,48 @@ this_soql <- "SELECT Id, Email FROM Contact"
 result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
 head(result1)
 #>                   Id Email
-#> 1 0036A00000RUnyuQAD  <NA>
-#> 2 0036A00000RUnziQAD  <NA>
-#> 3 0036A00000RUnzjQAD  <NA>
-#> 4 0036A00000RUo9YQAT  <NA>
-#> 5 0036A00000RUo9iQAD  <NA>
-#> 6 0036A00000RUo9jQAD  <NA>
+#> 1 0036A00000RUpmQQAT  <NA>
+#> 2 0036A00000RUpnnQAD  <NA>
+#> 3 0036A00000RUpqcQAD  <NA>
+#> 4 0036A00000RUnyuQAD  <NA>
+#> 5 0036A00000RUnziQAD  <NA>
+#> 6 0036A00000RUnzjQAD  <NA>
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
 result2
-#> # A tibble: 523 x 2
+#> # A tibble: 1,019 x 2
 #>    Id                 Email
-#>  * <chr>              <chr>
-#>  1 0036A00000RUnyuQAD <NA> 
-#>  2 0036A00000RUnziQAD <NA> 
-#>  3 0036A00000RUnzjQAD <NA> 
-#>  4 0036A00000RUo9YQAT <NA> 
-#>  5 0036A00000RUo9iQAD <NA> 
-#>  6 0036A00000RUo9jQAD <NA> 
-#>  7 0036A00000RRdkLQAT <NA> 
-#>  8 0036A00000RRdkQQAT <NA> 
-#>  9 0036A00000RRdkkQAD <NA> 
-#> 10 0036A00000RRdklQAD <NA> 
-#> # ... with 513 more rows
+#>    <chr>              <chr>
+#>  1 0036A00000RUpmQQAT <NA> 
+#>  2 0036A00000RUpnnQAD <NA> 
+#>  3 0036A00000RUpqcQAD <NA> 
+#>  4 0036A00000RUnyuQAD <NA> 
+#>  5 0036A00000RUnziQAD <NA> 
+#>  6 0036A00000RUnzjQAD <NA> 
+#>  7 0036A00000RUo9YQAT <NA> 
+#>  8 0036A00000RUo9iQAD <NA> 
+#>  9 0036A00000RUo9jQAD <NA> 
+#> 10 0036A00000RUoEdQAL <NA> 
+#> # ... with 1,009 more rows
 
 # the better way in salesforcer to query
 salesforcer_results <- sf_query(this_soql)
 salesforcer_results
-#> # A tibble: 523 x 2
+#> # A tibble: 1,019 x 2
 #>    Id                 Email
-#>  * <chr>              <chr>
-#>  1 0036A00000RUnyuQAD <NA> 
-#>  2 0036A00000RUnziQAD <NA> 
-#>  3 0036A00000RUnzjQAD <NA> 
-#>  4 0036A00000RUo9YQAT <NA> 
-#>  5 0036A00000RUo9iQAD <NA> 
-#>  6 0036A00000RUo9jQAD <NA> 
-#>  7 0036A00000RRdkLQAT <NA> 
-#>  8 0036A00000RRdkQQAT <NA> 
-#>  9 0036A00000RRdkkQAD <NA> 
-#> 10 0036A00000RRdklQAD <NA> 
-#> # ... with 513 more rows
+#>    <chr>              <chr>
+#>  1 0036A00000RUpmQQAT <NA> 
+#>  2 0036A00000RUpnnQAD <NA> 
+#>  3 0036A00000RUpqcQAD <NA> 
+#>  4 0036A00000RUnyuQAD <NA> 
+#>  5 0036A00000RUnziQAD <NA> 
+#>  6 0036A00000RUnzjQAD <NA> 
+#>  7 0036A00000RUo9YQAT <NA> 
+#>  8 0036A00000RUo9iQAD <NA> 
+#>  9 0036A00000RUo9jQAD <NA> 
+#> 10 0036A00000RUoEdQAL <NA> 
+#> # ... with 1,009 more rows
 ```
 
 In the future more features will be migrated from **RForcecom** to make the 

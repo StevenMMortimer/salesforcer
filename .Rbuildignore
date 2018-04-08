@@ -12,6 +12,7 @@
 ^codecov\.yml$
 ^appveyor\.yml$
 ^_pkgdown\.yml$
+^\.package.zip$
 ^\.httr-oauth$
 ^\.httr-oauth-salesforcer$
 ^docs$
