@@ -4,7 +4,8 @@ salesforcer_token <- readRDS("salesforcer_token.rds")
 sf_auth(token = salesforcer_token)
 
 # provide the details for creating an object
-base_obj_name <- "Custom_Account1"
+rand_int <- as.integer(runif(1,1,100000))
+base_obj_name <- paste0("Custom_Account_", rand_int)
 custom_object <- list()
 custom_object$fullName <- paste0(base_obj_name, "__c")
 custom_object$label <- paste0(gsub("_", " ", base_obj_name))
@@ -50,14 +51,14 @@ updated_custom_object_result <- sf_update_metadata(metadata_type = 'CustomObject
                                                    metadata = update_metadata)
 
 renamed_custom_object_result <- sf_rename_metadata(metadata_type = 'CustomObject', 
-                                                   old_fullname = 'Custom_Account1__c', 
-                                                   new_fullname = 'Custom_Account2__c')
+                                                   old_fullname = paste0("Custom_Account_", rand_int, "__c"), 
+                                                   new_fullname = paste0("Custom_Account_", rand_int+1, "__c"))
 
 upsert_metadata <- list(custom_object, custom_object)
-upsert_metadata[[1]]$fullName <- 'Custom_Account2__c'
+upsert_metadata[[1]]$fullName <- paste0("Custom_Account_", rand_int+1, "__c")
 upsert_metadata[[1]]$label <- 'New Label Custom_Account2'
 upsert_metadata[[1]]$pluralLabel <- 'Custom_Account2s_new'
-upsert_metadata[[2]]$fullName <- 'Custom_Account3__c'
+upsert_metadata[[2]]$fullName <- paste0("Custom_Account_", rand_int+2, "__c")
 upsert_metadata[[2]]$label <- 'New Label Custom_Account3'
 upsert_metadata[[2]]$pluralLabel <- 'Custom_Account3s_new'
 upserted_custom_object_result <- sf_upsert_metadata(metadata_type = 'CustomObject',
@@ -67,14 +68,14 @@ upserted_custom_object_result <- sf_upsert_metadata(metadata_type = 'CustomObjec
 describe_obj_result <- sf_describe_metadata()
 list_obj_result <- sf_list_metadata(queries=list(list(type='CustomObject')))
 read_obj_result <- sf_read_metadata(metadata_type='CustomObject',
-                                    object_names=c('Custom_Account2__c'))
+                                    object_names=paste0("Custom_Account_", rand_int+1, "__c"))
 retrieve_request <- list(unpackaged=list(types=list(members='*', name='CustomObject')))
 retrieve_info <- sf_retrieve_metadata(retrieve_request)
 
 # cleanup everything we created by deleting it
 deleted_custom_object_result <- sf_delete_metadata(metadata_type = 'CustomObject', 
-                                                   object_names = c('Custom_Account2__c', 
-                                                                    'Custom_Account3__c'))
+                                                   object_names = c(paste0("Custom_Account_", rand_int+1, "__c"), 
+                                                                    paste0("Custom_Account_", rand_int+2, "__c")))
 
 test_that("sf_create_metadata", {
   expect_is(custom_object_result, "tbl_df")
