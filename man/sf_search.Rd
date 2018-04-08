@@ -14,7 +14,7 @@ to perform a search using SOSL.}
 
 \item{is_sosl}{logical; indicating whether or not to try the string as SOSL}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}
 
 \item{parameterized_search_options}{\code{list}; a list of parameters for 

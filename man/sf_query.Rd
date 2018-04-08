@@ -21,7 +21,7 @@ deleted and archived records (available only when querying Task and Event record
 records per page that are returned. Speed benchmarks should be done to better 
 understand the speed implications of choosing either endpoint.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}
 
 \item{next_records_url}{character (leave as NULL); a string used internally 

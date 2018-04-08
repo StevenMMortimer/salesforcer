@@ -18,7 +18,7 @@ on the records}
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}
 
 \item{verbose}{logical; do you want informative messages?}

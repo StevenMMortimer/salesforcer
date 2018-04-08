@@ -33,7 +33,7 @@
 sf_update <- function(input_data,
                       object_name,
                       all_or_none = FALSE,
-                      api_type = c("SOAP", "Rest", "Bulk"),
+                      api_type = c("SOAP", "REST", "Bulk"),
                       ...,
                       verbose = FALSE){
   

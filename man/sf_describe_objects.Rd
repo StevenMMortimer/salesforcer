@@ -11,7 +11,7 @@ sf_describe_objects(object_names, api_type = c("SOAP", "REST", "Bulk"),
 \item{object_names}{character; the name of one or more Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk", or "Async" indicating 
+\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}
 
 \item{verbose}{logical; do you want informative messages?}
