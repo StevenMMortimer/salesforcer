@@ -93,8 +93,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUptJQAT true   
-#> 2 0036A00000RUptKQAT true
+#> 1 0036A00000RUqleQAD true   
+#> 2 0036A00000RUqlfQAD true
 ```
 
 ### Query
@@ -112,11 +112,9 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql)
 queried_records
-#> # A tibble: 2 x 4
-#>   Id                 Account FirstName LastName        
-#>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000RUptJQAT NA      Test      Contact-Create-1
-#> 2 0036A00000RUptKQAT NA      Test      Contact-Create-2
+#>                   Id Account FirstName         LastName
+#> 1 0036A00000RUqleQAD      NA      Test Contact-Create-1
+#> 2 0036A00000RUqlfQAD      NA      Test Contact-Create-2
 ```
 
 ### Update
@@ -134,8 +132,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUptJQAT true   
-#> 2 0036A00000RUptKQAT true
+#> 1 0036A00000RUqleQAD true   
+#> 2 0036A00000RUqlfQAD true
 ```
 
 ### Bulk Operations
@@ -275,7 +273,7 @@ Future APIs to support:
 Credits
 -------
 
-This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the **googlesheets** package (<https://github.com/jennybc/googlesheets>). We acknowledge and are grateful to these developers for their contributions to open source.
+This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the **googlesheets** package (<https://github.com/jennybc/googlesheets>). Methods are inspired by the **RForcecom** package (<https://github.com/hiratake55/RForcecom>). We acknowledge and are grateful to these developers for their contributions to open source.
 
 More Information
 ----------------

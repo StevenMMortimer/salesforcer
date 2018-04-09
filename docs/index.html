@@ -203,8 +203,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUpqEQAT true   </span>
-<span class="co">#&gt; 2 0036A00000RUpqFQAT true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUqmrQAD true   </span>
+<span class="co">#&gt; 2 0036A00000RUqmsQAD true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -220,11 +220,9 @@ created_records
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)
 queried_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUpqEQAT NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUpqFQAT NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt;                   Id Account FirstName         LastName</span>
+<span class="co">#&gt; 1 0036A00000RUqmrQAD      NA      Test Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUqmsQAD      NA      Test Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -240,8 +238,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUpqEQAT true   </span>
-<span class="co">#&gt; 2 0036A00000RUpqFQAT true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUqmrQAD true   </span>
+<span class="co">#&gt; 2 0036A00000RUqmsQAD true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -370,7 +368,7 @@ deleted_custom_object_result &lt;-<span class="st"> </span><span class="kw"><a h
 <div id="credits" class="section level2">
 <h2 class="hasAnchor">
 <a href="#credits" class="anchor"></a>Credits</h2>
-<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
+<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the <strong>RForcecom</strong> package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">

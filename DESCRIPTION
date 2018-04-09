@@ -11,6 +11,7 @@ Description: An implementation of the 'Salesforce' Platform APIs (REST, SOAP,
     documentation, and examples.
 Authors@R: c(
     person(c("Steven", "M."), "Mortimer", , "reportmort@gmail.com", c("aut", "cre")),
+    person("Takekatsu", "Hiramura", , "thira@plavox.info", c("ctb")),
     person("Jennifer", "Bryan", , "jenny@rstudio.com", c("ctb")),
     person("Joanna", "Zhao", , "joanna.zhao@alumni.ubc.ca", c("ctb"))
     )

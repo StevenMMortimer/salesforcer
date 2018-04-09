@@ -3,7 +3,7 @@
 #' Executes a query against the specified object and returns data that matches 
 #' the specified criteria.
 #' 
-#' @importFrom dplyr bind_rows contains
+#' @importFrom dplyr bind_rows contains as_tibble
 #' @importFrom httr content
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert cols
@@ -68,7 +68,8 @@ sf_query <- function(soql,
       resultset <- response_parsed$records %>% 
         select(-matches("^attributes\\.")) %>%
         select(-matches("\\.attributes\\.")) %>%
-        type_convert(col_types = cols())
+        type_convert(col_types = cols()) %>%
+        as_tibble()
     } else {
       resultset <- NULL
     }
@@ -113,14 +114,15 @@ sf_query <- function(soql,
       xml_ns_strip() %>%
       xml_find_all('.//records')
     if(length(resultset) > 0){
-      resultset2 <- resultset %>%
+      resultset <- resultset %>%
         map_df(xml_nodeset_to_df) %>%
         select(-matches("sf:type$|sf:Id$")) %>%
         rename_at(.vars = vars(contains("sf:")), 
                   .funs = funs(gsub("sf:", "", .))) %>%
         rename_at(.vars = vars(contains("Id1")), 
                   .funs = funs(gsub("Id1", "Id", .))) %>%
-        type_convert(col_types = cols())
+        type_convert(col_types = cols()) %>%
+        as_tibble()
     } else {
       resultset <- NULL
     }

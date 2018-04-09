@@ -227,8 +227,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUpiYQAT true   </span>
-<span class="co">#&gt; 2 0036A00000RUpiZQAT true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUqleQAD true   </span>
+<span class="co">#&gt; 2 0036A00000RUqlfQAD true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -244,11 +244,9 @@ created_records
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)
 queried_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
-<span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUpiYQAT NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUpiZQAT NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt;                   Id Account FirstName         LastName</span>
+<span class="co">#&gt; 1 0036A00000RUqleQAD      NA      Test Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUqlfQAD      NA      Test Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -256,15 +254,16 @@ queried_records
 <p>After creating records you can update them using <code><a href="reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Update some of those records</span>
 queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>)
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>Account)
 
 updated_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
 updated_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   errors.message                            errors.statusCo… id    success</span>
-<span class="co">#&gt;   &lt;chr&gt;                                     &lt;chr&gt;            &lt;lgl&gt; &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 The external foreign key reference does … INVALID_FIELD    NA    false  </span>
-<span class="co">#&gt; 2 The external foreign key reference does … INVALID_FIELD    NA    false</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
+<span class="co">#&gt; 1 0036A00000RUqleQAD true   </span>
+<span class="co">#&gt; 2 0036A00000RUqlfQAD true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -393,7 +392,7 @@ deleted_custom_object_result &lt;-<span class="st"> </span><span class="kw"><a h
 <div id="credits" class="section level2">
 <h2 class="hasAnchor">
 <a href="#credits" class="anchor"></a>Credits</h2>
-<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
+<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the <strong>RForcecom</strong> package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">
