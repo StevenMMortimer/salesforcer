@@ -154,8 +154,12 @@ test_that("testing rforcecom.retrieve compatibility", {
   
   objectName <- "Account"
   fields <- c("name", "Industry", "AnnualRevenue")
-
-  expect_error(salesforcer::rforcecom.retrieve(session, objectName, fields, limit = 5))
+  
+  result1 <- RForcecom::rforcecom.retrieve(session, objectName, fields, limit = 5)
+  suppressWarnings(result2 <- salesforcer::rforcecom.retrieve(session, objectName, fields, limit = 5))
+  
+  expect_equal(sort(names(result1)), sort(names(result2)))
+  expect_equal(nrow(result1), nrow(result2))
 })
 
 test_that("testing rforcecom.search compatibility", {

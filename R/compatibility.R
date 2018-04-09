@@ -1,3 +1,15 @@
+
+# Adapted from RForcecom package https://github.com/hiratake55/RForcecom
+
+# Modifications:
+#  - The function documentation and arguments are similar to provide users with a 
+#  familiar interface, but the function internals are original work that references 
+#  salesforcer functions
+
+# Copyright (C) 2012-2015 Takekatsu Hiramura
+
+# Licensed under Apache License, Version 2.0.
+
 #' salesforcer's backwards compatible version of rforcecom.login
 #' 
 #' @param username Your username for login to the Salesforce.com. In many cases, username is your E-mail address.
