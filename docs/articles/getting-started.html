@@ -135,8 +135,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUpsYQAT true   </span>
-<span class="co">#&gt; 2 0036A00000RUpsZQAT true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUxLpQAL true   </span>
+<span class="co">#&gt; 2 0036A00000RUxLqQAL true</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -149,8 +149,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUpsYQAT Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUpsZQAT Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUxLpQAL Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUxLqQAL Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -166,11 +166,9 @@ retrieved_records
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)
 queried_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUpsYQAT NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUpsZQAT NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt;                   Id Account FirstName         LastName</span>
+<span class="co">#&gt; 1 0036A00000RUxLpQAL      NA      Test Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000RUxLqQAL      NA      Test Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -186,8 +184,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUpsYQAT true   </span>
-<span class="co">#&gt; 2 0036A00000RUpsZQAT true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUxLpQAL true   </span>
+<span class="co">#&gt; 2 0036A00000RUxLqQAL true</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -198,8 +196,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000RUpsYQAT TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000RUpsZQAT TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000RUxLpQAL TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000RUxLqQAL TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -226,9 +224,9 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000RUpsdQAD true   </span>
-<span class="co">#&gt; 2 false   0036A00000RUpseQAD true   </span>
-<span class="co">#&gt; 3 true    0036A00000RUpsiQAD true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000RUxLuQAL true   </span>
+<span class="co">#&gt; 2 false   0036A00000RUxLvQAL true   </span>
+<span class="co">#&gt; 3 true    0036A00000RUxLzQAL true</span></code></pre></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">

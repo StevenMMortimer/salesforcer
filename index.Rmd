@@ -70,10 +70,11 @@ embedded within scripts. User credentials will be stored in locally cached file
 entitled ".httr-oauth-salesforcer" in the current working directory.
 
 ```{r auth, include = FALSE}
-library(dplyr)
-library(purrr)
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(purrr)))
+suppressWarnings(suppressMessages(library(here)))
 library(salesforcer)
-token_path <- file.path("..", "tests", "testthat", "salesforcer_token.rds")
+token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
 
@@ -299,7 +300,7 @@ most all operations supported by the Salesforce APIs are available via this pack
 This package makes requests best formatted to match what the APIs require as input. 
 This articulation is not perfect and continued progress will be made to add and improve 
 functionality. For details on formatting, attributes, and methods please refer to 
-[Salesforce'sdocumentation](https://developer.salesforce.com/page/Salesforce_APIs) 
+[Salesforce's documentation](https://developer.salesforce.com/page/Salesforce_APIs) 
 as they are explained better there.
 
 [Top](#)

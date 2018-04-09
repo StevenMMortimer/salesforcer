@@ -35,7 +35,8 @@ Imports:
 Suggests:
     knitr,
     testthat,
-    rmarkdown, 
+    rmarkdown,
+    here,
     RForcecom
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

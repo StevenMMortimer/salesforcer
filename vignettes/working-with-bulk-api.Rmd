@@ -29,10 +29,9 @@ First, load the `salesforcer` package and login.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(here)))
 library(salesforcer)
-## I grab the token from the testing directory because that's where it is to be
-## found on Travis
-token_path <- file.path("..", "tests", "testthat", "salesforcer_token.rds")
+token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
 
