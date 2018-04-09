@@ -8,7 +8,7 @@ output:
     toc_depth: 4
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{Getting Started}
+  %\VignetteIndexEntry{Working with Bulk API}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -44,8 +44,8 @@ rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUpr1QAD TRUE    <list [0]>
-#> 2 0036A00000RUpr2QAD TRUE    <list [0]>
+#> 1 0036A00000RUqbAQAT TRUE    <list [0]>
+#> 2 0036A00000RUqbBQAT TRUE    <list [0]>
 # Bulk
 bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
 bulk_created_records
@@ -53,8 +53,8 @@ bulk_created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RUpr6QAD true        Test      Contact-Create-1
-#> 2 0036A00000RUpr7QAD true        Test      Contact-Create-2
+#> 1 0036A00000RUqbFQAT true        Test      Contact-Create-1
+#> 2 0036A00000RUqbGQAT true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -87,8 +87,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created FirstName LastName        
 #>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RUprBQAT true        Test      Contact-Create-1
-#> 2 0036A00000RUprCQAT true        Test      Contact-Create-2
+#> 1 0036A00000RUqbPQAT true        Test      Contact-Create-1
+#> 2 0036A00000RUqbQQAT true        Test      Contact-Create-2
 #> 
 #> $failedResults
 #> # A tibble: 0 x 4
@@ -112,8 +112,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RUprBQAT Test      Contact-Create-1
-#> 2 0036A00000RUprCQAT Test      Contact-Create-2
+#> 1 0036A00000RUqbPQAT Test      Contact-Create-1
+#> 2 0036A00000RUqbQQAT Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk")
@@ -122,8 +122,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   sf__Id             sf__Created Id                
 #>   <chr>              <chr>       <chr>             
-#> 1 0036A00000RUprBQAT false       0036A00000RUprBQAT
-#> 2 0036A00000RUprCQAT false       0036A00000RUprCQAT
+#> 1 0036A00000RUqbPQAT false       0036A00000RUqbPQAT
+#> 2 0036A00000RUqbQQAT false       0036A00000RUqbQQAT
 #> 
 #> $failedResults
 #> # A tibble: 0 x 3

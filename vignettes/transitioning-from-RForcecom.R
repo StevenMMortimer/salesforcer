@@ -67,11 +67,11 @@ salesforcer_results <- sf_create(new_contacts, object_name="Contact")
 salesforcer_results
 
 ## ---- warning=FALSE------------------------------------------------------
-this_soql <- "SELECT Id, Email FROM Contact"
+this_soql <- "SELECT Id, Email FROM Contact LIMIT 5"
 
 # the RForcecom way
 result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
-head(result1)
+result1
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)

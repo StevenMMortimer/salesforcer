@@ -3,10 +3,10 @@
 #' Executes a query against the specified object and returns data that matches 
 #' the specified criteria.
 #' 
-#' @importFrom dplyr bind_rows
+#' @importFrom dplyr bind_rows contains
 #' @importFrom httr content
 #' @importFrom purrr map_df
-#' @importFrom readr type_convert
+#' @importFrom readr type_convert cols
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 #' @template soql
 #' @template object_name
@@ -43,7 +43,7 @@ sf_query <- function(soql,
                      object_name=NULL,
                      queryall=FALSE,
                      batch_size=1000,
-                     api_type=c("SOAP", "REST", "Bulk"),
+                     api_type=c("REST", "SOAP", "Bulk"),
                      next_records_url=NULL,
                      ...,
                      verbose=FALSE){
@@ -64,14 +64,11 @@ sf_query <- function(soql,
     catch_errors(httr_response)
     response_parsed <- content(httr_response, "text", encoding="UTF-8")
     response_parsed <- fromJSON(response_parsed, flatten=TRUE)
-    if(length(response_parsed$records)>0){
-      suppressMessages(
-        resultset <- response_parsed$records %>% 
-          select(-matches("^attributes\\.")) %>%
-          select(-matches("\\.attributes\\.")) %>%
-          type_convert() %>% 
-          as_tibble()
-      ) 
+    if(length(response_parsed$records) > 0){
+      resultset <- response_parsed$records %>% 
+        select(-matches("^attributes\\.")) %>%
+        select(-matches("\\.attributes\\.")) %>%
+        type_convert(col_types = cols())
     } else {
       resultset <- NULL
     }
@@ -103,7 +100,8 @@ sf_query <- function(soql,
 
     base_soap_url <- make_base_soap_url()
     if(verbose) {
-      message(base_soap_url)
+      print(base_soap_url)
+      print(xml_dat)
     }
     httr_response <- rPOST(url = base_soap_url,
                            headers = c("SOAPAction"=soap_action,
@@ -115,15 +113,14 @@ sf_query <- function(soql,
       xml_ns_strip() %>%
       xml_find_all('.//records')
     if(length(resultset) > 0){
-      suppressMessages(
-        resultset <- resultset %>%
-          map_df(xml_nodeset_to_df) %>%
-          select(-matches("sf:type")) %>%
-          rename_at(.vars = vars(starts_with("sf:")), 
-                    .funs = funs(sub("^sf:", "", .))) %>%
-          select(-matches("Id1")) %>%
-          type_convert()
-      )
+      resultset2 <- resultset %>%
+        map_df(xml_nodeset_to_df) %>%
+        select(-matches("sf:type$|sf:Id$")) %>%
+        rename_at(.vars = vars(contains("sf:")), 
+                  .funs = funs(gsub("sf:", "", .))) %>%
+        rename_at(.vars = vars(contains("Id1")), 
+                  .funs = funs(gsub("Id1", "Id", .))) %>%
+        type_convert(col_types = cols())
     } else {
       resultset <- NULL
     }
