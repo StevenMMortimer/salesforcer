@@ -5,7 +5,8 @@
 \title{Perform SOSL Search}
 \usage{
 sf_search(search_string, is_sosl = FALSE, api_type = c("REST", "SOAP",
-  "Bulk"), parameterized_search_options = list(...), verbose = FALSE, ...)
+  "Bulk 1.0", "Bulk 2.0"), parameterized_search_options = list(...),
+  verbose = FALSE, ...)
 }
 \arguments{
 \item{search_string}{character; string to search using parameterized search 

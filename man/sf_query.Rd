@@ -4,8 +4,8 @@
 \alias{sf_query}
 \title{Perform SOQL Query}
 \usage{
-sf_query(soql, object_name = NULL, queryall = FALSE, batch_size = 1000,
-  api_type = c("REST", "SOAP", "Bulk"), next_records_url = NULL, ...,
+sf_query(soql, object_name, queryall = FALSE, page_size = 1000,
+  api_type = c("REST", "SOAP", "Bulk 1.0"), next_records_url = NULL, ...,
   verbose = FALSE)
 }
 \arguments{
@@ -17,9 +17,9 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 \item{queryall}{logical; indicating if the query recordset should include 
 deleted and archived records (available only when querying Task and Event records)}
 
-\item{batch_size}{numeric; a number between 200 and 2000 indicating the number of 
+\item{page_size}{numeric; a number between 200 and 2000 indicating the number of 
 records per page that are returned. Speed benchmarks should be done to better 
-understand the speed implications of choosing either endpoint.}
+understand the speed implications of choosing high or low values of this argument.}
 
 \item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}
@@ -27,12 +27,12 @@ which API to use when making the request}
 \item{next_records_url}{character (leave as NULL); a string used internally 
 by the function to paginate through to more records until complete}
 
-\item{...}{Other arguments passed on to \code{\link{sf_bulk_query}}.}
+\item{...}{Other arguments passed on to \code{\link{sf_query_bulk}}.}
 
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-\code{tibble}
+\code{tbl_df} of records
 }
 \description{
 Executes a query against the specified object and returns data that matches 

@@ -1,21 +1,16 @@
-## Release summary
-
-This package has not yet been submitted to CRAN.
-
 ## Test environments
 
-* local OS X install, R 3.4.1
-* ubuntu 12.04 (on travis-ci), R 3.4.1, R-oldrel, R-devel.
+* local OS X install, R 3.4.3
+* ubuntu 12.04 (on travis-ci), R 3.4.3, R-oldrel, R-devel.
 * win-builder (devel)
 
 ## R CMD check results
 
-? ERRORs | ? WARNINGs | ? NOTEs
+0 ERRORs | 0 WARNINGs | 1 NOTEs
 
-## Reverse dependencies
+* checking CRAN incoming feasibility ... NOTE
 
-No reverse dependencies checked.
-
-### New problems
-
-### Failed to check
+Possibly mis-spelled words in DESCRIPTION:
+  APIs (2:42, 5:61)
+  JSON (8:19)
+  tibbles (8:54)

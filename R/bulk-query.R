@@ -4,9 +4,13 @@
 #' an already existing Bulk API Job of operation "query"
 #'
 #' @importFrom httr upload_file content
-#' @importFrom XML xmlToList
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom purrr map_df
+#' @importFrom readr type_convert cols
 #' @template job_id
-#' @param soql a character string defining a valid SOQL query on the Salesforce object associated with the job
+#' @template soql
+#' @template api_type
+#' @template verbose
 #' @return A \code{list} parameters of the batch
 #' @note Bulk API query doesn't support the following SOQL:
 #' \itemize{
@@ -23,27 +27,37 @@
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 10"
-#' job_info <- sf_bulk_create_job(operation='query', object='Account')
-#' query_info <- sf_bulk_submit_query(job_id=job_info$id, soql=my_query)
+#' job_info <- sf_create_job_bulk(operation='query', object='Account')
+#' query_info <- sf_submit_query_bulk(job_id=job_info$id, soql=my_query)
 #' }
 #' @export
-sf_bulk_submit_query <- function(job_id, soql){
+sf_submit_query_bulk <- function(job_id, soql, 
+                                 api_type=c("Bulk 1.0"), 
+                                 verbose=FALSE){
   
+  api_type <- match.arg(api_type)
+  bulk_query_url <- make_bulk_query_url(job_id, api_type=api_type)
+  if(verbose){
+    message(bulk_query_url)
+  }
   f <- tempfile()
   cat(soql, file=f)
-  
-  bulk_query_url <- make_bulk_query_url(job_id)
   httr_response <- rPOST(url = bulk_query_url,
                          headers = c("Content-Type"="text/csv; charset=UTF-8"),
                          body = upload_file(path=f, type='text/txt'))
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, as="text", encoding="UTF-8")
-  return(xmlToList(response_parsed))
+  response_parsed <- content(httr_response, encoding="UTF-8")
+  resultset <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('//batchInfo') %>%
+    map_df(xml_nodeset_to_df) %>%
+    type_convert(col_types = cols())
+  return(resultset)
 }
 
 #' Retrieving the Results of a Bulk Query Batch in a Bulk API Job 
 #' 
-#' This function returns the resultset of a Bulk Query batch
+#' This function returns the row-level recordset of a bulk query
 #' which has already been submitted to Bulk API Job and has Completed state
 #' 
 #' @importFrom readr read_csv
@@ -52,25 +66,33 @@ sf_bulk_submit_query <- function(job_id, soql){
 #' @importFrom dplyr as_tibble
 #' @template job_id
 #' @template batch_id
-#' @param result_id a character string returned from \link{sf_bulk_batch_details} when a query has completed and specifies how to get the recordset
+#' @param result_id a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset
+#' @template api_type
+#' @template verbose
 #' @return A \code{tbl_df}, formatted by salesforce, containing query results
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 10"
-#' job_info <- sf_bulk_create_job(operation='query', object='Account')
-#' query_info <- sf_bulk_submit_query(job_id=job_info$id, soql=my_query)
-#' result <- sf_bulk_batch_details(job_id = query_info$jobId,
+#' job_info <- sf_create_job_bulk(operation='query', object='Account')
+#' query_info <- sf_submit_query_bulk(job_id=job_info$id, soql=my_query)
+#' result <- sf_batch_details_bulk(job_id = query_info$jobId,
 #'                                 batch_id = query_info$id)
-#' recordset <- sf_bulk_query_result(job_id = query_info$jobId,
+#' recordset <- sf_query_result_bulk(job_id = query_info$jobId,
 #'                                   batch_id = query_info$id,
 #'                                   result_id = result$result)
-#' sf_bulk_close_job(job_info$id)
+#' sf_close_job_bulk(job_info$id)
 #' }
 #' @export
-sf_bulk_query_result <- function(job_id, batch_id, result_id){
+sf_query_result_bulk <- function(job_id, batch_id, result_id, 
+                                 api_type = c("Bulk 1.0"), 
+                                 verbose = FALSE){
     
-  bulk_query_result_url <- make_bulk_query_result_url(job_id, batch_id, result_id)
+  api_type <- match.arg(api_type)
+  bulk_query_result_url <- make_bulk_query_result_url(job_id, batch_id, result_id, api_type)
+  if(verbose){
+    message(bulk_query_result_url)
+  }  
   httr_response <- rGET(url = bulk_query_result_url)
   catch_errors(httr_response)
   response_text <- content(httr_response, as="text", encoding="UTF-8")
@@ -84,7 +106,6 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
     message(sprintf("Unhandled content-type: %s", content_type))
     res <- content(httr_response, as="parsed", encoding="UTF-8")
   }
-  
   return(res)
 }
 
@@ -95,30 +116,39 @@ sf_bulk_query_result <- function(job_id, batch_id, result_id){
 #'
 #' @template soql
 #' @template object_name
-#' @param interval_seconds an integer defining the seconds between attempts to check for job completion
-#' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
+#' @template api_type
+#' @param interval_seconds integer; defines the seconds between attempts to check 
+#' for job completion
+#' @param max_attempts integer; defines then max number attempts to check for job 
+#' completion before stopping
 #' @template verbose
-#' @return A \code{data.frame} of the recordset returned by query
+#' @return A \code{tbl_df} of the recordset returned by the query
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object
-#' ids <- sf_bulk_query(soql='SELECT Id FROM Account', object_name='Account')
+#' ids <- sf_query_bulk(soql='SELECT Id FROM Account', object_name='Account')
 #' }
 #' @export
-sf_bulk_query <- function(soql,
+sf_query_bulk <- function(soql,
                           object_name,
+                          api_type = c("Bulk 1.0"),
                           interval_seconds=5,
                           max_attempts=100, 
                           verbose=FALSE){
+  
   # if(is.null(object_name)){
   #   object_name <- gsub("(.*)from\\s+([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE, perl=TRUE)
   #   message(sprintf("Guessed target object_name from query string: %s", object_name))
   # }
-  
-  job_info <- sf_bulk_create_job(operation = "query", object_name = object_name)
-  batch_query_info <- sf_bulk_submit_query(job_id = job_info$id, 
-                                           soql = soql)
+  api_type <- match.arg(api_type)
+  job_info <- sf_create_job_bulk(operation = "query", 
+                                 object_name = object_name, 
+                                 api_type = api_type, 
+                                 verbose=verbose)
+  batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = soql, 
+                                           api_type = api_type, 
+                                           verbose=verbose)
   status_complete <- FALSE
   z <- 1
   Sys.sleep(interval_seconds)
@@ -127,8 +157,10 @@ sf_bulk_query <- function(soql,
       message(paste0("Attempt #", z))
     }
     Sys.sleep(interval_seconds)
-    batch_query_status <- sf_bulk_batch_status(job_id=batch_query_info$jobId,
-                                               batch_id=batch_query_info$id) 
+    batch_query_status <- sf_batch_status_bulk(job_id=batch_query_info$jobId,
+                                               batch_id=batch_query_info$id, 
+                                               api_type = api_type, 
+                                               verbose=verbose)
     if(batch_query_status$state == 'Failed'){
       stop(batch_query_status$stateMessage)
     } else if(batch_query_status$state == "Completed"){
@@ -139,24 +171,21 @@ sf_bulk_query <- function(soql,
     }
   }
   if (!status_complete) {
-    message('Issue with batches submitted.')
-    batch_query_details <- NULL
-    tryCatch({
-      batch_query_details <- sf_bulk_batch_details(job_id = batch_query_info$jobId,
-                                                   batch_id = batch_query_info$id)
-    }, error=function(e){
-    })
-    # close the job
-    close_job_info <- sf_bulk_close_job(job_info$id)
-    return(batch_query_details)
+    message("Function's Time Limit Exceeded. Aborting Job Now")
+    res <- sf_abort_job_bulk(job_info$id, api_type=api_type, 
+                             verbose=verbose)
+  } else {
+    batch_query_details <- sf_batch_details_bulk(job_id = batch_query_info$jobId,
+                                                 batch_id = batch_query_info$id, 
+                                                 api_type = api_type, 
+                                                 verbose = verbose)
+    res <- sf_query_result_bulk(job_id = batch_query_info$jobId,
+                                batch_id = batch_query_info$id,
+                                result_id = batch_query_details$result,
+                                api_type = "Bulk 1.0", 
+                                verbose = verbose)
+    close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, 
+                                        verbose = verbose)
   }
-  batch_query_details <- sf_bulk_batch_details(job_id = batch_query_info$jobId,
-                                               batch_id = batch_query_info$id)
-  
-  batch_query_recordset <- sf_bulk_query_result(job_id = batch_query_info$jobId,
-                                                batch_id = batch_query_info$id,
-                                                result_id = batch_query_details$result)
-  close_job_info <- sf_bulk_close_job(job_info$id)
-  
-  return(batch_query_recordset)
+  return(res)
 }

@@ -5,9 +5,9 @@
 \title{Run Bulk Operation}
 \usage{
 sf_bulk_operation(input_data, object_name, operation = c("insert", "delete",
-  "upsert", "update"), external_id_fieldname = NULL,
-  wait_for_results = TRUE, interval_seconds = 3, max_attempts = 200,
-  verbose = FALSE)
+  "upsert", "update", "hardDelete"), external_id_fieldname = NULL,
+  api_type = c("Bulk 1.0", "Bulk 2.0"), wait_for_results = TRUE,
+  interval_seconds = 3, max_attempts = 200, verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -16,33 +16,45 @@ sf_bulk_operation(input_data, object_name, operation = c("insert", "delete",
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{operation}{character string defining the type of operation being performed}
+\item{operation}{character; string defining the type of operation being performed}
 
 \item{external_id_fieldname}{character; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
+\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
+which API to use when making the request}
+
 \item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
 so that the batch results of individual records can be obtained}
 
-\item{interval_seconds}{an integer defining the seconds between attempts to check for job completion}
+\item{interval_seconds}{integer; defines the seconds between attempts to check 
+for job completion}
 
-\item{max_attempts}{an integer defining then max number attempts to check for job completion before stopping}
+\item{max_attempts}{integer; defines then max number attempts to check for job 
+completion before stopping}
 
 \item{verbose}{logical; do you want informative messages?}
+}
+\value{
+A \code{tbl_df} of the results of the bulk job
 }
 \description{
 This function is a convenience wrapper for submitting bulk API jobs
 }
+\note{
+With Bulk 2.0 the order of records in the response is not guaranteed to 
+match the ordering of records in the original job data.
+}
 \examples{
 \dontrun{
 n <- 20
-new_contacts <- data.frame(FirstName = rep("Test", n), 
-                           LastName = paste0("Contact", 1:n))
+new_contacts <- tibble(FirstName = rep("Test", n), 
+                       LastName = paste0("Contact", 1:n))
 # insert new records into the Contact object
-inserts <- sf_bulk_operation(input_data=new_contacts, 
-                             object_name="Contact", 
-                             operation="insert")
+inserts <- sf_bulk_operation(input_data = new_contacts, 
+                             object_name = "Contact", 
+                             operation = "insert")
 }
 }
 \references{

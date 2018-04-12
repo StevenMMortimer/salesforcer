@@ -4,7 +4,8 @@
 \alias{make_bulk_query_result_url}
 \title{Bulk Query Result URL Generator}
 \usage{
-make_bulk_query_result_url(job_id, batch_id, result_id)
+make_bulk_query_result_url(job_id, batch_id, result_id,
+  api_type = c("Bulk 1.0"))
 }
 \description{
 Bulk Query Result URL Generator

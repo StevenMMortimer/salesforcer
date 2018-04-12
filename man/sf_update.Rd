@@ -5,12 +5,11 @@
 \title{Update Records}
 \usage{
 sf_update(input_data, object_name, all_or_none = FALSE, api_type = c("SOAP",
-  "REST", "Bulk"), ..., verbose = FALSE)
+  "REST", "Bulk 1.0", "Bulk 2.0"), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
-\code{tbl_df}; data can be coerced into a \code{data.frame} and there must be 
-a column called Id (case-insensitive) that can be passed in the request}
+\code{tbl_df}; data can be coerced into a \code{data.frame}}
 
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
@@ -26,10 +25,10 @@ which API to use when making the request}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-\code{tibble}
+\code{tbl_df} of records with success indicator
 }
 \description{
-Updates one or more new records to your organization’s data.
+Updates one or more records to your organization’s data.
 }
 \examples{
 \dontrun{
@@ -43,6 +42,6 @@ update_contacts <- tibble(FirstName = rep("TestTest", n),
                           Id = new_contacts_result$id)
 updated_contacts_result1 <- sf_update(update_contacts, "Contact")
 updated_contacts_result2 <- sf_update(update_contacts, "Contact", 
-                                      api_type="Bulk")                          
+                                      api_type="Bulk")
 }
 }

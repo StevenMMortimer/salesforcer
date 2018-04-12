@@ -268,3 +268,51 @@ rforcecom.retrieve <- function(session, objectName,
   resultSet <- sf_query(soql=soqlQuery)
   return(resultSet)
 }
+
+#' Run Bulk Action
+#'
+#' This function is a convenience wrapper for submitting bulk API jobs
+#'
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @param session a named character vector defining parameters of the api connection as returned by \link{rforcecom.login}
+#' @param operation a character string defining the type of operation being performed
+#' @param data a matrix or data.frame that can be coerced into .csv file for submitting as batch request
+#' @param object a character string defining the target salesforce object that the operation will be performed on
+#' @template external_id_fieldname
+#' @param multiBatch a boolean value defining whether or not submit data in batches to the api
+#' @param batchSize an integer value defining the number of records to submit if multiBatch is true.
+#' The max value is 10000 in accordance with salesforce limits.
+#' @param interval_seconds an integer defining the seconds between attempts to check for job completion
+#' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
+#' @template verbose
+#' @return A \code{tbl_df} of the results of the bulk job
+#' @examples
+#' \dontrun{
+#' # update Account object
+#' updates <- rforcecom.bulkAction(session, operation='update', data=my_data, object='Account')
+#' }
+#' @export
+rforcecom.bulkAction <- function(session, 
+                                 operation=c('insert', 'delete', 'upsert',
+                                                      'update', 'hardDelete'),
+                                 data,
+                                 object,
+                                 external_id_fieldname=NULL,
+                                 multiBatch=TRUE,
+                                 batchSize=10000,
+                                 interval_seconds=5,
+                                 max_attempts=100,
+                                 verbose=FALSE){
+  .Deprecated("sf_bulk_operation")
+  
+  operation <- match.arg(operation)
+  res <- sf_bulk_operation(input_data = data, 
+                           object_name = object, 
+                           operation = operation, 
+                           external_id_fieldname = external_id_fieldname, 
+                           api_type = "Bulk 1.0", 
+                           interval_seconds = interval_seconds,
+                           max_attempts = max_attempts,
+                           verbose = verbose)
+  return(res)
+}

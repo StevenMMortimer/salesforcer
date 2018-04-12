@@ -74,8 +74,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUqaWQAT true   
-#> 2 0036A00000RUqaXQAT true
+#> 1 0036A00000SncEJQAZ true   
+#> 2 0036A00000SncEKQAZ true
 ```
 
 ### Retrieve
@@ -92,8 +92,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RUqaWQAT Test      Contact-Create-1
-#> 2 0036A00000RUqaXQAT Test      Contact-Create-2
+#> 1 0036A00000SncEJQAZ Test      Contact-Create-1
+#> 2 0036A00000SncEKQAZ Test      Contact-Create-2
 ```
 
 
@@ -119,9 +119,11 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql)
 queried_records
-#>                   Id Account FirstName         LastName
-#> 1 0036A00000RUqaWQAT      NA      Test Contact-Create-1
-#> 2 0036A00000RUqaXQAT      NA      Test Contact-Create-2
+#> # A tibble: 2 x 4
+#>   Id                 Account FirstName LastName        
+#> * <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000SncEJQAZ NA      Test      Contact-Create-1
+#> 2 0036A00000SncEKQAZ NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -146,8 +148,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUqaWQAT true   
-#> 2 0036A00000RUqaXQAT true
+#> 1 0036A00000SncEJQAZ true   
+#> 2 0036A00000SncEKQAZ true
 ```
 
 ### Delete
@@ -162,8 +164,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUqaWQAT TRUE    <list [0]>
-#> 2 0036A00000RUqaXQAT TRUE    <list [0]>
+#> 1 0036A00000SncEJQAZ TRUE    <list [0]>
+#> 2 0036A00000SncEKQAZ TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -198,9 +200,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000RUqabQAD true   
-#> 2 false   0036A00000RUqacQAD true   
-#> 3 true    0036A00000RUqagQAD true
+#> 1 false   0036A00000SncEOQAZ true   
+#> 2 false   0036A00000SncEPQAZ true   
+#> 3 true    0036A00000SncETQAZ true
 ```
 
 

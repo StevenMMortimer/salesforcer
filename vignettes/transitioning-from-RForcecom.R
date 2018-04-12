@@ -8,16 +8,16 @@ knitr::opts_chunk$set(
 )
 
 ## ----auth, include = FALSE-----------------------------------------------
-options_path <- file.path("..", "tests", "testthat", "salesforcer_test_settings.rds")
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(here)))
+library(salesforcer)
+options_path <- here::here("tests", "testthat", "salesforcer_test_settings.rds")
 salesforcer_test_settings <- readRDS(options_path)
 username <- salesforcer_test_settings$username
 password <- salesforcer_test_settings$password
 security_token <- salesforcer_test_settings$security_token
 
 ## ---- warning=FALSE------------------------------------------------------
-suppressWarnings(suppressMessages(library(dplyr)))
-library(salesforcer)
-
 # the RForcecom way
 session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
                                        apiVersion=getOption("salesforcer.api_version"))

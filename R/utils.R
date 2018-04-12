@@ -57,6 +57,9 @@ get_os <- function(){
 #' @export
 sf_input_data_validation <- function(input_data, operation=''){
   
+  # TODO:  Automatic date validation
+  # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm
+  
   # put everything into a data.frame format if it's not already
   if(!is.data.frame(input_data)){
     if(is.null(names(input_data))){

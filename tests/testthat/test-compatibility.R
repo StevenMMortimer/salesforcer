@@ -172,3 +172,17 @@ test_that("testing rforcecom.search compatibility", {
   # rforcecom.search has a bug that wont return right data
   expect_is(result2, "data.frame")
 })
+
+# not exported?
+# test_that("testing rforcecom.bulkAction compatibility", {
+#   n <- 2
+#   prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
+#   new_contacts <- tibble(FirstName = rep("Test", n),
+#                          LastName = paste0("Contact-Create-", 1:n), 
+#                          My_External_Id__c=paste0(prefix, letters[1:n]))
+#   
+#   result1 <- RForcecom:::rforcecom.bulkAction(session, operation='insert', 
+#                                               data=new_contacts, object='Contact')
+#   result2 <- salesforcer::rforcecom.bulkAction(session, operation='insert',
+#                                                data=new_contacts, object='Contact')
+# })

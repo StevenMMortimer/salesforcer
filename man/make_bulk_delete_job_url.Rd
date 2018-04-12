@@ -4,7 +4,7 @@
 \alias{make_bulk_delete_job_url}
 \title{Bulk Delete Job Generic URL Generator}
 \usage{
-make_bulk_delete_job_url(job_id)
+make_bulk_delete_job_url(job_id, api_type = c("Bulk 2.0"))
 }
 \description{
 Bulk Delete Job Generic URL Generator

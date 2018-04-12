@@ -5,7 +5,7 @@
 \title{Delete Records}
 \usage{
 sf_delete(ids, object_name, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk"), ..., verbose = FALSE)
+  "SOAP", "Bulk 1.0", "Bulk 2.0"), ..., verbose = FALSE)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 
@@ -26,10 +26,10 @@ which API to use when making the request}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-\code{tibble}
+\code{tbl_df} of records with success indicator
 }
 \description{
-Deletes one or more new records to your organization’s data.
+Deletes one or more records to your organization’s data.
 }
 \examples{
 \dontrun{

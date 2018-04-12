@@ -4,7 +4,7 @@
 \alias{make_bulk_create_job_url}
 \title{Bulk Create Job URL Generator}
 \usage{
-make_bulk_create_job_url(bulk_version = "1.0")
+make_bulk_create_job_url(api_type = c("Bulk 1.0", "Bulk 2.0"))
 }
 \description{
 Bulk Create Job URL Generator

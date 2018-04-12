@@ -4,7 +4,7 @@
 \alias{make_bulk_batch_details_url}
 \title{Bulk Batch Details URL Generator}
 \usage{
-make_bulk_batch_details_url(job_id, batch_id)
+make_bulk_batch_details_url(job_id, batch_id, api_type = c("Bulk 1.0"))
 }
 \description{
 Bulk Batch Details URL Generator

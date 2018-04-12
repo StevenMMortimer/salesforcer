@@ -5,12 +5,12 @@
 \title{Upsert Records}
 \usage{
 sf_upsert(input_data, object_name, external_id_fieldname, all_or_none = FALSE,
-  api_type = c("SOAP", "REST", "Bulk"), ..., verbose = FALSE)
+  api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"), ...,
+  verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
-\code{tbl_df}; data can be coerced into a \code{data.frame} and there must be 
-a column called Id (case-insensitive) that can be passed in the request}
+\code{tbl_df}; data can be coerced into a \code{data.frame}}
 
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
@@ -30,7 +30,7 @@ which API to use when making the request}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-\code{tibble}
+\code{tbl_df} of records with success indicator
 }
 \description{
 Upserts one or more new records to your organization’s data.
