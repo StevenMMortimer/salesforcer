@@ -142,13 +142,13 @@ fields &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">
 result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result1
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000RUxM4QAL    true</span>
+<span class="co">#&gt; 1 0036A00000SnhDSQAZ    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result2
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000RUxM9QAL    true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhDXQAZ    true</span></code></pre></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
@@ -164,8 +164,8 @@ rforcecom_results &lt;-<span class="st"> </span><span class="ot">NULL</span>
 }
 rforcecom_results
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000RUxMEQA1    true</span>
-<span class="co">#&gt; 2 0036A00000RUxMJQA1    true</span>
+<span class="co">#&gt; 1 0036A00000SnhDcQAJ    true</span>
+<span class="co">#&gt; 2 0036A00000SnhDhQAJ    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
@@ -173,8 +173,8 @@ salesforcer_results
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUxMOQA1 true   </span>
-<span class="co">#&gt; 2 0036A00000RUxMPQA1 true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhDmQAJ true   </span>
+<span class="co">#&gt; 2 0036A00000SnhDnQAJ true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -186,31 +186,35 @@ salesforcer_results
 result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.query">rforcecom.query</a></span>(session, <span class="dt">soqlQuery =</span> this_soql)
 result1
 <span class="co">#&gt;                   Id</span>
-<span class="co">#&gt; 1 0036A00000RUqb0QAD</span>
-<span class="co">#&gt; 2 0036A00000RUqedQAD</span>
-<span class="co">#&gt; 3 0036A00000RUqeeQAD</span>
-<span class="co">#&gt; 4 0036A00000RUpmQQAT</span>
-<span class="co">#&gt; 5 0036A00000RUpnnQAD</span>
+<span class="co">#&gt; 1 0036A00000SncIGQAZ</span>
+<span class="co">#&gt; 2 0036A00000SncIHQAZ</span>
+<span class="co">#&gt; 3 0036A00000RUqb0QAD</span>
+<span class="co">#&gt; 4 0036A00000RUqedQAD</span>
+<span class="co">#&gt; 5 0036A00000RUqeeQAD</span>
 
 <span class="co"># replicated in salesforcer package</span>
 result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.query">rforcecom.query</a></span>(session, <span class="dt">soqlQuery =</span> this_soql)
 result2
-<span class="co">#&gt;                   Id Email</span>
-<span class="co">#&gt; 1 0036A00000RUqb0QAD    NA</span>
-<span class="co">#&gt; 2 0036A00000RUqedQAD    NA</span>
-<span class="co">#&gt; 3 0036A00000RUqeeQAD    NA</span>
-<span class="co">#&gt; 4 0036A00000RUpmQQAT    NA</span>
-<span class="co">#&gt; 5 0036A00000RUpnnQAD    NA</span>
+<span class="co">#&gt; # A tibble: 5 x 2</span>
+<span class="co">#&gt;   Id                 Email</span>
+<span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0036A00000SncIGQAZ NA   </span>
+<span class="co">#&gt; 2 0036A00000SncIHQAZ NA   </span>
+<span class="co">#&gt; 3 0036A00000RUqb0QAD NA   </span>
+<span class="co">#&gt; 4 0036A00000RUqedQAD NA   </span>
+<span class="co">#&gt; 5 0036A00000RUqeeQAD NA</span>
 
 <span class="co"># the better way in salesforcer to query</span>
 salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(this_soql)
 salesforcer_results
-<span class="co">#&gt;                   Id Email</span>
-<span class="co">#&gt; 1 0036A00000RUqb0QAD    NA</span>
-<span class="co">#&gt; 2 0036A00000RUqedQAD    NA</span>
-<span class="co">#&gt; 3 0036A00000RUqeeQAD    NA</span>
-<span class="co">#&gt; 4 0036A00000RUpmQQAT    NA</span>
-<span class="co">#&gt; 5 0036A00000RUpnnQAD    NA</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 5 x 2</span>
+<span class="co">#&gt;   Id                 Email</span>
+<span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0036A00000SncIGQAZ NA   </span>
+<span class="co">#&gt; 2 0036A00000SncIHQAZ NA   </span>
+<span class="co">#&gt; 3 0036A00000RUqb0QAD NA   </span>
+<span class="co">#&gt; 4 0036A00000RUqedQAD NA   </span>
+<span class="co">#&gt; 5 0036A00000RUqeeQAD NA</span></code></pre></div>
 <p>In the future more features will be migrated from <strong>RForcecom</strong> to make the transition as seamless as possible.</p>
 </div>
 </div>

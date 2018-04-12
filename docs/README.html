@@ -129,7 +129,7 @@
 
 <div id="salesforcer" class="section level1">
 <h1 class="hasAnchor">
-<a href="#salesforcer" class="anchor"></a>salesforcer <img src="man/figures/salesforcer.png" width="120px" align="right">
+<a href="#salesforcer" class="anchor"></a>salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right">
 </h1>
 <p><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="http://cran.r-project.org/package=salesforcer"><img src="http://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a> <a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></p>
 <p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk, and Metadata APIs. Package features include:</p>
@@ -227,8 +227,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUqleQAD true   </span>
-<span class="co">#&gt; 2 0036A00000RUqlfQAD true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhBRQAZ true   </span>
+<span class="co">#&gt; 2 0036A00000SnhBSQAZ true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -244,9 +244,11 @@ created_records
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)
 queried_records
-<span class="co">#&gt;                   Id Account FirstName         LastName</span>
-<span class="co">#&gt; 1 0036A00000RUqleQAD      NA      Test Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUqlfQAD      NA      Test Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
+<span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0036A00000SnhBRQAZ NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000SnhBSQAZ NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -262,8 +264,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUqleQAD true   </span>
-<span class="co">#&gt; 2 0036A00000RUqlfQAD true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhBRQAZ true   </span>
+<span class="co">#&gt; 2 0036A00000SnhBSQAZ true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -273,7 +275,7 @@ updated_records
 n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 
 <span class="co"># query large recordsets using the Bulk API</span>
 my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
@@ -281,12 +283,12 @@ my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span clas
 <span class="st">                           LastName</span>
 <span class="st">                    FROM Contact </span>
 <span class="st">                    WHERE Id in ('%s')"</span>, 
-                   <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
+                   <span class="kw">paste0</span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
-queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 
 <span class="co"># delete these records using the Bulk API</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)</code></pre></div>
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</code></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
@@ -397,7 +399,7 @@ deleted_custom_object_result &lt;-<span class="st"> </span><span class="kw"><a h
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more-information" class="anchor"></a>More Information</h2>
-<p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’sdocumentation</a> as they are explained better there.</p>
+<p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a> as they are explained better there.</p>
 <p>More information is also available on the <code>pkgdown</code> site at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a>.</p>
 <p><a href="#salesforcer-">Top</a></p>
 <hr>

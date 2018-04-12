@@ -1,6 +1,6 @@
 
-salesforcer <img src="man/figures/salesforcer.png" width="120px" align="right" />
-=================================================================================
+salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
+================================================================================
 
 [![Build Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/salesforcer)](http://cran.r-project.org/package=salesforcer) [![Coverage Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 
@@ -93,8 +93,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUqleQAD true   
-#> 2 0036A00000RUqlfQAD true
+#> 1 0036A00000SnhBRQAZ true   
+#> 2 0036A00000SnhBSQAZ true
 ```
 
 ### Query
@@ -112,9 +112,11 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql)
 queried_records
-#>                   Id Account FirstName         LastName
-#> 1 0036A00000RUqleQAD      NA      Test Contact-Create-1
-#> 2 0036A00000RUqlfQAD      NA      Test Contact-Create-2
+#> # A tibble: 2 x 4
+#>   Id                 Account FirstName LastName        
+#> * <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000SnhBRQAZ NA      Test      Contact-Create-1
+#> 2 0036A00000SnhBSQAZ NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -132,8 +134,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUqleQAD true   
-#> 2 0036A00000RUqlfQAD true
+#> 1 0036A00000SnhBRQAZ true   
+#> 2 0036A00000SnhBSQAZ true
 ```
 
 ### Bulk Operations
@@ -145,7 +147,7 @@ For really large operations (inserts, updates, upserts, deletes, and queries) Sa
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
+created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -153,12 +155,12 @@ my_soql <- sprintf("SELECT Id,
                            LastName
                     FROM Contact 
                     WHERE Id in ('%s')", 
-                   paste0(created_records$successfulResults$sf__Id , collapse="','"))
+                   paste0(created_records$Id , collapse="','"))
 
-queried_records <- sf_query(my_soql, object_name="Contact", api_type="Bulk")
+queried_records <- sf_query(my_soql, object_name="Contact", api_type="Bulk 1.0")
 
 # delete these records using the Bulk API
-deleted_records <- sf_delete(queried_records$Id, object_name="Contact", api_type="Bulk")
+deleted_records <- sf_delete(queried_records$Id, object_name="Contact", api_type="Bulk 1.0")
 ```
 
 ### Using the Metadata API
@@ -278,7 +280,7 @@ This application uses other open source software components. The authentication 
 More Information
 ----------------
 
-Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to [Salesforce'sdocumentation](https://developer.salesforce.com/page/Salesforce_APIs) as they are explained better there.
+Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to [Salesforce's documentation](https://developer.salesforce.com/page/Salesforce_APIs) as they are explained better there.
 
 More information is also available on the `pkgdown` site at <https://StevenMMortimer.github.io/salesforcer>.
 

@@ -134,9 +134,9 @@
     
 
     <pre class="usage"><span class='fu'>sf_bulk_operation</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>,
-  <span class='st'>"upsert"</span>, <span class='st'>"update"</span>), <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>wait_for_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>), <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='kw'>wait_for_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -153,7 +153,7 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p>
     </tr>
     <tr>
       <th>operation</th>
-      <td><p>character string defining the type of operation being performed</p></td>
+      <td><p>character; string defining the type of operation being performed</p></td>
     </tr>
     <tr>
       <th>external_id_fieldname</th>
@@ -162,23 +162,39 @@ object that has been set as an "External ID" field. This field is used to refere
 objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
     </tr>
     <tr>
+      <th>api_type</th>
+      <td><p>character; one of "REST", "SOAP", or "Bulk" indicating 
+which API to use when making the request</p></td>
+    </tr>
+    <tr>
       <th>wait_for_results</th>
       <td><p>logical; indicating whether to wait for the operation to complete 
 so that the batch results of individual records can be obtained</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>
-      <td><p>an integer defining the seconds between attempts to check for job completion</p></td>
+      <td><p>integer; defines the seconds between attempts to check 
+for job completion</p></td>
     </tr>
     <tr>
       <th>max_attempts</th>
-      <td><p>an integer defining then max number attempts to check for job completion before stopping</p></td>
+      <td><p>integer; defines then max number attempts to check for job 
+completion before stopping</p></td>
     </tr>
     <tr>
       <th>verbose</th>
       <td><p>logical; do you want informative messages?</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>tbl_df</code> of the results of the bulk job</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>With Bulk 2.0 the order of records in the response is not guaranteed to 
+match the ordering of records in the original job data.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -188,12 +204,12 @@ so that the batch results of individual records can be obtained</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>20</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                           <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
+<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
+                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
 <span class='co'># insert new records into the Contact object</span>
-<span class='no'>inserts</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_operation</span>(<span class='kw'>input_data</span><span class='kw'>=</span><span class='no'>new_contacts</span>,
-                             <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>,
-                             <span class='kw'>operation</span><span class='kw'>=</span><span class='st'>"insert"</span>)
+<span class='no'>inserts</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_bulk_operation</span>(<span class='kw'>input_data</span> <span class='kw'>=</span> <span class='no'>new_contacts</span>,
+                             <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
+                             <span class='kw'>operation</span> <span class='kw'>=</span> <span class='st'>"insert"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -201,6 +217,10 @@ so that the batch results of individual records can be obtained</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
+
       <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>

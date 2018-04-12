@@ -44,26 +44,16 @@ rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000RUqbAQAT TRUE    <list [0]>
-#> 2 0036A00000RUqbBQAT TRUE    <list [0]>
+#> 1 0036A00000SncF2QAJ TRUE    <list [0]>
+#> 2 0036A00000SncF3QAJ TRUE    <list [0]>
 # Bulk
-bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
+bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
 bulk_created_records
-#> $successfulResults
 #> # A tibble: 2 x 4
-#>   sf__Id             sf__Created FirstName LastName        
-#>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RUqbFQAT true        Test      Contact-Create-1
-#> 2 0036A00000RUqbGQAT true        Test      Contact-Create-2
-#> 
-#> $failedResults
-#> # A tibble: 0 x 4
-#> # ... with 4 variables: sf__Id <chr>, sf__Error <chr>, FirstName <chr>,
-#> #   LastName <chr>
-#> 
-#> $unprocessedRecords
-#> # A tibble: 0 x 2
-#> # ... with 2 variables: FirstName <chr>, LastName <chr>
+#>   Id                 Success Created Error
+#>   <chr>              <chr>   <chr>   <lgl>
+#> 1 0036A00000SncF7QAJ true    true    NA   
+#> 2 0036A00000SncF8QAJ true    true    NA
 ```
 
 There are some differences in the way each API returns response information; however, 
@@ -81,23 +71,13 @@ object <- "Contact"
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk")
+created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 1.0")
 created_records
-#> $successfulResults
 #> # A tibble: 2 x 4
-#>   sf__Id             sf__Created FirstName LastName        
-#>   <chr>              <chr>       <chr>     <chr>           
-#> 1 0036A00000RUqbPQAT true        Test      Contact-Create-1
-#> 2 0036A00000RUqbQQAT true        Test      Contact-Create-2
-#> 
-#> $failedResults
-#> # A tibble: 0 x 4
-#> # ... with 4 variables: sf__Id <chr>, sf__Error <chr>, FirstName <chr>,
-#> #   LastName <chr>
-#> 
-#> $unprocessedRecords
-#> # A tibble: 0 x 2
-#> # ... with 2 variables: FirstName <chr>, LastName <chr>
+#>   Id                 Success Created Error
+#>   <chr>              <chr>   <chr>   <lgl>
+#> 1 0036A00000SncF9QAJ true    true    NA   
+#> 2 0036A00000SncFAQAZ true    true    NA
 
 # query bulk
 my_soql <- sprintf("SELECT Id,
@@ -105,31 +85,22 @@ my_soql <- sprintf("SELECT Id,
                            LastName
                     FROM Contact 
                     WHERE Id in ('%s')", 
-                   paste0(created_records$successfulResults$sf__Id , collapse="','"))
+                   paste0(created_records$Id , collapse="','"))
 
-queried_records <- sf_query(my_soql, object_name=object, api_type="Bulk")
+queried_records <- sf_query(my_soql, object_name=object, api_type="Bulk 1.0")
 queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000RUqbPQAT Test      Contact-Create-1
-#> 2 0036A00000RUqbQQAT Test      Contact-Create-2
+#> 1 0036A00000SncF9QAJ Test      Contact-Create-1
+#> 2 0036A00000SncFAQAZ Test      Contact-Create-2
 
 # delete bulk
-deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk")
+deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk 1.0")
 deleted_records
-#> $successfulResults
-#> # A tibble: 2 x 3
-#>   sf__Id             sf__Created Id                
-#>   <chr>              <chr>       <chr>             
-#> 1 0036A00000RUqbPQAT false       0036A00000RUqbPQAT
-#> 2 0036A00000RUqbQQAT false       0036A00000RUqbQQAT
-#> 
-#> $failedResults
-#> # A tibble: 0 x 3
-#> # ... with 3 variables: sf__Id <chr>, sf__Error <chr>, Id <chr>
-#> 
-#> $unprocessedRecords
-#> # A tibble: 0 x 1
-#> # ... with 1 variable: Id <chr>
+#> # A tibble: 2 x 4
+#>   Id                 Success Created Error
+#>   <chr>              <chr>   <chr>   <lgl>
+#> 1 0036A00000SncF9QAJ true    false   NA   
+#> 2 0036A00000SncFAQAZ true    false   NA
 ```

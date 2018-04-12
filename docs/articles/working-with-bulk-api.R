@@ -9,10 +9,9 @@ knitr::opts_chunk$set(
 
 ## ----auth, include = FALSE-----------------------------------------------
 suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(here)))
 library(salesforcer)
-## I grab the token from the testing directory because that's where it is to be
-## found on Travis
-token_path <- file.path("..", "tests", "testthat", "salesforcer_token.rds")
+token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 
 ## ----load-package, eval=FALSE--------------------------------------------
@@ -28,7 +27,7 @@ new_contacts <- tibble(FirstName = rep("Test", n),
 rest_created_records <- sf_create(new_contacts, object_name="Contact", api_type="REST")
 rest_created_records
 # Bulk
-bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk")
+bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
 bulk_created_records
 
 ## ------------------------------------------------------------------------
@@ -38,7 +37,7 @@ object <- "Contact"
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk")
+created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 1.0")
 created_records
 
 # query bulk
@@ -47,12 +46,12 @@ my_soql <- sprintf("SELECT Id,
                            LastName
                     FROM Contact 
                     WHERE Id in ('%s')", 
-                   paste0(created_records$successfulResults$sf__Id , collapse="','"))
+                   paste0(created_records$Id , collapse="','"))
 
-queried_records <- sf_query(my_soql, object_name=object, api_type="Bulk")
+queried_records <- sf_query(my_soql, object_name=object, api_type="Bulk 1.0")
 queried_records
 
 # delete bulk
-deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk")
+deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk 1.0")
 deleted_records
 

@@ -203,8 +203,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUxLGQA1 true   </span>
-<span class="co">#&gt; 2 0036A00000RUxLHQA1 true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhCUQAZ true   </span>
+<span class="co">#&gt; 2 0036A00000SnhCVQAZ true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -220,9 +220,11 @@ created_records
 
 queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)
 queried_records
-<span class="co">#&gt;                   Id Account FirstName         LastName</span>
-<span class="co">#&gt; 1 0036A00000RUxLGQA1      NA      Test Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUxLHQA1      NA      Test Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
+<span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0036A00000SnhCUQAZ NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000SnhCVQAZ NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -238,8 +240,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000RUxLGQA1 true   </span>
-<span class="co">#&gt; 2 0036A00000RUxLHQA1 true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhCUQAZ true   </span>
+<span class="co">#&gt; 2 0036A00000SnhCVQAZ true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -249,7 +251,7 @@ updated_records
 n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 
 <span class="co"># query large recordsets using the Bulk API</span>
 my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
@@ -257,12 +259,12 @@ my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span clas
 <span class="st">                           LastName</span>
 <span class="st">                    FROM Contact </span>
 <span class="st">                    WHERE Id in ('%s')"</span>, 
-                   <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
+                   <span class="kw">paste0</span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
-queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 
 <span class="co"># delete these records using the Bulk API</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)</code></pre></div>
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</code></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">

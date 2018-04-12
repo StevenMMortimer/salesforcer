@@ -122,26 +122,16 @@ rest_created_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000RUxMTQA1 TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000RUxMUQA1 TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 1 0036A00000SnhDrQAJ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000SnhDsQAJ TRUE    &lt;list [0]&gt;</span>
 <span class="co"># Bulk</span>
-bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 bulk_created_records
-<span class="co">#&gt; $successfulResults</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUxMYQA1 true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUxMZQA1 true        Test      Contact-Create-2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $failedResults</span>
-<span class="co">#&gt; # A tibble: 0 x 4</span>
-<span class="co">#&gt; # ... with 4 variables: sf__Id &lt;chr&gt;, sf__Error &lt;chr&gt;, FirstName &lt;chr&gt;,</span>
-<span class="co">#&gt; #   LastName &lt;chr&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $unprocessedRecords</span>
-<span class="co">#&gt; # A tibble: 0 x 2</span>
-<span class="co">#&gt; # ... with 2 variables: FirstName &lt;chr&gt;, LastName &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt;   Id                 Success Created Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0036A00000SnhDwQAJ true    true    NA   </span>
+<span class="co">#&gt; 2 0036A00000SnhDxQAJ true    true    NA</span></code></pre></div>
 <p>There are some differences in the way each API returns response information; however, the end result is exactly the same for these two calls. Also, note that this package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries since Salesforce has not yet implemented it in 2.0.</p>
 <p>Here is a simple workflow of adding, querying, and deleting records using the Bulk API.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just add api_type="Bulk" to most calls!</span>
@@ -150,23 +140,13 @@ object &lt;-<span class="st"> "Contact"</span>
 n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
                        <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 created_records
-<span class="co">#&gt; $successfulResults</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   sf__Id             sf__Created FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUxMiQAL true        Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUxMjQAL true        Test      Contact-Create-2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $failedResults</span>
-<span class="co">#&gt; # A tibble: 0 x 4</span>
-<span class="co">#&gt; # ... with 4 variables: sf__Id &lt;chr&gt;, sf__Error &lt;chr&gt;, FirstName &lt;chr&gt;,</span>
-<span class="co">#&gt; #   LastName &lt;chr&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $unprocessedRecords</span>
-<span class="co">#&gt; # A tibble: 0 x 2</span>
-<span class="co">#&gt; # ... with 2 variables: FirstName &lt;chr&gt;, LastName &lt;chr&gt;</span>
+<span class="co">#&gt;   Id                 Success Created Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0036A00000SnhDyQAJ true    true    NA   </span>
+<span class="co">#&gt; 2 0036A00000SnhDzQAJ true    true    NA</span>
 
 <span class="co"># query bulk</span>
 my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
@@ -174,33 +154,24 @@ my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span clas
 <span class="st">                           LastName</span>
 <span class="st">                    FROM Contact </span>
 <span class="st">                    WHERE Id in ('%s')"</span>, 
-                   <span class="kw">paste0</span>(created_records<span class="op">$</span>successfulResults<span class="op">$</span>sf__Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
+                   <span class="kw">paste0</span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
 
-queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 queried_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000RUxMiQAL Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000RUxMjQAL Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0036A00000SnhDyQAJ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000SnhDzQAJ Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk"</span>)
+deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
 deleted_records
-<span class="co">#&gt; $successfulResults</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   sf__Id             sf__Created Id                </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;       &lt;chr&gt;             </span>
-<span class="co">#&gt; 1 0036A00000RUxMiQAL false       0036A00000RUxMiQAL</span>
-<span class="co">#&gt; 2 0036A00000RUxMjQAL false       0036A00000RUxMjQAL</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $failedResults</span>
-<span class="co">#&gt; # A tibble: 0 x 3</span>
-<span class="co">#&gt; # ... with 3 variables: sf__Id &lt;chr&gt;, sf__Error &lt;chr&gt;, Id &lt;chr&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $unprocessedRecords</span>
-<span class="co">#&gt; # A tibble: 0 x 1</span>
-<span class="co">#&gt; # ... with 1 variable: Id &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Id                 Success Created Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0036A00000SnhDyQAJ true    false   NA   </span>
+<span class="co">#&gt; 2 0036A00000SnhDzQAJ true    false   NA</span></code></pre></div>
 </div>
 </div>
   </div>

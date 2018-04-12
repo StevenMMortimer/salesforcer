@@ -135,8 +135,8 @@ the specified criteria." />
 the specified criteria.</p>
     
 
-    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk"</span>), <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='no'>object_name</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>), <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -157,10 +157,10 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p>
 deleted and archived records (available only when querying Task and Event records)</p></td>
     </tr>
     <tr>
-      <th>batch_size</th>
+      <th>page_size</th>
       <td><p>numeric; a number between 200 and 2000 indicating the number of 
 records per page that are returned. Speed benchmarks should be done to better 
-understand the speed implications of choosing either endpoint.</p></td>
+understand the speed implications of choosing high or low values of this argument.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
@@ -174,7 +174,7 @@ by the function to paginate through to more records until complete</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='sf_bulk_query.html'>sf_bulk_query</a></code>.</p></td>
+      <td><p>Other arguments passed on to <code><a href='sf_query_bulk.html'>sf_query_bulk</a></code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -184,7 +184,7 @@ by the function to paginate through to more records until complete</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tibble</code></p>
+    <p><code>tbl_df</code> of records</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

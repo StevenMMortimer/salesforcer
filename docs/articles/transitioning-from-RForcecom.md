@@ -33,9 +33,6 @@ each of the packages side-by-side and producing the same result.
 
 
 ```r
-suppressWarnings(suppressMessages(library(dplyr)))
-library(salesforcer)
-
 # the RForcecom way
 session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
                                        apiVersion=getOption("salesforcer.api_version"))
@@ -81,13 +78,13 @@ fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
 result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
 result1
 #>                   id success
-#> 1 0036A00000RUqalQAD    true
+#> 1 0036A00000SncEYQAZ    true
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
 result2
 #>                   id success
-#> 1 0036A00000RUqaqQAD    true
+#> 1 0036A00000SncEdQAJ    true
 ```
 
 Here is an example showing the reduction in code of using **salesforcer** if you 
@@ -109,8 +106,8 @@ for(i in 1:nrow(new_contacts)){
 }
 rforcecom_results
 #>                   id success
-#> 1 0036A00000RUqavQAD    true
-#> 2 0036A00000RUqb0QAD    true
+#> 1 0036A00000SncEiQAJ    true
+#> 2 0036A00000SncEnQAJ    true
 
 # the better way in salesforcer to do multiple records
 salesforcer_results <- sf_create(new_contacts, object_name="Contact")
@@ -118,8 +115,8 @@ salesforcer_results
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000RUqb5QAD true   
-#> 2 0036A00000RUqb6QAD true
+#> 1 0036A00000SncELQAZ true   
+#> 2 0036A00000SncEMQAZ true
 ```
 
 ### Query
@@ -136,30 +133,34 @@ result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
 result1
 #>                   Id
 #> 1 0036A00000RUqb0QAD
-#> 2 0036A00000RUpmQQAT
-#> 3 0036A00000RUpnnQAD
-#> 4 0036A00000RUpqcQAD
-#> 5 0036A00000RUnyuQAD
+#> 2 0036A00000RUqedQAD
+#> 3 0036A00000RUqeeQAD
+#> 4 0036A00000RUpmQQAT
+#> 5 0036A00000RUpnnQAD
 
 # replicated in salesforcer package
 result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
 result2
-#>                   Id Email
-#> 1 0036A00000RUqb0QAD    NA
-#> 2 0036A00000RUpmQQAT    NA
-#> 3 0036A00000RUpnnQAD    NA
-#> 4 0036A00000RUpqcQAD    NA
-#> 5 0036A00000RUnyuQAD    NA
+#> # A tibble: 5 x 2
+#>   Id                 Email
+#> * <chr>              <lgl>
+#> 1 0036A00000RUqb0QAD NA   
+#> 2 0036A00000RUqedQAD NA   
+#> 3 0036A00000RUqeeQAD NA   
+#> 4 0036A00000RUpmQQAT NA   
+#> 5 0036A00000RUpnnQAD NA
 
 # the better way in salesforcer to query
 salesforcer_results <- sf_query(this_soql)
 salesforcer_results
-#>                   Id Email
-#> 1 0036A00000RUqb0QAD    NA
-#> 2 0036A00000RUpmQQAT    NA
-#> 3 0036A00000RUpnnQAD    NA
-#> 4 0036A00000RUpqcQAD    NA
-#> 5 0036A00000RUnyuQAD    NA
+#> # A tibble: 5 x 2
+#>   Id                 Email
+#> * <chr>              <lgl>
+#> 1 0036A00000RUqb0QAD NA   
+#> 2 0036A00000RUqedQAD NA   
+#> 3 0036A00000RUqeeQAD NA   
+#> 4 0036A00000RUpmQQAT NA   
+#> 5 0036A00000RUpnnQAD NA
 ```
 
 In the future more features will be migrated from **RForcecom** to make the 
