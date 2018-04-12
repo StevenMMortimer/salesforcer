@@ -4,11 +4,11 @@ salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
 
 [![Build Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/salesforcer)](http://cran.r-project.org/package=salesforcer) [![Coverage Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 
-**salesforcer** is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk, and Metadata APIs. Package features include:
+**salesforcer** is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs. Package features include:
 
--   OAuth 2.0 and Basic authentication methods (`sf_auth()`)
--   CRUD (Create, Retrieve, Update, Delete) methods for records using the REST and Bulk APIs
--   Query records via REST and Bulk APIs (`sf_query()`)
+-   OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (`sf_auth()`)
+-   CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs
+-   Query records via the SOAP, REST, and Bulk 1.0 APIs using `sf_query()`
 -   Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API with:
     -   `sf_describe_objects()`, `sf_create_metadata()`, `sf_update_metadata()`
 -   Utilize backwards compatible functions for the **RForcecom** package, such as:
@@ -93,8 +93,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000SnhBRQAZ true   
-#> 2 0036A00000SnhBSQAZ true
+#> 1 0036A00000SnhbfQAB true   
+#> 2 0036A00000SnhbgQAB true
 ```
 
 ### Query
@@ -115,8 +115,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #> * <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000SnhBRQAZ NA      Test      Contact-Create-1
-#> 2 0036A00000SnhBSQAZ NA      Test      Contact-Create-2
+#> 1 0036A00000SnhbfQAB NA      Test      Contact-Create-1
+#> 2 0036A00000SnhbgQAB NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -134,13 +134,15 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000SnhBRQAZ true   
-#> 2 0036A00000SnhBSQAZ true
+#> 1 0036A00000SnhbfQAB true   
+#> 2 0036A00000SnhbgQAB true
 ```
 
 ### Bulk Operations
 
-For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides a [Bulk API](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm). In order to use the Bulk API in **salesforcer** you can just add `api_type = "Bulk"` to your functions and the operation will be executed using the Bulk API. It's that simple. The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in Bulk is usually quicker than running thousands of individuals calls when your data is large.
+For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the [Bulk 1.0](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm) and [Bulk 2.0](https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm) APIs. In order to use the Bulk APIs in **salesforcer** you can just add `api_type = "Bulk 1.0"` or `api_type = "Bulk 2.0"` to your functions and the operation will be executed using the Bulk APIs. It's that simple.
+
+The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in bulk is usually quicker than running thousands of individuals calls when your data is large. **Note:** the Bulk 2.0 API does **NOT** guarantee the order of the data submitted is preserved in the output. This means that you must join on other data columns to match up the Ids that are returned in the output with the data you submitted. For this reason, Bulk 2.0 may not be a good solution for creating, updating, or upserting records where you need to keep track of the created Ids. The Bulk 2.0 API would be fine for deleting records where you only need to know which Ids were successfully deleted.
 
 ``` r
 # create contacts using the Bulk API
@@ -284,7 +286,7 @@ Salesforce provides client libraries and examples in many programming langauges 
 
 More information is also available on the `pkgdown` site at <https://StevenMMortimer.github.io/salesforcer>.
 
-[Top](#salesforcer-)
+[Top](#salesforcer)
 
 ------------------------------------------------------------------------
 

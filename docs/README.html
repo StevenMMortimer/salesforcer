@@ -132,11 +132,12 @@
 <a href="#salesforcer" class="anchor"></a>salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right">
 </h1>
 <p><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="http://cran.r-project.org/package=salesforcer"><img src="http://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a> <a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></p>
-<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk, and Metadata APIs. Package features include:</p>
+<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs. Package features include:</p>
 <ul>
-<li>OAuth 2.0 and Basic authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
-<li>CRUD (Create, Retrieve, Update, Delete) methods for records using the REST and Bulk APIs</li>
-<li>Query records via REST and Bulk APIs (<code><a href="reference/sf_query.html">sf_query()</a></code>)</li>
+<li>OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
+<li>CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs</li>
+<li>Query records via the SOAP, REST, and Bulk 1.0 APIs using <code><a href="reference/sf_query.html">sf_query()</a></code>
+</li>
 <li>Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API with:
 <ul>
 <li>
@@ -227,8 +228,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000SnhBRQAZ true   </span>
-<span class="co">#&gt; 2 0036A00000SnhBSQAZ true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhbfQAB true   </span>
+<span class="co">#&gt; 2 0036A00000SnhbgQAB true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -247,8 +248,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000SnhBRQAZ NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000SnhBSQAZ NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhbfQAB NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000SnhbgQAB NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -264,13 +265,14 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000SnhBRQAZ true   </span>
-<span class="co">#&gt; 2 0036A00000SnhBSQAZ true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000SnhbfQAB true   </span>
+<span class="co">#&gt; 2 0036A00000SnhbgQAB true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bulk-operations" class="anchor"></a>Bulk Operations</h3>
-<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides a <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk API</a>. In order to use the Bulk API in <strong>salesforcer</strong> you can just add <code>api_type = "Bulk"</code> to your functions and the operation will be executed using the Bulk API. It’s that simple. The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in Bulk is usually quicker than running thousands of individuals calls when your data is large.</p>
+<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in <strong>salesforcer</strong> you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
+<p>The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in bulk is usually quicker than running thousands of individuals calls when your data is large. <strong>Note:</strong> the Bulk 2.0 API does <strong>NOT</strong> guarantee the order of the data submitted is preserved in the output. This means that you must join on other data columns to match up the Ids that are returned in the output with the data you submitted. For this reason, Bulk 2.0 may not be a good solution for creating, updating, or upserting records where you need to keep track of the created Ids. The Bulk 2.0 API would be fine for deleting records where you only need to know which Ids were successfully deleted.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create contacts using the Bulk API</span>
 n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
@@ -401,7 +403,7 @@ deleted_custom_object_result &lt;-<span class="st"> </span><span class="kw"><a h
 <a href="#more-information" class="anchor"></a>More Information</h2>
 <p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a> as they are explained better there.</p>
 <p>More information is also available on the <code>pkgdown</code> site at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a>.</p>
-<p><a href="#salesforcer-">Top</a></p>
+<p><a href="#salesforcer">Top</a></p>
 <hr>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>

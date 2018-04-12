@@ -129,21 +129,16 @@
     </div>
 
     <div class="contents">
-    <div id="salesforcer-0-1-1-9000" class="section level2">
+    <div id="salesforcer-0-1-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0-1-1-9000" class="anchor"></a>salesforcer 0.1.1.9000</h2>
+<a href="#salesforcer-0-1-2" class="anchor"></a>salesforcer 0.1.2</h2>
 <div id="features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
 <ul>
-<li>Nothing Yet!</li>
-</ul>
-</div>
-<div id="bug-fixes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
-<ul>
-<li>Nothing Yet!</li>
+<li>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</li>
+<li>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</li>
+<li>Created internal functions that explicity call each API for an operation. For example, <code><a href="../reference/sf_create.html">sf_create()</a></code> routes into <code><a href="../reference/sf_create_soap.html">sf_create_soap()</a></code>, <code><a href="../reference/sf_create_rest.html">sf_create_rest()</a></code>, and <code><a href="../reference/sf_bulk_operation.html">sf_bulk_operation()</a></code>.</li>
 </ul>
 <hr>
 </div>
@@ -184,9 +179,9 @@
 <li>Make the default file name for a cached token <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET</p></li>
 <li><p><code>sf_token()</code> ignoring basic auth’ed sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="../reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (<a href='https://github.com/StevenMMortimer/salesforcer/issues/1'>#1</a>).</p></li>
@@ -245,7 +240,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#salesforcer-0-1-1-9000">0.1.1.9000</a></li>
+        <li><a href="#salesforcer-0-1-2">0.1.2</a></li>
         <li><a href="#salesforcer-0-1-1-release">0.1.1</a></li>
         <li><a href="#salesforcer-0-1-0-release">0.1.0</a></li>
       </ul>

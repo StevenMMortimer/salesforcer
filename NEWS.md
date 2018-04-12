@@ -1,12 +1,13 @@
-## salesforcer 0.1.1.9000
+## salesforcer 0.1.2
 
 ### Features
 
-  * Nothing Yet!
-
-### Bug Fixes
-
-  * Nothing Yet!
+  * Add support for Bulk 1.0 operations of "create", "update", "upsert", "delete" and "hardDelete"
+  * Bulk 2.0 operations, by default, now return a single `tbl_df` containing all 
+  of the successful records, error records, and unprocessed records
+  * Created internal functions that explicity call each API for an operation. For 
+  example, `sf_create()` routes into `sf_create_soap()`, `sf_create_rest()`, and 
+  `sf_bulk_operation()`.
 
 ---
 

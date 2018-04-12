@@ -54,6 +54,8 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                verbose=FALSE){
 
   api_type <- match.arg(api_type)
+  operation <- match.arg(operation)
+  content_type <- match.arg(content_type)
   if(api_type == "Bulk 1.0"){
     job_response <- sf_create_job_bulk_v1(operation=operation,
                                           object_name=object_name,
@@ -65,10 +67,13 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
     if(!(operation %in% c("insert", "delete", "upsert", "update"))){
       stop('Bulk 2.0 only supports the following operations: "insert", "delete", "upsert", and "update"')
     }
+    if(!(content_type %in% c("CSV"))){
+      stop('Bulk 2.0 only supports the "CSV" content type.')
+    }
     job_response <- sf_create_job_bulk_v2(operation=operation,
                                           object_name=object_name,
                                           external_id_fieldname=external_id_fieldname,
-                                          content_type='CSV',
+                                          content_type=content_type,
                                           line_ending=line_ending,
                                           column_delimiter=column_delimiter,
                                           verbose=verbose)
@@ -153,7 +158,7 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
                                   verbose=FALSE){
   
   operation <- match.arg(operation)
-  #content_type <- match.arg(content_type)
+  content_type <- match.arg(content_type)
   line_ending <- match.arg(line_ending)
   column_delimiter <- match.arg(column_delimiter)
   if(column_delimiter != "COMMA"){

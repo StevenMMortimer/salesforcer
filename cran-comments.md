@@ -13,4 +13,3 @@
 Possibly mis-spelled words in DESCRIPTION:
   APIs (2:42, 5:61)
   JSON (8:19)
-  tibbles (8:54)
