@@ -49,7 +49,10 @@ Bulk 2.0, and Metadata APIs. Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# this package is currently not on CRAN, so it should be installed from GitHub
+# install from CRAN
+install.packages("salesforcer")
+
+# or get the latest version available on GitHub using the devtools package
 # install.packages("devtools")
 devtools::install_github("StevenMMortimer/salesforcer")
 ```

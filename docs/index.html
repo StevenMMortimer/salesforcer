@@ -163,7 +163,10 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this package is currently not on CRAN, so it should be installed from GitHub</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install from CRAN</span>
+<span class="kw">install.packages</span>(<span class="st">"salesforcer"</span>)
+
+<span class="co"># or get the latest version available on GitHub using the devtools package</span>
 <span class="co"># install.packages("devtools")</span>
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)</code></pre></div>
 <p>If you encounter a clear bug, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">GitHub</a>.</p>
@@ -213,8 +216,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000Sp3kaQAB true   </span>
-<span class="co">#&gt; 2 0036A00000Sp3kbQAB true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp4duQAB true   </span>
+<span class="co">#&gt; 2 0036A00000Sp4dvQAB true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -233,8 +236,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000Sp3kaQAB NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000Sp3kbQAB NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp4duQAB NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Sp4dvQAB NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -250,8 +253,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000Sp3kaQAB true   </span>
-<span class="co">#&gt; 2 0036A00000Sp3kbQAB true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp4duQAB true   </span>
+<span class="co">#&gt; 2 0036A00000Sp4dvQAB true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">

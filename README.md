@@ -34,7 +34,10 @@ Installation
 ------------
 
 ``` r
-# this package is currently not on CRAN, so it should be installed from GitHub
+# install from CRAN
+install.packages("salesforcer")
+
+# or get the latest version available on GitHub using the devtools package
 # install.packages("devtools")
 devtools::install_github("StevenMMortimer/salesforcer")
 ```
@@ -93,8 +96,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000SnhbfQAB true   
-#> 2 0036A00000SnhbgQAB true
+#> 1 0036A00000Sp4fWQAR true   
+#> 2 0036A00000Sp4fXQAR true
 ```
 
 ### Query
@@ -115,8 +118,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #> * <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000SnhbfQAB NA      Test      Contact-Create-1
-#> 2 0036A00000SnhbgQAB NA      Test      Contact-Create-2
+#> 1 0036A00000Sp4fWQAR NA      Test      Contact-Create-1
+#> 2 0036A00000Sp4fXQAR NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -134,8 +137,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <chr>  
-#> 1 0036A00000SnhbfQAB true   
-#> 2 0036A00000SnhbgQAB true
+#> 1 0036A00000Sp4fWQAR true   
+#> 2 0036A00000Sp4fXQAR true
 ```
 
 ### Bulk Operations
