@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Returning the Details of a Batch in a Bulk API Job — sf_batch_details_bulk" />
 
 <meta property="og:description" content="This function returns detailed (row-by-row) information on an existing batch
@@ -34,6 +32,8 @@ which has already been submitted to Bulk API Job" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,6 +55,11 @@ which has already been submitted to Bulk API Job" />
 
 </script>
 
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -68,8 +73,12 @@ which has already been submitted to Bulk API Job" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">salesforcer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">salesforcer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -117,6 +126,13 @@ which has already been submitted to Bulk API Job" />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -124,10 +140,11 @@ which has already been submitted to Bulk API Job" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Returning the Details of a Batch in a Bulk API Job</h1>
+    <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/bulk-operation.R'><code>R/bulk-operation.R</code></a></small>
     </div>
 
     
@@ -138,7 +155,7 @@ which has already been submitted to Bulk API Job</p>
     <pre class="usage"><span class='fu'>sf_batch_details_bulk</span>(<span class='no'>job_id</span>, <span class='no'>batch_id</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Bulk 1.0"</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -214,6 +231,19 @@ unless the operation was query, then it is a data.frame containing the result_id
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    indexName: 'salesforcer',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
 
   </body>
 </html>

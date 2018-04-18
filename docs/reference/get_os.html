@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Determine the host operating system — get_os" />
 
 <meta property="og:description" content="This function determines whether the system running the R code
@@ -34,6 +32,8 @@ is Windows, Mac, or Linux" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,6 +55,11 @@ is Windows, Mac, or Linux" />
 
 </script>
 
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -68,8 +73,12 @@ is Windows, Mac, or Linux" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">salesforcer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">salesforcer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -117,6 +126,13 @@ is Windows, Mac, or Linux" />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -124,10 +140,11 @@ is Windows, Mac, or Linux" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Determine the host operating system</h1>
+    <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
     </div>
 
     
@@ -147,7 +164,7 @@ is Windows, Mac, or Linux</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://conjugateprior.org/2015/06/identifying-the-os-from-r'>http://conjugateprior.org/2015/06/identifying-the-os-from-r</a></p>
+    <div class='dont-index'><p><a href='http://conjugateprior.org/2015/06/identifying-the-os-from-r'>http://conjugateprior.org/2015/06/identifying-the-os-from-r</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -182,6 +199,19 @@ is Windows, Mac, or Linux</p>
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    indexName: 'salesforcer',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
 
   </body>
 </html>

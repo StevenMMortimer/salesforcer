@@ -25,12 +25,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Function reference" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,6 +52,11 @@
 
 </script>
 
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -65,8 +70,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">salesforcer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">salesforcer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -114,6 +123,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -121,210 +137,205 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.2</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-authentication" class="hasAnchor"><a href="#section-authentication" class="anchor"></a>Authentication</h2>
-            <p class="section-desc"><p>Functions used for authenticating</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_auth.html">sf_auth</a></code> </p>
-          </td>
-          <td><p>Log in to Salesforce</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-query-search-functions" class="hasAnchor"><a href="#section-query-search-functions" class="anchor"></a>Query/Search Functions</h2>
-            <p class="section-desc"><p>Functions used for querying and searching</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_query.html">sf_query</a></code> </p>
-          </td>
-          <td><p>Perform SOQL Query</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_search.html">sf_search</a></code> </p>
-          </td>
-          <td><p>Perform SOSL Search</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-crud-functions" class="hasAnchor"><a href="#section-crud-functions" class="anchor"></a>CRUD Functions</h2>
-            <p class="section-desc"><p>Functions used for create, retrieve, update, and delete records.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_create.html">sf_create</a></code> </p>
-          </td>
-          <td><p>Create Records</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_retrieve.html">sf_retrieve</a></code> </p>
-          </td>
-          <td><p>Retrieve Records By Id</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_update.html">sf_update</a></code> </p>
-          </td>
-          <td><p>Update Records</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_upsert.html">sf_upsert</a></code> </p>
-          </td>
-          <td><p>Upsert Records</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_delete.html">sf_delete</a></code> </p>
-          </td>
-          <td><p>Delete Records</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-metadata-functions" class="hasAnchor"><a href="#section-metadata-functions" class="anchor"></a>Metadata Functions</h2>
-            <p class="section-desc"><p>Functions used for create, retrieve, update, and delete metadata.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_create_metadata.html">sf_create_metadata</a></code> </p>
-          </td>
-          <td><p>Create Object or Field Metadata in Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_update_metadata.html">sf_update_metadata</a></code> </p>
-          </td>
-          <td><p>Update Object or Field Metadata in Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_upsert_metadata.html">sf_upsert_metadata</a></code> </p>
-          </td>
-          <td><p>Upsert Object or Field Metadata in Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_delete_metadata.html">sf_delete_metadata</a></code> </p>
-          </td>
-          <td><p>Delete Object or Field Metadata in Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_rename_metadata.html">sf_rename_metadata</a></code> </p>
-          </td>
-          <td><p>Rename Metadata Elements in Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_read_metadata.html">sf_read_metadata</a></code> </p>
-          </td>
-          <td><p>Read Object or Field Metadata from Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_list_metadata.html">sf_list_metadata</a></code> </p>
-          </td>
-          <td><p>List All Objects of a Certain Metadata Type in Salesforce</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_retrieve_metadata.html">sf_retrieve_metadata</a></code> </p>
-          </td>
-          <td><p>Make A Request to Retrieve the Metadata</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_describe_metadata.html">sf_describe_metadata</a></code> </p>
-          </td>
-          <td><p>Describe the Metadata in an Organization</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_describe_objects.html">sf_describe_objects</a></code> </p>
-          </td>
-          <td><p>SObject Basic Information</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-salesforce-org-utility-functions" class="hasAnchor"><a href="#section-salesforce-org-utility-functions" class="anchor"></a>Salesforce Org Utility Functions</h2>
-            <p class="section-desc"><p>Functions used for basic calls to understand the org.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_user_info.html">sf_user_info</a></code> </p>
-          </td>
-          <td><p>Return Current User Info</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_server_timestamp.html">sf_server_timestamp</a></code> </p>
-          </td>
-          <td><p>Salesforce Server Timestamp</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_list_rest_api_versions.html">sf_list_rest_api_versions</a></code> </p>
-          </td>
-          <td><p>List REST API Versions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_list_resources.html">sf_list_resources</a></code> </p>
-          </td>
-          <td><p>List the Resources for an API</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_list_api_limits.html">sf_list_api_limits</a></code> </p>
-          </td>
-          <td><p>List the Limits for an API</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sf_list_objects.html">sf_list_objects</a></code> </p>
-          </td>
-          <td><p>List Organization Objects and their Metadata</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-authentication" class="hasAnchor"><a href="#section-authentication" class="anchor"></a>Authentication</h2>
+          <p class="section-desc"><p>Functions used for authenticating</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_auth.html">sf_auth()</a></code> </p>
+        </td>
+        <td><p>Log in to Salesforce</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-query-search-functions" class="hasAnchor"><a href="#section-query-search-functions" class="anchor"></a>Query/Search Functions</h2>
+          <p class="section-desc"><p>Functions used for querying and searching</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_query.html">sf_query()</a></code> </p>
+        </td>
+        <td><p>Perform SOQL Query</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_search.html">sf_search()</a></code> </p>
+        </td>
+        <td><p>Perform SOSL Search</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-crud-functions" class="hasAnchor"><a href="#section-crud-functions" class="anchor"></a>CRUD Functions</h2>
+          <p class="section-desc"><p>Functions used for create, retrieve, update, and delete records.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_create.html">sf_create()</a></code> </p>
+        </td>
+        <td><p>Create Records</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_retrieve.html">sf_retrieve()</a></code> </p>
+        </td>
+        <td><p>Retrieve Records By Id</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_update.html">sf_update()</a></code> </p>
+        </td>
+        <td><p>Update Records</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_upsert.html">sf_upsert()</a></code> </p>
+        </td>
+        <td><p>Upsert Records</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_delete.html">sf_delete()</a></code> </p>
+        </td>
+        <td><p>Delete Records</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-metadata-functions" class="hasAnchor"><a href="#section-metadata-functions" class="anchor"></a>Metadata Functions</h2>
+          <p class="section-desc"><p>Functions used for create, retrieve, update, and delete metadata.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_create_metadata.html">sf_create_metadata()</a></code> </p>
+        </td>
+        <td><p>Create Object or Field Metadata in Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_update_metadata.html">sf_update_metadata()</a></code> </p>
+        </td>
+        <td><p>Update Object or Field Metadata in Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_upsert_metadata.html">sf_upsert_metadata()</a></code> </p>
+        </td>
+        <td><p>Upsert Object or Field Metadata in Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_delete_metadata.html">sf_delete_metadata()</a></code> </p>
+        </td>
+        <td><p>Delete Object or Field Metadata in Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_rename_metadata.html">sf_rename_metadata()</a></code> </p>
+        </td>
+        <td><p>Rename Metadata Elements in Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_read_metadata.html">sf_read_metadata()</a></code> </p>
+        </td>
+        <td><p>Read Object or Field Metadata from Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_list_metadata.html">sf_list_metadata()</a></code> </p>
+        </td>
+        <td><p>List All Objects of a Certain Metadata Type in Salesforce</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_retrieve_metadata.html">sf_retrieve_metadata()</a></code> </p>
+        </td>
+        <td><p>Make A Request to Retrieve the Metadata</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_describe_metadata.html">sf_describe_metadata()</a></code> </p>
+        </td>
+        <td><p>Describe the Metadata in an Organization</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_describe_objects.html">sf_describe_objects()</a></code> </p>
+        </td>
+        <td><p>SObject Basic Information</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-salesforce-org-utility-functions" class="hasAnchor"><a href="#section-salesforce-org-utility-functions" class="anchor"></a>Salesforce Org Utility Functions</h2>
+          <p class="section-desc"><p>Functions used for basic calls to understand the org.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_user_info.html">sf_user_info()</a></code> </p>
+        </td>
+        <td><p>Return Current User Info</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_server_timestamp.html">sf_server_timestamp()</a></code> </p>
+        </td>
+        <td><p>Salesforce Server Timestamp</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_list_rest_api_versions.html">sf_list_rest_api_versions()</a></code> </p>
+        </td>
+        <td><p>List REST API Versions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_list_resources.html">sf_list_resources()</a></code> </p>
+        </td>
+        <td><p>List the Resources for an API</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_list_api_limits.html">sf_list_api_limits()</a></code> </p>
+        </td>
+        <td><p>List the Limits for an API</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sf_list_objects.html">sf_list_objects()</a></code> </p>
+        </td>
+        <td><p>List Organization Objects and their Metadata</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -350,6 +361,19 @@
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    indexName: 'salesforcer',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
 
   </body>
 </html>

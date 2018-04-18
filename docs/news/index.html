@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • salesforcer</title>
+<title>Changelog • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,12 +25,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
-<meta property="og:title" content="All news" />
+<meta property="og:title" content="Changelog" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,6 +52,11 @@
 
 </script>
 
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -65,8 +70,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">salesforcer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">salesforcer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -114,6 +123,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -121,20 +137,39 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="contents">
-    <div id="salesforcer-0-1-2" class="section level2">
+    <div id="salesforcer-0-1-2-9000" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0-1-2" class="anchor"></a>salesforcer 0.1.2</h2>
+<a href="#salesforcer-0-1-2-9000" class="anchor"></a>salesforcer 0.1.2.9000</h2>
 <div id="features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
+<ul>
+<li>Nothing Yet!</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
+<ul>
+<li>Nothing Yet!</li>
+</ul>
+<hr>
+</div>
+</div>
+    <div id="salesforcer-0-1-2-release" class="section level2">
+<h2 class="hasAnchor">
+<a href="#salesforcer-0-1-2-release" class="anchor"></a>salesforcer 0.1.2 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2">release</a>
+</h2>
+<div id="features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features-1" class="anchor"></a>Features</h3>
 <ul>
 <li>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</li>
 <li>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</li>
@@ -147,9 +182,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-0-1-1-release" class="anchor"></a>salesforcer 0.1.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1">release</a>
 </h2>
-<div id="features-1" class="section level3">
+<div id="features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-1" class="anchor"></a>Features</h3>
+<a href="#features-2" class="anchor"></a>Features</h3>
 <ul>
 <li>Add <code><a href="../reference/sf_search.html">sf_search()</a></code> with REST and SOAP API support for SOSL and free text search</li>
 <li>Add <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> with REST and SOAP API to return object metadata</li>
@@ -179,9 +214,9 @@
 <li>Make the default file name for a cached token <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET</p></li>
 <li><p><code>sf_token()</code> ignoring basic auth’ed sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="../reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (<a href='https://github.com/StevenMMortimer/salesforcer/issues/1'>#1</a>).</p></li>
@@ -193,9 +228,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-0-1-0-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
 </h2>
-<div id="features-2" class="section level3">
+<div id="features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-2" class="anchor"></a>Features</h3>
+<a href="#features-3" class="anchor"></a>Features</h3>
 <ul>
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="../reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</li>
@@ -233,14 +268,14 @@
 </ul>
 </div>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#salesforcer-0-1-2">0.1.2</a></li>
+        <li><a href="#salesforcer-0-1-2-9000">0.1.2.9000</a></li>
+        <li><a href="#salesforcer-0-1-2-release">0.1.2</a></li>
         <li><a href="#salesforcer-0-1-1-release">0.1.1</a></li>
         <li><a href="#salesforcer-0-1-0-release">0.1.0</a></li>
       </ul>
@@ -260,6 +295,19 @@
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    indexName: 'salesforcer',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
 
   </body>
 </html>

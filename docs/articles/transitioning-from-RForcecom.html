@@ -25,10 +25,10 @@
   ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -37,8 +37,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">salesforcer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">salesforcer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
@@ -85,7 +89,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -94,17 +104,19 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Transitioning from RForcecom</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
             <h4 class="date">2018-03-12</h4>
-          </div>
+      
+      <small>Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/transitioning-from-RForcecom.Rmd"><code>vignettes/transitioning-from-RForcecom.Rmd</code></a></small>
+
+    </div>
 
     
     
-<div class="contents">
 <p>While writing the <strong>salesforcer</strong> package we were keenly aware that many folks are already using the <strong>RForcecom</strong> package to connect to Salesforce. In order to foster adoption and switching between the packages <strong>salesforcer</strong> replicates the functionality of many <strong>RForcecom</strong> functions so that you will only need to swap out <code>library(RForcecom)</code> for <code>library(salesforcer)</code> and still have your production tested scripts perform as usual.</p>
 <div id="authentication" class="section level3">
 <h3 class="hasAnchor">
@@ -142,13 +154,13 @@ fields &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">
 result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result1
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000SnhcsQAB    true</span>
+<span class="co">#&gt; 1 0036A00000Sp3YZQAZ    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result2
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000SnhcxQAB    true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YeQAJ    true</span></code></pre></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
@@ -164,8 +176,8 @@ rforcecom_results &lt;-<span class="st"> </span><span class="ot">NULL</span>
 }
 rforcecom_results
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000Snhd2QAB    true</span>
-<span class="co">#&gt; 2 0036A00000Snhd7QAB    true</span>
+<span class="co">#&gt; 1 0036A00000Sp3YjQAJ    true</span>
+<span class="co">#&gt; 2 0036A00000Sp3YoQAJ    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
@@ -173,8 +185,8 @@ salesforcer_results
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000SnhdCQAR true   </span>
-<span class="co">#&gt; 2 0036A00000SnhdDQAR true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YtQAJ true   </span>
+<span class="co">#&gt; 2 0036A00000Sp3YuQAJ true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -217,7 +229,6 @@ salesforcer_results
 <span class="co">#&gt; 5 0036A00000RUqeeQAD NA</span></code></pre></div>
 <p>In the future more features will be migrated from <strong>RForcecom</strong> to make the transition as seamless as possible.</p>
 </div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -237,5 +248,15 @@ salesforcer_results
       </footer>
 </div>
 
-  </body>
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    indexName: 'salesforcer',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+</body>
 </html>

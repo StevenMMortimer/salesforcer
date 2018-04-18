@@ -4,6 +4,9 @@ template:
   params:
     bootswatch: spacelab
     ganalytics: UA-98603021-2
+    docsearch:
+      api_key: c7d5ea1103660127418415a82a24fc3d
+      index_name: salesforcer
 
 home:
   strip_header: true

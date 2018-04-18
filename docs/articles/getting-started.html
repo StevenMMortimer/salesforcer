@@ -25,10 +25,10 @@
   ga('create', 'UA-98603021-2', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -37,8 +37,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">salesforcer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">salesforcer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
@@ -85,7 +89,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -94,17 +104,19 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Getting Started</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
             <h4 class="date">2018-03-12</h4>
-          </div>
+      
+      <small>Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/getting-started.Rmd"><code>vignettes/getting-started.Rmd</code></a></small>
+
+    </div>
 
     
     
-<div class="contents">
 <p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
 <span class="kw">library</span>(salesforcer)
@@ -135,8 +147,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000SnhcYQAR true   </span>
-<span class="co">#&gt; 2 0036A00000SnhcZQAR true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YFQAZ true   </span>
+<span class="co">#&gt; 2 0036A00000Sp3YGQAZ true</span></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -149,8 +161,8 @@ retrieved_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000SnhcYQAR Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000SnhcZQAR Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YFQAZ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Sp3YGQAZ Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -169,8 +181,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000SnhcYQAR NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000SnhcZQAR NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YFQAZ NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000Sp3YGQAZ NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -186,8 +198,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000SnhcYQAR true   </span>
-<span class="co">#&gt; 2 0036A00000SnhcZQAR true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YFQAZ true   </span>
+<span class="co">#&gt; 2 0036A00000Sp3YGQAZ true</span></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -198,8 +210,8 @@ deleted_records
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000SnhcYQAR TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000SnhcZQAR TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000Sp3YFQAZ TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0036A00000Sp3YGQAZ TRUE    &lt;list [0]&gt;</span></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -226,15 +238,14 @@ upserted_records
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000SnhciQAB true   </span>
-<span class="co">#&gt; 2 false   0036A00000SnhcjQAB true   </span>
-<span class="co">#&gt; 3 true    0036A00000SnhcnQAB true</span></code></pre></div>
+<span class="co">#&gt; 1 false   0036A00000Sp3YKQAZ true   </span>
+<span class="co">#&gt; 2 false   0036A00000Sp3YLQAZ true   </span>
+<span class="co">#&gt; 3 true    0036A00000Sp3YPQAZ true</span></code></pre></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">
 <a href="#check-out-the-tests" class="anchor"></a>Check out the Tests</h3>
 <p>The <strong>salesforcer</strong> package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions.</p>
-</div>
 </div>
   </div>
 
@@ -255,5 +266,15 @@ upserted_records
       </footer>
 </div>
 
-  </body>
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    indexName: 'salesforcer',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+</body>
 </html>
