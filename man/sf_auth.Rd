@@ -47,7 +47,7 @@ cached in a file named \code{.httr-oauth-salesforcer} in the current working dir
 # log in using basic authentication (username-password)
 sf_auth(username = "test@gmail.com", 
         password = "test_password", 
-        security_token = )
+        security_token = "test_token")
 
 # log in using OAuth 2.0
 # Via brower or refresh of .httr-oauth-salesforcer

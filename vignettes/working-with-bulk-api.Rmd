@@ -63,10 +63,10 @@ the end result is exactly the same for these two calls. Also, note that this
 package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries 
 since Salesforce has not yet implemented it in 2.0. 
 
-Here is a simple workflow of adding, querying, and deleting records using the Bulk API.
+Here is a simple workflow of adding, querying, and deleting records using the Bulk 1.0 API.
 
 ```{r}
-# just add api_type="Bulk" to most calls!
+# just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to most calls!
 # create bulk
 object <- "Contact"
 n <- 2

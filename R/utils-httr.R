@@ -47,7 +47,11 @@ VERB_n <- function(VERB, n = 5) {
           out <- VERB(url = url, config=config(token=current_state$token), add_headers(headers), ...)  
         }
       } else if (current_state$auth_method == 'Basic') {
-        out <- VERB(url = url, add_headers(c(headers, "Authorization"=sprintf("Bearer %s", current_state$session_id))), ...)
+        if(grepl("/services/async", url)){
+          out <- VERB(url = url, add_headers(c(headers, "X-SFDC-Session"=current_state$session_id)), ...)
+        } else {
+          out <- VERB(url = url, add_headers(c(headers, "Authorization"=sprintf("Bearer %s", current_state$session_id))), ...)  
+        }
       }
       
       status <- status_code(out)

@@ -44,16 +44,16 @@ rest_created_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000SncF2QAJ TRUE    <list [0]>
-#> 2 0036A00000SncF3QAJ TRUE    <list [0]>
+#> 1 0036A00000ZbPeEQAV TRUE    <list [0]>
+#> 2 0036A00000ZbPeFQAV TRUE    <list [0]>
 # Bulk
 bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
 bulk_created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <chr>   <chr>   <lgl>
-#> 1 0036A00000SncF7QAJ true    true    NA   
-#> 2 0036A00000SncF8QAJ true    true    NA
+#> 1 0036A00000ZbPeJQAV true    true    NA   
+#> 2 0036A00000ZbPeKQAV true    true    NA
 ```
 
 There are some differences in the way each API returns response information; however, 
@@ -61,11 +61,11 @@ the end result is exactly the same for these two calls. Also, note that this
 package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries 
 since Salesforce has not yet implemented it in 2.0. 
 
-Here is a simple workflow of adding, querying, and deleting records using the Bulk API.
+Here is a simple workflow of adding, querying, and deleting records using the Bulk 1.0 API.
 
 
 ```r
-# just add api_type="Bulk" to most calls!
+# just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to most calls!
 # create bulk
 object <- "Contact"
 n <- 2
@@ -76,8 +76,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <chr>   <chr>   <lgl>
-#> 1 0036A00000SncF9QAJ true    true    NA   
-#> 2 0036A00000SncFAQAZ true    true    NA
+#> 1 0036A00000ZbPeOQAV true    true    NA   
+#> 2 0036A00000ZbPePQAV true    true    NA
 
 # query bulk
 my_soql <- sprintf("SELECT Id,
@@ -92,8 +92,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000SncF9QAJ Test      Contact-Create-1
-#> 2 0036A00000SncFAQAZ Test      Contact-Create-2
+#> 1 0036A00000ZbPeOQAV Test      Contact-Create-1
+#> 2 0036A00000ZbPePQAV Test      Contact-Create-2
 
 # delete bulk
 deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="Bulk 1.0")
@@ -101,6 +101,6 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <chr>   <chr>   <lgl>
-#> 1 0036A00000SncF9QAJ true    false   NA   
-#> 2 0036A00000SncFAQAZ true    false   NA
+#> 1 0036A00000ZbPeOQAV true    false   NA   
+#> 2 0036A00000ZbPePQAV true    false   NA
 ```

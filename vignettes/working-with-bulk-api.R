@@ -31,7 +31,7 @@ bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type=
 bulk_created_records
 
 ## ------------------------------------------------------------------------
-# just add api_type="Bulk" to most calls!
+# just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to most calls!
 # create bulk
 object <- "Contact"
 n <- 2
