@@ -17,7 +17,7 @@ sf_read_metadata(metadata_type, object_names, verbose = FALSE)
 A \code{list} containing a response for each requested object
 }
 \description{
-This function takes a a request of named elements in Salesforce and 
+This function takes a request of named elements in Salesforce and 
 returns their metadata
 }
 \examples{

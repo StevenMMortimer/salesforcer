@@ -69,6 +69,7 @@ describe_obj_result <- sf_describe_metadata()
 list_obj_result <- sf_list_metadata(queries=list(list(type='CustomObject')))
 read_obj_result <- sf_read_metadata(metadata_type='CustomObject',
                                     object_names=paste0("Custom_Account_", rand_int+1, "__c"))
+desc_obj_fields_result <- sf_describe_object_fields(paste0("Custom_Account_", rand_int+1, "__c"))
 retrieve_request <- list(unpackaged=list(types=list(members='*', name='CustomObject')))
 retrieve_info <- sf_retrieve_metadata(retrieve_request)
 
@@ -135,6 +136,13 @@ test_that("sf_read_metadata", {
   expect_is(read_obj_result, "list")
   expect_true(all(c('fullName', 'actionOverrides', 'fields', 'searchLayouts', 'sharingModel') %in% 
                     names(read_obj_result[[1]])))
+})
+
+test_that("sf_describe_object_fields", {
+  expect_is(desc_obj_fields_result, "tbl_df")
+  expect_true(all(c('Id', 'OwnerId', 'IsDeleted', 'Name', 'CreatedDate', 'CreatedById', 
+                    'LastModifiedDate', 'LastModifiedById', 'SystemModstamp', 'LastActivityDate') %in% 
+                    desc_obj_fields_result$name))
 })
 
 test_that("sf_retrieve_metadata", {

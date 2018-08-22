@@ -65,6 +65,7 @@ reference:
       - '`sf_retrieve_metadata`'
       - '`sf_describe_metadata`'
       - '`sf_describe_objects`'
+      - '`sf_describe_object_fields`'
   - title: Salesforce Org Utility Functions
     desc: Functions used for basic calls to understand the org.
     contents:
@@ -74,3 +75,17 @@ reference:
       - '`sf_list_resources`'
       - '`sf_list_api_limits`'
       - '`sf_list_objects`'
+  - title: Backward Compatibility with RForcecom
+    desc: Functions that mirror RForcecom to ease code transitions between salesforcer and RForcecom
+    contents:
+      - '`rforcecom.login`'
+      - '`rforcecom.getServerTimestamp`'
+      - '`rforcecom.getObjectDescription`'
+      - '`rforcecom.create`'
+      - '`rforcecom.update`'
+      - '`rforcecom.upsert`'
+      - '`rforcecom.delete`'
+      - '`rforcecom.retrieve`'
+      - '`rforcecom.search`'
+      - '`rforcecom.query`'
+      - '`rforcecom.bulkQuery`'

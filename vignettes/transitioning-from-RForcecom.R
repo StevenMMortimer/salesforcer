@@ -81,3 +81,14 @@ result2
 salesforcer_results <- sf_query(this_soql)
 salesforcer_results
 
+## ---- warning=FALSE------------------------------------------------------
+# the RForcecom way
+result1 <- RForcecom::rforcecom.getObjectDescription(session, objectName='Account')
+
+# backwards compatible in the salesforcer package
+result2 <- salesforcer::rforcecom.getObjectDescription(session, objectName='Account')
+
+# the better way in salesforcer to get object fields
+result3 <- salesforcer::sf_describe_object_fields('Account')
+result3
+

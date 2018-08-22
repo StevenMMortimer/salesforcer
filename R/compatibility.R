@@ -269,6 +269,27 @@ rforcecom.retrieve <- function(session, objectName,
   return(resultSet)
 }
 
+#' salesforcer's backwards compatible version of rforcecom.getObjectDescription
+#'
+#' @importFrom purrr map_df
+#' @template session 
+#' @template objectName
+#' @return Object descriptions
+#' @note This function returns a data.frame with one row per field for an object.
+#' @export
+rforcecom.getObjectDescription <- function(session, objectName){
+  
+  .Deprecated("sf_describe_objects")
+
+  obj_dat <- sf_describe_objects(object_names = objectName, 
+                                 api_type="SOAP")[[1]]
+  
+  obj_fields <- map_df(obj_dat[names(obj_dat) == "fields"], 
+                       as.data.frame, 
+                       stringsAsFactors=FALSE)
+  return(obj_fields)
+}
+
 #' Run Bulk Action
 #'
 #' This function is a convenience wrapper for submitting bulk API jobs

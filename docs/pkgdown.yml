@@ -1,6 +1,6 @@
 pandoc: 1.19.2.1
-pkgdown: 0.1.0.9000
-pkgdown_sha: 21b9e469e4bd7f443bf0bbf194d47760c174463e
+pkgdown: 1.1.0
+pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
   transitioning-from-RForcecom: transitioning-from-RForcecom.html

@@ -138,5 +138,24 @@ salesforcer_results <- sf_query(this_soql)
 salesforcer_results
 ```
 
+### Describe
+
+The **RForcecom** package has the function `rforcecom.getObjectDescription()` which returns 
+a `data.frame` with one row per field on an object. The same function in **salesforcer** 
+is named `sf_describe_object_fields()` and also has better printing and datatype 
+casting by using tibbles.
+
+```{r, warning=FALSE}
+# the RForcecom way
+result1 <- RForcecom::rforcecom.getObjectDescription(session, objectName='Account')
+
+# backwards compatible in the salesforcer package
+result2 <- salesforcer::rforcecom.getObjectDescription(session, objectName='Account')
+
+# the better way in salesforcer to get object fields
+result3 <- salesforcer::sf_describe_object_fields('Account')
+result3
+```
+
 In the future more features will be migrated from **RForcecom** to make the 
 transition as seamless as possible.

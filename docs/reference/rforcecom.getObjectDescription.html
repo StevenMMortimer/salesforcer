@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Records using REST API — sf_create_rest • salesforcer</title>
+<title>salesforcer's backwards compatible version of rforcecom.getObjectDescription — rforcecom.getObjectDescription • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Create Records using REST API — sf_create_rest" />
+<meta property="og:title" content="salesforcer's backwards compatible version of rforcecom.getObjectDescription — rforcecom.getObjectDescription" />
 
-<meta property="og:description" content="Create Records using REST API" />
+<meta property="og:description" content="salesforcer's backwards compatible version of rforcecom.getObjectDescription" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -147,30 +147,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Records using REST API</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/create.R'><code>R/create.R</code></a></small>
-    <div class="hidden name"><code>sf_create_rest.Rd</code></div>
+    <h1>salesforcer's backwards compatible version of rforcecom.getObjectDescription</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/compatibility.R'><code>R/compatibility.R</code></a></small>
+    <div class="hidden name"><code>rforcecom.getObjectDescription.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create Records using REST API</p>
+    <p>salesforcer's backwards compatible version of rforcecom.getObjectDescription</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_create_rest</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-        
+    <pre class="usage"><span class='fu'>rforcecom.getObjectDescription</span>(<span class='no'>session</span>, <span class='no'>objectName</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>session</th>
+      <td><p><code>list</code>; a list containing "sessionID", "instanceURL", and "
+apiVersion" as returned by <code><a href='http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.login'>RForcecom::rforcecom.login()</a></code>. This argument is
+ignored in all backward compatible calls because the authorization credentials 
+are stored in an environment internal to the salesforcer package, so it is no longer 
+necessary to pass the session in each function call.</p></td>
+    </tr>
+    <tr>
+      <th>objectName</th>
+      <td><p>character; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Object descriptions</p>
+    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function is meant to be used internally. Only use when debugging.</p>
+    <p>This function returns a data.frame with one row per field for an object.</p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#note">Note</a></li>
           </ul>
 

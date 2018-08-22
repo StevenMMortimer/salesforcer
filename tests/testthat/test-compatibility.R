@@ -173,6 +173,19 @@ test_that("testing rforcecom.search compatibility", {
   expect_is(result2, "data.frame")
 })
 
+test_that("testing rforcecom.getObjectDescription compatibility", {
+  
+  result1 <- RForcecom::rforcecom.getObjectDescription(session, objectName="Account")
+  result2 <- salesforcer::rforcecom.getObjectDescription(session, objectName="Account")
+  
+  expect_is(result1, "data.frame")
+  expect_is(result2, "data.frame")
+  # same number of fields
+  expect_equal(nrow(result1), nrow(result2))
+  # same names of the fields
+  expect_equal(sort(as.character(result1$name)), sort(result2$name))
+})
+
 # not exported?
 # test_that("testing rforcecom.bulkAction compatibility", {
 #   n <- 2

@@ -2,11 +2,12 @@
 
 ### Features
 
-  * Nothing Yet!
+  * Add **RForcecom** backward compatibile version of `rforcecom.getObjectDescription()`
+  * Add `sf_describe_object_fields()` which is a tidyier version of `rforcecom.getObjectDescription()`
   
 ### Bug Fixes
 
-  * Nothing Yet!
+  * Fix bug where Username/Password authenticated sessions where not working with api_type = "Bulk 1.0"
   
 ---
   

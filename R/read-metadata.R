@@ -1,6 +1,6 @@
 #' Read Object or Field Metadata from Salesforce
 #' 
-#' This function takes a a request of named elements in Salesforce and 
+#' This function takes a request of named elements in Salesforce and 
 #' returns their metadata
 #'
 #' @importFrom XML newXMLNode addChildren xmlParse xmlToList
@@ -65,4 +65,33 @@ sf_read_metadata <- function(metadata_type, object_names, verbose=FALSE){
   ))
     
   return(resultset)
+}
+
+#' Describe Object Fields
+#' 
+#' This function takes the name of an object in Salesforce and returns a description 
+#' of the fields on that object by returning a tibble with one row per field.
+#' 
+#' @importFrom readr type_convert cols
+#' @importFrom dplyr as_tibble
+#' @template object_name
+#' @note The tibble only contains the fields that the user can view, as defined by 
+#' the user's field-level security settings.
+#' @return A \code{tbl_df} containing one row per field for the requested object.
+#' @examples
+#' \dontrun{
+#' acct_fields <- sf_describe_object_fields('Account')
+#' }
+#' @export
+sf_describe_object_fields <- function(object_name){
+  
+  stopifnot(length(object_name) == 1)
+  
+  # suppress deprecation warnings
+  suppressWarnings(obj_fields_dat <- rforcecom.getObjectDescription(objectName=object_name))
+  obj_fields_dat <- obj_fields_dat %>% 
+    as_tibble() %>%
+    type_convert(col_types=cols())
+  
+  return(obj_fields_dat)
 }
