@@ -154,13 +154,13 @@ fields &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">
 result1 &lt;-<span class="st"> </span>RForcecom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RForcecom/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result1
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000cIQYZQA4    true</span>
+<span class="co">#&gt; 1 0036A00000kHlpdQAC    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 result2 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/salesforcer/topics/rforcecom.create">rforcecom.create</a></span>(session, <span class="dt">objectName=</span>object, fields)
 result2
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000cIQYeQAO    true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHlpiQAC    true</span></code></pre></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
 new_contacts &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
@@ -176,8 +176,8 @@ rforcecom_results &lt;-<span class="st"> </span><span class="ot">NULL</span>
 }
 rforcecom_results
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0036A00000cIQYjQAO    true</span>
-<span class="co">#&gt; 2 0036A00000cIQYoQAO    true</span>
+<span class="co">#&gt; 1 0036A00000kHlpnQAC    true</span>
+<span class="co">#&gt; 2 0036A00000kHlpsQAC    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 salesforcer_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
@@ -185,8 +185,8 @@ salesforcer_results
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000cIQYtQAO true   </span>
-<span class="co">#&gt; 2 0036A00000cIQYuQAO true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHlpxQAC true   </span>
+<span class="co">#&gt; 2 0036A00000kHlpyQAC true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -243,24 +243,24 @@ result3 &lt;-<span class="st"> </span>salesforcer<span class="op">::</span><span
 result3
 <span class="co">#&gt; # A tibble: 67 x 166</span>
 <span class="co">#&gt;    aggregatable autoNumber byteLength calculated caseSensitive createable</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 true         false             18. false      false         false     </span>
-<span class="co">#&gt;  2 false        false              0. false      false         false     </span>
-<span class="co">#&gt;  3 true         false             18. false      false         false     </span>
-<span class="co">#&gt;  4 true         false            765. false      false         true      </span>
-<span class="co">#&gt;  5 true         false            120. false      false         true      </span>
-<span class="co">#&gt;  6 true         false             18. false      false         true      </span>
-<span class="co">#&gt;  7 true         false            765. false      false         true      </span>
-<span class="co">#&gt;  8 true         false            120. false      false         true      </span>
-<span class="co">#&gt;  9 true         false            240. false      false         true      </span>
-<span class="co">#&gt; 10 true         false             60. false      false         true      </span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 true         false              18 false      false         false     </span>
+<span class="co">#&gt;  2 false        false               0 false      false         false     </span>
+<span class="co">#&gt;  3 true         false              18 false      false         false     </span>
+<span class="co">#&gt;  4 true         false             765 false      false         true      </span>
+<span class="co">#&gt;  5 true         false             120 false      false         true      </span>
+<span class="co">#&gt;  6 true         false              18 false      false         true      </span>
+<span class="co">#&gt;  7 true         false             765 false      false         true      </span>
+<span class="co">#&gt;  8 true         false             120 false      false         true      </span>
+<span class="co">#&gt;  9 true         false             240 false      false         true      </span>
+<span class="co">#&gt; 10 true         false              60 false      false         true      </span>
 <span class="co">#&gt; # ... with 57 more rows, and 160 more variables: custom &lt;chr&gt;,</span>
-<span class="co">#&gt; #   defaultedOnCreate &lt;chr&gt;, deprecatedAndHidden &lt;chr&gt;, digits &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   defaultedOnCreate &lt;chr&gt;, deprecatedAndHidden &lt;chr&gt;, digits &lt;int&gt;,</span>
 <span class="co">#&gt; #   filterable &lt;chr&gt;, groupable &lt;chr&gt;, idLookup &lt;chr&gt;, label &lt;chr&gt;,</span>
-<span class="co">#&gt; #   length &lt;dbl&gt;, name &lt;chr&gt;, nameField &lt;chr&gt;, namePointing &lt;chr&gt;,</span>
+<span class="co">#&gt; #   length &lt;int&gt;, name &lt;chr&gt;, nameField &lt;chr&gt;, namePointing &lt;chr&gt;,</span>
 <span class="co">#&gt; #   nillable &lt;chr&gt;, permissionable &lt;chr&gt;, polymorphicForeignKey &lt;chr&gt;,</span>
-<span class="co">#&gt; #   precision &lt;dbl&gt;, queryByDistance &lt;chr&gt;, restrictedPicklist &lt;chr&gt;,</span>
-<span class="co">#&gt; #   scale &lt;dbl&gt;, searchPrefilterable &lt;chr&gt;, soapType &lt;chr&gt;,</span>
+<span class="co">#&gt; #   precision &lt;int&gt;, queryByDistance &lt;chr&gt;, restrictedPicklist &lt;chr&gt;,</span>
+<span class="co">#&gt; #   scale &lt;int&gt;, searchPrefilterable &lt;chr&gt;, soapType &lt;chr&gt;,</span>
 <span class="co">#&gt; #   sortable &lt;chr&gt;, type &lt;chr&gt;, unique &lt;chr&gt;, updateable &lt;chr&gt;,</span>
 <span class="co">#&gt; #   defaultValue.text &lt;chr&gt;, defaultValue..attrs &lt;chr&gt;, referenceTo &lt;chr&gt;,</span>
 <span class="co">#&gt; #   relationshipName &lt;chr&gt;, compoundFieldName &lt;chr&gt;, extraTypeInfo &lt;chr&gt;,</span>

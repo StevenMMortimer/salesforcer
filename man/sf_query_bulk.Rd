@@ -4,14 +4,19 @@
 \alias{sf_query_bulk}
 \title{Run Bulk Query}
 \usage{
-sf_query_bulk(soql, object_name, api_type = c("Bulk 1.0"),
-  interval_seconds = 5, max_attempts = 100, verbose = FALSE)
+sf_query_bulk(soql, object_name, guess_types = TRUE,
+  api_type = c("Bulk 1.0"), interval_seconds = 5, max_attempts = 100,
+  verbose = FALSE)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+
+\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+and FALSE returns all values as character strings.}
 
 \item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}

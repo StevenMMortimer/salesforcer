@@ -4,8 +4,8 @@
 \alias{build_metadata_xml_from_list}
 \title{Metadata List to XML Converter}
 \usage{
-build_metadata_xml_from_list(input_data, metatype = NULL, root_name = NULL,
-  ns = c(character(0)), root = NULL)
+build_metadata_xml_from_list(input_data, metatype = NULL,
+  root_name = NULL, ns = c(character(0)), root = NULL)
 }
 \arguments{
 \item{input_data}{XML document serving as the basis upon which to add the list}
@@ -25,6 +25,4 @@ A XML document with the sublist data added
 \description{
 This function converts a list of metadata to XML
 }
-\concept{
-metadata salesforce api
-}
+\concept{metadata salesforce api}

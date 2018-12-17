@@ -9,6 +9,7 @@ test_that("testing Bulk 1.0 Functionality", {
   prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
                          LastName = paste0("Contact-Create-", 1:n), 
+                         test_number__c = 22,
                          My_External_Id__c=paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
   created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
@@ -26,7 +27,7 @@ test_that("testing Bulk 1.0 Functionality", {
   )
   
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
-                   "contact(id, firstname, lastname, my_external_id__c),",
+                   "contact(id, firstname, lastname, test_number__c, my_external_id__c),",
                    "lead(id, firstname, lastname)")
   # sf_search ------------------------------------------------------------------
   expect_error(
@@ -37,6 +38,7 @@ test_that("testing Bulk 1.0 Functionality", {
   my_soql <- sprintf("SELECT Id, 
                              FirstName, 
                              LastName, 
+                             test_number__c,
                              My_External_Id__c
                      FROM Contact 
                      WHERE Id in ('%s')", 
@@ -44,13 +46,22 @@ test_that("testing Bulk 1.0 Functionality", {
   # sf_query -------------------------------------------------------------------
   queried_records <- sf_query(soql=my_soql, object_name="Contact", api_type="Bulk 1.0")
   expect_is(queried_records, "tbl_df")
-  expect_equal(names(queried_records), c("Id", "FirstName", "LastName", "My_External_Id__c"))
+  expect_equal(lapply(queried_records, class), 
+               list(Id="character", FirstName="character", LastName="character", 
+                    test_number__c="numeric", My_External_Id__c="character"))
   expect_equal(nrow(queried_records), n)
+  
+  # test the column force to all character
+  queried_records2 <- sf_query(soql=my_soql, object_name="Contact", guess_types = FALSE, api_type="Bulk 1.0")
+  expect_equal(lapply(queried_records2, class), 
+               list(Id="character", FirstName="character", LastName="character", 
+                    test_number__c="character", My_External_Id__c="character"))
+  
+  # sf_update ------------------------------------------------------------------
   
   queried_records <- queried_records %>%
     mutate(FirstName = "TestTest")
   
-  # sf_update ------------------------------------------------------------------
   updated_records <- sf_update(queried_records, object_name="Contact", api_type="Bulk 1.0")
   expect_is(updated_records, "tbl_df")
   expect_named(updated_records, c("Id", "Success", "Created", "Error"))
@@ -60,6 +71,7 @@ test_that("testing Bulk 1.0 Functionality", {
   
   new_record <- tibble(FirstName = "Test",
                        LastName = paste0("Contact-Upsert-", n+1), 
+                       test_number__c = 23,
                        My_External_Id__c=paste0(prefix, letters[n+1]))
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
 
@@ -92,12 +104,13 @@ test_that("testing Bulk 2.0 Functionality", {
   prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
                          LastName = paste0("Contact-Create-", 1:n), 
+                         test_number__c = 22,
                          My_External_Id__c=paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
   created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 2.0")
   expect_is(created_records, "tbl_df")
   expect_named(created_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
-                                  "My_External_Id__c", "sf__Error"))  
+                                  "test_number__c", "My_External_Id__c", "sf__Error"))  
   expect_equal(nrow(created_records), n)
   expect_true(all(is.na(created_records$sf__Error)))
   expect_true(all(created_records$sf__Created == "true"))
@@ -111,7 +124,7 @@ test_that("testing Bulk 2.0 Functionality", {
   )
   
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
-                   "contact(id, firstname, lastname, my_external_id__c),",
+                   "contact(id, firstname, lastname, test_number__c, my_external_id__c),",
                    "lead(id, firstname, lastname)")
   # sf_search ------------------------------------------------------------------
   expect_error(
@@ -122,6 +135,7 @@ test_that("testing Bulk 2.0 Functionality", {
   my_soql <- sprintf("SELECT Id, 
                              FirstName, 
                              LastName, 
+                             test_number__c,
                              My_External_Id__c
                       FROM Contact 
                       WHERE Id in ('%s')", 
@@ -139,13 +153,14 @@ test_that("testing Bulk 2.0 Functionality", {
   updated_records <- sf_update(queried_records, object_name="Contact", api_type="Bulk 2.0")
   expect_is(updated_records, "tbl_df")
   expect_named(updated_records, c("sf__Id", "sf__Created", "FirstName", "Id", "LastName", 
-                                  "My_External_Id__c", "sf__Error"))  
+                                  "test_number__c", "My_External_Id__c", "sf__Error"))  
   expect_equal(nrow(updated_records), nrow(queried_records))
   expect_true(all(is.na(updated_records$sf__Error)))
   expect_true(all(updated_records$sf__Created == "false"))  
   
   new_record <- tibble(FirstName = "Test",
                        LastName = paste0("Contact-Upsert-", n+1), 
+                       test_number__c = 23,
                        My_External_Id__c=paste0(prefix, letters[n+1]))
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
   
@@ -156,7 +171,7 @@ test_that("testing Bulk 2.0 Functionality", {
                                 api_type = "Bulk 2.0")
   expect_is(upserted_records, "tbl_df")
   expect_named(upserted_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
-                                   "My_External_Id__c", "sf__Error"))  
+                                   "test_number__c", "My_External_Id__c", "sf__Error"))  
   expect_equal(nrow(upserted_records), nrow(upserted_contacts))
   expect_true(all(is.na(upserted_records$sf__Error)))
   expect_equal(upserted_records$sf__Created, c("false", "false", "true"))  

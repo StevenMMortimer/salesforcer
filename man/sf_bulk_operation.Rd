@@ -4,10 +4,11 @@
 \alias{sf_bulk_operation}
 \title{Run Bulk Operation}
 \usage{
-sf_bulk_operation(input_data, object_name, operation = c("insert", "delete",
-  "upsert", "update", "hardDelete"), external_id_fieldname = NULL,
-  api_type = c("Bulk 1.0", "Bulk 2.0"), wait_for_results = TRUE,
-  interval_seconds = 3, max_attempts = 200, verbose = FALSE)
+sf_bulk_operation(input_data, object_name, operation = c("insert",
+  "delete", "upsert", "update", "hardDelete"),
+  external_id_fieldname = NULL, api_type = c("Bulk 1.0", "Bulk 2.0"),
+  wait_for_results = TRUE, interval_seconds = 3, max_attempts = 200,
+  verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

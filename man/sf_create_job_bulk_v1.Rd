@@ -4,10 +4,11 @@
 \alias{sf_create_job_bulk_v1}
 \title{Create Job using Bulk 1.0 API}
 \usage{
-sf_create_job_bulk_v1(operation = c("insert", "delete", "upsert", "update",
-  "hardDelete", "query"), object_name, external_id_fieldname = NULL,
-  content_type = c("CSV", "ZIP_CSV", "ZIP_XML", "ZIP_JSON"),
-  concurrency_mode = c("Parallel", "Serial"), verbose = FALSE)
+sf_create_job_bulk_v1(operation = c("insert", "delete", "upsert",
+  "update", "hardDelete", "query"), object_name,
+  external_id_fieldname = NULL, content_type = c("CSV", "ZIP_CSV",
+  "ZIP_XML", "ZIP_JSON"), concurrency_mode = c("Parallel", "Serial"),
+  verbose = FALSE)
 }
 \description{
 Create Job using Bulk 1.0 API

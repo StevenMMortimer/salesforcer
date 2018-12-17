@@ -4,7 +4,8 @@
 \alias{sf_rename_metadata}
 \title{Rename Metadata Elements in Salesforce}
 \usage{
-sf_rename_metadata(metadata_type, old_fullname, new_fullname, verbose = FALSE)
+sf_rename_metadata(metadata_type, old_fullname, new_fullname,
+  verbose = FALSE)
 }
 \arguments{
 \item{metadata_type}{character; string on what type of metadata to create}

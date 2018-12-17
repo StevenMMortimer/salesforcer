@@ -60,7 +60,7 @@ sf_submit_query_bulk <- function(job_id, soql,
 #' This function returns the row-level recordset of a bulk query
 #' which has already been submitted to Bulk API Job and has Completed state
 #' 
-#' @importFrom readr read_csv
+#' @importFrom readr read_csv col_guess col_character
 #' @importFrom httr content
 #' @importFrom XML xmlToList
 #' @importFrom dplyr as_tibble
@@ -85,6 +85,7 @@ sf_submit_query_bulk <- function(job_id, soql,
 #' }
 #' @export
 sf_query_result_bulk <- function(job_id, batch_id, result_id, 
+                                 guess_types = TRUE,
                                  api_type = c("Bulk 1.0"), 
                                  verbose = FALSE){
     
@@ -101,7 +102,8 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
   if (grepl('xml', content_type)) {
     res <- as_tibble(xmlToList(response_text))
   } else if(grepl('text/csv', content_type)) {
-    res <- read_csv(response_text)
+    cols_default <- if(guess_types) col_guess() else col_character()
+    res <- read_csv(response_text, col_types = cols(.default=cols_default))
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
     res <- content(httr_response, as="parsed", encoding="UTF-8")
@@ -116,6 +118,9 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
 #'
 #' @template soql
 #' @template object_name
+#' @param guess_types logical; indicating whether or not to use \code{col_guess()} 
+#' to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+#' and FALSE returns all values as character strings.
 #' @template api_type
 #' @param interval_seconds integer; defines the seconds between attempts to check 
 #' for job completion
@@ -132,6 +137,7 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
 #' @export
 sf_query_bulk <- function(soql,
                           object_name,
+                          guess_types=TRUE,
                           api_type = c("Bulk 1.0"),
                           interval_seconds=5,
                           max_attempts=100, 
@@ -182,6 +188,7 @@ sf_query_bulk <- function(soql,
     res <- sf_query_result_bulk(job_id = batch_query_info$jobId,
                                 batch_id = batch_query_info$id,
                                 result_id = batch_query_details$result,
+                                guess_types = guess_types,
                                 api_type = "Bulk 1.0", 
                                 verbose = verbose)
     close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, 

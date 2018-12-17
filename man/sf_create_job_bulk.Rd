@@ -6,10 +6,10 @@
 \usage{
 sf_create_job_bulk(operation = c("insert", "delete", "upsert", "update",
   "hardDelete", "query"), object_name, external_id_fieldname = NULL,
-  api_type = c("Bulk 1.0", "Bulk 2.0"), content_type = c("CSV", "ZIP_CSV",
-  "ZIP_XML", "ZIP_JSON"), concurrency_mode = c("Parallel", "Serial"),
-  line_ending = NULL, column_delimiter = c("COMMA", "TAB", "PIPE",
-  "SEMICOLON", "CARET", "BACKQUOTE"), verbose = FALSE)
+  api_type = c("Bulk 1.0", "Bulk 2.0"), content_type = c("CSV",
+  "ZIP_CSV", "ZIP_XML", "ZIP_JSON"), concurrency_mode = c("Parallel",
+  "Serial"), line_ending = NULL, column_delimiter = c("COMMA", "TAB",
+  "PIPE", "SEMICOLON", "CARET", "BACKQUOTE"), verbose = FALSE)
 }
 \arguments{
 \item{operation}{character; a string defining the type of operation being 

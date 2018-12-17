@@ -215,8 +215,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000cIQXRQA4 true   </span>
-<span class="co">#&gt; 2 0036A00000cIQXSQA4 true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHlozQAC true   </span>
+<span class="co">#&gt; 2 0036A00000kHlp0QAC true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -235,8 +235,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000cIQXRQA4 NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000cIQXSQA4 NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHlozQAC NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000kHlp0QAC NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -252,8 +252,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000cIQXRQA4 true   </span>
-<span class="co">#&gt; 2 0036A00000cIQXSQA4 true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHlozQAC true   </span>
+<span class="co">#&gt; 2 0036A00000kHlp0QAC true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -322,17 +322,17 @@ read_obj_result[[<span class="dv">1</span>]][first_two_fields_idx]
 acct_fields <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, label, length, soapType, type)
 <span class="co">#&gt; # A tibble: 67 x 5</span>
 <span class="co">#&gt;    name              label                   length soapType    type     </span>
-<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                    &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 Id                Account ID                 18. tns:ID      id       </span>
-<span class="co">#&gt;  2 IsDeleted         Deleted                     0. xsd:boolean boolean  </span>
-<span class="co">#&gt;  3 MasterRecordId    Master Record ID           18. tns:ID      reference</span>
-<span class="co">#&gt;  4 Name              Account Name              255. xsd:string  string   </span>
-<span class="co">#&gt;  5 Type              Account Type               40. xsd:string  picklist </span>
-<span class="co">#&gt;  6 ParentId          Parent Account ID          18. tns:ID      reference</span>
-<span class="co">#&gt;  7 BillingStreet     Billing Street            255. xsd:string  textarea </span>
-<span class="co">#&gt;  8 BillingCity       Billing City               40. xsd:string  string   </span>
-<span class="co">#&gt;  9 BillingState      Billing State/Province     80. xsd:string  string   </span>
-<span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code    20. xsd:string  string   </span>
+<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                    &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 Id                Account ID                  18 tns:ID      id       </span>
+<span class="co">#&gt;  2 IsDeleted         Deleted                      0 xsd:boolean boolean  </span>
+<span class="co">#&gt;  3 MasterRecordId    Master Record ID            18 tns:ID      reference</span>
+<span class="co">#&gt;  4 Name              Account Name               255 xsd:string  string   </span>
+<span class="co">#&gt;  5 Type              Account Type                40 xsd:string  picklist </span>
+<span class="co">#&gt;  6 ParentId          Parent Account ID           18 tns:ID      reference</span>
+<span class="co">#&gt;  7 BillingStreet     Billing Street             255 xsd:string  textarea </span>
+<span class="co">#&gt;  8 BillingCity       Billing City                40 xsd:string  string   </span>
+<span class="co">#&gt;  9 BillingState      Billing State/Province      80 xsd:string  string   </span>
+<span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code     20 xsd:string  string   </span>
 <span class="co">#&gt; # ... with 57 more rows</span></code></pre></div>
 <p>If you prefer to be more precise about collecting and formatting the field data you can work directly with the nested lists that the APIs return. In this example we look at the picklist values of fields on the Account object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">describe_obj_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_describe_objects.html">sf_describe_objects</a></span>(<span class="dt">object_names=</span><span class="kw">c</span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
@@ -346,18 +346,9 @@ describe_obj_result[[<span class="dv">1</span>]][<span class="kw">c</span>(<span
 <span class="co"># show the different picklist values for the Account Type field</span>
 the_type_field &lt;-<span class="st"> </span>describe_obj_result[[<span class="dv">1</span>]][[<span class="dv">59</span>]]
 the_type_field<span class="op">$</span>label
-<span class="co">#&gt; [1] "Account Type"</span>
-<span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_df</a></span>(the_type_field[<span class="kw">which</span>(<span class="kw">names</span>(the_type_field) <span class="op">==</span><span class="st"> "picklistValues"</span>)], as_tibble)
-<span class="co">#&gt; # A tibble: 7 x 4</span>
-<span class="co">#&gt;   active defaultValue label                      value                    </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                    </span>
-<span class="co">#&gt; 1 true   false        Prospect                   Prospect                 </span>
-<span class="co">#&gt; 2 true   false        Customer - Direct          Customer - Direct        </span>
-<span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel       </span>
-<span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Resell…</span>
-<span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner     </span>
-<span class="co">#&gt; 6 true   false        Technology Partner         Technology Partner       </span>
-<span class="co">#&gt; 7 true   false        Other                      Other</span></code></pre></div>
+<span class="co">#&gt; NULL</span>
+<span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span>(the_type_field[<span class="kw">which</span>(<span class="kw">names</span>(the_type_field) <span class="op">==</span><span class="st"> "picklistValues"</span>)], as_tibble)
+<span class="co">#&gt; # A tibble: 0 x 0</span></code></pre></div>
 <p>It is recommended that you try out the various metadata functions <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="reference/sf_describe_metadata.html">sf_describe_metadata()</a></code>, and <code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
 <p>Where the Metadata API really shines is when it comes to CRUD operations on metadata. In this example we will create an object, add fields to it, then delete that object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create an object</span>
