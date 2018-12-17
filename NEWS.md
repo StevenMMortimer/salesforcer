@@ -6,6 +6,7 @@
   * Add `sf_describe_object_fields()` which is a tidyier version of `rforcecom.getObjectDescription()`
   * Allow users to control whether bulk query results are kept as all character or 
   the types are guessed (#12)
+  * Add `sf_get_all_jobs_bulk()` so that users can see retrieve details for all bulk jobs (#13)
   
 ### Bug Fixes
 

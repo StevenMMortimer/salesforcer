@@ -206,11 +206,10 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
 #' 
 #' This function retrieves details about a Job in the Salesforce Bulk API
 #'
-#'
 #' @template job_id
 #' @template api_type
 #' @template verbose
-#' @return A \code{list} of parameters defining the details of the specified job id
+#' @return A \code{tbl_df} of parameters defining the details of the specified job id
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
 #' \dontrun{
@@ -242,6 +241,62 @@ sf_get_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), verbose=
   }
   return(job_info)
 }
+
+#' Get All Bulk API Jobs 
+#' 
+#' This function retrieves details about all Bulk 2.0 jobs in the org.
+#'
+#' @importFrom httr content
+#' @importFrom readr type_convert cols
+#' @importFrom purrr map_df
+#' @importFrom dplyr as_tibble bind_rows
+#' @param next_records_url character (leave as NULL); a string used internally 
+#' by the function to paginate through to more records until complete
+#' @template api_type
+#' @template verbose
+#' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @examples
+#' \dontrun{
+#' job_info <- sf_create_job_bulk('insert', 'Account')
+#' all_jobs_info <- sf_get_all_jobs_bulk()
+#' }
+#' @export
+sf_get_all_jobs_bulk <- function(next_records_url=NULL, api_type=c("Bulk 2.0"), verbose=FALSE){
+  api_type <- match.arg(api_type)
+  
+  if(!is.null(next_records_url)){
+    this_url <- next_records_url
+  } else {
+    this_url <- make_bulk_get_all_jobs_url(api_type=api_type)
+  }
+  
+  if(verbose){
+    message(this_url)
+  }
+  httr_response <- rGET(url = this_url)
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding="UTF-8")
+  
+  if(length(response_parsed$records) > 0){
+    resultset <- response_parsed$records %>% 
+      map_df(as_tibble) %>%
+      type_convert(col_types = cols())
+  }
+  
+  if(!response_parsed$done){
+    next_records_url <- response_parsed$nextRecordsUrl
+  }
+  
+  # check whether it has next record
+  if(!is.null(next_records_url)){
+    next_records <- sf_get_all_jobs_bulk(next_records_url=next_records_url)
+    resultset <- bind_rows(resultset, next_records)
+  }
+  
+  return(resultset)
+}
+
 
 #' End Bulk API Job 
 #' 

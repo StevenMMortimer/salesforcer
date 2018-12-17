@@ -17,7 +17,7 @@ which API to use when making the request}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-A \code{list} of parameters defining the details of the specified job id
+A \code{tbl_df} of parameters defining the details of the specified job id
 }
 \description{
 This function retrieves details about a Job in the Salesforce Bulk API

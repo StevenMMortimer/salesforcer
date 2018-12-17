@@ -18,7 +18,7 @@ make_bulk_create_job_url <- function(api_type=c("Bulk 1.0", "Bulk 2.0")){
   }
 }
 
-#' Bulk Delete Job Generic URL Generator
+#' Bulk Get Job Generic URL Generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
@@ -37,6 +37,24 @@ make_bulk_get_job_url <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0")){
             salesforcer_state()$instance_url,
             getOption("salesforcer.api_version"), 
             job_id)
+  }
+}
+
+#' Bulk Get All Jobs Generic URL Generator
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_bulk_get_all_jobs_url <- function(api_type=c("Bulk 2.0")){
+  # ensure we are authenticated first so the url can be formed
+  sf_auth_check()
+  api_type <- match.arg(api_type)
+  if(api_type == "Bulk 2.0"){
+    # ensure we are authenticated first so the url can be formed
+    sf_auth_check()
+    sprintf("%s/services/data/v%s/jobs/ingest",
+            salesforcer_state()$instance_url,
+            getOption("salesforcer.api_version"))
   }
 }
 
