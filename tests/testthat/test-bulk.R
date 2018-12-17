@@ -92,7 +92,9 @@ test_that("testing Bulk 1.0 Functionality", {
   expect_is(deleted_records, "tbl_df")
   expect_named(deleted_records, c("Id", "Success", "Created", "Error")) 
   expect_equal(nrow(deleted_records), length(ids_to_delete))
+  print(deleted_records$Success)
   expect_true(all(deleted_records$Success == "true"))
+  print(deleted_records$Created)
   expect_true(all(deleted_records$Created == "false"))
 })
 
@@ -171,7 +173,7 @@ test_that("testing Bulk 2.0 Functionality", {
                                 api_type = "Bulk 2.0")
   expect_is(upserted_records, "tbl_df")
   expect_named(upserted_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
-                                   "test_number__c", "My_External_Id__c", "sf__Error"))  
+                                   "My_External_Id__c", "test_number__c", "sf__Error"))  
   expect_equal(nrow(upserted_records), nrow(upserted_contacts))
   expect_true(all(is.na(upserted_records$sf__Error)))
   expect_equal(upserted_records$sf__Created, c("false", "false", "true"))  
