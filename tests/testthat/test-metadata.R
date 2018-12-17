@@ -82,39 +82,39 @@ test_that("sf_create_metadata", {
   expect_is(custom_object_result, "tbl_df")
   expect_named(custom_object_result, c('fullName', 'success'))
   expect_equal(nrow(custom_object_result), 1)
-  expect_equal(custom_object_result$success, 'true')
+  expect_equal(all(custom_object_result$success))
   
   expect_is(create_fields_result1, "tbl_df")
   expect_named(create_fields_result1, c('fullName', 'success'))
   expect_equal(nrow(create_fields_result1), 2)
-  expect_true(all(create_fields_result1$success == 'true'))
+  expect_true(all(create_fields_result1$success))
   
   expect_is(create_fields_result2, "tbl_df")
   expect_named(create_fields_result2, c('fullName', 'success'))
   expect_equal(nrow(create_fields_result2), 2)
-  expect_true(all(create_fields_result2$success == 'true'))
+  expect_true(all(create_fields_result2$success))
 })
 
 test_that("sf_update_metadata", {
   expect_is(updated_custom_object_result, "tbl_df")
   expect_named(updated_custom_object_result, c('fullName', 'success'))
   expect_equal(nrow(updated_custom_object_result), 1)
-  expect_equal(updated_custom_object_result$success, 'true')
+  expect_equal(all(updated_custom_object_result$success))
 })
 
 test_that("sf_rename_metadata", {
   expect_is(renamed_custom_object_result, "tbl_df")
   expect_named(renamed_custom_object_result, c('fullName', 'success'))
   expect_equal(nrow(renamed_custom_object_result), 1)
-  expect_equal(renamed_custom_object_result$success, 'true')
+  expect_true(all(renamed_custom_object_result$success))
 })
 
 test_that("sf_upsert_metadata", {
   expect_is(upserted_custom_object_result, "tbl_df")
   expect_named(upserted_custom_object_result, c('created', 'fullName', 'success'))
   expect_equal(nrow(upserted_custom_object_result), 2)
-  expect_true(all(upserted_custom_object_result$success == 'true'))
-  expect_equal(upserted_custom_object_result$created, c('false', 'true'))
+  expect_true(all(upserted_custom_object_result$success))
+  expect_equal(upserted_custom_object_result$created, c(FALSE, TRUE))
 })
 
 test_that("sf_describe_metadata", {
@@ -155,5 +155,5 @@ test_that("sf_delete_metadata", {
   expect_is(deleted_custom_object_result, "tbl_df")
   expect_named(deleted_custom_object_result, c('fullName', 'success'))
   expect_equal(nrow(deleted_custom_object_result), 2)
-  expect_true(all(deleted_custom_object_result$success == 'true'))
+  expect_true(all(deleted_custom_object_result$success))
 })
