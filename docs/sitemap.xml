@@ -49,6 +49,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_end_job_generic_url.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_jobs_url.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_job_url.html</loc>
   </url>
   <url>
@@ -232,6 +235,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_end_job_bulk.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_jobs_bulk.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_job_bulk.html</loc>
   </url>
   <url>
@@ -274,6 +280,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_rename_metadata.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_reset_password.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve.html</loc>
   </url>
   <url>
@@ -290,6 +299,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_session_id.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_set_password.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_submit_query_bulk.html</loc>

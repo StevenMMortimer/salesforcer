@@ -23,8 +23,8 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
-\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
-which API to use when making the request}
+\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
+"Chatter" indicating which API to use when making the request}
 
 \item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
 so that the batch results of individual records can be obtained}

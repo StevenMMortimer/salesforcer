@@ -18,8 +18,8 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
 and FALSE returns all values as character strings.}
 
-\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
-which API to use when making the request}
+\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
+"Chatter" indicating which API to use when making the request}
 
 \item{interval_seconds}{integer; defines the seconds between attempts to check 
 for job completion}

@@ -184,4 +184,10 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_equal(nrow(deleted_records), length(ids_to_delete))
   expect_true(all(is.na(deleted_records$sf__Error)))
   expect_true(all(!deleted_records$sf__Created))
+  
+  # sf_get_all_jobs_bulk -------------------------------------------------------
+  # the other bulk functions are tested within the other functions (e.g. sf_get_job_bulk)
+  bulk_jobs <- sf_get_all_jobs_bulk()
+  expect_is(bulk_jobs, "tbl_df")
+  expect_true(all(c("id", "operation", "object", "jobType", "state") %in% names(bulk_jobs)))
 })

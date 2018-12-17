@@ -199,9 +199,9 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="co"># and confirm a connection to the APIs</span>
 user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_user_info.html">sf_user_info</a></span>()
 <span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)
-<span class="co">#&gt; [1] "User Id: 0056A000000MPRjQAO"</span>
+<span class="co">#&gt; character(0)</span>
 <span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)
-<span class="co">#&gt; [1] "User Active?: TRUE"</span></code></pre></div>
+<span class="co">#&gt; character(0)</span></code></pre></div>
 </div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
@@ -215,8 +215,8 @@ created_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000kHlozQAC true   </span>
-<span class="co">#&gt; 2 0036A00000kHlp0QAC true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHth8QAC true   </span>
+<span class="co">#&gt; 2 0036A00000kHth9QAC true</span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -235,8 +235,8 @@ queried_records
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000kHlozQAC NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000kHlp0QAC NA      Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHth8QAC NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0036A00000kHth9QAC NA      Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -252,8 +252,8 @@ updated_records
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000kHlozQAC true   </span>
-<span class="co">#&gt; 2 0036A00000kHlp0QAC true</span></code></pre></div>
+<span class="co">#&gt; 1 0036A00000kHth8QAC true   </span>
+<span class="co">#&gt; 2 0036A00000kHth9QAC true</span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">

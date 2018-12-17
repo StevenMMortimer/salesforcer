@@ -163,7 +163,8 @@ build_soap_xml_from_list <- function(input_data,
                                                    "update", "upsert", 
                                                    "delete", "search", 
                                                    "query", "queryMore", 
-                                                   "describeSObjects"),
+                                                   "describeSObjects", 
+                                                   "setPassword", "resetPassword"),
                                      object_name=NULL,
                                      fields=NULL,
                                      external_id_fieldname=NULL,
@@ -231,6 +232,17 @@ build_soap_xml_from_list <- function(input_data,
                               parent=operation_node)
     }
     
+  } else if(which_operation == "setPassword"){
+    this_node <- newXMLNode("userId", 
+                            input_data$userId,
+                            parent=operation_node)
+    this_node <- newXMLNode("password", 
+                            input_data$password,
+                            parent=operation_node)
+  } else if(which_operation == "resetPassword"){
+    this_node <- newXMLNode("userId", 
+                            input_data$userId,
+                            parent=operation_node)
   } else {
     
     for(i in 1:nrow(input_data)){

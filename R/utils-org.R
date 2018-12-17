@@ -3,19 +3,141 @@
 #' Retrieves personal information for the user associated with the current session.
 #' 
 #' @importFrom httr content
+#' @importFrom XML newXMLNode
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom purrr map_df
+#' @template api_type
+#' @template verbose
 #' @return \code{list}
 #' @examples
 #' \dontrun{
 #' sf_user_info()
 #' }
 #' @export
-sf_user_info <- function(){
-  # ensure we are authenticated first so the url can be formed
-  chatter_url <- make_chatter_users_url()
-  httr_response <- rGET(sprintf("%s%s", chatter_url, "me"))
+sf_user_info <- function(api_type=c("SOAP", "Chatter"), verbose=FALSE){
+  
+  api_type <- match.arg(api_type)
+  
+  if(api_type == "SOAP"){
+    
+    base_soap_url <- make_base_soap_url()
+    if(verbose) {
+      message(base_soap_url)
+    }
+    
+    # build the body
+    xml_dat <- make_soap_xml_skeleton()
+    body_node <- newXMLNode("soapenv:Body", parent=xml_dat)
+    operation_node <- newXMLNode(sprintf("urn:%s", "getUserInfo"), parent=body_node)
+    
+    httr_response <- rPOST(url = base_soap_url,
+                           headers = c("SOAPAction"="create",
+                                       "Content-Type"="text/xml"),
+                           body = as(xml_dat, "character"))
+    
+    catch_errors(httr_response)
+    response_parsed <- content(httr_response, encoding='UTF-8')
+    
+    this_res <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result') %>%
+      map_df(xml_nodeset_to_df) %>% 
+      as.list()
+    
+  } else if(api_type == "Chatter"){ 
+    
+    chatter_url <- make_chatter_users_url()
+    this_url <- sprintf("%s%s", chatter_url, "me")
+    if(verbose) {
+      message(this_url)
+    }
+    
+    httr_response <- rGET(this_url)
+    catch_errors(httr_response)
+    this_res <- content(httr_response, encoding='UTF-8')
+    
+  } else {
+    stop("Unknown API type")
+  }
+  return(this_res)
+}
+
+#' Set User Password
+#' 
+#' Sets the specified user’s password to the specified value.
+#' 
+#' @param user_id character; the unique Salesforce Id assigned to the User
+#' @param password character; a new password that you would like to set for the 
+#' supplied user that complies to your organizations password requirements
+#' @template verbose
+#' @return \code{list}
+#' @examples
+#' \dontrun{
+#' sf_set_password(user_id = "0056A000000ZZZaaBBB", password="password123")
+#' }
+#' @export
+sf_set_password <- function(user_id, password, verbose=FALSE){
+  
+  base_soap_url <- make_base_soap_url()
+  if(verbose) {
+    message(base_soap_url)
+  }
+  
+  # build the body
+  r <- make_soap_xml_skeleton()
+  xml_dat <- build_soap_xml_from_list(input_data = list(userId=user_id, 
+                                                        password=password),
+                                      operation = "setPassword",
+                                      root=r)
+  
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="create",
+                                     "Content-Type"="text/xml"),
+                         body = as(xml_dat, "character"))
+  catch_errors(httr_response)
+  return(TRUE)
+}
+
+#' Reset User Password
+#' 
+#' Changes a user’s password to a temporary, system-generated value.
+#' 
+#' @importFrom httr content
+#' @importFrom xml2 xml_ns_strip xml_find_all xml_text
+#' @param user_id character; the unique Salesforce Id assigned to the User
+#' @template verbose
+#' @return \code{list}
+#' @examples
+#' \dontrun{
+#' sf_reset_password(user_id = "0056A000000ZZZaaBBB")
+#' }
+#' @export
+sf_reset_password <- function(user_id, verbose=FALSE){
+  
+  base_soap_url <- make_base_soap_url()
+  if(verbose) {
+    message(base_soap_url)
+  }
+  
+  # build the body
+  r <- make_soap_xml_skeleton()
+  xml_dat <- build_soap_xml_from_list(input_data = list(userId=user_id),
+                                      operation = "resetPassword",
+                                      root=r)
+  
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="create",
+                                     "Content-Type"="text/xml"),
+                         body = as(xml_dat, "character"))
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding='UTF-8')
-  return(response_parsed)
+  
+  this_res <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_text()
+  
+  return(this_res)
 }
 
 #' Salesforce Server Timestamp

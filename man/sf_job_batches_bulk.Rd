@@ -10,8 +10,8 @@ sf_job_batches_bulk(job_id, api_type = c("Bulk 1.0"), verbose = FALSE)
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 
 returned by \link{sf_create_job_bulk}}
 
-\item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
-which API to use when making the request}
+\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
+"Chatter" indicating which API to use when making the request}
 
 \item{verbose}{logical; do you want informative messages?}
 }

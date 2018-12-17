@@ -4,7 +4,13 @@
 \alias{sf_user_info}
 \title{Return Current User Info}
 \usage{
-sf_user_info()
+sf_user_info(api_type = c("SOAP", "Chatter"), verbose = FALSE)
+}
+\arguments{
+\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
+"Chatter" indicating which API to use when making the request}
+
+\item{verbose}{logical; do you want informative messages?}
 }
 \value{
 \code{list}

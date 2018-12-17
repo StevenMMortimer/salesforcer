@@ -3,7 +3,19 @@ context("Org Utils")
 test_that("testing sf_user_info()", {
   res <- sf_user_info() 
   expect_is(res, "list")
+  expect_true(all(c("userId", "organizationId", "userFullName", "userEmail") %in% names(res)))
+  
+  res <- sf_user_info(api_type="Chatter") 
+  expect_is(res, "list")
   expect_true(all(c("id", "isActive", "firstName", "lastName", "email") %in% names(res)))
+})
+
+test_that("testing sf_set_password()", {
+  # nothing right now
+})
+
+test_that("testing sf_reset_password()", {
+  # nothing right now
 })
 
 test_that("testing sf_server_timestamp()", {
