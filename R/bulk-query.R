@@ -178,8 +178,7 @@ sf_query_bulk <- function(soql,
   }
   if (!status_complete) {
     message("Function's Time Limit Exceeded. Aborting Job Now")
-    res <- sf_abort_job_bulk(job_info$id, api_type=api_type, 
-                             verbose=verbose)
+    res <- sf_abort_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
   } else {
     batch_query_details <- sf_batch_details_bulk(job_id = batch_query_info$jobId,
                                                  batch_id = batch_query_info$id, 
@@ -189,9 +188,10 @@ sf_query_bulk <- function(soql,
                                 batch_id = batch_query_info$id,
                                 result_id = batch_query_details$result,
                                 guess_types = guess_types,
-                                api_type = "Bulk 1.0", 
+                                api_type = api_type,
                                 verbose = verbose)
-    close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, 
+    close_job_info <- sf_close_job_bulk(job_info$id, 
+                                        api_type = api_type, 
                                         verbose = verbose)
   }
   return(res)

@@ -308,7 +308,6 @@ sf_end_job_bulk <- function(job_id,
 #' @export
 sf_close_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), verbose = FALSE){
   api_type <- match.arg(api_type)
-  job_info <- sf_get_job_bulk(job_id, api_type = api_type, verbose = verbose)
   sf_end_job_bulk(job_id, end_type = "Closed", api_type = api_type, verbose=verbose)
 }
 
@@ -350,7 +349,7 @@ sf_upload_complete_bulk <- function(job_id, api_type=c("Bulk 2.0"),
 #' sf_abort_job_bulk(job_info$id)
 #' }
 #' @export
-sf_abort_job_bulk <- function(job_id, api_type=c("Bulk 2.0"), 
+sf_abort_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), 
                               verbose = FALSE){
   api_type <- match.arg(api_type)
   sf_end_job_bulk(job_id, end_type = "Aborted", api_type = api_type, verbose=verbose)
