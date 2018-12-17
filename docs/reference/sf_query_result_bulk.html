@@ -181,6 +181,12 @@ batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bul
       <td><p>a character string returned from <a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to get the recordset</p></td>
     </tr>
     <tr>
+      <th>guess_types</th>
+      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
+and FALSE returns all values as character strings.</p></td>
+    </tr>
+    <tr>
       <th>api_type</th>
       <td><p>character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request</p></td>

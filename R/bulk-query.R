@@ -67,6 +67,9 @@ sf_submit_query_bulk <- function(job_id, soql,
 #' @template job_id
 #' @template batch_id
 #' @param result_id a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset
+#' @param guess_types logical; indicating whether or not to use \code{col_guess()} 
+#' to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+#' and FALSE returns all values as character strings.
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df}, formatted by salesforce, containing query results
@@ -177,7 +180,8 @@ sf_query_bulk <- function(soql,
     }
   }
   if (!status_complete) {
-    message("Function's Time Limit Exceeded. Aborting Job Now")
+    message("The query took too long to complete. Aborting job now.")
+    message("Consider increasing the `max_attempts` and/or `interval_seconds` arguments.")
     res <- sf_abort_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
   } else {
     batch_query_details <- sf_batch_details_bulk(job_id = batch_query_info$jobId,

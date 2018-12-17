@@ -16,6 +16,10 @@ batch as returned by \link{sf_create_batches_bulk}}
 
 \item{result_id}{a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset}
 
+\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+and FALSE returns all values as character strings.}
+
 \item{api_type}{character; one of "REST", "SOAP", or "Bulk" indicating 
 which API to use when making the request}
 

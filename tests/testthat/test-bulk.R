@@ -110,7 +110,7 @@ test_that("testing Bulk 2.0 Functionality", {
   created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 2.0")
   expect_is(created_records, "tbl_df")
   expect_named(created_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
-                                  "test_number__c", "My_External_Id__c", "sf__Error"))  
+                                  "My_External_Id__c", "test_number__c", "sf__Error"))  
   expect_equal(nrow(created_records), n)
   expect_true(all(is.na(created_records$sf__Error)))
   expect_true(all(created_records$sf__Created == "true"))
@@ -153,7 +153,7 @@ test_that("testing Bulk 2.0 Functionality", {
   updated_records <- sf_update(queried_records, object_name="Contact", api_type="Bulk 2.0")
   expect_is(updated_records, "tbl_df")
   expect_named(updated_records, c("sf__Id", "sf__Created", "FirstName", "Id", "LastName", 
-                                  "test_number__c", "My_External_Id__c", "sf__Error"))  
+                                  "My_External_Id__c", "test_number__c", "sf__Error"))  
   expect_equal(nrow(updated_records), nrow(queried_records))
   expect_true(all(is.na(updated_records$sf__Error)))
   expect_true(all(updated_records$sf__Created == "false"))  

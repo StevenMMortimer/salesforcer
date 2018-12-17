@@ -68,7 +68,8 @@ test_that("testing rforcecom.create compatibility", {
   expect_equal(nrow(result1), nrow(result2))
   
   # clean up
-  delete_result1 <- sf_delete(ids=c(result1$id, result2$id), object)
+  delete_result1 <- sf_delete(ids=c(as.character(result1$id), 
+                                    as.character(result2$id)), object_name = object)
 })
 
 test_that("testing rforcecom.delete compatibility", {

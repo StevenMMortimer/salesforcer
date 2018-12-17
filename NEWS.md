@@ -4,12 +4,15 @@
 
   * Add **RForcecom** backward compatibile version of `rforcecom.getObjectDescription()`
   * Add `sf_describe_object_fields()` which is a tidyier version of `rforcecom.getObjectDescription()`
-  * Allow users to control whether bulk query results are kept as all character or the types are guessed (#12)
+  * Allow users to control whether bulk query results are kept as all character or 
+  the types are guessed (#12)
   
 ### Bug Fixes
 
-  * Fix bug where Username/Password authenticated sessions where not working with api_type = "Bulk 1.0"
-  * Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (#13)
+  * Fix bug where Username/Password authenticated sessions where not working with 
+  api_type = "Bulk 1.0"
+  * Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort 
+  since that only supported aborting Bulk 2.0 jobs (#13)
   
 ---
   
