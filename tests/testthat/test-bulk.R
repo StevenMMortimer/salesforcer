@@ -156,7 +156,7 @@ test_that("testing Bulk 2.0 Functionality", {
                                   "My_External_Id__c", "test_number__c", "sf__Error"))  
   expect_equal(nrow(updated_records), nrow(queried_records))
   expect_true(all(is.na(updated_records$sf__Error)))
-  expect_true(all(updated_records$sf__Created))  
+  expect_true(all(!updated_records$sf__Created))
   
   new_record <- tibble(FirstName = "Test",
                        LastName = paste0("Contact-Upsert-", n+1), 

@@ -82,7 +82,7 @@ test_that("sf_create_metadata", {
   expect_is(custom_object_result, "tbl_df")
   expect_named(custom_object_result, c('fullName', 'success'))
   expect_equal(nrow(custom_object_result), 1)
-  expect_equal(all(custom_object_result$success))
+  expect_true(all(custom_object_result$success))
   
   expect_is(create_fields_result1, "tbl_df")
   expect_named(create_fields_result1, c('fullName', 'success'))
@@ -99,7 +99,7 @@ test_that("sf_update_metadata", {
   expect_is(updated_custom_object_result, "tbl_df")
   expect_named(updated_custom_object_result, c('fullName', 'success'))
   expect_equal(nrow(updated_custom_object_result), 1)
-  expect_equal(all(updated_custom_object_result$success))
+  expect_true(all(updated_custom_object_result$success))
 })
 
 test_that("sf_rename_metadata", {
