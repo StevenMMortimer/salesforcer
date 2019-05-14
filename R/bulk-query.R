@@ -32,8 +32,8 @@
 #' }
 #' @export
 sf_submit_query_bulk <- function(job_id, soql, 
-                                 api_type=c("Bulk 1.0"), 
-                                 verbose=FALSE){
+                                 api_type = c("Bulk 1.0"), 
+                                 verbose = FALSE){
   
   api_type <- match.arg(api_type)
   bulk_query_url <- make_bulk_query_url(job_id, api_type=api_type)
@@ -67,9 +67,7 @@ sf_submit_query_bulk <- function(job_id, soql,
 #' @template job_id
 #' @template batch_id
 #' @param result_id a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset
-#' @param guess_types logical; indicating whether or not to use \code{col_guess()} 
-#' to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-#' and FALSE returns all values as character strings.
+#' @template guess_types
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df}, formatted by salesforce, containing query results
@@ -140,11 +138,11 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
 #' @export
 sf_query_bulk <- function(soql,
                           object_name,
-                          guess_types=TRUE,
+                          guess_types = TRUE,
                           api_type = c("Bulk 1.0"),
-                          interval_seconds=5,
-                          max_attempts=100, 
-                          verbose=FALSE){
+                          interval_seconds = 5,
+                          max_attempts = 100, 
+                          verbose = FALSE){
   
   # if(is.null(object_name)){
   #   object_name <- gsub("(.*)from\\s+([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE, perl=TRUE)

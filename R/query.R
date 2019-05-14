@@ -5,6 +5,7 @@
 #' 
 #' @template soql
 #' @template object_name
+#' @template guess_types
 #' @param queryall logical; indicating if the query recordset should include 
 #' deleted and archived records (available only when querying Task and Event records)
 #' @param page_size numeric; a number between 200 and 2000 indicating the number of 
@@ -36,17 +37,19 @@
 #' @export
 sf_query <- function(soql,
                      object_name,
-                     queryall=FALSE,
-                     page_size=1000,
-                     api_type=c("REST", "SOAP", "Bulk 1.0"),
-                     next_records_url=NULL,
+                     guess_types = TRUE,
+                     queryall = FALSE,
+                     page_size = 1000,
+                     api_type = c("REST", "SOAP", "Bulk 1.0"),
+                     next_records_url = NULL,
                      ...,
-                     verbose=FALSE){
+                     verbose = FALSE){
   
   api_type <- match.arg(api_type)
   if(api_type == "REST"){
     resultset <- sf_query_rest(soql=soql,
                                object_name=object_name,
+                               guess_types=guess_types,
                                queryall=queryall,
                                page_size=page_size,
                                next_records_url=next_records_url,
@@ -54,6 +57,7 @@ sf_query <- function(soql,
   } else if(api_type == "SOAP"){
     resultset <- sf_query_soap(soql=soql,
                                object_name=object_name,
+                               guess_types=guess_types,
                                queryall=queryall,
                                page_size=page_size,
                                next_records_url=next_records_url,
@@ -62,7 +66,7 @@ sf_query <- function(soql,
     if(missing(object_name)){
       stop("object_name is missing. This argument must be provided when using the Bulk API.")
     }
-    resultset <- sf_query_bulk(soql=soql, object_name=object_name, verbose=verbose, ...)
+    resultset <- sf_query_bulk(soql=soql, object_name=object_name, guess_types=guess_types, verbose=verbose, ...)
   } else {
     stop("Unknown API type")
   }
@@ -73,15 +77,15 @@ sf_query <- function(soql,
 #' @importFrom dplyr bind_rows as_tibble select matches
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON
-#' @importFrom readr type_convert cols
+#' @importFrom readr type_convert cols col_guess
 sf_query_rest <- function(soql,
                           object_name,
-                          queryall=FALSE,
-                          page_size=1000,
-                          api_type=c("REST", "SOAP", "Bulk 1.0"),
-                          next_records_url=NULL,
+                          guess_types = TRUE,
+                          queryall = FALSE,
+                          page_size = 1000,
+                          next_records_url = NULL,
                           ...,
-                          verbose=FALSE){
+                          verbose = FALSE){
   
   query_url <- make_query_url(soql, queryall, next_records_url)
   if(verbose) message(query_url)
@@ -98,7 +102,7 @@ sf_query_rest <- function(soql,
     resultset <- response_parsed$records %>% 
       select(-matches("^attributes\\.")) %>%
       select(-matches("\\.attributes\\.")) %>%
-      type_convert(col_types = cols()) %>%
+#      type_convert(col_types = cols()) %>%
       as_tibble()
   } else {
     resultset <- NULL
@@ -110,8 +114,14 @@ sf_query_rest <- function(soql,
   
   # check whether it has next record
   if(!is.null(next_records_url)){
-    next_records <- sf_query_rest(next_records_url=next_records_url)
+    next_records <- sf_query_rest(next_records_url = next_records_url)
     resultset <- bind_rows(resultset, next_records)
+  }
+  
+  # cast if requested using type_convert
+  if(guess_types & nrow(resultset) > 0){
+    resultset <- resultset %>% 
+      type_convert(col_types = cols(.default = col_guess()))
   }
   
   return(resultset)
@@ -121,15 +131,16 @@ sf_query_rest <- function(soql,
 #' @importFrom dplyr bind_rows as_tibble select matches contains rename_at
 #' @importFrom httr content
 #' @importFrom purrr map_df
-#' @importFrom readr type_convert cols
+#' @importFrom readr type_convert cols col_guess
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 sf_query_soap <- function(soql,
                           object_name,
-                          queryall=FALSE,
-                          page_size=1000,
-                          next_records_url=NULL,
+                          guess_types = TRUE,
+                          queryall = FALSE,
+                          page_size = 1000,
+                          next_records_url = NULL,
                           ...,
-                          verbose=FALSE){
+                          verbose = FALSE){
   
   if(!is.null(next_records_url)){
     soap_action <- "queryMore"
@@ -168,7 +179,6 @@ sf_query_soap <- function(soql,
                 .funs = funs(gsub("sf:", "", .))) %>%
       rename_at(.vars = vars(contains("Id1")), 
                 .funs = funs(gsub("Id1", "Id", .))) %>%
-      type_convert(col_types = cols()) %>%
       as_tibble()
   } else {
     resultset <- NULL
@@ -184,8 +194,14 @@ sf_query_soap <- function(soql,
       xml_ns_strip() %>%
       xml_find_first('.//queryLocator') %>%
       xml_text()
-    next_records <- sf_query_soap(next_records_url=query_locator)
+    next_records <- sf_query_soap(next_records_url = query_locator)
     resultset <- bind_rows(resultset, next_records)      
+  }
+  
+  # cast if requested using type_convert
+  if(guess_types & nrow(resultset) > 0){
+    resultset <- resultset %>% 
+      type_convert(col_types = cols(.default = col_guess()))
   }
   
   return(resultset)

@@ -10,13 +10,14 @@ init:
 install:
   ps: Bootstrap
 
+cache:
+  - C:\RLibrary
+
 # Adapt as necessary starting from here
 
 environment:
   global:
     WARNINGS_ARE_ERRORS: 1
-    GITHUB_PAT:
-      secure: rB/cmoAvBkFGGhZ+FxtrOheZkVdMGWNqc/p0385ST0d81SKvkL1WmqZFsf7PhCtF
 
   matrix:
   - R_VERSION: devel
@@ -27,7 +28,6 @@ environment:
     GCC_PATH: mingw_32
 
 build_script:
-  - travis-tool.sh install_github r-pkgs/remotes@303db43
   - travis-tool.sh install_deps
 
 test_script:
