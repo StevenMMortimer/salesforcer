@@ -129,7 +129,7 @@ sf_auth <- function(username = NULL,
                                 redirect_uri = callback_url)
       
       sf_oauth_endpoints <- oauth_endpoint(request = NULL,
-                                           base_url = "https://login.salesforce.com/services/oauth2",
+                                           base_url = paste0(login_url,"/services/oauth2"),
                                            authorize = "authorize", access = "token", revoke = "revoke")
       
       sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
