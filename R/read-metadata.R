@@ -87,11 +87,57 @@ sf_describe_object_fields <- function(object_name){
   
   stopifnot(length(object_name) == 1)
   
+  obj_dat <- sf_describe_objects(object_names = object_name, api_type = "SOAP")[[1]]
+  obj_fields_list <- obj_dat[names(obj_dat) == "fields"] %>% map(collapse_list_with_dupe_names)
+  
   # suppress deprecation warnings
   suppressWarnings(obj_fields_dat <- rforcecom.getObjectDescription(objectName=object_name))
-  obj_fields_dat <- obj_fields_dat %>% 
-    as_tibble() %>%
-    type_convert(col_types=cols())
+  obj_fields_dat <- obj_fields_list %>% 
+    # explicitly combine duplicated names because many tidyverse functions break whenever that occurs
+    map(collapse_list_with_dupe_names) %>% 
+    # convert the fields, some simple datatypes, some complex datatypes (lists) into one row each
+    map_df(~as_tibble(modify_if(., ~(length(.x) > 1 | is.list(.x)), list)))
   
   return(obj_fields_dat)
+}
+
+#' Collapse Elements in List with Same Name
+#' 
+#' This function looks for instances of elements in a list that have the same name 
+#' and then combine them all into a single comma separated character string (referenceTo) 
+#' or \code{tbl_df} (picklistValues).
+#' 
+#' @importFrom readr type_convert cols
+#' @importFrom dplyr as_tibble
+#' @param x list; a list, typically returned from the API that we would parse through
+#' @note The tibble only contains the fields that the user can view, as defined by 
+#' the user's field-level security settings.
+#' @return A \code{list} containing one row per field for the requested object.
+#' @examples \dontrun{
+#' obj_dat <- sf_describe_objects(object_names = object_name, api_type = "SOAP")[[1]]
+#' obj_fields_list <- obj_dat[names(obj_dat) == "fields"] %>% 
+#'   map(collapse_list_with_dupe_names)
+#' }
+#' @export
+collapse_list_with_dupe_names <- function(x){
+  dupes_exist <- any(duplicated(names(x)))
+  if(dupes_exist){
+    dupe_field_names <- unique(names(x)[duplicated(names(x))])
+    for(f in dupe_field_names){
+      target_idx <- which(names(x) == f)
+      obj_field_dupes <- x[target_idx]
+      if(all(sapply(obj_field_dupes, length) == 1)){
+        collapsed <- paste0(unlist(obj_field_dupes), collapse = ",")
+      } else {
+        collapsed <- map_df(obj_field_dupes, as_tibble) %>%
+          type_convert(col_types = cols()) %>% 
+          list()
+      }
+      # replace into first
+      x[head(target_idx,1)] <- collapsed
+      # remove the rest
+      x[tail(target_idx,-1)] <- NULL 
+    }
+  }
+  return(x)
 }
