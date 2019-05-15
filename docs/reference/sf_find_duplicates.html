@@ -199,13 +199,15 @@ rules on the search criteria to determine which records in other objects are dup
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># if insert a lead with this email address, what duplicate records exist elsewhere </span>
-<span class='co'># according to the Lead object's duplicate rules</span>
-<span class='no'>found_dupes</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_find_duplicates</span>(<span class='kw'>search_criteria</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>Email</span> <span class='kw'>=</span> <span class='st'>"bond_john@grandhotels.com"</span>),
+<span class='co'># use the duplicate rules associated with the Lead object on the search </span>
+<span class='co'># criteria (email) in order to find duplicates</span>
+<span class='no'>found_dupes</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_find_duplicates</span>(<span class='kw'>search_criteria</span> <span class='kw'>=</span>
+                                    <span class='fu'>list</span>(<span class='kw'>Email</span><span class='kw'>=</span><span class='st'>"bond_john@grandhotels.com"</span>),
                                   <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Lead"</span>)
 
-<span class='co'># now look across all other objects using the Contact object rules</span>
-<span class='no'>found_dupes</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_find_duplicates</span>(<span class='kw'>search_criteria</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>Email</span> <span class='kw'>=</span> <span class='st'>"bond_john@grandhotels.com"</span>),
+<span class='co'># now look for duplicates on email using the Contact object's rules</span>
+<span class='no'>found_dupes</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_find_duplicates</span>(<span class='kw'>search_criteria</span> <span class='kw'>=</span>
+                                    <span class='fu'>list</span>(<span class='kw'>Email</span><span class='kw'>=</span><span class='st'>"bond_john@grandhotels.com"</span>),
                                   <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>)
 <span class='co'># }</span></pre>
   </div>

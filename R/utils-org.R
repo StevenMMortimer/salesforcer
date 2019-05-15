@@ -290,13 +290,15 @@ sf_list_objects <- function(){
 #' rules on the search criteria to determine which records in other objects are duplicates.
 #' @examples
 #' \dontrun{
-#' # if insert a lead with this email address, what duplicate records exist elsewhere 
-#' # according to the Lead object's duplicate rules
-#' found_dupes <- sf_find_duplicates(search_criteria = list(Email = "bond_john@@grandhotels.com"),
+#' # use the duplicate rules associated with the Lead object on the search 
+#' # criteria (email) in order to find duplicates
+#' found_dupes <- sf_find_duplicates(search_criteria = 
+#'                                     list(Email="bond_john@@grandhotels.com"),
 #'                                   object_name = "Lead")
 #'                                   
-#' # now look across all other objects using the Contact object rules
-#' found_dupes <- sf_find_duplicates(search_criteria = list(Email = "bond_john@@grandhotels.com"),
+#' # now look for duplicates on email using the Contact object's rules
+#' found_dupes <- sf_find_duplicates(search_criteria = 
+#'                                     list(Email="bond_john@@grandhotels.com"),
 #'                                   object_name = "Contact")
 #' }
 #' @export
@@ -379,6 +381,8 @@ sf_find_duplicates <- function(search_criteria,
 #' Account object.
 #' @examples 
 #' \dontrun{
+#' # use the duplicate rules associated with the object that this record 
+#' # belongs to in order to find duplicates
 #' found_dupes <- sf_find_duplicates_by_id(sf_id = "00Q6A00000aABCnZZZ")
 #' }
 #' @export

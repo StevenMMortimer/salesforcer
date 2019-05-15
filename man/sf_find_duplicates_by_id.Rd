@@ -31,6 +31,8 @@ Account object.
 }
 \examples{
 \dontrun{
+# use the duplicate rules associated with the object that this record 
+# belongs to in order to find duplicates
 found_dupes <- sf_find_duplicates_by_id(sf_id = "00Q6A00000aABCnZZZ")
 }
 }
