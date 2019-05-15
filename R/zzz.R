@@ -2,7 +2,7 @@
   
   op <- options()
   op.salesforcer <- list(
-    salesforcer.api_version = "42.0",
+    salesforcer.api_version = "45.0",
     salesforcer.login_url = "https://login.salesforce.com",
     salesforcer.consumer_key = "3MVG9CEn_O3jvv0yRMQezJ8PwesiIknRU9v9j778rv78UvJ2JTQzSG.QduxyMxYaldoNEhO0eVvw4ogCT58c5",
     salesforcer.consumer_secret = "3471656211653393546",

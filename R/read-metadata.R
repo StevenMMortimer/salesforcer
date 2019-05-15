@@ -110,6 +110,7 @@ sf_describe_object_fields <- function(object_name){
 #' 
 #' @importFrom readr type_convert cols
 #' @importFrom dplyr as_tibble
+#' @importFrom utils head tail
 #' @param x list; a list, typically returned from the API that we would parse through
 #' @note The tibble only contains the fields that the user can view, as defined by 
 #' the user's field-level security settings.
