@@ -60,7 +60,6 @@ sf_input_data_validation <- function(input_data, operation=''){
   # TODO:  Automatic date validation
   # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm
   
-  # put everything into a data.frame format if it's not already
   if(!is.data.frame(input_data)){
     if(is.null(names(input_data))){
       if(!is.list(input_data)){
@@ -77,11 +76,11 @@ sf_input_data_validation <- function(input_data, operation=''){
     names(input_data) <- "sObjectType"
   }
   
-  if(operation %in% c("delete", "retrieve") & ncol(input_data) == 1){
+  if(operation %in% c("delete", "retrieve", "findDuplicatesByIds") & ncol(input_data) == 1){
     names(input_data) <- "Id"
   }
   
-  if(operation %in% c("delete", "update")){
+  if(operation %in% c("delete", "update", "findDuplicatesByIds")){
     if(any(grepl("^ID$|^IDS$", names(input_data), ignore.case=TRUE))){
       idx <- grep("^ID$|^IDS$", names(input_data), ignore.case=TRUE)
       names(input_data)[idx] <- "Id"
@@ -91,3 +90,87 @@ sf_input_data_validation <- function(input_data, operation=''){
   
   return(input_data)
 }
+
+api_headers <- function(api_type=NULL, 
+                        AllorNoneHeader=list(allOrNone=FALSE), 
+                        AllowFieldTruncationHeader=list(allowFieldTruncation=FALSE), 
+                        AssignmentRuleHeader=list(useDefaultRule=TRUE),
+                        CallOptions=list(client=NA, defaultNamespace=NA), 
+                        DisableFeedTrackingHeader=list(disableFeedTracking=FALSE), 
+                        DuplicateRuleHeader=list(allowSave=FALSE, 
+                                                 includeRecordDetails=FALSE, 
+                                                 runAsCurrentUser=TRUE), 
+                        EmailHeader=list(triggerAutoResponseEmail=FALSE, 
+                                         triggerOtherEmail=FALSE, 
+                                         triggerUserEmail=TRUE), 
+                        LimitInfoHeader=list(current="20", 
+                                             limit="250", 
+                                             type="API REQUESTS"), 
+                        LocaleOptions=list(language=NA), 
+                        LoginScopeHeader=list(organizationId=NA, 
+                                              portalId=NA), 
+                        MruHeader=list(updateMru=FALSE), 
+                        OwnerChangeOptions=list(options=list(list(execute=FALSE, 
+                                                                  type="EnforceNewOwnerHasReadAccess"),
+                                                             list(execute=TRUE, 
+                                                                  type="KeepSalesTeam"),
+                                                             list(execute=FALSE, 
+                                                                  type="KeepSalesTeamGrantCurrentOwnerReadWriteAccess"),
+                                                             list(execute=TRUE, 
+                                                                  type="TransferOpenActivities"),
+                                                             list(execute=FALSE, 
+                                                                  type="TransferNotesAndAttachments"),
+                                                             list(execute=TRUE, 
+                                                                  type="TransferOtherOpenOpportunities"),
+                                                             list(execute=TRUE, 
+                                                                  type="TransferOwnedOpenOpportunities"),
+                                                             list(execute=TRUE, 
+                                                                  type="TransferContracts"),
+                                                             list(execute=TRUE, 
+                                                                  type="TransferOrders"),
+                                                             list(execute=TRUE, 
+                                                                  type="TransferContacts"))), 
+                        PackageVersionHeader=list(packageVersions=NA), 
+                        QueryOptions=list(batchSize=500), 
+                        SessionHeader=list(sessionId=NA), 
+                        UserTerritoryDeleteHeader=list(transferToUserId=NA), 
+                        ContentTypeHeader=list(`Content-Type`="application/xml"), 
+                        BatchRetryHeader=list(`Sforce-Disable-Batch-Retry`=FALSE), 
+                        LineEndingHeader=list(`Sforce-Line-Ending`=NA), 
+                        PKChunkingHeader=list(`Sforce-Enable-PKChunking`=FALSE)){
+  
+  # check if its in the supplied and known list
+  # tailor the search to the API 
+  
+  api_type <- match.arg(api_type)
+  
+  if(!is.null()){
+    if(api_type == "SOAP"){
+      
+    } else if(api_type == "REST"){
+      
+    } else if(api_type == "Bulk 1.0"){
+      
+    } else {
+      # do nothing
+    }
+  }
+    
+  sf_user_info()$userLocale
+  
+  list()
+}
+
+
+
+# TESTING
+# # if x is used, then it must be supplied or given a default
+# # Error in zz() : argument "x" is missing, with no default
+# zz <- function(x,y){
+#   if(missing(x)){
+#     x <- 2
+#   }
+#   xx <- x
+#   return(5)
+# }
+

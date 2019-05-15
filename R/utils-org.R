@@ -270,6 +270,182 @@ sf_list_objects <- function(){
   return(response_parsed)
 }
 
+#' Find Duplicate Records
+#' 
+#' Performs rule-based searches for duplicate records.
+#' 
+#' @importFrom dplyr select rename_at everything matches as_tibble
+#' @importFrom readr cols type_convert
+#' @importFrom purrr map_df 
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom httr content
+#' @param search_criteria \code{list}; a list of fields and their values that would 
+#' constitute a match. For example, list(FirstName="Marc", Company="Salesforce")
+#' @template object_name
+#' @template include_record_details
+#' @template verbose
+#' @return \code{tbl_df} of records found to be duplicates by the match rules
+#' @note You must have actived duplicate rules for the supplied object before running 
+#' this function. The \code{object_name} argument refers to using that object's duplicate 
+#' rules on the search criteria to determine which records in other objects are duplicates.
+#' @examples
+#' \dontrun{
+#' # if insert a lead with this email address, what duplicate records exist elsewhere 
+#' # according to the Lead object's duplicate rules
+#' found_dupes <- sf_find_duplicates(search_criteria = list(Email = "bond_john@@grandhotels.com"),
+#'                                   object_name = "Lead")
+#'                                   
+#' # now look across all other objects using the Contact object rules
+#' found_dupes <- sf_find_duplicates(search_criteria = list(Email = "bond_john@@grandhotels.com"),
+#'                                   object_name = "Contact")
+#' }
+#' @export
+sf_find_duplicates <- function(search_criteria, 
+                               object_name, 
+                               include_record_details = FALSE,
+                               verbose = FALSE){
+  
+  base_soap_url <- make_base_soap_url()
+  if(verbose) {
+    message(base_soap_url)
+  }
+  
+  # build the body
+  r <- make_soap_xml_skeleton(soap_headers=list(DuplicateRuleHeader = list(includeRecordDetails = tolower(include_record_details))))
+  xml_dat <- build_soap_xml_from_list(input_data = search_criteria,
+                                      operation = "findDuplicates",
+                                      object_name = object_name,
+                                      root = r)
+
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="create",
+                                     "Content-Type"="text/xml"),
+                         body = as(xml_dat, "character"))
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding='UTF-8')
+  
+  duplicate_entitytype <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_find_all('.//duplicateResults//duplicateRuleEntityType') %>%
+    xml_text() %>% 
+    head(1)
+  
+  which_rules <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_find_all('.//duplicateResults//duplicateRule') %>%
+    map(xml_text) %>% 
+    unlist() %>% 
+    paste(collapse = ", ")
+  
+  message(sprintf("Using %s rules: %s", duplicate_entitytype, which_rules))
+  
+  this_res <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_find_all('.//duplicateResults//matchResults//matchRecords//record') %>% 
+    map_df(xml_nodeset_to_df) %>%
+    rename_at(.vars = vars(contains("sf:")), 
+              .funs = list(~gsub("sf:", "", .))) %>%
+    rename_at(.vars = vars(contains("Id1")), 
+              .funs = list(~gsub("Id1", "Id", .))) %>%
+    select(-matches("^V[0-9]+$")) %>%
+    # move columns without dot up since those are related entities
+    select(-matches("\\."), everything()) %>%
+    type_convert(col_types = cols()) %>%
+    as_tibble()
+  
+  # drop columns which are completely missing. This happens with this function whenever 
+  # a linked object is null for a record, so a column is created "sf:EntityName" that 
+  # is NA for that record and then NA for the other records since it is a non-null entity for them 
+  this_res <- Filter(function(x) !all(is.na(x)), this_res)
+  
+  return(this_res)
+}
+
+#' Find Duplicate Records By Id
+#' 
+#' Performs rule-based searches for duplicate records.
+#' 
+#' @template sf_id
+#' @template include_record_details
+#' @template verbose
+#' @return \code{tbl_df} of records found to be duplicates by the match rules
+#' @note You must have actived duplicate rules for the supplied object before running 
+#' this function. This function uses the duplicate rules for the object that has 
+#' the same type as the input record IDs. For example, if the record Id represents 
+#' an Account, this function uses the duplicate rules associated with the 
+#' Account object.
+#' @examples 
+#' \dontrun{
+#' found_dupes <- sf_find_duplicates_by_id(sf_id = "00Q6A00000aABCnZZZ")
+#' }
+#' @export
+sf_find_duplicates_by_id <- function(sf_id,
+                                     include_record_details = FALSE, 
+                                     verbose = FALSE){
+  
+  stopifnot(length(sf_id) == 1)
+  
+  base_soap_url <- make_base_soap_url()
+  if(verbose) {
+    message(base_soap_url)
+  }
+  
+  # build the body
+  r <- make_soap_xml_skeleton(soap_headers=list(DuplicateRuleHeader = list(includeRecordDetails = tolower(include_record_details))))
+  xml_dat <- build_soap_xml_from_list(input_data = sf_id,
+                                      operation = "findDuplicatesByIds",
+                                      root = r)
+  
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="create",
+                                     "Content-Type"="text/xml"),
+                         body = as(xml_dat, "character"))
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding='UTF-8')
+  
+  duplicate_entitytype <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_find_all('.//duplicateResults//duplicateRuleEntityType') %>%
+    xml_text() %>% 
+    head(1)
+  
+  which_rules <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_find_all('.//duplicateResults//duplicateRule') %>%
+    map(xml_text) %>% 
+    unlist() %>% 
+    paste(collapse = ", ")
+  
+  message(sprintf("Using %s rules: %s", duplicate_entitytype, which_rules))
+  
+  this_res <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    xml_find_all('.//duplicateResults//matchResults//matchRecords//record') %>% 
+    map_df(xml_nodeset_to_df) %>%
+    rename_at(.vars = vars(contains("sf:")), 
+              .funs = list(~gsub("sf:", "", .))) %>%
+    rename_at(.vars = vars(contains("Id1")), 
+              .funs = list(~gsub("Id1", "Id", .))) %>%
+    select(-matches("^V[0-9]+$")) %>%
+    # move columns without dot up since those are related entities
+    select(-matches("\\."), everything()) %>%
+    type_convert(col_types = cols()) %>%
+    as_tibble()
+  
+  # drop columns which are completely missing. This happens with this function whenever 
+  # a linked object is null for a record, so a column is created "sf:EntityName" that 
+  # is NA for that record and then NA for the other records since it is a non-null entity for them 
+  this_res <- Filter(function(x) !all(is.na(x)), this_res)
+  
+  return(this_res)
+}
+
 #' #' Delete from Recycle Bin
 #' #' 
 #' #' Delete records from the recycle bin immediately.

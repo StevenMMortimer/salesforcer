@@ -132,8 +132,12 @@ make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){
   if(length(soap_headers)>0){
     for(i in 1:length(soap_headers)){
       opt_node <- newXMLNode(paste0(ns_prefix, ":", names(soap_headers)[i]),
-                             as.character(soap_headers[[i]]),
                              parent=header_node)
+      for(j in 1:length(soap_headers[[i]])){
+        this_node <- newXMLNode(paste0(ns_prefix, ":", names(soap_headers[[i]])[j]),
+                                as.character(soap_headers[[i]][[j]]),
+                                parent=opt_node)
+      }
     }
   }
   return(root)
@@ -164,7 +168,8 @@ build_soap_xml_from_list <- function(input_data,
                                                    "delete", "search", 
                                                    "query", "queryMore", 
                                                    "describeSObjects", 
-                                                   "setPassword", "resetPassword"),
+                                                   "setPassword", "resetPassword", 
+                                                   "findDuplicates", "findDuplicatesByIds"),
                                      object_name=NULL,
                                      fields=NULL,
                                      external_id_fieldname=NULL,
@@ -216,7 +221,7 @@ build_soap_xml_from_list <- function(input_data,
                             input_data[1,1],
                             parent=operation_node)
     
-  } else if(which_operation %in% c("delete","retrieve")){
+  } else if(which_operation %in% c("delete","retrieve","findDuplicatesByIds")){
     
     for(i in 1:nrow(input_data)){
       this_node <- newXMLNode("urn:ids", 

@@ -22,7 +22,9 @@ knitr::opts_chunk$set(
 
 **salesforcer** is an R package that connects to Salesforce Platform APIs using 
 tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, 
-Bulk 2.0, and Metadata APIs. Package features include: 
+Bulk 2.0, and Metadata APIs.  
+
+Package features include: 
 
   * OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (`sf_auth()`)
   * CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs 

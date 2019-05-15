@@ -52,3 +52,16 @@ test_that("testing sf_list_objects()", {
   expect_true(all(c("Account", "Contact", "Lead", 
                     "Opportunity", "Task") %in% valid_object_names))
 })
+
+test_that("testing sf_find_duplicates()", {
+  duplicates_search <- sf_find_duplicates(search_criteria = list(Email="bond_john@grandhotels.com"),
+                                          object_name = "Contact")
+  expect_is(duplicates_search, "tbl_df")
+  expect_named(duplicates_search, c("type", "Id"))
+})
+
+test_that("testing sf_find_duplicates_by_id()", {
+  duplicates_search <- sf_find_duplicates_by_id(sf_id = "0036A000002C6McQAK")
+  expect_is(duplicates_search, "tbl_df")
+  expect_true(all(c("type", "Id") %in% names(duplicates_search)))
+})

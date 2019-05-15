@@ -4,10 +4,12 @@
 
   * Add **RForcecom** backward compatibile version of `rforcecom.getObjectDescription()`
   * Add `sf_describe_object_fields()` which is a tidyier version of `rforcecom.getObjectDescription()`
-  * Allow users to control whether bulk query results are kept as all character or 
-  the types are guessed (#12)
-  * Add `sf_get_all_jobs_bulk()` so that users can see retrieve details for all bulk jobs (#13)
+  * Allow users to control whether query results are kept as all character or the 
+  types are guessed (#12)
+  * Add `sf_get_all_jobs_bulk()` so that users can see retrieve details for all 
+  bulk jobs (#13)
   * Add new utility functions `sf_set_password()` and `sf_reset_password()` (#11)
+  * Add two new functions to check for duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`) (#4)
   
 ### Bug Fixes
 
@@ -15,6 +17,9 @@
   api_type = "Bulk 1.0"
   * Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort 
   since that only supported aborting Bulk 2.0 jobs (#13)
+  * Fix bug that had only production environment logins possible because of hard 
+  coding (@weckstm, #18)
+  * Make `sf_describe_object_fields()` more robust against nested list elements (#16)
   
 ---
   

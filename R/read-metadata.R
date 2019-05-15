@@ -73,7 +73,8 @@ sf_read_metadata <- function(metadata_type, object_names, verbose=FALSE){
 #' of the fields on that object by returning a tibble with one row per field.
 #' 
 #' @importFrom readr type_convert cols
-#' @importFrom dplyr as_tibble
+#' @importFrom dplyr as_tibble 
+#' @importFrom purrr modify_if
 #' @template object_name
 #' @note The tibble only contains the fields that the user can view, as defined by 
 #' the user's field-level security settings.

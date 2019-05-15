@@ -140,9 +140,8 @@ test_that("sf_read_metadata", {
 
 test_that("sf_describe_object_fields", {
   expect_is(desc_obj_fields_result, "tbl_df")
-  expect_true(all(c('Id', 'OwnerId', 'IsDeleted', 'Name', 'CreatedDate', 'CreatedById', 
-                    'LastModifiedDate', 'LastModifiedById', 'SystemModstamp', 'LastActivityDate') %in% 
-                    desc_obj_fields_result$name))
+  expect_true(all(c('name', 'label', 'length', 'custom', 
+                    'type', 'updateable') %in% names(desc_obj_fields_result)))
 })
 
 test_that("sf_retrieve_metadata", {

@@ -149,9 +149,9 @@
       <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="salesforcer-0-1-2-9000" class="section level2">
+    <div id="salesforcer-0129000" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0-1-2-9000" class="anchor"></a>salesforcer 0.1.2.9000</h2>
+<a href="#salesforcer-0129000" class="anchor"></a>salesforcer 0.1.2.9000</h2>
 <div id="features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
@@ -160,9 +160,10 @@
 </li>
 <li>Add <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> which is a tidyier version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>
 </li>
-<li>Allow users to control whether bulk query results are kept as all character or the types are guessed (<a href='https://github.com/StevenMMortimer/salesforcer/issues/12'>#12</a>)</li>
+<li>Allow users to control whether query results are kept as all character or the types are guessed (<a href='https://github.com/StevenMMortimer/salesforcer/issues/12'>#12</a>)</li>
 <li>Add <code><a href="../reference/sf_get_all_jobs_bulk.html">sf_get_all_jobs_bulk()</a></code> so that users can see retrieve details for all bulk jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</li>
 <li>Add new utility functions <code><a href="../reference/sf_set_password.html">sf_set_password()</a></code> and <code><a href="../reference/sf_reset_password.html">sf_reset_password()</a></code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/11'>#11</a>)</li>
+<li>Add two new functions to check for duplicates (<code><a href="../reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="../reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>)</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
@@ -171,13 +172,15 @@
 <ul>
 <li>Fix bug where Username/Password authenticated sessions where not working with api_type = “Bulk 1.0”</li>
 <li>Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</li>
+<li>Fix bug that had only production environment logins possible because of hard coding (<a href='http://github.com/weckstm'>@weckstm</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/18'>#18</a>)</li>
+<li>Make <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> more robust against nested list elements (<a href='https://github.com/StevenMMortimer/salesforcer/issues/16'>#16</a>)</li>
 </ul>
 <hr>
 </div>
 </div>
-    <div id="salesforcer-0-1-2-release" class="section level2">
+    <div id="salesforcer-012-release" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0-1-2-release" class="anchor"></a>salesforcer 0.1.2 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2">release</a>
+<a href="#salesforcer-012-release" class="anchor"></a>salesforcer 0.1.2 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2">release</a>
 </h2>
 <div id="features-1" class="section level3">
 <h3 class="hasAnchor">
@@ -190,9 +193,9 @@
 <hr>
 </div>
 </div>
-    <div id="salesforcer-0-1-1-release" class="section level2">
+    <div id="salesforcer-011-release" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0-1-1-release" class="anchor"></a>salesforcer 0.1.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1">release</a>
+<a href="#salesforcer-011-release" class="anchor"></a>salesforcer 0.1.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1">release</a>
 </h2>
 <div id="features-2" class="section level3">
 <h3 class="hasAnchor">
@@ -236,9 +239,9 @@
 <hr>
 </div>
 </div>
-    <div id="salesforcer-0-1-0-release" class="section level2">
+    <div id="salesforcer-010-release" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0-1-0-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
+<a href="#salesforcer-010-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
 </h2>
 <div id="features-3" class="section level3">
 <h3 class="hasAnchor">
@@ -286,10 +289,10 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#salesforcer-0-1-2-9000">0.1.2.9000</a></li>
-        <li><a href="#salesforcer-0-1-2-release">0.1.2</a></li>
-        <li><a href="#salesforcer-0-1-1-release">0.1.1</a></li>
-        <li><a href="#salesforcer-0-1-0-release">0.1.0</a></li>
+        <li><a href="#salesforcer-0129000">0.1.2.9000</a></li>
+        <li><a href="#salesforcer-012-release">0.1.2</a></li>
+        <li><a href="#salesforcer-011-release">0.1.1</a></li>
+        <li><a href="#salesforcer-010-release">0.1.0</a></li>
       </ul>
     </div>
   </div>

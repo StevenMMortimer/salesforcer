@@ -6,9 +6,10 @@
 \usage{
 build_soap_xml_from_list(input_data, operation = c("create", "retrieve",
   "update", "upsert", "delete", "search", "query", "queryMore",
-  "describeSObjects", "setPassword", "resetPassword"),
-  object_name = NULL, fields = NULL, external_id_fieldname = NULL,
-  root_name = NULL, ns = c(character(0)), root = NULL)
+  "describeSObjects", "setPassword", "resetPassword", "findDuplicates",
+  "findDuplicatesByIds"), object_name = NULL, fields = NULL,
+  external_id_fieldname = NULL, root_name = NULL,
+  ns = c(character(0)), root = NULL)
 }
 \arguments{
 \item{input_data}{a \code{data.frame} of data to fill the XML body}

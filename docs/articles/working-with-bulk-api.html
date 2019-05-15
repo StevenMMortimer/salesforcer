@@ -121,69 +121,69 @@
 <h3 class="hasAnchor">
 <a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h3>
 <p>First, load the <code>salesforcer</code> package and login.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
-<span class="kw">library</span>(salesforcer)
-<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</code></pre></div>
-<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. Here is the difference in using the REST API vs. the Bulk API to do an insert:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
-new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-<span class="co"># REST</span>
-rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)
-rest_created_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   id                 success errors    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000kHtipQAC TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000kHtiqQAC TRUE    &lt;list [0]&gt;</span>
-<span class="co"># Bulk</span>
-bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
-bulk_created_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Success Created Error</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000kHtiuQAC true    true    &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000kHtivQAC true    true    &lt;NA&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(salesforcer)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</a></code></pre></div>
+<p>For really large inserts, updates, deletes, upserts, queries you can just add “api_type” = “Bulk” to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. Here is the difference in using the REST API vs.  the Bulk API to do an insert:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">n &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb2-2" title="2">new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),</a>
+<a class="sourceLine" id="cb2-3" title="3">                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co"># REST</span></a>
+<a class="sourceLine" id="cb2-5" title="5">rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6">rest_created_records</a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;   id                 success errors    </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 1 0036A00000tZzXqQAK TRUE    &lt;list [0]&gt;</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 2 0036A00000tZzXrQAK TRUE    &lt;list [0]&gt;</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co"># Bulk</span></a>
+<a class="sourceLine" id="cb2-13" title="13">bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</a>
+<a class="sourceLine" id="cb2-14" title="14">bulk_created_records</a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt;   Id                 Success Created Error</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 1 0036A00000tZzXhQAK TRUE    TRUE    NA   </span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 2 0036A00000tZzXiQAK TRUE    TRUE    NA</span></a></code></pre></div>
 <p>There are some differences in the way each API returns response information; however, the end result is exactly the same for these two calls. Also, note that this package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries since Salesforce has not yet implemented it in 2.0.</p>
 <p>Here is a simple workflow of adding, querying, and deleting records using the Bulk 1.0 API.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to most calls!</span>
-<span class="co"># create bulk</span>
-object &lt;-<span class="st"> "Contact"</span>
-n &lt;-<span class="st"> </span><span class="dv">2</span>
-new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
-created_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Success Created Error</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000kHtj9QAC true    true    &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000kHtjAQAS true    true    &lt;NA&gt;</span>
-
-<span class="co"># query bulk</span>
-my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span>
-<span class="st">                           FirstName, </span>
-<span class="st">                           LastName</span>
-<span class="st">                    FROM Contact </span>
-<span class="st">                    WHERE Id in ('%s')"</span>, 
-                   <span class="kw">paste0</span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))
-
-queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
-queried_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000kHtj9QAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000kHtjAQAS Test      Contact-Create-2</span>
-
-<span class="co"># delete bulk</span>
-deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)
-deleted_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Success Created Error</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;</span>
-<span class="co">#&gt; 1 0036A00000kHtj9QAC true    false   &lt;NA&gt; </span>
-<span class="co">#&gt; 2 0036A00000kHtjAQAS true    false   &lt;NA&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to most calls!</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co"># create bulk</span></a>
+<a class="sourceLine" id="cb3-3" title="3">object &lt;-<span class="st"> "Contact"</span></a>
+<a class="sourceLine" id="cb3-4" title="4">n &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb3-5" title="5">new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),</a>
+<a class="sourceLine" id="cb3-6" title="6">                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</a>
+<a class="sourceLine" id="cb3-7" title="7">created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">created_records</a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;   Id                 Success Created Error</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; 1 0036A00000tZzY0QAK TRUE    TRUE    NA   </span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 2 0036A00000tZzY1QAK TRUE    TRUE    NA</span></a>
+<a class="sourceLine" id="cb3-14" title="14"></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co"># query bulk</span></a>
+<a class="sourceLine" id="cb3-16" title="16">my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="st">                           FirstName, </span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="st">                           LastName</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="st">                    FROM Contact </span></a>
+<a class="sourceLine" id="cb3-20" title="20"><span class="st">                    WHERE Id in ('%s')"</span>, </a>
+<a class="sourceLine" id="cb3-21" title="21">                   <span class="kw">paste0</span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))</a>
+<a class="sourceLine" id="cb3-22" title="22"></a>
+<a class="sourceLine" id="cb3-23" title="23">queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</a>
+<a class="sourceLine" id="cb3-24" title="24">queried_records</a>
+<a class="sourceLine" id="cb3-25" title="25"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb3-26" title="26"><span class="co">#&gt;   Id                 FirstName LastName        </span></a>
+<a class="sourceLine" id="cb3-27" title="27"><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span></a>
+<a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt; 1 0036A00000tZzY0QAK Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb3-29" title="29"><span class="co">#&gt; 2 0036A00000tZzY1QAK Test      Contact-Create-2</span></a>
+<a class="sourceLine" id="cb3-30" title="30"></a>
+<a class="sourceLine" id="cb3-31" title="31"><span class="co"># delete bulk</span></a>
+<a class="sourceLine" id="cb3-32" title="32">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</a>
+<a class="sourceLine" id="cb3-33" title="33">deleted_records</a>
+<a class="sourceLine" id="cb3-34" title="34"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb3-35" title="35"><span class="co">#&gt;   Id                 Success Created Error</span></a>
+<a class="sourceLine" id="cb3-36" title="36"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></a>
+<a class="sourceLine" id="cb3-37" title="37"><span class="co">#&gt; 1 0036A00000tZzY0QAK TRUE    FALSE   NA   </span></a>
+<a class="sourceLine" id="cb3-38" title="38"><span class="co">#&gt; 2 0036A00000tZzY1QAK TRUE    FALSE   NA</span></a></code></pre></div>
 </div>
   </div>
 

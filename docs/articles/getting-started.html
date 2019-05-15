@@ -118,129 +118,129 @@
     
     
 <p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))
-<span class="kw">library</span>(salesforcer)
-<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr)))</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(salesforcer)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</a></code></pre></div>
 <p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the <code>salesforcer</code> package. By using the package client, you will <em>NOT</em> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">salesforcer.consumer_key =</span> <span class="st">"012345678901-99thisisatest99connected33app22key"</span>)
-<span class="kw">options</span>(<span class="dt">salesforcer.consumer_secret =</span> <span class="st">"Th1s1sMyConsumerS3cr3t"</span>)
-
-<span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">options</span>(<span class="dt">salesforcer.consumer_key =</span> <span class="st">"012345678901-99thisisatest99connected33app22key"</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">options</span>(<span class="dt">salesforcer.consumer_secret =</span> <span class="st">"Th1s1sMyConsumerS3cr3t"</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</a></code></pre></div>
 <p>After logging in with <code><a href="../reference/sf_auth.html">sf_auth()</a></code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># pull down information of person logged in</span>
-<span class="co"># it's a simple easy call to get started </span>
-<span class="co"># and confirm a connection to the APIs</span>
-user_info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_user_info.html">sf_user_info</a></span>()
-<span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)
-<span class="co">#&gt; character(0)</span>
-<span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)
-<span class="co">#&gt; character(0)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># pull down information of person logged in</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co"># it's a simple easy call to get started </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co"># and confirm a connection to the APIs</span></a>
+<a class="sourceLine" id="cb3-4" title="4">user_info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_user_info.html">sf_user_info</a></span>()</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; character(0)</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; character(0)</span></a></code></pre></div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
 <a href="#create" class="anchor"></a>Create</h3>
 <p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
-new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
-created_records
-<span class="co">#&gt; # A tibble: 2 x 2</span>
-<span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000kHti1QAC true   </span>
-<span class="co">#&gt; 2 0036A00000kHti2QAC true</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">n &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb4-2" title="2">new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),</a>
+<a class="sourceLine" id="cb4-3" title="3">                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</a>
+<a class="sourceLine" id="cb4-4" title="4">created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5">created_records</a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;   id                 success</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000tZzXCQA0 TRUE   </span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000tZzXDQA0 TRUE</span></a></code></pre></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#retrieve" class="anchor"></a>Retrieve</h3>
 <p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, 
-                                 <span class="dt">fields=</span><span class="kw">c</span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), 
-                                 <span class="dt">object_name=</span><span class="st">"Contact"</span>)
-retrieved_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000kHti1QAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000kHti2QAC Test      Contact-Create-2</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, </a>
+<a class="sourceLine" id="cb5-2" title="2">                                 <span class="dt">fields=</span><span class="kw">c</span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), </a>
+<a class="sourceLine" id="cb5-3" title="3">                                 <span class="dt">object_name=</span><span class="st">"Contact"</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4">retrieved_records</a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt;   Id                 FirstName LastName        </span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; 1 0036A00000tZzXCQA0 Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; 2 0036A00000tZzXDQA0 Test      Contact-Create-2</span></a></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
 <p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all <code>NA</code> since we have yet to provide information to link these Contacts with Accounts.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id, </span>
-<span class="st">                           Account.Name, </span>
-<span class="st">                           FirstName, </span>
-<span class="st">                           LastName </span>
-<span class="st">                    FROM Contact </span>
-<span class="st">                    WHERE Id in ('%s')"</span>, 
-                   <span class="kw">paste0</span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))
-
-queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)
-queried_records
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
-<span class="co">#&gt; * &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0036A00000kHti1QAC NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0036A00000kHti2QAC NA      Test      Contact-Create-2</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id, </span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="st">                           Account.Name, </span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">                           FirstName, </span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">                           LastName </span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="st">                    FROM Contact </span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="st">                    WHERE Id in ('%s')"</span>, </a>
+<a class="sourceLine" id="cb6-7" title="7">                   <span class="kw">paste0</span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))</a>
+<a class="sourceLine" id="cb6-8" title="8"></a>
+<a class="sourceLine" id="cb6-9" title="9">queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)</a>
+<a class="sourceLine" id="cb6-10" title="10">queried_records</a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt;   Id                 Account FirstName LastName        </span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt; 1 0036A00000tZzXCQA0 NA      Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt; 2 0036A00000tZzXDQA0 NA      Test      Contact-Create-2</span></a></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
 <a href="#update" class="anchor"></a>Update</h3>
 <p>After creating records you can update them using <code><a href="../reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Update some of those records</span>
-queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>Account)
-
-updated_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object_name=</span><span class="st">"Contact"</span>)
-updated_records
-<span class="co">#&gt; # A tibble: 2 x 2</span>
-<span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 0036A00000kHti1QAC true   </span>
-<span class="co">#&gt; 2 0036A00000kHti2QAC true</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Update some of those records</span></a>
+<a class="sourceLine" id="cb7-2" title="2">queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>Account)</a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6">updated_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object_name=</span><span class="st">"Contact"</span>)</a>
+<a class="sourceLine" id="cb7-7" title="7">updated_records</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;   id                 success</span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt; 1 0036A00000tZzXCQA0 TRUE   </span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt; 2 0036A00000tZzXDQA0 TRUE</span></a></code></pre></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
 <a href="#delete" class="anchor"></a>Delete</h3>
 <p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)
-deleted_records
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   id                 success errors    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0036A00000kHti1QAC TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0036A00000kHti2QAC TRUE    &lt;list [0]&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)</a>
+<a class="sourceLine" id="cb8-2" title="2">deleted_records</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;   id                 success errors    </span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; 1 0036A00000tZzXCQA0 TRUE    &lt;list [0]&gt;</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; 2 0036A00000tZzXDQA0 TRUE    &lt;list [0]&gt;</span></a></code></pre></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
 <a href="#upsert" class="anchor"></a>Upsert</h3>
 <p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at <a href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/" class="uri">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">2</span>
-new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n), 
-                       <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])
-created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)
-
-upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),
-                            <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, <span class="dv">1</span><span class="op">:</span>n), 
-                            <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])
-new_record &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="st">"Test"</span>,
-                     <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, n<span class="op">+</span><span class="dv">1</span>), 
-                     <span class="dt">My_External_Id__c=</span>letters[n<span class="op">+</span><span class="dv">1</span>])
-upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(upserted_contacts, new_record)
-
-upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, 
-                              <span class="dt">object_name=</span><span class="st">"Contact"</span>, 
-                              <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)
-upserted_records
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   created id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 false   0036A00000kHti6QAC true   </span>
-<span class="co">#&gt; 2 false   0036A00000kHti7QAC true   </span>
-<span class="co">#&gt; 3 true    0036A00000kHtiBQAS true</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">n &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb9-2" title="2">new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),</a>
+<a class="sourceLine" id="cb9-3" title="3">                       <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n), </a>
+<a class="sourceLine" id="cb9-4" title="4">                       <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])</a>
+<a class="sourceLine" id="cb9-5" title="5">created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)</a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7">upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw">rep</span>(<span class="st">"Test"</span>, n),</a>
+<a class="sourceLine" id="cb9-8" title="8">                            <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, <span class="dv">1</span><span class="op">:</span>n), </a>
+<a class="sourceLine" id="cb9-9" title="9">                            <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])</a>
+<a class="sourceLine" id="cb9-10" title="10">new_record &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="st">"Test"</span>,</a>
+<a class="sourceLine" id="cb9-11" title="11">                     <span class="dt">LastName =</span> <span class="kw">paste0</span>(<span class="st">"Contact-Upsert-"</span>, n<span class="op">+</span><span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb9-12" title="12">                     <span class="dt">My_External_Id__c=</span>letters[n<span class="op">+</span><span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb9-13" title="13">upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(upserted_contacts, new_record)</a>
+<a class="sourceLine" id="cb9-14" title="14"></a>
+<a class="sourceLine" id="cb9-15" title="15">upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, </a>
+<a class="sourceLine" id="cb9-16" title="16">                              <span class="dt">object_name=</span><span class="st">"Contact"</span>, </a>
+<a class="sourceLine" id="cb9-17" title="17">                              <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)</a>
+<a class="sourceLine" id="cb9-18" title="18">upserted_records</a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt;   created id                 success</span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; 1 FALSE   0036A00000tZzXHQA0 TRUE   </span></a>
+<a class="sourceLine" id="cb9-23" title="23"><span class="co">#&gt; 2 FALSE   0036A00000tZzXIQA0 TRUE   </span></a>
+<a class="sourceLine" id="cb9-24" title="24"><span class="co">#&gt; 3 TRUE    0036A00000tZzXMQA0 TRUE</span></a></code></pre></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">
