@@ -61,6 +61,7 @@ test_that("testing sf_find_duplicates()", {
 })
 
 test_that("testing sf_find_duplicates_by_id()", {
+  skip('Skip because Salesforce is currently throwing an internal error over this')
   duplicates_search <- sf_find_duplicates_by_id(sf_id = "0036A000002C6McQAK")
   expect_is(duplicates_search, "tbl_df")
   expect_named(duplicates_search, c("sObject", "Id"))
