@@ -274,8 +274,9 @@ sf_list_objects <- function(){
 #' 
 #' Performs rule-based searches for duplicate records.
 #' 
-#' @importFrom dplyr select rename_at everything matches as_tibble
-#' @importFrom readr cols type_convert
+#' @importFrom utils head
+#' @importFrom dplyr select rename_at rename everything matches as_tibble tibble
+#' @importFrom readr cols type_convert col_guess
 #' @importFrom purrr map_df 
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom httr content
@@ -283,6 +284,7 @@ sf_list_objects <- function(){
 #' constitute a match. For example, list(FirstName="Marc", Company="Salesforce")
 #' @template object_name
 #' @template include_record_details
+#' @template guess_types
 #' @template verbose
 #' @return \code{tbl_df} of records found to be duplicates by the match rules
 #' @note You must have actived duplicate rules for the supplied object before running 
@@ -305,6 +307,7 @@ sf_list_objects <- function(){
 sf_find_duplicates <- function(search_criteria, 
                                object_name, 
                                include_record_details = FALSE,
+                               guess_types = TRUE,
                                verbose = FALSE){
   
   base_soap_url <- make_base_soap_url()
@@ -346,22 +349,29 @@ sf_find_duplicates <- function(search_criteria,
   this_res <- response_parsed %>%
     xml_ns_strip() %>%
     xml_find_all('.//result') %>%
-    xml_find_all('.//duplicateResults//matchResults//matchRecords//record') %>% 
-    map_df(xml_nodeset_to_df) %>%
-    rename_at(.vars = vars(contains("sf:")), 
-              .funs = list(~gsub("sf:", "", .))) %>%
-    rename_at(.vars = vars(contains("Id1")), 
-              .funs = list(~gsub("Id1", "Id", .))) %>%
-    select(-matches("^V[0-9]+$")) %>%
-    # move columns without dot up since those are related entities
-    select(-matches("\\."), everything()) %>%
-    type_convert(col_types = cols()) %>%
-    as_tibble()
+    xml_find_all('.//duplicateResults//matchResults//matchRecords//record') 
   
-  # drop columns which are completely missing. This happens with this function whenever 
-  # a linked object is null for a record, so a column is created "sf:EntityName" that 
-  # is NA for that record and then NA for the other records since it is a non-null entity for them 
-  this_res <- Filter(function(x) !all(is.na(x)), this_res)
+  if(length(this_res) > 0){
+    this_res <- this_res %>%
+      map_df(xml_nodeset_to_df) %>% 
+      rename(sObject = `sf:type`) %>% 
+      remove_empty_linked_object_cols() %>% 
+      # remove redundant linked entity object types.type
+      select(-matches("\\.sf:type")) %>% 
+      rename_at(.vars = vars(starts_with("sf:")), 
+                .funs = list(~sub("^sf:", "", .))) %>%
+      rename_at(.vars = vars(matches("\\.sf:")), 
+                .funs = list(~sub("sf:", "", .))) %>%
+      # move columns without dot up since those are related entities
+      select(-matches("\\."), everything())
+  } else {
+    this_res <- tibble()
+  }
+  
+  if(guess_types){
+    this_res <- this_res %>% 
+      type_convert(col_types = cols(.default = col_guess()))
+  }
   
   return(this_res)
 }
@@ -370,8 +380,15 @@ sf_find_duplicates <- function(search_criteria,
 #' 
 #' Performs rule-based searches for duplicate records.
 #' 
+#' @importFrom utils head
+#' @importFrom dplyr select rename_at rename everything matches as_tibble tibble
+#' @importFrom readr cols type_convert col_guess
+#' @importFrom purrr map_df 
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom httr content
 #' @template sf_id
 #' @template include_record_details
+#' @template guess_types
 #' @template verbose
 #' @return \code{tbl_df} of records found to be duplicates by the match rules
 #' @note You must have actived duplicate rules for the supplied object before running 
@@ -388,6 +405,7 @@ sf_find_duplicates <- function(search_criteria,
 #' @export
 sf_find_duplicates_by_id <- function(sf_id,
                                      include_record_details = FALSE, 
+                                     guess_types = TRUE,
                                      verbose = FALSE){
   
   stopifnot(length(sf_id) == 1)
@@ -402,7 +420,6 @@ sf_find_duplicates_by_id <- function(sf_id,
   xml_dat <- build_soap_xml_from_list(input_data = sf_id,
                                       operation = "findDuplicatesByIds",
                                       root = r)
-  
   httr_response <- rPOST(url = base_soap_url,
                          headers = c("SOAPAction"="create",
                                      "Content-Type"="text/xml"),
@@ -430,22 +447,29 @@ sf_find_duplicates_by_id <- function(sf_id,
   this_res <- response_parsed %>%
     xml_ns_strip() %>%
     xml_find_all('.//result') %>%
-    xml_find_all('.//duplicateResults//matchResults//matchRecords//record') %>% 
-    map_df(xml_nodeset_to_df) %>%
-    rename_at(.vars = vars(contains("sf:")), 
-              .funs = list(~gsub("sf:", "", .))) %>%
-    rename_at(.vars = vars(contains("Id1")), 
-              .funs = list(~gsub("Id1", "Id", .))) %>%
-    select(-matches("^V[0-9]+$")) %>%
-    # move columns without dot up since those are related entities
-    select(-matches("\\."), everything()) %>%
-    type_convert(col_types = cols()) %>%
-    as_tibble()
+    xml_find_all('.//duplicateResults//matchResults//matchRecords//record')
   
-  # drop columns which are completely missing. This happens with this function whenever 
-  # a linked object is null for a record, so a column is created "sf:EntityName" that 
-  # is NA for that record and then NA for the other records since it is a non-null entity for them 
-  this_res <- Filter(function(x) !all(is.na(x)), this_res)
+  if(length(this_res) > 0){
+    this_res <- this_res %>%
+      map_df(xml_nodeset_to_df) %>%
+      rename(sObject = `sf:type`) %>% 
+      remove_empty_linked_object_cols() %>% 
+      # remove redundant linked entity object types.type
+      select(-matches("\\.sf:type")) %>% 
+      rename_at(.vars = vars(starts_with("sf:")), 
+                .funs = list(~sub("^sf:", "", .))) %>%
+      rename_at(.vars = vars(matches("\\.sf:")), 
+                .funs = list(~sub("sf:", "", .))) %>%
+      # move columns without dot up since those are related entities
+      select(-matches("\\."), everything())
+  } else {
+    this_res <- tibble()
+  }
+  
+  if(guess_types){
+    this_res <- this_res %>% 
+      type_convert(col_types = cols(.default = col_guess()))
+  }
   
   return(this_res)
 }

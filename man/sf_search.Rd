@@ -4,9 +4,9 @@
 \alias{sf_search}
 \title{Perform SOSL Search}
 \usage{
-sf_search(search_string, is_sosl = FALSE, api_type = c("REST", "SOAP",
-  "Bulk 1.0", "Bulk 2.0"), parameterized_search_options = list(...),
-  verbose = FALSE, ...)
+sf_search(search_string, is_sosl = FALSE, guess_types = TRUE,
+  api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+  parameterized_search_options = list(...), verbose = FALSE, ...)
 }
 \arguments{
 \item{search_string}{character; string to search using parameterized search 
@@ -14,6 +14,10 @@ or SOSL. Note that is_sosl must be set to TRUE and the string valid in order
 to perform a search using SOSL.}
 
 \item{is_sosl}{logical; indicating whether or not to try the string as SOSL}
+
+\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+and FALSE returns all values as character strings.}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}

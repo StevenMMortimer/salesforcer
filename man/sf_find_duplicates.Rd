@@ -5,7 +5,8 @@
 \title{Find Duplicate Records}
 \usage{
 sf_find_duplicates(search_criteria, object_name,
-  include_record_details = FALSE, verbose = FALSE)
+  include_record_details = FALSE, guess_types = TRUE,
+  verbose = FALSE)
 }
 \arguments{
 \item{search_criteria}{\code{list}; a list of fields and their values that would 
@@ -17,6 +18,10 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 \item{include_record_details}{logical; get fields and values for records detected 
 as duplicates by setting this property to \code{TRUE}. Get only record IDs for 
 records detected as duplicates by setting this property to \code{FALSE}}
+
+\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+and FALSE returns all values as character strings.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

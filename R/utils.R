@@ -91,6 +91,37 @@ sf_input_data_validation <- function(input_data, operation=''){
   return(input_data)
 }
 
+# remove empty columns referencing objects
+remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
+  # try to remove references to empty linked entity objects
+  # for example whenever a contact record isn't linked to an Account
+  # then the record is included like this: <sf:Account xsi:nil="true"/>
+  # which is very hard to discern if that is a Contact field called, "Account" that 
+  # is NULL or it's a linked entity on an object called "Account" that is NULL. In 
+  # our case we will try to remove if there are other fields in the result using that 
+  # as a prefix to fields
+  api_type <- match.arg(api_type)
+  if(api_type == "REST"){
+    # do nothing, typically fixed by itself
+  } else if(api_type == "SOAP"){
+    potential_object_prefixes <- grepl("^sf:[a-zA-Z]+\\.[a-zA-Z]+", names(dat))
+    potential_object_prefixes <- names(dat)[potential_object_prefixes]
+    potential_object_prefixes <- unique(gsub("(sf:)([a-zA-Z]+)\\.(.*)", "\\2", potential_object_prefixes))
+    if(length(potential_object_prefixes) > 0){
+      potential_null_object_fields_to_drop <- paste0("sf:", potential_object_prefixes)
+      suppressWarnings(
+        dat <- dat %>%
+          # suppress the warning because it's possible that some of the 
+          # columns are not actually in the data
+          select(-one_of(potential_null_object_fields_to_drop))
+      )
+    }
+  } else {
+    stop("Unknown API type")
+  }
+  return(dat)
+}
+
 api_headers <- function(api_type=NULL, 
                         AllorNoneHeader=list(allOrNone=FALSE), 
                         AllowFieldTruncationHeader=list(allowFieldTruncation=FALSE), 

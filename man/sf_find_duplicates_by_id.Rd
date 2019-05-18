@@ -5,7 +5,7 @@
 \title{Find Duplicate Records By Id}
 \usage{
 sf_find_duplicates_by_id(sf_id, include_record_details = FALSE,
-  verbose = FALSE)
+  guess_types = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{sf_id}{character; a Salesforce generated Id that identifies a record}
@@ -13,6 +13,10 @@ sf_find_duplicates_by_id(sf_id, include_record_details = FALSE,
 \item{include_record_details}{logical; get fields and values for records detected 
 as duplicates by setting this property to \code{TRUE}. Get only record IDs for 
 records detected as duplicates by setting this property to \code{FALSE}}
+
+\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+and FALSE returns all values as character strings.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

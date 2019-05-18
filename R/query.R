@@ -31,8 +31,7 @@
 #' Additionally, Bulk API can't access or query compound address or compound geolocation fields.
 #' @examples
 #' \dontrun{
-#' sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10")
-#' sf_query("SELECT Id, Email FROM Contact LIMIT 10", verbose = TRUE)
+#' sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10", verbose = TRUE)
 #' }
 #' @export
 sf_query <- function(soql,
@@ -74,7 +73,7 @@ sf_query <- function(soql,
 }
 
 
-#' @importFrom dplyr bind_rows as_tibble select matches
+#' @importFrom dplyr bind_rows as_tibble select matches tibble
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON
 #' @importFrom readr type_convert cols col_guess
@@ -102,7 +101,6 @@ sf_query_rest <- function(soql,
     resultset <- response_parsed$records %>% 
       select(-matches("^attributes\\.")) %>%
       select(-matches("\\.attributes\\.")) %>%
-#      type_convert(col_types = cols()) %>%
       as_tibble()
   } else {
     resultset <- NULL
@@ -118,6 +116,10 @@ sf_query_rest <- function(soql,
     resultset <- bind_rows(resultset, next_records)
   }
   
+  if(is.null(resultset)){
+    resultset <- tibble()
+  }
+  
   # cast if requested using type_convert
   if(guess_types & nrow(resultset) > 0){
     resultset <- resultset %>% 
@@ -128,7 +130,7 @@ sf_query_rest <- function(soql,
 }
 
 
-#' @importFrom dplyr bind_rows as_tibble select matches contains rename_at
+#' @importFrom dplyr bind_rows as_tibble select matches contains rename_at rename tibble
 #' @importFrom httr content
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert cols col_guess
@@ -170,15 +172,18 @@ sf_query_soap <- function(soql,
   resultset <- response_parsed %>%
     xml_ns_strip() %>%
     xml_find_all('.//records')
-  
   if(length(resultset) > 0){
     resultset <- resultset %>%
       map_df(xml_nodeset_to_df) %>%
-      select(-matches("sf:type$|sf:Id$")) %>%
-      rename_at(.vars = vars(contains("sf:")), 
-                .funs = funs(gsub("sf:", "", .))) %>%
-      rename_at(.vars = vars(contains("Id1")), 
-                .funs = funs(gsub("Id1", "Id", .))) %>%
+      remove_empty_linked_object_cols() %>% 
+      # remove redundant linked entity object types.type
+      select(-matches("sf:type")) %>% 
+      rename_at(.vars = vars(starts_with("sf:")), 
+                .funs = list(~sub("^sf:", "", .))) %>%
+      rename_at(.vars = vars(matches("\\.sf:")), 
+                .funs = list(~sub("sf:", "", .))) %>%
+      # move columns without dot up since those are related entities
+      select(-matches("\\."), everything())
       as_tibble()
   } else {
     resultset <- NULL
@@ -196,6 +201,10 @@ sf_query_soap <- function(soql,
       xml_text()
     next_records <- sf_query_soap(next_records_url = query_locator)
     resultset <- bind_rows(resultset, next_records)      
+  }
+  
+  if(is.null(resultset)){
+    resultset <- tibble()
   }
   
   # cast if requested using type_convert

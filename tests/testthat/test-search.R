@@ -11,7 +11,7 @@ test_that("testing SOSL", {
   searched_records1 <- sf_search(my_sosl, is_sosl=TRUE, api_type="SOAP")  
   searched_records2 <- sf_search(my_sosl, is_sosl=TRUE, api_type="REST") 
   expect_is(searched_records1, "tbl_df")
-  expect_named(searched_records1, c("sobject", "Id", "FirstName", 
+  expect_named(searched_records1, c("sObject", "Id", "FirstName", 
                                     "LastName", "My_External_Id__c"))
   expect_equal(names(searched_records1), names(searched_records2))
   expect_equal(nrow(searched_records1), nrow(searched_records2))
@@ -27,9 +27,9 @@ test_that("testing parameterized search", {
                                  overall_limit = 1000,
                                  spell_correction = FALSE)
   expect_is(searched_records1, "tbl_df")
-  expect_named(searched_records1, c("sobject", "Id"))
+  expect_named(searched_records1, c("sObject", "Id"))
   expect_is(searched_records2, "tbl_df")
-  expect_named(searched_records2, c("sobject", "Id", "Name"))
+  expect_named(searched_records2, c("sObject", "Id", "Name"))
   expect_equal(nrow(searched_records1), nrow(searched_records2))
   
   expect_error(

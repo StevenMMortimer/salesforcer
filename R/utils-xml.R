@@ -60,7 +60,7 @@ xmlToList2 <- function(node){
 xml_nodeset_to_df <- function(this_node){
   # capture any xmlToList grumblings about Namespace prefix
   invisible(capture.output(node_vals <- unlist(xmlToList2(as.character(this_node)))))
-  return(as_tibble(t(node_vals)))
+  return(as_tibble(t(node_vals), .name_repair = "minimal"))
 }
 
 #' Make SOAP XML Request Skeleton
