@@ -102,7 +102,7 @@ sf_retrieve_soap <- function(ids,
         map_df(xml_nodeset_to_df) %>%
         select(-matches("sf:type")) %>%
         rename_at(.vars = vars(starts_with("sf:")), 
-                  .funs = funs(gsub("^sf:", "", .))) %>%
+                  .funs = list(~gsub("^sf:", "", .))) %>%
         select(-matches("Id1"))
     } else {
       this_set <- NULL

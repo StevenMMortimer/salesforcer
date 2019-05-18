@@ -33,7 +33,7 @@ test_that("testing SOAP API Functionality", {
   # sf_search ------------------------------------------------------------------
   searched_records <- sf_search(my_sosl, is_sosl=TRUE, api_type="SOAP")  
   expect_is(searched_records, "tbl_df")
-  expect_equal(names(searched_records), c("sobject", "Id", "FirstName", "LastName", "My_External_Id__c"))
+  expect_equal(names(searched_records), c("sObject", "Id", "FirstName", "LastName", "My_External_Id__c"))
   expect_equal(nrow(searched_records), 3)
   
   my_soql <- sprintf("SELECT Id, 

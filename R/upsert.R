@@ -193,7 +193,7 @@ sf_upsert_rest <- function(input_data, object_name,
     response_parsed <- fromJSON(response_parsed, flatten=TRUE)$results
     response_parsed <- response_parsed %>%
       rename_at(.vars = vars(starts_with("result.")), 
-                .funs = funs(sub("^result\\.", "", .))) %>%
+                .funs = list(~sub("^result\\.", "", .))) %>%
       select(-matches("statusCode")) %>%
       as_tibble()
     resultset <- bind_rows(resultset, response_parsed)

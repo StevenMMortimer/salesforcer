@@ -57,8 +57,7 @@ Additionally, Bulk API can't access or query compound address or compound geoloc
 }
 \examples{
 \dontrun{
-sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10")
-sf_query("SELECT Id, Email FROM Contact LIMIT 10", verbose = TRUE)
+sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10", verbose = TRUE)
 }
 }
 \references{
