@@ -91,6 +91,14 @@ sf_input_data_validation <- function(input_data, operation=''){
   return(input_data)
 }
 
+#' Remove NA Columns Created by Empty Related Entity Values
+#' 
+#' This function will detect if there are related entity columns coming back 
+#' in the resultset and try to exclude an additional completely blank column 
+#' created by records that don't have a relationship at all in that related entity.
+#' 
+#' @param dat data; a \code{tbl_df} or \code{data.frame} of a returned resultset
+#' @template api_type
 #' @importFrom dplyr select one_of
 #' @export
 remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
