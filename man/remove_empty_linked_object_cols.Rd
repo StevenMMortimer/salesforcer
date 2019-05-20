@@ -17,3 +17,4 @@ This function will detect if there are related entity columns coming back
 in the resultset and try to exclude an additional completely blank column 
 created by records that don't have a relationship at all in that related entity.
 }
+\keyword{internal}

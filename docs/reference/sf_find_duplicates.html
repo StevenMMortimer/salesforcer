@@ -159,7 +159,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>sf_find_duplicates</span>(<span class='no'>search_criteria</span>, <span class='no'>object_name</span>,
-  <span class='kw'>include_record_details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>include_record_details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,6 +180,12 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p>
       <td><p>logical; get fields and values for records detected 
 as duplicates by setting this property to <code>TRUE</code>. Get only record IDs for 
 records detected as duplicates by setting this property to <code>FALSE</code></p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
+and FALSE returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>verbose</th>

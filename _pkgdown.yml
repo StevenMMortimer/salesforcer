@@ -73,6 +73,7 @@ reference:
       - '`sf_find_duplicates`'
       - '`sf_find_duplicates_by_id`'
       - '`sf_get_all_jobs_bulk`'
+      - '`sf_download_attachment`'
       - '`sf_set_password`'
       - '`sf_reset_password`'
       - '`sf_list_rest_api_versions`'

@@ -115,6 +115,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/rPUT.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/remove_empty_linked_object_cols.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.bulkAction.html</loc>
   </url>
   <url>
@@ -233,6 +236,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_objects.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_download_attachment.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_end_job_bulk.html</loc>

@@ -98,10 +98,10 @@ information about you\!
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Id: %s", user_info$id)
-#> character(0)
-sprintf("User Active?: %s", user_info$isActive)
-#> character(0)
+sprintf("Organization Id: %s", user_info$organizationId)
+#> [1] "Organization Id: 00D6A0000003dN3UAI"
+sprintf("User Id: %s", user_info$userId)
+#> [1] "User Id: 0056A000000MPRjQAO"
 ```
 
 ### Create
@@ -119,8 +119,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000tZzYAQA0 TRUE   
-#> 2 0036A00000tZzYBQA0 TRUE
+#> 1 0036A00000taMJ6QAM TRUE   
+#> 2 0036A00000taMJ7QAM TRUE
 ```
 
 ### Query
@@ -142,14 +142,13 @@ my_soql <- sprintf("SELECT Id,
                     FROM Contact 
                     WHERE Id in ('%s')", 
                    paste0(created_records$id , collapse="','"))
-
 queried_records <- sf_query(my_soql)
 queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000tZzYAQA0 NA      Test      Contact-Create-1
-#> 2 0036A00000tZzYBQA0 NA      Test      Contact-Create-2
+#> 1 0036A00000taMJ6QAM NA      Test      Contact-Create-1
+#> 2 0036A00000taMJ7QAM NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -174,8 +173,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000tZzYAQA0 TRUE   
-#> 2 0036A00000tZzYBQA0 TRUE
+#> 1 0036A00000taMJ6QAM TRUE   
+#> 2 0036A00000taMJ7QAM TRUE
 ```
 
 ### Bulk Operations

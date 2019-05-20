@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find Duplicate Records By Id — sf_find_duplicates_by_id • salesforcer</title>
+<title>Download an Attachment — sf_download_attachment • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Find Duplicate Records By Id — sf_find_duplicates_by_id" />
+<meta property="og:title" content="Download an Attachment — sf_download_attachment" />
 
-<meta property="og:description" content="Performs rule-based searches for duplicate records." />
+<meta property="og:description" content="This function will allow you to download an attachment to disk based on the 
+attachment body, file name, and path." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -147,74 +148,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find Duplicate Records By Id</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-org.R'><code>R/utils-org.R</code></a></small>
-    <div class="hidden name"><code>sf_find_duplicates_by_id.Rd</code></div>
+    <h1>Download an Attachment</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>sf_download_attachment.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Performs rule-based searches for duplicate records.</p>
+    <p>This function will allow you to download an attachment to disk based on the 
+attachment body, file name, and path.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_find_duplicates_by_id</span>(<span class='no'>sf_id</span>, <span class='kw'>include_record_details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>sf_id</th>
-      <td><p>character; a Salesforce generated Id that identifies a record</p></td>
-    </tr>
-    <tr>
-      <th>include_record_details</th>
-      <td><p>logical; get fields and values for records detected 
-as duplicates by setting this property to <code>TRUE</code>. Get only record IDs for 
-records detected as duplicates by setting this property to <code>FALSE</code></p></td>
-    </tr>
-    <tr>
-      <th>guess_types</th>
-      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
-and FALSE returns all values as character strings.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>tbl_df</code> of records found to be duplicates by the match rules</p>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>You must have actived duplicate rules for the supplied object before running 
-this function. This function uses the duplicate rules for the object that has 
-the same type as the input record IDs. For example, if the record Id represents 
-an Account, this function uses the duplicate rules associated with the 
-Account object.</p>
-    
+    <pre class="usage"><span class='fu'>sf_download_attachment</span>(<span class='no'>body</span>, <span class='no'>name</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+        
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># use the duplicate rules associated with the object that this record </span>
-<span class='co'># belongs to in order to find duplicates</span>
-<span class='no'>found_dupes</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_find_duplicates_by_id</span>(<span class='kw'>sf_id</span> <span class='kw'>=</span> <span class='st'>"00Q6A00000aABCnZZZ"</span>)
+<span class='no'>queried_attachments</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Body, Name 
+                                 FROM Attachment 
+                                 WHERE ParentId = '0016A0000035mJ5'"</span>)
+<span class='fu'>mapply</span>(<span class='no'>sf_download_attachment</span>, <span class='no'>queried_attachments</span>$<span class='no'>Body</span>, <span class='no'>queried_attachments</span>$<span class='no'>Name</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

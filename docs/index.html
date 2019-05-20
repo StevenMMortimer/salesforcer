@@ -116,7 +116,8 @@
     
 
 <p><br><img src="reference/figures/salesforcer.png" width="120px" align="right"></p>
-<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs. Package features include:</p>
+<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
+<p>Package features include:</p>
 <ul>
 <li>OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs</li>
@@ -198,10 +199,10 @@
 <a class="sourceLine" id="cb3-2" title="2"><span class="co"># it's a simple easy call to get started </span></a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="co"># and confirm a connection to the APIs</span></a>
 <a class="sourceLine" id="cb3-4" title="4">user_info &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_user_info.html">sf_user_info</a></span>()</a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>id)</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw">sprintf</span>(<span class="st">"User Active?: %s"</span>, user_info<span class="op">$</span>isActive)</a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; character(0)</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">sprintf</span>(<span class="st">"Organization Id: %s"</span>, user_info<span class="op">$</span>organizationId)</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1] "Organization Id: 00D6A0000003dN3UAI"</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">sprintf</span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>userId)</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; [1] "User Id: 0056A000000MPRjQAO"</span></a></code></pre></div>
 </div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
@@ -215,8 +216,8 @@
 <a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;   id                 success</span></a>
 <a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000tZzToQAK TRUE   </span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000tZzTpQAK TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000taMN3QAM TRUE   </span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000taMN4QAM TRUE</span></a></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -229,14 +230,13 @@
 <a class="sourceLine" id="cb5-5" title="5"><span class="st">                    FROM Contact </span></a>
 <a class="sourceLine" id="cb5-6" title="6"><span class="st">                    WHERE Id in ('%s')"</span>, </a>
 <a class="sourceLine" id="cb5-7" title="7">                   <span class="kw">paste0</span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))</a>
-<a class="sourceLine" id="cb5-8" title="8"></a>
-<a class="sourceLine" id="cb5-9" title="9">queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)</a>
-<a class="sourceLine" id="cb5-10" title="10">queried_records</a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
-<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;   Id                 Account FirstName LastName        </span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 1 0036A00000tZzToQAK NA      Test      Contact-Create-1</span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt; 2 0036A00000tZzTpQAK NA      Test      Contact-Create-2</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-8" title="8">queried_records &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_query.html">sf_query</a></span>(my_soql)</a>
+<a class="sourceLine" id="cb5-9" title="9">queried_records</a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;   Id                 Account FirstName LastName        </span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; 1 0036A00000taMN3QAM NA      Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 2 0036A00000taMN4QAM NA      Test      Contact-Create-2</span></a></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -252,8 +252,8 @@
 <a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt;   id                 success</span></a>
 <a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 1 0036A00000tZzToQAK TRUE   </span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 2 0036A00000tZzTpQAK TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 1 0036A00000taMN3QAM TRUE   </span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 2 0036A00000taMN4QAM TRUE</span></a></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">

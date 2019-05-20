@@ -158,9 +158,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_search</span>(<span class='no'>search_string</span>, <span class='kw'>is_sosl</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>,
-  <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='kw'>parameterized_search_options</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_search</span>(<span class='no'>search_string</span>, <span class='kw'>is_sosl</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
+  <span class='kw'>parameterized_search_options</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,6 +174,12 @@ to perform a search using SOSL.</p></td>
     <tr>
       <th>is_sosl</th>
       <td><p>logical; indicating whether or not to try the string as SOSL</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
+and FALSE returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>api_type</th>

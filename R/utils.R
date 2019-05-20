@@ -91,6 +91,27 @@ sf_input_data_validation <- function(input_data, operation=''){
   return(input_data)
 }
 
+#' Download an Attachment
+#' 
+#' This function will allow you to download an attachment to disk based on the 
+#' attachment body, file name, and path.
+#' 
+#' @importFrom httr content
+#' @examples 
+#' \dontrun{
+#' queried_attachments <- sf_query("SELECT Body, Name 
+#'                                  FROM Attachment 
+#'                                  WHERE ParentId = '0016A0000035mJ5'")
+#' mapply(sf_download_attachment, queried_attachments$Body, queried_attachments$Name)
+#' }
+#' @export 
+sf_download_attachment <- function(body, name, path = "."){
+  resp <- rGET(sprintf("%s%s", salesforcer_state()$instance_url, body))
+  f <- file.path(path, name)
+  writeBin(content(resp, "raw"), f)
+  return(invisible(file.exists(f)))
+}
+
 #' Remove NA Columns Created by Empty Related Entity Values
 #' 
 #' This function will detect if there are related entity columns coming back 
@@ -100,6 +121,7 @@ sf_input_data_validation <- function(input_data, operation=''){
 #' @param dat data; a \code{tbl_df} or \code{data.frame} of a returned resultset
 #' @template api_type
 #' @importFrom dplyr select one_of
+#' @keywords internal
 #' @export
 remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
   # try to remove references to empty linked entity objects

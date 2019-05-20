@@ -105,8 +105,8 @@ the information returned about the current user. It should be information about 
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Id: %s", user_info$id)
-sprintf("User Active?: %s", user_info$isActive)
+sprintf("Organization Id: %s", user_info$organizationId)
+sprintf("User Id: %s", user_info$userId)
 ```
 
 ### Create
@@ -140,7 +140,6 @@ my_soql <- sprintf("SELECT Id,
                     FROM Contact 
                     WHERE Id in ('%s')", 
                    paste0(created_records$id , collapse="','"))
-
 queried_records <- sf_query(my_soql)
 queried_records
 ```

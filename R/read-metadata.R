@@ -99,6 +99,8 @@ sf_describe_object_fields <- function(object_name){
     # convert the fields, some simple datatypes, some complex datatypes (lists) into one row each
     map_df(~as_tibble(modify_if(., ~(length(.x) > 1 | is.list(.x)), list)))
   
+  # sort the columns by name as the API would return prior to the combining process above
+  obj_fields_dat <- obj_fields_dat[,sort(names(obj_fields_dat))]
   return(obj_fields_dat)
 }
 

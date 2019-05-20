@@ -10,6 +10,7 @@
   bulk jobs (#13)
   * Add new utility functions `sf_set_password()` and `sf_reset_password()` (#11)
   * Add two new functions to check for duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`) (#4)
+  * Add new function to download attachments to disk (`sf_download_attachment()`) (#20)
   
 ### Bug Fixes
 
