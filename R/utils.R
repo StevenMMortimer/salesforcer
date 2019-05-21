@@ -97,6 +97,10 @@ sf_input_data_validation <- function(input_data, operation=''){
 #' attachment body, file name, and path.
 #' 
 #' @importFrom httr content
+#' @param body character; a URL path to the body of the attachment in Salesforce, typically 
+#' retrieved via query on the Attachment object
+#' @param name character; the name of the file you would like to save the content to
+#' @param path character; a directory path where to create file, defaults to the current directory.
 #' @examples 
 #' \dontrun{
 #' queried_attachments <- sf_query("SELECT Body, Name 
