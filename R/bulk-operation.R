@@ -852,6 +852,9 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' for job completion
 #' @param max_attempts integer; defines then max number attempts to check for job 
 #' completion before stopping
+#' @param line_ending character; indicating the The line ending used for CSV job data, 
+#' marking the end of a data row. The default is NULL and determined by the operating system using
+#' "CRLF" for Windows machines and "LF" for Unix machines
 #' @template verbose
 #' @return A \code{tbl_df} of the results of the bulk job
 #' @note With Bulk 2.0 the order of records in the response is not guaranteed to 
@@ -877,8 +880,8 @@ sf_bulk_operation <- function(input_data,
                               wait_for_results = TRUE,
                               interval_seconds = 3,
                               max_attempts = 200,
-                              verbose = FALSE,
-                              line_ending = NULL){
+                              line_ending = NULL,
+                              verbose = FALSE){
 
   stopifnot(!missing(operation))
   api_type <- match.arg(api_type)
