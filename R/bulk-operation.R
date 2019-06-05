@@ -159,7 +159,6 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
   
   operation <- match.arg(operation)
   content_type <- match.arg(content_type)
-  line_ending <- match.arg(line_ending)
   column_delimiter <- match.arg(column_delimiter)
   if(column_delimiter != "COMMA"){
     stop("column_delimiter = 'COMMA' is currently the only supported file delimiter")
@@ -878,14 +877,15 @@ sf_bulk_operation <- function(input_data,
                               wait_for_results = TRUE,
                               interval_seconds = 3,
                               max_attempts = 200,
-                              verbose = FALSE){
+                              verbose = FALSE,
+                              line_ending = NULL){
 
   stopifnot(!missing(operation))
   api_type <- match.arg(api_type)
   
   job_info <- sf_create_job_bulk(operation, object_name=object_name, 
                                  external_id_fieldname=external_id_fieldname, 
-                                 api_type=api_type, verbose=verbose)
+                                 api_type=api_type, verbose=verbose, line_ending=line_ending)
   batches_info <- sf_create_batches_bulk(job_id = job_info$id, input_data, 
                                          api_type=api_type, verbose=verbose)
   
