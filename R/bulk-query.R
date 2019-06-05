@@ -63,14 +63,14 @@ sf_submit_query_bulk <- function(job_id, soql,
 #' @importFrom readr read_csv col_guess col_character
 #' @importFrom httr content
 #' @importFrom XML xmlToList
-#' @importFrom dplyr as_tibble
+#' @importFrom dplyr as_tibble tibble
 #' @template job_id
 #' @template batch_id
 #' @param result_id a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset
 #' @template guess_types
 #' @template api_type
 #' @template verbose
-#' @return A \code{tbl_df}, formatted by salesforce, containing query results
+#' @return A \code{tbl_df}, formatted by Salesforce, containing query results
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
 #' \dontrun{
@@ -103,8 +103,12 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
   if (grepl('xml', content_type)) {
     res <- as_tibble(xmlToList(response_text))
   } else if(grepl('text/csv', content_type)) {
-    cols_default <- if(guess_types) col_guess() else col_character()
-    res <- read_csv(response_text, col_types = cols(.default=cols_default))
+    if(response_text == "Records not found for this query"){
+      res <- tibble()
+    } else {
+      cols_default <- if(guess_types) col_guess() else col_character()
+      res <- read_csv(response_text, col_types = cols(.default=cols_default))      
+    }
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
     res <- content(httr_response, as="parsed", encoding="UTF-8")
@@ -152,10 +156,10 @@ sf_query_bulk <- function(soql,
   job_info <- sf_create_job_bulk(operation = "query", 
                                  object_name = object_name, 
                                  api_type = api_type, 
-                                 verbose=verbose)
+                                 verbose = verbose)
   batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = soql, 
                                            api_type = api_type, 
-                                           verbose=verbose)
+                                           verbose = verbose)
   status_complete <- FALSE
   z <- 1
   Sys.sleep(interval_seconds)
@@ -164,10 +168,10 @@ sf_query_bulk <- function(soql,
       message(paste0("Attempt #", z))
     }
     Sys.sleep(interval_seconds)
-    batch_query_status <- sf_batch_status_bulk(job_id=batch_query_info$jobId,
-                                               batch_id=batch_query_info$id, 
+    batch_query_status <- sf_batch_status_bulk(job_id = batch_query_info$jobId,
+                                               batch_id = batch_query_info$id, 
                                                api_type = api_type, 
-                                               verbose=verbose)
+                                               verbose = verbose)
     if(batch_query_status$state == 'Failed'){
       stop(batch_query_status$stateMessage)
     } else if(batch_query_status$state == "Completed"){

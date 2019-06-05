@@ -26,7 +26,7 @@ and FALSE returns all values as character strings.}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-A \code{tbl_df}, formatted by salesforce, containing query results
+A \code{tbl_df}, formatted by Salesforce, containing query results
 }
 \description{
 This function returns the row-level recordset of a bulk query
