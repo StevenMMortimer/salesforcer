@@ -7,8 +7,8 @@
 sf_bulk_operation(input_data, object_name, operation = c("insert",
   "delete", "upsert", "update", "hardDelete"),
   external_id_fieldname = NULL, api_type = c("Bulk 1.0", "Bulk 2.0"),
-  wait_for_results = TRUE, interval_seconds = 3, max_attempts = 200,
-  verbose = FALSE)
+  ..., wait_for_results = TRUE, interval_seconds = 3,
+  max_attempts = 200, verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -25,6 +25,9 @@ objects during upserts to determine if the record already exists in Salesforce o
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
+
+\item{...}{other arguments passed on to \code{\link{sf_create_job_bulk}} such as 
+\code{content_type}, \code{concurrency_mode}, \code{line_ending} or \code{column_delimiter}.}
 
 \item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
 so that the batch results of individual records can be obtained}

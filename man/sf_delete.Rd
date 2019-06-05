@@ -21,7 +21,7 @@ records are processed successfully}
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
 
-\item{...}{Other arguments passed on to \code{\link{sf_bulk_operation}}.}
+\item{...}{other arguments passed on to \code{\link{sf_bulk_operation}}.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

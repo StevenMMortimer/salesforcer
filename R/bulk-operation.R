@@ -7,15 +7,21 @@
 #' @template external_id_fieldname
 #' @template api_type
 #' @param content_type character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to 
-#' indicate the type of data being passed to the Bulk API
-#' @param concurrency_mode character; either "Parallel" or "Serial" that specifies whether batches should be completed
-#' sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.
-#' @param line_ending character; indicating the The line ending used for CSV job data, 
-#' marking the end of a data row. The default is NULL and determined by the operating system using 
-#' "CRLF" for Windows machines and "LF" for Unix machines
+#' indicate the type of data being passed to the Bulk API.
+#' @param concurrency_mode character; either "Parallel" or "Serial" that specifies 
+#' whether batches should be completed sequentially or in parallel. Use "Serial" 
+#' only if lock contentions persist with in "Parallel" mode. Note: this argument is 
+#' only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.
+#' @param line_ending character; indicating the line ending used for CSV job data, 
+#' marking the end of a data row. The default is NULL meaing that the line ending 
+#' is determined by the operating system using "CRLF" for Windows machines and 
+#' "LF" for Unix machines. Note: this argument is only used in the Bulk 2.0 API 
+#' and will be ignored in calls using the Bulk 1.0 API.
 #' @param column_delimiter character; indicating the column delimiter used for CSV job data. 
 #' The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
-#' "SEMICOLON", and "TAB".
+#' "SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also, 
+#' note that this argument is only used in the Bulk 2.0 API and will be ignored 
+#' in calls using the Bulk 1.0 API.
 #' @template verbose
 #' @return A \code{tbl_df} parameters defining the created job, including id
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -46,8 +52,8 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                object_name,
                                external_id_fieldname = NULL,
                                api_type = c("Bulk 1.0", "Bulk 2.0"),
-                               content_type=c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
-                               concurrency_mode=c("Parallel", "Serial"),
+                               content_type = c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
+                               concurrency_mode = c("Parallel", "Serial"),
                                line_ending = NULL,
                                column_delimiter = c('COMMA', 'TAB', 'PIPE', 'SEMICOLON', 
                                                     'CARET', 'BACKQUOTE'), 
@@ -57,12 +63,18 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
   operation <- match.arg(operation)
   content_type <- match.arg(content_type)
   if(api_type == "Bulk 1.0"){
-    job_response <- sf_create_job_bulk_v1(operation=operation,
-                                          object_name=object_name,
-                                          external_id_fieldname=external_id_fieldname,
-                                          content_type=content_type,
-                                          concurrency_mode=concurrency_mode,
-                                          verbose=verbose)
+    if(!missing(line_ending)){
+      warning("Ignoring the line_ending argument which isn't used when calling the Bulk 1.0 API", call. = FALSE)
+    }
+    if(!missing(column_delimiter)){
+      warning("Ignoring the column_delimiter argument which isn't used when calling the Bulk 1.0 API", call. = FALSE)
+    }
+    job_response <- sf_create_job_bulk_v1(operation = operation,
+                                          object_name = object_name,
+                                          external_id_fieldname = external_id_fieldname,
+                                          content_type = content_type,
+                                          concurrency_mode = concurrency_mode,
+                                          verbose = verbose)
   } else if(api_type == "Bulk 2.0"){
     if(!(operation %in% c("insert", "delete", "upsert", "update"))){
       stop('Bulk 2.0 only supports the following operations: "insert", "delete", "upsert", and "update"')
@@ -70,13 +82,16 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
     if(!(content_type %in% c("CSV"))){
       stop('Bulk 2.0 only supports the "CSV" content type.')
     }
-    job_response <- sf_create_job_bulk_v2(operation=operation,
-                                          object_name=object_name,
-                                          external_id_fieldname=external_id_fieldname,
-                                          content_type=content_type,
-                                          line_ending=line_ending,
-                                          column_delimiter=column_delimiter,
-                                          verbose=verbose)
+    if(!missing(concurrency_mode)){
+      warning("Ignoring the concurrency_mode argument which isn't used when calling the Bulk 2.0 API", call. = FALSE)
+    }
+    job_response <- sf_create_job_bulk_v2(operation = operation,
+                                          object_name = object_name,
+                                          external_id_fieldname = external_id_fieldname,
+                                          content_type = content_type,
+                                          line_ending = line_ending,
+                                          column_delimiter = column_delimiter,
+                                          verbose = verbose)
   } else {
     stop("Unknown API type")
   }
@@ -93,10 +108,10 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
 sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "update", 
                                                 "hardDelete", "query"), 
                                   object_name,
-                                  external_id_fieldname=NULL,
-                                  content_type=c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
-                                  concurrency_mode=c("Parallel", "Serial"),
-                                  verbose=FALSE){
+                                  external_id_fieldname = NULL,
+                                  content_type = c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
+                                  concurrency_mode = c("Parallel", "Serial"),
+                                  verbose = FALSE){
   
   operation <- match.arg(operation)
   content_type <- match.arg(content_type)
@@ -150,7 +165,7 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
 #' @keywords internal
 sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "update"),
                                   object_name,
-                                  external_id_fieldname=NULL,
+                                  external_id_fieldname = NULL,
                                   content_type = 'CSV',
                                   line_ending = NULL,
                                   column_delimiter = c('COMMA', 'TAB', 'PIPE', 'SEMICOLON', 
@@ -158,8 +173,6 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
                                   verbose=FALSE){
   
   operation <- match.arg(operation)
-  content_type <- match.arg(content_type)
-  line_ending <- match.arg(line_ending)
   column_delimiter <- match.arg(column_delimiter)
   if(column_delimiter != "COMMA"){
     stop("column_delimiter = 'COMMA' is currently the only supported file delimiter")
@@ -696,8 +709,9 @@ sf_batch_status_bulk <- function(job_id, batch_id, api_type=c("Bulk 1.0"),
 #' @template batch_id
 #' @template api_type
 #' @template verbose
-#' @return A \code{tbl_df}, formatted by salesforce, with information containing the success or failure or certain rows in a submitted batch, 
-#' unless the operation was query, then it is a data.frame containing the result_id for retrieving the recordset.
+#' @return A \code{tbl_df}, formatted by Salesforce, with information containing 
+#' the success or failure or certain rows in a submitted batch, unless the operation 
+#' was query, then it is a data.frame containing the result_id for retrieving the recordset.
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @note This is a legacy function used only with Bulk 1.0.
 #' @examples
@@ -847,6 +861,8 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @param operation character; string defining the type of operation being performed
 #' @template external_id_fieldname
 #' @template api_type
+#' @param ... other arguments passed on to \code{\link{sf_create_job_bulk}} such as 
+#' \code{content_type}, \code{concurrency_mode}, \code{line_ending} or \code{column_delimiter}.
 #' @param wait_for_results logical; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
 #' @param interval_seconds integer; defines the seconds between attempts to check 
@@ -875,6 +891,7 @@ sf_bulk_operation <- function(input_data,
                                             "update", "hardDelete"),
                               external_id_fieldname = NULL,
                               api_type = c("Bulk 1.0", "Bulk 2.0"),
+                              ..., 
                               wait_for_results = TRUE,
                               interval_seconds = 3,
                               max_attempts = 200,
@@ -883,11 +900,11 @@ sf_bulk_operation <- function(input_data,
   stopifnot(!missing(operation))
   api_type <- match.arg(api_type)
   
-  job_info <- sf_create_job_bulk(operation, object_name=object_name, 
-                                 external_id_fieldname=external_id_fieldname, 
-                                 api_type=api_type, verbose=verbose)
+  job_info <- sf_create_job_bulk(operation, object_name = object_name, 
+                                 external_id_fieldname = external_id_fieldname, 
+                                 api_type = api_type, verbose = verbose, ...)
   batches_info <- sf_create_batches_bulk(job_id = job_info$id, input_data, 
-                                         api_type=api_type, verbose=verbose)
+                                         api_type = api_type, verbose = verbose)
   
   if(wait_for_results){
     status_complete <- FALSE
@@ -929,12 +946,12 @@ sf_bulk_operation <- function(input_data,
     }
     if (!status_complete) {
       message("Function's Time Limit Exceeded. Aborting Job Now")
-      res <- sf_abort_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
+      res <- sf_abort_job_bulk(job_info$id, api_type = api_type, verbose = verbose)
     } else {
       res <- sf_get_job_records_bulk(job_info$id, api_type=api_type, verbose=verbose)
       # For Bulk 2.0 jobs -> INVALIDJOBSTATE: Closing already Completed Job not allowed
       if(api_type == "Bulk 1.0"){
-        close_job_info <- sf_close_job_bulk(job_info$id, api_type=api_type, verbose=verbose) 
+        close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, verbose = verbose) 
       }
     } 
   } else {

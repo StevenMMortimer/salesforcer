@@ -8,7 +8,7 @@
 #' @template object_name
 #' @template all_or_none
 #' @template api_type
-#' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
+#' @param ... other arguments passed on to \code{\link{sf_bulk_operation}}.
 #' @template verbose
 #' @return \code{tbl_df} of records with success indicator
 #' @examples
@@ -150,9 +150,9 @@ sf_delete_bulk_v1 <- function(ids, object_name,
                               ...,
                               verbose = FALSE){
   # allor none?
-  ids <- sf_input_data_validation(ids, operation='delete')  
-  resultset <- sf_bulk_operation(input_data=ids, object_name=object_name,
-                                 operation="delete",
+  ids <- sf_input_data_validation(ids, operation = 'delete')  
+  resultset <- sf_bulk_operation(input_data = ids, object_name = object_name,
+                                 operation = "delete",
                                  api_type = "Bulk 1.0",
                                  verbose=verbose, ...)
   return(resultset)  
@@ -163,8 +163,8 @@ sf_delete_bulk_v2 <- function(ids, object_name,
                               verbose = FALSE){
   # allor none?
   ids <- sf_input_data_validation(ids, operation='delete')  
-  resultset <- sf_bulk_operation(input_data=ids, object_name=object_name, 
-                                 operation="delete", 
+  resultset <- sf_bulk_operation(input_data = ids, object_name = object_name, 
+                                 operation = "delete", 
                                  api_type = "Bulk 2.0",
                                  verbose=verbose, ...)
   return(resultset)

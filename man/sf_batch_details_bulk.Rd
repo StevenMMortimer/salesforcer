@@ -20,8 +20,9 @@ batch as returned by \link{sf_create_batches_bulk}}
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
-A \code{tbl_df}, formatted by salesforce, with information containing the success or failure or certain rows in a submitted batch, 
-unless the operation was query, then it is a data.frame containing the result_id for retrieving the recordset.
+A \code{tbl_df}, formatted by Salesforce, with information containing 
+the success or failure or certain rows in a submitted batch, unless the operation 
+was query, then it is a data.frame containing the result_id for retrieving the recordset.
 }
 \description{
 This function returns detailed (row-by-row) information on an existing batch

@@ -8,7 +8,7 @@
 #' @template external_id_fieldname
 #' @template all_or_none
 #' @template api_type
-#' @param ... Other arguments passed on to \code{\link{sf_bulk_operation}}.
+#' @param ... other arguments passed on to \code{\link{sf_bulk_operation}}.
 #' @template verbose
 #' @return \code{tbl_df} of records with success indicator
 #' @examples
@@ -42,20 +42,20 @@ sf_upsert <- function(input_data,
   
   api_type <- match.arg(api_type)
   if(api_type == "REST"){
-    resultset <- sf_upsert_rest(input_data=input_data, object_name=object_name,
-                                external_id_fieldname=external_id_fieldname,
-                                all_or_none=all_or_none, verbose=verbose)
+    resultset <- sf_upsert_rest(input_data = input_data, object_name = object_name,
+                                external_id_fieldname = external_id_fieldname,
+                                all_or_none = all_or_none, verbose = verbose)
   } else if(api_type == "SOAP"){
-    resultset <- sf_upsert_soap(input_data=input_data, object_name=object_name,
-                                external_id_fieldname=external_id_fieldname,
-                                all_or_none=all_or_none, verbose=verbose)
+    resultset <- sf_upsert_soap(input_data = input_data, object_name = object_name,
+                                external_id_fieldname = external_id_fieldname,
+                                all_or_none = all_or_none, verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
-    resultset <- sf_upsert_bulk_v1(input_data=input_data, object_name=object_name,
-                                   external_id_fieldname=external_id_fieldname,
+    resultset <- sf_upsert_bulk_v1(input_data = input_data, object_name = object_name,
+                                   external_id_fieldname = external_id_fieldname,
                                    verbose = verbose, ...)
   } else if(api_type == "Bulk 2.0"){
-    resultset <- sf_upsert_bulk_v2(input_data=input_data, object_name=object_name,
-                                   external_id_fieldname=external_id_fieldname,
+    resultset <- sf_upsert_bulk_v2(input_data = input_data, object_name = object_name,
+                                   external_id_fieldname = external_id_fieldname,
                                    verbose = verbose, ...)
   } else {
     stop("Unknown API type")
@@ -214,13 +214,13 @@ sf_upsert_bulk_v1 <- function(input_data, object_name,
                               ...,
                               verbose = FALSE){
   # allor none?
-  input_data <- sf_input_data_validation(operation="upsert", input_data)
-  resultset <- sf_bulk_operation(input_data=input_data, 
-                                 object_name=object_name,
-                                 external_id_fieldname=external_id_fieldname,
-                                 operation="upsert", 
+  input_data <- sf_input_data_validation(operation = "upsert", input_data)
+  resultset <- sf_bulk_operation(input_data = input_data, 
+                                 object_name = object_name,
+                                 external_id_fieldname = external_id_fieldname,
+                                 operation = "upsert", 
                                  api_type = "Bulk 1.0",
-                                 verbose=verbose, ...)
+                                 verbose = verbose, ...)
   return(resultset)
 }
 
@@ -236,12 +236,12 @@ sf_upsert_bulk_v2 <- function(input_data, object_name,
                               verbose = FALSE){
   # allor none?
   #The order of records in the response is not guaranteed to match the ordering of records in the original job data.
-  input_data <- sf_input_data_validation(operation='upsert', input_data)
-  resultset <- sf_bulk_operation(input_data=input_data, 
-                                 object_name=object_name,
-                                 external_id_fieldname=external_id_fieldname,
-                                 operation="upsert", 
+  input_data <- sf_input_data_validation(operation = 'upsert', input_data)
+  resultset <- sf_bulk_operation(input_data = input_data, 
+                                 object_name = object_name,
+                                 external_id_fieldname = external_id_fieldname,
+                                 operation = "upsert", 
                                  api_type = "Bulk 2.0",
-                                 verbose=verbose, ...)
+                                 verbose = verbose, ...)
   return(resultset)
 }

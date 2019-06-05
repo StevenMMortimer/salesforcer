@@ -26,18 +26,24 @@ objects during upserts to determine if the record already exists in Salesforce o
 "Chatter" indicating which API to use when making the request}
 
 \item{content_type}{character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to 
-indicate the type of data being passed to the Bulk API}
+indicate the type of data being passed to the Bulk API.}
 
-\item{concurrency_mode}{character; either "Parallel" or "Serial" that specifies whether batches should be completed
-sequentially or in parallel. Use "Serial" only if Lock contentions persist with in "Parallel" mode.}
+\item{concurrency_mode}{character; either "Parallel" or "Serial" that specifies 
+whether batches should be completed sequentially or in parallel. Use "Serial" 
+only if lock contentions persist with in "Parallel" mode. Note: this argument is 
+only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.}
 
-\item{line_ending}{character; indicating the The line ending used for CSV job data, 
-marking the end of a data row. The default is NULL and determined by the operating system using 
-"CRLF" for Windows machines and "LF" for Unix machines}
+\item{line_ending}{character; indicating the line ending used for CSV job data, 
+marking the end of a data row. The default is NULL meaing that the line ending 
+is determined by the operating system using "CRLF" for Windows machines and 
+"LF" for Unix machines. Note: this argument is only used in the Bulk 2.0 API 
+and will be ignored in calls using the Bulk 1.0 API.}
 
 \item{column_delimiter}{character; indicating the column delimiter used for CSV job data. 
 The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
-"SEMICOLON", and "TAB".}
+"SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also, 
+note that this argument is only used in the Bulk 2.0 API and will be ignored 
+in calls using the Bulk 1.0 API.}
 
 \item{verbose}{logical; do you want informative messages?}
 }
