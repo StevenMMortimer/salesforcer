@@ -55,21 +55,31 @@ sf_search <- function(search_string,
     
     if(is_sosl){
       target_url <- make_search_url(search_string)
-      if(verbose) message(target_url)
       httr_response <- rGET(url = target_url,
                             headers = c("Accept"="application/json", 
                                         "Content-Type"="application/json"))
+      if(verbose){
+        make_verbose_message(httr_response$request$url, 
+                             httr_response$request$headers, 
+                             prettify(request_body))
+      }
     } else {
       parameterized_search_control <- do.call("parameterized_search_control",
                                               parameterized_search_options)
       parameterized_search_control <- c(list(q=search_string), parameterized_search_control)
       target_url <- make_parameterized_search_url()
-      if(verbose) message(target_url)
+      request_body <- toJSON(parameterized_search_control,
+                             auto_unbox = TRUE)
       httr_response <- rPOST(url = target_url,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
-                             body = toJSON(parameterized_search_control,
-                                           auto_unbox = TRUE))
+                             body = request_body)
+      if(verbose){
+        make_verbose_httr_message(httr_response$request$method,
+                                  httr_response$request$url, 
+                                  httr_response$request$headers, 
+                                  prettify(request_body))
+      }
     }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, "text", encoding="UTF-8")
@@ -92,15 +102,19 @@ sf_search <- function(search_string,
     r <- make_soap_xml_skeleton()
     xml_dat <- build_soap_xml_from_list(input_data = search_string,
                                         operation = "search",
-                                        root=r)
+                                        root = r)
+    request_body <- as(xml_dat, "character")
     base_soap_url <- make_base_soap_url()
-    if(verbose) {
-      message(base_soap_url)
-    }
     httr_response <- rPOST(url = base_soap_url,
                            headers = c("SOAPAction"="search",
                                        "Content-Type"="text/xml"),
-                           body = as(xml_dat, "character"))
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
+    }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, encoding="UTF-8")
     resultset <- response_parsed %>%

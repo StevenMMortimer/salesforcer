@@ -465,8 +465,8 @@ requests best formatted to match what the APIs require as input. This
 articulation is not perfect and continued progress will be made to add
 and improve functionality. For details on formatting, attributes, and
 methods please refer to [Salesforce’s
-documentation](https://developer.salesforce.com/page/Salesforce_APIs) as
-they are explained better there.
+documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview) 
+as they are explained better there.
 
 More information is also available on the `pkgdown` site at
 <https://StevenMMortimer.github.io/salesforcer>.
@@ -476,5 +476,5 @@ More information is also available on the `pkgdown` site at
 -----
 
 Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/CONDUCT.md). 
+By participating in this project you agree to abide by its terms.

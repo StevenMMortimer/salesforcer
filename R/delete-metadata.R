@@ -57,16 +57,18 @@ sf_delete_metadata <- function(metadata_type,
   root <- make_soap_xml_skeleton(soap_headers = control, metadata_ns = TRUE)
   body_node <- newXMLNode("soapenv:Body", parent=root)  
   body_node <- addChildren(body_node, xml_dat)
-  
-  if(verbose) {
-    print(base_metadata_url)
-    print(root)
-  }
-  
+
+  request_body <- as(root, "character")
   httr_response <- rPOST(url = base_metadata_url,
                          headers = c("SOAPAction"=which_operation,
                                      "Content-Type"="text/xml"),
-                         body = as(root, "character"))
+                         body = request_body)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers,
+                              request_body)
+  }
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding="UTF-8")
   resultset <- response_parsed %>%

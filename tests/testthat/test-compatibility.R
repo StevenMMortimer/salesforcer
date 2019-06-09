@@ -112,16 +112,17 @@ test_that("testing rforcecom.upsert compatibility", {
   this_external_id <- "TestUpsert1"
   new_contact <- c(FirstName="Test", 
                    LastName="Contact-Upsert-Compatibility", 
-                   My_External_Id__c=this_external_id)
-  create_result1 <- sf_create(new_contact, "Contact")
+                   My_External_Id__c = this_external_id)
+  create_result1 <- sf_create(input_data = new_contact, object_name = "Contact")
   fields <- c(FirstName="Test", 
               LastName="Contact-Upsert-Compatibility2")
-  result1 <- RForcecom::rforcecom.upsert(session, 
-                                         objectName=object, 
-                                         externalIdField="My_External_Id__c", 
-                                         externalId = this_external_id,
-                                         fields)
-  
+  suppressWarnings(
+    result1 <- RForcecom::rforcecom.upsert(session, 
+                                           objectName=object, 
+                                           externalIdField = "My_External_Id__c", 
+                                           externalId = this_external_id,
+                                           fields)
+  )
   this_external_id <- "TestUpsert2"
   new_contact <- c(FirstName="Test", 
                    LastName="Contact-Upsert-Compatibility", 

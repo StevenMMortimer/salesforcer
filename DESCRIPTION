@@ -1,12 +1,12 @@
 Package: salesforcer
 Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
-Version: 0.1.2.9000
+Version: 0.1.3
 Date: 2019-06-09
 Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP, 
-    Bulk 1.0, Bulk 2.0, and Metadata) <https://developer.salesforce.com/page/Salesforce_APIs>. 
-    This package is an articulation of the most Salesforce API methods into R. The 
-    API calls return XML or JSON that is parsed tidy data structures. For more details 
-    please see the 'Salesforce' API references and this package's website 
+    Bulk 1.0, Bulk 2.0, and Metadata) <https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview>. 
+    Most all calls from these APIs are supported as they use CSV, XML or JSON data 
+    that can be parsed into R data structures. For more details please see the 
+    'Salesforce' API documentation and this package's website 
     <https://stevenmmortimer.github.io/salesforcer/> for more information, 
     documentation, and examples.
 Authors@R: c(

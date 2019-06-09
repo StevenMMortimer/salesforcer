@@ -43,8 +43,12 @@ sf_describe_objects <- function(object_names,
     resultset <- list()
     for(i in 1:nrow(object_names)){
       describe_object_url <- make_describe_objects_url(object_names[i,"sObjectType"])
-      if(verbose) message(describe_object_url)
       httr_response <- rGET(url = describe_object_url)
+      if(verbose){
+        make_verbose_httr_message(httr_response$request$method,
+                                  httr_response$request$url, 
+                                  httr_response$request$headers)
+      }
       catch_errors(httr_response)
       response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
       # TODO: Need to fix!!!!
@@ -60,13 +64,17 @@ sf_describe_objects <- function(object_names,
                                         operation = "describeSObjects",
                                         root = r)
     base_soap_url <- make_base_soap_url()
-    if(verbose) {
-      message(base_soap_url)
-    }
+    request_body <- as(xml_dat, "character")
     httr_response <- rPOST(url = base_soap_url,
                            headers = c("SOAPAction"="describeSObjects",
                                        "Content-Type"="text/xml"),
-                           body = as(xml_dat, "character"))
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
+    }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, encoding="UTF-8")
     

@@ -52,14 +52,14 @@ can use to directly to pass into `control` or simply to review its documentation
 possible control parameters and their defaults. This is where you can review the various 
 control options in more detail before trying to set them.
 
-You may have also noticed that the argument `<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a>` was formatted 
+You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted 
 as a list with an element inside called `disableFeedTracking` set to `TRUE`. This may 
 seem redundant but there are two reasons for this. First, this is exactly how the 
 Salesforce APIs documents these options, which are typically referred to as "headers" 
 because they are passed as a named header of the HTTP request and then the header fields 
 and values are provided for that header. Second, some headers have multiple fields and values 
 so a list is the only way to provide multiple named fields and values under a single header entity. 
-For example, the `<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">DuplicateRuleHeader</a>`, which controls whether 
+For example, the <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">DuplicateRuleHeader</a>, which controls whether 
 the duplicate rules can be overridden when inserting records from the API, has three 
 fields: `allowSave`, `includeRecordDetails`, and `runAsCurrentUser`. Supplying all 
 three requires a list-like structure, which may seem redundant in other cases, but is 

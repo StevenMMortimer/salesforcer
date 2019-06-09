@@ -156,3 +156,24 @@ remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
   }
   return(dat)
 }
+
+#' Format Headers for Printing
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+format_headers_for_verbose <- function(request_headers){
+  paste0(paste(names(request_headers), unlist(request_headers), sep=': '), collapse = "; ")
+}
+
+#' Format Verbose Call
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_verbose_httr_message <- function(method, url, headers = NULL, body = NULL){
+  message(sprintf("%s %s", method, url))
+  if(!is.null(headers)) message(format_headers_for_verbose(headers))
+  if(!is.null(body)) message(sprintf("Body:\n%s", body))
+  return(invisible())
+}

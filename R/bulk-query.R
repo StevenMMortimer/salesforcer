@@ -38,14 +38,17 @@ sf_submit_query_bulk <- function(job_id,
   
   api_type <- match.arg(api_type)
   bulk_query_url <- make_bulk_query_url(job_id, api_type = api_type)
-  if(verbose){
-    message(bulk_query_url)
-  }
   f <- tempfile()
   cat(soql, file=f)
   httr_response <- rPOST(url = bulk_query_url,
                          headers = c("Content-Type"="text/csv; charset=UTF-8"),
                          body = upload_file(path=f, type='text/txt'))
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers, 
+                              sprintf("Uploaded TXT file: %s", f))
+  }
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding="UTF-8")
   resultset <- response_parsed %>%
@@ -93,10 +96,12 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
     
   api_type <- match.arg(api_type)
   bulk_query_result_url <- make_bulk_query_result_url(job_id, batch_id, result_id, api_type)
-  if(verbose){
-    message(bulk_query_result_url)
-  }  
   httr_response <- rGET(url = bulk_query_result_url)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
   catch_errors(httr_response)
   response_text <- content(httr_response, as="text", encoding="UTF-8")
   

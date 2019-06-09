@@ -42,15 +42,16 @@ of records and not all records submitted to the function.
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact", 1:n))
-new_contacts_result <- sf_create(new_contacts, object_name="Contact")
+new_recs1 <- sf_create(new_contacts, object_name = "Contact")
 
-# add the control to allow the creation of records that might violate a duplicate rule
-new_contacts_result <- sf_create(new_contacts, object_name="Contact", 
-                                 DuplicateRuleHeader = list(allowSave = TRUE, 
-                                                            includeRecordDetails = FALSE, 
-                                                            runAsCurrentUser = TRUE))
+# add control to allow the creation of records that violate a duplicate rules
+new_recs2 <- sf_create(new_contacts, object_name = "Contact", 
+                       DuplicateRuleHeader = list(allowSave = TRUE,
+                                                  includeRecordDetails = FALSE,
+                                                  runAsCurrentUser = TRUE))
                                                             
-# an example of how to specify using the Bulk 1.0 API to insert the records                                                           
-new_contacts_result <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
+# an example of how to use the Bulk 1.0 API to insert the records                                                           
+new_recs3 <- sf_create(new_contacts, object_name = "Contact", 
+                       api_type = "Bulk 1.0")
 }
 }

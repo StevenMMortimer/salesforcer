@@ -38,7 +38,6 @@ into the function. For example, the following code will create a record, but pre
 its creation from showing up in the Chatter feeds by setting the `DisableFeedTrackingHeader`. 
 
 ```{r auth, include = FALSE}
-suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))

@@ -90,7 +90,7 @@ sf_query <- function(soql,
 
 #' @importFrom dplyr bind_rows as_tibble select matches tibble
 #' @importFrom httr content
-#' @importFrom jsonlite toJSON
+#' @importFrom jsonlite toJSON prettify
 #' @importFrom readr type_convert cols col_guess
 sf_query_rest <- function(soql,
                           object_name,
@@ -101,8 +101,6 @@ sf_query_rest <- function(soql,
                           verbose = FALSE){
   
   query_url <- make_query_url(soql, queryall, next_records_url)
-  if(verbose) message(query_url)
-  
   request_headers <- c("Accept"="application/json", 
                        "Content-Type"="application/json")
   if("QueryOptions" %in% names(control)){
@@ -112,6 +110,11 @@ sf_query_rest <- function(soql,
   
   # GET the url with the q (query) parameter set to the escaped SOQL string
   httr_response <- rGET(url = query_url, headers = request_headers)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
   catch_errors(httr_response)
   response_parsed <- content(httr_response, "text", encoding="UTF-8")
   response_parsed <- fromJSON(response_parsed, flatten=TRUE)
@@ -130,7 +133,8 @@ sf_query_rest <- function(soql,
   
   # check whether it has next record
   if(!is.null(next_records_url)){
-    next_records <- sf_query_rest(next_records_url = next_records_url, control = control, ...)
+    next_records <- sf_query_rest(next_records_url = next_records_url, control = control, 
+                                  verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)
   }
   
@@ -174,14 +178,17 @@ sf_query_soap <- function(soql,
   }
   
   base_soap_url <- make_base_soap_url()
-  if(verbose) {
-    message(base_soap_url)
-    message(xml_dat)
-  }
+  request_body <- as(xml_dat, "character") 
   httr_response <- rPOST(url = base_soap_url,
                          headers = c("SOAPAction"=soap_action,
                                      "Content-Type"="text/xml"),
-                         body = as(xml_dat, "character"))
+                         body = request_body)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url, 
+                              httr_response$request$headers, 
+                              request_body)
+  }
   catch_errors(httr_response)
   response_parsed <- content(httr_response, encoding="UTF-8")
   resultset <- response_parsed %>%
@@ -214,7 +221,8 @@ sf_query_soap <- function(soql,
       xml_ns_strip() %>%
       xml_find_first('.//queryLocator') %>%
       xml_text()
-    next_records <- sf_query_soap(next_records_url = query_locator, control = control, ...)
+    next_records <- sf_query_soap(next_records_url = query_locator, control = control, 
+                                  verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)      
   }
   

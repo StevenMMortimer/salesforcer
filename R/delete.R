@@ -90,10 +90,6 @@ sf_delete_soap <- function(ids,
   batch_id <- (seq.int(row_num)-1) %/% batch_size
   
   base_soap_url <- make_base_soap_url()
-  if(verbose) {
-    message(base_soap_url)
-  }
-  
   if(verbose){
     message("Submitting data in ", max(batch_id)+1, " Batches")
   }
@@ -111,11 +107,17 @@ sf_delete_soap <- function(ids,
     xml_dat <- build_soap_xml_from_list(input_data = batched_data,
                                         operation = "delete",
                                         object_name = object_name,
-                                        root=r)
+                                        root = r)
+    request_body <- as(xml_dat, "character")
     httr_response <- rPOST(url = base_soap_url,
                            headers = c("SOAPAction"="delete",
                                        "Content-Type"="text/xml"),
-                           body = as(xml_dat, "character"))
+                           body = request_body)
+    if(verbose){
+      make_verbose_message(httr_response$request$url, 
+                           httr_response$request$headers, 
+                           request_body)
+    }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, encoding="UTF-8")
     this_set <- response_parsed %>%
@@ -142,18 +144,12 @@ sf_delete_rest <- function(ids,
   }
   
   composite_url <- make_composite_url()
-  if(verbose) {
-    message(composite_url)
-  }
-  
   # this type of request can only handle 200 records at a time
   # so break up larger datasets, batch the data
   batch_size <- 200
   row_num <- nrow(ids)
   batch_id <- (seq.int(row_num)-1) %/% batch_size
-  if(verbose) {
-    message("Submitting data in ", max(batch_id)+1, " Batches")
-  }
+  if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
   message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
   
   resultset <- NULL
@@ -170,6 +166,11 @@ sf_delete_rest <- function(ids,
                                          "Content-Type"="application/json"),
                              query = list(allOrNone = tolower(all_or_none), 
                                           ids = paste0(batched_data$Id, collapse=",")))
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers)
+    }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, "text", encoding="UTF-8")
     resultset <- bind_rows(resultset, fromJSON(response_parsed))

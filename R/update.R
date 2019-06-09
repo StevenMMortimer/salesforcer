@@ -109,18 +109,12 @@ sf_update_soap <- function(input_data,
   control <- do.call("sf_control", control)
   
   base_soap_url <- make_base_soap_url()
-  if(verbose) {
-    message(base_soap_url)
-  }
-  
   # limit this type of request to only 200 records at a time to prevent 
   # the XML from exceeding a size limit
   batch_size <- 200
   row_num <- nrow(input_data)
   batch_id <- (seq.int(row_num)-1) %/% batch_size
-  if(verbose){
-    message("Submitting data in ", max(batch_id)+1, " Batches")
-  }
+  if(verbose) message("Submitting data in ", max(batch_id)+1, " Batches")
   message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
   
   resultset <- NULL
@@ -137,10 +131,17 @@ sf_update_soap <- function(input_data,
                                         operation = "update",
                                         object_name = object_name,
                                         root = r)
+    request_body <- as(xml_dat, "character")
     httr_response <- rPOST(url = base_soap_url,
                            headers = c("SOAPAction"="update",
                                        "Content-Type"="text/xml"),
-                           body = as(xml_dat, "character"))
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
+    }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, encoding="UTF-8")
     this_set <- response_parsed %>%
@@ -158,7 +159,7 @@ sf_update_soap <- function(input_data,
 #' 
 #' @importFrom readr cols type_convert
 #' @importFrom dplyr everything as_tibble bind_rows select
-#' @importFrom jsonlite toJSON fromJSON
+#' @importFrom jsonlite toJSON fromJSON prettify
 #' @importFrom stats quantile
 #' @importFrom utils head
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -190,10 +191,6 @@ sf_update_rest <- function(input_data,
   input_data <- input_data %>% select(attributes, everything())
   
   composite_url <- make_composite_url()
-  if(verbose){
-    message(composite_url)
-  }
-  
   # add attributes to insert multiple records at a time
   # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm?search_text=update%20multiple
   # this type of request can only handle 200 records at a time
@@ -201,9 +198,7 @@ sf_update_rest <- function(input_data,
   batch_size <- 200
   row_num <- nrow(input_data)
   batch_id <- (seq.int(row_num)-1) %/% batch_size
-  if(verbose) {
-    message("Submitting data in ", max(batch_id)+1, " Batches")
-  }
+  if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
   message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
 
   resultset <- NULL
@@ -215,11 +210,18 @@ sf_update_rest <- function(input_data,
       } 
     }
     batched_data <- input_data[batch_id == batch, , drop=FALSE]
+    request_body <- toJSON(list(allOrNone = tolower(all_or_none), 
+                                records = batched_data), 
+                           auto_unbox = TRUE)
     httr_response <- rPATCH(url = composite_url,
                            headers = request_headers,
-                           body = toJSON(list(allOrNone = tolower(all_or_none), 
-                                              records = batched_data), 
-                                         auto_unbox = TRUE))
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                prettify(request_body))
+    }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, "text", encoding="UTF-8")
     resultset <- bind_rows(resultset, fromJSON(response_parsed))

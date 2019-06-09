@@ -8,7 +8,6 @@ knitr::opts_chunk$set(
 )
 
 ## ----auth, include = FALSE-----------------------------------------------
-suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))

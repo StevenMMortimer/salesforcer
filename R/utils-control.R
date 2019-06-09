@@ -279,24 +279,6 @@ return_matching_controls <- function(args){
   return(args[idx])
 }
 
-# add reverse compatibility for functions that have an explicit argument for 
-# all_or_none (DOING!)
-# line_ending
-
-# REST Translations
-#  AllorNoneHeader =  (allOrNone, currently in our batched data process)
-#  AssignmentRuleHeader = Sforce-Auto-Assign
-#  DuplicateRuleHeader = NONE!
-#  QueryOptions = Sforce-Query-Options
-
-# Bulk 1.0 Translations
-#  AssignmentRuleHeader = assignmentRuleId (in the job info) (only if id?)
-#  AllorNoneHeader? = Unknown if SOAP works for Bulk 1.0 as well
-#  DuplicateRuleHeader? = Unknown if SOAP works for Bulk 1.0 as well
-
-# Bulk 2.0 Translations (does not use any headers)
-# Just line ending?
-
 
 # HELD BACK CONTROL OPTIONS BECAUSE THEY MAY BE CONFUSING OR NOT FEASIBLE GIVEN 
 # THE WAY THE PACKAGE IS CURRENTLY WRITTEN:
@@ -330,3 +312,18 @@ return_matching_controls <- function(args){
 #' this header to match the contentType of the job you’re working with. This works
 #' for most all functions with the Bulk 1.0 API. For more information, read the Salesforce documentation
 #' \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_content_type.htm}{here}.
+
+
+# REST Translations
+#  AllorNoneHeader =  (allOrNone, currently in our batched data process)
+#  AssignmentRuleHeader = Sforce-Auto-Assign
+#  DuplicateRuleHeader = NONE!
+#  QueryOptions = Sforce-Query-Options
+
+# Bulk 1.0 Translations
+#  AssignmentRuleHeader = assignmentRuleId (in the job info) (only if id?)
+#  AllorNoneHeader? = Unknown if SOAP works for Bulk 1.0 as well
+#  DuplicateRuleHeader? = Unknown if SOAP works for Bulk 1.0 as well
+
+# Bulk 2.0 Translations (does not use any headers)
+# Just line ending?
