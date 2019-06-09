@@ -70,6 +70,7 @@ sprintf("User Active?: %s", user_info$isActive)
 ```
 
 ### Create
+
 Salesforce has objects and those objects contain records. One default object is the 
 "Contact" object. This example shows how to create two records in the Contact object.
 
@@ -82,6 +83,7 @@ created_records
 ```
 
 ### Retrieve
+
 Retrieve pulls down a specific set of records and fields. It's very similar to 
 running a query, but doesn't use SOQL. Here is an example where we retrieve the 
 data we just created.
@@ -92,7 +94,6 @@ retrieved_records <- sf_retrieve(ids=created_records$id,
                                  object_name="Contact")
 retrieved_records
 ```
-
 
 ### Query
 

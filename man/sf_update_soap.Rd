@@ -4,8 +4,7 @@
 \alias{sf_update_soap}
 \title{Update Records using SOAP API}
 \usage{
-sf_update_soap(input_data, object_name, all_or_none = FALSE,
-  verbose = FALSE)
+sf_update_soap(input_data, object_name, control, ..., verbose = FALSE)
 }
 \description{
 Update Records using SOAP API

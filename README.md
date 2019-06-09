@@ -5,7 +5,10 @@
 Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/salesforcer)](http://cran.r-project.org/package=salesforcer)
+[![CRAN Status 
+Badge](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
+[![Monthly 
+Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
 Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 
@@ -31,10 +34,13 @@ Package features include:
         `rforcecom.query()`, `rforcecom.create()`
   - Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`,
     `sf_list_objects()`)
+  - Passing API call control parameters such as, “All or None”,
+    “Duplicate Rule”, “Assignment Rule” execution and many more
 
 ## Table of Contents
 
   - [Installation](#installation)
+  - [Vignettes](#vignettes)
   - [Usage](#usage)
       - [Authenticate](#authenticate)
       - [Create](#create)
@@ -59,6 +65,20 @@ devtools::install_github("StevenMMortimer/salesforcer")
 
 If you encounter a clear bug, please file a minimal reproducible example
 on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
+
+## Vignettes
+
+The README below outlines the package functionality, but review the
+vignettes for more detailed examples on usage.
+
+  - [Getting
+    Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
+  - [Working with Bulk
+    API](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-api.html)
+  - [Transitioning from
+    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
+  - [Passing Control
+    Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
 
 ## Usage
 
@@ -119,8 +139,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000taMJ6QAM TRUE   
-#> 2 0036A00000taMJ7QAM TRUE
+#> 1 0036A00000wzh7AQAQ TRUE   
+#> 2 0036A00000wzh7BQAQ TRUE
 ```
 
 ### Query
@@ -147,8 +167,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000taMJ6QAM NA      Test      Contact-Create-1
-#> 2 0036A00000taMJ7QAM NA      Test      Contact-Create-2
+#> 1 0036A00000wzh7AQAQ NA      Test      Contact-Create-1
+#> 2 0036A00000wzh7BQAQ NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -173,8 +193,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000taMJ6QAM TRUE   
-#> 2 0036A00000taMJ7QAM TRUE
+#> 1 0036A00000wzh7AQAQ TRUE   
+#> 2 0036A00000wzh7BQAQ TRUE
 ```
 
 ### Bulk Operations
@@ -300,6 +320,22 @@ acct_fields %>% select(name, label, length, soapType, type)
 #>  9 BillingState      Billing State/Province  80     xsd:string  string   
 #> 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   
 #> # … with 57 more rows
+
+# show the picklist selection options for the Account Type field
+acct_fields %>% 
+  filter(label == "Account Type") %>% 
+  .$picklistValues
+#> [[1]]
+#> # A tibble: 7 x 4
+#>   active defaultValue label                      value                     
+#>   <lgl>  <lgl>        <chr>                      <chr>                     
+#> 1 TRUE   FALSE        Prospect                   Prospect                  
+#> 2 TRUE   FALSE        Customer - Direct          Customer - Direct         
+#> 3 TRUE   FALSE        Customer - Channel         Customer - Channel        
+#> 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller
+#> 5 TRUE   FALSE        Installation Partner       Installation Partner      
+#> 6 TRUE   FALSE        Technology Partner         Technology Partner        
+#> 7 TRUE   FALSE        Other                      Other
 ```
 
 If you prefer to be more precise about collecting and formatting the
@@ -318,11 +354,20 @@ describe_obj_result[[1]][c('label', 'queryable')]
 #> $queryable
 #> [1] "true"
 # show the different picklist values for the Account Type field
-the_type_field <- describe_obj_result[[1]][[59]]
-the_type_field$label
-#> NULL
-map_df(the_type_field[which(names(the_type_field) == "picklistValues")], as_tibble)
-#> # A tibble: 0 x 0
+all_fields <- describe_obj_result[[1]][names(describe_obj_result[[1]]) == "fields"]
+the_type_field_idx <- which(sapply(all_fields, FUN=function(x){x$label}) == "Account Type")
+acct_type_field <- all_fields[[the_type_field_idx]]
+map_df(acct_type_field[which(names(acct_type_field) == "picklistValues")], as_tibble)
+#> # A tibble: 7 x 4
+#>   active defaultValue label                      value                     
+#>   <chr>  <chr>        <chr>                      <chr>                     
+#> 1 true   false        Prospect                   Prospect                  
+#> 2 true   false        Customer - Direct          Customer - Direct         
+#> 3 true   false        Customer - Channel         Customer - Channel        
+#> 4 true   false        Channel Partner / Reseller Channel Partner / Reseller
+#> 5 true   false        Installation Partner       Installation Partner      
+#> 6 true   false        Technology Partner         Technology Partner        
+#> 7 true   false        Other                      Other
 ```
 
 It is recommended that you try out the various metadata functions
@@ -363,6 +408,32 @@ create_fields_result <- sf_create_metadata(metadata_type = 'CustomField',
 # delete the object
 deleted_custom_object_result <- sf_delete_metadata(metadata_type = 'CustomObject', 
                                                    object_names = c('Custom_Account1__c'))
+```
+
+Note that newly created custom fields are not editable by default,
+meaning that you will not be able to insert records into them until
+updating the field level security of your user profile. Run the
+following code to determine the user profiles in your org and updating
+the field permissions on an object that you may have created with the
+example code
+above.
+
+``` r
+# get list of user proviles in order to get the "fullName" parameter correct in the next call
+my_queries <- list(list(type='Profile'))
+profiles_list <- sf_list_metadata(queries=my_queries)
+
+# update the field level security to "editable" for your fields
+prof_update <- sf_update_metadata(metadata_type='Profile', 
+                                  metadata=list(fullName='Admin', 
+                                                fieldPermissions=list(field=paste0(custom_object$fullName, '.CustomField3__c'),
+                                                                      editable='true'), 
+                                                fieldPermissions=list(field=paste0(custom_object$fullName, '.CustomField4__c'),
+                                                                      editable='true')))
+
+# now try inserting values into that custom object's fields
+my_new_data = tibble(CustomField3__c = "Hello World", CustomField4__c = "Hello World")
+added_record <- sf_create(my_new_data, object_name = custom_object$fullName)
 ```
 
 ## Future

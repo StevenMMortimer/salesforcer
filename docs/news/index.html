@@ -99,6 +99,9 @@
       <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
     <li>
+      <a href="../articles/passing-control-args.html">Passing Control Args</a>
+    </li>
+    <li>
       <a href="../articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
     </li>
   </ul>
@@ -156,6 +159,7 @@
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
 <ul>
+<li>Upgraded to version 46.0 (Summer ’19) from version 45.0 (Spring ’19)</li>
 <li>Add <strong>RForcecom</strong> backward compatibile version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>
 </li>
 <li>Add <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> which is a tidyier version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>
@@ -165,6 +169,8 @@
 <li>Add new utility functions <code><a href="../reference/sf_set_password.html">sf_set_password()</a></code> and <code><a href="../reference/sf_reset_password.html">sf_reset_password()</a></code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/11'>#11</a>)</li>
 <li>Add two new functions to check for duplicates (<code><a href="../reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="../reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>)</li>
 <li>Add new function to download attachments to disk (<code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/20'>#20</a>)</li>
+<li>The <code>object_name</code> argument, required for bulk queries, will be inferred if left blank, making it no longer a required argument</li>
+<li>Almost all functions in the package now have a <code>control</code> argument and dots (<code>...</code>) which allows for more than a dozen different control parameters listed in <code><a href="../reference/sf_control.html">sf_control()</a></code> to be fed into existing function calls to tweak the default behavior. For example, if you would like to override duplicate rules then you can adjust the <code>DuplicateRuleHeader</code>. If you would like to have certain assignment rule run on newly created records, then pass in the <code>AssignmentRuleHeader</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/5'>#5</a>)</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
@@ -174,7 +180,9 @@
 <li>Fix bug where Username/Password authenticated sessions where not working with api_type = “Bulk 1.0”</li>
 <li>Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</li>
 <li>Fix bug that had only production environment logins possible because of hard coding (<a href='http://github.com/weckstm'>@weckstm</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/18'>#18</a>)</li>
-<li>Make <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> more robust against nested list elements (<a href='https://github.com/StevenMMortimer/salesforcer/issues/16'>#16</a>)</li>
+<li>Make <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> more robust against nested list elements and also return picklists as tibbles (<a href='https://github.com/StevenMMortimer/salesforcer/issues/16'>#16</a>)</li>
+<li>Fix bug where four of the bulk operation options (<code>content_type</code>, <code>concurrency_mode</code>, <code>line_ending</code>, and <code>column_delimiter</code>) where not being passed down from the top level generic functions like <code><a href="../reference/sf_create.html">sf_create()</a></code>, <code><a href="../reference/sf_update.html">sf_update()</a></code>, etc. However, <code>line_ending</code> has now been moved into the <code>sf_control</code> function so it is no longer explicitly listed for bulk operations as an argument. (<a href='http://github.com/mitch'>@mitch</a>-niche, <a href='https://github.com/StevenMMortimer/salesforcer/issues/23'>#23</a>)</li>
+<li>Ensure that for SOAP, REST, and Bulk 2.0 APIs the verbose argument prints out the XML or JSON along with the URL of the call so it can be replicated via cURL or some other programming language (<a href='https://github.com/StevenMMortimer/salesforcer/issues/8'>#8</a>)</li>
 </ul>
 <hr>
 </div>

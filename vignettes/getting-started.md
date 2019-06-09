@@ -55,12 +55,13 @@ the information returned about the current user. It should be information about 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
 sprintf("User Id: %s", user_info$id)
-#> [1] "User Id: 0056A000000MPRjQAO"
+#> character(0)
 sprintf("User Active?: %s", user_info$isActive)
-#> [1] "User Active?: TRUE"
+#> character(0)
 ```
 
 ### Create
+
 Salesforce has objects and those objects contain records. One default object is the 
 "Contact" object. This example shows how to create two records in the Contact object.
 
@@ -73,12 +74,13 @@ created_records <- sf_create(new_contacts, "Contact")
 created_records
 #> # A tibble: 2 x 2
 #>   id                 success
-#>   <chr>              <chr>  
-#> 1 0036A00000SncEJQAZ true   
-#> 2 0036A00000SncEKQAZ true
+#>   <chr>              <lgl>  
+#> 1 0036A00000wzh4VQAQ TRUE   
+#> 2 0036A00000wzh4WQAQ TRUE
 ```
 
 ### Retrieve
+
 Retrieve pulls down a specific set of records and fields. It's very similar to 
 running a query, but doesn't use SOQL. Here is an example where we retrieve the 
 data we just created.
@@ -92,10 +94,9 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000SncEJQAZ Test      Contact-Create-1
-#> 2 0036A00000SncEKQAZ Test      Contact-Create-2
+#> 1 0036A00000wzh4VQAQ Test      Contact-Create-1
+#> 2 0036A00000wzh4WQAQ Test      Contact-Create-2
 ```
-
 
 ### Query
 
@@ -121,9 +122,9 @@ queried_records <- sf_query(my_soql)
 queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
-#> * <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000SncEJQAZ NA      Test      Contact-Create-1
-#> 2 0036A00000SncEKQAZ NA      Test      Contact-Create-2
+#>   <chr>              <lgl>   <chr>     <chr>           
+#> 1 0036A00000wzh4VQAQ NA      Test      Contact-Create-1
+#> 2 0036A00000wzh4WQAQ NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -147,9 +148,9 @@ updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
-#>   <chr>              <chr>  
-#> 1 0036A00000SncEJQAZ true   
-#> 2 0036A00000SncEKQAZ true
+#>   <chr>              <lgl>  
+#> 1 0036A00000wzh4VQAQ TRUE   
+#> 2 0036A00000wzh4WQAQ TRUE
 ```
 
 ### Delete
@@ -164,8 +165,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000SncEJQAZ TRUE    <list [0]>
-#> 2 0036A00000SncEKQAZ TRUE    <list [0]>
+#> 1 0036A00000wzh4VQAQ TRUE    <list [0]>
+#> 2 0036A00000wzh4WQAQ TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -199,10 +200,10 @@ upserted_records <- sf_upsert(input_data=upserted_contacts,
 upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
-#>   <chr>   <chr>              <chr>  
-#> 1 false   0036A00000SncEOQAZ true   
-#> 2 false   0036A00000SncEPQAZ true   
-#> 3 true    0036A00000SncETQAZ true
+#>   <lgl>   <chr>              <lgl>  
+#> 1 FALSE   0036A00000wzh4XQAQ TRUE   
+#> 2 FALSE   0036A00000wzh4YQAQ TRUE   
+#> 3 TRUE    0036A00000wzh4aQAA TRUE
 ```
 
 

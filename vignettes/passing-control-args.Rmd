@@ -1,0 +1,166 @@
+---
+title: "Passing Control Args"
+author: "Steven M. Mortimer"
+date: "2019-06-08"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Passing Control Args}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+```
+
+If you're inserting records from R you may want to turn off the assignment rules 
+or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of 
+the **salesforcer** package many functions have a `control` argument that will allow 
+you to fine tune the behavior of calls to the Salesforce APIs. This vignette will 
+introduce the different options you can control and how to pass them into the **salesforcer** 
+functions you're already familiar with.
+
+### The new control argument
+
+This new feature can be seen in the `sf_create` (and many other functions) as 
+`control=list(...)`. The dots mean that you can pass any number of controls directly 
+into the function. For example, the following code will create a record, but prevent 
+its creation from showing up in the Chatter feeds by setting the `DisableFeedTrackingHeader`. 
+
+```{r auth, include = FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+library(salesforcer)
+token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
+suppressMessages(sf_auth(token = token_path, verbose = FALSE))
+```
+
+```{r sample-create}
+new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
+record <- sf_create(new_contact,
+                    object_name = "Contact",
+                    DisableFeedTrackingHeader = list(disableFeedTracking = TRUE), 
+                    api_type = "SOAP")
+```
+
+```{r, include = FALSE}
+deleted_records <- sf_delete(record$id)
+```
+
+You will notice that the argument `DisableFeedTrackingHeader` can be included right into 
+the function without any documentation existing for it in the `sf_create` function. 
+This is because the dots (`...`) allow you to pass over a dozen different control 
+parameters and that documentation would be tedious to create and maintain over multiple 
+functions in the package. However, you will notice in the documentation entry for 
+the `control` argument there is a link to a function called `sf_control` which you 
+can use to directly to pass into `control` or simply to review its documentation of all the 
+possible control parameters and their defaults. This is where you can review the various 
+control options in more detail before trying to set them.
+
+You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted 
+as a list with an element inside called `disableFeedTracking` set to `TRUE`. This may 
+seem redundant but there are two reasons for this. First, this is exactly how the 
+Salesforce APIs documents these options, which are typically referred to as "headers" 
+because they are passed as a named header of the HTTP request and then the header fields 
+and values are provided for that header. Second, some headers have multiple fields and values 
+so a list is the only way to provide multiple named fields and values under a single header entity. 
+For example, the <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">DuplicateRuleHeader</a>, which controls whether 
+the duplicate rules can be overridden when inserting records from the API, has three 
+fields: `allowSave`, `includeRecordDetails`, and `runAsCurrentUser`. Supplying all 
+three requires a list-like structure, which may seem redundant in other cases, but is 
+necessary to follow.
+
+```{r sample-create-w-duplicate}
+new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
+record <- sf_create(new_contact,
+                    object_name = "Contact",
+                    DuplicateRuleHeader = list(allowSave = TRUE, 
+                                               includeRecordDetails = FALSE, 
+                                               runAsCurrentUser = TRUE))
+```
+
+```{r, include = FALSE}
+deleted_records <- sf_delete(record$id)
+```
+
+Finally, you will notice in the example call that the `api_type` argument is set to "SOAP". 
+This is because the `DisableFeedTrackingHeader` is a control that is only available when 
+making calls via the SOAP API. You will receive a warning when trying to set control 
+parameters for APIs or operations that do not recognize that control. For example, 
+the following code tries to set the `BatchRetryHeader` for a call to the SOAP 
+API which does not acknowledge that control. That control is only used with the Bulk 
+1.0 API since its records as submitted in batches and automatic retry can be controlled.
+
+```{r sample-create-w-warning}
+new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
+record <- sf_create(new_contact,
+                    object_name = "Contact",
+                    BatchRetryHeader = list(`Sforce-Disable-Batch-Retry` = FALSE), 
+                    api_type = "SOAP")
+```
+
+```{r, include = FALSE}
+deleted_records <- sf_delete(record$id)
+```
+
+### Creating the control argument with sf_control
+
+If this type of control structure is new to you, take a look at the documentation for 
+the `glm` and `glm.control` functions. The way these two functions behave is exactly how 
+functions like `sf_create` and `sf_control` work with each other. As demonstrated above 
+you can pass any number of arbitrary controls into the function and they are all 
+gathered up into the control by `control = list(...)`. However, you can specify the 
+control directly like this: 
+
+```{r sample-query}
+new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
+records <- sf_query("SELECT Id, Name FROM Account LIMIT 1000",
+                    object_name = "Account",
+                    control = sf_control(QueryOptions = list(batchSize = 100)), 
+                    api_type = "SOAP")
+```
+
+### Backwards compatibility for all_or_none and other named arguments
+
+You may already be taking advantage of the `all_or_none` or `line_ending` arguments 
+which are control arguments that were explicity included in functions. These argument 
+essentially hard coded values to pass the `AllOrNoneHeader` and `LineEndingHeader` 
+control parameters. Starting with the 0.1.3 release it is no longer necessary and 
+preferable not to have an argument like `all_or_none` listed explicity as an argument 
+since it can be provided in the `control` argument. Note: the `all_or_none` argument 
+and other explicit control arguments will still be available in **salesforcer 0.1.3** 
+but will provide a deprecated warning. They will be removed in the next CRAN release 
+of the package so it will be important to update your code now if you are explicitly 
+passing these arguments and see a deprecation warning.
+  
+### Reference Links
+
+Below is a list of links that go directly to the control arguments (a.k.a headers) 
+for the different APIs. I highly recommend reading this documentation before setting 
+a control parameter in R so you know exactly what the behavior will be and how to 
+specify it in R. You may notice that some controls are not included in the R package. 
+Some may be added in the future if requested and some will not be added given the 
+scope of the package. One final note is that some arguments in the REST API, like the 
+"All or None" behavior is not a header, but a parameter in the API call. For this reason 
+you will not see it listed in the REST API Headers section, but it is set in this R package 
+using the `AllOrNoneHeader` argument in `sf_control` just to provide consistency between 
+the SOAP and REST APIs. It would be confusing to have two arguments named differently, 
+one for each API, but to do the exact same thing from R. For this reason, many of the 
+control arguments match exactly as they are listed in the SOAP API, but can be used 
+across other APIs even if not exactly written that way in the Salesforce documentation 
+referenced below.
+
+ * **SOAP API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
+ * **REST API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a>
+ * **Bulk 1.0 API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a>
+ * **Bulk 2.0 API Headers**: None
+ * **Metadata API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a>

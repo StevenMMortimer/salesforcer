@@ -5,11 +5,12 @@
 \title{Create Bulk API Job}
 \usage{
 sf_create_job_bulk(operation = c("insert", "delete", "upsert", "update",
-  "hardDelete", "query"), object_name, external_id_fieldname = NULL,
-  api_type = c("Bulk 1.0", "Bulk 2.0"), content_type = c("CSV",
-  "ZIP_CSV", "ZIP_XML", "ZIP_JSON"), concurrency_mode = c("Parallel",
-  "Serial"), line_ending = NULL, column_delimiter = c("COMMA", "TAB",
-  "PIPE", "SEMICOLON", "CARET", "BACKQUOTE"), verbose = FALSE)
+  "hardDelete", "query", "queryall"), object_name,
+  external_id_fieldname = NULL, api_type = c("Bulk 1.0", "Bulk 2.0"),
+  content_type = c("CSV", "ZIP_CSV", "ZIP_XML", "ZIP_JSON"),
+  concurrency_mode = c("Parallel", "Serial"),
+  column_delimiter = c("COMMA", "TAB", "PIPE", "SEMICOLON", "CARET",
+  "BACKQUOTE"), control = list(...), ..., verbose = FALSE)
 }
 \arguments{
 \item{operation}{character; a string defining the type of operation being 
@@ -26,24 +27,25 @@ objects during upserts to determine if the record already exists in Salesforce o
 "Chatter" indicating which API to use when making the request}
 
 \item{content_type}{character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to 
-indicate the type of data being passed to the Bulk API.}
+indicate the type of data being passed to the Bulk APIs. For the Bulk 2.0 API the only 
+valid value (and the default) is 'CSV'.}
 
 \item{concurrency_mode}{character; either "Parallel" or "Serial" that specifies 
 whether batches should be completed sequentially or in parallel. Use "Serial" 
 only if lock contentions persist with in "Parallel" mode. Note: this argument is 
 only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.}
 
-\item{line_ending}{character; indicating the line ending used for CSV job data, 
-marking the end of a data row. The default is NULL meaing that the line ending 
-is determined by the operating system using "CRLF" for Windows machines and 
-"LF" for Unix machines. Note: this argument is only used in the Bulk 2.0 API 
-and will be ignored in calls using the Bulk 1.0 API.}
-
 \item{column_delimiter}{character; indicating the column delimiter used for CSV job data. 
 The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
 "SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also, 
 note that this argument is only used in the Bulk 2.0 API and will be ignored 
 in calls using the Bulk 1.0 API.}
+
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}}}
 
 \item{verbose}{logical; do you want informative messages?}
 }

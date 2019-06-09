@@ -102,6 +102,9 @@ to Salesforce to update an object that already exists" />
       <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
     <li>
+      <a href="../articles/passing-control-args.html">Passing Control Args</a>
+    </li>
+    <li>
       <a href="../articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
     </li>
   </ul>
@@ -160,7 +163,7 @@ to Salesforce to update an object that already exists</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_update_metadata</span>(<span class='no'>metadata_type</span>, <span class='no'>metadata</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>sf_update_metadata</span>(<span class='no'>metadata_type</span>, <span class='no'>metadata</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -176,9 +179,14 @@ to Salesforce to update an object that already exists</p>
 XML before being sent via API</p></td>
     </tr>
     <tr>
-      <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all 
-records are processed successfully</p></td>
+      <th>control</th>
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>

@@ -4,9 +4,9 @@
 \alias{sf_query}
 \title{Perform SOQL Query}
 \usage{
-sf_query(soql, object_name, guess_types = TRUE, queryall = FALSE,
-  page_size = 1000, api_type = c("REST", "SOAP", "Bulk 1.0"),
-  next_records_url = NULL, ..., verbose = FALSE)
+sf_query(soql, object_name, queryall = FALSE, guess_types = TRUE,
+  api_type = c("REST", "SOAP", "Bulk 1.0"), control = list(...), ...,
+  next_records_url = NULL, verbose = FALSE)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
@@ -14,24 +14,27 @@ sf_query(soql, object_name, guess_types = TRUE, queryall = FALSE,
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
+\item{queryall}{logical; indicating if the query recordset should include records 
+that have been deleted because of a merge or delete. QueryAll will also return 
+information about archived Task and Event records. QueryAll is available in API 
+version 29.0 and later.}
+
 \item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
 to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
 and FALSE returns all values as character strings.}
 
-\item{queryall}{logical; indicating if the query recordset should include 
-deleted and archived records (available only when querying Task and Event records)}
-
-\item{page_size}{numeric; a number between 200 and 2000 indicating the number of 
-records per page that are returned. Speed benchmarks should be done to better 
-understand the speed implications of choosing high or low values of this argument.}
-
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
+to \code{\link{sf_query_bulk}}.}
+
 \item{next_records_url}{character (leave as NULL); a string used internally 
 by the function to paginate through to more records until complete}
-
-\item{...}{Other arguments passed on to \code{\link{sf_query_bulk}}.}
 
 \item{verbose}{logical; do you want informative messages?}
 }
@@ -57,7 +60,7 @@ Additionally, Bulk API can't access or query compound address or compound geoloc
 }
 \examples{
 \dontrun{
-sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10", verbose = TRUE)
+sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10")
 }
 }
 \references{

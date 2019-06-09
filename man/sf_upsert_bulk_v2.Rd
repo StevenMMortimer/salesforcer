@@ -4,8 +4,8 @@
 \alias{sf_upsert_bulk_v2}
 \title{Upsert Records using Bulk 2.0 API}
 \usage{
-sf_upsert_bulk_v2(input_data, object_name, external_id_fieldname,
-  all_or_none = FALSE, ..., verbose = FALSE)
+sf_upsert_bulk_v2(input_data, object_name, external_id_fieldname, control,
+  ..., verbose = FALSE)
 }
 \description{
 Upsert Records using Bulk 2.0 API

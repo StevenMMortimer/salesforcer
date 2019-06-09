@@ -9,6 +9,8 @@
 #' on the records
 #' @template object_name
 #' @template api_type
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return \code{tibble}
 #' @examples
@@ -26,15 +28,25 @@ sf_retrieve <- function(ids,
                         fields,
                         object_name,
                         api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+                        control = list(...), ...,
                         verbose = FALSE){
   
   api_type <- match.arg(api_type)
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- "retrieve"
   if(api_type == "REST"){
-    resultset <- sf_retrieve_rest(ids=ids, fields=fields, object_name=object_name,
-                                  verbose = verbose)    
-  } else if(api_type == "SOAP"){
-    resultset <- sf_retrieve_soap(ids=ids, fields=fields, object_name=object_name,
+    resultset <- sf_retrieve_rest(ids = ids, 
+                                  fields = fields, 
+                                  object_name = object_name,
+                                  control = control_args, ...,
                                   verbose = verbose)
+  } else if(api_type == "SOAP"){
+    resultset <- sf_retrieve_soap(ids = ids, 
+                                  fields = fields, 
+                                  object_name = object_name,
+                                  control = control_args, ...,
+                                  verbose = verbose) 
   } else if(api_type == "Bulk 1.0"){
     stop("Retrieve is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
   } else if(api_type == "Bulk 2.0"){
@@ -55,9 +67,12 @@ sf_retrieve <- function(ids,
 sf_retrieve_soap <- function(ids,
                              fields,
                              object_name,
+                             control, ...,
                              verbose = FALSE){
   
   ids <- sf_input_data_validation(ids, operation='retrieve')
+  control <- do.call("sf_control", control)
+  
   # limit this type of request to only 200 records at a time to prevent 
   # the XML from exceeding a size limit
   batch_size <- 200
@@ -82,7 +97,7 @@ sf_retrieve_soap <- function(ids,
     }
     
     batched_data <- ids[batch_id == batch, , drop=FALSE]  
-    r <- make_soap_xml_skeleton()
+    r <- make_soap_xml_skeleton(soap_headers = control)
     xml_dat <- build_soap_xml_from_list(input_data = batched_data,
                                         operation = "retrieve",
                                         object_name = object_name,
@@ -123,6 +138,7 @@ sf_retrieve_soap <- function(ids,
 sf_retrieve_rest <- function(ids,
                              fields,
                              object_name,
+                             control, ...,
                              verbose = FALSE){
   
   ids <- sf_input_data_validation(ids, operation='retrieve')

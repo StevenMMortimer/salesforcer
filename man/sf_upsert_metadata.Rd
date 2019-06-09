@@ -4,7 +4,7 @@
 \alias{sf_upsert_metadata}
 \title{Upsert Object or Field Metadata in Salesforce}
 \usage{
-sf_upsert_metadata(metadata_type, metadata, all_or_none = FALSE,
+sf_upsert_metadata(metadata_type, metadata, control = list(...), ...,
   verbose = FALSE)
 }
 \arguments{
@@ -13,8 +13,11 @@ sf_upsert_metadata(metadata_type, metadata, all_or_none = FALSE,
 \item{metadata}{\code{list}; metadata components to be created formatted as 
 XML before being sent via API}
 
-\item{all_or_none}{logical; allows a call to roll back all changes unless all 
-records are processed successfully}
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}}}
 
 \item{verbose}{logical; do you want informative messages?}
 }

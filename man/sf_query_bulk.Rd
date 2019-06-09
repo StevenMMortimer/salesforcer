@@ -4,15 +4,20 @@
 \alias{sf_query_bulk}
 \title{Run Bulk Query}
 \usage{
-sf_query_bulk(soql, object_name, guess_types = TRUE,
-  api_type = c("Bulk 1.0"), interval_seconds = 5, max_attempts = 100,
-  verbose = FALSE)
+sf_query_bulk(soql, object_name = NULL, queryall = FALSE,
+  guess_types = TRUE, api_type = c("Bulk 1.0"), interval_seconds = 5,
+  max_attempts = 100, control = list(...), ..., verbose = FALSE)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+
+\item{queryall}{logical; indicating if the query recordset should include records 
+that have been deleted because of a merge or delete. QueryAll will also return 
+information about archived Task and Event records. QueryAll is available in API 
+version 29.0 and later.}
 
 \item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
 to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
@@ -27,6 +32,12 @@ for job completion}
 \item{max_attempts}{integer; defines then max number attempts to check for job 
 completion before stopping}
 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}}}
+
 \item{verbose}{logical; do you want informative messages?}
 }
 \value{
@@ -38,10 +49,11 @@ bulk query API jobs
 }
 \examples{
 \dontrun{
-# select all Ids from Account object
-ids <- sf_query_bulk(soql='SELECT Id FROM Account', object_name='Account')
+# select all Ids from Account object (up to 1000)
+ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000', 
+                     object_name = 'Account')
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
 }

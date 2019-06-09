@@ -23,7 +23,7 @@ and FALSE returns all values as character strings.}
 "Chatter" indicating which API to use when making the request}
 
 \item{parameterized_search_options}{\code{list}; a list of parameters for 
-controlling the search if not using SOSL. If using SOSL this is ignored.}
+controlling the search if not using SOSL. If using SOSL this argument is ignored.}
 
 \item{verbose}{logical; do you want informative messages?}
 

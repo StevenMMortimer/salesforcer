@@ -4,8 +4,7 @@
 \alias{sf_create_soap}
 \title{Create Records using SOAP API}
 \usage{
-sf_create_soap(input_data, object_name, all_or_none = FALSE,
-  verbose = FALSE)
+sf_create_soap(input_data, object_name, control, ..., verbose = FALSE)
 }
 \description{
 Create Records using SOAP API

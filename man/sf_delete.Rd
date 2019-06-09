@@ -4,8 +4,8 @@
 \alias{sf_delete}
 \title{Delete Records}
 \usage{
-sf_delete(ids, object_name, all_or_none = FALSE, api_type = c("REST",
-  "SOAP", "Bulk 1.0", "Bulk 2.0"), ..., verbose = FALSE)
+sf_delete(ids, object_name, api_type = c("REST", "SOAP", "Bulk 1.0",
+  "Bulk 2.0"), control = list(...), ..., verbose = FALSE)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 
@@ -15,13 +15,15 @@ that can be passed in the request}
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{all_or_none}{logical; allows a call to roll back all changes unless all 
-records are processed successfully}
-
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
 
-\item{...}{other arguments passed on to \code{\link{sf_bulk_operation}}.}
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
+to \code{\link{sf_bulk_operation}}}
 
 \item{verbose}{logical; do you want informative messages?}
 }
@@ -29,20 +31,23 @@ records are processed successfully}
 \code{tbl_df} of records with success indicator
 }
 \description{
-Deletes one or more records to your organization’s data.
+Deletes one or more records from your organization’s data.
+}
+\note{
+Because the SOAP and REST calls chunk data into batches of 200 records 
+the AllOrNoneHeader will only apply to the success or failure of every batch 
+of records and not all records submitted to the function.
 }
 \examples{
 \dontrun{
 n <- 3
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact", 1:n))
-new_contacts_result1 <- sf_create(new_contacts, object_name="Contact")
-deleted_contacts_result1 <- sf_delete(new_contacts_result1$id, 
-                                      object_name="Contact")   
+new_records <- sf_create(new_contacts, object_name="Contact")
+deleted_first <- sf_delete(new_records$id[1], object_name = "Contact")  
 
-new_contacts_result2 <- sf_create(new_contacts, "Contact")
-deleted_contacts_result2 <- sf_delete(new_contacts_result2$id, 
-                                      object_name="Contact", 
-                                      api_type="Bulk")                             
+# add the control to do an "All or None" deletion of the remaining records
+deleted_rest <- sf_delete(new_records$id[2:3], object_name = "Contact", 
+                          AllOrNoneHeader = list(allOrNone = TRUE))
 }
 }

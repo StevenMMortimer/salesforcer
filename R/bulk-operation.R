@@ -7,21 +7,19 @@
 #' @template external_id_fieldname
 #' @template api_type
 #' @param content_type character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to 
-#' indicate the type of data being passed to the Bulk API.
+#' indicate the type of data being passed to the Bulk APIs. For the Bulk 2.0 API the only 
+#' valid value (and the default) is 'CSV'.
 #' @param concurrency_mode character; either "Parallel" or "Serial" that specifies 
 #' whether batches should be completed sequentially or in parallel. Use "Serial" 
 #' only if lock contentions persist with in "Parallel" mode. Note: this argument is 
 #' only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.
-#' @param line_ending character; indicating the line ending used for CSV job data, 
-#' marking the end of a data row. The default is NULL meaing that the line ending 
-#' is determined by the operating system using "CRLF" for Windows machines and 
-#' "LF" for Unix machines. Note: this argument is only used in the Bulk 2.0 API 
-#' and will be ignored in calls using the Bulk 1.0 API.
 #' @param column_delimiter character; indicating the column delimiter used for CSV job data. 
 #' The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
 #' "SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also, 
 #' note that this argument is only used in the Bulk 2.0 API and will be ignored 
 #' in calls using the Bulk 1.0 API.
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return A \code{tbl_df} parameters defining the created job, including id
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -48,24 +46,35 @@
 #' }
 #' @export
 sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "update", 
-                                             "hardDelete", "query"), 
+                                             "hardDelete", "query", "queryall"), 
                                object_name,
                                external_id_fieldname = NULL,
                                api_type = c("Bulk 1.0", "Bulk 2.0"),
                                content_type = c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
                                concurrency_mode = c("Parallel", "Serial"),
-                               line_ending = NULL,
                                column_delimiter = c('COMMA', 'TAB', 'PIPE', 'SEMICOLON', 
                                                     'CARET', 'BACKQUOTE'), 
-                               verbose=FALSE){
+                               control = list(...), ...,
+                               verbose = FALSE){
 
   api_type <- match.arg(api_type)
   operation <- match.arg(operation)
   content_type <- match.arg(content_type)
+  
+  # determine how to pass along the control args 
+  all_args <- list(...)
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- operation
+  if("line_ending" %in% names(all_args)){
+    # warn then set it in the control list
+    warning(paste0("The `line_ending` argument has been deprecated.\n", 
+                   "Please pass LineEndingHeader argument or use the `sf_control` function."), 
+            call. = FALSE)
+    control_args$LineEndingHeader = list(`Sforce-Line-Ending` = all_args$line_ending)
+  }
+  
   if(api_type == "Bulk 1.0"){
-    if(!missing(line_ending)){
-      warning("Ignoring the line_ending argument which isn't used when calling the Bulk 1.0 API", call. = FALSE)
-    }
     if(!missing(column_delimiter)){
       warning("Ignoring the column_delimiter argument which isn't used when calling the Bulk 1.0 API", call. = FALSE)
     }
@@ -74,6 +83,7 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                           external_id_fieldname = external_id_fieldname,
                                           content_type = content_type,
                                           concurrency_mode = concurrency_mode,
+                                          control = control_args, ...,
                                           verbose = verbose)
   } else if(api_type == "Bulk 2.0"){
     if(!(operation %in% c("insert", "delete", "upsert", "update"))){
@@ -89,8 +99,8 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                           object_name = object_name,
                                           external_id_fieldname = external_id_fieldname,
                                           content_type = content_type,
-                                          line_ending = line_ending,
                                           column_delimiter = column_delimiter,
+                                          control = control_args, ...,
                                           verbose = verbose)
   } else {
     stop("Unknown API type")
@@ -106,16 +116,37 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "update", 
-                                                "hardDelete", "query"), 
+                                                "hardDelete", "query", "queryall"), 
                                   object_name,
                                   external_id_fieldname = NULL,
                                   content_type = c('CSV', 'ZIP_CSV', 'ZIP_XML', 'ZIP_JSON'),
                                   concurrency_mode = c("Parallel", "Serial"),
+                                  control, ...,
                                   verbose = FALSE){
   
   operation <- match.arg(operation)
   content_type <- match.arg(content_type)
   concurrency_mode <- match.arg(concurrency_mode)
+  
+  control <- do.call("sf_control", control)
+  request_headers <- c("Accept"="application/xml", 
+                       "Content-Type"="application/xml")
+  if("BatchRetryHeader" %in% names(control)){
+    request_headers <- c(request_headers, c("Sforce-Disable-Batch-Retry" = control$BatchRetryHeader[[1]]))
+  }
+  if("LineEndingHeader" %in% names(control)){
+    stopitnot(control$LineEndingHeader[[1]] %in% c("CRLF", "LF"))
+    request_headers <- c(request_headers, c("Sforce-Line-Ending" = control$LineEndingHeader[[1]]))
+  }
+  if("PKChunkingHeader" %in% names(control)){
+    if(is.logical(control$PKChunkingHeader[[1]])){
+      request_headers <- c(request_headers, c("Sforce-Enable-PKChunking" = control$PKChunkingHeader[[1]]))  
+    } else {
+      l <- control$PKChunkingHeader
+      value <- paste0(paste(names(l), unlist(l), sep="="), collapse = "; ")
+      request_headers <- c(request_headers, c("Sforce-Enable-PKChunking" = value))
+    }
+  }
   
   # build xml for Bulk 1.0 request
   body <- xml_new_document()
@@ -143,8 +174,7 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
     message(body)
   }
   httr_response <- rPOST(url = bulk_create_job_url,
-                         headers = c("Accept"="application/xml",
-                                     "Content-Type"="application/xml"), 
+                         headers = request_headers, 
                          body = body)
   catch_errors(httr_response)  
   response_parsed <- content(httr_response, encoding="UTF-8")
@@ -167,20 +197,35 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
                                   object_name,
                                   external_id_fieldname = NULL,
                                   content_type = 'CSV',
-                                  line_ending = NULL,
                                   column_delimiter = c('COMMA', 'TAB', 'PIPE', 'SEMICOLON', 
                                                        'CARET', 'BACKQUOTE'), 
+                                  control, ...,
                                   verbose=FALSE){
   
   operation <- match.arg(operation)
   column_delimiter <- match.arg(column_delimiter)
+  if(content_type != "CSV"){
+    stop("content_type = 'CSV' is currently the only supported format of returned bulk content")
+  }
   if(column_delimiter != "COMMA"){
     stop("column_delimiter = 'COMMA' is currently the only supported file delimiter")
   }
   
+  control <- do.call("sf_control", control)
+  if("LineEndingHeader" %in% names(control)){
+    line_ending <- control$LineEndingHeader$`Sforce-Line-Ending`
+  } else {
+    if(get_os() == 'windows'){
+      line_ending <- "CRLF"
+    } else {
+      line_ending <- "LF"
+    }
+  }
+  
   if(operation == 'upsert'){
     stopifnot(!is.null(external_id_fieldname))
-  }  
+  } 
+  
   # form body from arguments
   request_body <- list(operation = operation, 
                        object = object_name, 
@@ -189,18 +234,11 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
                        lineEnding = line_ending, 
                        columnDelimiter = column_delimiter)
   request_body[sapply(request_body, is.null)] <- NULL
-   
-  if(is.null(line_ending)){
-    if(get_os()=='windows'){
-      request_body$lineEnding <- "CRLF"
-    } else {
-      request_body$lineEnding <- "LF"
-    }
-  }
+
   stopifnot(request_body$lineEnding %in% c("LF", "CRLF"))
-  body <- toJSON(request_body, auto_unbox=TRUE, pretty=TRUE)
+  body <- toJSON(request_body, auto_unbox = TRUE, pretty = TRUE)
   
-  bulk_create_job_url <- make_bulk_create_job_url(api_type="Bulk 2.0")
+  bulk_create_job_url <- make_bulk_create_job_url(api_type = "Bulk 2.0")
   if (verbose){
     message(bulk_create_job_url)
     message(body)
@@ -231,7 +269,9 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", "upsert", "u
 #' sf_abort_job_bulk(refreshed_job_info$id)
 #' }
 #' @export
-sf_get_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), verbose=FALSE){
+sf_get_job_bulk <- function(job_id, 
+                            api_type = c("Bulk 1.0", "Bulk 2.0"), 
+                            verbose = FALSE){
   api_type <- match.arg(api_type)
   bulk_get_job_url <- make_bulk_get_job_url(job_id, api_type=api_type)
   if(verbose){
@@ -275,7 +315,9 @@ sf_get_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), verbose=
 #' all_jobs_info <- sf_get_all_jobs_bulk()
 #' }
 #' @export
-sf_get_all_jobs_bulk <- function(next_records_url=NULL, api_type=c("Bulk 2.0"), verbose=FALSE){
+sf_get_all_jobs_bulk <- function(next_records_url = NULL, 
+                                 api_type = c("Bulk 2.0"), 
+                                 verbose = FALSE){
   api_type <- match.arg(api_type)
   
   if(!is.null(next_records_url)){
@@ -293,8 +335,7 @@ sf_get_all_jobs_bulk <- function(next_records_url=NULL, api_type=c("Bulk 2.0"), 
   
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
-      map_df(as_tibble) %>%
-      type_convert(col_types = cols())
+      map_df(as_tibble)
   }
   
   if(!response_parsed$done){
@@ -303,9 +344,14 @@ sf_get_all_jobs_bulk <- function(next_records_url=NULL, api_type=c("Bulk 2.0"), 
   
   # check whether it has next record
   if(!is.null(next_records_url)){
-    next_records <- sf_get_all_jobs_bulk(next_records_url=next_records_url)
+    next_records <- sf_get_all_jobs_bulk(next_records_url = next_records_url, 
+                                         api_type = api_type, 
+                                         verbose = verbose)
     resultset <- bind_rows(resultset, next_records)
   }
+  
+  resultset <- resultset %>%
+    type_convert(col_types = cols())
   
   return(resultset)
 }
@@ -374,9 +420,11 @@ sf_end_job_bulk <- function(job_id,
 #' sf_close_job_bulk(job_info$id)
 #' }
 #' @export
-sf_close_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), verbose = FALSE){
+sf_close_job_bulk <- function(job_id, 
+                              api_type = c("Bulk 1.0", "Bulk 2.0"), 
+                              verbose = FALSE){
   api_type <- match.arg(api_type)
-  sf_end_job_bulk(job_id, end_type = "Closed", api_type = api_type, verbose=verbose)
+  sf_end_job_bulk(job_id, end_type = "Closed", api_type = api_type, verbose = verbose)
 }
 
 #' Signal Upload Complete to Bulk API Job 
@@ -396,10 +444,11 @@ sf_close_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), verbos
 #' upload_info <- sf_upload_complete_bulk(job_id=job_info$id)
 #' }
 #' @export
-sf_upload_complete_bulk <- function(job_id, api_type=c("Bulk 2.0"), 
+sf_upload_complete_bulk <- function(job_id, 
+                                    api_type = c("Bulk 2.0"), 
                                     verbose = FALSE){
   api_type <- match.arg(api_type)
-  sf_end_job_bulk(job_id, end_type = "UploadComplete", api_type = api_type, verbose=verbose)
+  sf_end_job_bulk(job_id, end_type = "UploadComplete", api_type = api_type, verbose = verbose)
 }
 
 #' Abort Bulk API Job 
@@ -417,10 +466,11 @@ sf_upload_complete_bulk <- function(job_id, api_type=c("Bulk 2.0"),
 #' sf_abort_job_bulk(job_info$id)
 #' }
 #' @export
-sf_abort_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"), 
+sf_abort_job_bulk <- function(job_id,
+                              api_type = c("Bulk 1.0", "Bulk 2.0"), 
                               verbose = FALSE){
   api_type <- match.arg(api_type)
-  sf_end_job_bulk(job_id, end_type = "Aborted", api_type = api_type, verbose=verbose)
+  sf_end_job_bulk(job_id, end_type = "Aborted", api_type = api_type, verbose = verbose)
 }
 
 #' Delete Bulk API Job 
@@ -435,10 +485,11 @@ sf_abort_job_bulk <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0"),
 #' sf_delete_job_bulk(job_info$id)
 #' }
 #' @export
-sf_delete_job_bulk <- function(job_id, api_type=c("Bulk 2.0"), 
-                               verbose=FALSE){
+sf_delete_job_bulk <- function(job_id, 
+                               api_type = c("Bulk 2.0"), 
+                               verbose = FALSE){
   api_type <- match.arg(api_type)
-  bulk_delete_job_url <- make_bulk_delete_job_url(job_id, api_type=api_type)
+  bulk_delete_job_url <- make_bulk_delete_job_url(job_id, api_type = api_type)
   if(verbose){
     message(bulk_delete_job_url)
   }
@@ -484,13 +535,13 @@ sf_delete_job_bulk <- function(job_id, api_type=c("Bulk 2.0"),
 #' @export
 sf_create_batches_bulk <- function(job_id, 
                                    input_data, 
-                                   api_type=c("Bulk 1.0", "Bulk 2.0"), 
+                                   api_type = c("Bulk 1.0", "Bulk 2.0"), 
                                    verbose = FALSE){
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 1.0"){
-    created_batches <- sf_create_batches_bulk_v1(job_id, input_data, verbose=verbose)
+    created_batches <- sf_create_batches_bulk_v1(job_id, input_data, verbose = verbose)
   } else if(api_type == "Bulk 2.0"){
-    created_batches <- sf_create_batches_bulk_v2(job_id, input_data, verbose=verbose)
+    created_batches <- sf_create_batches_bulk_v2(job_id, input_data, verbose = verbose)
   } else { 
     stop("Unknown API type")
   }
@@ -503,10 +554,11 @@ sf_create_batches_bulk_v1 <- function(job_id,
                                       input_data, 
                                       verbose = FALSE){
   
-  job_status <- sf_get_job_bulk(job_id, api_type="Bulk 1.0", 
+  job_status <- sf_get_job_bulk(job_id, 
+                                api_type = "Bulk 1.0", 
                                 verbose = verbose)
   stopifnot(job_status$state == "Open")
-  input_data <- sf_input_data_validation(operation=job_status$operation, 
+  input_data <- sf_input_data_validation(operation = job_status$operation, 
                                          input_data)
   
   # Batch sizes should be adjusted based on processing times. Start with 5000 
@@ -560,11 +612,12 @@ sf_create_batches_bulk_v1 <- function(job_id,
 #' @importFrom stats quantile
 sf_create_batches_bulk_v2 <- function(job_id, 
                                       input_data, 
-                                      verbose=FALSE){
+                                      verbose = FALSE){
   
-  job_status <- sf_get_job_bulk(job_id, api_type="Bulk 2.0", 
+  job_status <- sf_get_job_bulk(job_id, 
+                                api_type = "Bulk 2.0", 
                                 verbose = verbose)
-  input_data <- sf_input_data_validation(operation=job_status$operation, 
+  input_data <- sf_input_data_validation(operation = job_status$operation, 
                                          input_data)
   
   # A request can provide CSV data that does not in total exceed 150 MB of base64 
@@ -634,9 +687,11 @@ sf_create_batches_bulk_v2 <- function(job_id,
 #' sf_get_job_bulk(job_info$id)                               
 #' }
 #' @export
-sf_job_batches_bulk <- function(job_id, api_type=c("Bulk 1.0"), verbose=FALSE){
+sf_job_batches_bulk <- function(job_id, 
+                                api_type = c("Bulk 1.0"), 
+                                verbose = FALSE){
   api_type <- match.arg(api_type)
-  bulk_batch_status_url <- make_bulk_batches_url(job_id, api_type=api_type)
+  bulk_batch_status_url <- make_bulk_batches_url(job_id, api_type = api_type)
   if(verbose){
     message(bulk_batch_status_url)
   }
@@ -678,10 +733,11 @@ sf_job_batches_bulk <- function(job_id, api_type=c("Bulk 1.0"), verbose=FALSE){
 #' sf_get_job_bulk(job_info$id)                               
 #' }
 #' @export
-sf_batch_status_bulk <- function(job_id, batch_id, api_type=c("Bulk 1.0"), 
-                                 verbose=FALSE){
+sf_batch_status_bulk <- function(job_id, batch_id, 
+                                 api_type = c("Bulk 1.0"), 
+                                 verbose = FALSE){
   api_type <- match.arg(api_type)
-  bulk_batch_status_url <- make_bulk_batch_status_url(job_id, batch_id, api_type=api_type)
+  bulk_batch_status_url <- make_bulk_batch_status_url(job_id, batch_id, api_type = api_type)
   if(verbose){
     message(bulk_batch_status_url)
   }
@@ -724,10 +780,11 @@ sf_batch_status_bulk <- function(job_id, batch_id, api_type=c("Bulk 1.0"),
 #' sf_close_job_bulk(job_info$id)
 #' }
 #' @export
-sf_batch_details_bulk <- function(job_id, batch_id, api_type=c("Bulk 1.0"), 
+sf_batch_details_bulk <- function(job_id, batch_id, 
+                                  api_type = c("Bulk 1.0"), 
                                   verbose = FALSE){
   api_type <- match.arg(api_type)
-  job_status <- sf_get_job_bulk(job_id, api_type=api_type, verbose=verbose)
+  job_status <- sf_get_job_bulk(job_id, api_type = api_type, verbose = verbose)
   bulk_batch_details_url <- make_bulk_batch_details_url(job_id, batch_id, api_type)
   if(verbose){
     message(bulk_batch_details_url)
@@ -782,17 +839,16 @@ sf_get_job_records_bulk <- function(job_id,
                                     record_types = c("successfulResults", 
                                                      "failedResults", 
                                                      "unprocessedRecords"), 
-                                    combine_record_types=TRUE, 
+                                    combine_record_types = TRUE, 
                                     verbose=FALSE){
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 1.0"){
-    batch_records <- sf_get_job_records_bulk_v1(job_id, verbose=verbose)
+    batch_records <- sf_get_job_records_bulk_v1(job_id, verbose = verbose)
   } else if(api_type == "Bulk 2.0"){
     batch_records <- sf_get_job_records_bulk_v2(job_id, 
-                                                record_types=record_types, 
-                                                combine_record_types=combine_record_types, 
-                                                verbose=verbose)
-                                                
+                                                record_types = record_types, 
+                                                combine_record_types = combine_record_types, 
+                                                verbose = verbose)
   } else { 
     stop("Unknown API type")
   }
@@ -800,14 +856,14 @@ sf_get_job_records_bulk <- function(job_id,
 }
 
 #' @importFrom dplyr bind_rows
-sf_get_job_records_bulk_v1 <- function(job_id, verbose=FALSE){
-  batches_info <- sf_job_batches_bulk(job_id, api_type="Bulk 1.0", verbose=verbose)
+sf_get_job_records_bulk_v1 <- function(job_id, verbose = FALSE){
+  batches_info <- sf_job_batches_bulk(job_id, api_type = "Bulk 1.0", verbose = verbose)
   # loop through all the batches
   resultset <- NULL
   for(i in 1:nrow(batches_info)){
     this_batch_resultset <- sf_batch_details_bulk(job_id = job_id,
                                                   batch_id = batches_info$id[i], 
-                                                  api_type="Bulk 1.0",
+                                                  api_type = "Bulk 1.0",
                                                   verbose = verbose)
     resultset <- bind_rows(resultset, this_batch_resultset)
   }
@@ -821,13 +877,13 @@ sf_get_job_records_bulk_v2 <- function(job_id,
                                        record_types = c("successfulResults", 
                                                         "failedResults", 
                                                         "unprocessedRecords"), 
-                                       combine_record_types=TRUE, 
-                                       verbose=FALSE){
+                                       combine_record_types = TRUE, 
+                                       verbose = FALSE){
   
   record_types <- match.arg(record_types, several.ok = TRUE)
   records <- list()
   for(r in record_types){
-    bulk_job_records_url <- make_bulk_job_records_url(job_id, record_type = r, api_type="Bulk 2.0")
+    bulk_job_records_url <- make_bulk_job_records_url(job_id, record_type = r, api_type = "Bulk 2.0")
     if(verbose){
       message(bulk_job_records_url)
     }
@@ -861,14 +917,15 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @param operation character; string defining the type of operation being performed
 #' @template external_id_fieldname
 #' @template api_type
-#' @param ... other arguments passed on to \code{\link{sf_create_job_bulk}} such as 
-#' \code{content_type}, \code{concurrency_mode}, \code{line_ending} or \code{column_delimiter}.
 #' @param wait_for_results logical; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
 #' @param interval_seconds integer; defines the seconds between attempts to check 
 #' for job completion
 #' @param max_attempts integer; defines then max number attempts to check for job 
 #' completion before stopping
+#' @template control
+#' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
+#' such as \code{content_type}, \code{concurrency_mode}, or \code{column_delimiter}
 #' @template verbose
 #' @return A \code{tbl_df} of the results of the bulk job
 #' @note With Bulk 2.0 the order of records in the response is not guaranteed to 
@@ -891,20 +948,35 @@ sf_bulk_operation <- function(input_data,
                                             "update", "hardDelete"),
                               external_id_fieldname = NULL,
                               api_type = c("Bulk 1.0", "Bulk 2.0"),
-                              ..., 
                               wait_for_results = TRUE,
                               interval_seconds = 3,
                               max_attempts = 200,
+                              control = list(...), ...,
                               verbose = FALSE){
 
   stopifnot(!missing(operation))
   api_type <- match.arg(api_type)
   
-  job_info <- sf_create_job_bulk(operation, object_name = object_name, 
+  # this code is redundant because it exists in the sf_create, sf_update, etc. wrappers, 
+  # but it is possible that some people are creating jobs with this function instead of the 
+  # others, so make sure that we do it here as well. It should be a relatively small performance 
+  # hit given its a bulk operation
+  # determine how to pass along the control args 
+  all_args <- list(...)
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- operation
+  
+  job_info <- sf_create_job_bulk(operation, 
+                                 object_name = object_name, 
                                  external_id_fieldname = external_id_fieldname, 
-                                 api_type = api_type, verbose = verbose, ...)
-  batches_info <- sf_create_batches_bulk(job_id = job_info$id, input_data, 
-                                         api_type = api_type, verbose = verbose)
+                                 api_type = api_type, 
+                                 control = control_args, ...,
+                                 verbose = verbose)
+  batches_info <- sf_create_batches_bulk(job_id = job_info$id, 
+                                         input_data, 
+                                         api_type = api_type, 
+                                         verbose = verbose)
   
   if(wait_for_results){
     status_complete <- FALSE
@@ -917,7 +989,7 @@ sf_bulk_operation <- function(input_data,
         }
       }
       Sys.sleep(interval_seconds)
-      job_status <- sf_get_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
+      job_status <- sf_get_job_bulk(job_info$id, api_type = api_type, verbose = verbose)
       if(api_type == "Bulk 1.0"){
         if(job_status$state == 'Failed' | job_status$state == 'Aborted'){
           stop(job_status$stateMessage) # what does this do if job is aborted?
@@ -948,7 +1020,7 @@ sf_bulk_operation <- function(input_data,
       message("Function's Time Limit Exceeded. Aborting Job Now")
       res <- sf_abort_job_bulk(job_info$id, api_type = api_type, verbose = verbose)
     } else {
-      res <- sf_get_job_records_bulk(job_info$id, api_type=api_type, verbose=verbose)
+      res <- sf_get_job_records_bulk(job_info$id, api_type = api_type, verbose = verbose)
       # For Bulk 2.0 jobs -> INVALIDJOBSTATE: Closing already Completed Job not allowed
       if(api_type == "Bulk 1.0"){
         close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, verbose = verbose) 

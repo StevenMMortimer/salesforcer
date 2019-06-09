@@ -4,8 +4,8 @@
 \alias{sf_upsert_soap}
 \title{Upsert Records using SOAP API}
 \usage{
-sf_upsert_soap(input_data, object_name, external_id_fieldname,
-  all_or_none = FALSE, verbose = FALSE)
+sf_upsert_soap(input_data, object_name, external_id_fieldname, control,
+  ..., verbose = FALSE)
 }
 \description{
 Upsert Records using SOAP API

@@ -7,6 +7,12 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/VERB_n.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_api.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_operation.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_metadata_xml_from_list.html</loc>
   </url>
   <url>
@@ -17,6 +23,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/collapse_list_with_dupe_names.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/filter_valid_controls.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/get_os.html</loc>
@@ -118,6 +127,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/remove_empty_linked_object_cols.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/return_matching_controls.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.bulkAction.html</loc>
   </url>
   <url>
@@ -188,6 +200,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_close_job_bulk.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_control.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create.html</loc>
@@ -380,6 +395,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html</loc>

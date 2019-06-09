@@ -2,6 +2,7 @@
 
 ### Features
 
+  * Upgraded to version 46.0 (Summer '19) from version 45.0 (Spring '19)
   * Add **RForcecom** backward compatibile version of `rforcecom.getObjectDescription()`
   * Add `sf_describe_object_fields()` which is a tidyier version of `rforcecom.getObjectDescription()`
   * Allow users to control whether query results are kept as all character or the 
@@ -11,6 +12,14 @@
   * Add new utility functions `sf_set_password()` and `sf_reset_password()` (#11)
   * Add two new functions to check for duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`) (#4)
   * Add new function to download attachments to disk (`sf_download_attachment()`) (#20)
+  * The `object_name` argument, required for bulk queries, will be inferred if left blank, 
+  making it no longer a required argument
+  * Almost all functions in the package now have a `control` argument and dots (`...`) which 
+  allows for more than a dozen different control parameters listed in `sf_control()` to be 
+  fed into existing function calls to tweak the default behavior. For example, if you would 
+  like to override duplicate rules then you can adjust the `DuplicateRuleHeader`. If you 
+  would like to have certain assignment rule run on newly created records, then pass in the 
+  `AssignmentRuleHeader` (#4, #5)
   
 ### Bug Fixes
 
@@ -20,7 +29,16 @@
   since that only supported aborting Bulk 2.0 jobs (#13)
   * Fix bug that had only production environment logins possible because of hard 
   coding (@weckstm, #18)
-  * Make `sf_describe_object_fields()` more robust against nested list elements (#16)
+  * Make `sf_describe_object_fields()` more robust against nested list elements and 
+  also return picklists as tibbles (#16)
+  * Fix bug where four of the bulk operation options (`content_type`, `concurrency_mode`, 
+  `line_ending`, and `column_delimiter`) where not being passed down from 
+  the top level generic functions like `sf_create()`, `sf_update()`, etc. However, 
+  `line_ending` has now been moved into the `sf_control` function so it is no longer 
+  explicitly listed for bulk operations as an argument. (@mitch-niche, #23)
+  * Ensure that for SOAP, REST, and Bulk 2.0 APIs the verbose argument prints out 
+  the XML or JSON along with the URL of the call so it can be replicated via cURL or 
+  some other programming language (#8)
   
 ---
   

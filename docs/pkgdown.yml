@@ -3,6 +3,7 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
+  passing-control-args: passing-control-args.html
   transitioning-from-RForcecom: transitioning-from-RForcecom.html
   working-with-bulk-api: working-with-bulk-api.html
 urls:

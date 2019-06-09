@@ -102,6 +102,9 @@ the specified criteria." />
       <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
     <li>
+      <a href="../articles/passing-control-args.html">Passing Control Args</a>
+    </li>
+    <li>
       <a href="../articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
     </li>
   </ul>
@@ -160,9 +163,9 @@ the specified criteria.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='no'>object_name</span>, <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>),
-  <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_query</span>(<span class='no'>soql</span>, <span class='no'>object_name</span>, <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>), <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>,
+  <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,21 +180,17 @@ the specified criteria.</p>
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
+      <th>queryall</th>
+      <td><p>logical; indicating if the query recordset should include records 
+that have been deleted because of a merge or delete. QueryAll will also return 
+information about archived Task and Event records. QueryAll is available in API 
+version 29.0 and later.</p></td>
+    </tr>
+    <tr>
       <th>guess_types</th>
       <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
 to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
 and FALSE returns all values as character strings.</p></td>
-    </tr>
-    <tr>
-      <th>queryall</th>
-      <td><p>logical; indicating if the query recordset should include 
-deleted and archived records (available only when querying Task and Event records)</p></td>
-    </tr>
-    <tr>
-      <th>page_size</th>
-      <td><p>numeric; a number between 200 and 2000 indicating the number of 
-records per page that are returned. Speed benchmarks should be done to better 
-understand the speed implications of choosing high or low values of this argument.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
@@ -199,13 +198,20 @@ understand the speed implications of choosing high or low values of this argumen
 "Chatter" indicating which API to use when making the request</p></td>
     </tr>
     <tr>
-      <th>next_records_url</th>
-      <td><p>character (leave as NULL); a string used internally 
-by the function to paginate through to more records until complete</p></td>
+      <th>control</th>
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='sf_query_bulk.html'>sf_query_bulk</a></code>.</p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream 
+to <code><a href='sf_query_bulk.html'>sf_query_bulk</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>next_records_url</th>
+      <td><p>character (leave as NULL); a string used internally 
+by the function to paginate through to more records until complete</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -236,7 +242,7 @@ by the function to paginate through to more records until complete</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>sf_query</span>(<span class='st'>"SELECT Id, Account.Name, Email FROM Contact LIMIT 10"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>sf_query</span>(<span class='st'>"SELECT Id, Account.Name, Email FROM Contact LIMIT 10"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

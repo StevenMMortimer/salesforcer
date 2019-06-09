@@ -4,7 +4,7 @@
 \alias{sf_delete_metadata}
 \title{Delete Object or Field Metadata in Salesforce}
 \usage{
-sf_delete_metadata(metadata_type, object_names, all_or_none = FALSE,
+sf_delete_metadata(metadata_type, object_names, control = list(...), ...,
   verbose = FALSE)
 }
 \arguments{
@@ -12,8 +12,11 @@ sf_delete_metadata(metadata_type, object_names, all_or_none = FALSE,
 
 \item{object_names}{a character vector of names that we wish to read metadata for}
 
-\item{all_or_none}{logical; allows a call to roll back all changes unless all 
-records are processed successfully}
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}}}
 
 \item{verbose}{logical; do you want informative messages?}
 }

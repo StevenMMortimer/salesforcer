@@ -181,75 +181,57 @@ build_soap_xml_from_list <- function(input_data,
   # this is so we have something to create the root node
   stopifnot(!is.null(root_name) | !is.null(root))
   which_operation <- match.arg(operation)
-  input_data <- sf_input_data_validation(input_data, operation=which_operation)
+  input_data <- sf_input_data_validation(input_data, operation = which_operation)
   
-  if (is.null(root))
+  if(is.null(root)){
     root <- newXMLNode(root_name, namespaceDefinitions = ns)
+  }
   
-  body_node <- newXMLNode("soapenv:Body", parent=root)
+  body_node <- newXMLNode("soapenv:Body", parent = root)
   operation_node <- newXMLNode(sprintf("urn:%s", which_operation),
-                               parent=body_node)
+                               parent = body_node)
   
   if(which_operation == "upsert"){
     stopifnot(!is.null(external_id_fieldname))
-    external_field_node <- newXMLNode("urn:externalIDFieldName",
-                                      external_id_fieldname,
-                                      parent=operation_node)
+    external_field_node <- newXMLNode("urn:externalIDFieldName", external_id_fieldname,
+                                      parent = operation_node)
   }
   
   if(which_operation == "retrieve"){
     stopifnot(!is.null(object_name))
     stopifnot(!is.null(fields))
-    field_list_node <- newXMLNode("urn:fieldList",
-                                  paste0(fields, collapse=","),
-                                  parent=operation_node)
-    sobject_type_node <- newXMLNode("urn:sObjectType",
-                                    object_name,
-                                    parent=operation_node)
-  }  
+    field_list_node <- newXMLNode("urn:fieldList", paste0(fields, collapse=","),
+                                  parent = operation_node)
+    sobject_type_node <- newXMLNode("urn:sObjectType", object_name,
+                                    parent = operation_node)
+  }
   
   if(which_operation %in% c("search", "query")){
-    
     element_name <- if(which_operation == "search") "urn:searchString" else "urn:queryString"
-    this_node <- newXMLNode(element_name, 
-                            input_data[1,1],
-                            parent=operation_node)
-    
+    this_node <- newXMLNode(element_name, input_data[1,1],
+                            parent = operation_node)
   } else if(which_operation == "queryMore"){
-    
-    this_node <- newXMLNode("urn:queryLocator", 
-                            input_data[1,1],
-                            parent=operation_node)
-    
-  } else if(which_operation %in% c("delete","retrieve","findDuplicatesByIds")){
-    
+    this_node <- newXMLNode("urn:queryLocator", input_data[1,1],
+                            parent = operation_node)
+  } else if(which_operation %in% c("delete", "retrieve", "findDuplicatesByIds")){
     for(i in 1:nrow(input_data)){
-      this_node <- newXMLNode("urn:ids", 
-                              input_data[i,"Id"],
-                              parent=operation_node)
+      this_node <- newXMLNode("urn:ids", input_data[i,"Id"],
+                              parent = operation_node)
     }
-    
   } else if(which_operation == "describeSObjects"){
-    
     for(i in 1:nrow(input_data)){
-      this_node <- newXMLNode("urn:sObjectType", 
-                              input_data[i,"sObjectType"],
-                              parent=operation_node)
+      this_node <- newXMLNode("urn:sObjectType", input_data[i,"sObjectType"],
+                              parent = operation_node)
     }
-    
   } else if(which_operation == "setPassword"){
-    this_node <- newXMLNode("userId", 
-                            input_data$userId,
-                            parent=operation_node)
-    this_node <- newXMLNode("password", 
-                            input_data$password,
-                            parent=operation_node)
+    this_node <- newXMLNode("userId", input_data$userId,
+                            parent = operation_node)
+    this_node <- newXMLNode("password", input_data$password,
+                            parent = operation_node)
   } else if(which_operation == "resetPassword"){
-    this_node <- newXMLNode("userId", 
-                            input_data$userId,
-                            parent=operation_node)
+    this_node <- newXMLNode("userId", input_data$userId,
+                            parent = operation_node)
   } else {
-    
     for(i in 1:nrow(input_data)){
       list <- as.list(input_data[i,,drop=FALSE])
       this_row_node <- newXMLNode("urn:sObjects", parent=operation_node)
@@ -318,7 +300,7 @@ build_metadata_xml_from_list <- function(input_data,
     if (typeof(input_data[[i]]) == "list"){
       build_metadata_xml_from_list(input_data=input_data[[i]], root=this, metatype=NULL)
     }
-    else{
+    else {
       xmlValue(this) <- input_data[[i]]
     }
   }

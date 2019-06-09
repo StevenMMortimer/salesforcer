@@ -101,6 +101,9 @@
       <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
     <li>
+      <a href="../articles/passing-control-args.html">Passing Control Args</a>
+    </li>
+    <li>
       <a href="../articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
     </li>
   </ul>
@@ -159,10 +162,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>sf_create_job_bulk_v1</span>(<span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>,
-  <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>), <span class='no'>object_name</span>,
+  <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>, <span class='st'>"queryall"</span>), <span class='no'>object_name</span>,
   <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>content_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>,
   <span class='st'>"ZIP_XML"</span>, <span class='st'>"ZIP_JSON"</span>), <span class='kw'>concurrency_mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Parallel"</span>, <span class='st'>"Serial"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='no'>control</span>, <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
         
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

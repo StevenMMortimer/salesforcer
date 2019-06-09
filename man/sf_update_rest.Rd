@@ -4,8 +4,7 @@
 \alias{sf_update_rest}
 \title{Update Records using REST API}
 \usage{
-sf_update_rest(input_data, object_name, all_or_none = FALSE,
-  verbose = FALSE)
+sf_update_rest(input_data, object_name, control, ..., verbose = FALSE)
 }
 \description{
 Update Records using REST API

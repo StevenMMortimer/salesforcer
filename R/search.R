@@ -15,7 +15,7 @@
 #' @template guess_types
 #' @template api_type
 #' @param parameterized_search_options \code{list}; a list of parameters for 
-#' controlling the search if not using SOSL. If using SOSL this is ignored.
+#' controlling the search if not using SOSL. If using SOSL this argument is ignored.
 #' @template verbose
 #' @param ... arguments to be used to form the parameterized search options argument 
 #' if it is not supplied directly.
@@ -87,7 +87,7 @@ sf_search <- function(search_string,
     # TODO: should SOAP only take SOSL?
     if(!is_sosl){
       stop(paste("The SOAP API only takes SOSL formatted search strings.", 
-                 "Set is_sosl=TRUE or Use \"REST\" if trying to do a free text search"))
+                 "Set is_sosl=TRUE or set api_type='REST' if trying to do a free text search"))
     }
     r <- make_soap_xml_skeleton()
     xml_dat <- build_soap_xml_from_list(input_data = search_string,
@@ -170,8 +170,7 @@ parameterized_search_control <- function(objects = NULL,
                                          fields_scope = c("ALL", "NAME", "EMAIL", "PHONE" ,"SIDEBAR"),
                                          fields = NULL,
                                          overall_limit = 2000,
-                                         spell_correction = TRUE
-                                         ){
+                                         spell_correction = TRUE){
   
   which_fields_scope <- match.arg(fields_scope)
   

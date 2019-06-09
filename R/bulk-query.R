@@ -26,17 +26,18 @@
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
 #' \dontrun{
-#' my_query <- "SELECT Id, Name FROM Account LIMIT 10"
-#' job_info <- sf_create_job_bulk(operation='query', object='Account')
-#' query_info <- sf_submit_query_bulk(job_id=job_info$id, soql=my_query)
+#' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
+#' job_info <- sf_create_job_bulk(operation = 'query', object = 'Account')
+#' query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = my_query)
 #' }
 #' @export
-sf_submit_query_bulk <- function(job_id, soql, 
+sf_submit_query_bulk <- function(job_id, 
+                                 soql, 
                                  api_type = c("Bulk 1.0"), 
                                  verbose = FALSE){
   
   api_type <- match.arg(api_type)
-  bulk_query_url <- make_bulk_query_url(job_id, api_type=api_type)
+  bulk_query_url <- make_bulk_query_url(job_id, api_type = api_type)
   if(verbose){
     message(bulk_query_url)
   }
@@ -74,9 +75,9 @@ sf_submit_query_bulk <- function(job_id, soql,
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
 #' @examples
 #' \dontrun{
-#' my_query <- "SELECT Id, Name FROM Account LIMIT 10"
-#' job_info <- sf_create_job_bulk(operation='query', object='Account')
-#' query_info <- sf_submit_query_bulk(job_id=job_info$id, soql=my_query)
+#' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
+#' job_info <- sf_create_job_bulk(operation = 'query', object = 'Account')
+#' query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = my_query)
 #' result <- sf_batch_details_bulk(job_id = query_info$jobId,
 #'                                 batch_id = query_info$id)
 #' recordset <- sf_query_result_bulk(job_id = query_info$jobId,
@@ -123,6 +124,7 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
 #'
 #' @template soql
 #' @template object_name
+#' @template queryall
 #' @param guess_types logical; indicating whether or not to use \code{col_guess()} 
 #' to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
 #' and FALSE returns all values as character strings.
@@ -131,33 +133,55 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
 #' for job completion
 #' @param max_attempts integer; defines then max number attempts to check for job 
 #' completion before stopping
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
 #' @examples
 #' \dontrun{
-#' # select all Ids from Account object
-#' ids <- sf_query_bulk(soql='SELECT Id FROM Account', object_name='Account')
+#' # select all Ids from Account object (up to 1000)
+#' ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                      object_name = 'Account')
 #' }
 #' @export
 sf_query_bulk <- function(soql,
-                          object_name,
+                          object_name = NULL,
+                          queryall = FALSE,
                           guess_types = TRUE,
                           api_type = c("Bulk 1.0"),
                           interval_seconds = 5,
                           max_attempts = 100, 
+                          control = list(...), ...,
                           verbose = FALSE){
   
-  # if(is.null(object_name)){
-  #   object_name <- gsub("(.*)from\\s+([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE, perl=TRUE)
-  #   message(sprintf("Guessed target object_name from query string: %s", object_name))
-  # }
+  if(is.null(object_name)){
+    object_name <- gsub("SELECT(.*) FROM ([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE)
+    message(sprintf("Guessed target object_name from query string: %s", object_name))
+  }
+  
+  listed_objects <- sf_list_objects()
+  valid_object_names <- sapply(listed_objects$sobjects, FUN=function(x){x$name})
+  if(!object_name %in% valid_object_names){
+    stop(sprintf("The supplied object name (%s) does not exist or the user does not have permission to view", 
+                 object_name))
+  }
+
   api_type <- match.arg(api_type)
-  job_info <- sf_create_job_bulk(operation = "query", 
+  
+  # determine how to pass along the control args
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  this_operation <- if(queryall) "queryall" else "query"
+  control_args$operation <- this_operation
+  
+  job_info <- sf_create_job_bulk(operation = this_operation,
                                  object_name = object_name, 
                                  api_type = api_type, 
-                                 verbose = verbose)
-  batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = soql, 
+                                 control = control_args,
+                                 verbose = verbose, ...)
+  batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, 
+                                           soql = soql, 
                                            api_type = api_type, 
                                            verbose = verbose)
   status_complete <- FALSE

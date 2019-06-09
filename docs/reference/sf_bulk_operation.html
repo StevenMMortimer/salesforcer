@@ -101,6 +101,9 @@
       <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
     <li>
+      <a href="../articles/passing-control-args.html">Passing Control Args</a>
+    </li>
+    <li>
       <a href="../articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
     </li>
   </ul>
@@ -161,8 +164,8 @@
     <pre class="usage"><span class='fu'>sf_bulk_operation</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>operation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"insert"</span>,
   <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>),
   <span class='kw'>external_id_fieldname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  <span class='no'>...</span>, <span class='kw'>wait_for_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>wait_for_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,11 +196,6 @@ objects during upserts to determine if the record already exists in Salesforce o
 "Chatter" indicating which API to use when making the request</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other arguments passed on to <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code> such as 
-<code>content_type</code>, <code>concurrency_mode</code>, <code>line_ending</code> or <code>column_delimiter</code>.</p></td>
-    </tr>
-    <tr>
       <th>wait_for_results</th>
       <td><p>logical; indicating whether to wait for the operation to complete 
 so that the batch results of individual records can be obtained</p></td>
@@ -211,6 +209,17 @@ for job completion</p></td>
       <th>max_attempts</th>
       <td><p>integer; defines then max number attempts to check for job 
 completion before stopping</p></td>
+    </tr>
+    <tr>
+      <th>control</th>
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code> 
+such as <code>content_type</code>, <code>concurrency_mode</code>, or <code>column_delimiter</code></p></td>
     </tr>
     <tr>
       <th>verbose</th>

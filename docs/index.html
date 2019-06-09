@@ -12,11 +12,11 @@
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="An Implementation of 'Salesforce' APIs Using Tidy Principles">
-<meta property="og:description" content="An implementation of the 'Salesforce' Platform APIs (REST, SOAP, 
+<meta property="og:description" content="Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP, 
     Bulk 1.0, Bulk 2.0, and Metadata) &lt;https://developer.salesforce.com/page/Salesforce_APIs&gt;. 
-    This package is an articulation of the most API methods into R. The API calls 
-    return XML or JSON that is parsed tidy data structures. For more details please 
-    see the 'Salesforces' API references and this package's website 
+    This package is an articulation of the most Salesforce API methods into R. The 
+    API calls return XML or JSON that is parsed tidy data structures. For more details 
+    please see the 'Salesforce' API references and this package's website 
     &lt;https://stevenmmortimer.github.io/salesforcer/&gt; for more information, 
     documentation, and examples.">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
@@ -64,6 +64,9 @@
     </li>
     <li>
       <a href="articles/working-with-bulk-api.html">Working with Bulk API</a>
+    </li>
+    <li>
+      <a href="articles/passing-control-args.html">Passing Control Args</a>
     </li>
     <li>
       <a href="articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
@@ -138,12 +141,14 @@
 </ul>
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
+<li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more</li>
 </ul>
 <div id="table-of-contents" class="section level2">
 <h2 class="hasAnchor">
 <a href="#table-of-contents" class="anchor"></a>Table of Contents</h2>
 <ul>
 <li><a href="#installation">Installation</a></li>
+<li><a href="#vignettes">Vignettes</a></li>
 <li>
 <a href="#usage">Usage</a>
 <ul>
@@ -170,6 +175,17 @@
 <a class="sourceLine" id="cb1-5" title="5"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb1-6" title="6">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)</a></code></pre></div>
 <p>If you encounter a clear bug, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">GitHub</a>.</p>
+</div>
+<div id="vignettes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<p>The README below outlines the package functionality, but review the vignettes for more detailed examples on usage.</p>
+<ul>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-api.html">Working with Bulk API</a></li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
+</ul>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -216,8 +232,8 @@
 <a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;   id                 success</span></a>
 <a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000taMN3QAM TRUE   </span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000taMN4QAM TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000wzhEnQAI TRUE   </span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000wzhEoQAI TRUE</span></a></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -235,8 +251,8 @@
 <a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
 <a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;   Id                 Account FirstName LastName        </span></a>
 <a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; 1 0036A00000taMN3QAM NA      Test      Contact-Create-1</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 2 0036A00000taMN4QAM NA      Test      Contact-Create-2</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; 1 0036A00000wzhEnQAI NA      Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 2 0036A00000wzhEoQAI NA      Test      Contact-Create-2</span></a></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -252,8 +268,8 @@
 <a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt;   id                 success</span></a>
 <a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 1 0036A00000taMN3QAM TRUE   </span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 2 0036A00000taMN4QAM TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 1 0036A00000wzhEnQAI TRUE   </span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 2 0036A00000wzhEoQAI TRUE</span></a></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -333,7 +349,23 @@
 <a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span></a>
 <a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span></a>
 <a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; # … with 57 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; # … with 57 more rows</span></a>
+<a class="sourceLine" id="cb9-17" title="17"></a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="co"># show the picklist selection options for the Account Type field</span></a>
+<a class="sourceLine" id="cb9-19" title="19">acct_fields <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(label <span class="op">==</span><span class="st"> "Account Type"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="st">  </span>.<span class="op">$</span>picklistValues</a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb9-23" title="23"><span class="co">#&gt; # A tibble: 7 x 4</span></a>
+<a class="sourceLine" id="cb9-24" title="24"><span class="co">#&gt;   active defaultValue label                      value                     </span></a>
+<a class="sourceLine" id="cb9-25" title="25"><span class="co">#&gt;   &lt;lgl&gt;  &lt;lgl&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span></a>
+<a class="sourceLine" id="cb9-26" title="26"><span class="co">#&gt; 1 TRUE   FALSE        Prospect                   Prospect                  </span></a>
+<a class="sourceLine" id="cb9-27" title="27"><span class="co">#&gt; 2 TRUE   FALSE        Customer - Direct          Customer - Direct         </span></a>
+<a class="sourceLine" id="cb9-28" title="28"><span class="co">#&gt; 3 TRUE   FALSE        Customer - Channel         Customer - Channel        </span></a>
+<a class="sourceLine" id="cb9-29" title="29"><span class="co">#&gt; 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller</span></a>
+<a class="sourceLine" id="cb9-30" title="30"><span class="co">#&gt; 5 TRUE   FALSE        Installation Partner       Installation Partner      </span></a>
+<a class="sourceLine" id="cb9-31" title="31"><span class="co">#&gt; 6 TRUE   FALSE        Technology Partner         Technology Partner        </span></a>
+<a class="sourceLine" id="cb9-32" title="32"><span class="co">#&gt; 7 TRUE   FALSE        Other                      Other</span></a></code></pre></div>
 <p>If you prefer to be more precise about collecting and formatting the field data you can work directly with the nested lists that the APIs return. In this example we look at the picklist values of fields on the Account object.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">describe_obj_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_describe_objects.html">sf_describe_objects</a></span>(<span class="dt">object_names=</span><span class="kw">c</span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))</a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="co"># confirm that the Account object is queryable</span></a>
@@ -344,11 +376,20 @@
 <a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt; $queryable</span></a>
 <a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; [1] "true"</span></a>
 <a class="sourceLine" id="cb10-9" title="9"><span class="co"># show the different picklist values for the Account Type field</span></a>
-<a class="sourceLine" id="cb10-10" title="10">the_type_field &lt;-<span class="st"> </span>describe_obj_result[[<span class="dv">1</span>]][[<span class="dv">59</span>]]</a>
-<a class="sourceLine" id="cb10-11" title="11">the_type_field<span class="op">$</span>label</a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt; NULL</span></a>
-<a class="sourceLine" id="cb10-13" title="13"><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span>(the_type_field[<span class="kw">which</span>(<span class="kw">names</span>(the_type_field) <span class="op">==</span><span class="st"> "picklistValues"</span>)], as_tibble)</a>
-<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; # A tibble: 0 x 0</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-10" title="10">all_fields &lt;-<span class="st"> </span>describe_obj_result[[<span class="dv">1</span>]][<span class="kw">names</span>(describe_obj_result[[<span class="dv">1</span>]]) <span class="op">==</span><span class="st"> "fields"</span>]</a>
+<a class="sourceLine" id="cb10-11" title="11">the_type_field_idx &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">sapply</span>(all_fields, <span class="dt">FUN=</span><span class="cf">function</span>(x){x<span class="op">$</span>label}) <span class="op">==</span><span class="st"> "Account Type"</span>)</a>
+<a class="sourceLine" id="cb10-12" title="12">acct_type_field &lt;-<span class="st"> </span>all_fields[[the_type_field_idx]]</a>
+<a class="sourceLine" id="cb10-13" title="13"><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span>(acct_type_field[<span class="kw">which</span>(<span class="kw">names</span>(acct_type_field) <span class="op">==</span><span class="st"> "picklistValues"</span>)], as_tibble)</a>
+<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; # A tibble: 7 x 4</span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt;   active defaultValue label                      value                     </span></a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span></a>
+<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt; 1 true   false        Prospect                   Prospect                  </span></a>
+<a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt; 2 true   false        Customer - Direct          Customer - Direct         </span></a>
+<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span></a>
+<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span></a>
+<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span></a>
+<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt; 6 true   false        Technology Partner         Technology Partner        </span></a>
+<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt; 7 true   false        Other                      Other</span></a></code></pre></div>
 <p>It is recommended that you try out the various metadata functions <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="reference/sf_describe_metadata.html">sf_describe_metadata()</a></code>, and <code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
 <p>Where the Metadata API really shines is when it comes to CRUD operations on metadata. In this example we will create an object, add fields to it, then delete that object.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># create an object</span></a>
@@ -379,6 +420,22 @@
 <a class="sourceLine" id="cb11-26" title="26"><span class="co"># delete the object</span></a>
 <a class="sourceLine" id="cb11-27" title="27">deleted_custom_object_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_delete_metadata.html">sf_delete_metadata</a></span>(<span class="dt">metadata_type =</span> <span class="st">'CustomObject'</span>, </a>
 <a class="sourceLine" id="cb11-28" title="28">                                                   <span class="dt">object_names =</span> <span class="kw">c</span>(<span class="st">'Custom_Account1__c'</span>))</a></code></pre></div>
+<p>Note that newly created custom fields are not editable by default, meaning that you will not be able to insert records into them until updating the field level security of your user profile. Run the following code to determine the user profiles in your org and updating the field permissions on an object that you may have created with the example code above.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># get list of user proviles in order to get the "fullName" parameter correct in the next call</span></a>
+<a class="sourceLine" id="cb12-2" title="2">my_queries &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">type=</span><span class="st">'Profile'</span>))</a>
+<a class="sourceLine" id="cb12-3" title="3">profiles_list &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_list_metadata.html">sf_list_metadata</a></span>(<span class="dt">queries=</span>my_queries)</a>
+<a class="sourceLine" id="cb12-4" title="4"></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co"># update the field level security to "editable" for your fields</span></a>
+<a class="sourceLine" id="cb12-6" title="6">prof_update &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_update_metadata.html">sf_update_metadata</a></span>(<span class="dt">metadata_type=</span><span class="st">'Profile'</span>, </a>
+<a class="sourceLine" id="cb12-7" title="7">                                  <span class="dt">metadata=</span><span class="kw">list</span>(<span class="dt">fullName=</span><span class="st">'Admin'</span>, </a>
+<a class="sourceLine" id="cb12-8" title="8">                                                <span class="dt">fieldPermissions=</span><span class="kw">list</span>(<span class="dt">field=</span><span class="kw">paste0</span>(custom_object<span class="op">$</span>fullName, <span class="st">'.CustomField3__c'</span>),</a>
+<a class="sourceLine" id="cb12-9" title="9">                                                                      <span class="dt">editable=</span><span class="st">'true'</span>), </a>
+<a class="sourceLine" id="cb12-10" title="10">                                                <span class="dt">fieldPermissions=</span><span class="kw">list</span>(<span class="dt">field=</span><span class="kw">paste0</span>(custom_object<span class="op">$</span>fullName, <span class="st">'.CustomField4__c'</span>),</a>
+<a class="sourceLine" id="cb12-11" title="11">                                                                      <span class="dt">editable=</span><span class="st">'true'</span>)))</a>
+<a class="sourceLine" id="cb12-12" title="12"></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="co"># now try inserting values into that custom object's fields</span></a>
+<a class="sourceLine" id="cb12-14" title="14">my_new_data =<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">CustomField3__c =</span> <span class="st">"Hello World"</span>, <span class="dt">CustomField4__c =</span> <span class="st">"Hello World"</span>)</a>
+<a class="sourceLine" id="cb12-15" title="15">added_record &lt;-<span class="st"> </span><span class="kw"><a href="reference/sf_create.html">sf_create</a></span>(my_new_data, <span class="dt">object_name =</span> custom_object<span class="op">$</span>fullName)</a></code></pre></div>
 </div>
 </div>
 <div id="future" class="section level2">
@@ -436,7 +493,8 @@
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="http://cran.r-project.org/package=salesforcer"><img src="http://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
 <li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>

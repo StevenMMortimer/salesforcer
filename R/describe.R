@@ -8,6 +8,8 @@
 #' @importFrom xml2 xml_find_all xml_ns_strip as_list
 #' @template object_names
 #' @template api_type
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return \code{list}
 #' @examples
@@ -18,11 +20,12 @@
 #' }
 #' @export
 sf_describe_objects <- function(object_names,
-                                api_type = c("SOAP", "REST", "Bulk"),
+                                api_type = c("SOAP", "REST"),
+                                control = list(...), ...,
                                 verbose = FALSE){
-
+  
   which_api <- match.arg(api_type)
-  object_names <- tibble(sObjectType=unlist(object_names))
+  object_names <- tibble(sObjectType = unlist(object_names))
   
   listed_objects <- sf_list_objects()
   valid_object_names <- sapply(listed_objects$sobjects, FUN=function(x){x$name})
@@ -36,9 +39,7 @@ sf_describe_objects <- function(object_names,
     filter(sObjectType %in% valid_object_names) %>% 
     as.data.frame()
   
-  # REST implementation
   if(which_api == "REST"){
-    
     resultset <- list()
     for(i in 1:nrow(object_names)){
       describe_object_url <- make_describe_objects_url(object_names[i,"sObjectType"])
@@ -46,16 +47,18 @@ sf_describe_objects <- function(object_names,
       httr_response <- rGET(url = describe_object_url)
       catch_errors(httr_response)
       response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
-      # need to fix!!!!
+      # TODO: Need to fix!!!!
       resultset[[i]] <- response_parsed$objectDescribe
     }
-
   } else if(which_api == "SOAP"){
-    # SOAP implementation
-    r <- make_soap_xml_skeleton()
+    control_args <- return_matching_controls(control)
+    control_args$api_type <- "SOAP"
+    control_args$operation <- "describeSObjects"
+    control <- do.call("sf_control", control_args)
+    r <- make_soap_xml_skeleton(soap_headers = control)
     xml_dat <- build_soap_xml_from_list(input_data = object_names$sObjectType,
                                         operation = "describeSObjects",
-                                        root=r)
+                                        root = r)
     base_soap_url <- make_base_soap_url()
     if(verbose) {
       message(base_soap_url)
@@ -78,7 +81,7 @@ sf_describe_objects <- function(object_names,
         })
     ))
   } else {
-    stop("Describe SObject is not available for the Bulk API, use REST or SOAP APIs.")
+    stop("Unknown API type")
   }
   return(resultset)
 }

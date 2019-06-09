@@ -34,9 +34,9 @@ which has already been submitted to Bulk API Job and has Completed state
 }
 \examples{
 \dontrun{
-my_query <- "SELECT Id, Name FROM Account LIMIT 10"
-job_info <- sf_create_job_bulk(operation='query', object='Account')
-query_info <- sf_submit_query_bulk(job_id=job_info$id, soql=my_query)
+my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
+job_info <- sf_create_job_bulk(operation = 'query', object = 'Account')
+query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = my_query)
 result <- sf_batch_details_bulk(job_id = query_info$jobId,
                                 batch_id = query_info$id)
 recordset <- sf_query_result_bulk(job_id = query_info$jobId,

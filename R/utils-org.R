@@ -105,14 +105,22 @@ sf_set_password <- function(user_id, password, verbose=FALSE){
 #' @importFrom httr content
 #' @importFrom xml2 xml_ns_strip xml_find_all xml_text
 #' @param user_id character; the unique Salesforce Id assigned to the User
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return \code{list}
 #' @examples
 #' \dontrun{
-#' sf_reset_password(user_id = "0056A000000ZZZaaBBB")
+#' # reset a user's password and ensure that an email is triggered to them
+#' sf_reset_password(user_id = "0056A000000ZZZaaBBB", 
+#'                   EmailHeader = list(triggerAutoResponseEmail = FALSE, 
+#'                                      triggerOtherEmail = FALSE, 
+#'                                      triggerUserEmail = TRUE))
 #' }
 #' @export
-sf_reset_password <- function(user_id, verbose=FALSE){
+sf_reset_password <- function(user_id, 
+                              control = list(...), ...,
+                              verbose = FALSE){
   
   base_soap_url <- make_base_soap_url()
   if(verbose) {
@@ -120,10 +128,14 @@ sf_reset_password <- function(user_id, verbose=FALSE){
   }
   
   # build the body
-  r <- make_soap_xml_skeleton()
-  xml_dat <- build_soap_xml_from_list(input_data = list(userId=user_id),
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- "SOAP"
+  control_args$operation <- "resetPassword"
+  control <- do.call("sf_control", control_args)
+  r <- make_soap_xml_skeleton(soap_headers = control)
+  xml_dat <- build_soap_xml_from_list(input_data = list(userId = user_id),
                                       operation = "resetPassword",
-                                      root=r)
+                                      root = r)
   
   httr_response <- rPOST(url = base_soap_url,
                          headers = c("SOAPAction"="create",

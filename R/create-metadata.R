@@ -11,7 +11,8 @@
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
 #' @template metadata_type
 #' @template metadata
-#' @template all_or_none
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return A \code{tbl_df} containing the creation result for each submitted metadata component
 #' @examples
@@ -44,8 +45,9 @@
 #' custom_metadata$deploymentStatus <- 'Deployed'
 #' # make a description to identify this easily in the UI setup tab
 #' custom_metadata$description <- 'created by the Metadata API'
-#' new_custom_object <- sf_create_metadata(metadata_type='CustomObject',
-#'                                         metadata=custom_metadata, verbose=TRUE)
+#' new_custom_object <- sf_create_metadata(metadata_type = 'CustomObject',
+#'                                         metadata = custom_metadata, 
+#'                                         verbose = TRUE)
 #' 
 #' # adding custom fields to our object 
 #' # input formatted as a list
@@ -67,23 +69,41 @@
 #'                                         metadata = custom_fields)
 #' }
 #' @export
-sf_create_metadata <- function(metadata_type, metadata, all_or_none=FALSE, verbose=FALSE){
+sf_create_metadata <- function(metadata_type, 
+                               metadata,
+                               control = list(...), ...,
+                               verbose = FALSE){
   
   which_operation <- "createMetadata"
-    
   # run some basic validation on the metadata to see if it conforms to WSDL standards
   metadata <- metadata_type_validator(obj_type=metadata_type, obj_data=metadata)
+  
+  # determine how to pass along the control args 
+  all_args <- list(...)
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- "Metadata"
+  control_args$operation <- "insert"
+  if("all_or_none" %in% names(all_args)){
+    # warn then set it in the control list
+    warning(paste0("The `all_or_none` argument has been deprecated.\n", 
+                   "Please pass AllOrNoneHeader argument or use the `sf_control` function."), 
+            call. = FALSE)
+    control_args$AllOrNoneHeader = list(allOrNone = tolower(all_args$all_or_none))
+  }
+  control <- do.call("sf_control", control_args)
 
   # define the operation
   operation_node <- newXMLNode(which_operation,
-                               namespaceDefinitions=c('http://soap.sforce.com/2006/04/metadata'), 
+                               namespaceDefinitions = c('http://soap.sforce.com/2006/04/metadata'), 
                                suppressNamespaceWarning = TRUE)
   # and add the metadata to it
-  xml_dat <- build_metadata_xml_from_list(input_data=metadata, metatype=metadata_type, root=operation_node)
+  xml_dat <- build_metadata_xml_from_list(input_data = metadata, 
+                                          metatype = metadata_type, 
+                                          root = operation_node)
   
   base_metadata_url <- make_base_metadata_url()
-  root <- make_soap_xml_skeleton(soap_headers=list(AllorNoneHeader = tolower(all_or_none)), metadata_ns=TRUE)
-  body_node <- newXMLNode("soapenv:Body", parent=root)  
+  root <- make_soap_xml_skeleton(soap_headers = control, metadata_ns = TRUE)
+  body_node <- newXMLNode("soapenv:Body", parent = root)  
   body_node <- addChildren(body_node, xml_dat)
   
   if(verbose) {

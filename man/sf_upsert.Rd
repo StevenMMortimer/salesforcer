@@ -5,8 +5,8 @@
 \title{Upsert Records}
 \usage{
 sf_upsert(input_data, object_name, external_id_fieldname,
-  all_or_none = FALSE, api_type = c("SOAP", "REST", "Bulk 1.0",
-  "Bulk 2.0"), ..., verbose = FALSE)
+  api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
+  control = list(...), ..., verbose = FALSE)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -19,13 +19,15 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
-\item{all_or_none}{logical; allows a call to roll back all changes unless all 
-records are processed successfully}
-
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
 
-\item{...}{other arguments passed on to \code{\link{sf_bulk_operation}}.}
+\item{control}{\code{list}; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for \code{\link{sf_control}}}
+
+\item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
+to \code{\link{sf_bulk_operation}}}
 
 \item{verbose}{logical; do you want informative messages?}
 }

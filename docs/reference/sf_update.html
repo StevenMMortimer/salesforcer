@@ -101,6 +101,9 @@
       <a href="../articles/working-with-bulk-api.html">Working with Bulk API</a>
     </li>
     <li>
+      <a href="../articles/passing-control-args.html">Passing Control Args</a>
+    </li>
+    <li>
       <a href="../articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a>
     </li>
   </ul>
@@ -158,9 +161,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_update</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='no'>...</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_update</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>,
+  <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,18 +178,20 @@
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
     </tr>
     <tr>
-      <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all 
-records are processed successfully</p></td>
-    </tr>
-    <tr>
       <th>api_type</th>
       <td><p>character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request</p></td>
     </tr>
     <tr>
+      <th>control</th>
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
+the API call being used. For more information of what parameters are available 
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code>.</p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream 
+to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -199,20 +203,34 @@ records are processed successfully</p></td>
 
     <p><code>tbl_df</code> of records with success indicator</p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Because the SOAP and REST calls chunk data into batches of 200 records 
+the AllOrNoneHeader will only apply to the success or failure of every batch 
+of records and not all records submitted to the function.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
+<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+<span class='no'>new_accts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
+                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Account"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
+<span class='no'>new_records</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_accts</span>, <span class='st'>"Account"</span>)
 
-<span class='no'>update_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"TestTest"</span>, <span class='no'>n</span>),
-                          <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                          <span class='kw'>Id</span> <span class='kw'>=</span> <span class='no'>new_contacts_result</span>$<span class='no'>id</span>)
-<span class='no'>updated_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>update_contacts</span>, <span class='st'>"Contact"</span>)
-<span class='no'>updated_contacts_result2</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>update_contacts</span>, <span class='st'>"Contact"</span>,
-                                      <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk"</span>)
+<span class='no'>updated_accts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"TestTest"</span>, <span class='no'>n</span>),
+                        <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Account"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
+                        <span class='kw'>Id</span> <span class='kw'>=</span> <span class='no'>new_records</span>$<span class='no'>id</span>)
+
+<span class='co'># update the accounts and ensure that all contacts and cases (open and closed) </span>
+<span class='co'># owned by the previous account owner are transferred to the new owner                         </span>
+<span class='no'>update</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='no'>updated_accts</span>, <span class='st'>"Account"</span>,
+                    <span class='kw'>OwnerChangeOptions</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>options</span><span class='kw'>=</span>
+                                              <span class='fu'>list</span>(<span class='fu'>list</span>(<span class='kw'>execute</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+                                                        <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"TransferAllOwnedCases"</span>),
+                                                   <span class='fu'>list</span>(<span class='kw'>execute</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+                                                        <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"TransferOwnedOpenCases"</span>),
+                                                   <span class='fu'>list</span>(<span class='kw'>execute</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+                                                        <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"TransferContacts"</span>))))
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -221,6 +239,8 @@ records are processed successfully</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

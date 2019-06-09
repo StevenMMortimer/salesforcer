@@ -5,54 +5,89 @@
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into a \code{data.frame}
 #' @template object_name
-#' @template all_or_none
 #' @template api_type
-#' @param ... other arguments passed on to \code{\link{sf_bulk_operation}}.
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
+#' to \code{\link{sf_bulk_operation}}
 #' @template verbose
 #' @return \code{tbl_df} of records with success indicator
+#' @note Because the SOAP and REST calls chunk data into batches of 200 records 
+#' the AllOrNoneHeader will only apply to the success or failure of every batch 
+#' of records and not all records submitted to the function.
 #' @examples
 #' \dontrun{
-#' n <- 3
-#' new_contacts <- tibble(FirstName = rep("Test", n),
-#'                        LastName = paste0("Contact", 1:n))
-#' new_contacts_result <- sf_create(new_contacts, "Contact")
+#' n <- 2
+#' new_accts <- tibble(FirstName = rep("Test", n),
+#'                        LastName = paste0("Account", 1:n))
+#' new_records <- sf_create(new_accts, "Account")
 #' 
-#' update_contacts <- tibble(FirstName = rep("TestTest", n),
-#'                           LastName = paste0("Contact", 1:n), 
-#'                           Id = new_contacts_result$id)
-#' updated_contacts_result1 <- sf_update(update_contacts, "Contact")
-#' updated_contacts_result2 <- sf_update(update_contacts, "Contact", 
-#'                                       api_type="Bulk")
+#' updated_accts <- tibble(FirstName = rep("TestTest", n),
+#'                         LastName = paste0("Account", 1:n), 
+#'                         Id = new_records$id)
+#'                        
+#' # update the accounts and ensure that all contacts and cases (open and closed) 
+#' # owned by the previous account owner are transferred to the new owner                         
+#' update <- sf_update(updated_accts, "Account", 
+#'                     OwnerChangeOptions=list(options=
+#'                                               list(list(execute=TRUE,
+#'                                                         type="TransferAllOwnedCases"), 
+#'                                                    list(execute=TRUE, 
+#'                                                         type="TransferOwnedOpenCases"), 
+#'                                                    list(execute=TRUE, 
+#'                                                         type="TransferContacts"))))
 #' }
 #' @export
 sf_update <- function(input_data,
                       object_name,
-                      all_or_none = FALSE,
                       api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
-                      ...,
+                      control = list(...), ...,
                       verbose = FALSE){
   
   api_type <- match.arg(api_type)
-  if(api_type == "REST"){
-    resultset <- sf_update_rest(input_data=input_data,
-                                object_name=object_name,
-                                all_or_none=all_or_none, 
-                                verbose=verbose)
-  } else if(api_type == "SOAP"){
-    resultset <- sf_update_soap(input_data=input_data,
-                                object_name=object_name,
-                                all_or_none=all_or_none, 
-                                verbose=verbose)
+  
+  # determine how to pass along the control args 
+  all_args <- list(...)
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- "update"
+  if("all_or_none" %in% names(all_args)){
+    # warn then set it in the control list
+    warning(paste0("The `all_or_none` argument has been deprecated.\n", 
+                   "Please pass AllOrNoneHeader argument or use the `sf_control` function."), 
+            call. = FALSE)
+    control_args$AllOrNoneHeader = list(allOrNone = tolower(all_args$all_or_none))
+  }
+  if("AssignmentRuleHeader" %in% names(control_args)){
+    if(!object_name %in% c("Account", "Case", "Lead")){
+      stop("The AssignmentRuleHeader can only be used when creating, updating, or upserting an Account, Case, or Lead")
+    }
+  }
+  
+  if(api_type == "SOAP"){
+    resultset <- sf_update_soap(input_data = input_data,
+                                object_name = object_name,
+                                control = control_args, 
+                                verbose = verbose)
+  } else if(api_type == "REST"){
+    resultset <- sf_update_rest(input_data = input_data,
+                                object_name = object_name,
+                                control = control_args, 
+                                verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
-    resultset <- sf_update_bulk_v1(input_data, object_name = object_name, verbose = verbose, ...)
+    resultset <- sf_update_bulk_v1(input_data, 
+                                   object_name = object_name, 
+                                   control = control_args, 
+                                   verbose = verbose, ...)
   } else if(api_type == "Bulk 2.0"){
-    resultset <- sf_update_bulk_v2(input_data, object_name = object_name, verbose = verbose, ...)
+    resultset <- sf_update_bulk_v2(input_data, 
+                                   object_name = object_name, 
+                                   control = control_args, 
+                                   verbose = verbose, ...)
   } else {
     stop("Unknown API type")
   }
   return(resultset)
 }
-
 
 #' Update Records using SOAP API
 #' 
@@ -65,10 +100,13 @@ sf_update <- function(input_data,
 #' @importFrom utils head
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-sf_update_soap <- function(input_data, object_name, all_or_none = FALSE,
+sf_update_soap <- function(input_data, 
+                           object_name,
+                           control, ...,
                            verbose = FALSE){
   
   input_data <- sf_input_data_validation(operation='update', input_data)
+  control <- do.call("sf_control", control)
   
   base_soap_url <- make_base_soap_url()
   if(verbose) {
@@ -94,7 +132,7 @@ sf_update_soap <- function(input_data, object_name, all_or_none = FALSE,
       } 
     }
     batched_data <- input_data[batch_id == batch, , drop=FALSE]  
-    r <- make_soap_xml_skeleton(soap_headers=list(AllorNoneHeader = tolower(all_or_none)))
+    r <- make_soap_xml_skeleton(soap_headers = control)
     xml_dat <- build_soap_xml_from_list(input_data = batched_data,
                                         operation = "update",
                                         object_name = object_name,
@@ -116,7 +154,6 @@ sf_update_soap <- function(input_data, object_name, all_or_none = FALSE,
   return(resultset)
 }
 
-
 #' Update Records using REST API
 #' 
 #' @importFrom readr cols type_convert
@@ -126,12 +163,28 @@ sf_update_soap <- function(input_data, object_name, all_or_none = FALSE,
 #' @importFrom utils head
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-sf_update_rest <- function(input_data, object_name, all_or_none = FALSE,
+sf_update_rest <- function(input_data, 
+                           object_name, 
+                           control, ...,
                            verbose = FALSE){
   
   # This resource is available in API version 42.0 and later.
   stopifnot(as.numeric(getOption("salesforcer.api_version")) >= 42.0)
   input_data <- sf_input_data_validation(operation='update', input_data)
+  
+  control <- do.call("sf_control", control)
+  if("AllOrNoneHeader" %in% names(control)){
+    all_or_none <- control$AllOrNoneHeader$allOrNone
+  } else {
+    all_or_none <- FALSE
+  }
+  request_headers <- c("Accept"="application/json", 
+                       "Content-Type"="application/json")
+  if("AssignmentRuleHeader" %in% names(control)){
+    # take the first list element because it could be useDefaultRule (T/F) or assignmentRuleId
+    request_headers <- c(request_headers, c("Sforce-Auto-Assign" = control$AssignmentRuleHeader[[1]]))
+  }
+  
   input_data$attributes <- lapply(1:nrow(input_data), FUN=function(x, obj){list(type=obj, referenceId=paste0("ref" ,x))}, obj=object_name)
   #input_data$attributes <- list(rep(list(type=object_name), nrow(input_data)))[[1]]
   input_data <- input_data %>% select(attributes, everything())
@@ -163,8 +216,7 @@ sf_update_rest <- function(input_data, object_name, all_or_none = FALSE,
     }
     batched_data <- input_data[batch_id == batch, , drop=FALSE]
     httr_response <- rPATCH(url = composite_url,
-                           headers = c("Accept"="application/json", 
-                                       "Content-Type"="application/json"),
+                           headers = request_headers,
                            body = toJSON(list(allOrNone = tolower(all_or_none), 
                                               records = batched_data), 
                                          auto_unbox = TRUE))
@@ -178,42 +230,42 @@ sf_update_rest <- function(input_data, object_name, all_or_none = FALSE,
   return(resultset)
 }
 
-
 #' Update Records using Bulk 1.0 API
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-sf_update_bulk_v1 <- function(input_data, object_name, all_or_none = FALSE,
-                              ...,
+sf_update_bulk_v1 <- function(input_data, 
+                              object_name,
+                              control, ...,
                               verbose = FALSE){
-  # allor none?
   input_data <- sf_input_data_validation(operation = "update", input_data)
+  control <- do.call("sf_control", control)
   resultset <- sf_bulk_operation(input_data = input_data, 
                                  object_name = object_name, 
                                  operation = "update",
                                  api_type = "Bulk 1.0",
-                                 verbose = verbose, ...)
+                                 control = control, ...,
+                                 verbose = verbose)
   return(resultset)
 }
-
 
 #' Update Records using Bulk 2.0 API
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-sf_update_bulk_v2 <- function(input_data, object_name, all_or_none = FALSE,
-                              ...,
+sf_update_bulk_v2 <- function(input_data, 
+                              object_name,
+                              control, ...,
                               verbose = FALSE){
-  # allor none?
-  #The order of records in the response is not guaranteed to match the ordering of records in the original job data.
-  input_data <- sf_input_data_validation(operation = 'update', input_data)
+  # The order of records in the response is not guaranteed to match the ordering of
+  # records in the original job data.
+  input_data <- sf_input_data_validation(operation = "update", input_data)
+  control <- do.call("sf_control", control)
   resultset <- sf_bulk_operation(input_data = input_data, 
                                  object_name = object_name, 
                                  operation = "update", 
                                  api_type = "Bulk 2.0",
-                                 verbose=verbose, ...)
+                                 control = control, ...,
+                                 verbose = verbose)
   return(resultset)
 }
-
-
-

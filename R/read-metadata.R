@@ -75,6 +75,7 @@ sf_read_metadata <- function(metadata_type, object_names, verbose=FALSE){
 #' @importFrom readr type_convert cols
 #' @importFrom dplyr as_tibble 
 #' @importFrom purrr modify_if
+#' @importFrom data.table rbindlist
 #' @template object_name
 #' @note The tibble only contains the fields that the user can view, as defined by 
 #' the user's field-level security settings.
@@ -96,8 +97,9 @@ sf_describe_object_fields <- function(object_name){
   obj_fields_dat <- obj_fields_list %>% 
     # explicitly combine duplicated names because many tidyverse functions break whenever that occurs
     map(collapse_list_with_dupe_names) %>% 
-    # convert the fields, some simple datatypes, some complex datatypes (lists) into one row each
-    map_df(~as_tibble(modify_if(., ~(length(.x) > 1 | is.list(.x)), list)))
+    map(~modify_if(., ~(length(.x) > 1 | is.list(.x)), list)) %>%
+    rbindlist(use.names=TRUE, fill=TRUE, idcol=NULL) %>%
+    as_tibble()
   
   # sort the columns by name as the API would return prior to the combining process above
   obj_fields_dat <- obj_fields_dat[,sort(names(obj_fields_dat))]
@@ -131,16 +133,16 @@ collapse_list_with_dupe_names <- function(x){
       target_idx <- which(names(x) == f)
       obj_field_dupes <- x[target_idx]
       if(all(sapply(obj_field_dupes, length) == 1)){
-        collapsed <- paste0(unlist(obj_field_dupes), collapse = ",")
+        collapsed <- list(unname(unlist(obj_field_dupes)))
       } else {
         collapsed <- map_df(obj_field_dupes, as_tibble) %>%
           type_convert(col_types = cols()) %>% 
           list()
       }
       # replace into first
-      x[head(target_idx,1)] <- collapsed
+      x[head(target_idx, 1)] <- collapsed
       # remove the rest
-      x[tail(target_idx,-1)] <- NULL 
+      x[tail(target_idx, -1)] <- NULL 
     }
   }
   return(x)
