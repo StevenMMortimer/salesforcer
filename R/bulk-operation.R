@@ -172,9 +172,10 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
                          headers = request_headers, 
                          body = request_body)
   if(verbose){
-    make_verbose_message(httr_response$request$url, 
-                         httr_response$request$headers, 
-                         request_body)
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url, 
+                              httr_response$request$headers, 
+                              request_body)
   }
   catch_errors(httr_response)  
   response_parsed <- content(httr_response, encoding="UTF-8")

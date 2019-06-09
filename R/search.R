@@ -52,17 +52,11 @@ sf_search <- function(search_string,
   
   # REST implementation
   if(which_api == "REST"){
-    
     if(is_sosl){
       target_url <- make_search_url(search_string)
       httr_response <- rGET(url = target_url,
                             headers = c("Accept"="application/json", 
                                         "Content-Type"="application/json"))
-      if(verbose){
-        make_verbose_message(httr_response$request$url, 
-                             httr_response$request$headers, 
-                             prettify(request_body))
-      }
     } else {
       parameterized_search_control <- do.call("parameterized_search_control",
                                               parameterized_search_options)
@@ -74,12 +68,12 @@ sf_search <- function(search_string,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
                              body = request_body)
-      if(verbose){
-        make_verbose_httr_message(httr_response$request$method,
-                                  httr_response$request$url, 
-                                  httr_response$request$headers, 
-                                  prettify(request_body))
-      }
+    }
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                prettify(request_body))
     }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, "text", encoding="UTF-8")

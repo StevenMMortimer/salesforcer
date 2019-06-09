@@ -114,9 +114,10 @@ sf_delete_soap <- function(ids,
                                        "Content-Type"="text/xml"),
                            body = request_body)
     if(verbose){
-      make_verbose_message(httr_response$request$url, 
-                           httr_response$request$headers, 
-                           request_body)
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
     }
     catch_errors(httr_response)
     response_parsed <- content(httr_response, encoding="UTF-8")

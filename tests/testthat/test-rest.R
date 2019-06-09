@@ -9,7 +9,7 @@ test_that("testing REST API Functionality", {
   prefix <- paste0("REST-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
                          LastName = paste0("Contact-Create-", 1:n), 
-                         My_External_Id__c=paste0(prefix, letters[1:n]))
+                         My_External_Id__c = paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
   created_records <- sf_create(new_contacts, "Contact", api_type="REST")
   expect_is(created_records, "tbl_df")

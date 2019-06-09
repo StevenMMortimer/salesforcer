@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List All Objects of a Certain Metadata Type in Salesforce — sf_list_metadata • salesforcer</title>
+<title>Format Verbose Call — make_verbose_httr_message • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,10 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="List All Objects of a Certain Metadata Type in Salesforce — sf_list_metadata" />
+<meta property="og:title" content="Format Verbose Call — make_verbose_httr_message" />
 
-<meta property="og:description" content="This function takes a query of metadata types and returns a 
-summary of all objects in salesforce of the requested types" />
+<meta property="og:description" content="Format Verbose Call" />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -151,70 +150,31 @@ summary of all objects in salesforce of the requested types" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List All Objects of a Certain Metadata Type in Salesforce</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/list-metadata.R'><code>R/list-metadata.R</code></a></small>
-    <div class="hidden name"><code>sf_list_metadata.Rd</code></div>
+    <h1>Format Verbose Call</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>make_verbose_httr_message.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function takes a query of metadata types and returns a 
-summary of all objects in salesforce of the requested types</p>
+    <p>Format Verbose Call</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_list_metadata</span>(<span class='no'>queries</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>queries</th>
-      <td><p>a <code>list</code> of <code>list</code>s with each element consisting of 2 components: 1) 
-the metadata type being requested and 2) the folder associated with the type that required for types 
-that use folders, such as Dashboard, Document, EmailTemplate, or Report.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <code>tbl_dfs</code> containing the queried metadata types</p>
-    
+    <pre class="usage"><span class='fu'>make_verbose_httr_message</span>(<span class='no'>method</span>, <span class='no'>url</span>, <span class='kw'>headers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+        
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Only 3 queries can be specifed at one time, so the list length must not exceed 3.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/'>https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/</a></p>
+    <p>This function is meant to be used internally. Only use when debugging.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># pull back a list of all Custom Objects and Email Templates</span>
-<span class='no'>my_queries</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'>list</span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>'CustomObject'</span>),
-                   <span class='fu'>list</span>(<span class='kw'>folder</span><span class='kw'>=</span><span class='st'>'unfiled$public'</span>,
-                        <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'EmailTemplate'</span>))
-<span class='no'>metadata_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_metadata</span>(<span class='kw'>queries</span><span class='kw'>=</span><span class='no'>my_queries</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#note">Note</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

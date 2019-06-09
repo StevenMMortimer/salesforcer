@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.3</span>
       </span>
     </div>
 
@@ -215,16 +215,17 @@ of records and not all records submitted to the function.</p>
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
 <span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
                        <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+<span class='no'>new_recs1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>)
 
-<span class='co'># add the control to allow the creation of records that might violate a duplicate rule</span>
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>,
-                                 <span class='kw'>DuplicateRuleHeader</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>allowSave</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                                                            <span class='kw'>includeRecordDetails</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                                            <span class='kw'>runAsCurrentUser</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='co'># add control to allow the creation of records that violate a duplicate rules</span>
+<span class='no'>new_recs2</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
+                       <span class='kw'>DuplicateRuleHeader</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>allowSave</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+                                                  <span class='kw'>includeRecordDetails</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
+                                                  <span class='kw'>runAsCurrentUser</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
 
-<span class='co'># an example of how to specify using the Bulk 1.0 API to insert the records                                                           </span>
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk 1.0"</span>)
+<span class='co'># example using the Bulk 1.0 API to insert records</span>
+<span class='no'>new_recs3</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
+                       <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"Bulk 1.0"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

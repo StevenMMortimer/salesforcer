@@ -5,9 +5,9 @@
 Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer)
-[![CRAN Status 
+[![CRAN Status
 Badge](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
-[![Monthly 
+[![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
 Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
@@ -139,8 +139,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzh7AQAQ TRUE   
-#> 2 0036A00000wzh7BQAQ TRUE
+#> 1 0036A00000wzia0QAA TRUE   
+#> 2 0036A00000wzia1QAA TRUE
 ```
 
 ### Query
@@ -167,8 +167,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000wzh7AQAQ NA      Test      Contact-Create-1
-#> 2 0036A00000wzh7BQAQ NA      Test      Contact-Create-2
+#> 1 0036A00000wzia0QAA NA      Test      Contact-Create-1
+#> 2 0036A00000wzia1QAA NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -193,8 +193,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzh7AQAQ TRUE   
-#> 2 0036A00000wzh7BQAQ TRUE
+#> 1 0036A00000wzia0QAA TRUE   
+#> 2 0036A00000wzia1QAA TRUE
 ```
 
 ### Bulk Operations
@@ -465,7 +465,7 @@ requests best formatted to match what the APIs require as input. This
 articulation is not perfect and continued progress will be made to add
 and improve functionality. For details on formatting, attributes, and
 methods please refer to [Salesforce’s
-documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview) 
+documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview)
 as they are explained better there.
 
 More information is also available on the `pkgdown` site at
@@ -476,5 +476,5 @@ More information is also available on the `pkgdown` site at
 -----
 
 Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/CONDUCT.md). 
+Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/CONDUCT.md).
 By participating in this project you agree to abide by its terms.
