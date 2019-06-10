@@ -1,4 +1,4 @@
-## salesforcer 0.1.3
+## salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
 
 ### Features
 

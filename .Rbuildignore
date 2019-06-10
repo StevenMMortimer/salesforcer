@@ -13,6 +13,7 @@
 ^appveyor\.yml$
 ^_pkgdown\.yml$
 ^tic\.R$
+^\.github$
 ^docs$
 ^man-roxygen$
 ^package.zip$
