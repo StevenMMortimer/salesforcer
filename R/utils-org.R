@@ -620,6 +620,7 @@ sf_get_deleted <- function(object_name,
                            verbose = FALSE){
   stopifnot(any(class(start) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
   stopifnot(any(class(end) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
+  base_soap_url <- make_base_soap_url()
   r <- make_soap_xml_skeleton()
   xml_dat <- build_soap_xml_from_list(input_data = list(start = start, 
                                                         end = end), 
@@ -689,6 +690,7 @@ sf_get_updated <- function(object_name,
                            verbose = FALSE){
   stopifnot(any(class(start) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
   stopifnot(any(class(end) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
+  base_soap_url <- make_base_soap_url()
   r <- make_soap_xml_skeleton()
   xml_dat <- build_soap_xml_from_list(input_data = list(start = start, 
                                                         end = end), 
