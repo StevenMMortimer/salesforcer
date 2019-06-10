@@ -97,6 +97,7 @@ sf_input_data_validation <- function(input_data, operation=''){
       input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)  
     }
   } else {
+    list_based <- FALSE
     # if already a data.frame, then do nothing
   }
   
