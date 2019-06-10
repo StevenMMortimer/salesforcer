@@ -486,20 +486,431 @@ sf_find_duplicates_by_id <- function(sf_id,
   return(this_res)
 }
 
-#' #' Delete from Recycle Bin
-#' #' 
-#' #' Delete records from the recycle bin immediately.
-#' #' 
-#' #' @importFrom httr content
-#' #' @return \code{list}
-#' #' @examples
-#' #' \dontrun{
-#' #' sf_empty_trash()
-#' #' }
-#' #' @export
-#' sf_empty_trash <- function(){
-#'   httr_response <- rGET("https://login.salesforce.com/services/oauth2/userinfo")
-#'   catch_errors(httr_response)
-#'   response_parsed <- content(httr_response, encoding='UTF-8')
-#'   return(response_parsed)
+#' Merge Records
+#' 
+#' This function combines records of the same object type into one of the records, 
+#' known as the master record. The other records, known as the victim records, will
+#' be deleted. If a victim record has related records the master record the new 
+#' parent of the related records.
+#' 
+#' @importFrom httr content
+#' @importFrom readr type_convert cols
+#' @importFrom xml2 xml_ns_strip xml_find_all as_list
+#' @importFrom purrr map_df
+#' @importFrom dplyr tibble
+#' @param master_id character; a Salesforce generated Id that identifies the master record, 
+#' which is the record to which the victim records will be merged into
+#' @param victim_ids character; one or two Salesforce Ids of records to be merged into 
+#' the master record. Up to three records can be merged in a single request, including 
+#' the master record. This limit is the same as the limit enforced by the Salesforce user 
+#' interface. To merge more than 3 records, successively merge records by re-running 
+#' this \code{\link{sf_merge}} repeatedly.
+#' @template object_name
+#' @param master_fields \code{named vector}; a vector of field names and values in 
+#' to supersede the master record values. Otherwise, the field values on the master record 
+#' will prevail.
+#' @template api_type
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
+#' @template verbose
+#' @return \code{tbl_df} of records with success indicator
+#' @examples
+#' \dontrun{
+#' n <- 3
+#' new_contacts <- tibble(FirstName = rep("Test", n),
+#'                        LastName = paste0("Contact", 1:n),
+#'                        Description = paste0("Description", 1:n))
+#' new_recs1 <- sf_create(new_contacts, object_name = "Contact")
+#' 
+#' # merge the second and third into the first record, but set the
+#' # description field equal to the description of the second. All other fields
+#' # will from the first record or, if blank, from the other records
+#' merge_res <- sf_merge(master_id = new_recs1$id[1],
+#'                       victim_ids = new_recs1$id[2:3],
+#'                       object_name = "Contact",
+#'                       master_fields = tibble("Description" = new_contacts$Description[2]))
+#' # check the second and third records now have the same Master Record Id as the first
+#' merge_check <- sf_query(sprintf("SELECT Id, MasterRecordId, Description 
+#'                                  FROM Contact WHERE Id IN ('%s')", 
+#'                                  paste0(new_recs1$id, collapse="','")), 
+#'                         queryall = TRUE)
 #' }
+#' @export
+sf_merge <- function(master_id,
+                     victim_ids,
+                     object_name,
+                     master_fields = character(0),
+                     api_type = c("SOAP"), 
+                     control = list(...), ...,
+                     verbose = FALSE){
+  
+  master_fields <- unlist(master_fields)
+  master_fields["Id"] <- master_id
+  master_fields <- c(master_fields["Id"], master_fields[names(master_fields) != 'Id'])
+
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- "merge"
+  control <- do.call("sf_control", control)
+
+  base_soap_url <- make_base_soap_url()
+  r <- make_soap_xml_skeleton(soap_headers = control)
+  xml_dat <- build_soap_xml_from_list(input_data = list(victim_ids = victim_ids, 
+                                                        master_fields = master_fields),
+                                      operation = "merge",
+                                      object_name = object_name,
+                                      root = r)
+  request_body <- as(xml_dat, "character")
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="merge",
+                                     "Content-Type"="text/xml"),
+                         body = request_body)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url,
+                              httr_response$request$headers,
+                              request_body)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding="UTF-8")
+  this_set <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result') %>%
+    # we must use XML because character elements are not automatically unboxed
+    # see https://github.com/r-lib/xml2/issues/215
+    map(.f=function(x){
+      xmlToList(xmlParse(as(object=x, Class="character")))
+    }) %>% .[[1]]
+  
+  res <- tibble(id = merge_null_to_na(this_set$id), 
+                success = merge_null_to_na(this_set$success),
+                mergedRecordIds = merge_null_to_na(list(unname(unlist(this_set[names(this_set) == "mergedRecordIds"])))),
+                updatedRelatedIds = merge_null_to_na(list(unname(unlist(this_set[names(this_set) == "updatedRelatedIds"])))),
+                errors = merge_null_to_na(list(this_set$errors))) %>%
+    type_convert(col_types = cols())
+  
+  return(res)
+}
+
+#' Get Deleted Records from a Timeframe
+#' 
+#' Retrieves the list of individual records that have been deleted within the given 
+#' timespan for the specified object.
+#' 
+#' @importFrom lubridate as_datetime
+#' @importFrom httr content
+#' @importFrom xml2 xml_ns_strip xml_find_all xml_text
+#' @importFrom purrr map_df
+#' @importFrom readr type_convert cols
+#' @template object_name
+#' @param start \code{date} or \code{datetime}; Starting datetime of the timespan 
+#' for which to retrieve the data.
+#' @param end \code{date} or \code{datetime}; Ending datetime of the timespan for
+#' which to retrieve the data.
+#' @template verbose
+#' @examples 
+#' \dontrun{
+#' # get all deleted Contact records from midnight until now
+#' deleted_recs <- sf_get_deleted("Contact", Sys.Date(), Sys.time())
+#' }
+#' @note This API ignores the seconds portion of the supplied datetime values.
+#' @export
+sf_get_deleted <- function(object_name, 
+                           start, end, 
+                           verbose = FALSE){
+  stopifnot(any(class(start) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
+  stopifnot(any(class(end) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
+  r <- make_soap_xml_skeleton()
+  xml_dat <- build_soap_xml_from_list(input_data = list(start = start, 
+                                                        end = end), 
+                                      object_name = object_name,
+                                      operation = "getDeleted",
+                                      root = r)
+  request_body <- as(xml_dat, "character")
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="getDeleted",
+                                     "Content-Type"="text/xml"),
+                         body = request_body)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url, 
+                              httr_response$request$headers, 
+                              request_body)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding="UTF-8")
+  if(verbose){
+    earliest <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result/earliestDateAvailable') %>%
+      xml_text()
+    latest <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result/latestDateCovered') %>%
+      xml_text()
+    message(sprintf("Earliest Date Available: %s UTC - Latest Date Covered: %s UTC", 
+                    as_datetime(earliest), as_datetime(latest)))
+  }
+  resultset <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result//deletedRecords') %>%
+    map_df(xml_nodeset_to_df) %>% 
+    type_convert(col_types = cols())
+  
+  return(resultset)
+}
+
+#' Get Updated Records from a Timeframe
+#' 
+#' Retrieves the list of individual records that have been inserted or updated 
+#' within the given timespan in the specified object.
+#' 
+#' @importFrom lubridate as_datetime
+#' @importFrom httr content
+#' @importFrom xml2 xml_ns_strip xml_find_all xml_text as_list
+#' @importFrom purrr map_df
+#' @importFrom dplyr tibble
+#' @importFrom readr type_convert cols
+#' @template object_name
+#' @param start \code{date} or \code{datetime}; Starting datetime of the timespan 
+#' for which to retrieve the data.
+#' @param end \code{date} or \code{datetime}; Ending datetime of the timespan for
+#' which to retrieve the data.
+#' @template verbose
+#' @examples 
+#' \dontrun{
+#' # get all updated Contact records from midnight until now
+#' updated_recs <- sf_get_updated("Contact", Sys.Date(), Sys.time())
+#' }
+#' @note This API ignores the seconds portion of the supplied datetime values.
+#' @export
+sf_get_updated <- function(object_name, 
+                           start, end, 
+                           verbose = FALSE){
+  stopifnot(any(class(start) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
+  stopifnot(any(class(end) %in% c("Date", "POSIXct", "POSIXt", "POSIXlt")))
+  r <- make_soap_xml_skeleton()
+  xml_dat <- build_soap_xml_from_list(input_data = list(start = start, 
+                                                        end = end), 
+                                      object_name = object_name,
+                                      operation = "getUpdated",
+                                      root = r)
+  request_body <- as(xml_dat, "character")
+  httr_response <- rPOST(url = base_soap_url,
+                         headers = c("SOAPAction"="getUpdated",
+                                     "Content-Type"="text/xml"),
+                         body = request_body)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url, 
+                              httr_response$request$headers, 
+                              request_body)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding="UTF-8")
+  if(verbose){
+    latest <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result/latestDateCovered') %>%
+      xml_text()
+    message(sprintf("Latest Date Covered: %s UTC", as_datetime(latest)))
+  }
+  resultset <- response_parsed %>%
+    xml_ns_strip() %>%
+    xml_find_all('.//result/ids') %>% 
+    as_list() %>% 
+    unlist()
+  
+  if(length(resultset) > 0){
+    resultset <- tibble(id = resultset)
+  } else {
+    resultset <- tibble()
+  }
+  
+  return(resultset)
+}
+
+#' Undelete Records
+#' 
+#' Undeletes records from the Recycle Bin.
+#' 
+#' @importFrom httr content
+#' @importFrom readr type_convert cols
+#' @importFrom dplyr bind_rows
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom purrr map_df
+#' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
+#' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
+#' that can be passed in the request
+#' @template api_type
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
+#' @template verbose
+#' @return \code{tbl_df} of records with success indicator
+#' @note Because the SOAP and REST calls chunk data into batches of 200 records 
+#' the AllOrNoneHeader will only apply to the success or failure of every batch 
+#' of records and not all records submitted to the function.
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_undelete.htm}
+#' @examples
+#' \dontrun{
+#' new_contact <- c(FirstName = "Test", LastName = "Contact")
+#' new_records <- sf_create(new_contact, object_name = "Contact")
+#' delete <- sf_delete(new_records$id[1],
+#'                     AllOrNoneHeader = list(allOrNone = TRUE))
+#' is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+#'                        new_records$id[1]), 
+#'                        queryall = TRUE)
+#' undelete <- sf_undelete(new_records$id[1])
+#' is_not_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+#'                            new_records$id[1]))
+#' }
+#' @export
+sf_undelete <- function(ids,  
+                        api_type = c("SOAP"), 
+                        control = list(...), ...,
+                        verbose = FALSE){
+  ids <- sf_input_data_validation(ids, operation='undelete')
+  
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- "undelete"
+  control <- do.call("sf_control", control)
+  
+  # limit this type of request to only 200 records at a time to prevent 
+  # the XML from exceeding a size limit
+  batch_size <- 200
+  row_num <- nrow(ids)
+  batch_id <- (seq.int(row_num)-1) %/% batch_size
+  
+  base_soap_url <- make_base_soap_url()
+  if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
+  message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
+  resultset <- NULL
+  for(batch in seq(0, max(batch_id))){
+    if(verbose){
+      batch_msg_flg <- batch %in% message_flag
+      if(batch_msg_flg){
+        message(paste0("Processing Batch # ", head(batch, 1) + 1))
+      } 
+    }
+    batched_data <- ids[batch_id == batch, , drop=FALSE]  
+    r <- make_soap_xml_skeleton(soap_headers = control)
+    xml_dat <- build_soap_xml_from_list(input_data = batched_data,
+                                        operation = "undelete",
+                                        root = r)
+    request_body <- as(xml_dat, "character")
+    httr_response <- rPOST(url = base_soap_url,
+                           headers = c("SOAPAction"="undelete",
+                                       "Content-Type"="text/xml"),
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
+    }
+    catch_errors(httr_response)
+    response_parsed <- content(httr_response, encoding="UTF-8")
+    this_set <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result') %>%
+      map_df(xml_nodeset_to_df)
+    resultset <- bind_rows(resultset, this_set)
+  }
+  resultset <- resultset %>%
+    type_convert(col_types = cols())
+  return(resultset)
+}
+
+#' Empty Recycle Bin
+#'
+#' Delete records from the recycle bin immediately and permanently.
+#'
+#' @importFrom httr content
+#' @importFrom readr type_convert cols
+#' @importFrom dplyr bind_rows
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom purrr map_df
+#' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
+#' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
+#' that can be passed in the request
+#' @template api_type
+#' @template verbose
+#' @details When emptying recycle bins, consider the following rules and guidelines:
+#' \itemize{
+#'   \item The logged in user can delete any record that he or she can query in their Recycle Bin, or the recycle bins of any subordinates. If the logged in user has Modify All Data permission, he or she can query and delete records from any Recycle Bin in the organization.
+#'   \item Do not include the IDs of any records that will be cascade deleted, or an error will occur.
+#'   \item Once records are deleted using this call, they cannot be undeleted using \code{link{sf_undelete}}
+#'   \item After records are deleted from the Recycle Bin using this call, they can be queried using the \code{queryall} argument for some time. Typically this time is 24 hours, but may be shorter or longer.
+#' }
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_emptyrecyclebin.htm}
+#' @return \code{tbl_df} of records with success indicator
+#' @examples
+#' \dontrun{
+#' new_contact <- c(FirstName = "Test", LastName = "Contact")
+#' new_records <- sf_create(new_contact, object_name = "Contact")
+#' delete <- sf_delete(new_records$id[1],
+#'                     AllOrNoneHeader = list(allOrNone = TRUE))
+#' is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+#'                        new_records$id[1]),
+#'                        queryall = TRUE)
+#' hard_deleted <- sf_empty_recycle_bin(new_records$id[1])
+#' 
+#' # confirm that the record really is gone (can't be deleted)
+#' undelete <- sf_undelete(new_records$id[1])
+#' # if you use queryall you still will find the record for ~24hrs
+#' #is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+#' #                               new_records$id[1]),
+#' #                       queryall = TRUE)
+#' }
+#' @export
+sf_empty_recycle_bin <- function(ids,  
+                                 api_type = c("SOAP"), 
+                                 verbose = FALSE){
+  ids <- sf_input_data_validation(ids, operation='emptyRecycleBin')
+  
+  # limit this type of request to only 200 records at a time to prevent 
+  # the XML from exceeding a size limit
+  batch_size <- 200
+  row_num <- nrow(ids)
+  batch_id <- (seq.int(row_num) - 1) %/% batch_size
+  
+  base_soap_url <- make_base_soap_url()
+  if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
+  message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
+  resultset <- NULL
+  for(batch in seq(0, max(batch_id))){
+    if(verbose){
+      batch_msg_flg <- batch %in% message_flag
+      if(batch_msg_flg){
+        message(paste0("Processing Batch # ", head(batch, 1) + 1))
+      } 
+    }
+    batched_data <- ids[batch_id == batch, , drop=FALSE]  
+    r <- make_soap_xml_skeleton()
+    xml_dat <- build_soap_xml_from_list(input_data = batched_data,
+                                        operation = "emptyRecycleBin",
+                                        root = r)
+    request_body <- as(xml_dat, "character")
+    httr_response <- rPOST(url = base_soap_url,
+                           headers = c("SOAPAction"="emptyRecycleBin",
+                                       "Content-Type"="text/xml"),
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
+    }
+    catch_errors(httr_response)
+    response_parsed <- content(httr_response, encoding="UTF-8")
+    this_set <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result') %>%
+      map_df(xml_nodeset_to_df)
+    resultset <- bind_rows(resultset, this_set)
+  }
+  resultset <- resultset %>%
+    type_convert(col_types = cols())
+  return(resultset)
+}

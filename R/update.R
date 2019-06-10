@@ -17,24 +17,15 @@
 #' @examples
 #' \dontrun{
 #' n <- 2
-#' new_accts <- tibble(FirstName = rep("Test", n),
-#'                        LastName = paste0("Account", 1:n))
-#' new_records <- sf_create(new_accts, "Account")
-#' 
-#' updated_accts <- tibble(FirstName = rep("TestTest", n),
-#'                         LastName = paste0("Account", 1:n), 
-#'                         Id = new_records$id)
-#'                        
-#' # update the accounts and ensure that all contacts and cases (open and closed) 
-#' # owned by the previous account owner are transferred to the new owner                         
-#' update <- sf_update(updated_accts, "Account", 
-#'                     OwnerChangeOptions=list(options=
-#'                                               list(list(execute=TRUE,
-#'                                                         type="TransferAllOwnedCases"), 
-#'                                                    list(execute=TRUE, 
-#'                                                         type="TransferOwnedOpenCases"), 
-#'                                                    list(execute=TRUE, 
-#'                                                         type="TransferContacts"))))
+#' new_contacts <- tibble(FirstName = rep("Test", n),
+#'                        LastName = paste0("Contact", 1:n))
+#' new_records <- sf_create(new_contacts, "Contact")
+#' updated_contacts <- tibble(FirstName = rep("TestTest", n),
+#'                            LastName = paste0("Contact", 1:n),
+#'                            Id = new_records$id)
+#' # update and allow fields to be truncated if they are too long
+#' update <- sf_update(input_data = updated_contacts, object_name = "Contact",
+#'                     AllowFieldTruncationHeader=list(allowFieldTruncation=TRUE))
 #' }
 #' @export
 sf_update <- function(input_data,

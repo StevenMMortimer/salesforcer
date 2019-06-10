@@ -2,6 +2,11 @@
 #' 
 #' Deletes one or more records from your organization’s data.
 #' 
+#' @importFrom httr content
+#' @importFrom readr type_convert cols
+#' @importFrom dplyr bind_rows as_tibble
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom purrr map_df
 #' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
 #' that can be passed in the request

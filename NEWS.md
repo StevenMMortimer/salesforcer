@@ -20,6 +20,11 @@
   like to override duplicate rules then you can adjust the `DuplicateRuleHeader`. If you 
   would like to have certain assignment rule run on newly created records, then pass in the 
   `AssignmentRuleHeader` (#4, #5)
+  * Add new function `sf_undelete()` which will take records out of the Recycle Bin
+  * Add new function `sf_empty_recycle_bin()` which will remove records permanently 
+  from the Recycle Bin
+  * Add new function `sf_merge()` which combines up to 3 records of the same type 
+  into 1 record (#22)
   
 ### Bug Fixes
 

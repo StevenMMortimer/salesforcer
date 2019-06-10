@@ -51,6 +51,7 @@ xmlToList2 <- function(node){
 #' A function specifically for parsing an XML node into a \code{data.frame}
 #' 
 #' @importFrom dplyr as_tibble
+#' @importFrom purrr modify_if
 #' @importFrom utils capture.output
 #' @param this_node \code{xml_node}; to be parsed out
 #' @return \code{data.frame} parsed from the supplied xml
@@ -59,8 +60,14 @@ xmlToList2 <- function(node){
 #' @export
 xml_nodeset_to_df <- function(this_node){
   # capture any xmlToList grumblings about Namespace prefix
-  invisible(capture.output(node_vals <- unlist(xmlToList2(as.character(this_node)))))
-  return(as_tibble(t(node_vals), .name_repair = "minimal"))
+  invisible(capture.output(node_vals <- xmlToList2(as.character(this_node))))
+  # replace any NULL list elements with NA so it can be turned into a tbl_df
+  node_vals[sapply(node_vals, is.null)] <- NA
+  # make things tidy so if it's a nested list then that is one row still
+  # suppressWarning about tibble::enframe
+  suppressWarnings(res <- as_tibble(modify_if(node_vals, ~(length(.x) > 1 | is.list(.x)), list), 
+                                    .name_repair = "minimal"))
+  return(res)
 }
 
 #' Make SOAP XML Request Skeleton
@@ -165,16 +172,17 @@ make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){
 build_soap_xml_from_list <- function(input_data,
                                      operation = c("create", "retrieve", 
                                                    "update", "upsert", 
-                                                   "delete", "search", 
-                                                   "query", "queryMore", 
-                                                   "describeSObjects", 
+                                                   "delete", "undelete", "emptyRecycleBin", 
+                                                   "getDeleted", "getUpdated",
+                                                   "search", "query", "queryMore", 
+                                                   "merge", "describeSObjects", 
                                                    "setPassword", "resetPassword", 
                                                    "findDuplicates", "findDuplicatesByIds"),
-                                     object_name=NULL,
-                                     fields=NULL,
-                                     external_id_fieldname=NULL,
+                                     object_name = NULL,
+                                     fields = NULL,
+                                     external_id_fieldname = NULL,
                                      root_name = NULL, 
-                                     ns = c(character(0)),
+                                     ns = character(0),
                                      root = NULL){
   
   # ensure that if root is NULL that root_name is not also NULL
@@ -188,8 +196,7 @@ build_soap_xml_from_list <- function(input_data,
   }
   
   body_node <- newXMLNode("soapenv:Body", parent = root)
-  operation_node <- newXMLNode(sprintf("urn:%s", which_operation),
-                               parent = body_node)
+  operation_node <- newXMLNode(sprintf("urn:%s", which_operation), parent = body_node)
   
   if(which_operation == "upsert"){
     stopifnot(!is.null(external_id_fieldname))
@@ -206,17 +213,43 @@ build_soap_xml_from_list <- function(input_data,
                                     parent = operation_node)
   }
   
-  if(which_operation %in% c("search", "query")){
+  if(which_operation %in% c("getDeleted", "getUpdated")){
+    stopifnot(!is.null(object_name))
+    type_node <- newXMLNode("sObjectTypeEntityType", object_name, parent = operation_node)
+    this_node <- newXMLNode("startDate", format(input_data$start, "%Y-%m-%dT%H:%M:%S.000Z", tz="UTC"),
+                            parent = operation_node)
+    this_node <- newXMLNode("endDate", format(input_data$end, "%Y-%m-%dT%H:%M:%S.000Z", tz="UTC"),
+                            parent = operation_node)
+  } else if(which_operation %in% c("search", "query")){
     element_name <- if(which_operation == "search") "urn:searchString" else "urn:queryString"
     this_node <- newXMLNode(element_name, input_data[1,1],
                             parent = operation_node)
   } else if(which_operation == "queryMore"){
     this_node <- newXMLNode("urn:queryLocator", input_data[1,1],
                             parent = operation_node)
-  } else if(which_operation %in% c("delete", "retrieve", "findDuplicatesByIds")){
+  } else if(which_operation %in% c("delete", "undelete", "emptyRecycleBin", 
+                                   "retrieve", "findDuplicatesByIds")){
     for(i in 1:nrow(input_data)){
       this_node <- newXMLNode("urn:ids", input_data[i,"Id"],
                               parent = operation_node)
+    }
+  } else if(which_operation == "merge"){
+    stopifnot(!is.null(object_name))
+    merge_request_node <- newXMLNode('mergeRequest', 
+                                     attrs = c(`xsi:type`='MergeRequest'), 
+                                     suppressNamespaceWarning = TRUE, 
+                                     parent = operation_node)
+    master_record_node <- newXMLNode("masterRecord",
+                                     attrs = c(`xsi:type` = object_name), 
+                                     suppressNamespaceWarning = TRUE, 
+                                     parent = merge_request_node)
+    for(i in 1:length(input_data$master_fields)){
+      this_node <- newXMLNode(names(input_data$master_fields)[i], parent = master_record_node)
+      xmlValue(this_node) <- input_data$master_fields[i]
+    }
+    for(i in 1:length(input_data$victim_ids)){
+      this_node <- newXMLNode("recordToMergeIds", parent = merge_request_node)
+      xmlValue(this_node) <- input_data$victim_ids[i]
     }
   } else if(which_operation == "describeSObjects"){
     for(i in 1:nrow(input_data)){
@@ -234,16 +267,16 @@ build_soap_xml_from_list <- function(input_data,
   } else {
     for(i in 1:nrow(input_data)){
       list <- as.list(input_data[i,,drop=FALSE])
-      this_row_node <- newXMLNode("urn:sObjects", parent=operation_node)
+      this_row_node <- newXMLNode("urn:sObjects", parent = operation_node)
       # if the body elements are objects we must list the type of object_name 
       # under each block of XML for the row
-      type_node <- newXMLNode("urn1:type", parent=this_row_node)
+      type_node <- newXMLNode("urn1:type", parent = this_row_node)
       xmlValue(type_node) <- object_name
       
       if(length(list) > 0){
         for (i in 1:length(list)){
           if (typeof(list[[i]]) == "list") {
-            this_node <- newXMLNode(names(list)[i], parent=this_row_node)
+            this_node <- newXMLNode(names(list)[i], parent = this_row_node)
             build_soap_xml_from_list(list[[i]], 
                                      operation = operation,
                                      object_name = object_name,

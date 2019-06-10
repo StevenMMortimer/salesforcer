@@ -137,16 +137,16 @@
 <a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
 <a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;   id                 success errors    </span></a>
 <a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 1 0036A00000wziZMQAY TRUE    &lt;list [0]&gt;</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 2 0036A00000wziZNQAY TRUE    &lt;list [0]&gt;</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 1 0036A00000wzke4QAA TRUE    &lt;list [0]&gt;</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 2 0036A00000wzke5QAA TRUE    &lt;list [0]&gt;</span></a>
 <a class="sourceLine" id="cb2-12" title="12"><span class="co"># Bulk</span></a>
 <a class="sourceLine" id="cb2-13" title="13">bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</a>
 <a class="sourceLine" id="cb2-14" title="14">bulk_created_records</a>
 <a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
 <a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt;   Id                 Success Created Error</span></a>
 <a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 1 0036A00000wziZWQAY TRUE    TRUE    NA   </span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 2 0036A00000wziZXQAY TRUE    TRUE    NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 1 0036A00000wzke9QAA TRUE    TRUE    NA   </span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 2 0036A00000wzkeAQAQ TRUE    TRUE    NA</span></a></code></pre></div>
 <p>There are some differences in the way each API returns response information; however, the end result is exactly the same for these two calls. Also, note that this package utilizes the Bulk 2.0 API for most bulk calls except for bulk queries since Salesforce has not yet implemented it in 2.0.</p>
 <p>Here is a simple workflow of adding, querying, and deleting records using the Bulk 1.0 API.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to most calls!</span></a>
@@ -160,8 +160,8 @@
 <a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
 <a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;   Id                 Success Created Error</span></a>
 <a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; 1 0036A00000wziZbQAI TRUE    TRUE    NA   </span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 2 0036A00000wziZcQAI TRUE    TRUE    NA</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; 1 0036A00000wzkeEQAQ TRUE    TRUE    NA   </span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; 2 0036A00000wzkeFQAQ TRUE    TRUE    NA</span></a>
 <a class="sourceLine" id="cb3-14" title="14"></a>
 <a class="sourceLine" id="cb3-15" title="15"><span class="co"># query bulk</span></a>
 <a class="sourceLine" id="cb3-16" title="16">my_soql &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">"SELECT Id,</span></a>
@@ -176,8 +176,8 @@
 <a class="sourceLine" id="cb3-25" title="25"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
 <a class="sourceLine" id="cb3-26" title="26"><span class="co">#&gt;   Id                 FirstName LastName        </span></a>
 <a class="sourceLine" id="cb3-27" title="27"><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt; 1 0036A00000wziZbQAI Test      Contact-Create-1</span></a>
-<a class="sourceLine" id="cb3-29" title="29"><span class="co">#&gt; 2 0036A00000wziZcQAI Test      Contact-Create-2</span></a>
+<a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt; 1 0036A00000wzkeEQAQ Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb3-29" title="29"><span class="co">#&gt; 2 0036A00000wzkeFQAQ Test      Contact-Create-2</span></a>
 <a class="sourceLine" id="cb3-30" title="30"></a>
 <a class="sourceLine" id="cb3-31" title="31"><span class="co"># delete bulk</span></a>
 <a class="sourceLine" id="cb3-32" title="32">deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</a>
@@ -185,8 +185,8 @@
 <a class="sourceLine" id="cb3-34" title="34"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
 <a class="sourceLine" id="cb3-35" title="35"><span class="co">#&gt;   Id                 Success Created Error</span></a>
 <a class="sourceLine" id="cb3-36" title="36"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></a>
-<a class="sourceLine" id="cb3-37" title="37"><span class="co">#&gt; 1 0036A00000wziZbQAI TRUE    FALSE   NA   </span></a>
-<a class="sourceLine" id="cb3-38" title="38"><span class="co">#&gt; 2 0036A00000wziZcQAI TRUE    FALSE   NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-37" title="37"><span class="co">#&gt; 1 0036A00000wzkeEQAQ TRUE    FALSE   NA   </span></a>
+<a class="sourceLine" id="cb3-38" title="38"><span class="co">#&gt; 2 0036A00000wzkeFQAQ TRUE    FALSE   NA</span></a></code></pre></div>
 </div>
   </div>
 

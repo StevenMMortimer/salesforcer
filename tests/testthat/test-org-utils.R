@@ -27,7 +27,7 @@ test_that("testing sf_list_rest_api_versions()", {
   res <- sf_list_rest_api_versions() 
   versions <- sapply(res, function(x){as.integer(x$version)})
   expect_is(res, "list")
-  expect_true(all(20:42 %in% versions))  
+  expect_true(all(20:46 %in% versions))  
 })
 
 test_that("testing sf_list_resources()", {
@@ -64,4 +64,79 @@ test_that("testing sf_find_duplicates_by_id()", {
   duplicates_search <- sf_find_duplicates_by_id(sf_id = "0036A000002C6McQAK") 
   expect_is(duplicates_search, "tbl_df")
   expect_named(duplicates_search, c("sObject", "Id"))
+})
+
+test_that("testing sf_merge()", {
+  n <- 3
+  new_contacts <- tibble(FirstName = rep("Test", n),
+                         LastName = paste0("Contact", 1:n),
+                         Description = paste0("Description", 1:n))
+  new_recs1 <- sf_create(new_contacts, object_name = "Contact")
+  merge_res <- sf_merge(master_id = new_recs1$id[1],
+                        victim_ids = new_recs1$id[2:3],
+                        object_name = "Contact",
+                        master_fields = c("Description" = new_contacts$Description[2]))
+  expect_is(merge_res, "tbl_df")
+  expect_named(merge_res, c("id", "success", "mergedRecordIds", "updatedRelatedIds", "errors"))
+  expect_equal(nrow(merge_res), 1)
+  
+  # check the second and third records now have the same Master Record Id as the first
+  merge_check <- sf_query(sprintf("SELECT Id, MasterRecordId, Description FROM Contact WHERE Id IN ('%s')", 
+                                  paste0(new_recs1$id, collapse="','")), queryall = TRUE)
+  expect_equal(merge_check$MasterRecordId, c(NA, new_recs1$id[1], new_recs1$id[1]))
+  expect_equal(merge_check$Description, c("Description2", "Description2", "Description3"))
+})
+
+test_that("testing sf_undelete()", {
+  new_contact <- c(FirstName = "Test", LastName = "Contact")
+  new_records <- sf_create(new_contact, object_name = "Contact")
+  delete <- sf_delete(new_records$id[1],
+                      AllOrNoneHeader = list(allOrNone = TRUE))
+  is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+                                 new_records$id[1]),
+                         queryall = TRUE)
+  # test that the record has been deleted
+  expect_true(is_deleted$IsDeleted[1])
+  
+  undelete <- sf_undelete(new_records$id[1])
+  # test that undeleting was a success
+  expect_true(undelete$success[1])
+  
+  # test that the record is no longer deleted
+  is_not_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+                                     new_records$id[1]))
+  expect_false(is_not_deleted$IsDeleted[1])
+})
+
+test_that("testing sf_empty_recycle_bin()", {
+  new_contact <- c(FirstName = "Test", LastName = "Contact")
+  new_records <- sf_create(new_contact, object_name = "Contact")
+  delete <- sf_delete(new_records$id[1],
+                      AllOrNoneHeader = list(allOrNone = TRUE))
+  is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",
+                                 new_records$id[1]),
+                         queryall = TRUE)
+  # test that the record has been deleted
+  expect_true(is_deleted$IsDeleted[1])
+  
+  hard_deleted <- sf_empty_recycle_bin(new_records$id[1])
+  # test that hard deleting was a success
+  expect_true(hard_deleted$success[1])
+  
+  # confirm that the record really is gone (can't be deleted)
+  undelete <- sf_undelete(new_records$id[1])
+  # test that undeleting was a success
+  expect_false(undelete$success[1])
+})
+
+test_that("testing sf_get_deleted()", {
+  deleted_recs <- sf_get_deleted("Contact", Sys.Date() - 1, Sys.Date() + 1)
+  expect_is(deleted_recs, "tbl_df")
+  expect_named(deleted_recs, c("deletedDate", "id"))
+})
+
+test_that("testing sf_get_updated()", {
+  updated_recs <- sf_get_updated("Contact", Sys.Date() - 1, Sys.Date() + 1)
+  expect_is(updated_recs, "tbl_df")
+  expect_named(updated_recs, c("id"))
 })

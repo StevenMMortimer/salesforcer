@@ -171,6 +171,9 @@
 <li>Add new function to download attachments to disk (<code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/20'>#20</a>)</li>
 <li>The <code>object_name</code> argument, required for bulk queries, will be inferred if left blank, making it no longer a required argument</li>
 <li>Almost all functions in the package now have a <code>control</code> argument and dots (<code>...</code>) which allows for more than a dozen different control parameters listed in <code><a href="../reference/sf_control.html">sf_control()</a></code> to be fed into existing function calls to tweak the default behavior. For example, if you would like to override duplicate rules then you can adjust the <code>DuplicateRuleHeader</code>. If you would like to have certain assignment rule run on newly created records, then pass in the <code>AssignmentRuleHeader</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/5'>#5</a>)</li>
+<li>Add new function <code><a href="../reference/sf_undelete.html">sf_undelete()</a></code> which will take records out of the Recycle Bin</li>
+<li>Add new function <code><a href="../reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code> which will remove records permanently from the Recycle Bin</li>
+<li>Add new function <code><a href="../reference/sf_merge.html">sf_merge()</a></code> which combines up to 3 records of the same type into 1 record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/22'>#22</a>)</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">

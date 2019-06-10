@@ -220,8 +220,8 @@ of records and not all records submitted to the function.</p>
 <span class='co'># add control to allow the creation of records that violate a duplicate rules</span>
 <span class='no'>new_recs2</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
                        <span class='kw'>DuplicateRuleHeader</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>allowSave</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-                                                  <span class='kw'>includeRecordDetails</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-                                                  <span class='kw'>runAsCurrentUser</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
+                                                <span class='kw'>includeRecordDetails</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
+                                                <span class='kw'>runAsCurrentUser</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
 
 <span class='co'># example using the Bulk 1.0 API to insert records</span>
 <span class='no'>new_recs3</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create</span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,

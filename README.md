@@ -34,8 +34,14 @@ Package features include:
         `rforcecom.query()`, `rforcecom.create()`
   - Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`,
     `sf_list_objects()`)
+  - Functions to assist with master data managment (MDM) or data
+    integrity of records by finding duplicates (`sf_find_duplicates()`,
+    `sf_find_duplicates_by_ids()`) and merging records (`sf_merge()`)
+  - Recover (`sf_undelete()`) or delete from the Recycle Bin
+    (`sf_empty_recycle_bin()`) and list ids of records deleted
+    (`sf_get_deleted()`) or updated (`sf_get_updated()`) in a timeframe
   - Passing API call control parameters such as, “All or None”,
-    “Duplicate Rule”, “Assignment Rule” execution and many more
+    “Duplicate Rule”, “Assignment Rule” execution and many more\!
 
 ## Table of Contents
 
@@ -139,8 +145,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzia0QAA TRUE   
-#> 2 0036A00000wzia1QAA TRUE
+#> 1 0036A00000wzkZ4QAI TRUE   
+#> 2 0036A00000wzkZ5QAI TRUE
 ```
 
 ### Query
@@ -167,8 +173,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000wzia0QAA NA      Test      Contact-Create-1
-#> 2 0036A00000wzia1QAA NA      Test      Contact-Create-2
+#> 1 0036A00000wzkZ4QAI NA      Test      Contact-Create-1
+#> 2 0036A00000wzkZ5QAI NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -193,8 +199,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzia0QAA TRUE   
-#> 2 0036A00000wzia1QAA TRUE
+#> 1 0036A00000wzkZ4QAI TRUE   
+#> 2 0036A00000wzkZ5QAI TRUE
 ```
 
 ### Bulk Operations

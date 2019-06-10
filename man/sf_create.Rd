@@ -47,8 +47,8 @@ new_recs1 <- sf_create(new_contacts, object_name = "Contact")
 # add control to allow the creation of records that violate a duplicate rules
 new_recs2 <- sf_create(new_contacts, object_name = "Contact", 
                        DuplicateRuleHeader=list(allowSave=TRUE,
-                                                  includeRecordDetails=FALSE,
-                                                  runAsCurrentUser=TRUE))
+                                                includeRecordDetails=FALSE,
+                                                runAsCurrentUser=TRUE))
                                                   
 # example using the Bulk 1.0 API to insert records
 new_recs3 <- sf_create(new_contacts, object_name = "Contact", 

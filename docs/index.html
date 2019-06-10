@@ -141,7 +141,9 @@
 </ul>
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
-<li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more</li>
+<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>) and merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>)</li>
+<li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) in a timeframe</li>
+<li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
 <div id="table-of-contents" class="section level2">
 <h2 class="hasAnchor">
@@ -232,8 +234,8 @@
 <a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;   id                 success</span></a>
 <a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000wziY9QAI TRUE   </span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000wziYAQAY TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 1 0036A00000wzkcwQAA TRUE   </span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 2 0036A00000wzkcxQAA TRUE</span></a></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -251,8 +253,8 @@
 <a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
 <a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;   Id                 Account FirstName LastName        </span></a>
 <a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; 1 0036A00000wziY9QAI NA      Test      Contact-Create-1</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 2 0036A00000wziYAQAY NA      Test      Contact-Create-2</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; 1 0036A00000wzkcwQAA NA      Test      Contact-Create-1</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 2 0036A00000wzkcxQAA NA      Test      Contact-Create-2</span></a></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -268,8 +270,8 @@
 <a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt;   id                 success</span></a>
 <a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 1 0036A00000wziY9QAI TRUE   </span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 2 0036A00000wziYAQAY TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; 1 0036A00000wzkcwQAA TRUE   </span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; 2 0036A00000wzkcxQAA TRUE</span></a></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">

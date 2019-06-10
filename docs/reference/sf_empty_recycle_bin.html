@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update Records — sf_update • salesforcer</title>
+<title>Empty Recycle Bin — sf_empty_recycle_bin • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Update Records — sf_update" />
+<meta property="og:title" content="Empty Recycle Bin — sf_empty_recycle_bin" />
 
-<meta property="og:description" content="Updates one or more records to your organization’s data." />
+<meta property="og:description" content="Delete records from the recycle bin immediately and permanently." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -150,48 +150,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update Records</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/update.R'><code>R/update.R</code></a></small>
-    <div class="hidden name"><code>sf_update.Rd</code></div>
+    <h1>Empty Recycle Bin</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-org.R'><code>R/utils-org.R</code></a></small>
+    <div class="hidden name"><code>sf_empty_recycle_bin.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Updates one or more records to your organization’s data.</p>
+    <p>Delete records from the recycle bin immediately and permanently.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_update</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>,
-  <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_empty_recycle_bin</span>(<span class='no'>ids</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
-    </tr>
-    <tr>
-      <th>object_name</th>
-      <td><p>character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+      <th>ids</th>
+      <td><p><code>vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
+<code>tbl_df</code>; if not a vector, there must be a column called Id (case-insensitive) 
+that can be passed in the request</p></td>
     </tr>
     <tr>
       <th>api_type</th>
       <td><p>character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request</p></td>
-    </tr>
-    <tr>
-      <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
-look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream 
-to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -203,25 +187,37 @@ to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
 
     <p><code>tbl_df</code> of records with success indicator</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Because the SOAP and REST calls chunk data into batches of 200 records 
-the AllOrNoneHeader will only apply to the success or failure of every batch 
-of records and not all records submitted to the function.</p>
+    <p>When emptying recycle bins, consider the following rules and guidelines:</p><ul>
+<li><p>The logged in user can delete any record that he or she can query in their Recycle Bin, or the recycle bins of any subordinates. If the logged in user has Modify All Data permission, he or she can query and delete records from any Recycle Bin in the organization.</p></li>
+<li><p>Do not include the IDs of any records that will be cascade deleted, or an error will occur.</p></li>
+<li><p>Once records are deleted using this call, they cannot be undeleted using <code>link{sf_undelete}</code></p></li>
+<li><p>After records are deleted from the Recycle Bin using this call, they can be queried using the <code>queryall</code> argument for some time. Typically this time is 24 hours, but may be shorter or longer.</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_emptyrecyclebin.htm'>https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_emptyrecyclebin.htm</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_records</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
-<span class='no'>updated_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"TestTest"</span>, <span class='no'>n</span>),
-                           <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                           <span class='kw'>Id</span> <span class='kw'>=</span> <span class='no'>new_records</span>$<span class='no'>id</span>)
-<span class='co'># update and allow fields to be truncated if they are too long</span>
-<span class='no'>update</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='kw'>input_data</span> <span class='kw'>=</span> <span class='no'>updated_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
-                    <span class='kw'>AllowFieldTruncationHeader</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>allowFieldTruncation</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
+<span class='no'>new_contact</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='st'>"Test"</span>, <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>)
+<span class='no'>new_records</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contact</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>)
+<span class='no'>delete</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_delete.html'>sf_delete</a></span>(<span class='no'>new_records</span>$<span class='no'>id</span>[<span class='fl'>1</span>],
+                    <span class='kw'>AllOrNoneHeader</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>allOrNone</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='no'>is_deleted</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'>sprintf</span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
+                       <span class='no'>new_records</span>$<span class='no'>id</span>[<span class='fl'>1</span>]),
+                       <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>hard_deleted</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_empty_recycle_bin</span>(<span class='no'>new_records</span>$<span class='no'>id</span>[<span class='fl'>1</span>])
+
+<span class='co'># confirm that the record really is gone (can't be deleted)</span>
+<span class='no'>undelete</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_undelete.html'>sf_undelete</a></span>(<span class='no'>new_records</span>$<span class='no'>id</span>[<span class='fl'>1</span>])
+<span class='co'># if you use queryall you still will find the record for ~24hrs</span>
+<span class='co'>#is_deleted &lt;- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",</span>
+<span class='co'>#                               new_records$id[1]),</span>
+<span class='co'>#                       queryall = TRUE)</span>
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -231,7 +227,9 @@ of records and not all records submitted to the function.</p>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

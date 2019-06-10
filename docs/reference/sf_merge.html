@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update Records — sf_update • salesforcer</title>
+<title>Merge Records — sf_merge • salesforcer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -36,9 +36,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Update Records — sf_update" />
+<meta property="og:title" content="Merge Records — sf_merge" />
 
-<meta property="og:description" content="Updates one or more records to your organization’s data." />
+<meta property="og:description" content="This function combines records of the same object type into one of the records, 
+known as the master record. The other records, known as the victim records, will
+be deleted. If a victim record has related records the master record the new 
+parent of the related records." />
 
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -150,32 +153,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update Records</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/update.R'><code>R/update.R</code></a></small>
-    <div class="hidden name"><code>sf_update.Rd</code></div>
+    <h1>Merge Records</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-org.R'><code>R/utils-org.R</code></a></small>
+    <div class="hidden name"><code>sf_merge.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Updates one or more records to your organization’s data.</p>
+    <p>This function combines records of the same object type into one of the records, 
+known as the master record. The other records, known as the victim records, will
+be deleted. If a victim record has related records the master record the new 
+parent of the related records.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sf_update</span>(<span class='no'>input_data</span>, <span class='no'>object_name</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>,
-  <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_merge</span>(<span class='no'>master_id</span>, <span class='no'>victim_ids</span>, <span class='no'>object_name</span>,
+  <span class='kw'>master_fields</span> <span class='kw'>=</span> <span class='fu'>character</span>(<span class='fl'>0</span>), <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SOAP"</span>),
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>...</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
+      <th>master_id</th>
+      <td><p>character; a Salesforce generated Id that identifies the master record, 
+which is the record to which the victim records will be merged into</p></td>
+    </tr>
+    <tr>
+      <th>victim_ids</th>
+      <td><p>character; one or two Salesforce Ids of records to be merged into 
+the master record. Up to three records can be merged in a single request, including 
+the master record. This limit is the same as the limit enforced by the Salesforce user 
+interface. To merge more than 3 records, successively merge records by re-running 
+this <code>sf_merge</code> repeatedly.</p></td>
     </tr>
     <tr>
       <th>object_name</th>
       <td><p>character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+    </tr>
+    <tr>
+      <th>master_fields</th>
+      <td><p><code>named vector</code>; a vector of field names and values in 
+to supersede the master record values. Otherwise, the field values on the master record 
+will prevail.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
@@ -190,8 +211,7 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream 
-to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -203,25 +223,27 @@ to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
 
     <p><code>tbl_df</code> of records with success indicator</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Because the SOAP and REST calls chunk data into batches of 200 records 
-the AllOrNoneHeader will only apply to the success or failure of every batch 
-of records and not all records submitted to the function.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
 <span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_records</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='st'>"Contact"</span>)
-<span class='no'>updated_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"TestTest"</span>, <span class='no'>n</span>),
-                           <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                           <span class='kw'>Id</span> <span class='kw'>=</span> <span class='no'>new_records</span>$<span class='no'>id</span>)
-<span class='co'># update and allow fields to be truncated if they are too long</span>
-<span class='no'>update</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update</span>(<span class='kw'>input_data</span> <span class='kw'>=</span> <span class='no'>updated_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
-                    <span class='kw'>AllowFieldTruncationHeader</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>allowFieldTruncation</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
+                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
+                       <span class='kw'>Description</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"Description"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
+<span class='no'>new_recs1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>)
+
+<span class='co'># merge the second and third into the first record, but set the</span>
+<span class='co'># description field equal to the description of the second. All other fields</span>
+<span class='co'># will from the first record or, if blank, from the other records</span>
+<span class='no'>merge_res</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_merge</span>(<span class='kw'>master_id</span> <span class='kw'>=</span> <span class='no'>new_recs1</span>$<span class='no'>id</span>[<span class='fl'>1</span>],
+                      <span class='kw'>victim_ids</span> <span class='kw'>=</span> <span class='no'>new_recs1</span>$<span class='no'>id</span>[<span class='fl'>2</span>:<span class='fl'>3</span>],
+                      <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
+                      <span class='kw'>master_fields</span> <span class='kw'>=</span> <span class='fu'>tibble</span>(<span class='st'>"Description"</span> <span class='kw'>=</span> <span class='no'>new_contacts</span>$<span class='no'>Description</span>[<span class='fl'>2</span>]))
+<span class='co'># check the second and third records now have the same Master Record Id as the first</span>
+<span class='no'>merge_check</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'>sprintf</span>(<span class='st'>"SELECT Id, MasterRecordId, Description 
+                                 FROM Contact WHERE Id IN ('%s')"</span>,
+                                 <span class='fu'>paste0</span>(<span class='no'>new_recs1</span>$<span class='no'>id</span>, <span class='kw'>collapse</span><span class='kw'>=</span><span class='st'>"','"</span>)),
+                        <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -230,8 +252,6 @@ of records and not all records submitted to the function.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
