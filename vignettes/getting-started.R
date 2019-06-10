@@ -30,8 +30,8 @@ suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Id: %s", user_info$id)
-sprintf("User Active?: %s", user_info$isActive)
+sprintf("Organization Id: %s", user_info$organizationId)
+sprintf("User Id: %s", user_info$userId)
 
 ## ------------------------------------------------------------------------
 n <- 2

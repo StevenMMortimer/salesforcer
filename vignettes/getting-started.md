@@ -54,10 +54,10 @@ the information returned about the current user. It should be information about 
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
-sprintf("User Id: %s", user_info$id)
-#> character(0)
-sprintf("User Active?: %s", user_info$isActive)
-#> character(0)
+sprintf("Organization Id: %s", user_info$organizationId)
+#> [1] "Organization Id: 00D6A0000003dN3UAI"
+sprintf("User Id: %s", user_info$userId)
+#> [1] "User Id: 0056A000000MPRjQAO"
 ```
 
 ### Create
@@ -75,8 +75,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzh4VQAQ TRUE   
-#> 2 0036A00000wzh4WQAQ TRUE
+#> 1 0036A00000wzkqeQAA TRUE   
+#> 2 0036A00000wzkqfQAA TRUE
 ```
 
 ### Retrieve
@@ -94,8 +94,8 @@ retrieved_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0036A00000wzh4VQAQ Test      Contact-Create-1
-#> 2 0036A00000wzh4WQAQ Test      Contact-Create-2
+#> 1 0036A00000wzkqeQAA Test      Contact-Create-1
+#> 2 0036A00000wzkqfQAA Test      Contact-Create-2
 ```
 
 ### Query
@@ -123,8 +123,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000wzh4VQAQ NA      Test      Contact-Create-1
-#> 2 0036A00000wzh4WQAQ NA      Test      Contact-Create-2
+#> 1 0036A00000wzkqeQAA NA      Test      Contact-Create-1
+#> 2 0036A00000wzkqfQAA NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -149,8 +149,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzh4VQAQ TRUE   
-#> 2 0036A00000wzh4WQAQ TRUE
+#> 1 0036A00000wzkqeQAA TRUE   
+#> 2 0036A00000wzkqfQAA TRUE
 ```
 
 ### Delete
@@ -165,8 +165,8 @@ deleted_records
 #> # A tibble: 2 x 3
 #>   id                 success errors    
 #>   <chr>              <lgl>   <list>    
-#> 1 0036A00000wzh4VQAQ TRUE    <list [0]>
-#> 2 0036A00000wzh4WQAQ TRUE    <list [0]>
+#> 1 0036A00000wzkqeQAA TRUE    <list [0]>
+#> 2 0036A00000wzkqfQAA TRUE    <list [0]>
 ```
 
 ### Upsert
@@ -201,9 +201,9 @@ upserted_records
 #> # A tibble: 3 x 3
 #>   created id                 success
 #>   <lgl>   <chr>              <lgl>  
-#> 1 FALSE   0036A00000wzh4XQAQ TRUE   
-#> 2 FALSE   0036A00000wzh4YQAQ TRUE   
-#> 3 TRUE    0036A00000wzh4aQAA TRUE
+#> 1 FALSE   0036A00000wzkqjQAA TRUE   
+#> 2 FALSE   0036A00000wzkqkQAA TRUE   
+#> 3 TRUE    0036A00000wzkqoQAA TRUE
 ```
 
 

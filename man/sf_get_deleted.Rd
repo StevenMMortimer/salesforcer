@@ -10,10 +10,10 @@ sf_get_deleted(object_name, start, end, verbose = FALSE)
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{start}{\code{date} or \code{datetime}; Starting datetime of the timespan 
+\item{start}{\code{date} or \code{datetime}; starting datetime of the timespan 
 for which to retrieve the data.}
 
-\item{end}{\code{date} or \code{datetime}; Ending datetime of the timespan for
+\item{end}{\code{date} or \code{datetime}; ending datetime of the timespan for
 which to retrieve the data.}
 
 \item{verbose}{logical; do you want informative messages?}

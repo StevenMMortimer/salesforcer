@@ -503,11 +503,11 @@ sf_find_duplicates_by_id <- function(sf_id,
 #' @param victim_ids character; one or two Salesforce Ids of records to be merged into 
 #' the master record. Up to three records can be merged in a single request, including 
 #' the master record. This limit is the same as the limit enforced by the Salesforce user 
-#' interface. To merge more than 3 records, successively merge records by re-running 
-#' this \code{\link{sf_merge}} repeatedly.
+#' interface. To merge more than 3 records, successively merge records by running 
+#' \code{\link{sf_merge}} repeatedly.
 #' @template object_name
-#' @param master_fields \code{named vector}; a vector of field names and values in 
-#' to supersede the master record values. Otherwise, the field values on the master record 
+#' @param master_fields \code{named vector}; a vector of field names and values to 
+#' supersede the master record values. Otherwise, the field values on the master record 
 #' will prevail.
 #' @template api_type
 #' @template control
@@ -603,9 +603,9 @@ sf_merge <- function(master_id,
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert cols
 #' @template object_name
-#' @param start \code{date} or \code{datetime}; Starting datetime of the timespan 
+#' @param start \code{date} or \code{datetime}; starting datetime of the timespan 
 #' for which to retrieve the data.
-#' @param end \code{date} or \code{datetime}; Ending datetime of the timespan for
+#' @param end \code{date} or \code{datetime}; ending datetime of the timespan for
 #' which to retrieve the data.
 #' @template verbose
 #' @examples 
@@ -673,9 +673,9 @@ sf_get_deleted <- function(object_name,
 #' @importFrom dplyr tibble
 #' @importFrom readr type_convert cols
 #' @template object_name
-#' @param start \code{date} or \code{datetime}; Starting datetime of the timespan 
+#' @param start \code{date} or \code{datetime}; starting datetime of the timespan 
 #' for which to retrieve the data.
-#' @param end \code{date} or \code{datetime}; Ending datetime of the timespan for
+#' @param end \code{date} or \code{datetime}; ending datetime of the timespan for
 #' which to retrieve the data.
 #' @template verbose
 #' @examples 

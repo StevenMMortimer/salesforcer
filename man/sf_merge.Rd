@@ -15,14 +15,14 @@ which is the record to which the victim records will be merged into}
 \item{victim_ids}{character; one or two Salesforce Ids of records to be merged into 
 the master record. Up to three records can be merged in a single request, including 
 the master record. This limit is the same as the limit enforced by the Salesforce user 
-interface. To merge more than 3 records, successively merge records by re-running 
-this \code{\link{sf_merge}} repeatedly.}
+interface. To merge more than 3 records, successively merge records by running 
+\code{\link{sf_merge}} repeatedly.}
 
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
-\item{master_fields}{\code{named vector}; a vector of field names and values in 
-to supersede the master record values. Otherwise, the field values on the master record 
+\item{master_fields}{\code{named vector}; a vector of field names and values to 
+supersede the master record values. Otherwise, the field values on the master record 
 will prevail.}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
