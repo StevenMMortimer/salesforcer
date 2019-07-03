@@ -1,4 +1,11 @@
 before_install:
+- wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
+- tar xzvf openssl-1.0.2s.tar.gz
+- cd openssl-1.0.2s
+- ./config
+- make
+- sudo make install
+- cd ..
 - openssl aes-256-cbc -K $encrypted_a1be6e21f2cd_key -iv $encrypted_a1be6e21f2cd_iv -in tests/testthat/salesforcer.tar.enc -out tests/testthat/salesforcer.tar -d
 - tar xvf tests/testthat/salesforcer.tar -C tests/testthat
 - R -q -e 'install.packages(c("remotes", "curl", "RForcecom")); remotes::install_github("ropenscilabs/tic");
