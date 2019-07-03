@@ -12,15 +12,10 @@ after_success: R -q -e 'tic::after_success()'
 after_failure: R -q -e 'tic::after_failure()'
 before_deploy: R -q -e 'tic::before_deploy()'
 deploy:
-  provider: releases
-  api_key:
-    secure: TqokVvmkpkkWn1Vqb187acgYjw1Pw+AKmQ/VEhDvs0EQ5cJgZRfW1MpNEKG3zskts3KMVgNmFCyAe2rnDzegdhO4VoiJiQqHp0B4/q26yZrw6TaP9PisQupoXzXUBnrtJ0N3WtiGQU5TBx5aQ2/44610CUYuO1IzI5+Qc8JCsl5ue5HS8fTlRxQjdEZBpTQqBvvfmbyg4jptmEJnEcfAjMsaTvG/e5F0gHvbLRkyNZIrZ+tTxIA3BjVrGiCTG0xF3SyOku4IgV5EW0aAZ7pBeQKVrNK07jFlssYduWd3ni/2PWjk2e2ylOm01F1+MpVjQsEMoVIPKrqhaCkaHK5cOmUVOTucv8bX4Cb/nfu+lmfT7UXLV6gqsx19y5EFdYaR/1WyjC+yJaIBrRJA3Mn6UiUcGTDFIkKfBJ1xOmiI2zGQCCfGtRlvJtMlZM+LQDqIL8wm7r9YbO5tUUL94r4d1u3Sw5NIP7K2wTkYLVNUpsS3Ji+nPBPKyETl6a0wBEMhJ4E1kv1cpnYLZzBfyGx7yi3qbj5BSqrvGhNqFKEl9cyDs/3mP3UUkbzRyTbIZ/V4PcQPjHjaYM9mKARp9gi+jAN5DaAzZGSvM3KgDDTQrMrIn/P0eCJCuSr/BhOmqQLiHOQdK4RVRlUaidKo4dahqB8uWY7Q5LJpQvahEqIJ3yQ=
-  file: 
-    - tests/testthat/salesforcer_test_settings.rds
-    - tests/testthat/salesforcer_token.rds
-  skip_cleanup: true
+  provider: script
+  script: R -q -e 'tic::deploy()'
   on:
-    repo: StevenMMortimer/travis-enc-vars
+    all_branches: true
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
 language: r
@@ -30,7 +25,11 @@ cache: packages
 latex: false
 matrix:
   include:
+  - r: oldrel
   - r: release
+    env:
+    - BUILD_PKGDOWN: true
+  - r: devel
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
