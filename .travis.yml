@@ -6,7 +6,6 @@ before_install:
 - openssl version -a
 - sudo ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
 - sudo make
-- sudo make test
 - sudo make install
 - cd /etc/ld.so.conf.d/
 - sudo touch openssl-1.0.2s.conf
