@@ -1,21 +1,21 @@
 before_install:
 - cd /usr/local/src/
-- wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
+- sudo wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
 - tar xzvf openssl-1.0.2s.tar.gz
 - cd openssl-1.0.2s
 - openssl version -a
 - ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
-- make
-- make test
-- make install
+- sudo make
+- sudo make test
+- sudo make install
 - cd /etc/ld.so.conf.d/
-- touch openssl-1.0.2s.conf
+- sudo touch openssl-1.0.2s.conf
 - echo "/usr/local/ssl/lib" >> /etc/ld.so.conf.d/openssl-1.0.2s.conf
 - sudo ldconfig -v
-- mv /usr/bin/c_rehash /usr/bin/c_rehash.BEKUP
-- mv /usr/bin/openssl /usr/bin/openssl.BEKUP
+- sudo mv /usr/bin/c_rehash /usr/bin/c_rehash.BEKUP
+- sudo mv /usr/bin/openssl /usr/bin/openssl.BEKUP
 - echo 'PATH="/usr/local/ssl/lib:$PATH"' >> /etc/environment
-- source /etc/environment
+- sudo source /etc/environment
 - echo $PATH
 - which openssl
 - openssl version -a
