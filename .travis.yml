@@ -9,11 +9,11 @@ before_install:
 - sudo make install
 - cd /etc/ld.so.conf.d/
 - sudo touch openssl-1.0.2s.conf
-- sudo echo "/usr/local/ssl/lib" >> /etc/ld.so.conf.d/openssl-1.0.2s.conf
+- sudo echo "/usr/local/ssl/lib" | sudo tee -a /etc/ld.so.conf.d/openssl-1.0.2s.conf > /dev/null
 - sudo ldconfig -v
 - sudo mv /usr/bin/c_rehash /usr/bin/c_rehash.BEKUP
 - sudo mv /usr/bin/openssl /usr/bin/openssl.BEKUP
-- sudo echo 'PATH="/usr/local/ssl/lib:$PATH"' >> /etc/environment
+- sudo echo 'PATH="/usr/local/ssl/lib:$PATH"' | sudo tee -a /etc/environment > /dev/null
 - sudo source /etc/environment
 - echo $PATH
 - which openssl
