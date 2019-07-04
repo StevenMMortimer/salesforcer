@@ -1,7 +1,7 @@
 before_install:
 - cd /usr/local/src/
 - sudo wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
-- tar xzvf openssl-1.0.2s.tar.gz
+- sudo tar xzvf openssl-1.0.2s.tar.gz
 - cd openssl-1.0.2s
 - openssl version -a
 - ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
