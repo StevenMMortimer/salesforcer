@@ -4,7 +4,7 @@ before_install:
 - sudo tar xzvf openssl-1.0.2s.tar.gz
 - cd openssl-1.0.2s
 - openssl version -a
-- ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
+- sudo ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
 - sudo make
 - sudo make test
 - sudo make install
