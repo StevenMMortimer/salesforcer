@@ -1,6 +1,5 @@
 before_install:
-- openssl aes-256-cbc -K $encrypted_a1be6e21f2cd_key -iv $encrypted_a1be6e21f2cd_iv
-  -in tests/testthat/salesforcer.tar.enc -out tests/testthat/salesforcer.tar -d
+- openssl aes-256-cbc -md sha256 -k "$enc_pass" -in tests/testthat/salesforcer.tar.enc -out tests/testthat/salesforcer.tar -d
 - tar xvf tests/testthat/salesforcer.tar -C tests/testthat
 - R -q -e 'install.packages(c("remotes", "curl", "RForcecom")); remotes::install_github("ropenscilabs/tic");
   tic::prepare_all_stages(); tic::before_install()'
@@ -35,4 +34,5 @@ env:
   - _R_CHECK_FORCE_SUGGESTS_=false
   - MAKEFLAGS="-j 2"
   - TRAVIS_CXXFLAGS="-Wall -Wextra -pedantic -Werror"
+  - secure: BEq4GzVbz11KI06c0teh4SmJlmwKvBkN/KsTWzeo9Ff/j7vhhf2hi3kpm0urr+9h/2jrzuKoQAr0koAuQtb/6MpR+kXvN7ASNgPJmw4Y1es+ig7HeZAiBFT3H2eUKpLmOC6UCT/VGfke+zwqm1zsDt7wI6AqJN9S6WUWX3OE8gX5q8Krar3DQMjnMbXCfCoFWvR+tDzyqHPw5D0Z/uYWb7M0XSz1ynqeg5aWgBIbgTVyoMvUZT1SEYuNqcEguER4wYQBdkUBNeI6sKCmGh2+KEo4rUs40QDA/52rMJatTxF/FO+8E8aQpRO51e7eHvtrj6vs1IGzAsRAQJ7ZKAZ9Gtm5Q2R4ZL6brc7g/4VV2nkstOFWFK8UL2MdRv01PWAc6KttzwoAjWqVLDXnHrLORZbwRyBTMKFCoS/WYB8Hzj7FRgjhNDlnW5JYIRn/UXElS8SGus/DXF2dUq9WAQCYr+o1F8IcEfi5LWCH368JxCn6s0PmkScWlkQpAjHGyq5B0uObTL3W52EusADPTnUu6fnA9m8l/Sj/OnuoGcEcJgc5QmmPgB0xaG+IrPDK5v1L6pcw9gtV+Rqyrs4ldCFQejwh7ppAC5eYSgWR/b0/GzAucGdc9kS06QwxVBFYVJKG7MpFKpnGR+zpIYy/1ThCqp7GHMTfY4kYnF5cAKnkxlk=
 services: 
