@@ -1,14 +1,13 @@
 before_install:
-- cd /home/travis/build
+- cd /usr/local/src
 - sudo wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
-- sudo tar xzvf openssl-1.0.2s.tar.gz
+- sudo tar -xf openssl-1.0.2s.tar.gz
 - cd openssl-1.0.2s
-- openssl version -a
-- sudo ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
+- sudo ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
 - sudo make
 - sudo make install
 - openssl version -a
-- /usr/local/bin/openssl version -a
+- /usr/local/ssl/bin/openssl version -a
 - cd /home/travis/build/StevenMMortimer/salesforcer
 - /usr/local/bin/openssl aes-256-cbc -K $encrypted_a1be6e21f2cd_key -iv $encrypted_a1be6e21f2cd_iv -in tests/testthat/salesforcer.tar.enc -out tests/testthat/salesforcer.tar -d
 - tar xvf tests/testthat/salesforcer.tar -C tests/testthat
