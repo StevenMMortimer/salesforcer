@@ -1,20 +1,8 @@
 before_install:
-- cd /usr/local/src/
-- sudo wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
-- sudo tar xzvf openssl-1.0.2s.tar.gz
-- cd openssl-1.0.2s
 - openssl version -a
-- sudo ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
-- sudo make
-- sudo make install
-- cd /etc/ld.so.conf.d/
-- sudo touch openssl-1.0.2s.conf
-- sudo echo "/usr/local/ssl/lib" | sudo tee -a /etc/ld.so.conf.d/openssl-1.0.2s.conf > /dev/null
-- sudo ldconfig -v
-- sudo mv /usr/bin/c_rehash /usr/bin/c_rehash.BEKUP
-- sudo mv /usr/bin/openssl /usr/bin/openssl.BEKUP
-- sudo echo 'PATH="/usr/local/ssl/lib:$PATH"' | sudo tee -a /etc/environment > /dev/null
-- source <(sudo cat /etc/environment)
+- sudo apt-get update
+- sudo apt-get upgrade
+- sudo apt-get install openssl
 - openssl version -a
 - cd /home/travis/build/StevenMMortimer/salesforcer
 - openssl aes-256-cbc -K $encrypted_a1be6e21f2cd_key -iv $encrypted_a1be6e21f2cd_iv -in tests/testthat/salesforcer.tar.enc -out tests/testthat/salesforcer.tar -d
