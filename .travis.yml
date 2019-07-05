@@ -4,8 +4,8 @@ before_install:
 - sudo tar xzvf openssl-1.0.2s.tar.gz
 - cd openssl-1.0.2s
 - openssl version -a
-- ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
-- make
+- sudo ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
+- sudo make
 - sudo make install
 - openssl version -a
 - /usr/local/bin/openssl version -a
