@@ -1,3 +1,15 @@
+## salesforcer 0.1.3.9000
+
+### Features
+
+  * 
+  
+### Bug Fixes
+
+  * Fix issue where the details of an object's picklist contains NULLs (e.g. the 
+  `validFor` entry of a picklist value is NULL) so now it is replaced with NA and 
+  then can be bound together into a data.frame (#27)
+
 ## salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
 
 ### Features

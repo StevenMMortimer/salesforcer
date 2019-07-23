@@ -145,8 +145,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzkZ4QAI TRUE   
-#> 2 0036A00000wzkZ5QAI TRUE
+#> 1 0033s00000wyd0aAAA TRUE   
+#> 2 0033s00000wyd0bAAA TRUE
 ```
 
 ### Query
@@ -173,8 +173,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0036A00000wzkZ4QAI NA      Test      Contact-Create-1
-#> 2 0036A00000wzkZ5QAI NA      Test      Contact-Create-2
+#> 1 0033s00000wyd0aAAA NA      Test      Contact-Create-1
+#> 2 0033s00000wyd0bAAA NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -199,8 +199,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0036A00000wzkZ4QAI TRUE   
-#> 2 0036A00000wzkZ5QAI TRUE
+#> 1 0033s00000wyd0aAAA TRUE   
+#> 2 0033s00000wyd0bAAA TRUE
 ```
 
 ### Bulk Operations
@@ -347,8 +347,7 @@ acct_fields %>%
 If you prefer to be more precise about collecting and formatting the
 field data you can work directly with the nested lists that the APIs
 return. In this example we look at the picklist values of fields on the
-Account
-object.
+Account object.
 
 ``` r
 describe_obj_result <- sf_describe_objects(object_names=c('Account', 'Contact'))
@@ -421,8 +420,7 @@ meaning that you will not be able to insert records into them until
 updating the field level security of your user profile. Run the
 following code to determine the user profiles in your org and updating
 the field permissions on an object that you may have created with the
-example code
-above.
+example code above.
 
 ``` r
 # get list of user proviles in order to get the "fullName" parameter correct in the next call
