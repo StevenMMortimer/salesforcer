@@ -92,11 +92,7 @@ sf_describe_object_fields <- function(object_name){
   stopifnot(length(object_name) == 1)
   
   obj_dat <- sf_describe_objects(object_names = object_name, api_type = "SOAP")[[1]]
-  obj_fields_list <- obj_dat[names(obj_dat) == "fields"] %>% map(collapse_list_with_dupe_names)
-  
-  # suppress deprecation warnings
-  suppressWarnings(obj_fields_dat <- rforcecom.getObjectDescription(objectName=object_name))
-  obj_fields_dat <- obj_fields_list %>% 
+  obj_fields_dat <- obj_dat[names(obj_dat) == "fields"] %>% 
     # explicitly combine duplicated names because many tidyverse functions break whenever that occurs
     map(collapse_list_with_dupe_names) %>% 
     map(~modify_if(., ~(length(.x) > 1 | is.list(.x)), list)) %>%
@@ -117,6 +113,7 @@ sf_describe_object_fields <- function(object_name){
 #' @importFrom readr type_convert cols
 #' @importFrom dplyr as_tibble
 #' @importFrom utils head tail
+#' @importFrom data.table rbindlist
 #' @param x list; a list, typically returned from the API that we would parse through
 #' @note The tibble only contains the fields that the user can view, as defined by 
 #' the user's field-level security settings.
@@ -137,9 +134,13 @@ collapse_list_with_dupe_names <- function(x){
       if(all(sapply(obj_field_dupes, length) == 1)){
         collapsed <- list(unname(unlist(obj_field_dupes)))
       } else {
-        collapsed <- map_df(obj_field_dupes, as_tibble) %>%
-          type_convert(col_types = cols()) %>% 
-          list()
+        suppressWarnings(
+          collapsed <- obj_field_dupes %>%
+            rbindlist(use.names=TRUE, fill=TRUE, idcol=NULL) %>%
+            as_tibble() %>%
+            type_convert(col_types = cols()) %>%
+            list()
+        )
       }
       # replace into first
       x[head(target_idx, 1)] <- collapsed
