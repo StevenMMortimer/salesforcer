@@ -380,4 +380,6 @@ functionality. For details on formatting, attributes, and methods please refer t
 [Salesforce's documentation](https://developer.salesforce.com/page/Salesforce_APIs) 
 as they are explained better there.
 
+[Get supported salesforcer with the Tidelift Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
+
 [Top](#)
