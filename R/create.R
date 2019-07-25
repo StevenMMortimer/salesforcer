@@ -206,7 +206,8 @@ sf_create_rest <- function(input_data,
     batched_data <- input_data[batch_id == batch, , drop=FALSE]
     request_body <- toJSON(list(allOrNone = tolower(all_or_none), 
                                 records = batched_data), 
-                           auto_unbox = TRUE)
+                           auto_unbox = TRUE, 
+                           na = "null")
     httr_response <- rPOST(url = composite_url,
                            headers = request_headers,
                            body = request_body)

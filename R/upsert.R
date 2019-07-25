@@ -217,7 +217,8 @@ sf_upsert_rest <- function(input_data,
                                   richInput = as.list(temp_batched_data[i,]))
     }
     request_body <- toJSON(list(batchRequests = inner_requests),
-                           auto_unbox = TRUE)
+                           auto_unbox = TRUE, 
+                           na = "null")
     httr_response <- rPOST(url = composite_batch_url,
                            headers = request_headers,
                            body = request_body)

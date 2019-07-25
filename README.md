@@ -145,8 +145,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s00000wydKfAAI TRUE   
-#> 2 0033s00000wydKgAAI TRUE
+#> 1 0033s00000wyhsBAAQ TRUE   
+#> 2 0033s00000wyhsCAAQ TRUE
 ```
 
 ### Query
@@ -173,8 +173,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0033s00000wydKfAAI NA      Test      Contact-Create-1
-#> 2 0033s00000wydKgAAI NA      Test      Contact-Create-2
+#> 1 0033s00000wyhsBAAQ NA      Test      Contact-Create-1
+#> 2 0033s00000wyhsCAAQ NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -199,8 +199,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s00000wydKfAAI TRUE   
-#> 2 0033s00000wydKgAAI TRUE
+#> 1 0033s00000wyhsBAAQ TRUE   
+#> 2 0033s00000wyhsCAAQ TRUE
 ```
 
 ### Bulk Operations
@@ -470,8 +470,9 @@ articulation is not perfect and continued progress will be made to add
 and improve functionality. For details on formatting, attributes, and
 methods please refer to [Salesforce’s
 documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview)
-as they are explained better there.More information is also available on the `pkgdown` site at
-<https://StevenMMortimer.github.io/salesforcer>.  
+as they are explained better there. More information is also available
+on the `pkgdown` site at
+<https://StevenMMortimer.github.io/salesforcer>.
 
 [Get supported salesforcer with the Tidelift
 Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
