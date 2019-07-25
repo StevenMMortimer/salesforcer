@@ -142,7 +142,8 @@
 </ul>
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
-<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>) and merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>)</li>
+<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>),<br>
+merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
 <li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) in a timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
@@ -235,8 +236,8 @@
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   id                 success</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1 0033s00000wydLEAAY TRUE   </span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 2 0033s00000wydLFAAY TRUE</span></span></code></pre></div>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1 0033s00000zLZu1AAG TRUE   </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 2 0033s00000zLZu2AAG TRUE</span></span></code></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -254,8 +255,8 @@
 <span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;   Id                 Account FirstName LastName        </span></span>
 <span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; 1 0033s00000wydLEAAY NA      Test      Contact-Create-1</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 2 0033s00000wydLFAAY NA      Test      Contact-Create-2</span></span></code></pre></div>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; 1 0033s00000zLZu1AAG NA      Test      Contact-Create-1</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 2 0033s00000zLZu2AAG NA      Test      Contact-Create-2</span></span></code></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -271,8 +272,8 @@
 <span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
 <span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;   id                 success</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; 1 0033s00000wydLEAAY TRUE   </span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; 2 0033s00000wydLFAAY TRUE</span></span></code></pre></div>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; 1 0033s00000zLZu1AAG TRUE   </span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; 2 0033s00000zLZu2AAG TRUE</span></span></code></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -480,7 +481,7 @@
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file LICENCE</small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 <div class="developers">

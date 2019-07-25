@@ -486,6 +486,158 @@ sf_find_duplicates_by_id <- function(sf_id,
   return(this_res)
 }
 
+#' Convert Leads
+#' 
+#' Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.
+#' 
+#' @importFrom readr cols type_convert
+#' @importFrom httr content
+#' @importFrom xml2 xml_ns_strip xml_find_all
+#' @importFrom purrr map_df
+#' @importFrom dplyr bind_rows
+#' @importFrom stats quantile
+#' @importFrom utils head
+#' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
+#' \code{tbl_df}; data can be coerced into a \code{data.frame}. See the details 
+#' below on how format your input data to control things like whether an opportunity 
+#' will be created, an email will be sent to the new owner, and other control options.
+#' @template api_type
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}}
+#' @template verbose
+#' @return \code{tbl_df} with details of the converted record
+#' @details When converting leads owned by a queue, the owner must be specified. 
+#' This is because accounts and contacts cannot be owned by a queue. Below is a 
+#' complete list of options to control the conversion process. Include a column 
+#' in your input data to specify an option for each record. For example, if you 
+#' want opportunities to not be created for each converted lead then add a column 
+#' in your input data called \code{doNotCreateOpportunity} and set its value to 
+#' \code{TRUE}. The default is \code{FALSE} which creates opportunities. The order 
+#' of columns in the input data does not matter, just that the names 
+#' match (case-insensitive).
+#' \describe{
+#'  \item{leadId}{ID of the Lead to convert. Required.}
+#'  \item{convertedStatus}{Valid LeadStatus value for a converted lead. Required.}
+#'  \item{accountId}{ID of the Account into which the lead will be merged. Required 
+#'  only when updating an existing account, including person accounts. If no 
+#'  accountID is specified, then the API creates a new account.}
+#'  \item{contactId}{D of the Contact into which the lead will be merged (this 
+#'  contact must be associated with the specified accountId, and an accountId 
+#'  must be specified). Required only when updating an existing contact. If no 
+#'  contactID is specified, then the API creates a new contact that is implicitly 
+#'  associated with the Account.}
+#'  \item{ownerId}{Specifies the ID of the person to own any newly created account, 
+#'  contact, and opportunity. If the client application does not specify this 
+#'  value, then the owner of the new object will be the owner of the lead.}
+#'  \item{opportunityId}{The ID of an existing opportunity to relate to the lead. 
+#'  The opportunityId and opportunityName arguments are mutually exclusive. Specifying 
+#'  a value for both results in an error. If doNotCreateOpportunity argument is 
+#'  \code{TRUE}, then no Opportunity is created and this field must be left blank; 
+#'  otherwise, an error is returned.}
+#'  \item{doNotCreateOpportunity}{Specifies whether to create an Opportunity during 
+#'  lead conversion (\code{FALSE}, the default) or not (\code{TRUE}). Set this flag 
+#'  to \code{TRUE} only if you do not want to create an opportunity from the lead. 
+#'  An opportunity is created by default.}
+#'  \item{opportunityName}{Name of the opportunity to create. If no name is specified, 
+#'  then this value defaults to the company name of the lead. The maximum length 
+#'  of this field is 80 characters. The opportunityId and opportunityName arguments 
+#'  are mutually exclusive. Specifying a value for both results in an error. If 
+#'  doNotCreateOpportunity argument is \code{TRUE}, then no Opportunity is created and 
+#'  this field must be left blank; otherwise, an error is returned.}
+#'  \item{overwriteLeadSource}{Specifies whether to overwrite the LeadSource field 
+#'  on the target Contact object with the contents of the LeadSource field in 
+#'  the source Lead object (\code{TRUE}), or not (\code{FALSE}, the default). To 
+#'  set this field to \code{TRUE}, the client application must specify a contactId 
+#'  for the target contact.}
+#'  \item{sendNotificationEmail}{Specifies whether to send a notification email 
+#'  to the owner specified in the ownerId (\code{TRUE}) or not (\code{FALSE}, 
+#'  the default).}
+#' }
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm}{Salesforce Documentation for convertLead}
+#' @examples 
+#' \dontrun{
+#' # create a new lead at Grand Hotels & Resorts Ltd
+#' new_lead <- tibble(FirstName = "Test", LastName = "Prospect",
+#'                    Company = "Grand Hotels & Resorts Ltd")
+#' rec <- sf_create(new_lead, "Lead")
+#' 
+#' # find the Id of matching account to link to
+#' acct_id <- sf_query("SELECT Id from Account WHERE name = 'Grand Hotels & Resorts Ltd' LIMIT 1")
+#' 
+#' # create the row(s) for the leads to convert
+#' to_convert <- tibble(leadId = rec$id, 
+#'                      convertedStatus = "Closed - Converted", 
+#'                      accountId = acct_id$Id)
+#' converted_lead <- sf_convert_lead(to_convert)
+#' }
+#' @export
+sf_convert_lead <- function(input_data, 
+                            api_type = c("SOAP"), 
+                            control = list(...), ...,
+                            verbose = FALSE){
+  
+  # validate the input
+  input_data <- sf_input_data_validation(operation='convertLead', input_data)
+  
+  # specify the following defaults (all FALSE by default), if not included
+  expected_options <- c("doNotCreateOpportunity", "overwriteLeadSource", 
+                        "sendNotificationEmail")
+  for(e in expected_options){
+    if(!(e %in% names(input_data))){
+      input_data[e] <- FALSE
+    }
+  }
+  
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- "convertLead"
+  control <- do.call("sf_control", control)
+  
+  # chunk into batches of 100 (the max per this operation)
+  base_soap_url <- make_base_soap_url()
+  batch_size <- 100
+  row_num <- nrow(input_data)
+  batch_id <- (seq.int(row_num)-1) %/% batch_size  
+  if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
+  message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
+  
+  resultset <- NULL
+  for(batch in seq(0, max(batch_id))){
+    if(verbose){
+      batch_msg_flg <- batch %in% message_flag
+      if(batch_msg_flg){
+        message(paste0("Processing Batch # ", head(batch, 1) + 1))
+      } 
+    }
+    batched_data <- input_data[batch_id == batch, , drop=FALSE]  
+    r <- make_soap_xml_skeleton(soap_headers = control)
+    xml_dat <- build_soap_xml_from_list(input_data = batched_data,
+                                        operation = "convertLead",
+                                        root = r)
+    request_body <- as(xml_dat, "character")
+    httr_response <- rPOST(url = base_soap_url, 
+                           headers = c("SOAPAction"="convertLead", 
+                                       "Content-Type"="text/xml"), 
+                           body = request_body)
+    if(verbose){
+      make_verbose_httr_message(httr_response$request$method,
+                                httr_response$request$url, 
+                                httr_response$request$headers, 
+                                request_body)
+    }
+    catch_errors(httr_response)
+    response_parsed <- content(httr_response, encoding="UTF-8")
+    this_set <- response_parsed %>%
+      xml_ns_strip() %>%
+      xml_find_all('.//result') %>% 
+      map_df(xml_nodeset_to_df)
+    resultset <- bind_rows(resultset, this_set)
+  }
+  resultset <- resultset %>%
+    type_convert(col_types = cols())
+  return(resultset)
+}
+
 #' Merge Records
 #' 
 #' This function combines records of the same object type into one of the records, 

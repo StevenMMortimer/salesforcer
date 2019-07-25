@@ -66,6 +66,25 @@ test_that("testing sf_find_duplicates_by_id()", {
   expect_named(duplicates_search, c("sObject", "Id"))
 })
 
+test_that("testing sf_convert_lead()", {
+  # create lead
+  new_lead <- tibble(FirstName = "Tim", LastName = "Barr",
+                     Company = "Grand Hotels & Resorts Ltd")
+  rec <- sf_create(new_lead, "Lead")
+  # convert it
+  to_convert <- tibble(leadId = rec$id, 
+                       convertedStatus = "Closed - Converted", 
+                       accountId = "0016A0000035mJ8QAI", 
+                       contactId = "0036A000002C6MbQAK", 
+                       doNotCreateOpportunity = TRUE)
+  converted_lead <- sf_convert_lead(to_convert)
+  expect_is(converted_lead, "tbl_df")
+  expect_named(converted_lead, c("accountId", "contactId", "leadId", 
+                                 "opportunityId", "success"))
+  # delete the lead
+  sf_delete(rec$id)
+})
+
 test_that("testing sf_merge()", {
   n <- 3
   new_contacts <- tibble(FirstName = rep("Test", n),

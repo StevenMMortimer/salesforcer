@@ -20,7 +20,7 @@ BugReports: https://github.com/StevenMMortimer/salesforcer/issues
 Encoding: UTF-8
 Depends:
     R (>= 3.5.0)
-License: MIT + file LICENCE
+License: MIT + file LICENSE
 LazyData: true
 Imports:
     methods (>= 3.5.0),

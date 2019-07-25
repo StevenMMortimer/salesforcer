@@ -175,7 +175,7 @@ build_soap_xml_from_list <- function(input_data,
                                                    "delete", "undelete", "emptyRecycleBin", 
                                                    "getDeleted", "getUpdated",
                                                    "search", "query", "queryMore", 
-                                                   "merge", "describeSObjects", 
+                                                   "convertLead", "merge", "describeSObjects", 
                                                    "setPassword", "resetPassword", 
                                                    "findDuplicates", "findDuplicatesByIds"),
                                      object_name = NULL,
@@ -267,11 +267,16 @@ build_soap_xml_from_list <- function(input_data,
   } else {
     for(i in 1:nrow(input_data)){
       list <- as.list(input_data[i,,drop=FALSE])
-      this_row_node <- newXMLNode("urn:sObjects", parent = operation_node)
-      # if the body elements are objects we must list the type of object_name 
-      # under each block of XML for the row
-      type_node <- newXMLNode("urn1:type", parent = this_row_node)
-      xmlValue(type_node) <- object_name
+      
+      if(which_operation == "convertLead"){
+        this_row_node <- newXMLNode("urn:LeadConvert", parent = operation_node)
+      } else {
+        this_row_node <- newXMLNode("urn:sObjects", parent = operation_node)
+        # if the body elements are objects we must list the type of object_name 
+        # under each block of XML for the row
+        type_node <- newXMLNode("urn1:type", parent = this_row_node)
+        xmlValue(type_node) <- object_name
+      }
       
       if(length(list) > 0){
         for (i in 1:length(list)){

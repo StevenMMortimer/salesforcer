@@ -74,20 +74,21 @@ reference:
   - title: Salesforce Org Utility Functions
     desc: Functions used for basic calls to understand the org.
     contents:
-      - '`sf_user_info`'
-      - '`sf_set_password`'
-      - '`sf_reset_password`'
       - '`sf_merge`'
+      - '`sf_convert_lead`'
       - '`sf_find_duplicates`'
       - '`sf_find_duplicates_by_id`'
       - '`sf_empty_recycle_bin`'
       - '`sf_download_attachment`'
+      - '`sf_get_all_jobs_bulk`'
+      - '`sf_user_info`'
+      - '`sf_server_timestamp`'
+      - '`sf_set_password`'
+      - '`sf_reset_password`'
       - '`sf_list_rest_api_versions`'
       - '`sf_list_resources`'
       - '`sf_list_api_limits`'
       - '`sf_list_objects`'
-      - '`sf_get_all_jobs_bulk`'
-      - '`sf_server_timestamp`'
       - '`sf_control`'
   - title: Backward Compatibility with RForcecom
     desc: Functions that mirror RForcecom to ease code transitions between salesforcer and RForcecom

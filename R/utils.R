@@ -77,6 +77,46 @@ sf_input_data_validation <- function(input_data, operation=''){
   # TODO: Add Automatic date validation
   # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm
 
+  if(operation == "convertLead"){
+    
+    leadid_col <- grepl("^LEADIDS$|^LEAD_IDS$|^ID$|^IDS$", names(input_data), ignore.case=TRUE)
+    if(any(leadid_col)){
+      names(input_data)[leadid_col] <- "leadId"
+    }
+    
+    input_col_names <- names(input_data)
+    ignoring <- character(0)
+    # convert camelcase if matching
+    other_expected_names <- c("leadId", "convertedStatus", "accountId", 
+                              "contactId", "ownerId", "opportunityId", 
+                              "doNotCreateOpportunity", "opportunityName", 
+                              "overwriteLeadSource", "sendNotificationEmail")
+    for(i in 1:length(input_col_names)){
+      target_col <- (tolower(other_expected_names) == tolower(input_col_names[i]))
+      target_col2 <- (tolower(other_expected_names) == tolower(gsub("[^A-Za-z]", "", 
+                                                                    input_col_names[i])))
+      if(sum(target_col) == 1){
+        names(input_data)[i] <- other_expected_names[which(target_col)]
+      } else if(sum(target_col2) == 1){
+        names(input_data)[i] <- other_expected_names[which(target_col2)]
+      } else {
+        ignoring <- c(ignoring, input_col_names[i])
+      }
+    }
+    
+    if(length(ignoring) > 0){
+      warning(sprintf("Ignoring the following columns: '%s'", 
+                      paste0(ignoring, collapse = "', '")))
+    }
+    input_data <- input_data[names(input_data) %in% other_expected_names]
+    
+    if(!is.data.frame(input_data)){
+      input_data <- as.data.frame(as.list(input_data), stringsAsFactors = FALSE)  
+    }
+    
+    stopifnot(all(c("leadId", "convertedStatus") %in% names(input_data)))
+  }
+  
   if(operation == "merge"){
     # dont try to cast the input for these operations, simply check existence of params
     list_based <- TRUE

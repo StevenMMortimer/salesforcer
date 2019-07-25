@@ -212,6 +212,7 @@ accepted_controls_by_api <- function(api_type = c("SOAP", "REST", "Bulk 1.0", "B
 #' @keywords internal
 #' @export
 accepted_controls_by_operation <- function(operation = c("delete", "undelete", "hardDelete", 
+                                                         "convertLead", "merge",
                                                          "insert", "update", "upsert", 
                                                          "query", "queryall", "retrieve", 
                                                          "resetPassword", "describeSObjects")){
@@ -226,7 +227,8 @@ accepted_controls_by_operation <- function(operation = c("delete", "undelete", "
                       "UserTerritoryDeleteHeader", bulk_controls),
          "undelete" = c("AllOrNoneHeader", "AllowFieldTruncationHeader"), 
          "hardDelete" = bulk_controls,
-         "merge" = "AllowFieldTruncationHeader",
+         "convertLead" = c("AllowFieldTruncationHeader", "DisableFeedTrackingHeader"),
+         "merge" = c("AllowFieldTruncationHeader", "DisableFeedTrackingHeader"),
          "insert" = c(record_creation_controls, bulk_controls),
          "update" = c(record_creation_controls, bulk_controls, "OwnerChangeOptions"),
          "upsert" = c(record_creation_controls, bulk_controls, "OwnerChangeOptions"),
