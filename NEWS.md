@@ -9,6 +9,9 @@
   * Fix issue where the details of an object's picklist contains NULLs (e.g. the 
   `validFor` entry of a picklist value is NULL) so now it is replaced with NA and 
   then can be bound together into a data.frame (#27)
+  * Fix issue where NA values in create, update, and upsert operations where setting 
+  the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in 
+  a record will set the field to blank across all APIs (#29)
 
 ## salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
 

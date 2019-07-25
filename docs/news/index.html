@@ -168,6 +168,7 @@
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li>Fix issue where the details of an object’s picklist contains NULLs (e.g. the <code>validFor</code> entry of a picklist value is NULL) so now it is replaced with NA and then can be bound together into a data.frame (<a href='https://github.com/StevenMMortimer/salesforcer/issues/27'>#27</a>)</li>
+<li>Fix issue where NA values in create, update, and upsert operations where setting the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in a record will set the field to blank across all APIs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/29'>#29</a>)</li>
 </ul>
 </div>
 </div>

@@ -284,8 +284,13 @@ build_soap_xml_from_list <- function(input_data,
                                      root = this_node)
           } else {
             if (!is.null(list[[i]])){
-              this_node <- newXMLNode(names(list)[i], parent=this_row_node)
-              xmlValue(this_node) <- list[[i]]
+              if(is.na(list[[i]])){
+                this_node <- newXMLNode("fieldsToNull", parent=this_row_node)
+                xmlValue(this_node) <- names(list)[i]   
+              } else {
+                this_node <- newXMLNode(names(list)[i], parent=this_row_node)
+                xmlValue(this_node) <- list[[i]]                
+              }
             }
           }
         }
