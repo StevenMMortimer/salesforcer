@@ -5,7 +5,8 @@ articles:
   getting-started: getting-started.html
   passing-control-args: passing-control-args.html
   transitioning-from-RForcecom: transitioning-from-RForcecom.html
-  working-with-bulk-api: working-with-bulk-api.html
+  working-with-metadata: working-with-metadata.html
+  working-with-the-bulk-apis: working-with-the-bulk-apis.html
 urls:
   reference: https://stevenmmortimer.github.io/salesforcer/reference
   article: https://stevenmmortimer.github.io/salesforcer/articles

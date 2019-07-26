@@ -19,8 +19,10 @@ navbar:
       menu: 
       -  text: Getting Started
          href: articles/getting-started.html
-      -  text: Working with Bulk API
-         href: articles/working-with-bulk-api.html
+      -  text: Working with the Bulk APIs
+         href: articles/working-with-the-bulk-apis.html
+      -  text: Working with Metadata
+         href: articles/working-with-metadata.html         
       -  text: Passing Control Args
          href: articles/passing-control-args.html
       -  text: Transitioning from RForcecom

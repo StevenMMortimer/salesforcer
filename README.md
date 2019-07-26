@@ -36,8 +36,9 @@ Package features include:
     `sf_list_objects()`)
   - Functions to assist with master data managment (MDM) or data
     integrity of records by finding duplicates (`sf_find_duplicates()`,
-    `sf_find_duplicates_by_ids()`), merging records (`sf_merge()`),
-    and converting leads (`sf_convert_lead()`)
+    `sf_find_duplicates_by_ids()`),  
+    merging records (`sf_merge()`), and converting leads
+    (`sf_convert_lead()`)
   - Recover (`sf_undelete()`) or delete from the Recycle Bin
     (`sf_empty_recycle_bin()`) and list ids of records deleted
     (`sf_get_deleted()`) or updated (`sf_get_updated()`) in a timeframe
@@ -62,7 +63,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install from CRAN
+# install the current CRAN version (0.1.3)
 install.packages("salesforcer")
 
 # or get the latest version available on GitHub using the devtools package
@@ -70,18 +71,21 @@ install.packages("salesforcer")
 devtools::install_github("StevenMMortimer/salesforcer")
 ```
 
-If you encounter a clear bug, please file a minimal reproducible example
-on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
+If you encounter an issue while using this package, please file a
+minimal reproducible example on
+[GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
 
 ## Vignettes
 
-The README below outlines the package functionality, but review the
+The README below outlines the basic package functionality. Review the
 vignettes for more detailed examples on usage.
 
   - [Getting
     Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
-  - [Working with Bulk
-    API](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-api.html)
+  - [Working with the Bulk
+    APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
+  - [Working with
+    Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
   - [Transitioning from
     RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
   - [Passing Control
@@ -100,11 +104,15 @@ authenticate:
 It is recommended to use OAuth 2.0 so that passwords do not have to be
 shared or embedded within scripts. User credentials will be stored in
 locally cached file entitled “.httr-oauth-salesforcer” in the current
-working directory.
+working directory. Also, note that if you use OAuth 2.0 authentication
+then the package will automatically refresh it so you will not have to
+call `sf_auth()` during each sesssion if you have a cached
+“.httr-oauth-salesforcer” file in the working directory. The cache
+file is named that way to not conflict with the “.httr-oauth” files
+created by other packages.
 
 ``` r
 suppressWarnings(suppressMessages(library(dplyr)))
-suppressWarnings(suppressMessages(library(purrr)))
 library(salesforcer)
 
 # Using OAuth 2.0 authentication
@@ -141,13 +149,13 @@ records in the Contact object.
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object_name="Contact")
+created_records <- sf_create(new_contacts, object_name = "Contact")
 created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s00000wyhsBAAQ TRUE   
-#> 2 0033s00000wyhsCAAQ TRUE
+#> 1 0033s00000zLb7nAAC TRUE   
+#> 2 0033s00000zLb7oAAC TRUE
 ```
 
 ### Query
@@ -168,14 +176,14 @@ my_soql <- sprintf("SELECT Id,
                            LastName 
                     FROM Contact 
                     WHERE Id in ('%s')", 
-                   paste0(created_records$id , collapse="','"))
+                   paste0(created_records$id , collapse = "','"))
 queried_records <- sf_query(my_soql)
 queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0033s00000wyhsBAAQ NA      Test      Contact-Create-1
-#> 2 0033s00000wyhsCAAQ NA      Test      Contact-Create-2
+#> 1 0033s00000zLb7nAAC NA      Test      Contact-Create-1
+#> 2 0033s00000zLb7oAAC NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -195,13 +203,13 @@ queried_records <- queried_records %>%
   mutate(FirstName = "TestTest") %>% 
   select(-Account)
 
-updated_records <- sf_update(queried_records, object_name="Contact")
+updated_records <- sf_update(queried_records, object_name = "Contact")
 updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s00000wyhsBAAQ TRUE   
-#> 2 0033s00000wyhsCAAQ TRUE
+#> 1 0033s00000zLb7nAAC TRUE   
+#> 2 0033s00000zLb7oAAC TRUE
 ```
 
 ### Bulk Operations
@@ -233,7 +241,7 @@ Ids were successfully deleted.
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
-created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
+created_records <- sf_create(new_contacts, "Contact", api_type = "Bulk 1.0")
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -241,27 +249,27 @@ my_soql <- sprintf("SELECT Id,
                            LastName
                     FROM Contact 
                     WHERE Id in ('%s')", 
-                   paste0(created_records$Id , collapse="','"))
+                   paste0(created_records$Id , collapse = "','"))
 
-queried_records <- sf_query(my_soql, object_name="Contact", api_type="Bulk 1.0")
+queried_records <- sf_query(my_soql, "Contact", api_type = "Bulk 1.0")
 
-# delete these records using the Bulk API
-deleted_records <- sf_delete(queried_records$Id, object_name="Contact", api_type="Bulk 1.0")
+# delete these records using the Bulk 2.0 API
+deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
 ```
 
 ### Using the Metadata API
 
-Salesforce is a very flexible platform. Salesforce provides the
-[Metadata
+Salesforce is a very flexible platform in that it provides the [Metadata
 API](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm)
-for users to create, read, update and delete the objects, page layouts,
-and more. This makes it very easy to programmatically setup and teardown
-the Salesforce environment. One common use case for the Metadata API is
-retrieving information about an object (fields, permissions, etc.). You
-can use the `sf_read_metadata()` function to return a list of objects
-and their metadata. In the example below we retrieve the metadata for
-the Account and Contact objects. Note that the `metadata_type` argument
-is “CustomObject”. Standard Objects are an implementation of
+for users to create, read, update and delete their entire Salesforce
+environment from objects to page layouts and more. This makes it very
+easy to programmatically setup and teardown the Salesforce environment.
+One common use case for the Metadata API is retrieving information about
+an object (fields, permissions, etc.). You can use the
+`sf_read_metadata()` function to return a list of objects and their
+metadata. In the example below we retrieve the metadata for the Account
+and Contact objects. Note that the `metadata_type` argument is
+“CustomObject”. Standard Objects are an implementation of
 CustomObjects, so they are returned using that metadata type.
 
 ``` r
@@ -304,9 +312,8 @@ read_obj_result[[1]][first_two_fields_idx]
 The data is returned as a list because object definitions are highly
 nested representations. You may notice that we are missing some really
 specific details, such as, the picklist values of a field with type
-“Picklist”. You can get that information using the
-`sf_describe_object_fields()` or `sf_describe_objects()` functions which
-are based on calls from REST and SOAP APIs. Here is an example using
+“Picklist”. You can get that information using
+`sf_describe_object_fields()`. Here is an example using
 `sf_describe_object_fields()` where we get a `tbl_df` with one row for
 each field on the Account object:
 
@@ -343,102 +350,6 @@ acct_fields %>%
 #> 5 TRUE   FALSE        Installation Partner       Installation Partner      
 #> 6 TRUE   FALSE        Technology Partner         Technology Partner        
 #> 7 TRUE   FALSE        Other                      Other
-```
-
-If you prefer to be more precise about collecting and formatting the
-field data you can work directly with the nested lists that the APIs
-return. In this example we look at the picklist values of fields on the
-Account object.
-
-``` r
-describe_obj_result <- sf_describe_objects(object_names=c('Account', 'Contact'))
-# confirm that the Account object is queryable
-describe_obj_result[[1]][c('label', 'queryable')]
-#> $label
-#> [1] "Account"
-#> 
-#> $queryable
-#> [1] "true"
-# show the different picklist values for the Account Type field
-all_fields <- describe_obj_result[[1]][names(describe_obj_result[[1]]) == "fields"]
-the_type_field_idx <- which(sapply(all_fields, FUN=function(x){x$label}) == "Account Type")
-acct_type_field <- all_fields[[the_type_field_idx]]
-map_df(acct_type_field[which(names(acct_type_field) == "picklistValues")], as_tibble)
-#> # A tibble: 7 x 4
-#>   active defaultValue label                      value                     
-#>   <chr>  <chr>        <chr>                      <chr>                     
-#> 1 true   false        Prospect                   Prospect                  
-#> 2 true   false        Customer - Direct          Customer - Direct         
-#> 3 true   false        Customer - Channel         Customer - Channel        
-#> 4 true   false        Channel Partner / Reseller Channel Partner / Reseller
-#> 5 true   false        Installation Partner       Installation Partner      
-#> 6 true   false        Technology Partner         Technology Partner        
-#> 7 true   false        Other                      Other
-```
-
-It is recommended that you try out the various metadata functions
-`sf_read_metadata()`, `sf_list_metadata()`, `sf_describe_metadata()`,
-and `sf_describe_objects()` in order to see which information best suits
-your use case.
-
-Where the Metadata API really shines is when it comes to CRUD operations
-on metadata. In this example we will create an object, add fields to it,
-then delete that object.
-
-``` r
-# create an object
-base_obj_name <- "Custom_Account1"
-custom_object <- list()
-custom_object$fullName <- paste0(base_obj_name, "__c")
-custom_object$label <- paste0(gsub("_", " ", base_obj_name))
-custom_object$pluralLabel <- paste0(base_obj_name, "s")
-custom_object$nameField <- list(displayFormat = 'AN-{0000}', 
-                                label = paste0(base_obj_name, ' Number'), 
-                                type = 'AutoNumber')
-custom_object$deploymentStatus <- 'Deployed'
-custom_object$sharingModel <- 'ReadWrite'
-custom_object$enableActivities <- 'true'
-custom_object$description <- paste0(base_obj_name, " created by the Metadata API")
-custom_object_result <- sf_create_metadata(metadata_type = 'CustomObject',
-                                           metadata = custom_object)
-
-# add fields to the object
-custom_fields <- tibble(fullName=c(paste0(base_obj_name, '__c.CustomField3__c'), 
-                                   paste0(base_obj_name, '__c.CustomField4__c')), 
-                        label=c('Test Field3', 'Test Field4'), 
-                        length=c(100, 100), 
-                        type=c('Text', 'Text'))
-create_fields_result <- sf_create_metadata(metadata_type = 'CustomField', 
-                                           metadata = custom_fields)
-
-# delete the object
-deleted_custom_object_result <- sf_delete_metadata(metadata_type = 'CustomObject', 
-                                                   object_names = c('Custom_Account1__c'))
-```
-
-Note that newly created custom fields are not editable by default,
-meaning that you will not be able to insert records into them until
-updating the field level security of your user profile. Run the
-following code to determine the user profiles in your org and updating
-the field permissions on an object that you may have created with the
-example code above.
-
-``` r
-# get list of user proviles in order to get the "fullName" parameter correct in the next call
-my_queries <- list(list(type='Profile'))
-profiles_list <- sf_list_metadata(queries=my_queries)
-
-# update the field level security to "editable" for your fields
-prof_update <- sf_update_metadata(metadata_type='Profile', 
-                                  metadata=list(fullName='Admin', 
-                                                fieldPermissions=list(field=paste0(custom_object$fullName, '.CustomField3__c'),
-                                                                      editable='true'), 
-                                                fieldPermissions=list(field=paste0(custom_object$fullName, '.CustomField4__c'),
-                                                                      editable='true')))
-
-# now try inserting values into that custom object's fields
-my_new_data = tibble(CustomField3__c = "Hello World", CustomField4__c = "Hello World")
-added_record <- sf_create(my_new_data, object_name = custom_object$fullName)
 ```
 
 ## Future
@@ -478,10 +389,10 @@ on the `pkgdown` site at
 [Get supported salesforcer with the Tidelift
 Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
 
-[Top](#salesforcer)
-
 -----
 
 Please note that this project is released with a [Contributor Code of
 Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/CONDUCT.md).
 By participating in this project you agree to abide by its terms.
+
+[Top](#salesforcer)
