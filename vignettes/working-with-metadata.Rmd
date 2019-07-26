@@ -98,7 +98,7 @@ all_fields <- describe_obj_result[[1]][names(describe_obj_result[[1]]) == "field
 
 acct_type_field_idx <- which(sapply(all_fields, 
                                     FUN=function(x){x$label}) == "Account Type")
-acct_type_field <- all_fields[[the_type_field_idx]]
+acct_type_field <- all_fields[[acct_type_field_idx]]
 acct_type_field[which(names(acct_type_field) == "picklistValues")] %>% 
   map_df(as_tibble)
 ```
