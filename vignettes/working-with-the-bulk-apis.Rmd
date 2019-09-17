@@ -89,7 +89,7 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        My_External_Id__c=paste0(prefix, letters[1:n]))
 ```
 
-```{r}
+```{r, eval=FALSE}
 # add api_type="Bulk 1.0" or api_type="Bulk 2.0" to CRUD and Query calls to use Bulk APIs
 object <- "Contact"
 created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 1.0")
