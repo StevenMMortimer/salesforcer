@@ -35,7 +35,8 @@ Imports:
     lubridate, 
     base64enc, 
     mime, 
-    curl
+    curl, 
+    zip
 Suggests:
     knitr,
     testthat,

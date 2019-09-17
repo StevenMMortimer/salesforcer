@@ -184,6 +184,8 @@ sf_create_attachment_soap <- function(input_data,
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom mime guess_type
 #' @importFrom curl form_data form_file
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
 sf_create_attachment_rest <- function(input_data, 
                                       object_name = "Attachment",
                                       control, ..., 

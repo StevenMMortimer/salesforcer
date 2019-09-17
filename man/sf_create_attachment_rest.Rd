@@ -10,3 +10,7 @@ sf_create_attachment_rest(input_data, object_name = "Attachment",
 \description{
 Create Attachment using REST API
 }
+\note{
+This function is meant to be used internally. Only use when debugging.
+}
+\keyword{internal}

@@ -567,7 +567,9 @@ sf_create_batches_bulk <- function(job_id,
   
 #' @importFrom utils head
 #' @importFrom stats quantile
-#' @importFrom tools file_path_sans_ext
+#' @importFrom purrr transpose
+#' @importFrom XML saveXML xmlDoc
+#' @importFrom zip zipr
 sf_create_batches_bulk_v1 <- function(job_id, 
                                       input_data,
                                       verbose = FALSE){
