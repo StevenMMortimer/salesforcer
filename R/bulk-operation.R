@@ -867,8 +867,8 @@ sf_job_batches_bulk <- function(job_id,
 #' job_info <- sf_create_job_bulk(operation = "query", object = "Account")
 #' soql <- "SELECT Id, Name FROM Account LIMIT 10"
 #' batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = soql)
-#' batch_status <- sf_batch_status_bulk(job_id=batch_query_info$jobId,
-#'                                      batch_id=batch_query_info$id)
+#' batch_status <- sf_batch_status_bulk(job_id = batch_query_info$jobId,
+#'                                      batch_id = batch_query_info$id)
 #' job_close_ind <- sf_close_job_bulk(job_info$id)
 #' sf_get_job_bulk(job_info$id)                               
 #' }
@@ -890,7 +890,7 @@ sf_batch_status_bulk <- function(job_id, batch_id,
     response_parsed <- content(httr_response, as='parsed', type="text/xml", encoding="UTF-8")
     resultset <- response_parsed %>%
       xml_ns_strip() %>%
-      xml_find_all('.//batchInfo') %>%
+      xml_find_all('//batchInfo') %>%
       map_df(xml_nodeset_to_df) %>%
       type_convert(col_types = cols())
   } else if(grepl('json', content_type)){
