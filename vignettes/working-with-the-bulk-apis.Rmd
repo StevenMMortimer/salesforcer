@@ -180,7 +180,7 @@ to transfer all of the field information back after the query and have not found
 a significant performance improvement between the Bulk 1.0 and Bulk 2.0. 
 
 **Bulk 2.0**
-```{r}
+```{r, eval=FALSE}
 created_records_v2 <- sf_create(new_contacts, "Contact", api_type="Bulk 2.0")
 ```
 
@@ -191,12 +191,12 @@ this example was not enough to create separate batches to process asynchronously
 Finally, note that the field names are different from the Bulk 1.0 API, this is 
 the Salesforcer convention for the Bulk 2.0 API.
 
-```{r, include=FALSE}
+```{r, eval=FALSE, include=FALSE}
 created_records_v2 <- created_records_v2 %>% 
   select(-My_External_Id__c)
 ```
 
-```{r}
+```{r, eval=FALSE}
 created_records_v2
 ```
 
@@ -206,7 +206,7 @@ matches the order of the original dataset I put into the process. All of this
 does not matter when deleting records, so if you want minor performance improvements 
 then switch to the Bulk 2.0 when deleting records.
 
-```{r}
+```{r, eval=FALSE}
 sf_delete(c(created_records_v1$Id, created_records_v2$sf__Id), 
           object_name = "Contact", api_type="Bulk 2.0")
 ```
