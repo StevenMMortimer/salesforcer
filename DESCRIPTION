@@ -32,7 +32,10 @@ Imports:
     data.table (>= 1.12.0),
     jsonlite,
     purrr,
-    lubridate
+    lubridate, 
+    base64enc, 
+    mime, 
+    curl
 Suggests:
     knitr,
     testthat,
