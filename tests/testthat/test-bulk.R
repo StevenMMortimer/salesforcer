@@ -197,6 +197,15 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_equal(names(attachment_records_xml), c("id", "success", "created"))
   expect_equal(nrow(attachment_records_xml), 1)
   
+  # clean up by deleting attachments
+  ids_to_delete <- c(attachment_records_csv$Id, attachment_records_json$id, attachment_records_xml$id)
+  deleted_records <- sf_delete(ids_to_delete, object_name="Attachment", api_type = "Bulk 1.0")
+  expect_is(deleted_records, "tbl_df")
+  expect_named(deleted_records, c("Id", "Success", "Created", "Error"))
+  expect_equal(nrow(deleted_records), length(ids_to_delete))
+  expect_true(all(is.na(deleted_records$Error)))
+  expect_true(all(!deleted_records$Created))
+  
   # sf_delete ------------------------------------------------------------------
   ids_to_delete <- unique(c(upserted_records$sf__Id, queried_records$Id)) 
   deleted_records <- sf_delete(ids_to_delete, object_name="Contact", api_type = "Bulk 2.0")
@@ -205,15 +214,6 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_equal(nrow(deleted_records), length(ids_to_delete))
   expect_true(all(is.na(deleted_records$sf__Error)))
   expect_true(all(!deleted_records$sf__Created))
-  
-  # clean up by deleting attachment as well
-  ids_to_delete <- c(attachment_records_csv$Id, attachment_records_json$id, attachment_records_xml$id)
-  deleted_records <- sf_delete(ids_to_delete, object_name="Attachment", api_type = "Bulk 1.0")
-  expect_is(deleted_records, "tbl_df")
-  expect_named(deleted_records, c("Id", "Success", "Created", "Error"))
-  expect_equal(nrow(deleted_records), length(ids_to_delete))
-  expect_true(all(is.na(deleted_records$Error)))
-  expect_true(all(!deleted_records$Created))
   
   # sf_get_all_jobs_bulk -------------------------------------------------------
   # the other bulk functions are tested within the other functions (e.g. sf_get_job_bulk)
