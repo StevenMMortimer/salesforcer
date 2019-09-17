@@ -75,7 +75,7 @@ test_that("testing REST API Functionality", {
   
   # sf_create_attachment -------------------------------------------------------
   attachment_details <- tibble(Name = c("salesforcer Logo"),
-                               Body = c("man/figures/salesforcer.png"),
+                               Body = c("../../man/figures/salesforcer.png"),
                                ContentType = c("image/png"),
                                ParentId = "0016A0000035mJ5") #upserted_records$id[1])
   attachment_records <- sf_create_attachment(attachment_details, api_type="REST")
