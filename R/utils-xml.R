@@ -318,6 +318,9 @@ build_soap_xml_from_list <- function(input_data,
 #' definitions of the root node if created
 #' @param root \code{XMLNode}; a node to be used as the root
 #' @return A XML document with the sublist data added
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
 build_metadata_xml_from_list <- function(input_data,
                                          metatype = NULL, 
                                          root_name = NULL, 
@@ -342,6 +345,37 @@ build_metadata_xml_from_list <- function(input_data,
     }
     if (typeof(input_data[[i]]) == "list"){
       build_metadata_xml_from_list(input_data=input_data[[i]], root=this, metatype=NULL)
+    }
+    else {
+      xmlValue(this) <- input_data[[i]]
+    }
+  }
+  return(root)
+}
+
+#' Bulk Binary Attachments Manifest List to XML Converter
+#' 
+#' This function converts a list of data for binary attachments to XML
+#'
+#' @importFrom XML newXMLNode xmlValue<-
+#' @param input_data \code{list}; data to be appended
+#' @param root \code{XMLNode}; a node to be used as the root
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_create_request_file.htm}
+#' @return A XML document with the sublist manifest data added
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+build_manifest_xml_from_list <- function(input_data, root = NULL){
+  stopifnot(is.list(input_data))
+  if(is.null(root))
+    root <- newXMLNode("sObjects", 
+                       namespaceDefinitions = c("http://www.force.com/2009/06/asyncapi/dataload", 
+                                                "xsi"="http://www.w3.org/2001/XMLSchema-instance"))
+
+  for(i in 1:length(input_data)){
+    this <- newXMLNode(names(input_data)[i], parent = root, suppressNamespaceWarning = TRUE)
+    if (typeof(input_data[[i]]) == "list"){
+      build_manifest_xml_from_list(input_data=input_data[[i]], root=this)
     }
     else {
       xmlValue(this) <- input_data[[i]]

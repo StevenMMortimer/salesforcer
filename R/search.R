@@ -130,7 +130,7 @@ sf_search <- function(search_string,
   } else if(which_api == "Bulk 2.0"){
     stop("SOSL is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
   } else {
-    stop("Unknown API type")
+    stop("Unknown API type.")
   }
   if(nrow(resultset) > 0){
     resultset <- resultset %>% 

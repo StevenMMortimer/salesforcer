@@ -25,4 +25,8 @@ A XML document with the sublist data added
 \description{
 This function converts a list of metadata to XML
 }
+\note{
+This function is meant to be used internally. Only use when debugging.
+}
 \concept{metadata salesforce api}
+\keyword{internal}

@@ -75,7 +75,7 @@ sf_delete <- function(ids,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else {
-    stop("Unknown API type")
+    stop("Unknown API type.")
   }
   return(resultset)
 }

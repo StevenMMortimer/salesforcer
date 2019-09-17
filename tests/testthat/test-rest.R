@@ -72,10 +72,26 @@ test_that("testing REST API Functionality", {
   expect_equal(names(upserted_records), c("id", "success", "errors", "created"))
   expect_equal(nrow(upserted_records), nrow(upserted_records))
   
+  
+  # sf_create_attachment -------------------------------------------------------
+  attachment_details <- tibble(Name = c("salesforcer Logo"),
+                               Body = c("man/figures/salesforcer.png"),
+                               ContentType = c("image/png"),
+                               ParentId = "0016A0000035mJ5") #upserted_records$id[1])
+  attachment_records <- sf_create_attachment(attachment_details, api_type="REST")
+  expect_is(attachment_records, "tbl_df")
+  expect_equal(names(attachment_records), c("id", "success", "errors"))
+  expect_equal(nrow(attachment_records), 1)  
+  
+  # sf_update_attachment -------------------------------------------------------
+  
   # sf_delete ------------------------------------------------------------------
   ids_to_delete <- unique(c(upserted_records$id[!is.na(upserted_records$id)], queried_records$Id))
   deleted_records <- sf_delete(ids_to_delete, api_type = "REST")
   expect_is(deleted_records, "tbl_df")
   expect_equal(names(deleted_records), c("id", "success", "errors"))
   expect_equal(nrow(deleted_records), length(ids_to_delete))
+  
+  # clean up by deleting attachment as well
+  deleted_records <- sf_delete(attachment_records$id, api_type = "REST")
 })

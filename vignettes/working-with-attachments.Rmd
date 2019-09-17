@@ -1,0 +1,62 @@
+---
+title: "Working with Attachments"
+author: "Steven M. Mortimer"
+date: "2019-07-26"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Working with Attachments}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+```
+
+### Creating an Attachment (Uploading it)
+
+Almost all records in Salesforce support attachments. Attachments are just blob data 
+storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id 
+of the record that the attachment belongs to. To get started creating and updating 
+attachments, first, load the **salesforcer**, **dplyr**, and **purrr** packages 
+and login, if needed.
+
+```{r auth, include = FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+library(salesforcer)
+token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
+suppressMessages(sf_auth(token = token_path, verbose = FALSE))
+```
+
+```{r load-package, eval=FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(purrr)))
+library(salesforcer)
+sf_auth()
+```
+
+The attachment metadata like the attachment's Id, ParentId, Name, modified timestamp 
+and other attributes are kept in the Attachment object, a Standard Object in Salesforce.
+
+### Creating Attachments
+
+ - Simple example (SOAP and REST)
+ - Url based attachment bodies
+ - Bulk API example
+
+### Extending to Documents and Other Blob Data
+
+The commands we have shown above work for uploading documents and other blob data as well. 
+Documents are just like Attachments in Salesforce except instead of having an 
+associated ParentId they have an associated FolderId where the blob will be associated 
+with upon creation.

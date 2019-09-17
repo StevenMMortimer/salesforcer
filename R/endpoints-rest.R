@@ -98,12 +98,12 @@ make_search_url <- function(search_string){
          url_escape(search_string, reserved = "{}"))
 }
 
-#' Describe Objects URL Generator
+#' REST Objects URL Generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-make_describe_objects_url <- function(object){
+make_rest_objects_url <- function(object){
   paste0(make_base_rest_url(), "sobjects/", object, "/")
 }
 

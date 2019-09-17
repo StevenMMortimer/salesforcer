@@ -79,7 +79,7 @@ sf_create <- function(input_data,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else {
-    stop("Unknown API type")
+    stop("Unknown API type.")
   }
   return(resultset)
 }

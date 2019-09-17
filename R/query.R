@@ -83,7 +83,7 @@ sf_query <- function(soql,
                                control = control_args,
                                verbose = verbose, ...)
   } else {
-    stop("Unknown API type")
+    stop("Unsupported API type. Set api_type equal to 'REST', 'SOAP', or 'Bulk 1.0'.")
   }
   return(resultset)
 }

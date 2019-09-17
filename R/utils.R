@@ -78,12 +78,10 @@ sf_input_data_validation <- function(input_data, operation=''){
   # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm
 
   if(operation == "convertLead"){
-    
     leadid_col <- grepl("^LEADIDS$|^LEAD_IDS$|^ID$|^IDS$", names(input_data), ignore.case=TRUE)
     if(any(leadid_col)){
       names(input_data)[leadid_col] <- "leadId"
     }
-    
     input_col_names <- names(input_data)
     ignoring <- character(0)
     # convert camelcase if matching
@@ -146,8 +144,8 @@ sf_input_data_validation <- function(input_data, operation=''){
     if(operation %in% c("describeSObjects") & ncol(input_data) == 1){
       names(input_data) <- "sObjectType"
     }
-    if(operation %in% c("delete", "undelete", "emptyRecycleBin", 
-                        "retrieve", "findDuplicatesByIds") & ncol(input_data) == 1){
+    if(operation %in% c("delete", "undelete", "emptyRecycleBin", "retrieve", 
+                        "findDuplicatesByIds") & ncol(input_data) == 1){
       names(input_data) <- "Id"
     }
     if(operation %in% c("delete", "undelete", "emptyRecycleBin", 
@@ -158,34 +156,37 @@ sf_input_data_validation <- function(input_data, operation=''){
       }
       stopifnot("Id" %in% names(input_data))
     }
+    if(operation %in% c("create_attachment", "insert_attachment", "update_attachment")){
+      # Name, Body, ParentId is required
+      missing_cols <- setdiff(c("Name", "Body", "ParentId"), names(input_data))
+      if(length(missing_cols) > 0){
+        stop(sprintf("The following columns are required but missing from the input: %s", 
+                     paste0(missing_cols, collapse = ",")))
+      } 
+      # TODO: Determine if we should drop unidentified columns. Currently, allow through
+      # # Warn that you can only insert the Name, Body, Description, ParentId, IsPrivate, and OwnerId
+      # not_allowed_cols <- setdiff(names(input_data), c("Name", "Body", "Description, "ParentId", "IsPrivate", "OwnerId"))
+      # if(length(not_allowed_cols) > 0){
+      #   warning(sprintf("The following columns are not allowed and will be dropped: %s", 
+      #                   paste0(not_allowed_cols, collapse = ",")))
+      #   input_data <- input_data[, names(input_data) != not_allowed_cols, drop=FALSE]
+      # }
+    }
+    if(operation %in% c("create_document", "insert_document", "update_document")){
+      # Name, FolderId is required and Body or Url
+      if("Body" %in% names(input_data) & "Url" %in% names(input_data)){
+        stop(paste("Both a 'Body' column and a 'Url' column were given.", 
+                   "Specify one or the other, but not both."))
+      }
+      missing_cols <- setdiff(c("Name", "FolderId"), names(input_data))
+      missing_cols <- c(missing_cols, setdiff(c("Body", "Url"), names(input_data)))
+      if(length(missing_cols) > 0){
+        stop(sprintf("The following columns are required but missing from the input: %s", 
+                     paste0(missing_cols, collapse = ",")))
+      }
+    }
   }
-  
   return(input_data)
-}
-
-#' Download an Attachment
-#' 
-#' This function will allow you to download an attachment to disk based on the 
-#' attachment body, file name, and path.
-#' 
-#' @importFrom httr content
-#' @param body character; a URL path to the body of the attachment in Salesforce, typically 
-#' retrieved via query on the Attachment object
-#' @param name character; the name of the file you would like to save the content to
-#' @param path character; a directory path where to create file, defaults to the current directory.
-#' @examples 
-#' \dontrun{
-#' queried_attachments <- sf_query("SELECT Body, Name 
-#'                                  FROM Attachment 
-#'                                  WHERE ParentId = '0016A0000035mJ5'")
-#' mapply(sf_download_attachment, queried_attachments$Body, queried_attachments$Name)
-#' }
-#' @export 
-sf_download_attachment <- function(body, name, path = "."){
-  resp <- rGET(sprintf("%s%s", salesforcer_state()$instance_url, body))
-  f <- file.path(path, name)
-  writeBin(content(resp, "raw"), f)
-  return(invisible(file.exists(f)))
 }
 
 #' Remove NA Columns Created by Empty Related Entity Values

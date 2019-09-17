@@ -42,7 +42,7 @@ sf_describe_objects <- function(object_names,
   if(which_api == "REST"){
     resultset <- list()
     for(i in 1:nrow(object_names)){
-      describe_object_url <- make_describe_objects_url(object_names[i,"sObjectType"])
+      describe_object_url <- make_rest_objects_url(object_names[i,"sObjectType"])
       httr_response <- rGET(url = describe_object_url)
       if(verbose){
         make_verbose_httr_message(httr_response$request$method,
@@ -89,7 +89,7 @@ sf_describe_objects <- function(object_names,
         })
     ))
   } else {
-    stop("Unknown API type")
+    stop("Unsupported API type. Set api_type equal to 'REST' or 'SOAP'.")
   }
   return(resultset)
 }
