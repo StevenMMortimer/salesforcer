@@ -74,9 +74,10 @@ test_that("testing SOAP API Functionality", {
   
   # sf_create_attachment -------------------------------------------------------
   attachment_details <- tibble(Name = c("salesforcer Logo"),
-                               Body = c("../../man/figures/salesforcer.png"),
+                               Body = system.file("help/figures", "salesforcer.png", 
+                                                  package="salesforcer"),
                                ContentType = c("image/png"),
-                               ParentId = "0016A0000035mJ5") #upserted_records$id[1])
+                               ParentId = upserted_records$id[1]) #"0016A0000035mJ5"
   attachment_records <- sf_create_attachment(attachment_details, api_type="SOAP")
   expect_is(attachment_records, "tbl_df")
   expect_equal(names(attachment_records), c("id", "success"))

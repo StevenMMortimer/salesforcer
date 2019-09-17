@@ -89,7 +89,7 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        My_External_Id__c=paste0(prefix, letters[1:n]))
 ```
 
-```{r, eval=FALSE}
+```{r}
 # add api_type="Bulk 1.0" or api_type="Bulk 2.0" to CRUD and Query calls to use Bulk APIs
 object <- "Contact"
 created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 1.0")
@@ -169,7 +169,7 @@ queried_records <- queried_records %>%
   arrange(test_number__c)
 
 # same ordering of rows!
-cbind(created_records_v1, queried_records)
+cbind(created_records_v1 %>% select(Id), queried_records)
 ```
 
 The Bulk 2.0 API returns every single field that was included in the call so if you 
@@ -180,7 +180,17 @@ to transfer all of the field information back after the query and have not found
 a significant performance improvement between the Bulk 1.0 and Bulk 2.0. 
 
 **Bulk 2.0**
-```{r, eval=FALSE}
+
+```{r, include=FALSE}
+n <- 10
+prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact-Create-", 1:n),
+                       test_number__c = 1:10,
+                       My_External_Id__c=paste0(prefix, letters[1:n]))
+```
+
+```{r}
 created_records_v2 <- sf_create(new_contacts, "Contact", api_type="Bulk 2.0")
 ```
 
@@ -191,12 +201,12 @@ this example was not enough to create separate batches to process asynchronously
 Finally, note that the field names are different from the Bulk 1.0 API, this is 
 the Salesforcer convention for the Bulk 2.0 API.
 
-```{r, eval=FALSE, include=FALSE}
+```{r, include=FALSE}
 created_records_v2 <- created_records_v2 %>% 
   select(-My_External_Id__c)
 ```
 
-```{r, eval=FALSE}
+```{r}
 created_records_v2
 ```
 
@@ -206,7 +216,7 @@ matches the order of the original dataset I put into the process. All of this
 does not matter when deleting records, so if you want minor performance improvements 
 then switch to the Bulk 2.0 when deleting records.
 
-```{r, eval=FALSE}
+```{r}
 sf_delete(c(created_records_v1$Id, created_records_v2$sf__Id), 
           object_name = "Contact", api_type="Bulk 2.0")
 ```
