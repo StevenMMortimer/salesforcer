@@ -104,6 +104,9 @@ which has already been submitted to Bulk API Job" />
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
+      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+    </li>
+    <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
     </li>
     <li>
@@ -213,8 +216,8 @@ batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bul
 <span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(<span class='kw'>operation</span> <span class='kw'>=</span> <span class='st'>"query"</span>, <span class='kw'>object</span> <span class='kw'>=</span> <span class='st'>"Account"</span>)
 <span class='no'>soql</span> <span class='kw'>&lt;-</span> <span class='st'>"SELECT Id, Name FROM Account LIMIT 10"</span>
 <span class='no'>batch_query_info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_submit_query_bulk.html'>sf_submit_query_bulk</a></span>(<span class='kw'>job_id</span> <span class='kw'>=</span> <span class='no'>job_info</span>$<span class='no'>id</span>, <span class='kw'>soql</span> <span class='kw'>=</span> <span class='no'>soql</span>)
-<span class='no'>batch_status</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_batch_status_bulk</span>(<span class='kw'>job_id</span><span class='kw'>=</span><span class='no'>batch_query_info</span>$<span class='no'>jobId</span>,
-                                     <span class='kw'>batch_id</span><span class='kw'>=</span><span class='no'>batch_query_info</span>$<span class='no'>id</span>)
+<span class='no'>batch_status</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_batch_status_bulk</span>(<span class='kw'>job_id</span> <span class='kw'>=</span> <span class='no'>batch_query_info</span>$<span class='no'>jobId</span>,
+                                     <span class='kw'>batch_id</span> <span class='kw'>=</span> <span class='no'>batch_query_info</span>$<span class='no'>id</span>)
 <span class='no'>job_close_ind</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_close_job_bulk.html'>sf_close_job_bulk</a></span>(<span class='no'>job_info</span>$<span class='no'>id</span>)
 <span class='fu'><a href='sf_get_job_bulk.html'>sf_get_job_bulk</a></span>(<span class='no'>job_info</span>$<span class='no'>id</span>)
 <span class='co'># }</span></pre>

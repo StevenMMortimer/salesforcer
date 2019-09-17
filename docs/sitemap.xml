@@ -13,6 +13,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_operation.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_manifest_xml_from_list.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_metadata_xml_from_list.html</loc>
   </url>
   <url>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/catch_errors.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/check_and_encode_files.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/collapse_list_with_dupe_names.html</loc>
@@ -88,9 +94,6 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_composite_url.html</loc>
   </url>
   <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_describe_objects_url.html</loc>
-  </url>
-  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_login_url.html</loc>
   </url>
   <url>
@@ -98,6 +101,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_query_url.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_objects_url.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_search_url.html</loc>
@@ -218,6 +224,18 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_bulk_v1.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_rest.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_soap.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_batches_bulk.html</loc>
@@ -428,6 +446,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html</loc>

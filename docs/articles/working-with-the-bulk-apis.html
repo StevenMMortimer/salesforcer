@@ -61,6 +61,9 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
+      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+    </li>
+    <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
     </li>
     <li>
@@ -132,44 +135,41 @@
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(salesforcer)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</span></code></pre></div>
 <p>For really large inserts, updates, deletes, upserts, queries you can just add <code>api_type = "Bulk 1.0"</code> to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. The change you have to make from using the REST API to the Bulk 1.0 API is just updating one function argument as seen here:</p>
+<p>First, create two new records to be created.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>n &lt;-<span class="st"> </span><span class="dv">2</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb2-3"><a href="#cb2-3"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># REST</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>rest_created_records</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># Bulk</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a>bulk_created_records</span></code></pre></div>
-<p>There are some differences in the way the REST API returns response information vs.  the Bulk 1.0 API; however, the impact in Salesforce is exactly the same for these two calls.</p>
+<span id="cb2-3"><a href="#cb2-3"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</span></code></pre></div>
+<p>There are some differences in the way the REST API returns response information vs.  the Bulk 1.0 API; however, the changes in Salesforce are exactly the same for these two calls.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># REST</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>rest_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"REST"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>rest_created_records</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Bulk</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>bulk_created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span><span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>bulk_created_records</span></code></pre></div>
 </div>
 <div id="a-complete-bulk-api-workflow" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-complete-bulk-api-workflow" class="anchor"></a>A Complete Bulk API Workflow</h3>
 <p>To show a more detailed example of using the Bulk 1.0 API, below is a workflow of that creates 2 records, queries them, and deletes them. This is just an example. Typically, you’d want to use the Bulk APIs over the REST or SOAP APIs when dealing with over 10,000 records.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># just add api_type="Bulk 1.0" or api_type="Bulk 2.0" to CRUD and Query calls</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># create bulk</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>object &lt;-<span class="st"> "Contact"</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>n &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb3-6"><a href="#cb3-6"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</span>
-<span id="cb3-7"><a href="#cb3-7"></a>created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>created_records</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># query bulk</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>my_soql &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"SELECT Id,</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="st">                           FirstName, </span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="st">                           LastName</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="st">                    FROM Contact </span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="st">                    WHERE Id in ('%s')"</span>, </span>
-<span id="cb3-16"><a href="#cb3-16"></a>                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))</span>
-<span id="cb3-17"><a href="#cb3-17"></a></span>
-<span id="cb3-18"><a href="#cb3-18"></a>queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
-<span id="cb3-19"><a href="#cb3-19"></a>queried_records</span>
-<span id="cb3-20"><a href="#cb3-20"></a></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co"># delete bulk</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a>deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
-<span id="cb3-23"><a href="#cb3-23"></a>deleted_records</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># add api_type="Bulk 1.0" or api_type="Bulk 2.0" to CRUD and Query calls to use Bulk APIs</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>object &lt;-<span class="st"> "Contact"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>created_records</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># query bulk</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>my_soql &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"SELECT Id,</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">                           FirstName, </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="st">                           LastName</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">                    FROM Contact </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">                    WHERE Id in ('%s')"</span>, </span>
+<span id="cb4-12"><a href="#cb4-12"></a>                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(created_records<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a>queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15"></a>queried_records</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co"># delete bulk</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(queried_records<span class="op">$</span>Id, <span class="dt">object_name=</span>object, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a>deleted_records</span></code></pre></div>
 </div>
 <div id="query-limitations" class="section level3">
 <h3 class="hasAnchor">
@@ -190,45 +190,35 @@
 <div id="using-the-bulk-2-0-api" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-the-bulk-2-0-api" class="anchor"></a>Using the Bulk 2.0 API</h3>
-<p>The <strong>salesforcer</strong> package also implements the Bulk 2.0 API which has better speed than the Bulk 1.0 API but sacrifices consistency in the ordering of the result records since they are batched and processed asynchronously. In the example below we show you how the returned results are ordered when we create 10 records using the Bulk 1.0 API. After the data is split into batches each batch is processed synchronously which preserves the order of the rows in the returned output.</p>
+<p>The <strong>salesforcer</strong> package also implements the Bulk 2.0 API which has better speed than the Bulk 1.0 API but sacrifices consistency in the ordering of the result records since they are batched and processed asynchronously. In the example below we first create 10 records and then show you how the returned results are ordered when we process them using the Bulk 1.0 API. After the data is split into batches each batch is processed synchronously which preserves the order of the rows in the returned output.</p>
 <p><strong>Bulk 1.0</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>object &lt;-<span class="st"> "Contact"</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>n &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb4-4"><a href="#cb4-4"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Bulk 1.0"</span>, n), </span>
-<span id="cb4-5"><a href="#cb4-5"></a>                       <span class="dt">test_number__c =</span> <span class="dv">1</span><span class="op">:</span>n)</span>
-<span id="cb4-6"><a href="#cb4-6"></a>created_records_v1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co"># query the records so we can compare the ordering of the Id field to the </span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co"># original dataset</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>my_soql &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"SELECT Id,</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">                           test_number__c</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="st">                    FROM Contact </span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="st">                    WHERE Id in ('%s')"</span>, </span>
-<span id="cb4-14"><a href="#cb4-14"></a>                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(created_records_v1<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))</span>
-<span id="cb4-15"><a href="#cb4-15"></a>queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)</span>
-<span id="cb4-16"><a href="#cb4-16"></a>queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(test_number__c)</span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co"># same ordering of rows!</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(created_records_v1, queried_records)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>n &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
+<span id="cb5-3"><a href="#cb5-3"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n), </span>
+<span id="cb5-4"><a href="#cb5-4"></a>                       <span class="dt">test_number__c =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>created_records_v1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 1.0"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># query the records so we can compare the ordering of the Id field to the </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># original dataset</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>my_soql &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"SELECT Id,</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">                           test_number__c</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">                    FROM Contact </span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">                    WHERE Id in ('%s')"</span>, </span>
+<span id="cb6-9"><a href="#cb6-9"></a>                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(created_records_v1<span class="op">$</span>Id , <span class="dt">collapse=</span><span class="st">"','"</span>))</span>
+<span id="cb6-10"><a href="#cb6-10"></a>queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(test_number__c)</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co"># same ordering of rows!</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(created_records_v1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(Id), queried_records)</span></code></pre></div>
 <p>The Bulk 2.0 API returns every single field that was included in the call so if you have an identifying key your dataset, then it should not be a problem to join on that key with your original data to bring in the newly assigned Salesforce Id that is generated when the record is created in Salesforce. However, I have find it wasteful to transfer all of the field information back after the query and have not found a significant performance improvement between the Bulk 1.0 and Bulk 2.0.</p>
 <p><strong>Bulk 2.0</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>object &lt;-<span class="st"> "Contact"</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>n &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Bulk 1.0"</span>, n), </span>
-<span id="cb5-5"><a href="#cb5-5"></a>                       <span class="dt">test_number__c =</span> <span class="dv">1</span><span class="op">:</span>n)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>created_records_v2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 2.0"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># returns all fields!</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: the ordering is still preserved because the number of records processed in </span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># this example was not enough to create separate batches to process asynchronously</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co"># Also, note that the field names are different from the Bulk 1.0 API, this is </span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co"># the Salesforcer convention for the Bulk 2.0 API</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>created_records_v2</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>created_records_v2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 2.0"</span>)</span></code></pre></div>
+<p>The result in Bulk 2.0 API returns all fields so that you can still associate the records if the ordering was changed during processing. However, in this simple case the ordering is still preserved because the number of records processed in this example was not enough to create separate batches to process asynchronously. Finally, note that the field names are different from the Bulk 1.0 API, this is the Salesforcer convention for the Bulk 2.0 API.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>created_records_v2</span></code></pre></div>
 <p>For these above I typically prefer using the Bulk 1.0 API when creating or updating records. That way I can be confident in that the order of the records returned from the process matches the order of the original dataset I put into the process. All of this does not matter when deleting records, so if you want minor performance improvements then switch to the Bulk 2.0 when deleting records.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(created_records_v1<span class="op">$</span>Id, created_records_v2<span class="op">$</span>sf__Id), </span>
-<span id="cb6-2"><a href="#cb6-2"></a>          <span class="dt">object_name =</span> <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 2.0"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(created_records_v1<span class="op">$</span>Id, created_records_v2<span class="op">$</span>sf__Id), </span>
+<span id="cb9-2"><a href="#cb9-2"></a>          <span class="dt">object_name =</span> <span class="st">"Contact"</span>, <span class="dt">api_type=</span><span class="st">"Bulk 2.0"</span>)</span></code></pre></div>
 </div>
   </div>
 

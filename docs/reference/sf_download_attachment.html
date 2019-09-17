@@ -104,6 +104,9 @@ attachment body, file name, and path." />
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
+      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+    </li>
+    <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
     </li>
     <li>
@@ -157,7 +160,7 @@ attachment body, file name, and path." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download an Attachment</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/attachments.R'><code>R/attachments.R</code></a></small>
     <div class="hidden name"><code>sf_download_attachment.Rd</code></div>
     </div>
 
@@ -175,8 +178,8 @@ attachment body, file name, and path.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>body</th>
-      <td><p>character; a URL path to the body of the attachment in Salesforce, typically 
-retrieved via query on the Attachment object</p></td>
+      <td><p>character; a URL path to the body of the attachment in Salesforce, 
+typically retrieved via query on the Attachment object</p></td>
     </tr>
     <tr>
       <th>name</th>
@@ -184,7 +187,8 @@ retrieved via query on the Attachment object</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character; a directory path where to create file, defaults to the current directory.</p></td>
+      <td><p>character; a directory path where to create file, defaults to the 
+current directory.</p></td>
     </tr>
     </table>
     

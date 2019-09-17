@@ -5,6 +5,7 @@ articles:
   getting-started: getting-started.html
   passing-control-args: passing-control-args.html
   transitioning-from-RForcecom: transitioning-from-RForcecom.html
+  working-with-attachments: working-with-attachments.html
   working-with-metadata: working-with-metadata.html
   working-with-the-bulk-apis: working-with-the-bulk-apis.html
 urls:

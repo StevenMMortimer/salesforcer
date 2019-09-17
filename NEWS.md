@@ -2,10 +2,12 @@
 
 ### Features
 
+  * Add a Metadata vignette and update the Bulk vignette.
   * Add `sf_convert_lead()` which takes leads and will associate them to the corresponding 
   Accounts, Contacts, and Opportunities as directed in the input along with many other 
   options to send an email to the new owner, block the opportunity creation, and more.
-  * Add a Metadata vignette and update the Bulk vignette 
+  * Add `sf_create_attachment()` along with a vignette that better describes how to 
+  interact with attachments and other blob data.
   
 ### Bug Fixes
 
