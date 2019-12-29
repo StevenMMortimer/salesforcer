@@ -281,6 +281,10 @@ check_and_encode_files <- function(dat, column = "Body", encode = TRUE, n_check 
     # assume that the column was not specified and left as "Body" default but the 
     # data itself contains another column holding the body data, typically a Url
   } else {
+    # stop if the body is a factor
+    if(is.factor(dat[,column])){
+      stop(sprintf("The '%s' column is a factor. Convert all columns to string so paths, URLs, etc. are interpreted correctly.", column))
+    }
     # stop if content at file.path does not exist
     files_exist <- sapply(head(dat[,column], n_check), file.exists)
     if(any(!files_exist)){
