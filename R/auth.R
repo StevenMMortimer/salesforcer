@@ -44,7 +44,9 @@
 #' @param password Salesforce password
 #' @param security_token Salesforce security token. Note: A new security token is 
 #' generated whenever your password is changed.
-#' @param login_url a custom login url; defaults to https://login.salesforce.com
+#' @param login_url a custom login url; defaults to https://login.salesforce.com. If 
+#' needing to log into a sandbox or dev environment then provide its login URL (e.g. 
+#' https://test.salesforce.com)
 #' @param token optional; an actual token object or the path to a valid token
 #'   stored as an \code{.rds} file
 #' @param consumer_key,consumer_secret,callback_url the "Consumer Key","Consumer Secret", 
@@ -65,8 +67,12 @@
 #' # Via brower or refresh of .httr-oauth-salesforcer
 #' sf_auth()
 #' 
+#' # log in to a Sandbox environment
+#' # Via brower or refresh of .httr-oauth-salesforcer
+#' sf_auth(login_url = "https://test.salesforce.com")
+#' 
 #' # Save token and log in using it
-#' saveRDS(.state$token, "token.rds")
+#' saveRDS(salesforcer_state()$token, "token.rds")
 #' sf_auth(token = "token.rds")
 #' }
 #' @export
