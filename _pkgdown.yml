@@ -55,6 +55,7 @@ reference:
     contents:
       - '`sf_create`'
       - '`sf_create_attachment`'
+      - '`sf_download_attachment`'
       - '`sf_retrieve`'
       - '`sf_update`'
       - '`sf_upsert`'
@@ -84,7 +85,6 @@ reference:
       - '`sf_find_duplicates`'
       - '`sf_find_duplicates_by_id`'
       - '`sf_empty_recycle_bin`'
-      - '`sf_download_attachment`'
       - '`sf_get_all_jobs_bulk`'
       - '`sf_user_info`'
       - '`sf_server_timestamp`'
