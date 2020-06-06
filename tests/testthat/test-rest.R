@@ -78,7 +78,7 @@ test_that("testing REST API Functionality", {
                                Body = system.file("help/figures", "salesforcer.png", 
                                                   package="salesforcer"),
                                ContentType = c("image/png"),
-                               ParentId = upserted_records$id[1]) #"0016A0000035mJ5"
+                               ParentId = upserted_records$id[1]) #"0016A0000035mJ5")
   attachment_records <- sf_create_attachment(attachment_details, api_type="REST")
   expect_is(attachment_records, "tbl_df")
   expect_equal(names(attachment_records), c("id", "success", "errors"))
