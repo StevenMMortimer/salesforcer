@@ -19,6 +19,7 @@
 ^Meta$
 ^docs$
 ^man-roxygen$
+^pkgdown$
 ^package.zip$
 ^\.httr-oauth$
 ^\.httr-oauth-salesforcer$
