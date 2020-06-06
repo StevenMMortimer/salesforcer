@@ -19,7 +19,9 @@ sf_auth(username = NULL, password = NULL, security_token = NULL,
 \item{security_token}{Salesforce security token. Note: A new security token is 
 generated whenever your password is changed.}
 
-\item{login_url}{a custom login url; defaults to https://login.salesforce.com}
+\item{login_url}{a custom login url; defaults to https://login.salesforce.com. If 
+needing to log into a sandbox or dev environment then provide its login URL (e.g. 
+https://test.salesforce.com)}
 
 \item{token}{optional; an actual token object or the path to a valid token
 stored as an \code{.rds} file}
@@ -53,8 +55,12 @@ sf_auth(username = "test@gmail.com",
 # Via brower or refresh of .httr-oauth-salesforcer
 sf_auth()
 
+# log in to a Sandbox environment
+# Via brower or refresh of .httr-oauth-salesforcer
+sf_auth(login_url = "https://test.salesforce.com")
+
 # Save token and log in using it
-saveRDS(.state$token, "token.rds")
+saveRDS(salesforcer_state()$token, "token.rds")
 sf_auth(token = "token.rds")
 }
 }

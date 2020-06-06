@@ -54,13 +54,12 @@ of base64–encoded data.
 file_path1 <- here::here("doc1.pdf")
 file_path2 <- here::here("doc2.pdf")
 parent_record_id <- "0033s00000zLbgs"
-attachment_details <- tibble(Name = c("doc1.pdf", "doc2.pdf"),
-                             Body = c(file_path1, file_path2), 
+attachment_details <- tibble(Body = c(file_path1, file_path2), 
                              ParentId = rep(parent_record_id, 2))
 result <- sf_create_attachment(attachment_details)
 
 # the function supports inserting all blob content, just update the 
-# object_name argument to add a PDF as a Document instead of an Attachment
+# object_name argument to add the PDF as a Document instead of an Attachment
 document_details <- tibble(Name = "doc1.pdf", 
                            Description = "Test Document 1", 
                            Body = file_path1,

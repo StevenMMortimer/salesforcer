@@ -145,7 +145,7 @@ mapply(sf_download_attachment,
        queried_attachments$unique_name, 
        queried_attachments$Path)
 ```
-```{r cleanup, include = FALSE}
+```{r cleanup-1, include = FALSE}
 sf_delete(queried_attachments$Id)
 ```
 
@@ -166,7 +166,7 @@ attachment_details <- queried_attachments %>%
 result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
 result
 ```
-```{r cleanup, include = FALSE}
+```{r cleanup-2, include = FALSE}
 for (pid in unique(queried_attachments$ParentId)){
   unlink(here::here(pid), recursive=TRUE) # remove directories...
 }
@@ -192,7 +192,7 @@ document_details <- tibble(Name = "Logo PNG",
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
-```{r cleanup, include = FALSE}
+```{r cleanup-3, include = FALSE}
 sf_delete(result$Id)
 ```
 
@@ -211,7 +211,7 @@ document_details <- tibble(Name = "Data Wrangling Cheatsheet",
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
-```{r cleanup, include = FALSE}
+```{r cleanup-4, include = FALSE}
 sf_delete(result$Id)
 ```
 

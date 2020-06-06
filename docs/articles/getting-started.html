@@ -6,15 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting Started • salesforcer</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Getting Started">
-<meta property="og:description" content="">
+<meta property="og:description" content="salesforcer">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -26,7 +33,7 @@
   gtag('config', 'UA-98603021-2');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -98,7 +105,7 @@
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right" role="search">
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
@@ -112,10 +119,11 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Getting Started</h1>
+      <h1 data-toc-skip>Getting Started</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
             <h4 class="date">2018-03-12</h4>
@@ -128,96 +136,133 @@
     
     
 <p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/warning">suppressWarnings</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/message">suppressMessages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)))</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(salesforcer)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
+<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the <code>salesforcer</code> package. By using the package client, you will <em>NOT</em> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(<span class="dt">salesforcer.consumer_key =</span> <span class="st">"012345678901-99thisisatest99connected33app22key"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(<span class="dt">salesforcer.consumer_secret =</span> <span class="st">"Th1s1sMyConsumerS3cr3t"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw"><a href="../reference/sf_auth.html">sf_auth</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.consumer_key</span> <span class="kw">=</span> <span class="st">"012345678901-99thisisatest99connected33app22key"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.consumer_secret</span> <span class="kw">=</span> <span class="st">"Th1s1sMyConsumerS3cr3t"</span>)
+
+<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>After logging in with <code><a href="../reference/sf_auth.html">sf_auth()</a></code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># pull down information of person logged in</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># it's a simple easy call to get started </span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># and confirm a connection to the APIs</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>user_info &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_user_info.html">sf_user_info</a></span>()</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"Organization Id: %s"</span>, user_info<span class="op">$</span>organizationId)</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"User Id: %s"</span>, user_info<span class="op">$</span>userId)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># pull down information of person logged in</span>
+<span class="co"># it's a simple easy call to get started </span>
+<span class="co"># and confirm a connection to the APIs</span>
+<span class="no">user_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_user_info.html">sf_user_info</a></span>()
+<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"Organization Id: %s"</span>, <span class="no">user_info</span>$<span class="no">organizationId</span>)
+<span class="co">#&gt; [1] "Organization Id: 00D6A0000003dN3UAI"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"User Id: %s"</span>, <span class="no">user_info</span>$<span class="no">userId</span>)
+<span class="co">#&gt; [1] "User Id: 0056A000000MPRjQAO"</span></pre></body></html></div>
 <div id="create" class="section level3">
 <h3 class="hasAnchor">
 <a href="#create" class="anchor"></a>Create</h3>
 <p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>n &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb4-3"><a href="#cb4-3"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n))</span>
-<span id="cb4-4"><a href="#cb4-4"></a>created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>created_records</span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
+                       <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>))
+<span class="no">created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>)
+<span class="no">created_records</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0033s000012M8mSAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M8mTAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#retrieve" class="anchor"></a>Retrieve</h3>
 <p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>retrieved_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="dt">ids=</span>created_records<span class="op">$</span>id, </span>
-<span id="cb5-2"><a href="#cb5-2"></a>                                 <span class="dt">fields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>), </span>
-<span id="cb5-3"><a href="#cb5-3"></a>                                 <span class="dt">object_name=</span><span class="st">"Contact"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>retrieved_records</span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">retrieved_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="kw">ids</span><span class="kw">=</span><span class="no">created_records</span>$<span class="no">id</span>,
+                                 <span class="kw">fields</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>),
+                                 <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
+<span class="co">#&gt; Warning: `select_()` is deprecated as of dplyr 0.7.0.</span>
+<span class="co">#&gt; Please use `select()` instead.</span>
+<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
+<span class="no">retrieved_records</span>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000012M8mSAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M8mTAAS Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
 <p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all <code>NA</code> since we have yet to provide information to link these Contacts with Accounts.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>my_soql &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"SELECT Id, </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">                           Account.Name, </span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">                           FirstName, </span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">                           LastName </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">                    FROM Contact </span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="st">                    WHERE Id in ('%s')"</span>, </span>
-<span id="cb6-7"><a href="#cb6-7"></a>                   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(created_records<span class="op">$</span>id , <span class="dt">collapse=</span><span class="st">"','"</span>))</span>
-<span id="cb6-8"><a href="#cb6-8"></a></span>
-<span id="cb6-9"><a href="#cb6-9"></a>queried_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_query.html">sf_query</a></span>(my_soql)</span>
-<span id="cb6-10"><a href="#cb6-10"></a>queried_records</span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
+                           Account.Name, 
+                           FirstName, 
+                           LastName 
+                    FROM Contact 
+                    WHERE Id in ('%s')"</span>,
+                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">created_records</span>$<span class="no">id</span> , <span class="kw">collapse</span><span class="kw">=</span><span class="st">"','"</span>))
+
+<span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">my_soql</span>)
+<span class="no">queried_records</span>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000012M8mSAAS NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M8mTAAS NA      Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
 <a href="#update" class="anchor"></a>Update</h3>
 <p>After creating records you can update them using <code><a href="../reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Update some of those records</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>queried_records &lt;-<span class="st"> </span>queried_records <span class="op">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">FirstName =</span> <span class="st">"TestTest"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>Account)</span>
-<span id="cb7-5"><a href="#cb7-5"></a></span>
-<span id="cb7-6"><a href="#cb7-6"></a>updated_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_update.html">sf_update</a></span>(queried_records, <span class="dt">object_name=</span><span class="st">"Contact"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7"></a>updated_records</span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Update some of those records</span>
+<span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="no">queried_records</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"TestTest"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">Account</span>)
+
+<span class="no">updated_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_update.html">sf_update</a></span>(<span class="no">queried_records</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
+<span class="no">updated_records</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0033s000012M8mSAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M8mTAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
 <a href="#delete" class="anchor"></a>Delete</h3>
 <p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>deleted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_delete.html">sf_delete</a></span>(updated_records<span class="op">$</span>id)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>deleted_records</span></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">updated_records</span>$<span class="no">id</span>)
+<span class="no">deleted_records</span>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   id                 success errors    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
+<span class="co">#&gt; 1 0033s000012M8mSAAS TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0033s000012M8mTAAS TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
 <a href="#upsert" class="anchor"></a>Upsert</h3>
 <p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at <a href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/" class="uri">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>n &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>new_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb9-3"><a href="#cb9-3"></a>                       <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="dv">1</span><span class="op">:</span>n), </span>
-<span id="cb9-4"><a href="#cb9-4"></a>                       <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])</span>
-<span id="cb9-5"><a href="#cb9-5"></a>created_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_create.html">sf_create</a></span>(new_contacts, <span class="st">"Contact"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6"></a></span>
-<span id="cb9-7"><a href="#cb9-7"></a>upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"Test"</span>, n),</span>
-<span id="cb9-8"><a href="#cb9-8"></a>                            <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Upsert-"</span>, <span class="dv">1</span><span class="op">:</span>n), </span>
-<span id="cb9-9"><a href="#cb9-9"></a>                            <span class="dt">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="op">:</span>n])</span>
-<span id="cb9-10"><a href="#cb9-10"></a>new_record &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">FirstName =</span> <span class="st">"Test"</span>,</span>
-<span id="cb9-11"><a href="#cb9-11"></a>                     <span class="dt">LastName =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"Contact-Upsert-"</span>, n<span class="op">+</span><span class="dv">1</span>), </span>
-<span id="cb9-12"><a href="#cb9-12"></a>                     <span class="dt">My_External_Id__c=</span>letters[n<span class="op">+</span><span class="dv">1</span>])</span>
-<span id="cb9-13"><a href="#cb9-13"></a>upserted_contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(upserted_contacts, new_record)</span>
-<span id="cb9-14"><a href="#cb9-14"></a></span>
-<span id="cb9-15"><a href="#cb9-15"></a>upserted_records &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sf_upsert.html">sf_upsert</a></span>(<span class="dt">input_data=</span>upserted_contacts, </span>
-<span id="cb9-16"><a href="#cb9-16"></a>                              <span class="dt">object_name=</span><span class="st">"Contact"</span>, </span>
-<span id="cb9-17"><a href="#cb9-17"></a>                              <span class="dt">external_id_fieldname=</span><span class="st">"My_External_Id__c"</span>)</span>
-<span id="cb9-18"><a href="#cb9-18"></a>upserted_records</span></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
+                       <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>),
+                       <span class="kw">My_External_Id__c</span><span class="kw">=</span><span class="no">letters</span>[<span class="fl">1</span>:<span class="no">n</span>])
+<span class="no">created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>)
+
+<span class="no">upserted_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
+                            <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Upsert-"</span>, <span class="fl">1</span>:<span class="no">n</span>),
+                            <span class="kw">My_External_Id__c</span><span class="kw">=</span><span class="no">letters</span>[<span class="fl">1</span>:<span class="no">n</span>])
+<span class="no">new_record</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Test"</span>,
+                     <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Upsert-"</span>, <span class="no">n</span>+<span class="fl">1</span>),
+                     <span class="kw">My_External_Id__c</span><span class="kw">=</span><span class="no">letters</span>[<span class="no">n</span>+<span class="fl">1</span>])
+<span class="no">upserted_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">upserted_contacts</span>, <span class="no">new_record</span>)
+
+<span class="no">upserted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_upsert.html">sf_upsert</a></span>(<span class="kw">input_data</span><span class="kw">=</span><span class="no">upserted_contacts</span>,
+                              <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>,
+                              <span class="kw">external_id_fieldname</span><span class="kw">=</span><span class="st">"My_External_Id__c"</span>)
+<span class="no">upserted_records</span>
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   created id                 success</span>
+<span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 FALSE   0033s000012M8mXAAS TRUE   </span>
+<span class="co">#&gt; 2 FALSE   0033s000012M8mYAAS TRUE   </span>
+<span class="co">#&gt; 3 TRUE    0033s000012M8mcAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">
@@ -226,10 +271,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
       </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
@@ -237,8 +283,9 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
 </div>
 
