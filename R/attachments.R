@@ -59,13 +59,12 @@ sf_download_attachment <- function(body, name, path = "."){
 #' file_path1 <- here::here("doc1.pdf")
 #' file_path2 <- here::here("doc2.pdf")
 #' parent_record_id <- "0033s00000zLbgs"
-#' attachment_details <- tibble(Name = c("doc1.pdf", "doc2.pdf"),
-#'                              Body = c(file_path1, file_path2), 
+#' attachment_details <- tibble(Body = c(file_path1, file_path2), 
 #'                              ParentId = rep(parent_record_id, 2))
 #' result <- sf_create_attachment(attachment_details)
 #' 
 #' # the function supports inserting all blob content, just update the 
-#' # object_name argument to add a PDF as a Document instead of an Attachment
+#' # object_name argument to add the PDF as a Document instead of an Attachment
 #' document_details <- tibble(Name = "doc1.pdf", 
 #'                            Description = "Test Document 1", 
 #'                            Body = file_path1,
@@ -301,6 +300,11 @@ check_and_encode_files <- function(dat, column = "Body", encode = TRUE, n_check 
                         n_check, column))
       }
       stop(sprintf("Cannot process until all values in '%s' column are valid file paths.", column))
+    }
+    # in the event that the Name field is missing then, create it using the file's 
+    # basename (includes the extension; for example, "doc1.pdf")
+    if(column == "Body" & ("Body" %in% names(dat)) & !("Name" %in% names(dat))){
+      dat[,"Name"] <- basename(dat[,"Body"])
     }
     if(encode){
       # base64 encode the values in the target column
