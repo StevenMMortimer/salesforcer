@@ -3,7 +3,7 @@ context("Utils")
 test_that("testing sf_download_attachment", {
   queried_attachments <- sf_query("SELECT Body, Name
                                    FROM Attachment
-                                   WHERE ParentId = '0016A0000035mJ5'")
+                                   WHERE ParentId = '0016A0000035mJB'")
   res <- mapply(sf_download_attachment, 
                 queried_attachments$Body, 
                 queried_attachments$Name, 
