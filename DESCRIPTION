@@ -19,11 +19,11 @@ URL: https://github.com/StevenMMortimer/salesforcer
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues
 Encoding: UTF-8
 Depends:
-    R (>= 3.6.3)
+    R (>= 3.6.0)
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    methods (>= 3.6.3),
+    methods (>= 3.6.0),
     XML (>= 3.99-0.3),
     httr (>= 1.4.1),
     dplyr (>= 1.0.0),

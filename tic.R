@@ -1,1 +1,1 @@
-add_package_checks()
+do_package_checks()

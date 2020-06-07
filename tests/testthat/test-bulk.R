@@ -177,7 +177,7 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_equal(upserted_records$sf__Created, c(FALSE, FALSE, TRUE))  
   
   # sf_create_attachment -------------------------------------------------------
-  attachment_details <- tibble(Name = c("salesforcer Logo"),
+  attachment_details <- tibble(Name = c("logo.png"),
                                Body = system.file("extdata", "logo.png", package="salesforcer"),
                                ContentType = c("image/png"),
                                ParentId = upserted_records$sf__Id[1]) #"0016A0000035mJ5")

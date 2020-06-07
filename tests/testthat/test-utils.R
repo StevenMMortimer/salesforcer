@@ -6,10 +6,9 @@ test_that("testing sf_download_attachment", {
                                    WHERE ParentId = '0016A0000035mJ5'")
   res <- mapply(sf_download_attachment, 
                 queried_attachments$Body, 
-                queried_attachments$Name)
+                queried_attachments$Name, 
+                tempdir())
   expect_true(all(res))
-  # clean up
-  sapply(queried_attachments$Name, file.remove)
 })
 
 test_that("testing input_data validation", {

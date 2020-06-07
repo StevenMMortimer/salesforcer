@@ -63,6 +63,8 @@ xml_nodeset_to_df <- function(this_node){
   invisible(capture.output(node_vals <- xmlToList2(as.character(this_node))))
   # replace any NULL list elements with NA so it can be turned into a tbl_df
   node_vals[sapply(node_vals, is.null)] <- NA
+  # remove any duplicated named node elements
+  node_vals <- node_vals[unique(names(node_vals))]  
   # make things tidy so if it's a nested list then that is one row still
   # suppressWarning about tibble::enframe
   suppressWarnings(res <- as_tibble(modify_if(node_vals, ~(length(.x) > 1 | is.list(.x)), list), 

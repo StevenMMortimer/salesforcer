@@ -175,9 +175,9 @@ sf_auth <- function(username = NULL,
       sf_token <- try(suppressWarnings(readRDS(token)), silent = TRUE)
       
       if (inherits(sf_token, "try-error")) {
-        spf("Cannot read token from alleged .rds file:\n%s", token)
+        stop(sprintf("Cannot read token from alleged .rds file:\n%s", token), call. = FALSE)
       } else if (!is_legit_token(sf_token, verbose = TRUE)) {
-        spf("File does not contain a proper token:\n%s", token)
+        stop(sprintf("File does not contain a proper token:\n%s", token), call. = FALSE)
       }
       
       # set the global .state variable
@@ -187,8 +187,8 @@ sf_auth <- function(username = NULL,
       .state$instance_url <- sf_token$credentials$instance_url
       
     } else {
-      spf("Input provided via 'token' is neither a",
-          "token,\nnor a path to an .rds file containing a token.")
+      stop("Input provided via 'token' is neither a token",
+           "\nnor a path to an .rds file containing a token.", call. = FALSE)
     }
   }
   

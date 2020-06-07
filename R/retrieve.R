@@ -132,7 +132,7 @@ sf_retrieve_soap <- function(ids,
 
 #' @importFrom utils head 
 #' @importFrom stats quantile 
-#' @importFrom dplyr bind_rows as_tibble select
+#' @importFrom dplyr bind_rows as_tibble select any_of
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON fromJSON prettify
 #' @importFrom readr type_convert cols
