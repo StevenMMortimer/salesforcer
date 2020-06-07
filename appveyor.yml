@@ -17,16 +17,14 @@ cache:
 
 environment:
   global:
+    CRAN: http://cloud.r-project.org
     WARNINGS_ARE_ERRORS: 1
-    PKGTYPE: both
+    R_CHECK_ARGS: --no-manual
 
   matrix:
-  - R_VERSION: devel
+  - R_VERSION: release
     R_ARCH: x64
     GCC_PATH: mingw_64
-
-  - R_VERSION: patched
-    GCC_PATH: mingw_32
 
 build_script:
   - travis-tool.sh install_deps
