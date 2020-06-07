@@ -1177,7 +1177,7 @@ sf_bulk_operation <- function(input_data,
                                  control = control_args, ...,
                                  verbose = verbose)
   batches_info <- sf_create_batches_bulk(job_id = job_info$id, 
-                                         input_data, 
+                                         input_data, ...,
                                          api_type = api_type,
                                          verbose = verbose)
   if(wait_for_results){
