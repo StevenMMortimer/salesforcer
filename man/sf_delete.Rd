@@ -4,8 +4,14 @@
 \alias{sf_delete}
 \title{Delete Records}
 \usage{
-sf_delete(ids, object_name, api_type = c("REST", "SOAP", "Bulk 1.0",
-  "Bulk 2.0"), control = list(...), ..., verbose = FALSE)
+sf_delete(
+  ids,
+  object_name,
+  api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 

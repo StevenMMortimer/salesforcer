@@ -4,8 +4,11 @@
 \alias{make_bulk_job_records_url}
 \title{Bulk Job Records URL Generator}
 \usage{
-make_bulk_job_records_url(job_id, record_type = c("successfulResults",
-  "failedResults", "unprocessedRecords"), api_type = c("Bulk 2.0"))
+make_bulk_job_records_url(
+  job_id,
+  record_type = c("successfulResults", "failedResults", "unprocessedRecords"),
+  api_type = c("Bulk 2.0")
+)
 }
 \description{
 Bulk Job Records URL Generator

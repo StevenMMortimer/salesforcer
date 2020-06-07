@@ -4,8 +4,12 @@
 \alias{sf_retrieve_metadata_check_status}
 \title{Check on Retrieve Calls and Get Contents If Available}
 \usage{
-sf_retrieve_metadata_check_status(id, include_zip = TRUE,
-  filename = "package.zip", verbose = FALSE)
+sf_retrieve_metadata_check_status(
+  id,
+  include_zip = TRUE,
+  filename = "package.zip",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{id}{character; string id returned from \link{sf_retrieve_metadata}}

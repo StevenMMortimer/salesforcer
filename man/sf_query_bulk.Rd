@@ -4,9 +4,18 @@
 \alias{sf_query_bulk}
 \title{Run Bulk Query}
 \usage{
-sf_query_bulk(soql, object_name = NULL, queryall = FALSE,
-  guess_types = TRUE, api_type = c("Bulk 1.0"), interval_seconds = 5,
-  max_attempts = 100, control = list(...), ..., verbose = FALSE)
+sf_query_bulk(
+  soql,
+  object_name = NULL,
+  queryall = FALSE,
+  guess_types = TRUE,
+  api_type = c("Bulk 1.0"),
+  interval_seconds = 5,
+  max_attempts = 100,
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}

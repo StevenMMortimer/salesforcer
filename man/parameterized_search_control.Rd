@@ -4,9 +4,13 @@
 \alias{parameterized_search_control}
 \title{Auxiliary for Controlling Parametrized Searches}
 \usage{
-parameterized_search_control(objects = NULL, fields_scope = c("ALL",
-  "NAME", "EMAIL", "PHONE", "SIDEBAR"), fields = NULL,
-  overall_limit = 2000, spell_correction = TRUE)
+parameterized_search_control(
+  objects = NULL,
+  fields_scope = c("ALL", "NAME", "EMAIL", "PHONE", "SIDEBAR"),
+  fields = NULL,
+  overall_limit = 2000,
+  spell_correction = TRUE
+)
 }
 \arguments{
 \item{objects}{character; objects to search and return in the response. Multiple 

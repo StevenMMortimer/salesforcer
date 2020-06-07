@@ -4,12 +4,18 @@
 \alias{sf_auth}
 \title{Log in to Salesforce}
 \usage{
-sf_auth(username = NULL, password = NULL, security_token = NULL,
-  login_url = getOption("salesforcer.login_url"), token = NULL,
+sf_auth(
+  username = NULL,
+  password = NULL,
+  security_token = NULL,
+  login_url = getOption("salesforcer.login_url"),
+  token = NULL,
   consumer_key = getOption("salesforcer.consumer_key"),
   consumer_secret = getOption("salesforcer.consumer_secret"),
   callback_url = getOption("salesforcer.callback_url"),
-  cache = getOption("salesforcer.httr_oauth_cache"), verbose = FALSE)
+  cache = getOption("salesforcer.httr_oauth_cache"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{username}{Salesforce username, typically an email address}

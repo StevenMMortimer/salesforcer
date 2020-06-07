@@ -138,9 +138,17 @@ sf_auth <- function(username = NULL,
                                            base_url = sprintf("%s/services/oauth2", login_url),
                                            authorize = "authorize", access = "token", revoke = "revoke")
       
-      sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
-                                 app = sf_oauth_app, 
-                                 cache = cache)
+      proxy <- build_proxy()
+      if(!is.null(proxy)){
+        sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
+                                   app = sf_oauth_app, 
+                                   cache = cache, 
+                                   config_init = proxy)
+      } else {
+        sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
+                                   app = sf_oauth_app, 
+                                   cache = cache)
+      }
   
       stopifnot(is_legit_token(sf_token, verbose = TRUE))
       

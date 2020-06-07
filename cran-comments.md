@@ -1,8 +1,9 @@
 ## Test environments
 
-* local OS X install, R 3.5.2
-* ubuntu 14.04 (on travis-ci), R 3.5.3, R-oldrel, R-devel.
-* win-builder (release)
+* Local OSX install, R 4.0.0
+* Ubuntu 16.04 (xenial on Travis-CI) - R 4.0.0, R-oldrel (3.6.3), R-devel (eventually 4.1.0).
+* Windows (on Appveyor) - R 4.0.1
+* Win-builder - Release (4.0.0)
 
 ## R CMD check results
 

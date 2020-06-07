@@ -4,9 +4,14 @@
 \alias{sf_create_attachment}
 \title{Create Attachments}
 \usage{
-sf_create_attachment(input_data, object_name = "Attachment",
+sf_create_attachment(
+  input_data,
+  object_name = "Attachment",
   api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
-  control = list(...), ..., verbose = FALSE)
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

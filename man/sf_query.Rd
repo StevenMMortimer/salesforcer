@@ -4,9 +4,17 @@
 \alias{sf_query}
 \title{Perform SOQL Query}
 \usage{
-sf_query(soql, object_name, queryall = FALSE, guess_types = TRUE,
-  api_type = c("REST", "SOAP", "Bulk 1.0"), control = list(...), ...,
-  next_records_url = NULL, verbose = FALSE)
+sf_query(
+  soql,
+  object_name,
+  queryall = FALSE,
+  guess_types = TRUE,
+  api_type = c("REST", "SOAP", "Bulk 1.0"),
+  control = list(...),
+  ...,
+  next_records_url = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}

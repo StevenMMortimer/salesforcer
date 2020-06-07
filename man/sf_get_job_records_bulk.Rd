@@ -4,9 +4,13 @@
 \alias{sf_get_job_records_bulk}
 \title{Returning the Details of a Bulk API Job}
 \usage{
-sf_get_job_records_bulk(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"),
-  record_types = c("successfulResults", "failedResults",
-  "unprocessedRecords"), combine_record_types = TRUE, verbose = FALSE)
+sf_get_job_records_bulk(
+  job_id,
+  api_type = c("Bulk 1.0", "Bulk 2.0"),
+  record_types = c("successfulResults", "failedResults", "unprocessedRecords"),
+  combine_record_types = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

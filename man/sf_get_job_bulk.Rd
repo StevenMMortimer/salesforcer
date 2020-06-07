@@ -4,8 +4,7 @@
 \alias{sf_get_job_bulk}
 \title{Get Bulk API Job}
 \usage{
-sf_get_job_bulk(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"),
-  verbose = FALSE)
+sf_get_job_bulk(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"), verbose = FALSE)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

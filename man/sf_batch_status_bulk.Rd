@@ -4,8 +4,12 @@
 \alias{sf_batch_status_bulk}
 \title{Checking the Status of a Batch in a Bulk API Job}
 \usage{
-sf_batch_status_bulk(job_id, batch_id, api_type = c("Bulk 1.0"),
-  verbose = FALSE)
+sf_batch_status_bulk(
+  job_id,
+  batch_id,
+  api_type = c("Bulk 1.0"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

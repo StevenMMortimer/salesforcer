@@ -4,8 +4,12 @@
 \alias{sf_find_duplicates_by_id}
 \title{Find Duplicate Records By Id}
 \usage{
-sf_find_duplicates_by_id(sf_id, include_record_details = FALSE,
-  guess_types = TRUE, verbose = FALSE)
+sf_find_duplicates_by_id(
+  sf_id,
+  include_record_details = FALSE,
+  guess_types = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{sf_id}{character; a Salesforce generated Id that identifies a record}

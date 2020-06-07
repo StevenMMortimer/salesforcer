@@ -4,8 +4,14 @@
 \alias{sf_create}
 \title{Create Records}
 \usage{
-sf_create(input_data, object_name, api_type = c("SOAP", "REST",
-  "Bulk 1.0", "Bulk 2.0"), control = list(...), ..., verbose = FALSE)
+sf_create(
+  input_data,
+  object_name,
+  api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

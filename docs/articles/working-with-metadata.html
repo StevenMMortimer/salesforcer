@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -149,24 +149,82 @@
                                     <span class="kw">object_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Account"</span>, <span class="st">"Contact"</span>))
 
 <span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"fullName"</span>, <span class="st">"label"</span>, <span class="st">"sharingModel"</span>, <span class="st">"enableHistory"</span>)]
+<span class="co">#&gt; $fullName</span>
+<span class="co">#&gt; [1] "Account"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $label</span>
+<span class="co">#&gt; [1] "Account"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $sharingModel</span>
+<span class="co">#&gt; [1] "ReadWrite"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $enableHistory</span>
+<span class="co">#&gt; [1] "false"</span>
 
 <span class="no">first_two_fields_idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]]) <span class="kw">==</span> <span class="st">"fields"</span>), <span class="fl">2</span>)
 
 <span class="co"># show the first two returned fields of the Account object</span>
-<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="no">first_two_fields_idx</span>]</pre></body></html></div>
+<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="no">first_two_fields_idx</span>]
+<span class="co">#&gt; $fields</span>
+<span class="co">#&gt; $fields$fullName</span>
+<span class="co">#&gt; [1] "AccountNumber"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields$trackFeedHistory</span>
+<span class="co">#&gt; [1] "false"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields</span>
+<span class="co">#&gt; $fields$fullName</span>
+<span class="co">#&gt; [1] "AccountSource"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields$trackFeedHistory</span>
+<span class="co">#&gt; [1] "false"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fields$type</span>
+<span class="co">#&gt; [1] "Picklist"</span></pre></body></html></div>
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using<br><code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">"Account"</span>)
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
+<span class="co">#&gt; # A tibble: 68 x 5</span>
+<span class="co">#&gt;    name              label                   length soapType    type     </span>
+<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 Id                Account ID              18     tns:ID      id       </span>
+<span class="co">#&gt;  2 IsDeleted         Deleted                 0      xsd:boolean boolean  </span>
+<span class="co">#&gt;  3 MasterRecordId    Master Record ID        18     tns:ID      reference</span>
+<span class="co">#&gt;  4 Name              Account Name            255    xsd:string  string   </span>
+<span class="co">#&gt;  5 Type              Account Type            40     xsd:string  picklist </span>
+<span class="co">#&gt;  6 ParentId          Parent Account ID       18     tns:ID      reference</span>
+<span class="co">#&gt;  7 BillingStreet     Billing Street          255    xsd:string  textarea </span>
+<span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span>
+<span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span>
+<span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span>
+<span class="co">#&gt; # … with 58 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">label</span> <span class="kw">==</span> <span class="st">"Account Type"</span>) <span class="kw">%&gt;%</span>
-  <span class="no">.</span>$<span class="no">picklistValues</span></pre></body></html></div>
+  <span class="no">.</span>$<span class="no">picklistValues</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; # A tibble: 7 x 4</span>
+<span class="co">#&gt;   active defaultValue label                      value                     </span>
+<span class="co">#&gt;   &lt;lgl&gt;  &lt;lgl&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
+<span class="co">#&gt; 1 TRUE   FALSE        Prospect                   Prospect                  </span>
+<span class="co">#&gt; 2 TRUE   FALSE        Customer - Direct          Customer - Direct         </span>
+<span class="co">#&gt; 3 TRUE   FALSE        Customer - Channel         Customer - Channel        </span>
+<span class="co">#&gt; 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller</span>
+<span class="co">#&gt; 5 TRUE   FALSE        Installation Partner       Installation Partner      </span>
+<span class="co">#&gt; 6 TRUE   FALSE        Technology Partner         Technology Partner        </span>
+<span class="co">#&gt; 7 TRUE   FALSE        Other                      Other</span></pre></body></html></div>
 <p>If you prefer to be more precise about collecting and formatting the field data you can work directly with the nested lists that the APIs return. In this example we look at the picklist values of fields on the Account object.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">describe_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_objects.html">sf_describe_objects</a></span>(<span class="kw">object_names</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
 
 <span class="co"># confirm that the Account object is queryable</span>
 <span class="no">describe_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'label'</span>, <span class="st">'queryable'</span>)]
+<span class="co">#&gt; $label</span>
+<span class="co">#&gt; [1] "Account"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $queryable</span>
+<span class="co">#&gt; [1] "true"</span>
 
 <span class="co"># now show the different picklist values for the Account Type field</span>
 <span class="no">all_fields</span> <span class="kw">&lt;-</span> <span class="no">describe_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">describe_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]]) <span class="kw">==</span> <span class="st">"fields"</span>]
@@ -175,7 +233,17 @@
                                     <span class="kw">FUN</span><span class="kw">=</span><span class="kw">function</span>(<span class="no">x</span>){<span class="no">x</span>$<span class="no">label</span>}) <span class="kw">==</span> <span class="st">"Account Type"</span>)
 <span class="no">acct_type_field</span> <span class="kw">&lt;-</span> <span class="no">all_fields</span><span class="kw">[[</span><span class="no">acct_type_field_idx</span>]]
 <span class="no">acct_type_field</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">acct_type_field</span>) <span class="kw">==</span> <span class="st">"picklistValues"</span>)] <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span>(<span class="no">as_tibble</span>)</pre></body></html></div>
+  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span>(<span class="no">as_tibble</span>)
+<span class="co">#&gt; # A tibble: 7 x 4</span>
+<span class="co">#&gt;   active defaultValue label                      value                     </span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
+<span class="co">#&gt; 1 true   false        Prospect                   Prospect                  </span>
+<span class="co">#&gt; 2 true   false        Customer - Direct          Customer - Direct         </span>
+<span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span>
+<span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span>
+<span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span>
+<span class="co">#&gt; 6 true   false        Technology Partner         Technology Partner        </span>
+<span class="co">#&gt; 7 true   false        Other                      Other</span></pre></body></html></div>
 <p>It is recommended that you try out the various metadata functions <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="../reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="../reference/sf_describe_metadata.html">sf_describe_metadata()</a></code>, and <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
 </div>
 <div id="modifying-metadata" class="section level3">
@@ -235,6 +303,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
       </div>
 
 </div>

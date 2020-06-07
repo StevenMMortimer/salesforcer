@@ -4,8 +4,13 @@
 \alias{sf_describe_objects}
 \title{SObject Basic Information}
 \usage{
-sf_describe_objects(object_names, api_type = c("SOAP", "REST"),
-  control = list(...), ..., verbose = FALSE)
+sf_describe_objects(
+  object_names,
+  api_type = c("SOAP", "REST"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{object_names}{character; the name of one or more Salesforce objects that the 

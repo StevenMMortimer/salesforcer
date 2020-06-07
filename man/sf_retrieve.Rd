@@ -4,8 +4,15 @@
 \alias{sf_retrieve}
 \title{Retrieve Records By Id}
 \usage{
-sf_retrieve(ids, fields, object_name, api_type = c("REST", "SOAP",
-  "Bulk 1.0", "Bulk 2.0"), control = list(...), ..., verbose = FALSE)
+sf_retrieve(
+  ids,
+  fields,
+  object_name,
+  api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 

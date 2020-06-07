@@ -4,8 +4,13 @@
 \alias{sf_update_metadata}
 \title{Update Object or Field Metadata in Salesforce}
 \usage{
-sf_update_metadata(metadata_type, metadata, control = list(...), ...,
-  verbose = FALSE)
+sf_update_metadata(
+  metadata_type,
+  metadata,
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{metadata_type}{character; string on what type of metadata to create}

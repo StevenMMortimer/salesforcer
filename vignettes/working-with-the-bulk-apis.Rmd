@@ -1,7 +1,7 @@
 ---
 title: "Working with the Bulk APIs"
 author: "Steven M. Mortimer"
-date: "2018-03-12"
+date: "2020-06-07"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -40,10 +40,11 @@ library(salesforcer)
 sf_auth()
 ```
 
-For really large inserts, updates, deletes, upserts, queries you can just add 
+For really large inserts, updates, deletes, upserts, and queries you can just add 
 `api_type = "Bulk 1.0"` to most functions to get the benefits of using the Bulk API 
 instead of the SOAP or REST APIs. The change you have to make from using the REST 
-API to the Bulk 1.0 API is just updating one function argument as seen here:
+API to the Bulk 1.0 API as simple as adding `api_type="Bulk 1.0"` to your function 
+arguments. First, let's build a `tbl_df` with two new records to be created.
 
 ```{r, include=FALSE}
 n <- 2
@@ -52,9 +53,6 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n),
                        My_External_Id__c=paste0(prefix, letters[1:n]))
 ```
-
-First, create two new records to be created.
-
 ```{r, eval=FALSE}
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
@@ -62,10 +60,11 @@ new_contacts <- tibble(FirstName = rep("Test", n),
 ```
 
 There are some differences in the way the REST API returns response information vs. 
-the Bulk 1.0 API; however, the changes in Salesforce are exactly the same for these 
+the Bulk 1.0 API. However, the changes in Salesforce are exactly the same for these 
 two calls.
 
 ```{r}
+new_contacts
 # REST
 rest_created_records <- sf_create(new_contacts, object_name="Contact", api_type="REST")
 rest_created_records
@@ -76,7 +75,7 @@ bulk_created_records
 
 ### A Complete Bulk API Workflow
 
-To show a more detailed example of using the Bulk 1.0 API, below is a workflow of 
+To show a more lengthy example of using the Bulk 1.0 API, below is a workflow of 
 that creates 2 records, queries them, and deletes them. This is just an example. 
 Typically, you'd want to use the Bulk APIs over the REST or SOAP APIs when dealing 
 with over 10,000 records.
@@ -88,9 +87,7 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n),
                        My_External_Id__c=paste0(prefix, letters[1:n]))
 ```
-
 ```{r}
-# add api_type="Bulk 1.0" or api_type="Bulk 2.0" to CRUD and Query calls to use Bulk APIs
 object <- "Contact"
 created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 1.0")
 created_records
@@ -131,10 +128,12 @@ operations or structures of SOQL:
 The **salesforcer** package also implements the Bulk 2.0 API which has better 
 speed than the Bulk 1.0 API but sacrifices consistency in the ordering of the 
 result records since they are batched and processed asynchronously. In the example 
-below we first create 10 records and then show you how the returned results are 
-ordered when we process them using the Bulk 1.0 API. After the data is split into 
-batches each batch is processed synchronously which preserves the order of the 
-rows in the returned output.
+below we first create 10 records in five batches of two records using both the 
+Bulk 1.0 API and then the Bulk 2.0 API. After looking at the results you can see 
+how the returned results are ordered when we process them using the Bulk 1.0 API 
+because after the data is split into batches each batch is processed synchronously 
+which preserves the order of the rows in the returned output. This is not necessarily 
+true of the Bulk 2.0 API which is the point (it's asynchronicity).
 
 **Bulk 1.0**
 
@@ -146,7 +145,6 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        test_number__c = 1:10,
                        My_External_Id__c=paste0(prefix, letters[1:n]))
 ```
-
 ```{r, eval=FALSE}
 n <- 10
 new_contacts <- tibble(FirstName = rep("Test", n),
@@ -155,7 +153,8 @@ new_contacts <- tibble(FirstName = rep("Test", n),
 ```
 
 ```{r}
-created_records_v1 <- sf_create(new_contacts, "Contact", api_type="Bulk 1.0")
+created_records_v1 <- sf_create(new_contacts, "Contact", api_type="Bulk 1.0", batch_size=2)
+created_records_v1
 
 # query the records so we can compare the ordering of the Id field to the 
 # original dataset
@@ -188,10 +187,12 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n),
                        test_number__c = 1:10,
                        My_External_Id__c=paste0(prefix, letters[1:n]))
-```
-
-```{r}
 created_records_v2 <- sf_create(new_contacts, "Contact", api_type="Bulk 2.0")
+created_records_v2 <- created_records_v2 %>% 
+  select(-My_External_Id__c)
+```
+```{r, eval=FALSE}
+created_records_v2 <- sf_create(new_contacts, "Contact", api_type="Bulk 2.0", batch_size=2)
 ```
 
 The result in Bulk 2.0 API returns all fields so that you can still associate the 
@@ -201,20 +202,15 @@ this example was not enough to create separate batches to process asynchronously
 Finally, note that the field names are different from the Bulk 1.0 API, this is 
 the Salesforcer convention for the Bulk 2.0 API.
 
-```{r, include=FALSE}
-created_records_v2 <- created_records_v2 %>% 
-  select(-My_External_Id__c)
-```
-
 ```{r}
 created_records_v2
 ```
 
-For these above I typically prefer using the Bulk 1.0 API when creating or updating records. 
-That way I can be confident in that the order of the records returned from the process 
-matches the order of the original dataset I put into the process. All of this 
-does not matter when deleting records, so if you want minor performance improvements 
-then switch to the Bulk 2.0 when deleting records.
+For these above I typically prefer using the Bulk 1.0 API when creating or updating 
+records. That way I can be confident in that the order of the records returned 
+from the process matches the order of the original dataset I put into the process. 
+All of this does not matter when deleting records, so if you want minor performance 
+improvements then switch to the Bulk 2.0 when deleting records.
 
 ```{r}
 sf_delete(c(created_records_v1$Id, created_records_v2$sf__Id), 

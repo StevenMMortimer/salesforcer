@@ -35,7 +35,7 @@ Package features include:
     * `rforcecom.login()`, `rforcecom.getObjectDescription()`, `rforcecom.query()`, `rforcecom.create()`
   * Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
   * Functions to assist with master data managment (MDM) or data integrity of records by 
-  finding duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_ids()`),  
+  finding duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`),  
   merging records (`sf_merge()`), and converting leads (`sf_convert_lead()`)
   * Recover (`sf_undelete()`) or delete from the Recycle Bin (`sf_empty_recycle_bin()`) 
   and list ids of records deleted (`sf_get_deleted()`) or updated (`sf_get_updated()`) 
@@ -60,7 +60,7 @@ Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (0.1.3)
+# install the current CRAN version (0.2.0)
 install.packages("salesforcer")
 
 # or get the latest version available on GitHub using the devtools package
@@ -78,6 +78,7 @@ more detailed examples on usage.
 
   * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   * [Working with the Bulk APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
+  * [Working with Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   * [Working with Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
   * [Transitioning from RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
   * [Passing Control Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
@@ -218,6 +219,7 @@ n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact", api_type = "Bulk 1.0")
+created_records
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -228,9 +230,11 @@ my_soql <- sprintf("SELECT Id,
                    paste0(created_records$Id , collapse = "','"))
 
 queried_records <- sf_query(my_soql, "Contact", api_type = "Bulk 1.0")
+queried_records
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
+deleted_records
 ```
 
 ### Using the Metadata API

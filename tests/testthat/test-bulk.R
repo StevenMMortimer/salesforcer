@@ -177,11 +177,10 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_equal(upserted_records$sf__Created, c(FALSE, FALSE, TRUE))  
   
   # sf_create_attachment -------------------------------------------------------
-  attachment_details <- tibble(Name = c("salesforcer.png"),
-                               Body = system.file("help/figures", "salesforcer.png", 
-                                                  package="salesforcer"),
+  attachment_details <- tibble(Name = c("salesforcer Logo"),
+                               Body = system.file("extdata", "logo.png", package="salesforcer"),
                                ContentType = c("image/png"),
-                               ParentId = upserted_records$sf__Id[1]) #"0016A0000035mJ5"
+                               ParentId = upserted_records$sf__Id[1]) #"0016A0000035mJ5")
   attachment_records_csv <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
   expect_is(attachment_records_csv, "tbl_df")
   expect_equal(names(attachment_records_csv), c("Id", "Success", "Created", "Error"))

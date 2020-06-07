@@ -23,6 +23,7 @@ Below is a list of objects and their required components to be created with this
 \details{
 \strong{AccessMapping}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_accessmapping.htm}{Salesforce Documentation for AccessMapping}
 \describe{
  \item{accessLevel}{a character}
@@ -32,6 +33,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AccountSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_accountsettings.htm}{Salesforce Documentation for AccountSettings}
 \describe{
@@ -43,6 +45,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AccountSharingRuleSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_accountsharingrulesettings.htm}{Salesforce Documentation for AccountSharingRuleSettings}
 \describe{
  \item{caseAccessLevel}{a character}
@@ -51,6 +54,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ActionLinkGroupTemplate}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_actionlinkgrouptemplate.htm}{Salesforce Documentation for ActionLinkGroupTemplate}
 \describe{
@@ -75,6 +79,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ActionLinkTemplate}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_actionlinktemplate.htm}{Salesforce Documentation for ActionLinkTemplate}
 \describe{
@@ -119,6 +124,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ActionOverride}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_actionoverride.htm}{Salesforce Documentation for ActionOverride}
 \describe{
  \item{actionName}{a character}
@@ -145,6 +151,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ActivitiesSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_activitiessettings.htm}{Salesforce Documentation for ActivitiesSettings}
 \describe{
@@ -173,6 +180,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AddressSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_addresssettings.htm}{Salesforce Documentation for AddressSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -180,6 +188,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AdjustmentsSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_adjustmentssettings.htm}{Salesforce Documentation for AdjustmentsSettings}
 \describe{
@@ -189,6 +198,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AgentConfigAssignments}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_agentconfigassignments.htm}{Salesforce Documentation for AgentConfigAssignments}
 \describe{
  \item{profiles}{a AgentConfigProfileAssignments}
@@ -197,12 +207,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AgentConfigButtons}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_agentconfigbuttons.htm}{Salesforce Documentation for AgentConfigButtons}
 \describe{
  \item{button}{a character}
 }
 
 \strong{AgentConfigProfileAssignments}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_agentconfigprofileassignments.htm}{Salesforce Documentation for AgentConfigProfileAssignments}
 \describe{
@@ -211,6 +223,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AgentConfigSkills}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_agentconfigskills.htm}{Salesforce Documentation for AgentConfigSkills}
 \describe{
  \item{skill}{a character}
@@ -218,12 +231,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AgentConfigUserAssignments}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_agentconfiguserassignments.htm}{Salesforce Documentation for AgentConfigUserAssignments}
 \describe{
  \item{user}{a character}
 }
 
 \strong{AnalyticsCloudComponentLayoutItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_analyticscloudcomponentlayoutitem.htm}{Salesforce Documentation for AnalyticsCloudComponentLayoutItem}
 \describe{
@@ -241,6 +256,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AnalyticSnapshot}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_analyticsnapshot.htm}{Salesforce Documentation for AnalyticSnapshot}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -254,6 +270,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AnalyticSnapshotMapping}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_analyticsnapshotmapping.htm}{Salesforce Documentation for AnalyticSnapshotMapping}
 \describe{
@@ -279,6 +296,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApexClass}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apexclass.htm}{Salesforce Documentation for ApexClass}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -295,6 +313,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApexComponent}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apexcomponent.htm}{Salesforce Documentation for ApexComponent}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -305,6 +324,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ApexPage}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apexpage.htm}{Salesforce Documentation for ApexPage}
 \describe{
@@ -319,6 +339,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApexTestSuite}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apextestsuite.htm}{Salesforce Documentation for ApexTestSuite}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -326,6 +347,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ApexTrigger}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apextrigger.htm}{Salesforce Documentation for ApexTrigger}
 \describe{
@@ -343,6 +365,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AppActionOverride}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appactionoverride.htm}{Salesforce Documentation for AppActionOverride}
 \describe{
  \item{actionName}{a character (inherited from ActionOverride)}
@@ -356,6 +379,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AppBrand}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appbrand.htm}{Salesforce Documentation for AppBrand}
 \describe{
  \item{footerColor}{a character}
@@ -367,6 +391,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AppComponentList}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appcomponentlist.htm}{Salesforce Documentation for AppComponentList}
 \describe{
  \item{alignment}{a character}
@@ -374,6 +399,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AppMenu}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appmenu.htm}{Salesforce Documentation for AppMenu}
 \describe{
@@ -383,6 +409,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AppMenuItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appmenuitem.htm}{Salesforce Documentation for AppMenuItem}
 \describe{
  \item{name}{a character}
@@ -390,6 +417,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AppPreferences}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apppreferences.htm}{Salesforce Documentation for AppPreferences}
 \describe{
@@ -406,6 +434,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AppProfileActionOverride}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appprofileactionoverride.htm}{Salesforce Documentation for AppProfileActionOverride}
 \describe{
  \item{actionName}{a character (inherited from ProfileActionOverride)}
@@ -419,12 +448,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApprovalAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalaction.htm}{Salesforce Documentation for ApprovalAction}
 \describe{
  \item{action}{a WorkflowActionReference}
 }
 
 \strong{ApprovalEntryCriteria}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalentrycriteria.htm}{Salesforce Documentation for ApprovalEntryCriteria}
 \describe{
@@ -435,12 +466,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApprovalPageField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalpagefield.htm}{Salesforce Documentation for ApprovalPageField}
 \describe{
  \item{field}{a character}
 }
 
 \strong{ApprovalProcess}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalprocess.htm}{Salesforce Documentation for ApprovalProcess}
 \describe{
@@ -474,6 +507,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApprovalStep}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalstep.htm}{Salesforce Documentation for ApprovalStep}
 \describe{
  \item{allowDelegate}{a character either 'true' or 'false'}
@@ -496,6 +530,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApprovalStepApprover}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalstepapprover.htm}{Salesforce Documentation for ApprovalStepApprover}
 \describe{
  \item{approver}{a Approver}
@@ -509,6 +544,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ApprovalStepRejectBehavior}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalsteprejectbehavior.htm}{Salesforce Documentation for ApprovalStepRejectBehavior}
 \describe{
  \item{type}{a StepRejectBehaviorType - which is a character taking one of the following values: 
@@ -520,6 +556,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ApprovalSubmitter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approvalsubmitter.htm}{Salesforce Documentation for ApprovalSubmitter}
 \describe{
@@ -544,6 +581,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{Approver}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_approver.htm}{Salesforce Documentation for Approver}
 \describe{
  \item{name}{a character}
@@ -560,6 +598,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AppWorkspaceConfig}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_appworkspaceconfig.htm}{Salesforce Documentation for AppWorkspaceConfig}
 \describe{
  \item{mappings}{a WorkspaceMapping}
@@ -567,12 +606,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ArticleTypeChannelDisplay}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_articletypechanneldisplay.htm}{Salesforce Documentation for ArticleTypeChannelDisplay}
 \describe{
  \item{articleTypeTemplates}{a ArticleTypeTemplate}
 }
 
 \strong{ArticleTypeTemplate}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_articletypetemplate.htm}{Salesforce Documentation for ArticleTypeTemplate}
 \describe{
@@ -597,6 +638,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AssignmentRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_assignmentrule.htm}{Salesforce Documentation for AssignmentRule}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -606,6 +648,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AssignmentRules}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_assignmentrules.htm}{Salesforce Documentation for AssignmentRules}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -613,6 +656,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AssistantRecommendationType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_assistantrecommendationtype.htm}{Salesforce Documentation for AssistantRecommendationType}
 \describe{
@@ -626,6 +670,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{Attachment}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_attachment.htm}{Salesforce Documentation for Attachment}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode}
@@ -633,6 +678,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AuraDefinitionBundle}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_auradefinitionbundle.htm}{Salesforce Documentation for AuraDefinitionBundle}
 \describe{
@@ -662,6 +708,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{AuthProvider}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_authprovider.htm}{Salesforce Documentation for AuthProvider}
 \describe{
@@ -703,6 +750,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AutoResponseRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_autoresponserule.htm}{Salesforce Documentation for AutoResponseRule}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -712,6 +760,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{AutoResponseRules}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_autoresponserules.htm}{Salesforce Documentation for AutoResponseRules}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -719,6 +768,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{BrandingSet}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_brandingset.htm}{Salesforce Documentation for BrandingSet}
 \describe{
@@ -731,6 +781,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{BrandingSetProperty}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_brandingsetproperty.htm}{Salesforce Documentation for BrandingSetProperty}
 \describe{
  \item{propertyName}{a character}
@@ -738,6 +789,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{BusinessHoursEntry}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_businesshoursentry.htm}{Salesforce Documentation for BusinessHoursEntry}
 \describe{
@@ -764,6 +816,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{BusinessHoursSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_businesshourssettings.htm}{Salesforce Documentation for BusinessHoursSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -772,6 +825,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{BusinessProcess}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_businessprocess.htm}{Salesforce Documentation for BusinessProcess}
 \describe{
@@ -782,6 +836,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CallCenter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcenter.htm}{Salesforce Documentation for CallCenter}
 \describe{
@@ -797,6 +852,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CallCenterItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcenteritem.htm}{Salesforce Documentation for CallCenterItem}
 \describe{
  \item{label}{a character}
@@ -806,6 +862,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CallCenterSection}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcentersection.htm}{Salesforce Documentation for CallCenterSection}
 \describe{
  \item{items}{a CallCenterItem}
@@ -814,6 +871,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CampaignInfluenceModel}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_campaigninfluencemodel.htm}{Salesforce Documentation for CampaignInfluenceModel}
 \describe{
@@ -827,6 +885,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CaseSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_casesettings.htm}{Salesforce Documentation for CaseSettings}
 \describe{
@@ -865,6 +924,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CaseSubjectParticle}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_casesubjectparticle.htm}{Salesforce Documentation for CaseSubjectParticle}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -889,6 +949,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{Certificate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_certificate.htm}{Salesforce Documentation for Certificate}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -902,6 +963,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ChannelLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_channellayout.htm}{Salesforce Documentation for ChannelLayout}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -913,12 +975,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ChannelLayoutItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_channellayoutitem.htm}{Salesforce Documentation for ChannelLayoutItem}
 \describe{
  \item{field}{a character}
 }
 
 \strong{ChartSummary}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_chartsummary.htm}{Salesforce Documentation for ChartSummary}
 \describe{
@@ -944,6 +1008,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ChatterAnswersReputationLevel}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_chatteranswersreputationlevel.htm}{Salesforce Documentation for ChatterAnswersReputationLevel}
 \describe{
  \item{name}{a character}
@@ -951,6 +1016,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ChatterAnswersSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_chatteranswerssettings.htm}{Salesforce Documentation for ChatterAnswersSettings}
 \describe{
@@ -970,6 +1036,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ChatterExtension}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_chatterextension.htm}{Salesforce Documentation for ChatterExtension}
 \describe{
@@ -992,12 +1059,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ChatterMobileSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_chattermobilesettings.htm}{Salesforce Documentation for ChatterMobileSettings}
 \describe{
  \item{enablePushNotifications}{a character either 'true' or 'false'}
 }
 
 \strong{CleanDataService}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_cleandataservice.htm}{Salesforce Documentation for CleanDataService}
 \describe{
@@ -1009,6 +1078,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CleanRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_cleanrule.htm}{Salesforce Documentation for CleanRule}
 \describe{
@@ -1032,6 +1102,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CodeLocation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_codelocation.htm}{Salesforce Documentation for CodeLocation}
 \describe{
  \item{column}{a integer}
@@ -1041,6 +1112,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{Community}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_community.htm}{Salesforce Documentation for Community}
 \describe{
@@ -1064,6 +1136,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CommunityCustomThemeLayoutType}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communitycustomthemelayouttype.htm}{Salesforce Documentation for CommunityCustomThemeLayoutType}
 \describe{
  \item{description}{a character}
@@ -1071,6 +1144,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CommunityRoles}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communityroles.htm}{Salesforce Documentation for CommunityRoles}
 \describe{
@@ -1080,6 +1154,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CommunityTemplateBundleInfo}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communitytemplatebundleinfo.htm}{Salesforce Documentation for CommunityTemplateBundleInfo}
 \describe{
@@ -1096,6 +1171,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CommunityTemplateDefinition}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communitytemplatedefinition.htm}{Salesforce Documentation for CommunityTemplateDefinition}
 \describe{
@@ -1125,6 +1201,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CommunityTemplatePageSetting}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communitytemplatepagesetting.htm}{Salesforce Documentation for CommunityTemplatePageSetting}
 \describe{
  \item{page}{a character}
@@ -1132,6 +1209,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CommunityThemeDefinition}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communitythemedefinition.htm}{Salesforce Documentation for CommunityThemeDefinition}
 \describe{
@@ -1144,6 +1222,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CommunityThemeSetting}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_communitythemesetting.htm}{Salesforce Documentation for CommunityThemeSetting}
 \describe{
@@ -1160,6 +1239,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CompactLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_compactlayout.htm}{Salesforce Documentation for CompactLayout}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1169,6 +1249,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CompanySettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_companysettings.htm}{Salesforce Documentation for CompanySettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1176,6 +1257,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ComponentInstance}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_componentinstance.htm}{Salesforce Documentation for ComponentInstance}
 \describe{
@@ -1185,6 +1267,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ComponentInstanceProperty}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_componentinstanceproperty.htm}{Salesforce Documentation for ComponentInstanceProperty}
 \describe{
@@ -1198,6 +1281,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ConnectedApp}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedapp.htm}{Salesforce Documentation for ConnectedApp}
 \describe{
@@ -1222,6 +1306,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ConnectedAppAttribute}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedappattribute.htm}{Salesforce Documentation for ConnectedAppAttribute}
 \describe{
  \item{formula}{a character}
@@ -1229,6 +1314,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ConnectedAppCanvasConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedappcanvasconfig.htm}{Salesforce Documentation for ConnectedAppCanvasConfig}
 \describe{
@@ -1274,6 +1360,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ConnectedAppIpRange}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedappiprange.htm}{Salesforce Documentation for ConnectedAppIpRange}
 \describe{
  \item{description}{a character}
@@ -1282,6 +1369,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ConnectedAppMobileDetailConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedappmobiledetailconfig.htm}{Salesforce Documentation for ConnectedAppMobileDetailConfig}
 \describe{
@@ -1311,6 +1399,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ConnectedAppOauthConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedappoauthconfig.htm}{Salesforce Documentation for ConnectedAppOauthConfig}
 \describe{
@@ -1342,6 +1431,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ConnectedAppSamlConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_connectedappsamlconfig.htm}{Salesforce Documentation for ConnectedAppSamlConfig}
 \describe{
@@ -1387,6 +1477,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{Container}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_container.htm}{Salesforce Documentation for Container}
 \describe{
  \item{height}{a integer}
@@ -1399,6 +1490,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ContentAsset}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_contentasset.htm}{Salesforce Documentation for ContentAsset}
 \describe{
@@ -1418,6 +1510,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ContentAssetLink}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_contentassetlink.htm}{Salesforce Documentation for ContentAssetLink}
 \describe{
  \item{access}{a ContentAssetAccess - which is a character taking one of the following values: 
@@ -1433,6 +1526,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ContentAssetRelationships}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_contentassetrelationships.htm}{Salesforce Documentation for ContentAssetRelationships}
 \describe{
  \item{insightsApplication}{a ContentAssetLink}
@@ -1443,6 +1537,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ContentAssetVersion}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_contentassetversion.htm}{Salesforce Documentation for ContentAssetVersion}
 \describe{
  \item{number}{a character}
@@ -1452,12 +1547,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{ContentAssetVersions}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_contentassetversions.htm}{Salesforce Documentation for ContentAssetVersions}
 \describe{
  \item{version}{a ContentAssetVersion}
 }
 
 \strong{ContractSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_contractsettings.htm}{Salesforce Documentation for ContractSettings}
 \describe{
@@ -1472,6 +1569,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CorsWhitelistOrigin}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_corswhitelistorigin.htm}{Salesforce Documentation for CorsWhitelistOrigin}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1480,12 +1578,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CountriesAndStates}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_countriesandstates.htm}{Salesforce Documentation for CountriesAndStates}
 \describe{
  \item{countries}{a Country}
 }
 
 \strong{Country}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_country.htm}{Salesforce Documentation for Country}
 \describe{
@@ -1501,6 +1601,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CspTrustedSite}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_csptrustedsite.htm}{Salesforce Documentation for CspTrustedSite}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1510,6 +1611,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomApplication}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customapplication.htm}{Salesforce Documentation for CustomApplication}
 \describe{
@@ -1552,6 +1654,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomApplicationComponent}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customapplicationcomponent.htm}{Salesforce Documentation for CustomApplicationComponent}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1569,6 +1672,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomApplicationTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customapplicationtranslation.htm}{Salesforce Documentation for CustomApplicationTranslation}
 \describe{
  \item{label}{a character}
@@ -1577,6 +1681,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomConsoleComponents}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customconsolecomponents.htm}{Salesforce Documentation for CustomConsoleComponents}
 \describe{
  \item{primaryTabComponents}{a PrimaryTabComponents}
@@ -1584,6 +1689,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomDataType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customdatatype.htm}{Salesforce Documentation for CustomDataType}
 \describe{
@@ -1598,6 +1704,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomDataTypeComponent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customdatatypecomponent.htm}{Salesforce Documentation for CustomDataTypeComponent}
 \describe{
@@ -1650,6 +1757,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomDataTypeComponentTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customdatatypecomponenttranslation.htm}{Salesforce Documentation for CustomDataTypeComponentTranslation}
 \describe{
  \item{developerSuffix}{a character}
@@ -1657,6 +1765,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomDataTypeTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customdatatypetranslation.htm}{Salesforce Documentation for CustomDataTypeTranslation}
 \describe{
@@ -1667,6 +1776,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomExperience}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customexperience.htm}{Salesforce Documentation for CustomExperience}
 \describe{
@@ -1692,6 +1802,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomExperienceBranding}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customexperiencebranding.htm}{Salesforce Documentation for CustomExperienceBranding}
 \describe{
  \item{loginFooterText}{a character}
@@ -1711,6 +1822,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomExperienceTabSet}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customexperiencetabset.htm}{Salesforce Documentation for CustomExperienceTabSet}
 \describe{
  \item{customTab}{a character}
@@ -1719,6 +1831,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomFeedFilter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customfeedfilter.htm}{Salesforce Documentation for CustomFeedFilter}
 \describe{
@@ -1730,6 +1843,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomField}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customfield.htm}{Salesforce Documentation for CustomField}
 \describe{
@@ -1870,6 +1984,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomFieldTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customfieldtranslation.htm}{Salesforce Documentation for CustomFieldTranslation}
 \describe{
  \item{caseValues}{a ObjectNameCaseValue}
@@ -1898,6 +2013,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomLabel}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customlabel.htm}{Salesforce Documentation for CustomLabel}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1910,6 +2026,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomLabels}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customlabels.htm}{Salesforce Documentation for CustomLabels}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -1918,6 +2035,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomLabelTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customlabeltranslation.htm}{Salesforce Documentation for CustomLabelTranslation}
 \describe{
  \item{label}{a character}
@@ -1925,6 +2043,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomMetadata}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_custommetadata.htm}{Salesforce Documentation for CustomMetadata}
 \describe{
@@ -1937,6 +2056,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomMetadataValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_custommetadatavalue.htm}{Salesforce Documentation for CustomMetadataValue}
 \describe{
  \item{field}{a character}
@@ -1944,6 +2064,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomNotificationType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customnotificationtype.htm}{Salesforce Documentation for CustomNotificationType}
 \describe{
@@ -1957,6 +2078,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomObject}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customobject.htm}{Salesforce Documentation for CustomObject}
 \describe{
@@ -2069,6 +2191,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomObjectTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customobjecttranslation.htm}{Salesforce Documentation for CustomObjectTranslation}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -2102,6 +2225,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomPageWebLink}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_custompageweblink.htm}{Salesforce Documentation for CustomPageWebLink}
 \describe{
@@ -2177,6 +2301,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomPageWebLinkTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_custompageweblinktranslation.htm}{Salesforce Documentation for CustomPageWebLinkTranslation}
 \describe{
  \item{label}{a character}
@@ -2184,6 +2309,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomPermission}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_custompermission.htm}{Salesforce Documentation for CustomPermission}
 \describe{
@@ -2196,6 +2322,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomPermissionDependencyRequired}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_custompermissiondependencyrequired.htm}{Salesforce Documentation for CustomPermissionDependencyRequired}
 \describe{
  \item{customPermission}{a character}
@@ -2203,6 +2330,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomShortcut}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customshortcut.htm}{Salesforce Documentation for CustomShortcut}
 \describe{
@@ -2214,6 +2342,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomSite}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customsite.htm}{Salesforce Documentation for CustomSite}
 \describe{
@@ -2280,6 +2409,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomTab}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customtab.htm}{Salesforce Documentation for CustomTab}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -2316,6 +2446,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{CustomTabTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customtabtranslation.htm}{Salesforce Documentation for CustomTabTranslation}
 \describe{
  \item{label}{a character}
@@ -2323,6 +2454,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{CustomValue}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customvalue.htm}{Salesforce Documentation for CustomValue}
 \describe{
@@ -2335,6 +2467,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{Dashboard}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboard.htm}{Salesforce Documentation for Dashboard}
 \describe{
@@ -2428,6 +2561,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DashboardComponent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardcomponent.htm}{Salesforce Documentation for DashboardComponent}
 \describe{
@@ -2541,6 +2675,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardComponentColumn}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardcomponentcolumn.htm}{Salesforce Documentation for DashboardComponentColumn}
 \describe{
  \item{breakPoint1}{a numeric}
@@ -2560,6 +2695,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardComponentSection}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardcomponentsection.htm}{Salesforce Documentation for DashboardComponentSection}
 \describe{
  \item{columnSize}{a DashboardComponentSize - which is a character taking one of the following values: 
@@ -2574,6 +2710,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardComponentSortInfo}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardcomponentsortinfo.htm}{Salesforce Documentation for DashboardComponentSortInfo}
 \describe{
  \item{sortColumn}{a character}
@@ -2581,6 +2718,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DashboardFilter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardfilter.htm}{Salesforce Documentation for DashboardFilter}
 \describe{
@@ -2590,12 +2728,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardFilterColumn}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardfiltercolumn.htm}{Salesforce Documentation for DashboardFilterColumn}
 \describe{
  \item{column}{a character}
 }
 
 \strong{DashboardFilterOption}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardfilteroption.htm}{Salesforce Documentation for DashboardFilterOption}
 \describe{
@@ -2620,6 +2760,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardFlexTableComponentProperties}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardflextablecomponentproperties.htm}{Salesforce Documentation for DashboardFlexTableComponentProperties}
 \describe{
  \item{flexTableColumn}{a DashboardComponentColumn}
@@ -2628,6 +2769,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DashboardFolder}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardfolder.htm}{Salesforce Documentation for DashboardFolder}
 \describe{
@@ -2640,6 +2782,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardGridComponent}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardgridcomponent.htm}{Salesforce Documentation for DashboardGridComponent}
 \describe{
  \item{colSpan}{a integer}
@@ -2651,6 +2794,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardGridLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardgridlayout.htm}{Salesforce Documentation for DashboardGridLayout}
 \describe{
  \item{dashboardGridComponents}{a DashboardGridComponent}
@@ -2660,12 +2804,14 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DashboardMobileSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardmobilesettings.htm}{Salesforce Documentation for DashboardMobileSettings}
 \describe{
  \item{enableDashboardIPadApp}{a character either 'true' or 'false'}
 }
 
 \strong{DashboardTableColumn}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_dashboardtablecolumn.htm}{Salesforce Documentation for DashboardTableColumn}
 \describe{
@@ -2694,6 +2840,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DataCategory}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_datacategory.htm}{Salesforce Documentation for DataCategory}
 \describe{
  \item{dataCategory}{a DataCategory}
@@ -2702,6 +2849,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DataCategoryGroup}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_datacategorygroup.htm}{Salesforce Documentation for DataCategoryGroup}
 \describe{
@@ -2714,6 +2862,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DataPipeline}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_datapipeline.htm}{Salesforce Documentation for DataPipeline}
 \describe{
@@ -2729,6 +2878,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DefaultShortcut}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_defaultshortcut.htm}{Salesforce Documentation for DefaultShortcut}
 \describe{
  \item{action}{a character}
@@ -2737,6 +2887,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DelegateGroup}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_delegategroup.htm}{Salesforce Documentation for DelegateGroup}
 \describe{
@@ -2752,6 +2903,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DeployDetails}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_deploydetails.htm}{Salesforce Documentation for DeployDetails}
 \describe{
  \item{componentFailures}{a DeployMessage}
@@ -2761,6 +2913,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DeployOptions}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_deployoptions.htm}{Salesforce Documentation for DeployOptions}
 \describe{
@@ -2785,6 +2938,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DescribeMetadataObject}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_describemetadataobject.htm}{Salesforce Documentation for DescribeMetadataObject}
 \describe{
  \item{childXmlNames}{a character}
@@ -2796,6 +2950,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{Document}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_document.htm}{Salesforce Documentation for Document}
 \describe{
@@ -2809,6 +2964,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DocumentFolder}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_documentfolder.htm}{Salesforce Documentation for DocumentFolder}
 \describe{
  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
@@ -2819,6 +2975,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DuplicateRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_duplicaterule.htm}{Salesforce Documentation for DuplicateRule}
 \describe{
@@ -2854,6 +3011,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DuplicateRuleFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_duplicaterulefilter.htm}{Salesforce Documentation for DuplicateRuleFilter}
 \describe{
  \item{booleanFilter}{a character}
@@ -2861,6 +3019,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{DuplicateRuleFilterItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_duplicaterulefilteritem.htm}{Salesforce Documentation for DuplicateRuleFilterItem}
 \describe{
@@ -2874,6 +3033,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{DuplicateRuleMatchRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_duplicaterulematchrule.htm}{Salesforce Documentation for DuplicateRuleMatchRule}
 \describe{
  \item{matchRuleSObjectType}{a character}
@@ -2883,6 +3043,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EclairGeoData}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eclairgeodata.htm}{Salesforce Documentation for EclairGeoData}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -2891,6 +3052,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EclairMap}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eclairmap.htm}{Salesforce Documentation for EclairMap}
 \describe{
@@ -2905,6 +3067,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmailFolder}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_emailfolder.htm}{Salesforce Documentation for EmailFolder}
 \describe{
  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
@@ -2916,6 +3079,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmailServicesAddress}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_emailservicesaddress.htm}{Salesforce Documentation for EmailServicesAddress}
 \describe{
  \item{authorizedSenders}{a character}
@@ -2926,6 +3090,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EmailServicesFunction}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_emailservicesfunction.htm}{Salesforce Documentation for EmailServicesFunction}
 \describe{
@@ -2985,6 +3150,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmailTemplate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_emailtemplate.htm}{Salesforce Documentation for EmailTemplate}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -3043,6 +3209,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmailToCaseRoutingAddress}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_emailtocaseroutingaddress.htm}{Salesforce Documentation for EmailToCaseRoutingAddress}
 \describe{
  \item{addressType}{a EmailToCaseRoutingAddressType - which is a character taking one of the following values: 
@@ -3066,6 +3233,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EmailToCaseSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_emailtocasesettings.htm}{Salesforce Documentation for EmailToCaseSettings}
 \describe{
@@ -3096,6 +3264,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmbeddedServiceBranding}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_embeddedservicebranding.htm}{Salesforce Documentation for EmbeddedServiceBranding}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3111,6 +3280,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmbeddedServiceConfig}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_embeddedserviceconfig.htm}{Salesforce Documentation for EmbeddedServiceConfig}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3119,6 +3289,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EmbeddedServiceFieldService}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_embeddedservicefieldservice.htm}{Salesforce Documentation for EmbeddedServiceFieldService}
 \describe{
@@ -3137,6 +3308,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EmbeddedServiceLiveAgent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_embeddedserviceliveagent.htm}{Salesforce Documentation for EmbeddedServiceLiveAgent}
 \describe{
@@ -3175,6 +3347,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EmbeddedServiceQuickAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_embeddedservicequickaction.htm}{Salesforce Documentation for EmbeddedServiceQuickAction}
 \describe{
  \item{embeddedServiceLiveAgent}{a character}
@@ -3183,6 +3356,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EntitlementProcess}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_entitlementprocess.htm}{Salesforce Documentation for EntitlementProcess}
 \describe{
@@ -3207,6 +3381,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EntitlementProcessMilestoneItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_entitlementprocessmilestoneitem.htm}{Salesforce Documentation for EntitlementProcessMilestoneItem}
 \describe{
  \item{businessHours}{a character}
@@ -3223,6 +3398,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EntitlementProcessMilestoneTimeTrigger}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_entitlementprocessmilestonetimetrigger.htm}{Salesforce Documentation for EntitlementProcessMilestoneTimeTrigger}
 \describe{
  \item{actions}{a WorkflowActionReference}
@@ -3237,6 +3413,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EntitlementSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_entitlementsettings.htm}{Salesforce Documentation for EntitlementSettings}
 \describe{
@@ -3255,6 +3432,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EntitlementTemplate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_entitlementtemplate.htm}{Salesforce Documentation for EntitlementTemplate}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3267,6 +3445,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EscalationAction}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_escalationaction.htm}{Salesforce Documentation for EscalationAction}
 \describe{
@@ -3287,6 +3466,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EscalationRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_escalationrule.htm}{Salesforce Documentation for EscalationRule}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3296,6 +3476,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EscalationRules}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_escalationrules.htm}{Salesforce Documentation for EscalationRules}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3303,6 +3484,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EventDelivery}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eventdelivery.htm}{Salesforce Documentation for EventDelivery}
 \describe{
@@ -3320,6 +3502,7 @@ Below is a list of objects and their required components to be created with this
 
 \strong{EventParameterMap}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eventparametermap.htm}{Salesforce Documentation for EventParameterMap}
 \describe{
  \item{parameterName}{a character}
@@ -3327,6 +3510,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{EventSubscription}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eventsubscription.htm}{Salesforce Documentation for EventSubscription}
 \describe{
@@ -3338,6 +3522,7 @@ Below is a list of objects and their required components to be created with this
 }
 
 \strong{ExtendedErrorDetails}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_extendederrordetails.htm}{Salesforce Documentation for ExtendedErrorDetails}
 \describe{
@@ -3859,6 +4044,7 @@ elementName}
 
 \strong{ExternalDataSource}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_externaldatasource.htm}{Salesforce Documentation for ExternalDataSource}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3908,6 +4094,7 @@ elementName}
 
 \strong{ExternalServiceRegistration}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_externalserviceregistration.htm}{Salesforce Documentation for ExternalServiceRegistration}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -3921,6 +4108,7 @@ elementName}
 }
 
 \strong{FeedFilterCriterion}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_feedfiltercriterion.htm}{Salesforce Documentation for FeedFilterCriterion}
 \describe{
@@ -3967,6 +4155,7 @@ elementName}
 }
 
 \strong{FeedItemSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_feeditemsettings.htm}{Salesforce Documentation for FeedItemSettings}
 \describe{
@@ -4015,6 +4204,7 @@ elementName}
 
 \strong{FeedLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_feedlayout.htm}{Salesforce Documentation for FeedLayout}
 \describe{
  \item{autocollapsePublisher}{a character either 'true' or 'false'}
@@ -4037,6 +4227,7 @@ elementName}
 
 \strong{FeedLayoutComponent}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_feedlayoutcomponent.htm}{Salesforce Documentation for FeedLayoutComponent}
 \describe{
  \item{componentType}{a FeedLayoutComponentType - which is a character taking one of the following values: 
@@ -4057,6 +4248,7 @@ elementName}
 }
 
 \strong{FeedLayoutFilter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_feedlayoutfilter.htm}{Salesforce Documentation for FeedLayoutFilter}
 \describe{
@@ -4105,6 +4297,7 @@ elementName}
 
 \strong{FieldMapping}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldmapping.htm}{Salesforce Documentation for FieldMapping}
 \describe{
  \item{SObjectType}{a character}
@@ -4115,6 +4308,7 @@ elementName}
 
 \strong{FieldMappingField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldmappingfield.htm}{Salesforce Documentation for FieldMappingField}
 \describe{
  \item{dataServiceField}{a character}
@@ -4123,6 +4317,7 @@ elementName}
 }
 
 \strong{FieldMappingRow}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldmappingrow.htm}{Salesforce Documentation for FieldMappingRow}
 \describe{
@@ -4139,6 +4334,7 @@ elementName}
 
 \strong{FieldOverride}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldoverride.htm}{Salesforce Documentation for FieldOverride}
 \describe{
  \item{field}{a character}
@@ -4147,6 +4343,7 @@ elementName}
 }
 
 \strong{FieldServiceSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldservicesettings.htm}{Salesforce Documentation for FieldServiceSettings}
 \describe{
@@ -4160,6 +4357,7 @@ elementName}
 
 \strong{FieldSet}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldset.htm}{Salesforce Documentation for FieldSet}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -4171,6 +4369,7 @@ elementName}
 
 \strong{FieldSetItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldsetitem.htm}{Salesforce Documentation for FieldSetItem}
 \describe{
  \item{field}{a character}
@@ -4180,6 +4379,7 @@ elementName}
 
 \strong{FieldSetTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldsettranslation.htm}{Salesforce Documentation for FieldSetTranslation}
 \describe{
  \item{label}{a character}
@@ -4188,6 +4388,7 @@ elementName}
 
 \strong{FieldValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldvalue.htm}{Salesforce Documentation for FieldValue}
 \describe{
  \item{name}{a character}
@@ -4195,6 +4396,7 @@ elementName}
 }
 
 \strong{FileProperties}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fileproperties.htm}{Salesforce Documentation for FileProperties}
 \describe{
@@ -4222,6 +4424,7 @@ elementName}
 }
 
 \strong{FileTypeDispositionAssignmentBean}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_filetypedispositionassignmentbean.htm}{Salesforce Documentation for FileTypeDispositionAssignmentBean}
 \describe{
@@ -4352,6 +4555,7 @@ elementName}
 
 \strong{FileUploadAndDownloadSecuritySettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fileuploadanddownloadsecuritysettings.htm}{Salesforce Documentation for FileUploadAndDownloadSecuritySettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -4360,6 +4564,7 @@ elementName}
 }
 
 \strong{FilterItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_filteritem.htm}{Salesforce Documentation for FilterItem}
 \describe{
@@ -4386,6 +4591,7 @@ elementName}
 
 \strong{FindSimilarOppFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_findsimilaroppfilter.htm}{Salesforce Documentation for FindSimilarOppFilter}
 \describe{
  \item{similarOpportunitiesDisplayColumns}{a character}
@@ -4394,6 +4600,7 @@ elementName}
 
 \strong{FiscalYearSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fiscalyearsettings.htm}{Salesforce Documentation for FiscalYearSettings}
 \describe{
  \item{fiscalYearNameBasedOn}{a character}
@@ -4401,6 +4608,7 @@ elementName}
 }
 
 \strong{FlexiPage}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flexipage.htm}{Salesforce Documentation for FlexiPage}
 \describe{
@@ -4438,6 +4646,7 @@ elementName}
 }
 
 \strong{FlexiPageRegion}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flexipageregion.htm}{Salesforce Documentation for FlexiPageRegion}
 \describe{
@@ -4478,6 +4687,7 @@ elementName}
 
 \strong{FlexiPageTemplateInstance}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flexipagetemplateinstance.htm}{Salesforce Documentation for FlexiPageTemplateInstance}
 \describe{
  \item{name}{a character}
@@ -4485,6 +4695,7 @@ elementName}
 }
 
 \strong{Flow}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flow.htm}{Salesforce Documentation for Flow}
 \describe{
@@ -4536,6 +4747,7 @@ elementName}
 
 \strong{FlowActionCall}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowactioncall.htm}{Salesforce Documentation for FlowActionCall}
 \describe{
  \item{label}{a character (inherited from FlowNode)}
@@ -4576,6 +4788,7 @@ elementName}
 
 \strong{FlowActionCallInputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowactioncallinputparameter.htm}{Salesforce Documentation for FlowActionCallInputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4585,6 +4798,7 @@ elementName}
 
 \strong{FlowActionCallOutputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowactioncalloutputparameter.htm}{Salesforce Documentation for FlowActionCallOutputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4593,6 +4807,7 @@ elementName}
 }
 
 \strong{FlowApexPluginCall}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowapexplugincall.htm}{Salesforce Documentation for FlowApexPluginCall}
 \describe{
@@ -4608,6 +4823,7 @@ elementName}
 
 \strong{FlowApexPluginCallInputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowapexplugincallinputparameter.htm}{Salesforce Documentation for FlowApexPluginCallInputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4617,6 +4833,7 @@ elementName}
 
 \strong{FlowApexPluginCallOutputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowapexplugincalloutputparameter.htm}{Salesforce Documentation for FlowApexPluginCallOutputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4625,6 +4842,7 @@ elementName}
 }
 
 \strong{FlowAssignment}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowassignment.htm}{Salesforce Documentation for FlowAssignment}
 \describe{
@@ -4636,6 +4854,7 @@ elementName}
 }
 
 \strong{FlowAssignmentItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowassignmentitem.htm}{Salesforce Documentation for FlowAssignmentItem}
 \describe{
@@ -4654,12 +4873,14 @@ elementName}
 
 \strong{FlowBaseElement}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowbaseelement.htm}{Salesforce Documentation for FlowBaseElement}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue}
 }
 
 \strong{FlowCategory}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowcategory.htm}{Salesforce Documentation for FlowCategory}
 \describe{
@@ -4671,12 +4892,14 @@ elementName}
 
 \strong{FlowCategoryItems}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowcategoryitems.htm}{Salesforce Documentation for FlowCategoryItems}
 \describe{
  \item{flow}{a character}
 }
 
 \strong{FlowChoice}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowchoice.htm}{Salesforce Documentation for FlowChoice}
 \describe{
@@ -4702,6 +4925,7 @@ elementName}
 
 \strong{FlowChoiceTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowchoicetranslation.htm}{Salesforce Documentation for FlowChoiceTranslation}
 \describe{
  \item{choiceText}{a character}
@@ -4710,6 +4934,7 @@ elementName}
 }
 
 \strong{FlowChoiceUserInput}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowchoiceuserinput.htm}{Salesforce Documentation for FlowChoiceUserInput}
 \describe{
@@ -4721,6 +4946,7 @@ elementName}
 
 \strong{FlowChoiceUserInputTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowchoiceuserinputtranslation.htm}{Salesforce Documentation for FlowChoiceUserInputTranslation}
 \describe{
  \item{promptText}{a character}
@@ -4728,6 +4954,7 @@ elementName}
 }
 
 \strong{FlowCondition}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowcondition.htm}{Salesforce Documentation for FlowCondition}
 \describe{
@@ -4755,6 +4982,7 @@ elementName}
 
 \strong{FlowConnector}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowconnector.htm}{Salesforce Documentation for FlowConnector}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4762,6 +4990,7 @@ elementName}
 }
 
 \strong{FlowConstant}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowconstant.htm}{Salesforce Documentation for FlowConstant}
 \describe{
@@ -4785,6 +5014,7 @@ elementName}
 
 \strong{FlowDecision}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowdecision.htm}{Salesforce Documentation for FlowDecision}
 \describe{
  \item{label}{a character (inherited from FlowNode)}
@@ -4797,6 +5027,7 @@ elementName}
 
 \strong{FlowDefinition}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowdefinition.htm}{Salesforce Documentation for FlowDefinition}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -4807,6 +5038,7 @@ elementName}
 
 \strong{FlowDefinitionTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowdefinitiontranslation.htm}{Salesforce Documentation for FlowDefinitionTranslation}
 \describe{
  \item{flows}{a FlowTranslation}
@@ -4815,6 +5047,7 @@ elementName}
 }
 
 \strong{FlowDynamicChoiceSet}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowdynamicchoiceset.htm}{Salesforce Documentation for FlowDynamicChoiceSet}
 \describe{
@@ -4852,6 +5085,7 @@ elementName}
 
 \strong{FlowElement}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowelement.htm}{Salesforce Documentation for FlowElement}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4860,6 +5094,7 @@ elementName}
 }
 
 \strong{FlowElementReferenceOrValue}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowelementreferenceorvalue.htm}{Salesforce Documentation for FlowElementReferenceOrValue}
 \describe{
@@ -4872,6 +5107,7 @@ elementName}
 }
 
 \strong{FlowFormula}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowformula.htm}{Salesforce Documentation for FlowFormula}
 \describe{
@@ -4896,6 +5132,7 @@ elementName}
 
 \strong{FlowInputFieldAssignment}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowinputfieldassignment.htm}{Salesforce Documentation for FlowInputFieldAssignment}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4905,6 +5142,7 @@ elementName}
 
 \strong{FlowInputValidationRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowinputvalidationrule.htm}{Salesforce Documentation for FlowInputValidationRule}
 \describe{
  \item{errorMessage}{a character}
@@ -4913,12 +5151,14 @@ elementName}
 
 \strong{FlowInputValidationRuleTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowinputvalidationruletranslation.htm}{Salesforce Documentation for FlowInputValidationRuleTranslation}
 \describe{
  \item{errorMessage}{a character}
 }
 
 \strong{FlowLoop}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowloop.htm}{Salesforce Documentation for FlowLoop}
 \describe{
@@ -4939,6 +5179,7 @@ elementName}
 
 \strong{FlowMetadataValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowmetadatavalue.htm}{Salesforce Documentation for FlowMetadataValue}
 \describe{
  \item{name}{a character}
@@ -4946,6 +5187,7 @@ elementName}
 }
 
 \strong{FlowNode}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flownode.htm}{Salesforce Documentation for FlowNode}
 \describe{
@@ -4958,6 +5200,7 @@ elementName}
 
 \strong{FlowOutputFieldAssignment}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowoutputfieldassignment.htm}{Salesforce Documentation for FlowOutputFieldAssignment}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -4966,6 +5209,7 @@ elementName}
 }
 
 \strong{FlowRecordCreate}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowrecordcreate.htm}{Salesforce Documentation for FlowRecordCreate}
 \describe{
@@ -4982,6 +5226,7 @@ elementName}
 
 \strong{FlowRecordDelete}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowrecorddelete.htm}{Salesforce Documentation for FlowRecordDelete}
 \describe{
  \item{label}{a character (inherited from FlowNode)}
@@ -4995,6 +5240,7 @@ elementName}
 }
 
 \strong{FlowRecordFilter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowrecordfilter.htm}{Salesforce Documentation for FlowRecordFilter}
 \describe{
@@ -5018,6 +5264,7 @@ elementName}
 }
 
 \strong{FlowRecordLookup}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowrecordlookup.htm}{Salesforce Documentation for FlowRecordLookup}
 \describe{
@@ -5043,6 +5290,7 @@ elementName}
 
 \strong{FlowRecordUpdate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowrecordupdate.htm}{Salesforce Documentation for FlowRecordUpdate}
 \describe{
  \item{label}{a character (inherited from FlowNode)}
@@ -5058,6 +5306,7 @@ elementName}
 
 \strong{FlowRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowrule.htm}{Salesforce Documentation for FlowRule}
 \describe{
  \item{description}{a character (inherited from FlowElement)}
@@ -5069,6 +5318,7 @@ elementName}
 }
 
 \strong{FlowScreen}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreen.htm}{Salesforce Documentation for FlowScreen}
 \describe{
@@ -5088,6 +5338,7 @@ elementName}
 }
 
 \strong{FlowScreenField}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreenfield.htm}{Salesforce Documentation for FlowScreenField}
 \describe{
@@ -5135,6 +5386,7 @@ elementName}
 
 \strong{FlowScreenFieldInputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreenfieldinputparameter.htm}{Salesforce Documentation for FlowScreenFieldInputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -5143,6 +5395,7 @@ elementName}
 }
 
 \strong{FlowScreenFieldOutputParameter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreenfieldoutputparameter.htm}{Salesforce Documentation for FlowScreenFieldOutputParameter}
 \describe{
@@ -5153,6 +5406,7 @@ elementName}
 
 \strong{FlowScreenFieldTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreenfieldtranslation.htm}{Salesforce Documentation for FlowScreenFieldTranslation}
 \describe{
  \item{fieldText}{a character}
@@ -5162,6 +5416,7 @@ elementName}
 }
 
 \strong{FlowScreenRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreenrule.htm}{Salesforce Documentation for FlowScreenRule}
 \describe{
@@ -5174,6 +5429,7 @@ elementName}
 
 \strong{FlowScreenRuleAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreenruleaction.htm}{Salesforce Documentation for FlowScreenRuleAction}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -5184,6 +5440,7 @@ elementName}
 
 \strong{FlowScreenTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowscreentranslation.htm}{Salesforce Documentation for FlowScreenTranslation}
 \describe{
  \item{fields}{a FlowScreenFieldTranslation}
@@ -5193,6 +5450,7 @@ elementName}
 }
 
 \strong{FlowStage}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowstage.htm}{Salesforce Documentation for FlowStage}
 \describe{
@@ -5205,6 +5463,7 @@ elementName}
 
 \strong{FlowStep}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowstep.htm}{Salesforce Documentation for FlowStep}
 \describe{
  \item{label}{a character (inherited from FlowNode)}
@@ -5214,6 +5473,7 @@ elementName}
 }
 
 \strong{FlowSubflow}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowsubflow.htm}{Salesforce Documentation for FlowSubflow}
 \describe{
@@ -5228,6 +5488,7 @@ elementName}
 
 \strong{FlowSubflowInputAssignment}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowsubflowinputassignment.htm}{Salesforce Documentation for FlowSubflowInputAssignment}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -5236,6 +5497,7 @@ elementName}
 }
 
 \strong{FlowSubflowOutputAssignment}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowsubflowoutputassignment.htm}{Salesforce Documentation for FlowSubflowOutputAssignment}
 \describe{
@@ -5246,6 +5508,7 @@ elementName}
 
 \strong{FlowTextTemplate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowtexttemplate.htm}{Salesforce Documentation for FlowTextTemplate}
 \describe{
  \item{description}{a character (inherited from FlowElement)}
@@ -5254,6 +5517,7 @@ elementName}
 }
 
 \strong{FlowTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowtranslation.htm}{Salesforce Documentation for FlowTranslation}
 \describe{
@@ -5264,6 +5528,7 @@ elementName}
 }
 
 \strong{FlowVariable}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowvariable.htm}{Salesforce Documentation for FlowVariable}
 \describe{
@@ -5292,6 +5557,7 @@ elementName}
 
 \strong{FlowWait}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowwait.htm}{Salesforce Documentation for FlowWait}
 \describe{
  \item{label}{a character (inherited from FlowNode)}
@@ -5304,6 +5570,7 @@ elementName}
 }
 
 \strong{FlowWaitEvent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowwaitevent.htm}{Salesforce Documentation for FlowWaitEvent}
 \describe{
@@ -5320,6 +5587,7 @@ elementName}
 
 \strong{FlowWaitEventInputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowwaiteventinputparameter.htm}{Salesforce Documentation for FlowWaitEventInputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -5329,6 +5597,7 @@ elementName}
 
 \strong{FlowWaitEventOutputParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flowwaiteventoutputparameter.htm}{Salesforce Documentation for FlowWaitEventOutputParameter}
 \describe{
  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
@@ -5337,6 +5606,7 @@ elementName}
 }
 
 \strong{Folder}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_folder.htm}{Salesforce Documentation for Folder}
 \describe{
@@ -5361,6 +5631,7 @@ elementName}
 }
 
 \strong{FolderShare}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_foldershare.htm}{Salesforce Documentation for FolderShare}
 \describe{
@@ -5397,6 +5668,7 @@ elementName}
 
 \strong{ForecastingCategoryMapping}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_forecastingcategorymapping.htm}{Salesforce Documentation for ForecastingCategoryMapping}
 \describe{
  \item{forecastingItemCategoryApiName}{a character}
@@ -5405,12 +5677,14 @@ elementName}
 
 \strong{ForecastingDisplayedFamilySettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_forecastingdisplayedfamilysettings.htm}{Salesforce Documentation for ForecastingDisplayedFamilySettings}
 \describe{
  \item{productFamily}{a character}
 }
 
 \strong{ForecastingSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_forecastingsettings.htm}{Salesforce Documentation for ForecastingSettings}
 \describe{
@@ -5428,6 +5702,7 @@ elementName}
 }
 
 \strong{ForecastingTypeSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_forecastingtypesettings.htm}{Salesforce Documentation for ForecastingTypeSettings}
 \describe{
@@ -5461,6 +5736,7 @@ elementName}
 
 \strong{ForecastRangeSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_forecastrangesettings.htm}{Salesforce Documentation for ForecastRangeSettings}
 \describe{
  \item{beginning}{a integer}
@@ -5477,6 +5753,7 @@ elementName}
 
 \strong{GlobalPicklistValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_globalpicklistvalue.htm}{Salesforce Documentation for GlobalPicklistValue}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -5488,6 +5765,7 @@ elementName}
 
 \strong{GlobalQuickActionTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_globalquickactiontranslation.htm}{Salesforce Documentation for GlobalQuickActionTranslation}
 \describe{
  \item{label}{a character}
@@ -5495,6 +5773,7 @@ elementName}
 }
 
 \strong{GlobalValueSet}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_globalvalueset.htm}{Salesforce Documentation for GlobalValueSet}
 \describe{
@@ -5507,6 +5786,7 @@ elementName}
 
 \strong{GlobalValueSetTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_globalvaluesettranslation.htm}{Salesforce Documentation for GlobalValueSetTranslation}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -5514,6 +5794,7 @@ elementName}
 }
 
 \strong{Group}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_group.htm}{Salesforce Documentation for Group}
 \describe{
@@ -5524,6 +5805,7 @@ elementName}
 
 \strong{HistoryRetentionPolicy}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_historyretentionpolicy.htm}{Salesforce Documentation for HistoryRetentionPolicy}
 \describe{
  \item{archiveAfterMonths}{a integer}
@@ -5532,6 +5814,7 @@ elementName}
 }
 
 \strong{Holiday}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_holiday.htm}{Salesforce Documentation for Holiday}
 \describe{
@@ -5554,6 +5837,7 @@ elementName}
 }
 
 \strong{HomePageComponent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_homepagecomponent.htm}{Salesforce Documentation for HomePageComponent}
 \describe{
@@ -5582,6 +5866,7 @@ elementName}
 
 \strong{HomePageLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_homepagelayout.htm}{Salesforce Documentation for HomePageLayout}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -5591,6 +5876,7 @@ elementName}
 
 \strong{IdeaReputationLevel}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_ideareputationlevel.htm}{Salesforce Documentation for IdeaReputationLevel}
 \describe{
  \item{name}{a character}
@@ -5598,6 +5884,7 @@ elementName}
 }
 
 \strong{IdeasSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_ideassettings.htm}{Salesforce Documentation for IdeasSettings}
 \describe{
@@ -5612,6 +5899,7 @@ elementName}
 
 \strong{Index}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_index.htm}{Salesforce Documentation for Index}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -5621,6 +5909,7 @@ elementName}
 
 \strong{IndexField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_indexfield.htm}{Salesforce Documentation for IndexField}
 \describe{
  \item{name}{a character}
@@ -5628,6 +5917,7 @@ elementName}
 }
 
 \strong{InsightType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_insighttype.htm}{Salesforce Documentation for InsightType}
 \describe{
@@ -5654,6 +5944,7 @@ elementName}
 
 \strong{InstalledPackage}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_installedpackage.htm}{Salesforce Documentation for InstalledPackage}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -5662,6 +5953,7 @@ elementName}
 }
 
 \strong{IntegrationHubSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_integrationhubsettings.htm}{Salesforce Documentation for IntegrationHubSettings}
 \describe{
@@ -5685,6 +5977,7 @@ elementName}
 
 \strong{IntegrationHubSettingsType}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_integrationhubsettingstype.htm}{Salesforce Documentation for IntegrationHubSettingsType}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -5705,6 +5998,7 @@ elementName}
 
 \strong{IpRange}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_iprange.htm}{Salesforce Documentation for IpRange}
 \describe{
  \item{description}{a character}
@@ -5714,6 +6008,7 @@ elementName}
 
 \strong{KeyboardShortcuts}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_keyboardshortcuts.htm}{Salesforce Documentation for KeyboardShortcuts}
 \describe{
  \item{customShortcuts}{a CustomShortcut}
@@ -5722,12 +6017,14 @@ elementName}
 
 \strong{Keyword}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_keyword.htm}{Salesforce Documentation for Keyword}
 \describe{
  \item{keyword}{a character}
 }
 
 \strong{KeywordList}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_keywordlist.htm}{Salesforce Documentation for KeywordList}
 \describe{
@@ -5739,6 +6036,7 @@ elementName}
 
 \strong{KnowledgeAnswerSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgeanswersettings.htm}{Salesforce Documentation for KnowledgeAnswerSettings}
 \describe{
  \item{assignTo}{a character}
@@ -5748,6 +6046,7 @@ elementName}
 
 \strong{KnowledgeCaseField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgecasefield.htm}{Salesforce Documentation for KnowledgeCaseField}
 \describe{
  \item{name}{a character}
@@ -5755,12 +6054,14 @@ elementName}
 
 \strong{KnowledgeCaseFieldsSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgecasefieldssettings.htm}{Salesforce Documentation for KnowledgeCaseFieldsSettings}
 \describe{
  \item{field}{a KnowledgeCaseField}
 }
 
 \strong{KnowledgeCaseSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgecasesettings.htm}{Salesforce Documentation for KnowledgeCaseSettings}
 \describe{
@@ -5785,12 +6086,14 @@ elementName}
 
 \strong{KnowledgeCommunitiesSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgecommunitiessettings.htm}{Salesforce Documentation for KnowledgeCommunitiesSettings}
 \describe{
  \item{community}{a character}
 }
 
 \strong{KnowledgeLanguage}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgelanguage.htm}{Salesforce Documentation for KnowledgeLanguage}
 \describe{
@@ -5814,12 +6117,14 @@ elementName}
 
 \strong{KnowledgeLanguageSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgelanguagesettings.htm}{Salesforce Documentation for KnowledgeLanguageSettings}
 \describe{
  \item{language}{a KnowledgeLanguage}
 }
 
 \strong{KnowledgeSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgesettings.htm}{Salesforce Documentation for KnowledgeSettings}
 \describe{
@@ -5842,12 +6147,14 @@ elementName}
 
 \strong{KnowledgeSitesSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgesitessettings.htm}{Salesforce Documentation for KnowledgeSitesSettings}
 \describe{
  \item{site}{a character}
 }
 
 \strong{KnowledgeSuggestedArticlesSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgesuggestedarticlessettings.htm}{Salesforce Documentation for KnowledgeSuggestedArticlesSettings}
 \describe{
@@ -5859,12 +6166,14 @@ elementName}
 
 \strong{KnowledgeWorkOrderField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgeworkorderfield.htm}{Salesforce Documentation for KnowledgeWorkOrderField}
 \describe{
  \item{name}{a character}
 }
 
 \strong{KnowledgeWorkOrderFieldsSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgeworkorderfieldssettings.htm}{Salesforce Documentation for KnowledgeWorkOrderFieldsSettings}
 \describe{
@@ -5873,6 +6182,7 @@ elementName}
 
 \strong{KnowledgeWorkOrderLineItemField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgeworkorderlineitemfield.htm}{Salesforce Documentation for KnowledgeWorkOrderLineItemField}
 \describe{
  \item{name}{a character}
@@ -5880,12 +6190,14 @@ elementName}
 
 \strong{KnowledgeWorkOrderLineItemFieldsSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_knowledgeworkorderlineitemfieldssettings.htm}{Salesforce Documentation for KnowledgeWorkOrderLineItemFieldsSettings}
 \describe{
  \item{field}{a KnowledgeWorkOrderLineItemField}
 }
 
 \strong{Layout}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_layout.htm}{Salesforce Documentation for Layout}
 \describe{
@@ -5922,6 +6234,7 @@ elementName}
 
 \strong{LayoutColumn}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_layoutcolumn.htm}{Salesforce Documentation for LayoutColumn}
 \describe{
  \item{layoutItems}{a LayoutItem}
@@ -5929,6 +6242,7 @@ elementName}
 }
 
 \strong{LayoutItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_layoutitem.htm}{Salesforce Documentation for LayoutItem}
 \describe{
@@ -5956,6 +6270,7 @@ elementName}
 
 \strong{LayoutSection}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_layoutsection.htm}{Salesforce Documentation for LayoutSection}
 \describe{
  \item{customLabel}{a character either 'true' or 'false'}
@@ -5975,6 +6290,7 @@ elementName}
 
 \strong{LayoutSectionTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_layoutsectiontranslation.htm}{Salesforce Documentation for LayoutSectionTranslation}
 \describe{
  \item{label}{a character}
@@ -5982,6 +6298,7 @@ elementName}
 }
 
 \strong{LayoutTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_layouttranslation.htm}{Salesforce Documentation for LayoutTranslation}
 \describe{
@@ -5991,6 +6308,7 @@ elementName}
 }
 
 \strong{LeadConvertSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_leadconvertsettings.htm}{Salesforce Documentation for LeadConvertSettings}
 \describe{
@@ -6008,6 +6326,7 @@ elementName}
 
 \strong{Letterhead}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_letterhead.htm}{Salesforce Documentation for Letterhead}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6024,6 +6343,7 @@ elementName}
 }
 
 \strong{LetterheadHeaderFooter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_letterheadheaderfooter.htm}{Salesforce Documentation for LetterheadHeaderFooter}
 \describe{
@@ -6050,6 +6370,7 @@ elementName}
 
 \strong{LetterheadLine}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_letterheadline.htm}{Salesforce Documentation for LetterheadLine}
 \describe{
  \item{color}{a character}
@@ -6058,6 +6379,7 @@ elementName}
 
 \strong{LicensedCustomPermissions}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_licensedcustompermissions.htm}{Salesforce Documentation for LicensedCustomPermissions}
 \describe{
  \item{customPermission}{a character}
@@ -6065,6 +6387,7 @@ elementName}
 }
 
 \strong{LicenseDefinition}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_licensedefinition.htm}{Salesforce Documentation for LicenseDefinition}
 \describe{
@@ -6084,6 +6407,7 @@ elementName}
 }
 
 \strong{LightningBolt}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lightningbolt.htm}{Salesforce Documentation for LightningBolt}
 \describe{
@@ -6106,6 +6430,7 @@ elementName}
 
 \strong{LightningBoltFeatures}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lightningboltfeatures.htm}{Salesforce Documentation for LightningBoltFeatures}
 \describe{
  \item{description}{a character}
@@ -6115,6 +6440,7 @@ elementName}
 
 \strong{LightningBoltImages}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lightningboltimages.htm}{Salesforce Documentation for LightningBoltImages}
 \describe{
  \item{image}{a character}
@@ -6122,6 +6448,7 @@ elementName}
 }
 
 \strong{LightningBoltItems}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lightningboltitems.htm}{Salesforce Documentation for LightningBoltItems}
 \describe{
@@ -6131,6 +6458,7 @@ elementName}
 
 \strong{LightningComponentBundle}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lightningcomponentbundle.htm}{Salesforce Documentation for LightningComponentBundle}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6139,6 +6467,7 @@ elementName}
 }
 
 \strong{LightningExperienceTheme}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lightningexperiencetheme.htm}{Salesforce Documentation for LightningExperienceTheme}
 \describe{
@@ -6151,6 +6480,7 @@ elementName}
 
 \strong{ListMetadataQuery}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_listmetadataquery.htm}{Salesforce Documentation for ListMetadataQuery}
 \describe{
  \item{folder}{a character}
@@ -6158,6 +6488,7 @@ elementName}
 }
 
 \strong{ListPlacement}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_listplacement.htm}{Salesforce Documentation for ListPlacement}
 \describe{
@@ -6168,6 +6499,7 @@ elementName}
 }
 
 \strong{ListView}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_listview.htm}{Salesforce Documentation for ListView}
 \describe{
@@ -6318,6 +6650,7 @@ elementName}
 
 \strong{ListViewFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_listviewfilter.htm}{Salesforce Documentation for ListViewFilter}
 \describe{
  \item{field}{a character}
@@ -6342,6 +6675,7 @@ elementName}
 
 \strong{LiveAgentConfig}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_liveagentconfig.htm}{Salesforce Documentation for LiveAgentConfig}
 \describe{
  \item{enableLiveChat}{a character either 'true' or 'false'}
@@ -6356,6 +6690,7 @@ elementName}
 
 \strong{LiveAgentSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_liveagentsettings.htm}{Salesforce Documentation for LiveAgentSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6363,6 +6698,7 @@ elementName}
 }
 
 \strong{LiveChatAgentConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatagentconfig.htm}{Salesforce Documentation for LiveChatAgentConfig}
 \describe{
@@ -6404,6 +6740,7 @@ elementName}
 }
 
 \strong{LiveChatButton}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatbutton.htm}{Salesforce Documentation for LiveChatButton}
 \describe{
@@ -6619,6 +6956,7 @@ elementName}
 
 \strong{LiveChatButtonDeployments}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatbuttondeployments.htm}{Salesforce Documentation for LiveChatButtonDeployments}
 \describe{
  \item{deployment}{a character}
@@ -6626,12 +6964,14 @@ elementName}
 
 \strong{LiveChatButtonSkills}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatbuttonskills.htm}{Salesforce Documentation for LiveChatButtonSkills}
 \describe{
  \item{skill}{a character}
 }
 
 \strong{LiveChatDeployment}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatdeployment.htm}{Salesforce Documentation for LiveChatDeployment}
 \describe{
@@ -6651,12 +6991,14 @@ elementName}
 
 \strong{LiveChatDeploymentDomainWhitelist}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatdeploymentdomainwhitelist.htm}{Salesforce Documentation for LiveChatDeploymentDomainWhitelist}
 \describe{
  \item{domain}{a character}
 }
 
 \strong{LiveChatSensitiveDataRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livechatsensitivedatarule.htm}{Salesforce Documentation for LiveChatSensitiveDataRule}
 \describe{
@@ -6676,6 +7018,7 @@ elementName}
 
 \strong{LiveMessageSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_livemessagesettings.htm}{Salesforce Documentation for LiveMessageSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6683,6 +7026,7 @@ elementName}
 }
 
 \strong{LogInfo}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_loginfo.htm}{Salesforce Documentation for LogInfo}
 \describe{
@@ -6716,6 +7060,7 @@ elementName}
 
 \strong{LookupFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lookupfilter.htm}{Salesforce Documentation for LookupFilter}
 \describe{
  \item{active}{a character either 'true' or 'false'}
@@ -6729,6 +7074,7 @@ elementName}
 
 \strong{LookupFilterTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_lookupfiltertranslation.htm}{Salesforce Documentation for LookupFilterTranslation}
 \describe{
  \item{errorMessage}{a character}
@@ -6737,6 +7083,7 @@ elementName}
 
 \strong{MacroSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_macrosettings.htm}{Salesforce Documentation for MacroSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6744,6 +7091,7 @@ elementName}
 }
 
 \strong{ManagedTopic}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_managedtopic.htm}{Salesforce Documentation for ManagedTopic}
 \describe{
@@ -6757,6 +7105,7 @@ elementName}
 
 \strong{ManagedTopics}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_managedtopics.htm}{Salesforce Documentation for ManagedTopics}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6765,6 +7114,7 @@ elementName}
 
 \strong{MarketingActionSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_marketingactionsettings.htm}{Salesforce Documentation for MarketingActionSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6772,6 +7122,7 @@ elementName}
 }
 
 \strong{MarketingResourceType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_marketingresourcetype.htm}{Salesforce Documentation for MarketingResourceType}
 \describe{
@@ -6783,6 +7134,7 @@ elementName}
 }
 
 \strong{MatchingRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_matchingrule.htm}{Salesforce Documentation for MatchingRule}
 \describe{
@@ -6804,6 +7156,7 @@ elementName}
 }
 
 \strong{MatchingRuleItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_matchingruleitem.htm}{Salesforce Documentation for MatchingRuleItem}
 \describe{
@@ -6831,6 +7184,7 @@ elementName}
 
 \strong{MatchingRules}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_matchingrules.htm}{Salesforce Documentation for MatchingRules}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6839,12 +7193,14 @@ elementName}
 
 \strong{Metadata}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_metadata.htm}{Salesforce Documentation for Metadata}
 \describe{
  \item{fullName}{a character}
 }
 
 \strong{MetadataWithContent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_metadatawithcontent.htm}{Salesforce Documentation for MetadataWithContent}
 \describe{
@@ -6853,6 +7209,7 @@ elementName}
 }
 
 \strong{MilestoneType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_milestonetype.htm}{Salesforce Documentation for MilestoneType}
 \describe{
@@ -6869,6 +7226,7 @@ elementName}
 
 \strong{MiniLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_minilayout.htm}{Salesforce Documentation for MiniLayout}
 \describe{
  \item{fields}{a character}
@@ -6876,6 +7234,7 @@ elementName}
 }
 
 \strong{MobileSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_mobilesettings.htm}{Salesforce Documentation for MobileSettings}
 \describe{
@@ -6888,6 +7247,7 @@ elementName}
 
 \strong{ModeratedEntityField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_moderatedentityfield.htm}{Salesforce Documentation for ModeratedEntityField}
 \describe{
  \item{entityName}{a character}
@@ -6896,6 +7256,7 @@ elementName}
 }
 
 \strong{ModerationRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_moderationrule.htm}{Salesforce Documentation for ModerationRule}
 \describe{
@@ -6933,6 +7294,7 @@ elementName}
 
 \strong{NamedCredential}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_namedcredential.htm}{Salesforce Documentation for NamedCredential}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6966,6 +7328,7 @@ elementName}
 
 \strong{NameSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_namesettings.htm}{Salesforce Documentation for NameSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -6975,12 +7338,14 @@ elementName}
 
 \strong{NavigationLinkSet}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_navigationlinkset.htm}{Salesforce Documentation for NavigationLinkSet}
 \describe{
  \item{navigationMenuItem}{a NavigationMenuItem}
 }
 
 \strong{NavigationMenuItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_navigationmenuitem.htm}{Salesforce Documentation for NavigationMenuItem}
 \describe{
@@ -6996,12 +7361,14 @@ elementName}
 
 \strong{NavigationSubMenu}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_navigationsubmenu.htm}{Salesforce Documentation for NavigationSubMenu}
 \describe{
  \item{navigationMenuItem}{a NavigationMenuItem}
 }
 
 \strong{Network}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_network.htm}{Salesforce Documentation for Network}
 \describe{
@@ -7065,12 +7432,14 @@ elementName}
 
 \strong{NetworkAccess}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_networkaccess.htm}{Salesforce Documentation for NetworkAccess}
 \describe{
  \item{ipRanges}{a IpRange}
 }
 
 \strong{NetworkBranding}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_networkbranding.htm}{Salesforce Documentation for NetworkBranding}
 \describe{
@@ -7098,6 +7467,7 @@ elementName}
 
 \strong{NetworkMemberGroup}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_networkmembergroup.htm}{Salesforce Documentation for NetworkMemberGroup}
 \describe{
  \item{permissionSet}{a character}
@@ -7105,6 +7475,7 @@ elementName}
 }
 
 \strong{NetworkPageOverride}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_networkpageoverride.htm}{Salesforce Documentation for NetworkPageOverride}
 \describe{
@@ -7147,6 +7518,7 @@ elementName}
 
 \strong{NetworkTabSet}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_networktabset.htm}{Salesforce Documentation for NetworkTabSet}
 \describe{
  \item{customTab}{a character}
@@ -7156,6 +7528,7 @@ elementName}
 
 \strong{NextAutomatedApprover}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_nextautomatedapprover.htm}{Salesforce Documentation for NextAutomatedApprover}
 \describe{
  \item{useApproverFieldOfRecordOwner}{a character either 'true' or 'false'}
@@ -7163,6 +7536,7 @@ elementName}
 }
 
 \strong{ObjectMapping}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_objectmapping.htm}{Salesforce Documentation for ObjectMapping}
 \describe{
@@ -7173,6 +7547,7 @@ elementName}
 
 \strong{ObjectMappingField}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_objectmappingfield.htm}{Salesforce Documentation for ObjectMappingField}
 \describe{
  \item{inputField}{a character}
@@ -7180,6 +7555,7 @@ elementName}
 }
 
 \strong{ObjectNameCaseValue}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_objectnamecasevalue.htm}{Salesforce Documentation for ObjectNameCaseValue}
 \describe{
@@ -7237,6 +7613,7 @@ elementName}
 
 \strong{ObjectRelationship}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_objectrelationship.htm}{Salesforce Documentation for ObjectRelationship}
 \describe{
  \item{join}{a ObjectRelationship}
@@ -7245,6 +7622,7 @@ elementName}
 }
 
 \strong{ObjectSearchSetting}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_objectsearchsetting.htm}{Salesforce Documentation for ObjectSearchSetting}
 \describe{
@@ -7256,12 +7634,14 @@ elementName}
 
 \strong{ObjectUsage}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_objectusage.htm}{Salesforce Documentation for ObjectUsage}
 \describe{
  \item{object}{a character}
 }
 
 \strong{OpportunityListFieldsLabelMapping}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_opportunitylistfieldslabelmapping.htm}{Salesforce Documentation for OpportunityListFieldsLabelMapping}
 \describe{
@@ -7271,6 +7651,7 @@ elementName}
 
 \strong{OpportunityListFieldsSelectedSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_opportunitylistfieldsselectedsettings.htm}{Salesforce Documentation for OpportunityListFieldsSelectedSettings}
 \describe{
  \item{field}{a character}
@@ -7278,12 +7659,14 @@ elementName}
 
 \strong{OpportunityListFieldsUnselectedSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_opportunitylistfieldsunselectedsettings.htm}{Salesforce Documentation for OpportunityListFieldsUnselectedSettings}
 \describe{
  \item{field}{a character}
 }
 
 \strong{OpportunitySettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_opportunitysettings.htm}{Salesforce Documentation for OpportunitySettings}
 \describe{
@@ -7298,6 +7681,7 @@ elementName}
 
 \strong{Orchestration}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_orchestration.htm}{Salesforce Documentation for Orchestration}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -7306,6 +7690,7 @@ elementName}
 }
 
 \strong{OrchestrationContext}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_orchestrationcontext.htm}{Salesforce Documentation for OrchestrationContext}
 \describe{
@@ -7320,6 +7705,7 @@ elementName}
 
 \strong{OrchestrationContextEvent}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_orchestrationcontextevent.htm}{Salesforce Documentation for OrchestrationContextEvent}
 \describe{
  \item{eventType}{a character}
@@ -7329,6 +7715,7 @@ elementName}
 }
 
 \strong{OrderSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_ordersettings.htm}{Salesforce Documentation for OrderSettings}
 \describe{
@@ -7341,6 +7728,7 @@ elementName}
 
 \strong{OrganizationSettingsDetail}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_organizationsettingsdetail.htm}{Salesforce Documentation for OrganizationSettingsDetail}
 \describe{
  \item{settingName}{a character}
@@ -7349,6 +7737,7 @@ elementName}
 
 \strong{OrgPreferenceSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_orgpreferencesettings.htm}{Salesforce Documentation for OrgPreferenceSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -7356,6 +7745,7 @@ elementName}
 }
 
 \strong{Package}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_package.htm}{Salesforce Documentation for Package}
 \describe{
@@ -7379,6 +7769,7 @@ elementName}
 
 \strong{PackageTypeMembers}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_packagetypemembers.htm}{Salesforce Documentation for PackageTypeMembers}
 \describe{
  \item{members}{a character}
@@ -7386,6 +7777,7 @@ elementName}
 }
 
 \strong{PackageVersion}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_packageversion.htm}{Salesforce Documentation for PackageVersion}
 \describe{
@@ -7395,6 +7787,7 @@ elementName}
 }
 
 \strong{PasswordPolicies}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_passwordpolicies.htm}{Salesforce Documentation for PasswordPolicies}
 \describe{
@@ -7450,6 +7843,7 @@ elementName}
 
 \strong{PathAssistant}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_pathassistant.htm}{Salesforce Documentation for PathAssistant}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -7463,6 +7857,7 @@ elementName}
 
 \strong{PathAssistantSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_pathassistantsettings.htm}{Salesforce Documentation for PathAssistantSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -7470,6 +7865,7 @@ elementName}
 }
 
 \strong{PathAssistantStep}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_pathassistantstep.htm}{Salesforce Documentation for PathAssistantStep}
 \describe{
@@ -7479,6 +7875,7 @@ elementName}
 }
 
 \strong{PermissionSet}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionset.htm}{Salesforce Documentation for PermissionSet}
 \describe{
@@ -7501,6 +7898,7 @@ elementName}
 
 \strong{PermissionSetApexClassAccess}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetapexclassaccess.htm}{Salesforce Documentation for PermissionSetApexClassAccess}
 \describe{
  \item{apexClass}{a character}
@@ -7508,6 +7906,7 @@ elementName}
 }
 
 \strong{PermissionSetApexPageAccess}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetapexpageaccess.htm}{Salesforce Documentation for PermissionSetApexPageAccess}
 \describe{
@@ -7517,6 +7916,7 @@ elementName}
 
 \strong{PermissionSetApplicationVisibility}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetapplicationvisibility.htm}{Salesforce Documentation for PermissionSetApplicationVisibility}
 \describe{
  \item{application}{a character}
@@ -7524,6 +7924,7 @@ elementName}
 }
 
 \strong{PermissionSetCustomPermissions}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetcustompermissions.htm}{Salesforce Documentation for PermissionSetCustomPermissions}
 \describe{
@@ -7533,6 +7934,7 @@ elementName}
 
 \strong{PermissionSetExternalDataSourceAccess}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetexternaldatasourceaccess.htm}{Salesforce Documentation for PermissionSetExternalDataSourceAccess}
 \describe{
  \item{enabled}{a character either 'true' or 'false'}
@@ -7540,6 +7942,7 @@ elementName}
 }
 
 \strong{PermissionSetFieldPermissions}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetfieldpermissions.htm}{Salesforce Documentation for PermissionSetFieldPermissions}
 \describe{
@@ -7549,6 +7952,7 @@ elementName}
 }
 
 \strong{PermissionSetGroup}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetgroup.htm}{Salesforce Documentation for PermissionSetGroup}
 \describe{
@@ -7560,6 +7964,7 @@ elementName}
 }
 
 \strong{PermissionSetObjectPermissions}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetobjectpermissions.htm}{Salesforce Documentation for PermissionSetObjectPermissions}
 \describe{
@@ -7574,6 +7979,7 @@ elementName}
 
 \strong{PermissionSetRecordTypeVisibility}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetrecordtypevisibility.htm}{Salesforce Documentation for PermissionSetRecordTypeVisibility}
 \describe{
  \item{recordType}{a character}
@@ -7581,6 +7987,7 @@ elementName}
 }
 
 \strong{PermissionSetTabSetting}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsettabsetting.htm}{Salesforce Documentation for PermissionSetTabSetting}
 \describe{
@@ -7596,6 +8003,7 @@ elementName}
 
 \strong{PermissionSetUserPermission}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_permissionsetuserpermission.htm}{Salesforce Documentation for PermissionSetUserPermission}
 \describe{
  \item{enabled}{a character either 'true' or 'false'}
@@ -7603,6 +8011,7 @@ elementName}
 }
 
 \strong{PersonalJourneySettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_personaljourneysettings.htm}{Salesforce Documentation for PersonalJourneySettings}
 \describe{
@@ -7612,6 +8021,7 @@ elementName}
 
 \strong{PersonListSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_personlistsettings.htm}{Salesforce Documentation for PersonListSettings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -7619,6 +8029,7 @@ elementName}
 }
 
 \strong{PicklistEntry}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_picklistentry.htm}{Salesforce Documentation for PicklistEntry}
 \describe{
@@ -7630,6 +8041,7 @@ elementName}
 }
 
 \strong{PicklistValue}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_picklistvalue.htm}{Salesforce Documentation for PicklistValue}
 \describe{
@@ -7660,6 +8072,7 @@ elementName}
 
 \strong{PicklistValueTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_picklistvaluetranslation.htm}{Salesforce Documentation for PicklistValueTranslation}
 \describe{
  \item{masterLabel}{a character}
@@ -7667,6 +8080,7 @@ elementName}
 }
 
 \strong{PlatformActionList}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_platformactionlist.htm}{Salesforce Documentation for PlatformActionList}
 \describe{
@@ -7700,6 +8114,7 @@ elementName}
 
 \strong{PlatformActionListItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_platformactionlistitem.htm}{Salesforce Documentation for PlatformActionListItem}
 \describe{
  \item{actionName}{a character}
@@ -7719,6 +8134,7 @@ elementName}
 
 \strong{PlatformCachePartition}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_platformcachepartition.htm}{Salesforce Documentation for PlatformCachePartition}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -7729,6 +8145,7 @@ elementName}
 }
 
 \strong{PlatformCachePartitionType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_platformcachepartitiontype.htm}{Salesforce Documentation for PlatformCachePartitionType}
 \describe{
@@ -7744,6 +8161,7 @@ elementName}
 }
 
 \strong{Portal}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_portal.htm}{Salesforce Documentation for Portal}
 \describe{
@@ -7790,6 +8208,7 @@ elementName}
 
 \strong{PostTemplate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_posttemplate.htm}{Salesforce Documentation for PostTemplate}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -7801,12 +8220,14 @@ elementName}
 
 \strong{PrimaryTabComponents}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_primarytabcomponents.htm}{Salesforce Documentation for PrimaryTabComponents}
 \describe{
  \item{containers}{a Container}
 }
 
 \strong{ProductSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_productsettings.htm}{Salesforce Documentation for ProductSettings}
 \describe{
@@ -7817,6 +8238,7 @@ elementName}
 }
 
 \strong{Profile}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profile.htm}{Salesforce Documentation for Profile}
 \describe{
@@ -7842,6 +8264,7 @@ elementName}
 }
 
 \strong{ProfileActionOverride}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileactionoverride.htm}{Salesforce Documentation for ProfileActionOverride}
 \describe{
@@ -7870,6 +8293,7 @@ elementName}
 
 \strong{ProfileApexClassAccess}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileapexclassaccess.htm}{Salesforce Documentation for ProfileApexClassAccess}
 \describe{
  \item{apexClass}{a character}
@@ -7877,6 +8301,7 @@ elementName}
 }
 
 \strong{ProfileApexPageAccess}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileapexpageaccess.htm}{Salesforce Documentation for ProfileApexPageAccess}
 \describe{
@@ -7886,6 +8311,7 @@ elementName}
 
 \strong{ProfileApplicationVisibility}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileapplicationvisibility.htm}{Salesforce Documentation for ProfileApplicationVisibility}
 \describe{
  \item{application}{a character}
@@ -7894,6 +8320,7 @@ elementName}
 }
 
 \strong{ProfileCategoryGroupVisibility}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilecategorygroupvisibility.htm}{Salesforce Documentation for ProfileCategoryGroupVisibility}
 \describe{
@@ -7910,6 +8337,7 @@ elementName}
 
 \strong{ProfileCustomPermissions}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilecustompermissions.htm}{Salesforce Documentation for ProfileCustomPermissions}
 \describe{
  \item{enabled}{a character either 'true' or 'false'}
@@ -7918,6 +8346,7 @@ elementName}
 
 \strong{ProfileExternalDataSourceAccess}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileexternaldatasourceaccess.htm}{Salesforce Documentation for ProfileExternalDataSourceAccess}
 \describe{
  \item{enabled}{a character either 'true' or 'false'}
@@ -7925,6 +8354,7 @@ elementName}
 }
 
 \strong{ProfileFieldLevelSecurity}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilefieldlevelsecurity.htm}{Salesforce Documentation for ProfileFieldLevelSecurity}
 \describe{
@@ -7935,6 +8365,7 @@ elementName}
 
 \strong{ProfileLayoutAssignment}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilelayoutassignment.htm}{Salesforce Documentation for ProfileLayoutAssignment}
 \describe{
  \item{layout}{a character}
@@ -7942,6 +8373,7 @@ elementName}
 }
 
 \strong{ProfileLoginHours}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileloginhours.htm}{Salesforce Documentation for ProfileLoginHours}
 \describe{
@@ -7963,6 +8395,7 @@ elementName}
 
 \strong{ProfileLoginIpRange}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileloginiprange.htm}{Salesforce Documentation for ProfileLoginIpRange}
 \describe{
  \item{description}{a character}
@@ -7971,6 +8404,7 @@ elementName}
 }
 
 \strong{ProfileObjectPermissions}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileobjectpermissions.htm}{Salesforce Documentation for ProfileObjectPermissions}
 \describe{
@@ -7984,6 +8418,7 @@ elementName}
 }
 
 \strong{ProfilePasswordPolicy}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilepasswordpolicy.htm}{Salesforce Documentation for ProfilePasswordPolicy}
 \describe{
@@ -8002,6 +8437,7 @@ elementName}
 
 \strong{ProfileRecordTypeVisibility}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilerecordtypevisibility.htm}{Salesforce Documentation for ProfileRecordTypeVisibility}
 \describe{
  \item{default}{a character either 'true' or 'false'}
@@ -8011,6 +8447,7 @@ elementName}
 }
 
 \strong{ProfileSessionSetting}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilesessionsetting.htm}{Salesforce Documentation for ProfileSessionSetting}
 \describe{
@@ -8032,6 +8469,7 @@ elementName}
 
 \strong{ProfileTabVisibility}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profiletabvisibility.htm}{Salesforce Documentation for ProfileTabVisibility}
 \describe{
  \item{tab}{a character}
@@ -8046,6 +8484,7 @@ elementName}
 
 \strong{ProfileUserPermission}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profileuserpermission.htm}{Salesforce Documentation for ProfileUserPermission}
 \describe{
  \item{enabled}{a character either 'true' or 'false'}
@@ -8054,12 +8493,14 @@ elementName}
 
 \strong{PublicGroups}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_publicgroups.htm}{Salesforce Documentation for PublicGroups}
 \describe{
  \item{publicGroup}{a character}
 }
 
 \strong{PushNotification}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_pushnotification.htm}{Salesforce Documentation for PushNotification}
 \describe{
@@ -8068,6 +8509,7 @@ elementName}
 }
 
 \strong{Queue}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_queue.htm}{Salesforce Documentation for Queue}
 \describe{
@@ -8082,6 +8524,7 @@ elementName}
 
 \strong{QueueMembers}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_queuemembers.htm}{Salesforce Documentation for QueueMembers}
 \describe{
  \item{publicGroups}{a PublicGroups}
@@ -8093,12 +8536,14 @@ elementName}
 
 \strong{QueueSobject}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_queuesobject.htm}{Salesforce Documentation for QueueSobject}
 \describe{
  \item{sobjectType}{a character}
 }
 
 \strong{QuickAction}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickaction.htm}{Salesforce Documentation for QuickAction}
 \describe{
@@ -8170,6 +8615,7 @@ elementName}
 
 \strong{QuickActionLayout}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactionlayout.htm}{Salesforce Documentation for QuickActionLayout}
 \describe{
  \item{layoutSectionStyle}{a LayoutSectionStyle - which is a character taking one of the following values: 
@@ -8185,12 +8631,14 @@ elementName}
 
 \strong{QuickActionLayoutColumn}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactionlayoutcolumn.htm}{Salesforce Documentation for QuickActionLayoutColumn}
 \describe{
  \item{quickActionLayoutItems}{a QuickActionLayoutItem}
 }
 
 \strong{QuickActionLayoutItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactionlayoutitem.htm}{Salesforce Documentation for QuickActionLayoutItem}
 \describe{
@@ -8207,6 +8655,7 @@ elementName}
 
 \strong{QuickActionList}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactionlist.htm}{Salesforce Documentation for QuickActionList}
 \describe{
  \item{quickActionListItems}{a QuickActionListItem}
@@ -8214,12 +8663,14 @@ elementName}
 
 \strong{QuickActionListItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactionlistitem.htm}{Salesforce Documentation for QuickActionListItem}
 \describe{
  \item{quickActionName}{a character}
 }
 
 \strong{QuickActionSendEmailOptions}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactionsendemailoptions.htm}{Salesforce Documentation for QuickActionSendEmailOptions}
 \describe{
@@ -8229,6 +8680,7 @@ elementName}
 
 \strong{QuickActionTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quickactiontranslation.htm}{Salesforce Documentation for QuickActionTranslation}
 \describe{
  \item{label}{a character}
@@ -8237,12 +8689,14 @@ elementName}
 
 \strong{QuotasSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quotassettings.htm}{Salesforce Documentation for QuotasSettings}
 \describe{
  \item{showQuotas}{a character either 'true' or 'false'}
 }
 
 \strong{QuoteSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_quotesettings.htm}{Salesforce Documentation for QuoteSettings}
 \describe{
@@ -8252,12 +8706,14 @@ elementName}
 
 \strong{RecommendationAudience}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recommendationaudience.htm}{Salesforce Documentation for RecommendationAudience}
 \describe{
  \item{recommendationAudienceDetails}{a RecommendationAudienceDetail}
 }
 
 \strong{RecommendationAudienceDetail}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recommendationaudiencedetail.htm}{Salesforce Documentation for RecommendationAudienceDetail}
 \describe{
@@ -8273,12 +8729,14 @@ elementName}
 
 \strong{RecommendationDefinition}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recommendationdefinition.htm}{Salesforce Documentation for RecommendationDefinition}
 \describe{
  \item{recommendationDefinitionDetails}{a RecommendationDefinitionDetail}
 }
 
 \strong{RecommendationDefinitionDetail}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recommendationdefinitiondetail.htm}{Salesforce Documentation for RecommendationDefinitionDetail}
 \describe{
@@ -8292,6 +8750,7 @@ elementName}
 
 \strong{RecommendationStrategy}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recommendationstrategy.htm}{Salesforce Documentation for RecommendationStrategy}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -8302,6 +8761,7 @@ elementName}
 }
 
 \strong{RecordType}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recordtype.htm}{Salesforce Documentation for RecordType}
 \describe{
@@ -8316,6 +8776,7 @@ elementName}
 
 \strong{RecordTypePicklistValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recordtypepicklistvalue.htm}{Salesforce Documentation for RecordTypePicklistValue}
 \describe{
  \item{picklist}{a character}
@@ -8323,6 +8784,7 @@ elementName}
 }
 
 \strong{RecordTypeTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recordtypetranslation.htm}{Salesforce Documentation for RecordTypeTranslation}
 \describe{
@@ -8333,12 +8795,14 @@ elementName}
 
 \strong{RelatedContent}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_relatedcontent.htm}{Salesforce Documentation for RelatedContent}
 \describe{
  \item{relatedContentItems}{a RelatedContentItem}
 }
 
 \strong{RelatedContentItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_relatedcontentitem.htm}{Salesforce Documentation for RelatedContentItem}
 \describe{
@@ -8347,6 +8811,7 @@ elementName}
 
 \strong{RelatedList}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_relatedlist.htm}{Salesforce Documentation for RelatedList}
 \describe{
  \item{hideOnDetail}{a character either 'true' or 'false'}
@@ -8354,6 +8819,7 @@ elementName}
 }
 
 \strong{RelatedListItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_relatedlistitem.htm}{Salesforce Documentation for RelatedListItem}
 \describe{
@@ -8372,6 +8838,7 @@ elementName}
 
 \strong{RemoteSiteSetting}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_remotesitesetting.htm}{Salesforce Documentation for RemoteSiteSetting}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -8382,6 +8849,7 @@ elementName}
 }
 
 \strong{Report}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_report.htm}{Salesforce Documentation for Report}
 \describe{
@@ -8644,6 +9112,7 @@ elementName}
 
 \strong{ReportAggregate}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportaggregate.htm}{Salesforce Documentation for ReportAggregate}
 \describe{
  \item{acrossGroupingContext}{a character}
@@ -8667,12 +9136,14 @@ elementName}
 
 \strong{ReportAggregateReference}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportaggregatereference.htm}{Salesforce Documentation for ReportAggregateReference}
 \describe{
  \item{aggregate}{a character}
 }
 
 \strong{ReportBlockInfo}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportblockinfo.htm}{Salesforce Documentation for ReportBlockInfo}
 \describe{
@@ -8682,6 +9153,7 @@ elementName}
 }
 
 \strong{ReportBucketField}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportbucketfield.htm}{Salesforce Documentation for ReportBucketField}
 \describe{
@@ -8708,6 +9180,7 @@ elementName}
 
 \strong{ReportBucketFieldSourceValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportbucketfieldsourcevalue.htm}{Salesforce Documentation for ReportBucketFieldSourceValue}
 \describe{
  \item{from}{a character}
@@ -8717,6 +9190,7 @@ elementName}
 
 \strong{ReportBucketFieldValue}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportbucketfieldvalue.htm}{Salesforce Documentation for ReportBucketFieldValue}
 \describe{
  \item{sourceValues}{a ReportBucketFieldSourceValue}
@@ -8724,6 +9198,7 @@ elementName}
 }
 
 \strong{ReportChart}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportchart.htm}{Salesforce Documentation for ReportChart}
 \describe{
@@ -8812,6 +9287,7 @@ elementName}
 
 \strong{ReportChartComponentLayoutItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportchartcomponentlayoutitem.htm}{Salesforce Documentation for ReportChartComponentLayoutItem}
 \describe{
  \item{cacheData}{a character either 'true' or 'false'}
@@ -8831,6 +9307,7 @@ elementName}
 }
 
 \strong{ReportColorRange}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportcolorrange.htm}{Salesforce Documentation for ReportColorRange}
 \describe{
@@ -8853,6 +9330,7 @@ elementName}
 
 \strong{ReportColumn}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportcolumn.htm}{Salesforce Documentation for ReportColumn}
 \describe{
  \item{aggregateTypes}{a ReportSummaryType - which is a character taking one of the following values: 
@@ -8871,6 +9349,7 @@ elementName}
 
 \strong{ReportCrossFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportcrossfilter.htm}{Salesforce Documentation for ReportCrossFilter}
 \describe{
  \item{criteriaItems}{a ReportFilterItem}
@@ -8887,6 +9366,7 @@ elementName}
 
 \strong{ReportDataCategoryFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportdatacategoryfilter.htm}{Salesforce Documentation for ReportDataCategoryFilter}
 \describe{
  \item{dataCategory}{a character}
@@ -8902,6 +9382,7 @@ elementName}
 }
 
 \strong{ReportFilter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportfilter.htm}{Salesforce Documentation for ReportFilter}
 \describe{
@@ -9034,6 +9515,7 @@ elementName}
 
 \strong{ReportFilterItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportfilteritem.htm}{Salesforce Documentation for ReportFilterItem}
 \describe{
  \item{column}{a character}
@@ -9061,6 +9543,7 @@ elementName}
 
 \strong{ReportFolder}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportfolder.htm}{Salesforce Documentation for ReportFolder}
 \describe{
  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
@@ -9071,6 +9554,7 @@ elementName}
 }
 
 \strong{ReportGrouping}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportgrouping.htm}{Salesforce Documentation for ReportGrouping}
 \describe{
@@ -9118,12 +9602,14 @@ elementName}
 
 \strong{ReportHistoricalSelector}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporthistoricalselector.htm}{Salesforce Documentation for ReportHistoricalSelector}
 \describe{
  \item{snapshot}{a character}
 }
 
 \strong{ReportLayoutSection}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportlayoutsection.htm}{Salesforce Documentation for ReportLayoutSection}
 \describe{
@@ -9133,6 +9619,7 @@ elementName}
 
 \strong{ReportParam}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reportparam.htm}{Salesforce Documentation for ReportParam}
 \describe{
  \item{name}{a character}
@@ -9140,6 +9627,7 @@ elementName}
 }
 
 \strong{ReportTimeFrameFilter}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporttimeframefilter.htm}{Salesforce Documentation for ReportTimeFrameFilter}
 \describe{
@@ -9218,6 +9706,7 @@ elementName}
 
 \strong{ReportType}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporttype.htm}{Salesforce Documentation for ReportType}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -9253,6 +9742,7 @@ elementName}
 
 \strong{ReportTypeColumn}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporttypecolumn.htm}{Salesforce Documentation for ReportTypeColumn}
 \describe{
  \item{checkedByDefault}{a character either 'true' or 'false'}
@@ -9263,6 +9753,7 @@ elementName}
 
 \strong{ReportTypeColumnTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporttypecolumntranslation.htm}{Salesforce Documentation for ReportTypeColumnTranslation}
 \describe{
  \item{label}{a character}
@@ -9270,6 +9761,7 @@ elementName}
 }
 
 \strong{ReportTypeSectionTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporttypesectiontranslation.htm}{Salesforce Documentation for ReportTypeSectionTranslation}
 \describe{
@@ -9279,6 +9771,7 @@ elementName}
 }
 
 \strong{ReportTypeTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reporttypetranslation.htm}{Salesforce Documentation for ReportTypeTranslation}
 \describe{
@@ -9290,12 +9783,14 @@ elementName}
 
 \strong{ReputationBranding}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reputationbranding.htm}{Salesforce Documentation for ReputationBranding}
 \describe{
  \item{smallImage}{a character}
 }
 
 \strong{ReputationLevel}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reputationlevel.htm}{Salesforce Documentation for ReputationLevel}
 \describe{
@@ -9306,12 +9801,14 @@ elementName}
 
 \strong{ReputationLevelDefinitions}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reputationleveldefinitions.htm}{Salesforce Documentation for ReputationLevelDefinitions}
 \describe{
  \item{level}{a ReputationLevel}
 }
 
 \strong{ReputationLevels}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reputationlevels.htm}{Salesforce Documentation for ReputationLevels}
 \describe{
@@ -9321,6 +9818,7 @@ elementName}
 
 \strong{ReputationPointsRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reputationpointsrule.htm}{Salesforce Documentation for ReputationPointsRule}
 \describe{
  \item{eventType}{a character}
@@ -9329,12 +9827,14 @@ elementName}
 
 \strong{ReputationPointsRules}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_reputationpointsrules.htm}{Salesforce Documentation for ReputationPointsRules}
 \describe{
  \item{pointsRule}{a ReputationPointsRule}
 }
 
 \strong{RetrieveRequest}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_retrieverequest.htm}{Salesforce Documentation for RetrieveRequest}
 \describe{
@@ -9346,6 +9846,7 @@ elementName}
 }
 
 \strong{Role}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_role.htm}{Salesforce Documentation for Role}
 \describe{
@@ -9360,6 +9861,7 @@ elementName}
 
 \strong{RoleAndSubordinates}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_roleandsubordinates.htm}{Salesforce Documentation for RoleAndSubordinates}
 \describe{
  \item{roleAndSubordinate}{a character}
@@ -9367,12 +9869,14 @@ elementName}
 
 \strong{RoleAndSubordinatesInternal}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_roleandsubordinatesinternal.htm}{Salesforce Documentation for RoleAndSubordinatesInternal}
 \describe{
  \item{roleAndSubordinateInternal}{a character}
 }
 
 \strong{RoleOrTerritory}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_roleorterritory.htm}{Salesforce Documentation for RoleOrTerritory}
 \describe{
@@ -9387,12 +9891,14 @@ elementName}
 
 \strong{Roles}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_roles.htm}{Salesforce Documentation for Roles}
 \describe{
  \item{role}{a character}
 }
 
 \strong{RuleEntry}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_ruleentry.htm}{Salesforce Documentation for RuleEntry}
 \describe{
@@ -9432,6 +9938,7 @@ elementName}
 }
 
 \strong{SamlSsoConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_samlssoconfig.htm}{Salesforce Documentation for SamlSsoConfig}
 \describe{
@@ -9484,12 +9991,14 @@ elementName}
 
 \strong{ScheduledRecommendation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_scheduledrecommendation.htm}{Salesforce Documentation for ScheduledRecommendation}
 \describe{
  \item{scheduledRecommendationDetails}{a ScheduledRecommendationDetail}
 }
 
 \strong{ScheduledRecommendationDetail}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_scheduledrecommendationdetail.htm}{Salesforce Documentation for ScheduledRecommendationDetail}
 \describe{
@@ -9509,6 +10018,7 @@ elementName}
 }
 
 \strong{Scontrol}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_scontrol.htm}{Salesforce Documentation for Scontrol}
 \describe{
@@ -9543,6 +10053,7 @@ elementName}
 
 \strong{ScontrolTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_scontroltranslation.htm}{Salesforce Documentation for ScontrolTranslation}
 \describe{
  \item{label}{a character}
@@ -9550,6 +10061,7 @@ elementName}
 }
 
 \strong{SearchLayouts}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_searchlayouts.htm}{Salesforce Documentation for SearchLayouts}
 \describe{
@@ -9565,6 +10077,7 @@ elementName}
 }
 
 \strong{SearchSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_searchsettings.htm}{Salesforce Documentation for SearchSettings}
 \describe{
@@ -9582,12 +10095,14 @@ elementName}
 
 \strong{SearchSettingsByObject}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_searchsettingsbyobject.htm}{Salesforce Documentation for SearchSettingsByObject}
 \describe{
  \item{searchSettingsByObject}{a ObjectSearchSetting}
 }
 
 \strong{SecuritySettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_securitysettings.htm}{Salesforce Documentation for SecuritySettings}
 \describe{
@@ -9598,6 +10113,7 @@ elementName}
 }
 
 \strong{ServiceCloudConsoleConfig}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_servicecloudconsoleconfig.htm}{Salesforce Documentation for ServiceCloudConsoleConfig}
 \describe{
@@ -9616,6 +10132,7 @@ elementName}
 }
 
 \strong{SessionSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sessionsettings.htm}{Salesforce Documentation for SessionSettings}
 \describe{
@@ -9663,6 +10180,7 @@ elementName}
 
 \strong{SFDCMobileSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sfdcmobilesettings.htm}{Salesforce Documentation for SFDCMobileSettings}
 \describe{
  \item{enableMobileLite}{a character either 'true' or 'false'}
@@ -9670,6 +10188,7 @@ elementName}
 }
 
 \strong{SharedTo}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharedto.htm}{Salesforce Documentation for SharedTo}
 \describe{
@@ -9698,6 +10217,7 @@ elementName}
 
 \strong{SharingBaseRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingbaserule.htm}{Salesforce Documentation for SharingBaseRule}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -9709,6 +10229,7 @@ elementName}
 }
 
 \strong{SharingCriteriaRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingcriteriarule.htm}{Salesforce Documentation for SharingCriteriaRule}
 \describe{
@@ -9723,6 +10244,7 @@ elementName}
 
 \strong{SharingOwnerRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingownerrule.htm}{Salesforce Documentation for SharingOwnerRule}
 \describe{
  \item{accessLevel}{a character (inherited from SharingBaseRule)}
@@ -9735,6 +10257,7 @@ elementName}
 
 \strong{SharingReason}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingreason.htm}{Salesforce Documentation for SharingReason}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -9742,6 +10265,7 @@ elementName}
 }
 
 \strong{SharingReasonTranslation}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingreasontranslation.htm}{Salesforce Documentation for SharingReasonTranslation}
 \describe{
@@ -9751,12 +10275,14 @@ elementName}
 
 \strong{SharingRecalculation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingrecalculation.htm}{Salesforce Documentation for SharingRecalculation}
 \describe{
  \item{className}{a character}
 }
 
 \strong{SharingRules}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingrules.htm}{Salesforce Documentation for SharingRules}
 \describe{
@@ -9767,6 +10293,7 @@ elementName}
 }
 
 \strong{SharingSet}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingset.htm}{Salesforce Documentation for SharingSet}
 \describe{
@@ -9779,12 +10306,14 @@ elementName}
 
 \strong{SharingTerritoryRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sharingterritoryrule.htm}{Salesforce Documentation for SharingTerritoryRule}
 \describe{
  \item{sharedFrom}{a SharedTo (inherited from SharingOwnerRule)}
 }
 
 \strong{SidebarComponent}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sidebarcomponent.htm}{Salesforce Documentation for SidebarComponent}
 \describe{
@@ -9803,6 +10332,7 @@ elementName}
 
 \strong{SiteDotCom}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sitedotcom.htm}{Salesforce Documentation for SiteDotCom}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -9817,6 +10347,7 @@ elementName}
 }
 
 \strong{SiteRedirectMapping}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_siteredirectmapping.htm}{Salesforce Documentation for SiteRedirectMapping}
 \describe{
@@ -9833,6 +10364,7 @@ elementName}
 
 \strong{SiteWebAddress}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_sitewebaddress.htm}{Salesforce Documentation for SiteWebAddress}
 \describe{
  \item{certificate}{a character}
@@ -9841,6 +10373,7 @@ elementName}
 }
 
 \strong{Skill}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_skill.htm}{Salesforce Documentation for Skill}
 \describe{
@@ -9852,6 +10385,7 @@ elementName}
 
 \strong{SkillAssignments}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_skillassignments.htm}{Salesforce Documentation for SkillAssignments}
 \describe{
  \item{profiles}{a SkillProfileAssignments}
@@ -9860,6 +10394,7 @@ elementName}
 
 \strong{SkillProfileAssignments}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_skillprofileassignments.htm}{Salesforce Documentation for SkillProfileAssignments}
 \describe{
  \item{profile}{a character}
@@ -9867,12 +10402,14 @@ elementName}
 
 \strong{SkillUserAssignments}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_skilluserassignments.htm}{Salesforce Documentation for SkillUserAssignments}
 \describe{
  \item{user}{a character}
 }
 
 \strong{SocialCustomerServiceSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_socialcustomerservicesettings.htm}{Salesforce Documentation for SocialCustomerServiceSettings}
 \describe{
@@ -9888,6 +10425,7 @@ elementName}
 
 \strong{StandardFieldTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_standardfieldtranslation.htm}{Salesforce Documentation for StandardFieldTranslation}
 \describe{
  \item{label}{a character}
@@ -9895,6 +10433,7 @@ elementName}
 }
 
 \strong{StandardValue}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_standardvalue.htm}{Salesforce Documentation for StandardValue}
 \describe{
@@ -9926,6 +10465,7 @@ elementName}
 
 \strong{StandardValueSet}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_standardvalueset.htm}{Salesforce Documentation for StandardValueSet}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -9936,6 +10476,7 @@ elementName}
 
 \strong{StandardValueSetTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_standardvaluesettranslation.htm}{Salesforce Documentation for StandardValueSetTranslation}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -9943,6 +10484,7 @@ elementName}
 }
 
 \strong{State}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_state.htm}{Salesforce Documentation for State}
 \describe{
@@ -9955,6 +10497,7 @@ elementName}
 }
 
 \strong{StaticResource}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_staticresource.htm}{Salesforce Documentation for StaticResource}
 \describe{
@@ -9971,6 +10514,7 @@ elementName}
 
 \strong{StrategyNode}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_strategynode.htm}{Salesforce Documentation for StrategyNode}
 \describe{
  \item{definition}{a character}
@@ -9982,12 +10526,14 @@ elementName}
 
 \strong{SubtabComponents}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_subtabcomponents.htm}{Salesforce Documentation for SubtabComponents}
 \describe{
  \item{containers}{a Container}
 }
 
 \strong{SummaryLayout}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_summarylayout.htm}{Salesforce Documentation for SummaryLayout}
 \describe{
@@ -10014,6 +10560,7 @@ elementName}
 
 \strong{SummaryLayoutItem}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_summarylayoutitem.htm}{Salesforce Documentation for SummaryLayoutItem}
 \describe{
  \item{customLink}{a character}
@@ -10025,12 +10572,14 @@ elementName}
 
 \strong{SupervisorAgentConfigSkills}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_supervisoragentconfigskills.htm}{Salesforce Documentation for SupervisorAgentConfigSkills}
 \describe{
  \item{skill}{a character}
 }
 
 \strong{SynonymDictionary}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_synonymdictionary.htm}{Salesforce Documentation for SynonymDictionary}
 \describe{
@@ -10041,6 +10590,7 @@ elementName}
 }
 
 \strong{SynonymGroup}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_synonymgroup.htm}{Salesforce Documentation for SynonymGroup}
 \describe{
@@ -10172,6 +10722,7 @@ elementName}
 
 \strong{TabLimitConfig}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_tablimitconfig.htm}{Salesforce Documentation for TabLimitConfig}
 \describe{
  \item{maxNumberOfPrimaryTabs}{a character}
@@ -10179,6 +10730,7 @@ elementName}
 }
 
 \strong{Territory}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory.htm}{Salesforce Documentation for Territory}
 \describe{
@@ -10193,6 +10745,7 @@ elementName}
 }
 
 \strong{Territory2}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2.htm}{Salesforce Documentation for Territory2}
 \describe{
@@ -10211,6 +10764,7 @@ elementName}
 
 \strong{Territory2Model}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2model.htm}{Salesforce Documentation for Territory2Model}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -10220,6 +10774,7 @@ elementName}
 }
 
 \strong{Territory2Rule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2rule.htm}{Salesforce Documentation for Territory2Rule}
 \describe{
@@ -10233,6 +10788,7 @@ elementName}
 
 \strong{Territory2RuleAssociation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2ruleassociation.htm}{Salesforce Documentation for Territory2RuleAssociation}
 \describe{
  \item{inherited}{a character either 'true' or 'false'}
@@ -10240,6 +10796,7 @@ elementName}
 }
 
 \strong{Territory2RuleItem}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2ruleitem.htm}{Salesforce Documentation for Territory2RuleItem}
 \describe{
@@ -10265,6 +10822,7 @@ elementName}
 
 \strong{Territory2Settings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2settings.htm}{Salesforce Documentation for Territory2Settings}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -10277,6 +10835,7 @@ elementName}
 
 \strong{Territory2SettingsOpportunityFilter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2settingsopportunityfilter.htm}{Salesforce Documentation for Territory2SettingsOpportunityFilter}
 \describe{
  \item{apexClassName}{a character}
@@ -10285,6 +10844,7 @@ elementName}
 }
 
 \strong{Territory2Type}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_territory2type.htm}{Salesforce Documentation for Territory2Type}
 \describe{
@@ -10296,6 +10856,7 @@ elementName}
 
 \strong{TopicsForObjects}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_topicsforobjects.htm}{Salesforce Documentation for TopicsForObjects}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -10304,6 +10865,7 @@ elementName}
 }
 
 \strong{TouchMobileSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_touchmobilesettings.htm}{Salesforce Documentation for TouchMobileSettings}
 \describe{
@@ -10316,6 +10878,7 @@ elementName}
 
 \strong{TransactionSecurityAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_transactionsecurityaction.htm}{Salesforce Documentation for TransactionSecurityAction}
 \describe{
  \item{block}{a character either 'true' or 'false'}
@@ -10327,6 +10890,7 @@ elementName}
 
 \strong{TransactionSecurityNotification}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_transactionsecuritynotification.htm}{Salesforce Documentation for TransactionSecurityNotification}
 \describe{
  \item{inApp}{a character either 'true' or 'false'}
@@ -10335,6 +10899,7 @@ elementName}
 }
 
 \strong{TransactionSecurityPolicy}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_transactionsecuritypolicy.htm}{Salesforce Documentation for TransactionSecurityPolicy}
 \describe{
@@ -10375,6 +10940,7 @@ elementName}
 
 \strong{Translations}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_translations.htm}{Salesforce Documentation for Translations}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -10391,6 +10957,7 @@ elementName}
 
 \strong{UiFormulaCriterion}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_uiformulacriterion.htm}{Salesforce Documentation for UiFormulaCriterion}
 \describe{
  \item{leftValue}{a character}
@@ -10400,6 +10967,7 @@ elementName}
 
 \strong{UiFormulaRule}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_uiformularule.htm}{Salesforce Documentation for UiFormulaRule}
 \describe{
  \item{booleanFilter}{a character}
@@ -10407,6 +10975,7 @@ elementName}
 }
 
 \strong{UiPlugin}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_uiplugin.htm}{Salesforce Documentation for UiPlugin}
 \describe{
@@ -10419,6 +10988,7 @@ elementName}
 }
 
 \strong{UserCriteria}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_usercriteria.htm}{Salesforce Documentation for UserCriteria}
 \describe{
@@ -10439,12 +11009,14 @@ elementName}
 
 \strong{Users}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_users.htm}{Salesforce Documentation for Users}
 \describe{
  \item{user}{a character}
 }
 
 \strong{ValidationRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_validationrule.htm}{Salesforce Documentation for ValidationRule}
 \describe{
@@ -10458,6 +11030,7 @@ elementName}
 
 \strong{ValidationRuleTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_validationruletranslation.htm}{Salesforce Documentation for ValidationRuleTranslation}
 \describe{
  \item{errorMessage}{a character}
@@ -10465,6 +11038,7 @@ elementName}
 }
 
 \strong{ValueSet}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_valueset.htm}{Salesforce Documentation for ValueSet}
 \describe{
@@ -10477,6 +11051,7 @@ elementName}
 
 \strong{ValueSettings}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_valuesettings.htm}{Salesforce Documentation for ValueSettings}
 \describe{
  \item{controllingFieldValue}{a character}
@@ -10484,6 +11059,7 @@ elementName}
 }
 
 \strong{ValueSetValuesDefinition}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_valuesetvaluesdefinition.htm}{Salesforce Documentation for ValueSetValuesDefinition}
 \describe{
@@ -10493,6 +11069,7 @@ elementName}
 
 \strong{ValueTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_valuetranslation.htm}{Salesforce Documentation for ValueTranslation}
 \describe{
  \item{masterLabel}{a character}
@@ -10500,6 +11077,7 @@ elementName}
 }
 
 \strong{ValueTypeField}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_valuetypefield.htm}{Salesforce Documentation for ValueTypeField}
 \describe{
@@ -10516,6 +11094,7 @@ elementName}
 
 \strong{VisualizationPlugin}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_visualizationplugin.htm}{Salesforce Documentation for VisualizationPlugin}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
@@ -10528,6 +11107,7 @@ elementName}
 }
 
 \strong{VisualizationResource}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_visualizationresource.htm}{Salesforce Documentation for VisualizationResource}
 \describe{
@@ -10544,6 +11124,7 @@ elementName}
 
 \strong{VisualizationType}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_visualizationtype.htm}{Salesforce Documentation for VisualizationType}
 \describe{
  \item{description}{a character}
@@ -10554,6 +11135,7 @@ elementName}
 }
 
 \strong{WaveApplication}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_waveapplication.htm}{Salesforce Documentation for WaveApplication}
 \describe{
@@ -10569,6 +11151,7 @@ elementName}
 
 \strong{WaveDashboard}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavedashboard.htm}{Salesforce Documentation for WaveDashboard}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -10580,6 +11163,7 @@ elementName}
 
 \strong{WaveDataflow}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavedataflow.htm}{Salesforce Documentation for WaveDataflow}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -10589,6 +11173,7 @@ elementName}
 }
 
 \strong{WaveDataset}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavedataset.htm}{Salesforce Documentation for WaveDataset}
 \describe{
@@ -10600,6 +11185,7 @@ elementName}
 }
 
 \strong{WaveLens}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavelens.htm}{Salesforce Documentation for WaveLens}
 \describe{
@@ -10614,6 +11200,7 @@ elementName}
 
 \strong{WaveRecipe}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_waverecipe.htm}{Salesforce Documentation for WaveRecipe}
 \describe{
  \item{content}{a character formed using RCurl::base64Encode (inherited from MetadataWithContent)}
@@ -10624,6 +11211,7 @@ elementName}
 }
 
 \strong{WaveTemplateBundle}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavetemplatebundle.htm}{Salesforce Documentation for WaveTemplateBundle}
 \describe{
@@ -10638,6 +11226,7 @@ elementName}
 }
 
 \strong{WaveXmd}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmd.htm}{Salesforce Documentation for WaveXmd}
 \describe{
@@ -10656,6 +11245,7 @@ elementName}
 }
 
 \strong{WaveXmdDate}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmddate.htm}{Salesforce Documentation for WaveXmdDate}
 \describe{
@@ -10687,6 +11277,7 @@ elementName}
 
 \strong{WaveXmdDimension}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmddimension.htm}{Salesforce Documentation for WaveXmdDimension}
 \describe{
  \item{customActions}{a WaveXmdDimensionCustomAction}
@@ -10716,6 +11307,7 @@ elementName}
 
 \strong{WaveXmdDimensionCustomAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmddimensioncustomaction.htm}{Salesforce Documentation for WaveXmdDimensionCustomAction}
 \describe{
  \item{customActionName}{a character}
@@ -10730,6 +11322,7 @@ elementName}
 
 \strong{WaveXmdDimensionMember}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmddimensionmember.htm}{Salesforce Documentation for WaveXmdDimensionMember}
 \describe{
  \item{color}{a character}
@@ -10740,6 +11333,7 @@ elementName}
 
 \strong{WaveXmdDimensionSalesforceAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmddimensionsalesforceaction.htm}{Salesforce Documentation for WaveXmdDimensionSalesforceAction}
 \describe{
  \item{enabled}{a character either 'true' or 'false'}
@@ -10748,6 +11342,7 @@ elementName}
 }
 
 \strong{WaveXmdMeasure}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmdmeasure.htm}{Salesforce Documentation for WaveXmdMeasure}
 \describe{
@@ -10772,6 +11367,7 @@ elementName}
 
 \strong{WaveXmdOrganization}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmdorganization.htm}{Salesforce Documentation for WaveXmdOrganization}
 \describe{
  \item{instanceUrl}{a character}
@@ -10782,12 +11378,14 @@ elementName}
 
 \strong{WaveXmdRecordDisplayLookup}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_wavexmdrecorddisplaylookup.htm}{Salesforce Documentation for WaveXmdRecordDisplayLookup}
 \describe{
  \item{recordDisplayField}{a character}
 }
 
 \strong{WebLink}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_weblink.htm}{Salesforce Documentation for WebLink}
 \describe{
@@ -10863,6 +11461,7 @@ elementName}
 
 \strong{WebLinkTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_weblinktranslation.htm}{Salesforce Documentation for WebLinkTranslation}
 \describe{
  \item{label}{a character}
@@ -10870,6 +11469,7 @@ elementName}
 }
 
 \strong{WebToCaseSettings}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_webtocasesettings.htm}{Salesforce Documentation for WebToCaseSettings}
 \describe{
@@ -10880,6 +11480,7 @@ elementName}
 
 \strong{WeightedSourceCategory}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_weightedsourcecategory.htm}{Salesforce Documentation for WeightedSourceCategory}
 \describe{
  \item{sourceCategoryApiName}{a character}
@@ -10887,6 +11488,7 @@ elementName}
 }
 
 \strong{Workflow}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflow.htm}{Salesforce Documentation for Workflow}
 \describe{
@@ -10903,12 +11505,14 @@ elementName}
 
 \strong{WorkflowAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowaction.htm}{Salesforce Documentation for WorkflowAction}
 \describe{
  \item{fullName}{a character (inherited from Metadata)}
 }
 
 \strong{WorkflowActionReference}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowactionreference.htm}{Salesforce Documentation for WorkflowActionReference}
 \describe{
@@ -10927,6 +11531,7 @@ elementName}
 }
 
 \strong{WorkflowAlert}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowalert.htm}{Salesforce Documentation for WorkflowAlert}
 \describe{
@@ -10947,6 +11552,7 @@ elementName}
 }
 
 \strong{WorkflowEmailRecipient}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowemailrecipient.htm}{Salesforce Documentation for WorkflowEmailRecipient}
 \describe{
@@ -10978,6 +11584,7 @@ elementName}
 }
 
 \strong{WorkflowFieldUpdate}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowfieldupdate.htm}{Salesforce Documentation for WorkflowFieldUpdate}
 \describe{
@@ -11013,6 +11620,7 @@ elementName}
 
 \strong{WorkflowFlowAction}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowflowaction.htm}{Salesforce Documentation for WorkflowFlowAction}
 \describe{
  \item{extends WorkflowAction}{see documentation for WorkflowAction}
@@ -11026,6 +11634,7 @@ elementName}
 
 \strong{WorkflowFlowActionParameter}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowflowactionparameter.htm}{Salesforce Documentation for WorkflowFlowActionParameter}
 \describe{
  \item{name}{a character}
@@ -11033,6 +11642,7 @@ elementName}
 }
 
 \strong{WorkflowKnowledgePublish}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowknowledgepublish.htm}{Salesforce Documentation for WorkflowKnowledgePublish}
 \describe{
@@ -11050,6 +11660,7 @@ elementName}
 }
 
 \strong{WorkflowRule}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowrule.htm}{Salesforce Documentation for WorkflowRule}
 \describe{
@@ -11073,6 +11684,7 @@ elementName}
 
 \strong{WorkflowSend}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowsend.htm}{Salesforce Documentation for WorkflowSend}
 \describe{
  \item{extends WorkflowAction}{see documentation for WorkflowAction}
@@ -11088,6 +11700,7 @@ elementName}
 }
 
 \strong{WorkflowTask}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowtask.htm}{Salesforce Documentation for WorkflowTask}
 \describe{
@@ -11119,6 +11732,7 @@ elementName}
 
 \strong{WorkflowTaskTranslation}
 
+
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowtasktranslation.htm}{Salesforce Documentation for WorkflowTaskTranslation}
 \describe{
  \item{description}{a character}
@@ -11127,6 +11741,7 @@ elementName}
 }
 
 \strong{WorkflowTimeTrigger}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workflowtimetrigger.htm}{Salesforce Documentation for WorkflowTimeTrigger}
 \describe{
@@ -11142,6 +11757,7 @@ elementName}
 }
 
 \strong{WorkspaceMapping}
+
 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_workspacemapping.htm}{Salesforce Documentation for WorkspaceMapping}
 \describe{

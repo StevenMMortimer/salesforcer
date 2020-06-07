@@ -170,12 +170,21 @@ sf_input_data_validation <- function(input_data, operation=''){
     }
     if(operation %in% c("create_document", "insert_document", "update_document")){
       # Name, FolderId is required and Body or Url
-      if("Body" %in% names(input_data) & "Url" %in% names(input_data)){
-        stop(paste("Both a 'Body' column and a 'Url' column were given.", 
-                   "Specify one or the other, but not both."))
+      missing_cols <- character(0)
+      if("Body" %in% names(input_data)){
+        if("Url" %in% names(input_data)){
+          stop(paste("Both a 'Body' column and a 'Url' column were given.", 
+                     "Specify one or the other, but not both."))
+        }
+      } else {
+        if(!("Url" %in% names(input_data))){
+            message(paste("Neither a 'Body' column or a 'Url' column were given.", 
+                          "Specify one or the other, but not both."))
+            missing_cols <- c("'Body' or 'Url'")
+        }
       }
-      missing_cols <- setdiff(c("Name", "FolderId"), names(input_data))
-      missing_cols <- c(missing_cols, setdiff(c("Body", "Url"), names(input_data)))
+      other_missing_cols <- setdiff(c("Name", "FolderId"), names(input_data))
+      missing_cols <- c(missing_cols, other_missing_cols) 
       if(length(missing_cols) > 0){
         stop(sprintf("The following columns are required but missing from the input: %s", 
                      paste0(missing_cols, collapse = ",")))
@@ -276,6 +285,7 @@ sf_format_datetime <- function(x){
 #' Format all Date and Datetime columns in a dataset
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
+#' @importFrom dplyr mutate_if
 #' @importFrom lubridate is.POSIXct is.POSIXlt is.POSIXt is.Date
 #' @keywords internal
 #' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}

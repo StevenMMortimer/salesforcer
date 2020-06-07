@@ -4,9 +4,15 @@
 \alias{sf_search}
 \title{Perform SOSL Search}
 \usage{
-sf_search(search_string, is_sosl = FALSE, guess_types = TRUE,
+sf_search(
+  search_string,
+  is_sosl = FALSE,
+  guess_types = TRUE,
   api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
-  parameterized_search_options = list(...), verbose = FALSE, ...)
+  parameterized_search_options = list(...),
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{search_string}{character; string to search using parameterized search 

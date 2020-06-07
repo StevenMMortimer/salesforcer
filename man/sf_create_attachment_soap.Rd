@@ -4,8 +4,13 @@
 \alias{sf_create_attachment_soap}
 \title{Create Attachment using SOAP API}
 \usage{
-sf_create_attachment_soap(input_data, object_name = "Attachment",
-  control, ..., verbose = FALSE)
+sf_create_attachment_soap(
+  input_data,
+  object_name = "Attachment",
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Create Attachment using SOAP API

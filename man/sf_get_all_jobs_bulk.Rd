@@ -4,8 +4,11 @@
 \alias{sf_get_all_jobs_bulk}
 \title{Get All Bulk API Jobs}
 \usage{
-sf_get_all_jobs_bulk(next_records_url = NULL, api_type = c("Bulk 2.0"),
-  verbose = FALSE)
+sf_get_all_jobs_bulk(
+  next_records_url = NULL,
+  api_type = c("Bulk 2.0"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{next_records_url}{character (leave as NULL); a string used internally 

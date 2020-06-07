@@ -4,9 +4,15 @@
 \alias{sf_upsert}
 \title{Upsert Records}
 \usage{
-sf_upsert(input_data, object_name, external_id_fieldname,
+sf_upsert(
+  input_data,
+  object_name,
+  external_id_fieldname,
   api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
-  control = list(...), ..., verbose = FALSE)
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

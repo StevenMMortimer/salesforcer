@@ -74,8 +74,7 @@ test_that("testing SOAP API Functionality", {
   
   # sf_create_attachment -------------------------------------------------------
   attachment_details <- tibble(Name = c("salesforcer Logo"),
-                               Body = system.file("help/figures", "salesforcer.png", 
-                                                  package="salesforcer"),
+                               Body = system.file("extdata", "logo.png", package="salesforcer"),
                                ContentType = c("image/png"),
                                ParentId = upserted_records$id[1]) #"0016A0000035mJ5"
   attachment_records <- sf_create_attachment(attachment_details, api_type="SOAP")

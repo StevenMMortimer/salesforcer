@@ -4,9 +4,17 @@
 \alias{rforcecom.retrieve}
 \title{salesforcer's backwards compatible version of rforcecom.retrieve}
 \usage{
-rforcecom.retrieve(session, objectName, fields, limit = NULL,
-  id = NULL, offset = NULL, order = NULL, inverse = NULL,
-  nullsLast = NULL)
+rforcecom.retrieve(
+  session,
+  objectName,
+  fields,
+  limit = NULL,
+  id = NULL,
+  offset = NULL,
+  order = NULL,
+  inverse = NULL,
+  nullsLast = NULL
+)
 }
 \arguments{
 \item{session}{\code{list}; a list containing "sessionID", "instanceURL", and "

@@ -4,8 +4,13 @@
 \alias{sf_delete_metadata}
 \title{Delete Object or Field Metadata in Salesforce}
 \usage{
-sf_delete_metadata(metadata_type, object_names, control = list(...), ...,
-  verbose = FALSE)
+sf_delete_metadata(
+  metadata_type,
+  object_names,
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{metadata_type}{character; string on what type of metadata to create}

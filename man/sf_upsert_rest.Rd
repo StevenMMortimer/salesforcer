@@ -4,8 +4,14 @@
 \alias{sf_upsert_rest}
 \title{Upsert Records using REST API}
 \usage{
-sf_upsert_rest(input_data, object_name, external_id_fieldname, control,
-  ..., verbose = FALSE)
+sf_upsert_rest(
+  input_data,
+  object_name,
+  external_id_fieldname,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Upsert Records using REST API

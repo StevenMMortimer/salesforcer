@@ -4,8 +4,7 @@
 \alias{sf_submit_query_bulk}
 \title{Submit Bulk Query Batch to a Bulk API Job}
 \usage{
-sf_submit_query_bulk(job_id, soql, api_type = c("Bulk 1.0"),
-  verbose = FALSE)
+sf_submit_query_bulk(job_id, soql, api_type = c("Bulk 1.0"), verbose = FALSE)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

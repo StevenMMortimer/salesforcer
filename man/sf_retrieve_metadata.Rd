@@ -4,8 +4,13 @@
 \alias{sf_retrieve_metadata}
 \title{Make A Request to Retrieve the Metadata}
 \usage{
-sf_retrieve_metadata(retrieve_request, filename = "package.zip",
-  check_interval = 3, max_tries = 20, verbose = FALSE)
+sf_retrieve_metadata(
+  retrieve_request,
+  filename = "package.zip",
+  check_interval = 3,
+  max_tries = 20,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{retrieve_request}{a \code{list} of parameters defining what XML file representations

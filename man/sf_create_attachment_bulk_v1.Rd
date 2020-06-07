@@ -4,8 +4,14 @@
 \alias{sf_create_attachment_bulk_v1}
 \title{Create Attachments using Bulk 1.0 API}
 \usage{
-sf_create_attachment_bulk_v1(input_data, object_name = "Attachment",
-  content_type = "ZIP_CSV", control, ..., verbose = FALSE)
+sf_create_attachment_bulk_v1(
+  input_data,
+  object_name = "Attachment",
+  content_type = "ZIP_CSV",
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Create Attachments using Bulk 1.0 API

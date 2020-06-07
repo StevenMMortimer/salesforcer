@@ -4,8 +4,13 @@
 \alias{sf_upsert_metadata}
 \title{Upsert Object or Field Metadata in Salesforce}
 \usage{
-sf_upsert_metadata(metadata_type, metadata, control = list(...), ...,
-  verbose = FALSE)
+sf_upsert_metadata(
+  metadata_type,
+  metadata,
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{metadata_type}{character; string on what type of metadata to create}

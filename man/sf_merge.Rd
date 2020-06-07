@@ -4,9 +4,16 @@
 \alias{sf_merge}
 \title{Merge Records}
 \usage{
-sf_merge(master_id, victim_ids, object_name,
-  master_fields = character(0), api_type = c("SOAP"),
-  control = list(...), ..., verbose = FALSE)
+sf_merge(
+  master_id,
+  victim_ids,
+  object_name,
+  master_fields = character(0),
+  api_type = c("SOAP"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{master_id}{character; a Salesforce generated Id that identifies the master record, 

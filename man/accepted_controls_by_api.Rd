@@ -4,8 +4,9 @@
 \alias{accepted_controls_by_api}
 \title{Return the Accepted Control Arguments by API Type}
 \usage{
-accepted_controls_by_api(api_type = c("SOAP", "REST", "Bulk 1.0",
-  "Bulk 2.0", "Metadata"))
+accepted_controls_by_api(
+  api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0", "Metadata")
+)
 }
 \description{
 Return the Accepted Control Arguments by API Type

@@ -4,8 +4,13 @@
 \alias{sf_create_batches_bulk}
 \title{Add Batches to a Bulk API Job}
 \usage{
-sf_create_batches_bulk(job_id, input_data, api_type = c("Bulk 1.0",
-  "Bulk 2.0"), verbose = FALSE)
+sf_create_batches_bulk(
+  job_id,
+  input_data,
+  batch_size = NULL,
+  api_type = c("Bulk 1.0", "Bulk 2.0"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 
@@ -13,6 +18,9 @@ returned by \link{sf_create_job_bulk}}
 
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; data can be coerced into .csv file for submitting as batch request}
+
+\item{batch_size}{integer; the number of individual records to be included in a 
+single batch uploaded to the Bulk APIs (1.0 or 2.0).}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}

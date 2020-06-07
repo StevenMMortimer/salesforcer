@@ -132,7 +132,7 @@ sf_retrieve_soap <- function(ids,
 
 #' @importFrom utils head 
 #' @importFrom stats quantile 
-#' @importFrom dplyr bind_rows as_tibble select_
+#' @importFrom dplyr bind_rows as_tibble select
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON fromJSON prettify
 #' @importFrom readr type_convert cols
@@ -145,8 +145,9 @@ sf_retrieve_rest <- function(ids,
   ids <- sf_input_data_validation(ids, operation='retrieve')
   
   # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections_retrieve.htm?search_text=retrieve%20multiple
-  # this type of request can only handle 2000 records at a time
-  batch_size <- 2000
+  # this type of request can only handle 2000 records at a time, but setting 
+  # 1000 just to be cautiuos because size of data for an individual record may cause issues
+  batch_size <- 1000
   row_num <- nrow(ids)
   batch_id <- (seq.int(row_num)-1) %/% batch_size
   if(verbose) message("Submitting data in ", max(batch_id)+1, " Batches")
@@ -180,7 +181,7 @@ sf_retrieve_rest <- function(ids,
     response_parsed <- content(httr_response, "text", encoding="UTF-8")
     resultset <- bind_rows(resultset, 
                            fromJSON(response_parsed) %>% 
-                             select_(.dots =  unique(c("Id", fields))))
+                             select(any_of(unique(c("Id", fields)))))
   }
   resultset <- resultset %>% 
     as_tibble() %>%

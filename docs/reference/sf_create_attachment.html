@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -49,15 +51,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Create Attachments — sf_create_attachment" />
 
+<meta property="og:title" content="Create Attachments — sf_create_attachment" />
 <meta property="og:description" content="This function will allow you to create attachments (and other blob data, such as 
 Documents) by supplying file paths (absolute or relative) to media that you 
 would like to upload to Salesforce along with accompanying metadata, such as 
 a Description, Keywords, ParentId, FolderId, etc." />
-
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
-
 
 
 
@@ -99,7 +99,7 @@ a Description, Keywords, ParentId, FolderId, etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -149,7 +149,6 @@ a Description, Keywords, ParentId, FolderId, etc." />
   </a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/StevenMMortimer/salesforcer">
@@ -183,18 +182,21 @@ a Description, Keywords, ParentId, FolderId, etc." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function will allow you to create attachments (and other blob data, such as 
 Documents) by supplying file paths (absolute or relative) to media that you 
 would like to upload to Salesforce along with accompanying metadata, such as 
 a Description, Keywords, ParentId, FolderId, etc.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>sf_create_attachment</span>(<span class='no'>input_data</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Attachment"</span>,
+    <pre class="usage"><span class='fu'>sf_create_attachment</span>(
+  <span class='no'>input_data</span>,
+  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Attachment"</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>), <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
+  <span class='no'>...</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -233,11 +235,10 @@ to <code><a href='sf_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
       <td><p>logical; do you want informative messages?</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>tbl_df</code> with details of the created records</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The length of any file name can’t exceed 512 bytes (per Bulk 1.0 API). 
@@ -246,13 +247,11 @@ attached to a Solution, the limit is 1.5 MB. The maximum email attachment size i
 You can only create or update documents to a maximum size of 5 MB. The REST API 
 allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB 
 of base64–encoded data.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm'>https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p>
 <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm'>https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p>
 <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm'>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

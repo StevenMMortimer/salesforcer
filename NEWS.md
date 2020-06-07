@@ -1,4 +1,4 @@
-## salesforcer 0.1.3.9000
+## salesforcer 0.2.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0)
 
 ### Features
 
@@ -9,6 +9,8 @@
   options to send an email to the new owner, block the opportunity creation, and more.
   * CRUD operations now atomatically cast date and datetime (POSIXct, POSIXlt, POSIXt) 
   formats into an accepted string format recognized by Salesforce
+  * Add support for connections through a proxy by setting package options (#32)
+  * Add `batch_size` argument to support specifying custom batch sizes for Bulk jobs
   * Add a Metadata vignette and update the Bulk vignette.
   * Rebuilt package using R 4.0 to test compabilibility
   

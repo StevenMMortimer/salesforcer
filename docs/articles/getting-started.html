@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -139,13 +139,22 @@
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
+<p><strong>Setting up your own Connected App for OAuth</strong></p>
 <p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the <code>salesforcer</code> package. By using the package client, you will <em>NOT</em> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.consumer_key</span> <span class="kw">=</span> <span class="st">"012345678901-99thisisatest99connected33app22key"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.consumer_secret</span> <span class="kw">=</span> <span class="st">"Th1s1sMyConsumerS3cr3t"</span>)
 
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
+<p><strong>Using a proxy connection</strong> If you are required to connect to Salesforce via proxy you are able to specify all of those parameters as options, as well. For each call via <strong>httr</strong> these proxy settings will be passed along with the Salesforce authentication.</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.proxy_url</span> <span class="kw">=</span> <span class="st">"64.251.21.73"</span>) <span class="co"># IP or a named domain</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.proxy_port</span> <span class="kw">=</span> <span class="fl">8080</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.proxy_username</span> <span class="kw">=</span> <span class="st">"user"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.proxy_password</span> <span class="kw">=</span> <span class="st">"pass"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">salesforcer.proxy_auth</span> <span class="kw">=</span> <span class="st">"ntlm"</span>)
+
+<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>After logging in with <code><a href="../reference/sf_auth.html">sf_auth()</a></code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># pull down information of person logged in</span>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># pull down information of person logged in</span>
 <span class="co"># it's a simple easy call to get started </span>
 <span class="co"># and confirm a connection to the APIs</span>
 <span class="no">user_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_user_info.html">sf_user_info</a></span>()
@@ -157,7 +166,7 @@
 <h3 class="hasAnchor">
 <a href="#create" class="anchor"></a>Create</h3>
 <p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
                        <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>))
 <span class="no">created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>)
@@ -165,32 +174,28 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012M8mSAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012M8mTAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012M98vAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M98wAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#retrieve" class="anchor"></a>Retrieve</h3>
 <p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">retrieved_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="kw">ids</span><span class="kw">=</span><span class="no">created_records</span>$<span class="no">id</span>,
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">retrieved_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_retrieve.html">sf_retrieve</a></span>(<span class="kw">ids</span><span class="kw">=</span><span class="no">created_records</span>$<span class="no">id</span>,
                                  <span class="kw">fields</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>),
                                  <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
-<span class="co">#&gt; Warning: `select_()` is deprecated as of dplyr 0.7.0.</span>
-<span class="co">#&gt; Please use `select()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
 <span class="no">retrieved_records</span>
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012M8mSAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012M8mTAAS Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012M98vAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M98wAAC Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
 <p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all <code>NA</code> since we have yet to provide information to link these Contacts with Accounts.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
                            Account.Name, 
                            FirstName, 
                            LastName 
@@ -203,14 +208,14 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012M8mSAAS NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012M8mTAAS NA      Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012M98vAAC NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M98wAAC NA      Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
 <a href="#update" class="anchor"></a>Update</h3>
 <p>After creating records you can update them using <code><a href="../reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Update some of those records</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Update some of those records</span>
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="no">queried_records</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"TestTest"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">Account</span>)
@@ -220,26 +225,26 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012M8mSAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012M8mTAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012M98vAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M98wAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
 <a href="#delete" class="anchor"></a>Delete</h3>
 <p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">updated_records</span>$<span class="no">id</span>)
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">updated_records</span>$<span class="no">id</span>)
 <span class="no">deleted_records</span>
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0033s000012M8mSAAS TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0033s000012M8mTAAS TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012M98vAAC TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0033s000012M98wAAC TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
 <a href="#upsert" class="anchor"></a>Upsert</h3>
 <p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at <a href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/" class="uri">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
                        <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>),
                        <span class="kw">My_External_Id__c</span><span class="kw">=</span><span class="no">letters</span>[<span class="fl">1</span>:<span class="no">n</span>])
@@ -260,9 +265,9 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 FALSE   0033s000012M8mXAAS TRUE   </span>
-<span class="co">#&gt; 2 FALSE   0033s000012M8mYAAS TRUE   </span>
-<span class="co">#&gt; 3 TRUE    0033s000012M8mcAAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 FALSE   0033s000012M9CnAAK TRUE   </span>
+<span class="co">#&gt; 2 FALSE   0033s000012M9CoAAK TRUE   </span>
+<span class="co">#&gt; 3 TRUE    0033s000012M9CsAAK TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">
@@ -272,6 +277,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
       </div>
 
 </div>

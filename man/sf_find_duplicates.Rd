@@ -4,9 +4,13 @@
 \alias{sf_find_duplicates}
 \title{Find Duplicate Records}
 \usage{
-sf_find_duplicates(search_criteria, object_name,
-  include_record_details = FALSE, guess_types = TRUE,
-  verbose = FALSE)
+sf_find_duplicates(
+  search_criteria,
+  object_name,
+  include_record_details = FALSE,
+  guess_types = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{search_criteria}{\code{list}; a list of fields and their values that would 

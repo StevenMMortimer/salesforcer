@@ -4,8 +4,14 @@
 \alias{rforcecom.bulkQuery}
 \title{salesforcer's backwards compatible version of rforcecom.bulkQuery}
 \usage{
-rforcecom.bulkQuery(session, soqlQuery, object, interval_seconds = 5,
-  max_attempts = 100, verbose = FALSE)
+rforcecom.bulkQuery(
+  session,
+  soqlQuery,
+  object,
+  interval_seconds = 5,
+  max_attempts = 100,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{session}{\code{list}; a list containing "sessionID", "instanceURL", and "

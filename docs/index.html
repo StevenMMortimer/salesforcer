@@ -52,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -153,7 +153,7 @@
 </ul>
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
-<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code>sf_find_duplicates_by_ids()</code>),<br>
+<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>),<br>
 merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
 <li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) in a timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
@@ -183,12 +183,12 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.1.3)</span>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.2.0)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
 <span class="co"># or get the latest version available on GitHub using the devtools package</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)</pre></div>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)</pre></div>
 <p>If you encounter an issue while using this package, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">GitHub</a>.</p>
 </div>
 <div id="vignettes" class="section level2">
@@ -198,6 +198,9 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a></li>
+<li>
+<a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a><br>
+</li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
@@ -247,8 +250,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s00000zLb7nAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s00000zLb7oAAC TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012M9CdAAK TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M9CeAAK TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -266,8 +269,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s00000zLb7nAAC NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s00000zLb7oAAC NA      Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012M9CdAAK NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M9CeAAK NA      Test      Contact-Create-2</span></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -283,8 +286,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s00000zLb7nAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s00000zLb7oAAC TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012M9CdAAK TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M9CeAAK TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -351,7 +354,7 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
-<span class="co">#&gt; # A tibble: 67 x 5</span>
+<span class="co">#&gt; # A tibble: 68 x 5</span>
 <span class="co">#&gt;    name              label                   length soapType    type     </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt;  1 Id                Account ID              18     tns:ID      id       </span>
@@ -364,7 +367,7 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span>
 <span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span>
 <span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span>
-<span class="co">#&gt; # … with 57 more rows</span>
+<span class="co">#&gt; # … with 58 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span>

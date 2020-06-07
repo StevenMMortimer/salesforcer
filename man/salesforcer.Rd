@@ -3,7 +3,6 @@
 \docType{package}
 \name{salesforcer}
 \alias{salesforcer}
-\alias{salesforcer-package}
 \title{\code{salesforcer} package}
 \description{
 An R package connecting to Salesforce APIs using tidy principles

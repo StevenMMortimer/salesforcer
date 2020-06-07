@@ -4,35 +4,37 @@
 \alias{sf_control}
 \title{Auxiliary for Controlling Calls to Salesforce APIs}
 \usage{
-sf_control(AllOrNoneHeader = list(allOrNone = FALSE),
+sf_control(
+  AllOrNoneHeader = list(allOrNone = FALSE),
   AllowFieldTruncationHeader = list(allowFieldTruncation = FALSE),
   AssignmentRuleHeader = list(useDefaultRule = TRUE),
   DisableFeedTrackingHeader = list(disableFeedTracking = FALSE),
-  DuplicateRuleHeader = list(allowSave = FALSE, includeRecordDetails =
-  FALSE, runAsCurrentUser = TRUE),
-  EmailHeader = list(triggerAutoResponseEmail = FALSE, triggerOtherEmail
-  = FALSE, triggerUserEmail = TRUE), LocaleOptions = list(language =
-  "en_US"), MruHeader = list(updateMru = FALSE),
+  DuplicateRuleHeader = list(allowSave = FALSE, includeRecordDetails = FALSE,
+    runAsCurrentUser = TRUE),
+  EmailHeader = list(triggerAutoResponseEmail = FALSE, triggerOtherEmail = FALSE,
+    triggerUserEmail = TRUE),
+  LocaleOptions = list(language = "en_US"),
+  MruHeader = list(updateMru = FALSE),
   OwnerChangeOptions = list(options = list(list(execute = TRUE, type =
-  "EnforceNewOwnerHasReadAccess"), list(execute = FALSE, type =
-  "KeepAccountTeam"), list(execute = FALSE, type = "KeepSalesTeam"),
-  list(execute = FALSE, type =
-  "KeepSalesTeamGrantCurrentOwnerReadWriteAccess"), list(execute = FALSE,
-  type = "SendEmail"), list(execute = FALSE, type =
-  "TransferAllOwnedCases"), list(execute = TRUE, type =
-  "TransferContacts"), list(execute = TRUE, type = "TransferContracts"),
-  list(execute = FALSE, type = "TransferNotesAndAttachments"),     
-  list(execute = TRUE, type = "TransferOpenActivities"), list(execute =
-  TRUE, type = "TransferOrders"), list(execute = FALSE, type =
-  "TransferOtherOpenOpportunities"), list(execute = FALSE, type =
-  "TransferOwnedClosedOpportunities"), list(execute = FALSE, type =
-  "TransferOwnedOpenCases"), list(execute = FALSE, type =
-  "TransferOwnedOpenOpportunities"))), QueryOptions = list(batchSize =
-  1000), UserTerritoryDeleteHeader = list(transferToUserId = NA),
+    "EnforceNewOwnerHasReadAccess"), list(execute = FALSE, type = "KeepAccountTeam"),
+    list(execute = FALSE, type = "KeepSalesTeam"), list(execute = FALSE, type =
+    "KeepSalesTeamGrantCurrentOwnerReadWriteAccess"), list(execute = FALSE, type =
+    "SendEmail"), list(execute = FALSE, type = "TransferAllOwnedCases"), list(execute =
+    TRUE, type = "TransferContacts"), list(execute = TRUE, type = "TransferContracts"),
+    list(execute = FALSE, type = "TransferNotesAndAttachments"),      list(execute =
+    TRUE, type = "TransferOpenActivities"), list(execute = TRUE, type =
+    "TransferOrders"), list(execute = FALSE, type = "TransferOtherOpenOpportunities"),
+    list(execute = FALSE, type = "TransferOwnedClosedOpportunities"), list(execute =
+    FALSE, type = "TransferOwnedOpenCases"), list(execute = FALSE, type =
+    "TransferOwnedOpenOpportunities"))),
+  QueryOptions = list(batchSize = 1000),
+  UserTerritoryDeleteHeader = list(transferToUserId = NA),
   BatchRetryHeader = list(`Sforce-Disable-Batch-Retry` = FALSE),
   LineEndingHeader = list(`Sforce-Line-Ending` = NA),
   PKChunkingHeader = list(`Sforce-Enable-PKChunking` = FALSE),
-  api_type = NULL, operation = NULL)
+  api_type = NULL,
+  operation = NULL
+)
 }
 \arguments{
 \item{AllOrNoneHeader}{\code{list}; containing the \code{allOrNone} element with 

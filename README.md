@@ -36,7 +36,7 @@ Package features include:
     `sf_list_objects()`)
   - Functions to assist with master data managment (MDM) or data
     integrity of records by finding duplicates (`sf_find_duplicates()`,
-    `sf_find_duplicates_by_ids()`),  
+    `sf_find_duplicates_by_id()`),  
     merging records (`sf_merge()`), and converting leads
     (`sf_convert_lead()`)
   - Recover (`sf_undelete()`) or delete from the Recycle Bin
@@ -63,7 +63,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.1.3)
+# install the current CRAN version (0.2.0)
 install.packages("salesforcer")
 
 # or get the latest version available on GitHub using the devtools package
@@ -84,6 +84,8 @@ vignettes for more detailed examples on usage.
     Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   - [Working with the Bulk
     APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
+  - [Working with
+    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   - [Working with
     Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
   - [Transitioning from
@@ -154,8 +156,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s00000zLb7nAAC TRUE   
-#> 2 0033s00000zLb7oAAC TRUE
+#> 1 0033s000012M9EAAA0 TRUE   
+#> 2 0033s000012M9EBAA0 TRUE
 ```
 
 ### Query
@@ -182,8 +184,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0033s00000zLb7nAAC NA      Test      Contact-Create-1
-#> 2 0033s00000zLb7oAAC NA      Test      Contact-Create-2
+#> 1 0033s000012M9EAAA0 NA      Test      Contact-Create-1
+#> 2 0033s000012M9EBAA0 NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -208,8 +210,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s00000zLb7nAAC TRUE   
-#> 2 0033s00000zLb7oAAC TRUE
+#> 1 0033s000012M9EAAA0 TRUE   
+#> 2 0033s000012M9EBAA0 TRUE
 ```
 
 ### Bulk Operations
@@ -242,6 +244,12 @@ n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact", api_type = "Bulk 1.0")
+created_records
+#> # A tibble: 2 x 4
+#>   Id                 Success Created Error
+#>   <chr>              <lgl>   <lgl>   <lgl>
+#> 1 0033s000012M9EFAA0 TRUE    TRUE    NA   
+#> 2 0033s000012M9EGAA0 TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -252,9 +260,21 @@ my_soql <- sprintf("SELECT Id,
                    paste0(created_records$Id , collapse = "','"))
 
 queried_records <- sf_query(my_soql, "Contact", api_type = "Bulk 1.0")
+queried_records
+#> # A tibble: 2 x 3
+#>   Id                 FirstName LastName        
+#>   <chr>              <chr>     <chr>           
+#> 1 0033s000012M9EFAA0 Test      Contact-Create-1
+#> 2 0033s000012M9EGAA0 Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
+deleted_records
+#> # A tibble: 2 x 4
+#>   sf__Id             sf__Created Id                 sf__Error
+#>   <chr>              <lgl>       <chr>              <chr>    
+#> 1 0033s000012M9EFAA0 FALSE       0033s000012M9EFAA0 <NA>     
+#> 2 0033s000012M9EGAA0 FALSE       0033s000012M9EGAA0 <NA>
 ```
 
 ### Using the Metadata API
@@ -320,7 +340,7 @@ each field on the Account object:
 ``` r
 acct_fields <- sf_describe_object_fields('Account')
 acct_fields %>% select(name, label, length, soapType, type)
-#> # A tibble: 67 x 5
+#> # A tibble: 68 x 5
 #>    name              label                   length soapType    type     
 #>    <chr>             <chr>                   <chr>  <chr>       <chr>    
 #>  1 Id                Account ID              18     tns:ID      id       
@@ -333,7 +353,7 @@ acct_fields %>% select(name, label, length, soapType, type)
 #>  8 BillingCity       Billing City            40     xsd:string  string   
 #>  9 BillingState      Billing State/Province  80     xsd:string  string   
 #> 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   
-#> # … with 57 more rows
+#> # … with 58 more rows
 
 # show the picklist selection options for the Account Type field
 acct_fields %>% 

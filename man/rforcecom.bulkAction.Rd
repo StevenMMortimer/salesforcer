@@ -4,10 +4,18 @@
 \alias{rforcecom.bulkAction}
 \title{Run Bulk Action}
 \usage{
-rforcecom.bulkAction(session, operation = c("insert", "delete", "upsert",
-  "update", "hardDelete"), data, object, external_id_fieldname = NULL,
-  multiBatch = TRUE, batchSize = 10000, interval_seconds = 5,
-  max_attempts = 100, verbose = FALSE)
+rforcecom.bulkAction(
+  session,
+  operation = c("insert", "delete", "upsert", "update", "hardDelete"),
+  data,
+  object,
+  external_id_fieldname = NULL,
+  multiBatch = TRUE,
+  batchSize = 10000,
+  interval_seconds = 5,
+  max_attempts = 100,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{session}{a named character vector defining parameters of the api connection as returned by \link{rforcecom.login}}

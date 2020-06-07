@@ -4,8 +4,12 @@
 \alias{sf_batch_details_bulk}
 \title{Returning the Details of a Batch in a Bulk API Job}
 \usage{
-sf_batch_details_bulk(job_id, batch_id, api_type = c("Bulk 1.0"),
-  verbose = FALSE)
+sf_batch_details_bulk(
+  job_id,
+  batch_id,
+  api_type = c("Bulk 1.0"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

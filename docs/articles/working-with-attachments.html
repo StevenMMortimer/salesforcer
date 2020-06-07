@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@
       <h1 data-toc-skip>Working with Attachments</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2020-06-06</h4>
+            <h4 class="date">2020-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-attachments.Rmd"><code>vignettes/working-with-attachments.Rmd</code></a></small>
       <div class="hidden name"><code>working-with-attachments.Rmd</code></div>
@@ -161,9 +161,11 @@
 <span class="no">parent_record_id2</span> <span class="kw">&lt;-</span> <span class="st">"0016A0000035mJ5"</span>
 
 <span class="co"># provide the file paths of where the attachments exist locally on your machine</span>
-<span class="no">file_path1</span> <span class="kw">&lt;-</span> <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="st">"man"</span>, <span class="st">"figures"</span>, <span class="st">"cloud.png"</span>)
-<span class="no">file_path2</span> <span class="kw">&lt;-</span> <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="st">"man"</span>, <span class="st">"figures"</span>, <span class="st">"logo.png"</span>)
-<span class="no">file_path3</span> <span class="kw">&lt;-</span> <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="st">"man"</span>, <span class="st">"figures"</span>, <span class="st">"old-logo.png"</span>)
+<span class="co"># in this case we are referencing images included within the salesforcer package, </span>
+<span class="co"># but any absolute or relative path locally will work</span>
+<span class="no">file_path1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"cloud.png"</span>, <span class="kw">package</span><span class="kw">=</span><span class="st">"salesforcer"</span>)
+<span class="no">file_path2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"logo.png"</span>, <span class="kw">package</span><span class="kw">=</span><span class="st">"salesforcer"</span>)
+<span class="no">file_path3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"old-logo.png"</span>, <span class="kw">package</span><span class="kw">=</span><span class="st">"salesforcer"</span>)
 
 <span class="co"># create a data.frame or tbl_df out of this information</span>
 <span class="no">attachment_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Body</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">file_path1</span>,
@@ -176,7 +178,16 @@
 
 <span class="co"># create the attachments!</span>
 <span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="no">attachment_details</span>)
-<span class="no">result</span></pre></body></html></div>
+<span class="no">result</span>
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 00P3s00000YuSNyEAN TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000YuSO3EAN TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000YuSO8EAN TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000YuSODEA3 TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000YuSOIEA3 TRUE   </span>
+<span class="co">#&gt; 6 00P3s00000YuSONEA3 TRUE</span></pre></body></html></div>
 </div>
 <div id="downloading-attachments" class="section level3">
 <h3 class="hasAnchor">
@@ -187,7 +198,16 @@
                                          FROM Attachment
                                          WHERE ParentId IN ('%s', '%s')"</span>,
                                          <span class="no">parent_record_id1</span>, <span class="no">parent_record_id2</span>))
-<span class="no">queried_attachments</span></pre></body></html></div>
+<span class="no">queried_attachments</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 00P3s00000Yu… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 2 00P3s00000Yu… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 3 00P3s00000Yu… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 4 00P3s00000Yu… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 5 00P3s00000Yu… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 6 00P3s00000Yu… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span></pre></body></html></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
 <ol style="list-style-type: decimal">
 <li>Create a new column (e.g. <code>unique_name</code>) that is the concatenation of the Attachment Id and the Attachment’s name which is guaranteed to be unique.</li>
@@ -195,53 +215,87 @@
 </ol>
 <p>As long as the same ParentId record doesn’t name attachments with the same name, then Strategy #2 above will work. In addition, it may help better organize the documents if you are planning to download many and then upload again to Salesforce using the Bulk API as demonstrated later in this script.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># create a new folder for each ParentId in the dataset</span>
+<span class="no">temp_dir</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>()
 <span class="kw">for</span> (<span class="no">pid</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">queried_attachments</span>$<span class="no">ParentId</span>)){
-  <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="no">pid</span>), <span class="kw">showWarnings</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="co"># ignore if already exists</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_dir</span>, <span class="no">pid</span>), <span class="kw">showWarnings</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="co"># ignore if already exists</span>
 }
 
 <span class="co"># create a new columns in the queried data so that we can pass this information </span>
 <span class="co"># on to the function `sf_download_attachment()` that will actually perform the download</span>
 <span class="no">queried_attachments</span> <span class="kw">&lt;-</span> <span class="no">queried_attachments</span> <span class="kw">%&gt;%</span>
-  <span class="co">#Strategy 1 (ununsed here, but shown as an example)</span>
+  <span class="co"># Strategy 1: Unique file names (ununsed here, but shown as an example)</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">unique_name</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">Id</span>, <span class="no">Name</span>, <span class="kw">sep</span><span class="kw">=</span><span class="st">'___'</span>)) <span class="kw">%&gt;%</span>
-  <span class="co">#Strategy 2 (ununsed here, but shown as an example)</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">Path</span> <span class="kw">=</span> <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="no">ParentId</span>))
+  <span class="co"># Strategy 2: Separate folders per parent</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">Path</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_dir</span>, <span class="no">ParentId</span>))
 
 <span class="co"># download all of the attachments for a single ParentId record to their own folder</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="no">sf_download_attachment</span>,
-       <span class="no">queried_attachments</span>$<span class="no">Body</span>,
-       <span class="no">queried_attachments</span>$<span class="no">unique_name</span>,
-       <span class="no">queried_attachments</span>$<span class="no">Path</span>)</pre></body></html></div>
+<span class="no">download_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="no">sf_download_attachment</span>,
+                          <span class="no">queried_attachments</span>$<span class="no">Body</span>,
+                          <span class="no">queried_attachments</span>$<span class="no">Name</span>,
+                          <span class="no">queried_attachments</span>$<span class="no">Path</span>)
+<span class="no">download_result</span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000YuSO8EAN/Body </span>
+<span class="co">#&gt;                                                             TRUE </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000YuSNyEAN/Body </span>
+<span class="co">#&gt;                                                             TRUE </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000YuSO3EAN/Body </span>
+<span class="co">#&gt;                                                             TRUE </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000YuSOIEA3/Body </span>
+<span class="co">#&gt;                                                             TRUE </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000YuSONEA3/Body </span>
+<span class="co">#&gt;                                                             TRUE </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000YuSODEA3/Body </span>
+<span class="co">#&gt;                                                             TRUE</span></pre></body></html></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
 <p>The SOAP and REST APIs are good for working with a few attachements at a time. However, the Bulk API can be envoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload In the example above we downloaded the 3 attachments each belonging to 2 different parent records. Assuming that I have a directory on my computer</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># create the attachment metadata required (Name, Path, ParentId)</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># create the attachment metadata required (Name, Body, ParentId)</span>
 <span class="no">attachment_details</span> <span class="kw">&lt;-</span> <span class="no">queried_attachments</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">Name</span>, <span class="no">Path</span>, <span class="no">ParentId</span>)</pre></body></html></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">Body</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">Path</span>, <span class="no">Name</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">Name</span>, <span class="no">Body</span>, <span class="no">ParentId</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="no">attachment_details</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
-<span class="no">result</span></pre></body></html></div>
+<span class="no">result</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   Id                 Success Created Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 00P3s00000YuSOSEA3 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000YuSOTEA3 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000YuSOUEA3 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000YuSOVEA3 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000YuSOWEA3 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 6 00P3s00000YuSOXEA3 TRUE    TRUE    NA</span></pre></body></html></div>
 </div>
 <div id="extending-to-documents-and-other-blob-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extending-to-documents-and-other-blob-data" class="anchor"></a>Extending to Documents and Other Blob Data</h3>
 <p>The commands for working with Attachments also work for uploading documents and other blob data as well. Documents are just like Attachments in Salesforce except instead of having an associated ParentId they have an associated FolderId where the blob will be associated with upon creation. Here is a brief example of uploading a PDF (“Document”) to a Folder</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># the function supports inserting all types of blob content, just update the </span>
-<span class="co"># object_name argument to add the PNG as a Document instead of an Attachment</span>
-<span class="no">document_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Logo PNG"</span>,
-                           <span class="kw">Description</span> <span class="kw">=</span> <span class="st">"Test Document Create using PNG File"</span>,
-                           <span class="kw">Body</span> <span class="kw">=</span> <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="st">"man"</span>, <span class="st">"figures"</span>, <span class="st">"logo.png"</span>),
+<span class="co"># object_name argument to add the PDF as a Document instead of an Attachment</span>
+<span class="no">document_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 1"</span>,
+                           <span class="kw">Description</span> <span class="kw">=</span> <span class="st">"RStudio cheatsheet covering dplyr and tidyr."</span>,
+                           <span class="kw">Body</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>,
+                                              <span class="st">"data-wrangling-cheatsheet.pdf"</span>,
+                                              <span class="kw">package</span><span class="kw">=</span><span class="st">"salesforcer"</span>),
                            <span class="kw">FolderId</span> <span class="kw">=</span> <span class="st">"00l6A000001EgIwQAK"</span>,
-                           <span class="kw">Keywords</span> <span class="kw">=</span> <span class="st">"example,test,document"</span>)
+                           <span class="kw">Keywords</span> <span class="kw">=</span> <span class="st">"test,cheatsheet,document"</span>)
 <span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="no">document_details</span>, <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Document"</span>)
-<span class="no">result</span></pre></body></html></div>
+<span class="no">result</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0153s000001gWHOAA2 TRUE</span></pre></body></html></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">cheatsheet_url</span> <span class="kw">&lt;-</span> <span class="st">"https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"</span>
-<span class="no">document_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Data Wrangling Cheatsheet"</span>,
+<span class="no">document_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 2"</span>,
                            <span class="kw">Description</span> <span class="kw">=</span> <span class="st">"RStudio cheatsheet covering dplyr and tidyr."</span>,
                            <span class="kw">Url</span> <span class="kw">=</span> <span class="no">cheatsheet_url</span>,
                            <span class="kw">FolderId</span> <span class="kw">=</span> <span class="st">"00l6A000001EgIwQAK"</span>,
-                           <span class="kw">Keywords</span> <span class="kw">=</span> <span class="st">"cheatsheet,document"</span>)
+                           <span class="kw">Keywords</span> <span class="kw">=</span> <span class="st">"test,cheatsheet,document"</span>)
 <span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="no">document_details</span>, <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Document"</span>)
-<span class="no">result</span></pre></body></html></div>
+<span class="no">result</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0153s000001gWHTAA2 TRUE</span></pre></body></html></div>
 </div>
 <div id="reference-links" class="section level3">
 <h3 class="hasAnchor">
@@ -257,6 +311,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
       </div>
 
 </div>

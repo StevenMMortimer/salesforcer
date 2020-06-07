@@ -4,8 +4,12 @@
 \alias{sf_end_job_bulk}
 \title{End Bulk API Job}
 \usage{
-sf_end_job_bulk(job_id, end_type = c("Closed", "UploadComplete",
-  "Aborted"), api_type = c("Bulk 1.0", "Bulk 2.0"), verbose = FALSE)
+sf_end_job_bulk(
+  job_id,
+  end_type = c("Closed", "UploadComplete", "Aborted"),
+  api_type = c("Bulk 1.0", "Bulk 2.0"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

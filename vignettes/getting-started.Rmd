@@ -43,6 +43,8 @@ library(salesforcer)
 sf_auth()
 ```
 
+**Setting up your own Connected App for OAuth**
+
 Just a note, that it's not necessary to setup your own Connected App in Salesforce 
 to use OAuth 2.0 authentication. The only difference is that the authentication 
 will be run through the client created and associated with the `salesforcer` 
@@ -50,9 +52,24 @@ package. By using the package client, you will *NOT* be giving access to Salesfo
 to anyone, the package is just the medium for you to connect to your own data. 
 If you wanted more control you would specify those options like so: 
 
-```{r other-params, eval=FALSE}
+```{r other-params1, eval=FALSE}
 options(salesforcer.consumer_key = "012345678901-99thisisatest99connected33app22key")
 options(salesforcer.consumer_secret = "Th1s1sMyConsumerS3cr3t")
+
+sf_auth()
+```
+
+**Using a proxy connection**
+If you are required to connect to Salesforce via proxy you are able to specify 
+all of those parameters as options, as well. For each call via **httr** these 
+proxy settings will be passed along with the Salesforce authentication.
+
+```{r other-params2, eval=FALSE}
+options(salesforcer.proxy_url = "64.251.21.73") # IP or a named domain
+options(salesforcer.proxy_port = 8080)
+options(salesforcer.proxy_username = "user")
+options(salesforcer.proxy_password = "pass")
+options(salesforcer.proxy_auth = "ntlm")
 
 sf_auth()
 ```

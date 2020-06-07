@@ -4,9 +4,11 @@
 \alias{accepted_controls_by_operation}
 \title{Return the Accepted Control Arguments by Operation}
 \usage{
-accepted_controls_by_operation(operation = c("delete", "undelete",
-  "hardDelete", "convertLead", "merge", "insert", "update", "upsert",
-  "query", "queryall", "retrieve", "resetPassword", "describeSObjects"))
+accepted_controls_by_operation(
+  operation = c("delete", "undelete", "hardDelete", "convertLead", "merge", "insert",
+    "update", "upsert", "query", "queryall", "retrieve", "resetPassword",
+    "describeSObjects")
+)
 }
 \description{
 Return the Accepted Control Arguments by Operation

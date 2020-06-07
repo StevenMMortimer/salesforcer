@@ -4,8 +4,14 @@
 \alias{sf_query_result_bulk}
 \title{Retrieving the Results of a Bulk Query Batch in a Bulk API Job}
 \usage{
-sf_query_result_bulk(job_id, batch_id, result_id, guess_types = TRUE,
-  api_type = c("Bulk 1.0"), verbose = FALSE)
+sf_query_result_bulk(
+  job_id,
+  batch_id,
+  result_id,
+  guess_types = TRUE,
+  api_type = c("Bulk 1.0"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

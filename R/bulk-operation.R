@@ -522,6 +522,7 @@ sf_delete_job_bulk <- function(job_id,
 #' @template job_id
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into .csv file for submitting as batch request
+#' @template batch_size
 #' @template api_type
 #' @template verbose
 #' @return a \code{tbl_df} containing details of each batch
@@ -550,14 +551,17 @@ sf_delete_job_bulk <- function(job_id,
 #' @export
 sf_create_batches_bulk <- function(job_id, 
                                    input_data, 
+                                   batch_size = NULL,
                                    api_type = c("Bulk 1.0", "Bulk 2.0"),
                                    verbose = FALSE){
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 1.0"){
     created_batches <- sf_create_batches_bulk_v1(job_id, input_data, 
+                                                 batch_size = batch_size,
                                                  verbose = verbose)
   } else if(api_type == "Bulk 2.0"){
     created_batches <- sf_create_batches_bulk_v2(job_id, input_data, 
+                                                 batch_size = batch_size,
                                                  verbose = verbose)
   } else { 
     stop("Unknown API type.")
@@ -572,6 +576,7 @@ sf_create_batches_bulk <- function(job_id,
 #' @importFrom zip zipr
 sf_create_batches_bulk_v1 <- function(job_id, 
                                       input_data,
+                                      batch_size = NULL,
                                       verbose = FALSE){
   job_status <- sf_get_job_bulk(job_id, 
                                 api_type = "Bulk 1.0", 
@@ -597,20 +602,26 @@ sf_create_batches_bulk_v1 <- function(job_id,
     #  - A maximum of 1,000 files can be contained in a zip file. Directories don’t 
     #    count toward this total.
     # https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_concepts_limits.htm#binary_content_title
-    
     # TODO: Determine if we want to check the following for the user or allow Salesforce 
     # to return errors back to the user for them to correct 
-    #  - Check that each Name and Body is unique? Doesn't matter, you can still insert
+    #  - Check that each Name and Body is unique?
     #  - Check file name < 512 bytes?
     #  - Check if the number of files in a batch is greater than 1000, if so, then repartition
-    
-    # use conservative approach and batch in 10MB unzipped, which will be < 10MB zipped
-    file_sizes_mb <- sapply(input_data$Body, file.size, USE.NAMES = FALSE) / 1000000
-    if(any(file_sizes_mb > 10)){
-      stop("The max file size limit is 10MB. The following files exceed that limit: '%s'", 
-           paste0(input_data$Name[file_sizes_mb > 10], collapse="','"))
+    if(is.null(batch_size)){
+      # use conservative approach and batch in 10MB unzipped, which will be < 10MB zipped
+      file_sizes_mb <- sapply(input_data$Body, file.size, USE.NAMES = FALSE) / 1000000
+      if(any(file_sizes_mb > 10)){
+        stop("The max file size limit is 10MB. The following files exceed that limit: '%s'", 
+             paste0(input_data$Name[file_sizes_mb > 10], collapse="','"))
+      }
+      batch_id <- floor(cumsum(file_sizes_mb) / 10)
+    } else {
+      if (batch_size > 10){
+        message(sprintf("It appears that you have set `batch_size=%s` while uploading binary blob data.", batch_size))
+        message("It is highly recommended to leave `batch_size=NULL` so that the batch sizes can be optimized for you.")
+      }
+      batch_id <- (seq.int(1:length(input_data$Body))-1) %/% batch_size
     }
-    batch_id <- floor(cumsum(file_sizes_mb) / 10)
     if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
     message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
     
@@ -694,7 +705,9 @@ sf_create_batches_bulk_v1 <- function(job_id,
     # timeout error when processing a batch, split your batch into smaller batches, 
     # and try again.
     # https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_planning_guidelines.htm
-    batch_size <- 5000
+    if(is.null(batch_size)){
+      batch_size <- 5000
+    }
     row_num <- nrow(input_data)
     batch_id <- (seq.int(row_num)-1) %/% batch_size
     if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
@@ -740,6 +753,7 @@ sf_create_batches_bulk_v1 <- function(job_id,
 #' @importFrom stats quantile
 sf_create_batches_bulk_v2 <- function(job_id, 
                                       input_data,
+                                      batch_size = NULL,
                                       verbose = FALSE){
   job_status <- sf_get_job_bulk(job_id, 
                                 api_type = "Bulk 2.0", 
@@ -751,9 +765,11 @@ sf_create_batches_bulk_v2 <- function(job_id,
   # conversion can increase the data size by approximately 50%. To account for 
   # the base64 conversion increase, upload data that does not exceed 100 MB. 
   # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/upload_job_data.htm
-  data_size <- object.size(input_data)
-  numb_batches <- ceiling((as.numeric(data_size)/(1024^2))/100) # 100MB / (size converted to MB)
-  batch_size <- ceiling(nrow(input_data) / numb_batches)
+  if(is.null(batch_size)){
+    data_size <- object.size(input_data)
+    numb_batches <- ceiling((as.numeric(data_size)/(1024^2))/100) # 100MB / (size converted to MB)
+    batch_size <- ceiling(nrow(input_data) / numb_batches)
+  }
   row_num <- nrow(input_data)
   batch_id <- (seq.int(row_num)-1) %/% batch_size
   if(verbose) message("Submitting data in ", max(batch_id) + 1, " Batches")
@@ -1070,6 +1086,23 @@ sf_get_job_records_bulk_v2 <- function(job_id,
     records[[r]] <- res
   }
   if(combine_record_types){
+    # Before combining, try to match the data types of each column in the dataset 
+    # with recordsets having 0 records taking on the datatype of the one with 
+    # the most records. Otherwise, we will receive an error such as: 
+    #   Can't combine `test_number__c` <double> and `test_number__c` <character>.
+    
+    # First, determine the column datatypes from the data.frame with most rows
+    base_class_df <- records[[head(which.max(sapply(records, nrow)), 1)]]
+    # Second, convert the datatypes for any data.frames with zero rows
+    for (i in 1:length(records)){
+      if(nrow(records[[i]]) == 0){
+        common <- names(records[[i]])[names(records[[i]]) %in% names(base_class_df)]
+        records[[i]][common] <- lapply(common, function(x) {
+          match.fun(paste0("as.", class(base_class_df[[x]])))(records[[i]][[x]])
+        })
+      }
+    }
+    # Third, now bind them together
     res <- bind_rows(records)
   } else {
     res <- records

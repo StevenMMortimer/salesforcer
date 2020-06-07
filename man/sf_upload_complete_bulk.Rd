@@ -4,8 +4,7 @@
 \alias{sf_upload_complete_bulk}
 \title{Signal Upload Complete to Bulk API Job}
 \usage{
-sf_upload_complete_bulk(job_id, api_type = c("Bulk 2.0"),
-  verbose = FALSE)
+sf_upload_complete_bulk(job_id, api_type = c("Bulk 2.0"), verbose = FALSE)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 

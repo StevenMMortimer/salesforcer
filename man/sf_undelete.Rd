@@ -4,8 +4,13 @@
 \alias{sf_undelete}
 \title{Undelete Records}
 \usage{
-sf_undelete(ids, api_type = c("SOAP"), control = list(...), ...,
-  verbose = FALSE)
+sf_undelete(
+  ids,
+  api_type = c("SOAP"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or 

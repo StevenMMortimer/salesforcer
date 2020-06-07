@@ -4,8 +4,7 @@
 \alias{check_and_encode_files}
 \title{Check that file paths exist and data is encoded if specified}
 \usage{
-check_and_encode_files(dat, column = "Body", encode = TRUE,
-  n_check = 100)
+check_and_encode_files(dat, column = "Body", encode = TRUE, n_check = 100)
 }
 \description{
 Check that file paths exist and data is encoded if specified

@@ -4,8 +4,13 @@
 \alias{sf_create_attachment_rest}
 \title{Create Attachment using REST API}
 \usage{
-sf_create_attachment_rest(input_data, object_name = "Attachment",
-  control, ..., verbose = FALSE)
+sf_create_attachment_rest(
+  input_data,
+  object_name = "Attachment",
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Create Attachment using REST API

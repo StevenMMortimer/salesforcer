@@ -4,8 +4,7 @@
 \alias{make_bulk_end_job_generic_url}
 \title{Bulk End Job Generic URL Generator}
 \usage{
-make_bulk_end_job_generic_url(job_id, api_type = c("Bulk 1.0",
-  "Bulk 2.0"))
+make_bulk_end_job_generic_url(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"))
 }
 \description{
 Bulk End Job Generic URL Generator

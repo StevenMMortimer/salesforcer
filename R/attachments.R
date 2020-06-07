@@ -289,10 +289,10 @@ check_and_encode_files <- function(dat, column = "Body", encode = TRUE, n_check 
     if(any(!files_exist)){
       not_found_idx <- which(!files_exist)
       for(i in head(not_found_idx, 5)){
-        message(sprintf("Row %s, File Not Found: %s", not_found_idx, dat[[not_found_idx, column]]))
+        message(sprintf("Row %s, File Not Found: %s", i, dat[[i, column]]))
       }
       if(sum(!files_exist) > 5){
-        message(sprintf("There were %s files not found (run `sapply(dat[,'%s'], file.exists`) to see them all)", 
+        message(sprintf("There were %s files not found. Run `sapply(dat[,'%s'], file.exists)` to see them all)", 
                         sum(!files_exist), column))
       }
       if(nrow(dat) > n_check){

@@ -4,7 +4,10 @@
 \alias{VERB_n}
 \title{Generic implementation of HTTP methods with retries and authentication}
 \usage{
-VERB_n(VERB, n = 5)
+VERB_n(verb)
+}
+\arguments{
+\item{verb}{string; The name of HTTP verb to execute}
 }
 \description{
 Generic implementation of HTTP methods with retries and authentication

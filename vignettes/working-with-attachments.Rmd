@@ -1,7 +1,7 @@
 ---
 title: "Working with Attachments"
 author: "Steven M. Mortimer"
-date: "2020-06-06"
+date: "2020-06-07"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -76,9 +76,11 @@ parent_record_id1 <- "0016A0000035mJ4"
 parent_record_id2 <- "0016A0000035mJ5"
 
 # provide the file paths of where the attachments exist locally on your machine
-file_path1 <- here::here("man", "figures", "cloud.png")
-file_path2 <- here::here("man", "figures", "logo.png")
-file_path3 <- here::here("man", "figures", "old-logo.png")
+# in this case we are referencing images included within the salesforcer package, 
+# but any absolute or relative path locally will work
+file_path1 <- system.file("extdata", "cloud.png", package="salesforcer")
+file_path2 <- system.file("extdata", "logo.png", package="salesforcer")
+file_path3 <- system.file("extdata", "old-logo.png", package="salesforcer")
 
 # create a data.frame or tbl_df out of this information
 attachment_details <- tibble(Body = rep(c(file_path1, 
@@ -127,23 +129,25 @@ Bulk API as demonstrated later in this script.
 
 ```{r}
 # create a new folder for each ParentId in the dataset
+temp_dir <- tempdir()
 for (pid in unique(queried_attachments$ParentId)){
-  dir.create(here::here(pid), showWarnings = FALSE) # ignore if already exists
+  dir.create(file.path(temp_dir, pid), showWarnings = FALSE) # ignore if already exists
 }
 
 # create a new columns in the queried data so that we can pass this information 
 # on to the function `sf_download_attachment()` that will actually perform the download
 queried_attachments <- queried_attachments %>% 
-  #Strategy 1 (ununsed here, but shown as an example)
+  # Strategy 1: Unique file names (ununsed here, but shown as an example)
   mutate(unique_name = paste(Id, Name, sep='___')) %>% 
-  #Strategy 2 (ununsed here, but shown as an example)
-  mutate(Path = here::here(ParentId))
+  # Strategy 2: Separate folders per parent
+  mutate(Path = file.path(temp_dir, ParentId))
 
 # download all of the attachments for a single ParentId record to their own folder
-mapply(sf_download_attachment, 
-       queried_attachments$Body, 
-       queried_attachments$unique_name, 
-       queried_attachments$Path)
+download_result <- mapply(sf_download_attachment, 
+                          queried_attachments$Body, 
+                          queried_attachments$Name, 
+                          queried_attachments$Path)
+download_result
 ```
 ```{r cleanup-1, include = FALSE}
 sf_delete(queried_attachments$Id)
@@ -158,9 +162,10 @@ that is required by that API to upload In the example above we downloaded the 3 
 each belonging to 2 different parent records. Assuming that I have a directory on my computer
 
 ```{r}
-# create the attachment metadata required (Name, Path, ParentId)
+# create the attachment metadata required (Name, Body, ParentId)
 attachment_details <- queried_attachments %>% 
-  select(Name, Path, ParentId)
+  mutate(Body = file.path(Path, Name)) %>% 
+  select(Name, Body, ParentId) 
 ```
 ```{r}
 result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
@@ -168,7 +173,7 @@ result
 ```
 ```{r cleanup-2, include = FALSE}
 for (pid in unique(queried_attachments$ParentId)){
-  unlink(here::here(pid), recursive=TRUE) # remove directories...
+  unlink(file.path(temp_dir, pid), recursive=TRUE) # remove directories...
 }
 sf_delete(result$Id) #... and records in Salesforce
 ```
@@ -183,17 +188,19 @@ a PDF ("Document") to a Folder
 
 ```{r}
 # the function supports inserting all types of blob content, just update the 
-# object_name argument to add the PNG as a Document instead of an Attachment
-document_details <- tibble(Name = "Logo PNG", 
-                           Description = "Test Document Create using PNG File", 
-                           Body = here::here("man", "figures", "logo.png"),
+# object_name argument to add the PDF as a Document instead of an Attachment
+document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 1",
+                           Description = "RStudio cheatsheet covering dplyr and tidyr.",
+                           Body = system.file("extdata", 
+                                              "data-wrangling-cheatsheet.pdf",
+                                              package="salesforcer"),
                            FolderId = "00l6A000001EgIwQAK",
-                           Keywords = "example,test,document")
+                           Keywords = "test,cheatsheet,document")
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
 ```{r cleanup-3, include = FALSE}
-sf_delete(result$Id)
+sf_delete(result$id)
 ```
 
 With Documents, users are also able to save storage by specifying a `Url` instead 
@@ -203,16 +210,16 @@ saving space if limited in your organization.
 
 ```{r}
 cheatsheet_url <- "https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"
-document_details <- tibble(Name = "Data Wrangling Cheatsheet",
+document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 2",
                            Description = "RStudio cheatsheet covering dplyr and tidyr.",
                            Url = cheatsheet_url,  
                            FolderId = "00l6A000001EgIwQAK",
-                           Keywords = "cheatsheet,document")
+                           Keywords = "test,cheatsheet,document")
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
 ```{r cleanup-4, include = FALSE}
-sf_delete(result$Id)
+sf_delete(result$id)
 ```
 
 ### Reference Links

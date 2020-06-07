@@ -4,8 +4,13 @@
 \alias{sf_convert_lead}
 \title{Convert Leads}
 \usage{
-sf_convert_lead(input_data, api_type = c("SOAP"), control = list(...),
-  ..., verbose = FALSE)
+sf_convert_lead(
+  input_data,
+  api_type = c("SOAP"),
+  control = list(...),
+  ...,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 

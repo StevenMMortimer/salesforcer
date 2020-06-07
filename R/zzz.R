@@ -4,6 +4,11 @@
   op.salesforcer <- list(
     salesforcer.api_version = "48.0",
     salesforcer.login_url = "https://login.salesforce.com",
+    salesforcer.proxy_url = "",
+    salesforcer.proxy_port = NULL,
+    salesforcer.proxy_username = NULL,
+    salesforcer.proxy_password = NULL,
+    salesforcer.proxy_auth = "basic",
     salesforcer.consumer_key = "3MVG9CEn_O3jvv0yRMQezJ8PwesiIknRU9v9j778rv78UvJ2JTQzSG.QduxyMxYaldoNEhO0eVvw4ogCT58c5",
     salesforcer.consumer_secret = "3471656211653393546",
     salesforcer.callback_url = "http://localhost:1410/",
