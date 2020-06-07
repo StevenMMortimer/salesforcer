@@ -74,9 +74,6 @@ get_os <- function(){
 #' @export
 sf_input_data_validation <- function(input_data, operation=''){
   
-  # TODO: Add Automatic date validation
-  # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm
-
   if(operation == "convertLead"){
     leadid_col <- grepl("^LEADIDS$|^LEAD_IDS$|^ID$|^IDS$", names(input_data), ignore.case=TRUE)
     if(any(leadid_col)){
@@ -185,6 +182,11 @@ sf_input_data_validation <- function(input_data, operation=''){
       }
     }
   }
+  
+  # automatically convert the date and datetime columns to the format 
+  # required by Salesforce when creating or updating records
+  input_data <- sf_format_time_columns(input_data)
+  
   return(input_data)
 }
 
@@ -248,4 +250,41 @@ make_verbose_httr_message <- function(method, url, headers = NULL, body = NULL){
   if(!is.null(headers)) message(sprintf("\nHeaders\n%s", format_headers_for_verbose(headers)))
   if(!is.null(body)) message(sprintf("\nBody\n%s", body))
   return(invisible())
+}
+
+#' Format Dates for Create and Update operations
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @export
+sf_format_date <- function(x){
+  format(x, "%Y-%m-%d")
+}
+
+#' Format Datetimes for Create and Update operations
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @importFrom lubridate as_datetime
+#' @keywords internal
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @export
+sf_format_datetime <- function(x){
+  format(as_datetime(x), "%Y-%m-%dT%H:%M:%SZ")  
+}
+
+#' Format all Date and Datetime columns in a dataset
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @importFrom lubridate is.POSIXct is.POSIXlt is.POSIXt is.Date
+#' @keywords internal
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @export
+sf_format_time_columns <- function(df){
+  df <- df %>%
+    mutate_if(is.POSIXct, sf_format_datetime) %>% 
+    mutate_if(is.POSIXlt, sf_format_datetime) %>% 
+    mutate_if(is.POSIXt, sf_format_datetime) %>% 
+    mutate_if(is.Date, sf_format_date)
+  return(df)
 }

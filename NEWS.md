@@ -7,8 +7,10 @@
   * Add `sf_convert_lead()` which takes leads and will associate them to the corresponding 
   Accounts, Contacts, and Opportunities as directed in the input along with many other 
   options to send an email to the new owner, block the opportunity creation, and more.
+  * CRUD operations now atomatically cast date and datetime (POSIXct, POSIXlt, POSIXt) 
+  formats into an accepted string format recognized by Salesforce
   * Add a Metadata vignette and update the Bulk vignette.
-  * Rebuilt using R 4.0 to test compabilibility
+  * Rebuilt package using R 4.0 to test compabilibility
   
 ### Bug Fixes
 

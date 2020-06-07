@@ -281,15 +281,15 @@ check_and_encode_files <- function(dat, column = "Body", encode = TRUE, n_check 
     # data itself contains another column holding the body data, typically a Url
   } else {
     # stop if the body is a factor
-    if(is.factor(dat[,column])){
+    if(is.factor(dat[[column]])){
       stop(sprintf("The '%s' column is a factor. Convert all columns to string so paths, URLs, etc. are interpreted correctly.", column))
     }
     # stop if content at file.path does not exist
-    files_exist <- sapply(head(dat[,column], n_check), file.exists)
+    files_exist <- sapply(head(dat[[column]], n_check), file.exists)
     if(any(!files_exist)){
       not_found_idx <- which(!files_exist)
       for(i in head(not_found_idx, 5)){
-        message(sprintf("Row %s, File Not Found: %s", not_found_idx, dat[not_found_idx, column]))
+        message(sprintf("Row %s, File Not Found: %s", not_found_idx, dat[[not_found_idx, column]]))
       }
       if(sum(!files_exist) > 5){
         message(sprintf("There were %s files not found (run `sapply(dat[,'%s'], file.exists`) to see them all)", 
@@ -304,11 +304,11 @@ check_and_encode_files <- function(dat, column = "Body", encode = TRUE, n_check 
     # in the event that the Name field is missing then, create it using the file's 
     # basename (includes the extension; for example, "doc1.pdf")
     if(column == "Body" & ("Body" %in% names(dat)) & !("Name" %in% names(dat))){
-      dat[,"Name"] <- basename(dat[,"Body"])
+      dat[,"Name"] <- basename(dat[["Body"]])
     }
     if(encode){
       # base64 encode the values in the target column
-      dat[,column] <- sapply(dat[,column], base64encode)  
+      dat[,column] <- sapply(dat[[column]], base64encode)  
     }
   }
   return(dat)
