@@ -218,10 +218,8 @@ build_soap_xml_from_list <- function(input_data,
   if(which_operation %in% c("getDeleted", "getUpdated")){
     stopifnot(!is.null(object_name))
     type_node <- newXMLNode("sObjectTypeEntityType", object_name, parent = operation_node)
-    this_node <- newXMLNode("startDate", format(input_data$start, "%Y-%m-%dT%H:%M:%S.000Z", tz="UTC"),
-                            parent = operation_node)
-    this_node <- newXMLNode("endDate", format(input_data$end, "%Y-%m-%dT%H:%M:%S.000Z", tz="UTC"),
-                            parent = operation_node)
+    this_node <- newXMLNode("startDate", input_data$start, parent = operation_node)
+    this_node <- newXMLNode("endDate", input_data$end, parent = operation_node)
   } else if(which_operation %in% c("search", "query")){
     element_name <- if(which_operation == "search") "urn:searchString" else "urn:queryString"
     this_node <- newXMLNode(element_name, input_data[1,1],
