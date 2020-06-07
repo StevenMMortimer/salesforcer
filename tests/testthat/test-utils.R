@@ -5,8 +5,8 @@ test_that("testing sf_download_attachment", {
                                    FROM Attachment
                                    WHERE ParentId = '0016A0000035mJB'")
   res <- mapply(sf_download_attachment, 
-                queried_attachments$Body, 
-                queried_attachments$Name, 
+                queried_attachments[["Body"]], 
+                queried_attachments[["Name"]], 
                 tempdir())
   expect_true(all(res))
 })
