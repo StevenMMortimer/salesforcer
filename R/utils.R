@@ -343,7 +343,7 @@ sf_format_time.POSIXt <- function(x){
 
 #' @export
 sf_format_time.character <- function(x){ 
-  sf_format_datetime(as_datetime(x))
+  x
 }
 
 #' @export

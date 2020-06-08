@@ -46,17 +46,15 @@ instead of the SOAP or REST APIs. The change you have to make from using the RES
 API to the Bulk 1.0 API as simple as adding `api_type="Bulk 1.0"` to your function 
 arguments. First, let's build a `tbl_df` with two new records to be created.
 
-```{r, include=FALSE}
+```{r}
 n <- 2
 prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
-new_contacts <- tibble(FirstName = rep("Test", n),
-                       LastName = paste0("Contact-Create-", 1:n),
-                       My_External_Id__c=paste0(prefix, letters[1:n]))
-```
-```{r, eval=FALSE}
-n <- 2
-new_contacts <- tibble(FirstName = rep("Test", n),
-                       LastName = paste0("Contact-Create-", 1:n))
+new_contacts1 <- tibble(FirstName = rep("Test", n),
+                        LastName = paste0("Contact-Create-", 1:n),
+                        My_External_Id__c=paste0(prefix, letters[1:n]))
+new_contacts2 <- tibble(FirstName = rep("Test", n),
+                        LastName = paste0("Contact-Create-", 1:n),
+                        My_External_Id__c=paste0(prefix, letters[1:n]))
 ```
 
 There are some differences in the way the REST API returns response information vs. 
@@ -64,12 +62,12 @@ the Bulk 1.0 API. However, the changes in Salesforce are exactly the same for th
 two calls.
 
 ```{r}
-new_contacts
 # REST
-rest_created_records <- sf_create(new_contacts, object_name="Contact", api_type="REST")
+rest_created_records <- sf_create(new_contacts1, object_name="Contact", api_type="REST")
 rest_created_records
+
 # Bulk
-bulk_created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
+bulk_created_records <- sf_create(new_contacts2, object_name="Contact", api_type="Bulk 1.0")
 bulk_created_records
 ```
 

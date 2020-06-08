@@ -35,6 +35,9 @@ objects during upserts to determine if the record already exists in Salesforce o
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
 
+\item{batch_size}{integer; the number of individual records to be included in a 
+single batch uploaded to the Bulk APIs (1.0 or 2.0).}
+
 \item{interval_seconds}{integer; defines the seconds between attempts to check 
 for job completion}
 

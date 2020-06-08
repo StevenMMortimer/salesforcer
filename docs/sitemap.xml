@@ -307,7 +307,10 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_datetime.html</loc>
   </url>
   <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time_columns.html</loc>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time.data.frame.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time.list.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_jobs_bulk.html</loc>

@@ -198,9 +198,7 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a></li>
-<li>
-<a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a><br>
-</li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
@@ -250,8 +248,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012M9CdAAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012M9CeAAK TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012M9EAAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M9EBAA0 TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -269,8 +267,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012M9CdAAK NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012M9CeAAK NA      Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012M9EAAA0 NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M9EBAA0 NA      Test      Contact-Create-2</span></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -286,8 +284,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012M9CdAAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012M9CeAAK TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012M9EAAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012M9EBAA0 TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -299,6 +297,12 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
                        <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>))
 <span class="no">created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 1.0"</span>)
+<span class="no">created_records</span>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Id                 Success Created Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0033s000012M9EFAA0 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012M9EGAA0 TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -309,9 +313,21 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
                    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">created_records</span>$<span class="no">Id</span> , <span class="kw">collapse</span> <span class="kw">=</span> <span class="st">"','"</span>))
 
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_query.html">sf_query</a></span>(<span class="no">my_soql</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 1.0"</span>)
+<span class="no">queried_records</span>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000012M9EFAA0 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012M9EGAA0 Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
-<span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)</pre></div>
+<span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
+<span class="no">deleted_records</span>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
+<span class="co">#&gt; 1 0033s000012M9EFAA0 FALSE       0033s000012M9EFAA0 &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012M9EGAA0 FALSE       0033s000012M9EGAA0 &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">

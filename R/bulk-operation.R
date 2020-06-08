@@ -1120,12 +1120,13 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @param operation character; string defining the type of operation being performed
 #' @template external_id_fieldname
 #' @template api_type
-#' @param wait_for_results logical; indicating whether to wait for the operation to complete 
-#' so that the batch results of individual records can be obtained
+#' @template batch_size
 #' @param interval_seconds integer; defines the seconds between attempts to check 
 #' for job completion
 #' @param max_attempts integer; defines then max number attempts to check for job 
 #' completion before stopping
+#' @param wait_for_results logical; indicating whether to wait for the operation to complete 
+#' so that the batch results of individual records can be obtained
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
 #' such as \code{content_type}, \code{concurrency_mode}, or \code{column_delimiter}
