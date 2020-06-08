@@ -10,9 +10,10 @@ sf_bulk_operation(
   operation = c("insert", "delete", "upsert", "update", "hardDelete"),
   external_id_fieldname = NULL,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
-  wait_for_results = TRUE,
+  batch_size = NULL,
   interval_seconds = 3,
   max_attempts = 200,
+  wait_for_results = TRUE,
   control = list(...),
   ...,
   verbose = FALSE
@@ -34,14 +35,14 @@ objects during upserts to determine if the record already exists in Salesforce o
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
 
-\item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
-so that the batch results of individual records can be obtained}
-
 \item{interval_seconds}{integer; defines the seconds between attempts to check 
 for job completion}
 
 \item{max_attempts}{integer; defines then max number attempts to check for job 
 completion before stopping}
+
+\item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
+so that the batch results of individual records can be obtained}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 

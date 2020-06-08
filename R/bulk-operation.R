@@ -1151,9 +1151,10 @@ sf_bulk_operation <- function(input_data,
                                             "update", "hardDelete"),
                               external_id_fieldname = NULL,
                               api_type = c("Bulk 1.0", "Bulk 2.0"),
-                              wait_for_results = TRUE,
+                              batch_size = NULL,
                               interval_seconds = 3,
                               max_attempts = 200,
+                              wait_for_results = TRUE,
                               control = list(...), ...,
                               verbose = FALSE){
 
@@ -1177,7 +1178,8 @@ sf_bulk_operation <- function(input_data,
                                  control = control_args, ...,
                                  verbose = verbose)
   batches_info <- sf_create_batches_bulk(job_id = job_info$id, 
-                                         input_data, ...,
+                                         input_data,
+                                         batch_size = batch_size,
                                          api_type = api_type,
                                          verbose = verbose)
   if(wait_for_results){
