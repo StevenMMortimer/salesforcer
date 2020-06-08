@@ -1,4 +1,4 @@
-## salesforcer 0.2.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0)
+## salesforcer 0.1.4 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.4)
 
 ### Features
 
@@ -12,7 +12,7 @@
   * Add support for connections through a proxy by setting package options (#32)
   * Add `batch_size` argument to support specifying custom batch sizes for Bulk jobs
   * Add a Metadata vignette and update the Bulk vignette.
-  * Rebuilt package using R 4.0 to test compabilibility
+  * Rebuilt package using R 4.0.0 to test compabilibility
   
 ### Bug Fixes
 
