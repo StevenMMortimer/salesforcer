@@ -196,7 +196,7 @@ upserted_records
 ```
 
 ```{r, include = FALSE}
-deleted_records <- sf_delete(upserted_records$id)
+deleted_records <- sf_delete(upserted_records$id, object_name = "Contact")
 ```
 
 ### Check out the Tests
