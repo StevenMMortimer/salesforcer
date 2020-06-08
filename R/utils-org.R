@@ -775,7 +775,7 @@ sf_get_deleted <- function(object_name,
   base_soap_url <- make_base_soap_url()
   r <- make_soap_xml_skeleton()
   xml_dat <- build_soap_xml_from_list(input_data = list(start = sf_format_time(start), 
-                                                        end = sf_format_time(end)), 
+                                                        end = sf_format_time(end)),
                                       object_name = object_name,
                                       operation = "getDeleted",
                                       root = r)
@@ -845,7 +845,7 @@ sf_get_updated <- function(object_name,
   base_soap_url <- make_base_soap_url()
   r <- make_soap_xml_skeleton()
   xml_dat <- build_soap_xml_from_list(input_data = list(start = sf_format_time(start), 
-                                                        end = sf_format_time(end)), 
+                                                        end = sf_format_time(end)),
                                       object_name = object_name,
                                       operation = "getUpdated",
                                       root = r)

@@ -261,16 +261,6 @@ make_verbose_httr_message <- function(method, url, headers = NULL, body = NULL){
   return(invisible())
 }
 
-#' Format Dates for Create and Update operations
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
-#' @export
-sf_format_date <- function(x){
-  format(x, "%Y-%m-%d")
-}
-
 #' Format Datetimes for Create and Update operations
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -280,6 +270,17 @@ sf_format_date <- function(x){
 #' @export
 sf_format_datetime <- function(x){
   format(as_datetime(x), "%Y-%m-%dT%H:%M:%SZ")  
+}
+
+#' Format Dates for Create and Update operations
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @export
+sf_format_date <- function(x){
+  x <- as_datetime(format(x, "%Y-%m-%d 00:00:00"), tz=Sys.timezone())
+  sf_format_datetime(x)
 }
 
 sf_format_time <- function (x, ...) {
