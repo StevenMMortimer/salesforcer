@@ -103,7 +103,7 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  response_text <- content(httr_response, as="text", encoding="UTF-8")
+  response_text <- content(httr_response, as="text/plain", encoding="UTF-8")
   
   content_type <- httr_response$headers$`content-type`
   if (grepl('xml', content_type)) {
@@ -113,7 +113,8 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
       res <- tibble()
     } else {
       cols_default <- if(guess_types) col_guess() else col_character()
-      res <- read_csv(response_text, col_types = cols(.default=cols_default))      
+      res<- content(httr_response, as="parsed", encoding="UTF-8", 
+                    col_types = cols(.default=cols_default))
     }
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))

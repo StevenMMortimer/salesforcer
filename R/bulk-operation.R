@@ -332,7 +332,7 @@ sf_get_all_jobs_bulk <- function(next_records_url = NULL,
                                  verbose = FALSE){
   api_type <- match.arg(api_type)
   if(!is.null(next_records_url)){
-    this_url <- next_records_url
+    this_url <- sprintf("%s%s", salesforcer_state()$instance_url, next_records_url)
   } else {
     this_url <- make_bulk_get_all_jobs_url(api_type=api_type)
   }
