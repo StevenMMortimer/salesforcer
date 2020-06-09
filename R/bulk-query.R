@@ -103,7 +103,7 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  response_text <- content(httr_response, as="text/plain", encoding="UTF-8")
+  response_text <- content(httr_response, type="text/plain", encoding="UTF-8")
   
   content_type <- httr_response$headers$`content-type`
   if (grepl('xml', content_type)) {
