@@ -17,6 +17,7 @@ NULL
 if(getRversion() >= "2.15.1")  utils::globalVariables(c(".", 
                                                         "id", 
                                                         "success", 
+                                                        "operation",
                                                         "sObjectType",
                                                         "sObject",
                                                         "attributes.type", 
