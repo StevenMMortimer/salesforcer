@@ -6,13 +6,14 @@ sf_auth(token = salesforcer_token)
 test_that("testing Bulk 1.0 Functionality", {
   
   n <- 2
+  object <- "Contact"
   prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
-                         LastName = paste0("Contact-Create-", 1:n), 
+                         LastName = paste0("Bulk 1.0-Contact-Create-", 1:n), 
                          test_number__c = 22,
                          My_External_Id__c=paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
-  created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 1.0")
+  created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 1.0")
   expect_is(created_records, "tbl_df")
   expect_named(created_records, c("Id", "Success", "Created", "Error"))
   expect_equal(nrow(created_records), nrow(new_contacts))
@@ -22,7 +23,7 @@ test_that("testing Bulk 1.0 Functionality", {
   expect_error(
     retrieved_records <- sf_retrieve(ids=created_records$Id, 
                                      fields=c("FirstName", "LastName"), 
-                                     object_name="Contact", 
+                                     object_name=object, 
                                      api_type="Bulk 1.0")
   )
   
@@ -44,7 +45,7 @@ test_that("testing Bulk 1.0 Functionality", {
                      WHERE Id in ('%s')", 
                      paste0(ids_from_created, collapse="','"))
   # sf_query -------------------------------------------------------------------
-  queried_records <- sf_query(soql=my_soql, object_name="Contact", api_type="Bulk 1.0")
+  queried_records <- sf_query(soql=my_soql, object_name=object, api_type="Bulk 1.0")
   expect_is(queried_records, "tbl_df")
   expect_equal(lapply(queried_records, class), 
                list(Id="character", FirstName="character", LastName="character", 
@@ -52,17 +53,27 @@ test_that("testing Bulk 1.0 Functionality", {
   expect_equal(nrow(queried_records), n)
   
   # test the column force to all character
-  queried_records2 <- sf_query(soql=my_soql, object_name="Contact", guess_types = FALSE, api_type="Bulk 1.0")
+  queried_records2 <- sf_query(soql = my_soql, 
+                               object_name = object, 
+                               guess_types = FALSE,
+                               api_type="Bulk 1.0")
+  expect_is(queried_records2, "tbl_df")
   expect_equal(lapply(queried_records2, class), 
                list(Id="character", FirstName="character", LastName="character", 
                     test_number__c="character", My_External_Id__c="character"))
   
-  # sf_update ------------------------------------------------------------------
+  # test query that returns nothing
+  queried_records3 <- sf_query(soql = "SELECT Id FROM Contact WHERE FirstName='ZZZYYYXXX'", 
+                               object_name = object, 
+                               api_type = "Bulk 1.0")
+  expect_is(queried_records3, "tbl_df")
+  expect_equal(nrow(queried_records3), 0)
   
+  # sf_update ------------------------------------------------------------------
   queried_records <- queried_records %>%
     mutate(FirstName = "TestTest")
   
-  updated_records <- sf_update(queried_records, object_name="Contact", api_type="Bulk 1.0")
+  updated_records <- sf_update(queried_records, object_name=object, api_type="Bulk 1.0")
   expect_is(updated_records, "tbl_df")
   expect_named(updated_records, c("Id", "Success", "Created", "Error"))
   expect_equal(nrow(updated_records), nrow(queried_records))
@@ -70,14 +81,14 @@ test_that("testing Bulk 1.0 Functionality", {
   expect_true(all(!updated_records$Created))
   
   new_record <- tibble(FirstName = "Test",
-                       LastName = paste0("Contact-Upsert-", n+1), 
+                       LastName = paste0("Bulk 1.0-Contact-Upsert-", n+1), 
                        test_number__c = 23,
                        My_External_Id__c=paste0(prefix, letters[n+1]))
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
 
   # sf_upsert ------------------------------------------------------------------
   upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                                object_name="Contact", 
+                                object_name=object,
                                 external_id_fieldname="My_External_Id__c", 
                                 api_type = "Bulk 1.0")
   expect_is(upserted_records, "tbl_df")
@@ -88,7 +99,7 @@ test_that("testing Bulk 1.0 Functionality", {
   
   # sf_delete ------------------------------------------------------------------
   ids_to_delete <- unique(c(upserted_records$Id, queried_records$Id)) 
-  deleted_records <- sf_delete(ids_to_delete, object_name="Contact", api_type = "Bulk 1.0")
+  deleted_records <- sf_delete(ids_to_delete, object_name=object, api_type = "Bulk 1.0")
   expect_is(deleted_records, "tbl_df")
   expect_named(deleted_records, c("Id", "Success", "Created", "Error")) 
   expect_equal(nrow(deleted_records), length(ids_to_delete))
@@ -101,13 +112,14 @@ context("Bulk 2.0")
 test_that("testing Bulk 2.0 Functionality", {
   
   n <- 2
+  object <- "Contact"
   prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
-                         LastName = paste0("Contact-Create-", 1:n), 
+                         LastName = paste0("Bulk 2.0-Contact-Create-", 1:n), 
                          test_number__c = 22,
                          My_External_Id__c=paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
-  created_records <- sf_create(new_contacts, object_name="Contact", api_type="Bulk 2.0")
+  created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 2.0")
   expect_is(created_records, "tbl_df")
   expect_named(created_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
                                   "My_External_Id__c", "test_number__c", "sf__Error"))  
@@ -119,7 +131,7 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_error(
     retrieved_records <- sf_retrieve(ids=created_records$sf__Id, 
                                      fields=c("FirstName", "LastName"), 
-                                     object_name="Contact", 
+                                     object_name=object,
                                      api_type="Bulk 2.0")
   )
   
@@ -141,16 +153,17 @@ test_that("testing Bulk 2.0 Functionality", {
                       WHERE Id in ('%s')", 
                      paste0(ids_from_created, collapse="','"))
   # sf_query -------------------------------------------------------------------
+  # expect error because this has not yet been implemented
   expect_error(
-    queried_records <- sf_query(soql=my_soql, object_name="Contact", api_type="Bulk 2.0")
+    queried_records <- sf_query(soql=my_soql, object_name=object, api_type="Bulk 2.0")
   )
   
-  queried_records <- sf_query(soql=my_soql, object_name="Contact", api_type="Bulk 1.0")
+  queried_records <- sf_query(soql=my_soql, object_name=object, api_type="Bulk 1.0")
   queried_records <- queried_records %>%
     mutate(FirstName = "TestTest")
   
   # sf_update ------------------------------------------------------------------
-  updated_records <- sf_update(queried_records, object_name="Contact", api_type="Bulk 2.0")
+  updated_records <- sf_update(queried_records, object_name=object, api_type="Bulk 2.0")
   expect_is(updated_records, "tbl_df")
   expect_named(updated_records, c("sf__Id", "sf__Created", "FirstName", "Id", "LastName", 
                                   "My_External_Id__c", "test_number__c", "sf__Error"))  
@@ -159,14 +172,14 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_true(all(!updated_records$sf__Created))
   
   new_record <- tibble(FirstName = "Test",
-                       LastName = paste0("Contact-Upsert-", n+1), 
+                       LastName = paste0("Bulk 2.0-Contact-Upsert-", n+1), 
                        test_number__c = 23,
                        My_External_Id__c=paste0(prefix, letters[n+1]))
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
   
   # sf_upsert ------------------------------------------------------------------
   upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                                object_name="Contact", 
+                                object_name=object,
                                 external_id_fieldname="My_External_Id__c", 
                                 api_type = "Bulk 2.0")
   expect_is(upserted_records, "tbl_df")
@@ -207,7 +220,7 @@ test_that("testing Bulk 2.0 Functionality", {
   
   # sf_delete ------------------------------------------------------------------
   ids_to_delete <- unique(c(upserted_records$sf__Id, queried_records$Id)) 
-  deleted_records <- sf_delete(ids_to_delete, object_name="Contact", api_type = "Bulk 2.0")
+  deleted_records <- sf_delete(ids_to_delete, object_name=object, api_type = "Bulk 2.0")
   expect_is(deleted_records, "tbl_df")
   expect_named(deleted_records, c("sf__Id", "sf__Created", "Id", "sf__Error"))
   expect_equal(nrow(deleted_records), length(ids_to_delete))

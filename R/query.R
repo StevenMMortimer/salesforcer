@@ -73,9 +73,7 @@ sf_query <- function(soql,
                                next_records_url = next_records_url,
                                verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
-    if(missing(object_name)){
-      stop("object_name is missing. This argument must be provided when using the Bulk API.")
-    }
+
     resultset <- sf_query_bulk(soql = soql,
                                object_name = object_name,
                                queryall = queryall,
@@ -83,7 +81,7 @@ sf_query <- function(soql,
                                control = control_args,
                                verbose = verbose, ...)
   } else {
-    stop("Unsupported API type. Set api_type equal to 'REST', 'SOAP', or 'Bulk 1.0'.")
+    stop("Currently, queries using the Bulk 2.0 API has not been implemented. Set api_type equal to 'REST', 'SOAP', or 'Bulk 1.0'.")
   }
   return(resultset)
 }

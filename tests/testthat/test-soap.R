@@ -6,12 +6,13 @@ sf_auth(token = salesforcer_token)
 test_that("testing SOAP API Functionality", {
   
   n <- 2
+  object <- "Contact"
   prefix <- paste0("SOAP-", as.integer(runif(1,1,100000)), "-")
   new_contacts <- tibble(FirstName = rep("Test", n),
-                         LastName = paste0("Contact-Create-", 1:n), 
+                         LastName = paste0("SOAP-Contact-Create-", 1:n), 
                          My_External_Id__c=paste0(prefix, letters[1:n]))
   # sf_create ------------------------------------------------------------------  
-  created_records <- sf_create(new_contacts, "Contact", api_type="SOAP")
+  created_records <- sf_create(new_contacts, object_name=object, api_type="SOAP")
   expect_is(created_records, "tbl_df")
   expect_equal(names(created_records), c("id", "success"))
   expect_equal(nrow(created_records), n)
@@ -19,7 +20,7 @@ test_that("testing SOAP API Functionality", {
   # sf_retrieve ----------------------------------------------------------------
   retrieved_records <- sf_retrieve(ids=created_records$id,
                                    fields=c("FirstName", "LastName"),
-                                   object_name="Contact", 
+                                   object_name=object, 
                                    api_type="SOAP")
   expect_is(retrieved_records, "tbl_df")
   expect_equal(names(retrieved_records), c("Id", "FirstName", "LastName"))
@@ -53,19 +54,19 @@ test_that("testing SOAP API Functionality", {
     mutate(FirstName = "TestTest")
   
   # sf_update ------------------------------------------------------------------
-  updated_records <- sf_update(queried_records, object_name="Contact", api_type="SOAP")
+  updated_records <- sf_update(queried_records, object_name=object, api_type="SOAP")
   expect_is(updated_records, "tbl_df")
   expect_equal(names(updated_records), c("id", "success"))
   expect_equal(nrow(updated_records), n)
   
   new_record <- tibble(FirstName = "Test",
-                       LastName = paste0("Contact-Upsert-", n+1), 
+                       LastName = paste0("SOAP-Contact-Upsert-", n+1), 
                        My_External_Id__c=paste0(prefix, letters[n+1]))
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
 
   # sf_upsert ------------------------------------------------------------------
   upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                                object_name="Contact", 
+                                object_name=object,
                                 external_id_fieldname="My_External_Id__c", 
                                 api_type = "SOAP")
   expect_is(upserted_records, "tbl_df")
@@ -83,16 +84,16 @@ test_that("testing SOAP API Functionality", {
   expect_equal(nrow(attachment_records), 1)  
   
   # sf_update_attachment -------------------------------------------------------
-  
+  # TODO: Add this test?
   
   # sf_delete ------------------------------------------------------------------
+  # clean up by deleting attachment first
+  deleted_records <- sf_delete(attachment_records$id, object_name = "Attachment", api_type = "SOAP")
+  
   ids_to_delete <- unique(c(upserted_records$id[!is.na(upserted_records$id)], queried_records$Id))
-  deleted_records <- sf_delete(ids_to_delete, api_type = "SOAP")
+  deleted_records <- sf_delete(ids_to_delete, object_name=object, api_type = "SOAP")
   expect_is(deleted_records, "tbl_df")
   expect_equal(names(deleted_records), c("id", "success"))
   expect_equal(nrow(deleted_records), length(ids_to_delete))
-  
-  # clean up by deleting attachment as well
-  deleted_records <- sf_delete(attachment_records$id, api_type = "SOAP")
 })
 

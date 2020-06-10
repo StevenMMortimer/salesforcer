@@ -162,8 +162,11 @@ sf_query_bulk <- function(soql,
                           verbose = FALSE){
   
   if(is.null(object_name)){
-    object_name <- gsub("SELECT(.*) FROM ([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE)
-    message(sprintf("Guessed target object_name from query string: %s", object_name))
+    object_name <- gsub("SELECT (.*) FROM ([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE)
+    if(is.null(object_name)){
+      stop("The `object_name` argument is NULL. This argument must be provided when using the Bulk APIs.")
+    }
+    message(sprintf("Guessed target object_name from query string: %s. Please set `object_name` explicity if this is incorrect.", object_name))
   }
   
   listed_objects <- sf_list_objects()
