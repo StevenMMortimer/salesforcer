@@ -131,7 +131,8 @@ sf_query_rest <- function(soql,
   
   # check whether it has next record
   if(!is.null(next_records_url)){
-    next_records <- sf_query_rest(next_records_url = next_records_url, control = control, 
+    next_records <- sf_query_rest(next_records_url = next_records_url, 
+                                  control = control, 
                                   verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)
   }

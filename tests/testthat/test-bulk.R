@@ -229,7 +229,13 @@ test_that("testing Bulk 2.0 Functionality", {
   
   # sf_get_all_jobs_bulk -------------------------------------------------------
   # the other bulk functions are tested within the other functions (e.g. sf_get_job_bulk)
-  bulk_jobs <- sf_get_all_jobs_bulk()
+  bulk_jobs <- sf_get_all_jobs_bulk(verbose=TRUE)
   expect_is(bulk_jobs, "tbl_df")
   expect_true(all(c("id", "operation", "object", "jobType", "state") %in% names(bulk_jobs)))
+  
+  # sf_get_all_query_jobs_bulk -------------------------------------------------------
+  # the other bulk functions are tested within the other functions (e.g. sf_get_job_bulk)
+  bulk_query_jobs <- sf_get_all_query_jobs_bulk()
+  expect_is(bulk_query_jobs, "tbl_df")
+  expect_true(all(c("id", "operation", "object", "state") %in% names(bulk_query_jobs)))  
 })

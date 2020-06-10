@@ -4,7 +4,11 @@
 \alias{make_bulk_get_all_jobs_url}
 \title{Bulk Get All Jobs Generic URL Generator}
 \usage{
-make_bulk_get_all_jobs_url(api_type = c("Bulk 2.0"))
+make_bulk_get_all_jobs_url(
+  parameterized_search_list = list(isPkChunkingEnabled = NULL, jobType = NULL),
+  next_records_url = NULL,
+  api_type = c("Bulk 2.0")
+)
 }
 \description{
 Bulk Get All Jobs Generic URL Generator

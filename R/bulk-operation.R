@@ -309,33 +309,49 @@ sf_get_job_bulk <- function(job_id,
 
 #' Get All Bulk API Jobs 
 #' 
-#' This function retrieves details about all Bulk 2.0 jobs in the org.
+#' This function retrieves details about all Bulk jobs in the org.
 #'
 #' @importFrom httr content
 #' @importFrom readr type_convert cols
 #' @importFrom purrr map_df
 #' @importFrom dplyr as_tibble bind_rows
+#' @param parameterized_search_list list; a list of parameters to be added as part 
+#' of the URL query string (i.e. after a question mark ("?") so that the result 
+#' only returns information about jobs that meet that specific criteria. For 
+#' more information, read the note below and/or the Salesforce documentation 
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}{here}.
 #' @param next_records_url character (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @note parameterized_search_list elements that can be set to filter the results:
+#' \itemize{
+#'   \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
+#'   information about jobs where PK Chunking has been enabled.}
+#'   \item{jobType}{A character string to return jobs matching the specified type. 
+#'   Must be one of: "BigObjectIngest", "Classic", "V2QIngest". Classic corresponds 
+#'   to Bulk 1.0 API jobs and V2Ingest corresponds to the Bulk 2.0 API jobs.}
+#' }
 #' @examples
 #' \dontrun{
 #' job_info <- sf_create_job_bulk('insert', 'Account')
 #' all_jobs_info <- sf_get_all_jobs_bulk()
+#' # just the Bulk API 1.0 jobs
+#' all_jobs_info <- sf_get_all_jobs_bulk(parameterized_search_list=list(jobType='Classic'))
 #' }
 #' @export
-sf_get_all_jobs_bulk <- function(next_records_url = NULL, 
+sf_get_all_jobs_bulk <- function(parameterized_search_list = 
+                                   list(isPkChunkingEnabled=NULL, 
+                                        jobType=NULL), 
+                                 next_records_url = NULL, 
                                  api_type = c("Bulk 2.0"), 
                                  verbose = FALSE){
   api_type <- match.arg(api_type)
-  if(!is.null(next_records_url)){
-    this_url <- sprintf("%s%s", salesforcer_state()$instance_url, next_records_url)
-  } else {
-    this_url <- make_bulk_get_all_jobs_url(api_type=api_type)
-  }
+  this_url <- make_bulk_get_all_jobs_url(parameterized_search_list, 
+                                         next_records_url, 
+                                         api_type)
   httr_response <- rGET(url = this_url)
   if(verbose){
     make_verbose_httr_message(httr_response$request$method, 
@@ -347,23 +363,118 @@ sf_get_all_jobs_bulk <- function(next_records_url = NULL,
   
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
-      map_df(as_tibble)
+      map_df(as_tibble) %>% 
+      type_convert(col_types = cols(.default = col_guess()))
   }
   
   if(!response_parsed$done){
     next_records_url <- response_parsed$nextRecordsUrl
+  } else{
+    next_records_url <- NULL
   }
   
   # check whether it has next record
   if(!is.null(next_records_url)){
-    next_records <- sf_get_all_jobs_bulk(next_records_url = next_records_url, 
-                                         api_type = api_type, 
-                                         verbose = verbose)
+    next_records <- sf_get_all_jobs_bulk(parameterized_search_list, 
+                                         next_records_url, 
+                                         api_type, 
+                                         verbose)
     resultset <- bind_rows(resultset, next_records)
   }
   
-  resultset <- resultset %>%
-    type_convert(col_types = cols())
+  return(resultset)
+}
+
+#' Get All Bulk API Query Jobs 
+#' 
+#' This function retrieves details about all Bulk query jobs in the org.
+#'
+#' @importFrom httr content
+#' @importFrom readr type_convert cols
+#' @importFrom purrr map_df
+#' @importFrom dplyr as_tibble bind_rows
+#' @param parameterized_search_list list; a list of parameters to be added as part 
+#' of the URL query string (i.e. after a question mark ("?") so that the result 
+#' only returns information about jobs that meet that specific criteria. For 
+#' more information, read the note below and/or the Salesforce documentation 
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}{here}.
+#' @param next_records_url character (leave as NULL); a string used internally 
+#' by the function to paginate through to more records until complete
+#' @template api_type
+#' @template verbose
+#' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @note parameterized_search_list elements that can be set to filter the results:
+#' \itemize{
+#'   \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
+#'   information about jobs where PK Chunking has been enabled.}
+#'   \item{jobType}{A character string to return jobs matching the specified type. 
+#'   Must be one of: "BigObjectIngest", "Classic", "V2Query". Classic corresponds 
+#'   to Bulk 1.0 API jobs and V2Query corresponds to the Bulk 2.0 API jobs.}
+#'   \item{concurrencyMode}{A character string to return jobs matching the specified 
+#'   concurrency mode. Must be one of: "serial" or "parallel", but only "serial" 
+#'   is currently supported.}
+#' }
+#' @examples
+#' \dontrun{
+#' job_info <- sf_create_job_bulk('insert', 'Account')
+#' all_query_jobs_info <- sf_get_all_query_jobs_bulk()
+#' # just the Bulk API 2.0 query jobs
+#' all_query_jobs_info <- sf_get_all_query_jobs_bulk(parameterized_search_list=list(jobType='V2Query'))
+#' # just the Bulk API 1.0 query jobs
+#' all_query_jobs_info <- sf_get_all_query_jobs_bulk(parameterized_search_list=list(jobType='Classic'))
+#' }
+#' @export
+sf_get_all_query_jobs_bulk <- function(parameterized_search_list = 
+                                         list(isPkChunkingEnabled=NULL,
+                                              jobType=NULL, 
+                                              concurrencyMode=NULL), 
+                                       next_records_url = NULL, 
+                                       api_type = c("Bulk 2.0"), 
+                                       verbose = FALSE){
+  api_type <- match.arg(api_type)
+  this_url <- make_bulk_get_all_query_jobs_url(parameterized_search_list, 
+                                               next_records_url, 
+                                               api_type)
+  httr_response <- rGET(url = this_url)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, encoding="UTF-8")
+  
+  if(length(response_parsed$records) > 0){
+    resultset <- response_parsed$records %>% 
+      map_df(as_tibble) %>% 
+      type_convert(col_types = cols(.default = col_guess()))
+  }
+  
+  if(!response_parsed$done){
+    next_records_url <- response_parsed$nextRecordsUrl
+  } else{
+    next_records_url <- NULL
+  }
+  
+  # check whether it has next record
+  if(!is.null(next_records_url)){
+    next_records <- sf_get_all_query_jobs_bulk(parameterized_search_list, 
+                                               next_records_url, 
+                                               api_type, 
+                                               verbose)
+    resultset <- bind_rows(resultset, next_records)
+  }
+  
+  if((!is.null(parameterized_search_list$jobType)) && 
+     (parameterized_search_list$jobType == "Classic")){
+    # remove the ingest jobs because as of 6/10/2020 the API will return 
+    # both API 1.0 query jobs and ingest jobs, for some reason, but to make 
+    # it more straightforward for the user we will filter to only include 
+    # the query jobs
+    resultset <- resultset %>% 
+      filter(operation == 'query')
+  }
   
   return(resultset)
 }

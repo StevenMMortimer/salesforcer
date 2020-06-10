@@ -160,13 +160,14 @@ sf_input_data_validation <- function(input_data, operation=''){
         stop(sprintf("The following columns are required but missing from the input: %s", 
                      paste0(missing_cols, collapse = ",")))
       }
-      # Warn that you can only insert the Name, Body, Description, ParentId, IsPrivate, and OwnerId
-      not_allowed_cols <- setdiff(names(input_data), c("Name", "Body", "Description", "ParentId", "IsPrivate", "OwnerId"))
-      if(length(not_allowed_cols) > 0){
-        warning(sprintf("The following columns are not allowed and will be dropped: %s",
-                        paste0(not_allowed_cols, collapse = ",")))
-        input_data <- input_data[, names(input_data) != not_allowed_cols, drop=FALSE]
-      }
+      # 6/10 Turn off this warning because there could be multiple Attachment object fields that are allowed
+      # # Warn that you can only insert certain columns Name, Body, Description, ParentId, IsPrivate, and OwnerId
+      # not_allowed_cols <- setdiff(names(input_data), c("Name", "Body", "Description", "ParentId", "IsPrivate", "OwnerId"))
+      # if(length(not_allowed_cols) > 0){
+      #   warning(sprintf("The following columns are not allowed and will be dropped: %s",
+      #                   paste0(not_allowed_cols, collapse = ",")))
+      #   input_data <- input_data[, names(input_data) != not_allowed_cols, drop=FALSE]
+      # }
     }
     if(operation %in% c("create_document", "insert_document", "update_document")){
       # Name, FolderId is required and Body or Url
