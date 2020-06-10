@@ -76,6 +76,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_jobs_url.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_query_jobs_url.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_job_url.html</loc>
   </url>
   <url>
@@ -316,6 +319,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_jobs_bulk.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_query_jobs_bulk.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_deleted.html</loc>
   </url>
   <url>
@@ -446,6 +452,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/valid_metadata_list.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/validate_get_all_jobs_params.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/xmlToList2.html</loc>

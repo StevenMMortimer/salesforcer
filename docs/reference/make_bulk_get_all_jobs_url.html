@@ -182,7 +182,11 @@
     <p>Bulk Get All Jobs Generic URL Generator</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_bulk_get_all_jobs_url</span>(<span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 2.0"</span>))</pre>
+    <pre class="usage"><span class='fu'>make_bulk_get_all_jobs_url</span>(
+  <span class='kw'>parameterized_search_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>isPkChunkingEnabled</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>jobType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
+  <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 2.0"</span>)
+)</pre>
 
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>

@@ -392,7 +392,7 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' @importFrom httr content
 #' @importFrom readr type_convert cols
 #' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble bind_rows
+#' @importFrom dplyr as_tibble bind_rows filter
 #' @param parameterized_search_list list; a list of parameters to be added as part 
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 

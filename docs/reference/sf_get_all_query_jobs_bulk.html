@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get All Bulk API Jobs — sf_get_all_jobs_bulk • salesforcer</title>
+<title>Get All Bulk API Query Jobs — sf_get_all_query_jobs_bulk • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Get All Bulk API Jobs — sf_get_all_jobs_bulk" />
-<meta property="og:description" content="This function retrieves details about all Bulk jobs in the org." />
+<meta property="og:title" content="Get All Bulk API Query Jobs — sf_get_all_query_jobs_bulk" />
+<meta property="og:description" content="This function retrieves details about all Bulk query jobs in the org." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -173,17 +173,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get All Bulk API Jobs</h1>
+    <h1>Get All Bulk API Query Jobs</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/bulk-operation.R'><code>R/bulk-operation.R</code></a></small>
-    <div class="hidden name"><code>sf_get_all_jobs_bulk.Rd</code></div>
+    <div class="hidden name"><code>sf_get_all_query_jobs_bulk.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function retrieves details about all Bulk jobs in the org.</p>
+    <p>This function retrieves details about all Bulk query jobs in the org.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_get_all_jobs_bulk</span>(
-  <span class='kw'>parameterized_search_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>isPkChunkingEnabled</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>jobType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
+    <pre class="usage"><span class='fu'>sf_get_all_query_jobs_bulk</span>(
+  <span class='kw'>parameterized_search_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>isPkChunkingEnabled</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>jobType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <span class='kw'>concurrencyMode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
   <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 2.0"</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
@@ -198,7 +199,7 @@
 of the URL query string (i.e. after a question mark ("?") so that the result 
 only returns information about jobs that meet that specific criteria. For 
 more information, read the note below and/or the Salesforce documentation 
-<a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm'>here</a>.</p></td>
+<a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>next_records_url</th>
@@ -225,8 +226,11 @@ by the function to paginate through to more records until complete</p></td>
 <li><p>isPkChunkingEnabledA logical either TRUE or FALSE. TRUE only returns 
   information about jobs where PK Chunking has been enabled.</p></li>
 <li><p>jobTypeA character string to return jobs matching the specified type. 
-  Must be one of: "BigObjectIngest", "Classic", "V2QIngest". Classic corresponds 
-  to Bulk 1.0 API jobs and V2Ingest corresponds to the Bulk 2.0 API jobs.</p></li>
+  Must be one of: "BigObjectIngest", "Classic", "V2Query". Classic corresponds 
+  to Bulk 1.0 API jobs and V2Query corresponds to the Bulk 2.0 API jobs.</p></li>
+<li><p>concurrencyModeA character string to return jobs matching the specified 
+  concurrency mode. Must be one of: "serial" or "parallel", but only "serial" 
+  is currently supported.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -236,9 +240,11 @@ by the function to paginate through to more records until complete</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(<span class='st'>'insert'</span>, <span class='st'>'Account'</span>)
-<span class='no'>all_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_jobs_bulk</span>()
-<span class='co'># just the Bulk API 1.0 jobs</span>
-<span class='no'>all_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_jobs_bulk</span>(<span class='kw'>parameterized_search_list</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>jobType</span><span class='kw'>=</span><span class='st'>'Classic'</span>))
+<span class='no'>all_query_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_query_jobs_bulk</span>()
+<span class='co'># just the Bulk API 2.0 query jobs</span>
+<span class='no'>all_query_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_query_jobs_bulk</span>(<span class='kw'>parameterized_search_list</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>jobType</span><span class='kw'>=</span><span class='st'>'V2Query'</span>))
+<span class='co'># just the Bulk API 1.0 query jobs</span>
+<span class='no'>all_query_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_query_jobs_bulk</span>(<span class='kw'>parameterized_search_list</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>jobType</span><span class='kw'>=</span><span class='st'>'Classic'</span>))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

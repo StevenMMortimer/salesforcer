@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get All Bulk API Jobs — sf_get_all_jobs_bulk • salesforcer</title>
+<title>Bulk Get All Query Jobs Generic URL Generator — make_bulk_get_all_query_jobs_url • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Get All Bulk API Jobs — sf_get_all_jobs_bulk" />
-<meta property="og:description" content="This function retrieves details about all Bulk jobs in the org." />
+<meta property="og:title" content="Bulk Get All Query Jobs Generic URL Generator — make_bulk_get_all_query_jobs_url" />
+<meta property="og:description" content="Bulk Get All Query Jobs Generic URL Generator" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -173,73 +173,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get All Bulk API Jobs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/bulk-operation.R'><code>R/bulk-operation.R</code></a></small>
-    <div class="hidden name"><code>sf_get_all_jobs_bulk.Rd</code></div>
+    <h1>Bulk Get All Query Jobs Generic URL Generator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/endpoints-bulk.R'><code>R/endpoints-bulk.R</code></a></small>
+    <div class="hidden name"><code>make_bulk_get_all_query_jobs_url.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function retrieves details about all Bulk jobs in the org.</p>
+    <p>Bulk Get All Query Jobs Generic URL Generator</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_get_all_jobs_bulk</span>(
-  <span class='kw'>parameterized_search_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>isPkChunkingEnabled</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>jobType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
+    <pre class="usage"><span class='fu'>make_bulk_get_all_query_jobs_url</span>(
+  <span class='kw'>parameterized_search_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>isPkChunkingEnabled</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>jobType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <span class='kw'>concurrencyMode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
   <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 2.0"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 2.0"</span>)
 )</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>parameterized_search_list</th>
-      <td><p>list; a list of parameters to be added as part 
-of the URL query string (i.e. after a question mark ("?") so that the result 
-only returns information about jobs that meet that specific criteria. For 
-more information, read the note below and/or the Salesforce documentation 
-<a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm'>here</a>.</p></td>
-    </tr>
-    <tr>
-      <th>next_records_url</th>
-      <td><p>character (leave as NULL); a string used internally 
-by the function to paginate through to more records until complete</p></td>
-    </tr>
-    <tr>
-      <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <code>tbl_df</code> of parameters defining the details of all bulk jobs</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>parameterized_search_list elements that can be set to filter the results:</p><ul>
-<li><p>isPkChunkingEnabledA logical either TRUE or FALSE. TRUE only returns 
-  information about jobs where PK Chunking has been enabled.</p></li>
-<li><p>jobTypeA character string to return jobs matching the specified type. 
-  Must be one of: "BigObjectIngest", "Classic", "V2QIngest". Classic corresponds 
-  to Bulk 1.0 API jobs and V2Ingest corresponds to the Bulk 2.0 API jobs.</p></li>
-</ul>
+    <p>This function is meant to be used internally. Only use when debugging.</p>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm'>https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm</a></p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>job_info</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(<span class='st'>'insert'</span>, <span class='st'>'Account'</span>)
-<span class='no'>all_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_jobs_bulk</span>()
-<span class='co'># just the Bulk API 1.0 jobs</span>
-<span class='no'>all_jobs_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_all_jobs_bulk</span>(<span class='kw'>parameterized_search_list</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>jobType</span><span class='kw'>=</span><span class='st'>'Classic'</span>))
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
