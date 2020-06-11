@@ -127,8 +127,6 @@ rforcecom.create <- function(session, objectName, fields){
   
   result <- created_records %>% 
     select(id, success) %>%
-    mutate(id = factor(id), 
-           success = factor(success)) %>%
     as.data.frame()
   
   return(result)
