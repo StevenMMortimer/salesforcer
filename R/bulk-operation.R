@@ -359,29 +359,29 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, encoding="UTF-8")
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
   
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
       map_df(as_tibble) %>% 
-      type_convert(col_types = cols(.default = col_guess()))
-  }
-  
-  if(!response_parsed$done){
-    next_records_url <- response_parsed$nextRecordsUrl
-  } else{
-    next_records_url <- NULL
+      mutate_all(as.character)
+  } else {
+    resultset <- tibble()
   }
   
   # check whether it has next record
-  if(!is.null(next_records_url)){
-    next_records <- sf_get_all_jobs_bulk(parameterized_search_list, 
-                                         next_records_url, 
-                                         api_type, 
-                                         verbose)
+  if(!response_parsed$done){
+    next_records <- sf_get_all_jobs_bulk(parameterized_search_list = parameterized_search_list, 
+                                         next_records_url = response_parsed$nextRecordsUrl,
+                                         api_type = api_type, 
+                                         verbose = verbose)
     resultset <- bind_rows(resultset, next_records)
   }
   
+  if(is.null(next_records_url) & (nrow(resultset) > 0)){
+    resultset <- resultset %>%
+      type_convert(col_types = cols(.default = col_guess()))
+  }
   return(resultset)
 }
 
@@ -443,40 +443,36 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, encoding="UTF-8")
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
   
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
       map_df(as_tibble) %>% 
-      type_convert(col_types = cols(.default = col_character()))
+      mutate_all(as.character)
   } else {
     resultset <- tibble()
   }
 
   # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
-    next_records_url <- response_parsed$nextRecordsUrl
-    next_records <- sf_get_all_query_jobs_bulk(parameterized_search_list, 
-                                               next_records_url, 
-                                               api_type, 
-                                               verbose)
+    next_records <- sf_get_all_query_jobs_bulk(parameterized_search_list = parameterized_search_list, 
+                                         next_records_url = response_parsed$nextRecordsUrl,
+                                         api_type = api_type, 
+                                         verbose = verbose)
     resultset <- bind_rows(resultset, next_records)
   }
   
-  if((!is.null(parameterized_search_list$jobType)) && 
-     (parameterized_search_list$jobType == "Classic")){
-    # remove the ingest jobs because as of 6/10/2020 the API will return 
-    # both API 1.0 query jobs and ingest jobs, for some reason, but to make 
-    # it more straightforward for the user we will filter to only include 
-    # the query jobs
-    resultset <- resultset %>% 
+  # cast the data in the final iteration and remove Bulk 1.0 ingest operations
+  # because as of 6/10/2020 the API will return both Bulk 1.0 query jobs and ingest 
+  # jobs, for some reason, but to make it more straightforward for the user we 
+  # will filter to only include the query jobs
+  if(is.null(next_records_url) & (nrow(resultset) > 0)){
+    # cast the data
+    resultset <- resultset %>%
+      type_convert(col_types = cols(.default = col_guess())) %>% 
       filter(operation == 'query')
   }
   
-  if(nrow(resultset) > 0){
-    resultset <- resultset %>% 
-      type_convert(col_types = cols(.default = col_guess()))
-  }
   return(resultset)
 }
 

@@ -122,33 +122,34 @@ sf_query_rest <- function(soql,
   # from the Bulk API
   response_parsed <- content(httr_response, "text", encoding="UTF-8")
   response_parsed <- fromJSON(response_parsed, flatten=TRUE)
+  
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
       select(-matches("^attributes\\.")) %>%
       select(-matches("\\.attributes\\.")) %>%
-      as_tibble()
+      as_tibble() %>% 
+      mutate_all(as.character)
   } else {
     resultset <- tibble()
   }
   
   # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
-    next_records_url <- response_parsed$nextRecordsUrl
-    next_records <- sf_query_rest(next_records_url = next_records_url,
+    next_records <- sf_query_rest(next_records_url = response_parsed$nextRecordsUrl,
                                   object_name = object_name,
                                   queryall = queryall,
-                                  guess_types = guess_types,
+                                  guess_types = FALSE,
                                   control = control, 
                                   verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)
   }
   
-  # cast if requested using type_convert
-  if(nrow(resultset) > 0){
-    cols_default <- if(guess_types) col_guess() else col_character()
+  # cast the data in the final iteration if requested
+  if(is.null(next_records_url) & (nrow(resultset) > 0) & (guess_types)){
     resultset <- resultset %>% 
-      type_convert(col_types = cols(.default = cols_default))
+      type_convert(col_types = cols(.default = col_guess()))
   }
+  
   return(resultset)
 }
 
@@ -192,10 +193,11 @@ sf_query_soap <- function(soql,
                               request_body)
   }
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, encoding="UTF-8")
+  response_parsed <- content(httr_response, as='parsed', encoding="UTF-8")
   resultset <- response_parsed %>%
     xml_ns_strip() %>%
     xml_find_all('.//records')
+  
   if(length(resultset) > 0){
     resultset <- resultset %>%
       map_df(xml_nodeset_to_df) %>%
@@ -208,9 +210,10 @@ sf_query_soap <- function(soql,
                 .funs = list(~sub("sf:", "", .))) %>%
       # move columns without dot up since those are related entities
       select(-matches("\\."), everything())
-      as_tibble()
+      as_tibble() %>% 
+      mutate_all(as.character)
   } else {
-    resultset <- NULL
+    resultset <- tibble()
   }
   
   done_status <- response_parsed %>% 
@@ -224,20 +227,19 @@ sf_query_soap <- function(soql,
       xml_find_first('.//queryLocator') %>%
       xml_text()
     next_records <- sf_query_soap(next_records_url = query_locator, 
+                                  object_name = object_name,
+                                  queryall = queryall,
+                                  guess_types = FALSE,
                                   control = control, 
                                   verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)      
   }
   
-  if(is.null(resultset)){
-    resultset <- tibble()
-  }
-  
-  # cast if requested using type_convert
-  if(nrow(resultset) > 0){
-    cols_default <- if(guess_types) col_guess() else col_character()
+  # cast the data in the final iteration if requested
+  if(is.null(next_records_url) & (nrow(resultset) > 0) & (guess_types)){
     resultset <- resultset %>% 
-      type_convert(col_types = cols(.default = cols_default))
+      type_convert(col_types = cols(.default = col_guess()))
   }
+
   return(resultset)
 }
