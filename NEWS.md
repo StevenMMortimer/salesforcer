@@ -2,26 +2,39 @@
 
 ### Features
 
-  * Add `sf_create_attachment()` along with a vignette that better describes how to 
-  interact with attachments and other blob data.  
+  * Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1) (#53)
+  * Upgraded to Salesforce version 48.0 (Spring '20) from version 46.0 (Summer '19)
+  * Add support for connections through a proxy by setting in package options (#32)
+  * CRUD operations now atomatically cast date and datetime (Date, POSIXct, POSIXlt, POSIXt) 
+  formats into an accepted string format recognized by Salesforce (`YYYY-MM-DDThh:mm:ss.sssZ`)
+  * Add `batch_size` argument to support specifying custom batch sizes for Bulk jobs
   * Add `sf_convert_lead()` which takes leads and will associate them to the corresponding 
   Accounts, Contacts, and Opportunities as directed in the input along with many other 
-  options to send an email to the new owner, block the opportunity creation, and more.
-  * CRUD operations now atomatically cast date and datetime (POSIXct, POSIXlt, POSIXt) 
-  formats into an accepted string format recognized by Salesforce
-  * Add support for connections through a proxy by setting package options (#32)
-  * Add `batch_size` argument to support specifying custom batch sizes for Bulk jobs
-  * Add a Metadata vignette and update the Bulk vignette.
-  * Rebuilt package using R 4.0.0 to test compabilibility
+  options to send an email to the new owner, block the opportunity creation, and more.  
+  * Add `sf_create_attachment()` along with a vignette that better describes how to 
+  interact with attachments and other blob data.  
+  * Add Attachment and Metadata vignettes along with updating the Bulk vignette.
   
 ### Bug Fixes
 
+  * Fix issue where REST query was not correcly passing and honoring the batch 
+  size control argument to paginate results
+  * Fix issue where the results of REST query pagination where the function was 
+  looping infinitely because of a bug in the implementation that would continue 
+  using the same `next_records_url` if it was previously passed in (#54)
+  * Fix issue where the results of Bulk 1.0 query batches where returning 
+  fewer rows than expected because of using `content(..., as="text")` which truncated 
+  the results instead of using `content(..., type="text/csv")` (#54)
   * Fix issue where the details of an object's picklist contains NULLs (e.g. the 
   `validFor` entry of a picklist value is NULL) so now it is replaced with NA and 
   then can be bound together into a data.frame (#27)
   * Fix issue where NA values in create, update, and upsert operations where setting 
   the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in 
   a record will set the field to blank across all APIs (#29)
+  * Fix issue where supplying all NA values in the Id field for certain operations 
+  would result in a cryptic error message (`"BAD_REQUEST: Unsupported Tooling Sobject 
+  Type"`); the affected operations are: delete, undelete, emptyRecycleBin, retrieve, 
+  update, and findDuplicatesByIds
 
 ## salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
 

@@ -1,16 +1,16 @@
 
-# salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
-
 [![Build
 Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer)
-[![CRAN Status
-Badge](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
 Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
+
+<br>
+<img src="man/figures/salesforcer.png" width="120px" align="right" />
 
 **salesforcer** is an R package that connects to Salesforce Platform
 APIs using tidy principles. The package implements most actions from the
@@ -84,7 +84,7 @@ vignettes for more detailed examples on usage.
   - [Working with the Bulk
     APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
   - [Working with
-    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
+    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)  
   - [Working with
     Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
   - [Transitioning from
@@ -155,8 +155,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012MGHEAA4 TRUE   
-#> 2 0033s000012MGHFAA4 TRUE
+#> 1 0033s000012MGHJAA4 TRUE   
+#> 2 0033s000012MGHKAA4 TRUE
 ```
 
 ### Query
@@ -183,8 +183,8 @@ queried_records
 #> # A tibble: 2 x 4
 #>   Id                 Account FirstName LastName        
 #>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0033s000012MGHEAA4 NA      Test      Contact-Create-1
-#> 2 0033s000012MGHFAA4 NA      Test      Contact-Create-2
+#> 1 0033s000012MGHJAA4 NA      Test      Contact-Create-1
+#> 2 0033s000012MGHKAA4 NA      Test      Contact-Create-2
 ```
 
 ### Update
@@ -209,8 +209,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012MGHEAA4 TRUE   
-#> 2 0033s000012MGHFAA4 TRUE
+#> 1 0033s000012MGHJAA4 TRUE   
+#> 2 0033s000012MGHKAA4 TRUE
 ```
 
 ### Bulk Operations
@@ -247,8 +247,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012MGHGAA4 TRUE    TRUE    NA   
-#> 2 0033s000012MGHHAA4 TRUE    TRUE    NA
+#> 1 0033s000012MGHOAA4 TRUE    TRUE    NA   
+#> 2 0033s000012MGHPAA4 TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -263,8 +263,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012MGHGAA4 Test      Contact-Create-1
-#> 2 0033s000012MGHHAA4 Test      Contact-Create-2
+#> 1 0033s000012MGHOAA4 Test      Contact-Create-1
+#> 2 0033s000012MGHPAA4 Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -272,8 +272,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created Id                 sf__Error
 #>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012MGHGAA4 FALSE       0033s000012MGHGAA4 <NA>     
-#> 2 0033s000012MGHHAA4 FALSE       0033s000012MGHHAA4 <NA>
+#> 1 0033s000012MGHOAA4 FALSE       0033s000012MGHOAA4 <NA>     
+#> 2 0033s000012MGHPAA4 FALSE       0033s000012MGHPAA4 <NA>
 ```
 
 ### Using the Metadata API
@@ -292,8 +292,9 @@ and Contact objects. Note that the `metadata_type` argument is
 CustomObjects, so they are returned using that metadata type.
 
 ``` r
-read_obj_result <- sf_read_metadata(metadata_type='CustomObject',
-                                    object_names=c('Account', 'Contact'))
+read_obj_result <- sf_read_metadata(metadata_type = 'CustomObject',
+                                    object_names = c('Account', 'Contact'))
+
 read_obj_result[[1]][c('fullName', 'label', 'sharingModel', 'enableHistory')]
 #> $fullName
 #> [1] "Account"
@@ -306,7 +307,9 @@ read_obj_result[[1]][c('fullName', 'label', 'sharingModel', 'enableHistory')]
 #> 
 #> $enableHistory
 #> [1] "false"
-first_two_fields_idx <- head(which(names(read_obj_result[[1]]) == 'fields'), 2)
+
+first_two_fields_idx <- head(which(names(read_obj_result[[1]]) == "fields"), 2)
+
 # show the first two returned fields of the Account object
 read_obj_result[[1]][first_two_fields_idx]
 #> $fields
@@ -400,18 +403,10 @@ requests best formatted to match what the APIs require as input. This
 articulation is not perfect and continued progress will be made to add
 and improve functionality. For details on formatting, attributes, and
 methods please refer to [Salesforce’s
-documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview)
-as they are explained better there. More information is also available
-on the `pkgdown` site at
-<https://StevenMMortimer.github.io/salesforcer>.
+documentation](https://developer.salesforce.com/page/Salesforce_APIs) as
+they are explained better there.
 
 [Get supported salesforcer with the Tidelift
 Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
 
------
-
-Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/CONDUCT.md).
-By participating in this project you agree to abide by its terms.
-
-[Top](#salesforcer)
+[Top](#)

@@ -36,8 +36,8 @@ Package features include:
     * `rforcecom.login()`, `rforcecom.getObjectDescription()`, `rforcecom.query()`, `rforcecom.create()`
   * Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
   * Functions to assist with master data managment (MDM) or data integrity of records by 
-  finding duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`),  
-  merging records (`sf_merge()`), and converting leads (`sf_convert_lead()`)
+  finding duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`), merging 
+  records (`sf_merge()`), and converting leads (`sf_convert_lead()`)
   * Recover (`sf_undelete()`) or delete from the Recycle Bin (`sf_empty_recycle_bin()`) 
   and list ids of records deleted (`sf_get_deleted()`) or updated (`sf_get_updated()`) 
   in a timeframe
@@ -61,7 +61,7 @@ Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (0.2.0)
+# install the current CRAN version (0.1.4)
 install.packages("salesforcer")
 
 # or get the latest version available on GitHub using the devtools package

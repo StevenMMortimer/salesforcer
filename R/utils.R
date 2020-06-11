@@ -145,13 +145,21 @@ sf_input_data_validation <- function(input_data, operation=''){
                         "findDuplicatesByIds") & ncol(input_data) == 1){
       names(input_data) <- "Id"
     }
-    if(operation %in% c("delete", "undelete", "emptyRecycleBin", 
+    if(operation %in% c("delete", "undelete", "emptyRecycleBin", "retrieve", 
                         "update", "findDuplicatesByIds")){
       if(any(grepl("^ID$|^IDS$", names(input_data), ignore.case=TRUE))){
         idx <- grep("^ID$|^IDS$", names(input_data), ignore.case=TRUE)
         names(input_data)[idx] <- "Id"
       }
-      stopifnot("Id" %in% names(input_data))
+      if(sum(names(input_data) == "Id") != 1){
+        stop(paste0(sprintf("There are %s columns named 'Id' in the input_data. ", 
+                            sum(names(input_data) == "Id")), 
+                    "Exactly one field must be named 'Id' to specify the Ids affected by this ",
+                    "operation. Please fix and resubmit."))
+      }
+      if(all(is.na(input_data$Id))){
+        stop("All values of in the 'Id' field are missing (NA). Please fix and resubmit.")
+      }
     }
     if(operation %in% c("create_attachment", "insert_attachment", "update_attachment")){
       # Body, ParentId is required (Name will be created from Body if missing)
@@ -241,6 +249,20 @@ remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
   return(dat)
 }
 
+#' Try to Guess the Object if User Does Not Specify for Bulk Queries
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+guess_object_name_from_soql <- function(soql){
+  object_name <- gsub("SELECT (.*) FROM ([A-Za-z_]+)\\b(.*)", "\\2", soql, ignore.case = TRUE)
+  if(is.null(object_name)){
+    stop("The `object_name` argument is NULL. This argument must be provided when using the Bulk APIs.")
+  }
+  message(sprintf("Guessed %s as the object_name from supplied SOQL. Please set `object_name` explicity if this is incorrect because it is required by the Bulk 1.0 API.", object_name))
+  return(object_name)
+}
+
 #' Format Headers for Printing
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -256,9 +278,11 @@ format_headers_for_verbose <- function(request_headers){
 #' @keywords internal
 #' @export
 make_verbose_httr_message <- function(method, url, headers = NULL, body = NULL){
-  message(sprintf("%s %s", method, url))
-  if(!is.null(headers)) message(sprintf("\nHeaders\n%s", format_headers_for_verbose(headers)))
-  if(!is.null(body)) message(sprintf("\nBody\n%s", body))
+  message(sprintf("\n--HTTP Request----------------\n%s %s", method, url))
+  if(!is.null(headers)) message(sprintf("--Headers---------------------\n%s", 
+                                        format_headers_for_verbose(headers)))
+  if(!is.null(body)) message(sprintf("--Body------------------------\n%s", 
+                                     body))
   return(invisible())
 }
 

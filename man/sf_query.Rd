@@ -6,7 +6,7 @@
 \usage{
 sf_query(
   soql,
-  object_name,
+  object_name = NULL,
   queryall = FALSE,
   guess_types = TRUE,
   api_type = c("REST", "SOAP", "Bulk 1.0"),

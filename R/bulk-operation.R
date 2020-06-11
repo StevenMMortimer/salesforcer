@@ -448,17 +448,14 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
       map_df(as_tibble) %>% 
-      type_convert(col_types = cols(.default = col_guess()))
+      type_convert(col_types = cols(.default = col_character()))
+  } else {
+    resultset <- tibble()
   }
-  
+
+  # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
     next_records_url <- response_parsed$nextRecordsUrl
-  } else{
-    next_records_url <- NULL
-  }
-  
-  # check whether it has next record
-  if(!is.null(next_records_url)){
     next_records <- sf_get_all_query_jobs_bulk(parameterized_search_list, 
                                                next_records_url, 
                                                api_type, 
@@ -476,6 +473,10 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
       filter(operation == 'query')
   }
   
+  if(nrow(resultset) > 0){
+    resultset <- resultset %>% 
+      type_convert(col_types = cols(.default = col_guess()))
+  }
   return(resultset)
 }
 

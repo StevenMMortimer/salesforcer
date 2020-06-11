@@ -33,7 +33,7 @@
 #' }
 #' @export
 sf_query <- function(soql,
-                     object_name,
+                     object_name = NULL,
                      queryall = FALSE,
                      guess_types = TRUE,
                      api_type = c("REST", "SOAP", "Bulk 1.0"),
@@ -42,7 +42,6 @@ sf_query <- function(soql,
                      verbose = FALSE){
   
   api_type <- match.arg(api_type)
-  
   # determine how to pass along the control args 
   all_args <- list(...)
   control_args <- return_matching_controls(control)
@@ -73,7 +72,9 @@ sf_query <- function(soql,
                                next_records_url = next_records_url,
                                verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
-
+    if(is.null(object_name)){
+      object_name <- guess_object_name_from_soql(soql)
+    }
     resultset <- sf_query_bulk(soql = soql,
                                object_name = object_name,
                                queryall = queryall,
@@ -91,7 +92,7 @@ sf_query <- function(soql,
 #' @importFrom jsonlite toJSON prettify
 #' @importFrom readr type_convert cols col_guess
 sf_query_rest <- function(soql,
-                          object_name,
+                          object_name = NULL,
                           queryall = FALSE,
                           guess_types = TRUE,
                           control, ...,
@@ -102,8 +103,11 @@ sf_query_rest <- function(soql,
   request_headers <- c("Accept"="application/json", 
                        "Content-Type"="application/json")
   if("QueryOptions" %in% names(control)){
-    # take the first list element because it could be useDefaultRule (T/F) or assignmentRuleId
-    request_headers <- c(request_headers, c("Sforce-Query-Options" = control$QueryOptions$batchSize))
+    query_batch_size <- as.integer(control$QueryOptions$batchSize)
+    stopifnot(is.integer(query_batch_size))
+    request_headers <- c(request_headers, 
+                         c("Sforce-Query-Options" = sprintf("batchSize=%s", 
+                                                            query_batch_size)))
   }
   
   # GET the url with the q (query) parameter set to the escaped SOQL string
@@ -114,6 +118,8 @@ sf_query_rest <- function(soql,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
+  # TODO: Consider switching to as='parsed' given it was truncating query results 
+  # from the Bulk API
   response_parsed <- content(httr_response, "text", encoding="UTF-8")
   response_parsed <- fromJSON(response_parsed, flatten=TRUE)
   if(length(response_parsed$records) > 0){
@@ -122,29 +128,26 @@ sf_query_rest <- function(soql,
       select(-matches("\\.attributes\\.")) %>%
       as_tibble()
   } else {
-    resultset <- NULL
+    resultset <- tibble()
   }
   
+  # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
     next_records_url <- response_parsed$nextRecordsUrl
-  }
-  
-  # check whether it has next record
-  if(!is.null(next_records_url)){
-    next_records <- sf_query_rest(next_records_url = next_records_url, 
+    next_records <- sf_query_rest(next_records_url = next_records_url,
+                                  object_name = object_name,
+                                  queryall = queryall,
+                                  guess_types = guess_types,
                                   control = control, 
                                   verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)
   }
   
-  if(is.null(resultset)){
-    resultset <- tibble()
-  }
-  
   # cast if requested using type_convert
-  if(guess_types & nrow(resultset) > 0){
+  if(nrow(resultset) > 0){
+    cols_default <- if(guess_types) col_guess() else col_character()
     resultset <- resultset %>% 
-      type_convert(col_types = cols(.default = col_guess()))
+      type_convert(col_types = cols(.default = cols_default))
   }
   return(resultset)
 }
@@ -155,7 +158,7 @@ sf_query_rest <- function(soql,
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 sf_query_soap <- function(soql,
-                          object_name,
+                          object_name = NULL,
                           queryall = FALSE,
                           guess_types = TRUE,
                           control, ...,
@@ -220,7 +223,8 @@ sf_query_soap <- function(soql,
       xml_ns_strip() %>%
       xml_find_first('.//queryLocator') %>%
       xml_text()
-    next_records <- sf_query_soap(next_records_url = query_locator, control = control, 
+    next_records <- sf_query_soap(next_records_url = query_locator, 
+                                  control = control, 
                                   verbose = verbose, ...)
     resultset <- bind_rows(resultset, next_records)      
   }
@@ -230,9 +234,10 @@ sf_query_soap <- function(soql,
   }
   
   # cast if requested using type_convert
-  if(guess_types & nrow(resultset) > 0){
+  if(nrow(resultset) > 0){
+    cols_default <- if(guess_types) col_guess() else col_character()
     resultset <- resultset %>% 
-      type_convert(col_types = cols(.default = col_guess()))
+      type_convert(col_types = cols(.default = cols_default))
   }
   return(resultset)
 }

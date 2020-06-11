@@ -128,9 +128,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="salesforcer" class="section level1">
 
 
+<p><br><img src="reference/figures/salesforcer.png" width="120px" align="right"></p>
 <p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
 <p>Package features include:</p>
 <ul>
@@ -153,8 +153,7 @@
 </ul>
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
-<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>),<br>
-merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
+<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>), merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
 <li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) in a timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
@@ -183,7 +182,7 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.2.0)</span>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.1.4)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
 <span class="co"># or get the latest version available on GitHub using the devtools package</span>
@@ -198,7 +197,9 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a></li>
+<li>
+<a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a><br>
+</li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
@@ -248,8 +249,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012M9EAAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012M9EBAA0 TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MGHJAA4 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012MGHKAA4 TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -267,8 +268,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Account FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012M9EAAA0 NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012M9EBAA0 NA      Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MGHJAA4 NA      Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MGHKAA4 NA      Test      Contact-Create-2</span></pre></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -284,8 +285,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012M9EAAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012M9EBAA0 TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MGHJAA4 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012MGHKAA4 TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -301,8 +302,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012M9EFAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012M9EGAA0 TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012MGHOAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012MGHPAA4 TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -317,8 +318,8 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012M9EFAA0 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012M9EGAA0 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012MGHOAA4 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MGHPAA4 Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -326,15 +327,16 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012M9EFAA0 FALSE       0033s000012M9EFAA0 &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012M9EGAA0 FALSE       0033s000012M9EGAA0 &lt;NA&gt;</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MGHOAA4 FALSE       0033s000012MGHOAA4 &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012MGHPAA4 FALSE       0033s000012MGHPAA4 &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-the-metadata-api" class="anchor"></a>Using the Metadata API</h3>
 <p>Salesforce is a very flexible platform in that it provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm">Metadata API</a> for users to create, read, update and delete their entire Salesforce environment from objects to page layouts and more. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="no">read_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_read_metadata.html">sf_read_metadata</a></span>(<span class="kw">metadata_type</span><span class="kw">=</span><span class="st">'CustomObject'</span>,
-                                    <span class="kw">object_names</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
+<div class="sourceCode" id="cb8"><pre class="r"><span class="no">read_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_read_metadata.html">sf_read_metadata</a></span>(<span class="kw">metadata_type</span> <span class="kw">=</span> <span class="st">'CustomObject'</span>,
+                                    <span class="kw">object_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
+
 <span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'fullName'</span>, <span class="st">'label'</span>, <span class="st">'sharingModel'</span>, <span class="st">'enableHistory'</span>)]
 <span class="co">#&gt; $fullName</span>
 <span class="co">#&gt; [1] "Account"</span>
@@ -347,7 +349,9 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $enableHistory</span>
 <span class="co">#&gt; [1] "false"</span>
-<span class="no">first_two_fields_idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]]) <span class="kw">==</span> <span class="st">'fields'</span>), <span class="fl">2</span>)
+
+<span class="no">first_two_fields_idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]]) <span class="kw">==</span> <span class="st">"fields"</span>), <span class="fl">2</span>)
+
 <span class="co"># show the first two returned fields of the Account object</span>
 <span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="no">first_two_fields_idx</span>]
 <span class="co">#&gt; $fields</span>
@@ -419,13 +423,11 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more-information" class="anchor"></a>More Information</h2>
-<p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview">Salesforce’s documentation</a> as they are explained better there. More information is also available on the <code>pkgdown</code> site at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a>.</p>
+<p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a> as they are explained better there.</p>
 <p><a href="https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&amp;utm_medium=referral&amp;utm_campaign=readme">Get supported salesforcer with the Tidelift Subscription</a></p>
-<hr>
-<p>Please note that this project is released with a <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
-<p><a href="#salesforcer">Top</a></p>
+<p><a href="#">Top</a></p>
 </div>
-</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -466,7 +468,7 @@ merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>),
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
 <li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>

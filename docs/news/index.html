@@ -184,22 +184,28 @@
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
 <ul>
+<li>Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/53'>#53</a>)</li>
+<li>Upgraded to Salesforce version 48.0 (Spring ’20) from version 46.0 (Summer ’19)</li>
+<li>Add support for connections through a proxy by setting in package options (<a href='https://github.com/StevenMMortimer/salesforcer/issues/32'>#32</a>)</li>
+<li>CRUD operations now atomatically cast date and datetime (Date, POSIXct, POSIXlt, POSIXt) formats into an accepted string format recognized by Salesforce (<code>YYYY-MM-DDThh:mm:ss.sssZ</code>)</li>
+<li>Add <code>batch_size</code> argument to support specifying custom batch sizes for Bulk jobs</li>
+<li>Add <code><a href="../reference/sf_convert_lead.html">sf_convert_lead()</a></code> which takes leads and will associate them to the corresponding Accounts, Contacts, and Opportunities as directed in the input along with many other options to send an email to the new owner, block the opportunity creation, and more.<br>
+</li>
 <li>Add <code><a href="../reference/sf_create_attachment.html">sf_create_attachment()</a></code> along with a vignette that better describes how to interact with attachments and other blob data.<br>
 </li>
-<li>Add <code><a href="../reference/sf_convert_lead.html">sf_convert_lead()</a></code> which takes leads and will associate them to the corresponding Accounts, Contacts, and Opportunities as directed in the input along with many other options to send an email to the new owner, block the opportunity creation, and more.</li>
-<li>CRUD operations now atomatically cast date and datetime (POSIXct, POSIXlt, POSIXt) formats into an accepted string format recognized by Salesforce</li>
-<li>Add support for connections through a proxy by setting package options (<a href='https://github.com/StevenMMortimer/salesforcer/issues/32'>#32</a>)</li>
-<li>Add <code>batch_size</code> argument to support specifying custom batch sizes for Bulk jobs</li>
-<li>Add a Metadata vignette and update the Bulk vignette.</li>
-<li>Rebuilt package using R 4.0.0 to test compabilibility</li>
+<li>Add Attachment and Metadata vignettes along with updating the Bulk vignette.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
+<li>Fix issue where REST query was not correcly passing and honoring the batch size control argument to paginate results</li>
+<li>Fix issue where the results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> if it was previously passed in (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
+<li>Fix issue where the results of Bulk 1.0 query batches where returning fewer rows than expected because of using <code>content(..., as="text")</code> which truncated the results instead of using <code>content(..., type="text/csv")</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
 <li>Fix issue where the details of an object’s picklist contains NULLs (e.g. the <code>validFor</code> entry of a picklist value is NULL) so now it is replaced with NA and then can be bound together into a data.frame (<a href='https://github.com/StevenMMortimer/salesforcer/issues/27'>#27</a>)</li>
 <li>Fix issue where NA values in create, update, and upsert operations where setting the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in a record will set the field to blank across all APIs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/29'>#29</a>)</li>
+<li>Fix issue where supplying all NA values in the Id field for certain operations would result in a cryptic error message (<code>"BAD_REQUEST: Unsupported Tooling Sobject    Type"</code>); the affected operations are: delete, undelete, emptyRecycleBin, retrieve, update, and findDuplicatesByIds</li>
 </ul>
 </div>
 </div>

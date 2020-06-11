@@ -27,7 +27,7 @@ sf_control(
     list(execute = FALSE, type = "TransferOwnedClosedOpportunities"), list(execute =
     FALSE, type = "TransferOwnedOpenCases"), list(execute = FALSE, type =
     "TransferOwnedOpenOpportunities"))),
-  QueryOptions = list(batchSize = 1000),
+  QueryOptions = list(batchSize = 500),
   UserTerritoryDeleteHeader = list(transferToUserId = NA),
   BatchRetryHeader = list(`Sforce-Disable-Batch-Retry` = FALSE),
   LineEndingHeader = list(`Sforce-Line-Ending` = NA),
