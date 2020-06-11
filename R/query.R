@@ -87,7 +87,7 @@ sf_query <- function(soql,
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows as_tibble select matches tibble
+#' @importFrom dplyr bind_rows as_tibble select matches tibble mutate_all
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON prettify
 #' @importFrom readr type_convert cols col_guess
@@ -153,7 +153,7 @@ sf_query_rest <- function(soql,
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows as_tibble select matches contains rename_at rename tibble
+#' @importFrom dplyr bind_rows as_tibble select matches contains rename_at rename tibble mutate_all
 #' @importFrom httr content
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert cols col_guess

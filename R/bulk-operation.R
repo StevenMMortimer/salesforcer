@@ -312,9 +312,9 @@ sf_get_job_bulk <- function(job_id,
 #' This function retrieves details about all Bulk jobs in the org.
 #'
 #' @importFrom httr content
-#' @importFrom readr type_convert cols
+#' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble bind_rows
+#' @importFrom dplyr as_tibble bind_rows mutate_all
 #' @param parameterized_search_list list; a list of parameters to be added as part 
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
@@ -390,9 +390,9 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' This function retrieves details about all Bulk query jobs in the org.
 #'
 #' @importFrom httr content
-#' @importFrom readr type_convert cols
+#' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble bind_rows filter
+#' @importFrom dplyr as_tibble bind_rows filter mutate_all
 #' @param parameterized_search_list list; a list of parameters to be added as part 
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
