@@ -200,8 +200,8 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
-<li>Fix issue where REST query was not correcly passing and honoring the batch size control argument to paginate results</li>
-<li>Fix issue where the results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> if it was previously passed in (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
+<li>Fix issue where REST query was not correctly passing and honoring the batch size control argument to paginate results</li>
+<li>Fix issue in results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> that was previously passed into the function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
 <li>Fix issue where the results of Bulk 1.0 query batches where returning fewer rows than expected because of using <code>content(..., as="text")</code> which truncated the results instead of using <code>content(..., type="text/csv")</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
 <li>Fix issue where the details of an object’s picklist contains NULLs (e.g. the <code>validFor</code> entry of a picklist value is NULL) so now it is replaced with NA and then can be bound together into a data.frame (<a href='https://github.com/StevenMMortimer/salesforcer/issues/27'>#27</a>)</li>
 <li>Fix issue where NA values in create, update, and upsert operations where setting the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in a record will set the field to blank across all APIs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/29'>#29</a>)</li>

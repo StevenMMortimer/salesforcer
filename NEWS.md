@@ -17,11 +17,11 @@
   
 ### Bug Fixes
 
-  * Fix issue where REST query was not correcly passing and honoring the batch 
+  * Fix issue where REST query was not correctly passing and honoring the batch 
   size control argument to paginate results
-  * Fix issue where the results of REST query pagination where the function was 
-  looping infinitely because of a bug in the implementation that would continue 
-  using the same `next_records_url` if it was previously passed in (#54)
+  * Fix issue in results of REST query pagination where the function was looping 
+  infinitely because of a bug in the implementation that would continue using the 
+  same `next_records_url` that was previously passed into the function (#54)
   * Fix issue where the results of Bulk 1.0 query batches where returning 
   fewer rows than expected because of using `content(..., as="text")` which truncated 
   the results instead of using `content(..., type="text/csv")` (#54)
