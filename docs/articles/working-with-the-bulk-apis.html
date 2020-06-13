@@ -158,8 +158,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0033s000012MJPiAAO TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0033s000012MJPjAAO TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 1 0033s000012MKYDAA4 TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0033s000012MKYEAA4 TRUE    &lt;list [0]&gt;</span>
 
 <span class="co"># Bulk</span>
 <span class="no">bulk_created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts2</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -180,8 +180,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012MJPsAAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012MJPtAAO TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012MKYNAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012MKYOAA4 TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -196,8 +196,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MJPsAAO Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MJPtAAO Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012MKYNAA4 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MKYOAA4 Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="no">object</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -205,8 +205,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012MJPsAAO TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000012MJPtAAO TRUE    FALSE   NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012MKYNAA4 TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s000012MKYOAA4 TRUE    FALSE   NA</span></pre></body></html></div>
 </div>
 <div id="query-limitations" class="section level3">
 <h3 class="hasAnchor">
@@ -238,16 +238,16 @@
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;    Id                 Success Created Error</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt;  1 0033s000012MJQCAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  2 0033s000012MJQDAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  3 0033s000012MJQ2AAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  4 0033s000012MJQ3AAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  5 0033s000012MJQ7AAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  6 0033s000012MJQ8AAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  7 0033s000012MJQHAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  8 0033s000012MJQIAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  9 0033s000012MJPUAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 10 0033s000012MJPVAA4 TRUE    TRUE    NA</span>
+<span class="co">#&gt;  1 0033s000012MKYSAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  2 0033s000012MKYTAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  3 0033s000012MKYXAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  4 0033s000012MKYYAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  5 0033s000012MKYcAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  6 0033s000012MKYdAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  7 0033s000012MKYhAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  8 0033s000012MKYiAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  9 0033s000012MKYmAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 10 0033s000012MKYnAAO TRUE    TRUE    NA</span>
 
 <span class="co"># query the records so we can compare the ordering of the Id field to the </span>
 <span class="co"># original dataset</span>
@@ -263,16 +263,16 @@
 <span class="co"># same ordering of rows!</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">created_records_v1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">Id</span>), <span class="no">queried_records</span>)
 <span class="co">#&gt;                    Id                 Id test_number__c</span>
-<span class="co">#&gt; 1  0033s000012MJQCAA4 0033s000012MJQ2AAO              1</span>
-<span class="co">#&gt; 2  0033s000012MJQDAA4 0033s000012MJQ3AAO              2</span>
-<span class="co">#&gt; 3  0033s000012MJQ2AAO 0033s000012MJQ7AAO              3</span>
-<span class="co">#&gt; 4  0033s000012MJQ3AAO 0033s000012MJQ8AAO              4</span>
-<span class="co">#&gt; 5  0033s000012MJQ7AAO 0033s000012MJQCAA4              5</span>
-<span class="co">#&gt; 6  0033s000012MJQ8AAO 0033s000012MJQDAA4              6</span>
-<span class="co">#&gt; 7  0033s000012MJQHAA4 0033s000012MJQHAA4              7</span>
-<span class="co">#&gt; 8  0033s000012MJQIAA4 0033s000012MJQIAA4              8</span>
-<span class="co">#&gt; 9  0033s000012MJPUAA4 0033s000012MJPUAA4              9</span>
-<span class="co">#&gt; 10 0033s000012MJPVAA4 0033s000012MJPVAA4             10</span></pre></body></html></div>
+<span class="co">#&gt; 1  0033s000012MKYSAA4 0033s000012MKYSAA4              1</span>
+<span class="co">#&gt; 2  0033s000012MKYTAA4 0033s000012MKYTAA4              2</span>
+<span class="co">#&gt; 3  0033s000012MKYXAA4 0033s000012MKYXAA4              3</span>
+<span class="co">#&gt; 4  0033s000012MKYYAA4 0033s000012MKYYAA4              4</span>
+<span class="co">#&gt; 5  0033s000012MKYcAAO 0033s000012MKYcAAO              5</span>
+<span class="co">#&gt; 6  0033s000012MKYdAAO 0033s000012MKYdAAO              6</span>
+<span class="co">#&gt; 7  0033s000012MKYhAAO 0033s000012MKYhAAO              7</span>
+<span class="co">#&gt; 8  0033s000012MKYiAAO 0033s000012MKYiAAO              8</span>
+<span class="co">#&gt; 9  0033s000012MKYmAAO 0033s000012MKYmAAO              9</span>
+<span class="co">#&gt; 10 0033s000012MKYnAAO 0033s000012MKYnAAO             10</span></pre></body></html></div>
 <p>The Bulk 2.0 API returns every single field that was included in the call so if you have an identifying key your dataset, then it should not be a problem to join on that key with your original data to bring in the newly assigned Salesforce Id that is generated when the record is created in Salesforce. However, I have find it wasteful to transfer all of the field information back after the query and have not found a significant performance improvement between the Bulk 1.0 and Bulk 2.0.</p>
 <p><strong>Bulk 2.0</strong></p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">created_records_v2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 2.0"</span>, <span class="kw">batch_size</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
@@ -281,42 +281,42 @@
 <span class="co">#&gt; # A tibble: 10 x 6</span>
 <span class="co">#&gt;    sf__Id          sf__Created FirstName LastName       test_number__c sf__Error</span>
 <span class="co">#&gt;    &lt;chr&gt;           &lt;lgl&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012MJQ… TRUE        Test      Contact-Creat…              1 &lt;NA&gt;     </span>
-<span class="co">#&gt;  2 0033s000012MJQ… TRUE        Test      Contact-Creat…              2 &lt;NA&gt;     </span>
-<span class="co">#&gt;  3 0033s000012MJQ… TRUE        Test      Contact-Creat…              3 &lt;NA&gt;     </span>
-<span class="co">#&gt;  4 0033s000012MJQ… TRUE        Test      Contact-Creat…              4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  5 0033s000012MJQ… TRUE        Test      Contact-Creat…              5 &lt;NA&gt;     </span>
-<span class="co">#&gt;  6 0033s000012MJQ… TRUE        Test      Contact-Creat…              6 &lt;NA&gt;     </span>
-<span class="co">#&gt;  7 0033s000012MJQ… TRUE        Test      Contact-Creat…              7 &lt;NA&gt;     </span>
-<span class="co">#&gt;  8 0033s000012MJQ… TRUE        Test      Contact-Creat…              8 &lt;NA&gt;     </span>
-<span class="co">#&gt;  9 0033s000012MJQ… TRUE        Test      Contact-Creat…              9 &lt;NA&gt;     </span>
-<span class="co">#&gt; 10 0033s000012MJQ… TRUE        Test      Contact-Creat…             10 &lt;NA&gt;</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012MKY… TRUE        Test      Contact-Creat…              1 &lt;NA&gt;     </span>
+<span class="co">#&gt;  2 0033s000012MKY… TRUE        Test      Contact-Creat…              2 &lt;NA&gt;     </span>
+<span class="co">#&gt;  3 0033s000012MKY… TRUE        Test      Contact-Creat…              3 &lt;NA&gt;     </span>
+<span class="co">#&gt;  4 0033s000012MKY… TRUE        Test      Contact-Creat…              4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  5 0033s000012MKY… TRUE        Test      Contact-Creat…              5 &lt;NA&gt;     </span>
+<span class="co">#&gt;  6 0033s000012MKY… TRUE        Test      Contact-Creat…              6 &lt;NA&gt;     </span>
+<span class="co">#&gt;  7 0033s000012MKY… TRUE        Test      Contact-Creat…              7 &lt;NA&gt;     </span>
+<span class="co">#&gt;  8 0033s000012MKY… TRUE        Test      Contact-Creat…              8 &lt;NA&gt;     </span>
+<span class="co">#&gt;  9 0033s000012MKY… TRUE        Test      Contact-Creat…              9 &lt;NA&gt;     </span>
+<span class="co">#&gt; 10 0033s000012MKZ… TRUE        Test      Contact-Creat…             10 &lt;NA&gt;</span></pre></body></html></div>
 <p>For these above I typically prefer using the Bulk 1.0 API when creating or updating records. That way I can be confident in that the order of the records returned from the process matches the order of the original dataset I put into the process. All of this does not matter when deleting records, so if you want minor performance improvements then switch to the Bulk 2.0 when deleting records.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">created_records_v1</span>$<span class="no">Id</span>, <span class="no">created_records_v2</span>$<span class="no">sf__Id</span>),
           <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 2.0"</span>)
 <span class="co">#&gt; # A tibble: 20 x 4</span>
 <span class="co">#&gt;    sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012MJQCAA4 FALSE       0033s000012MJQCAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  2 0033s000012MJQDAA4 FALSE       0033s000012MJQDAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  3 0033s000012MJQ2AAO FALSE       0033s000012MJQ2AAO &lt;NA&gt;     </span>
-<span class="co">#&gt;  4 0033s000012MJQ3AAO FALSE       0033s000012MJQ3AAO &lt;NA&gt;     </span>
-<span class="co">#&gt;  5 0033s000012MJQ7AAO FALSE       0033s000012MJQ7AAO &lt;NA&gt;     </span>
-<span class="co">#&gt;  6 0033s000012MJQ8AAO FALSE       0033s000012MJQ8AAO &lt;NA&gt;     </span>
-<span class="co">#&gt;  7 0033s000012MJQHAA4 FALSE       0033s000012MJQHAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  8 0033s000012MJQIAA4 FALSE       0033s000012MJQIAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  9 0033s000012MJPUAA4 FALSE       0033s000012MJPUAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 10 0033s000012MJPVAA4 FALSE       0033s000012MJPVAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 11 0033s000012MJQRAA4 FALSE       0033s000012MJQRAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 12 0033s000012MJQSAA4 FALSE       0033s000012MJQSAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 13 0033s000012MJQTAA4 FALSE       0033s000012MJQTAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 14 0033s000012MJQUAA4 FALSE       0033s000012MJQUAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 15 0033s000012MJQVAA4 FALSE       0033s000012MJQVAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 16 0033s000012MJQWAA4 FALSE       0033s000012MJQWAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 17 0033s000012MJQXAA4 FALSE       0033s000012MJQXAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 18 0033s000012MJQYAA4 FALSE       0033s000012MJQYAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 19 0033s000012MJQZAA4 FALSE       0033s000012MJQZAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 20 0033s000012MJQaAAO FALSE       0033s000012MJQaAAO &lt;NA&gt;</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012MKYSAA4 FALSE       0033s000012MKYSAA4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  2 0033s000012MKYTAA4 FALSE       0033s000012MKYTAA4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  3 0033s000012MKYXAA4 FALSE       0033s000012MKYXAA4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  4 0033s000012MKYYAA4 FALSE       0033s000012MKYYAA4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  5 0033s000012MKYcAAO FALSE       0033s000012MKYcAAO &lt;NA&gt;     </span>
+<span class="co">#&gt;  6 0033s000012MKYdAAO FALSE       0033s000012MKYdAAO &lt;NA&gt;     </span>
+<span class="co">#&gt;  7 0033s000012MKYhAAO FALSE       0033s000012MKYhAAO &lt;NA&gt;     </span>
+<span class="co">#&gt;  8 0033s000012MKYiAAO FALSE       0033s000012MKYiAAO &lt;NA&gt;     </span>
+<span class="co">#&gt;  9 0033s000012MKYmAAO FALSE       0033s000012MKYmAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 10 0033s000012MKYnAAO FALSE       0033s000012MKYnAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 11 0033s000012MKYrAAO FALSE       0033s000012MKYrAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 12 0033s000012MKYsAAO FALSE       0033s000012MKYsAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 13 0033s000012MKYtAAO FALSE       0033s000012MKYtAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 14 0033s000012MKYuAAO FALSE       0033s000012MKYuAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 15 0033s000012MKYvAAO FALSE       0033s000012MKYvAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 16 0033s000012MKYwAAO FALSE       0033s000012MKYwAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 17 0033s000012MKYxAAO FALSE       0033s000012MKYxAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 18 0033s000012MKYyAAO FALSE       0033s000012MKYyAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 19 0033s000012MKYzAAO FALSE       0033s000012MKYzAAO &lt;NA&gt;     </span>
+<span class="co">#&gt; 20 0033s000012MKZ0AAO FALSE       0033s000012MKZ0AAO &lt;NA&gt;</span></pre></body></html></div>
 </div>
   </div>
 

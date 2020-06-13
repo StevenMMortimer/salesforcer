@@ -28,3 +28,4 @@
 ^tests/testthat/.httr-oauth-salesforcer$
 ^travis-tool\.sh$
 ^travis-tool\.sh\.cmd$
+^CRAN-RELEASE$
