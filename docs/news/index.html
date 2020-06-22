@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.999</span>
       </span>
     </div>
 
@@ -176,13 +176,32 @@
       <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="salesforcer-014999" class="section level2">
+<h2 class="hasAnchor">
+<a href="#salesforcer-014999" class="anchor"></a>salesforcer 0.1.4.999</h2>
+<div id="features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h3>
+<ul>
+<li>Bulk 2.0 API Queries (NOT YET COMPLETED - PLANNED)</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
+<ul>
+<li>Fix bugs in REST and SOAP API Queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>) (NOT YET COMPLETED - PLANNED)</li>
+</ul>
+<hr>
+</div>
+</div>
     <div id="salesforcer-014-release" class="section level2">
 <h2 class="hasAnchor">
 <a href="#salesforcer-014-release" class="anchor"></a>salesforcer 0.1.4 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.4">release</a>
 </h2>
-<div id="features" class="section level3">
+<div id="features-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h3>
+<a href="#features-1" class="anchor"></a>Features</h3>
 <ul>
 <li>Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/53'>#53</a>)</li>
 <li>Upgraded to Salesforce version 48.0 (Spring ’20) from version 46.0 (Summer ’19)</li>
@@ -196,9 +215,9 @@
 <li>Add Attachment and Metadata vignettes along with updating the Bulk vignette.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li>Fix issue where REST query was not correctly passing and honoring the batch size control argument to paginate results</li>
 <li>Fix issue in results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> that was previously passed into the function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
@@ -207,15 +226,16 @@
 <li>Fix issue where NA values in create, update, and upsert operations where setting the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in a record will set the field to blank across all APIs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/29'>#29</a>)</li>
 <li>Fix issue where supplying all NA values in the Id field for certain operations would result in a cryptic error message (<code>"BAD_REQUEST: Unsupported Tooling Sobject    Type"</code>); the affected operations are: delete, undelete, emptyRecycleBin, retrieve, update, and findDuplicatesByIds</li>
 </ul>
+<hr>
 </div>
 </div>
     <div id="salesforcer-013-release" class="section level2">
 <h2 class="hasAnchor">
 <a href="#salesforcer-013-release" class="anchor"></a>salesforcer 0.1.3 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3">release</a>
 </h2>
-<div id="features-1" class="section level3">
+<div id="features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-1" class="anchor"></a>Features</h3>
+<a href="#features-2" class="anchor"></a>Features</h3>
 <ul>
 <li>Upgraded to version 46.0 (Summer ’19) from version 45.0 (Spring ’19)</li>
 <li>Add <strong>RForcecom</strong> backward compatibile version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>
@@ -234,9 +254,9 @@
 <li>Add new function <code><a href="../reference/sf_merge.html">sf_merge()</a></code> which combines up to 3 records of the same type into 1 record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/22'>#22</a>)</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-2" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li>Fix bug where Username/Password authenticated sessions where not working with api_type = “Bulk 1.0”</li>
 <li>Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</li>
@@ -252,9 +272,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-012-release" class="anchor"></a>salesforcer 0.1.2 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2">release</a>
 </h2>
-<div id="features-2" class="section level3">
+<div id="features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-2" class="anchor"></a>Features</h3>
+<a href="#features-3" class="anchor"></a>Features</h3>
 <ul>
 <li>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</li>
 <li>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</li>
@@ -267,9 +287,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-011-release" class="anchor"></a>salesforcer 0.1.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1">release</a>
 </h2>
-<div id="features-3" class="section level3">
+<div id="features-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-3" class="anchor"></a>Features</h3>
+<a href="#features-4" class="anchor"></a>Features</h3>
 <ul>
 <li>Add <code><a href="../reference/sf_search.html">sf_search()</a></code> with REST and SOAP API support for SOSL and free text search</li>
 <li>Add <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> with REST and SOAP API to return object metadata</li>
@@ -299,9 +319,9 @@
 <li>Make the default file name for a cached token <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-3" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET</p></li>
 <li><p><code>sf_token()</code> ignoring basic auth’ed sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="../reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (<a href='https://github.com/StevenMMortimer/salesforcer/issues/1'>#1</a>).</p></li>
@@ -313,9 +333,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-010-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
 </h2>
-<div id="features-4" class="section level3">
+<div id="features-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-4" class="anchor"></a>Features</h3>
+<a href="#features-5" class="anchor"></a>Features</h3>
 <ul>
 <li>OAuth 2.0 and Basic authentication methods (<code><a href="../reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</li>

@@ -1,3 +1,15 @@
+## salesforcer 0.1.4.999
+
+### Features
+
+  * Bulk 2.0 API Queries (NOT YET COMPLETED - PLANNED)
+  
+### Bug Fixes
+
+  * Fix bugs in REST and SOAP API Queries (#35, #38) (NOT YET COMPLETED - PLANNED)
+
+---
+
 ## salesforcer 0.1.4 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.4)
 
 ### Features
@@ -35,6 +47,8 @@
   would result in a cryptic error message (`"BAD_REQUEST: Unsupported Tooling Sobject 
   Type"`); the affected operations are: delete, undelete, emptyRecycleBin, retrieve, 
   update, and findDuplicatesByIds
+
+---
 
 ## salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
 

@@ -153,9 +153,11 @@ sf_query_rest <- function(soql,
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows as_tibble select matches contains rename_at rename tibble mutate_all
+#' @importFrom tibble tibble as_tibble
+#' @importFrom dplyr bind_rows select everything matches mutate_all
+#' @importFrom tidyselect peek_vars
 #' @importFrom httr content
-#' @importFrom purrr map_df
+#' @importFrom purrr map_df modify_if
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 sf_query_soap <- function(soql,
@@ -194,26 +196,51 @@ sf_query_soap <- function(soql,
   }
   catch_errors(httr_response)
   response_parsed <- content(httr_response, as='parsed', encoding="UTF-8")
-  resultset <- response_parsed %>%
-    xml_ns_strip() %>%
-    xml_find_all('.//records')
   
-  if(length(resultset) > 0){
-    resultset <- resultset %>%
-      map_df(xml_nodeset_to_df) %>%
-      remove_empty_linked_object_cols() %>% 
-      # remove redundant linked entity object types.type
-      select(-matches("sf:type")) %>% 
-      rename_at(.vars = vars(starts_with("sf:")), 
-                .funs = list(~sub("^sf:", "", .))) %>%
-      rename_at(.vars = vars(matches("\\.sf:")), 
-                .funs = list(~sub("sf:", "", .))) %>%
-      # move columns without dot up since those are related entities
-      select(-matches("\\."), everything())
-      as_tibble() %>% 
-      mutate_all(as.character)
+  resultset <- response_parsed %>%
+    xml_ns_strip() %>%  
+    xml_find_all('.//soapenv:Body/queryResponse/result/records')
+  
+  # determine if there are parent-child relationship query results contained within 
+  # each parent record. If so, check that the query result is "done" meaning 
+  # there are no additional child records to obtain for that parent record. 
+  # Note that only one level of parent-to-child relationship can be specified in 
+  # a query so this only needs to be done for one level of records
+  nested_queries <- sapply(resultset, function(x){
+    x %>% xml_find_first('.//done') %>% xml_text()
+  })
+  
+  nested_queries_exist <- any(!is.na(nested_queries))
+  if(nested_queries_exist){
+    if(any(nested_queries == "false")){
+      resultset <- map_df(resultset, function(x){
+        done_status <- x %>% xml_find_first('.//done') %>% xml_text()
+        if(!is.na(done_status) && done_status == "false"){
+          query_locator <- x %>% xml_find_first('.//queryLocator') %>% xml_text()
+          child_records <- extract_records_from_xml_nodeset(x)
+          # drop the nested child query result node from each parent record
+          invisible(x %>% xml_find_all(".//*[@xsi:type='QueryResult']") %>% xml_remove())
+          parent_record <- extract_records_from_xml_node(x)
+          if(!is.na(query_locator) && query_locator != ''){
+            next_child_records <- sf_query_soap(next_records_url = query_locator,
+                                                object_name = object_name,
+                                                queryall = queryall,
+                                                guess_types = FALSE,
+                                                control = control,
+                                                verbose = verbose, ...)
+          }
+          child_records <- bind_rows(child_records, next_child_records)
+          y <- combine_parent_and_child_resultsets(parent_record, child_records) 
+        } else {
+          y <- extract_parent_and_child_result(x)
+        }
+        return(y)
+      })
+    } else {
+      resultset <- map_df(resultset, extract_parent_and_child_result)
+    }
   } else {
-    resultset <- tibble()
+    resultset <- extract_records_from_xml_nodeset_of_records(resultset)
   }
   
   done_status <- response_parsed %>% 
@@ -238,6 +265,10 @@ sf_query_soap <- function(soql,
   # cast the data in the final iteration if requested
   if(is.null(next_records_url) & (nrow(resultset) > 0) & (guess_types)){
     resultset <- resultset %>% 
+      # sort column names ...
+      select(sort(peek_vars())) %>% 
+      # ... then move columns without dot up since those are related entities
+      select(-matches("\\."), everything()) %>% 
       type_convert(col_types = cols(.default = col_guess()))
   }
 
