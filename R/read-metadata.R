@@ -92,7 +92,7 @@ sf_describe_object_fields <- function(object_name){
   stopifnot(length(object_name) == 1)
   
   obj_dat <- sf_describe_objects(object_names = object_name, api_type = "SOAP")[[1]]
-  obj_fields_dat <- obj_dat[names(obj_dat) == "fields"] %>% 
+  obj_fields_dat2 <- obj_dat[names(obj_dat) == "fields"] %>% 
     # explicitly combine duplicated names because many tidyverse functions break whenever that occurs
     map(collapse_list_with_dupe_names) %>% 
     map(~modify_if(., ~(length(.x) > 1 | is.list(.x)), list)) %>%

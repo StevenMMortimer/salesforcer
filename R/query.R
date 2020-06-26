@@ -11,8 +11,14 @@
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_query_bulk}}.
-#' @param next_records_url character (leave as NULL); a string used internally 
+#' @param next_records_url \code{character} (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
+#' @param bind_using_character_cols \code{logical}; an indicator of whether to 
+#' cast the data to all character columns to ensure that \code{\link[dplyr]{bind_rows}} 
+#' does not fail because two paginated recordsets have differing datatypes for the 
+#' same column. Set this to \code{TRUE} rarely, typically only when having this 
+#' set to \code{FALSE} returns an error or you want all columns in the data to be 
+#' character.
 #' @template verbose
 #' @return \code{tbl_df} of records
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -35,10 +41,11 @@
 sf_query <- function(soql,
                      object_name = NULL,
                      queryall = FALSE,
-                     guess_types = TRUE,
+                     guess_types = FALSE,
                      api_type = c("REST", "SOAP", "Bulk 1.0"),
                      control = list(...), ...,
                      next_records_url = NULL,
+                     bind_using_character_cols = FALSE,
                      verbose = FALSE){
   
   api_type <- match.arg(api_type)
@@ -50,7 +57,8 @@ sf_query <- function(soql,
   if("page_size" %in% names(all_args)){
     # warn then set it in the control list
     warning(paste0("The `page_size` argument has been deprecated.\n", 
-                   "Please pass QueryOptions argument or use the `sf_control` function."), 
+                   "Please pass QueryOptions=list(batchSize=200) argument or ",
+                   "use the `sf_control` function."), 
             call. = FALSE)
     control_args$QueryOptions = list(batchSize = as.integer(all_args$page_size))
   }
@@ -62,6 +70,7 @@ sf_query <- function(soql,
                                guess_types = guess_types,
                                control = control_args,
                                next_records_url = next_records_url,
+                               bind_using_character_cols = bind_using_character_cols,
                                verbose = verbose)
   } else if(api_type == "SOAP"){
     resultset <- sf_query_soap(soql = soql,
@@ -70,6 +79,7 @@ sf_query <- function(soql,
                                guess_types = guess_types,
                                control = control_args,
                                next_records_url = next_records_url,
+                               bind_using_character_cols = bind_using_character_cols,
                                verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
     if(is.null(object_name)){
@@ -82,22 +92,26 @@ sf_query <- function(soql,
                                control = control_args,
                                verbose = verbose, ...)
   } else {
-    stop("Currently, queries using the Bulk 2.0 API has not been implemented. Set api_type equal to 'REST', 'SOAP', or 'Bulk 1.0'.")
+    stop(paste0("Currently, queries using the Bulk 2.0 API has not been ", 
+                "implemented. Set api_type equal to 'REST', 'SOAP', or 'Bulk 1.0'."))
   }
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows as_tibble select matches tibble mutate_all
+#' @importFrom dplyr bind_rows tibble select everything matches mutate_all
 #' @importFrom httr content
-#' @importFrom jsonlite toJSON prettify
 #' @importFrom readr type_convert cols col_guess
+#' @importFrom purrr pluck pluck<-
 sf_query_rest <- function(soql,
                           object_name = NULL,
                           queryall = FALSE,
-                          guess_types = TRUE,
-                          control, ...,
+                          guess_types = FALSE,
+                          control = list(),
                           next_records_url = NULL,
+                          bind_using_character_cols = FALSE,
                           verbose = FALSE){
+  
+  control <- filter_valid_controls(control)
   
   query_url <- make_query_url(soql, queryall, next_records_url)
   request_headers <- c("Accept"="application/json", 
@@ -118,20 +132,69 @@ sf_query_rest <- function(soql,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  # TODO: Consider switching to as='parsed' given it was truncating query results 
-  # from the Bulk API
-  response_parsed <- content(httr_response, "text", encoding="UTF-8")
-  response_parsed <- fromJSON(response_parsed, flatten=TRUE)
+  response_parsed <- content(httr_response, "parsed", encoding="UTF-8")
   
   if(length(response_parsed$records) > 0){
-    resultset <- response_parsed$records %>% 
-      select(-matches("^attributes\\.")) %>%
-      select(-matches("\\.attributes\\.")) %>%
-      as_tibble() %>% 
-      mutate_all(as.character)
+    # determine if there are parent-child relationship query results contained within 
+    # each parent record. If so, check that the query result is "done" meaning 
+    # there are no additional child records to obtain for that parent record. 
+    # Note that only one level of parent-to-child relationship can be specified in 
+    # a query so this only needs to be done for one level of records
+    nested_queries <- unlist(lapply(response_parsed$records, function(x){pluck(x, 3, "done")}))
+    nested_queries_exist <- !is.null(nested_queries)
+    if(nested_queries_exist){
+      if(any(!nested_queries)){
+        resultset <- map_df(response_parsed$records, function(x){
+          done_status <- pluck(x, 3, "done")
+          if(!is.null(done_status) && !done_status){
+            query_locator <- pluck(x, 3, "nextRecordsUrl")
+            child_records <- pluck(x, 3, "records") %>% 
+              drop_attributes_recursively(object_name_append=TRUE) %>% 
+              drop_empty_recursively() %>% 
+              map_df(flatten_to_tbl_df)
+            # drop the nested child query result node from each parent record
+            pluck(x, 3) <- NULL
+            parent_record <- list(x) %>% 
+              drop_attributes_recursively() %>% 
+              drop_empty_recursively() %>% 
+              map_df(flatten_to_tbl_df)
+            if(!is.null(query_locator) && query_locator != ''){
+              next_child_records <- sf_query_rest(next_records_url = query_locator,
+                                                  object_name = object_name,
+                                                  queryall = queryall,
+                                                  guess_types = FALSE,
+                                                  bind_using_character_cols = bind_using_character_cols,
+                                                  control = control,
+                                                  verbose = verbose)
+              child_records <- bind_rows(child_records, next_child_records)
+            }
+            y <- combine_parent_and_child_resultsets(parent_record, child_records) 
+          } else {
+            y <- list_extract_parent_and_child_result(x)
+          }
+          return(y)
+        })
+      } else {
+        resultset <- map_df(response_parsed$records, list_extract_parent_and_child_result)
+      }
+    } else {
+      resultset <- response_parsed$records %>% 
+        drop_attributes_recursively() %>% 
+        drop_empty_recursively() %>% 
+        map_df(flatten_to_tbl_df)
+    }
   } else {
     resultset <- tibble()
   }
+    
+  # TODO: Switch to all character if guess_types was provided or flipped on 
+  # in the case where the types do not match between pages and then bind_rows 
+  # fails. Casting all as character and switching to guess types allows all 
+  # pages to be pulled without breaking and then trying to reconcile why 
+  # the types were different between the paginated API calls
+  if(bind_using_character_cols){
+    resultset <- resultset %>% mutate_all(as.character)
+  }    
   
   # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
@@ -139,23 +202,29 @@ sf_query_rest <- function(soql,
                                   object_name = object_name,
                                   queryall = queryall,
                                   guess_types = FALSE,
-                                  control = control, 
-                                  verbose = verbose, ...)
-    resultset <- bind_rows(resultset, next_records)
+                                  control = control,
+                                  bind_using_character_cols = bind_using_character_cols,
+                                  verbose = verbose)
+    resultset <- bind_query_resultsets(resultset, next_records)
   }
   
-  # cast the data in the final iteration if requested
-  if(is.null(next_records_url) & (nrow(resultset) > 0) & (guess_types)){
+  # handle the final iteration
+  if((response_parsed$done) & (nrow(resultset) > 0)){
     resultset <- resultset %>% 
-      type_convert(col_types = cols(.default = col_guess()))
+      # sort column names ...
+      select(sort(names(.))) %>% 
+      # ... then move columns without dot up since those with are related
+      select(-matches("\\."), everything())
+    # cast the types if requested
+    if (guess_types){  
+      resultset <- resultset %>% 
+        type_convert(col_types = cols(.default = col_guess()))
+    }    
   }
-  
   return(resultset)
 }
 
-#' @importFrom tibble tibble as_tibble
-#' @importFrom dplyr bind_rows select everything matches mutate_all
-#' @importFrom tidyselect peek_vars
+#' @importFrom dplyr bind_rows select everything matches mutate_all tibble as_tibble
 #' @importFrom httr content
 #' @importFrom purrr map_df modify_if
 #' @importFrom readr type_convert cols col_guess
@@ -164,18 +233,23 @@ sf_query_soap <- function(soql,
                           object_name = NULL,
                           queryall = FALSE,
                           guess_types = TRUE,
-                          control, ...,
+                          control = list(),
                           next_records_url = NULL,
+                          bind_using_character_cols = FALSE,
                           verbose = FALSE){
+  
+  control <- filter_valid_controls(control)
   
   if(!is.null(next_records_url)){
     soap_action <- "queryMore"
+    records_xpath <- './/soapenv:Body/queryMoreResponse/result/records'
     r <- make_soap_xml_skeleton(soap_headers = control)
     xml_dat <- build_soap_xml_from_list(input_data = next_records_url,
                                         operation = "queryMore",
                                         root = r)
   } else {
     soap_action <- "query"
+    records_xpath <- './/soapenv:Body/queryResponse/result/records'
     r <- make_soap_xml_skeleton(soap_headers = control)
     xml_dat <- build_soap_xml_from_list(input_data = soql,
                                         operation = "query",
@@ -199,7 +273,7 @@ sf_query_soap <- function(soql,
   
   resultset <- response_parsed %>%
     xml_ns_strip() %>%  
-    xml_find_all('.//soapenv:Body/queryResponse/result/records')
+    xml_find_all(records_xpath)
   
   # determine if there are parent-child relationship query results contained within 
   # each parent record. If so, check that the query result is "done" meaning 
@@ -227,7 +301,7 @@ sf_query_soap <- function(soql,
                                                 queryall = queryall,
                                                 guess_types = FALSE,
                                                 control = control,
-                                                verbose = verbose, ...)
+                                                verbose = verbose)
           }
           child_records <- bind_rows(child_records, next_child_records)
           y <- combine_parent_and_child_resultsets(parent_record, child_records) 
@@ -241,6 +315,11 @@ sf_query_soap <- function(soql,
     }
   } else {
     resultset <- extract_records_from_xml_nodeset_of_records(resultset)
+  }
+  
+  if(bind_using_character_cols){
+    resultset <- resultset %>% 
+      mutate_all(as.character)
   }
   
   done_status <- response_parsed %>% 
@@ -257,19 +336,24 @@ sf_query_soap <- function(soql,
                                   object_name = object_name,
                                   queryall = queryall,
                                   guess_types = FALSE,
-                                  control = control, 
-                                  verbose = verbose, ...)
-    resultset <- bind_rows(resultset, next_records)      
+                                  control = control,
+                                  bind_using_character_cols = bind_using_character_cols,
+                                  verbose = verbose)
+    resultset <- bind_query_resultsets(resultset, next_records)
   }
   
-  # cast the data in the final iteration if requested
-  if(is.null(next_records_url) & (nrow(resultset) > 0) & (guess_types)){
+  # handle the final iteration
+  if((done_status == "true") & (nrow(resultset) > 0)){
     resultset <- resultset %>% 
       # sort column names ...
-      select(sort(peek_vars())) %>% 
-      # ... then move columns without dot up since those are related entities
-      select(-matches("\\."), everything()) %>% 
-      type_convert(col_types = cols(.default = col_guess()))
+      select(sort(names(.))) %>% 
+      # ... then move columns without dot up since those with are related
+      select(-matches("\\."), everything())
+    # cast the types if requested
+    if (guess_types){  
+      resultset <- resultset %>% 
+        type_convert(col_types = cols(.default = col_guess()))
+    }
   }
 
   return(resultset)

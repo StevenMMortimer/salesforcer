@@ -8,11 +8,12 @@ sf_query(
   soql,
   object_name = NULL,
   queryall = FALSE,
-  guess_types = TRUE,
+  guess_types = FALSE,
   api_type = c("REST", "SOAP", "Bulk 1.0"),
   control = list(...),
   ...,
   next_records_url = NULL,
+  bind_using_character_cols = FALSE,
   verbose = FALSE
 )
 }
@@ -41,8 +42,15 @@ look at the documentation for \code{\link{sf_control}}}
 \item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
 to \code{\link{sf_query_bulk}}.}
 
-\item{next_records_url}{character (leave as NULL); a string used internally 
+\item{next_records_url}{\code{character} (leave as NULL); a string used internally 
 by the function to paginate through to more records until complete}
+
+\item{bind_using_character_cols}{\code{logical}; an indicator of whether to 
+cast the data to all character columns to ensure that \code{\link[dplyr]{bind_rows}} 
+does not fail because two paginated recordsets have differing datatypes for the 
+same column. Set this to \code{TRUE} rarely, typically only when having this 
+set to \code{FALSE} returns an error or you want all columns in the data to be 
+character.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

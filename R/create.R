@@ -54,7 +54,8 @@ sf_create <- function(input_data,
   }
   if("AssignmentRuleHeader" %in% names(control_args)){
     if(!object_name %in% c("Account", "Case", "Lead")){
-      stop("The AssignmentRuleHeader can only be used when creating, updating, or upserting an Account, Case, or Lead")
+      stop(paste0("The AssignmentRuleHeader can only be used when creating, ", 
+                  "updating, or upserting an Account, Case, or Lead"))
     }
   }
   

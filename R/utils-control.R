@@ -164,9 +164,6 @@ sf_control <- function(AllOrNoneHeader=list(allOrNone=FALSE),
   
   # determine which elements were supplied, dropping the function call itself
   supplied_arguments <-  as.list(match.call()[-1])
-  # drop api_type and operation existing
-  supplied_arguments[["api_type"]] <- NULL
-  supplied_arguments[["operation"]] <- NULL
   
   # now eval them to no longer be objects of class "call"
   supplied_arguments <- supplied_arguments %>% 
@@ -180,8 +177,9 @@ sf_control <- function(AllOrNoneHeader=list(allOrNone=FALSE),
   }
   
   # check that the controls valid for the API and operation
-  supplied_arguments <- filter_valid_controls(supplied_arguments, api_type = api_type)
-  supplied_arguments <- filter_valid_controls(supplied_arguments, operation = operation)
+  supplied_arguments <- filter_valid_controls(supplied_arguments, 
+                                              api_type = api_type, 
+                                              operation = operation)
   
   return(supplied_arguments)
 }
@@ -246,7 +244,20 @@ accepted_controls_by_operation <- function(operation = c("delete", "undelete", "
 #' @keywords internal
 #' @export
 filter_valid_controls <- function(supplied, api_type = NULL, operation = NULL){
-  if(!is.null(api_type)){
+  
+  if(is.null(api_type) & !is.null(supplied$api_type)){
+    api_type <- supplied$api_type
+  }
+  # remove the api_type from the supplied args, if it exists
+  supplied$api_type <- NULL
+  
+  if(is.null(operation) & !is.null(supplied$operation)){
+    operation <- supplied$operation
+  }
+  # remove the api_type from the supplied args, if it exists
+  supplied$operation <- NULL  
+  
+  if(!is.null(api_type) ){
     valid <- accepted_controls_by_api(api_type)
     # provide a warning before dropping 
     if(length(setdiff(names(supplied), valid)) >  0){

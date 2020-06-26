@@ -32,7 +32,7 @@ Imports:
     data.table (>= 1.12.0),
     jsonlite (>= 1.6.1),
     purrr (>= 0.3.4),
-    lubridate (>= 1.7.8), 
+    lubridate (>= 1.7.8),
     base64enc, 
     mime, 
     curl, 

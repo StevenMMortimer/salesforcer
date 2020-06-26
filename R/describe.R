@@ -32,7 +32,9 @@ sf_describe_objects <- function(object_names,
 
   not_matched_objs <- setdiff(object_names$sObjectType, valid_object_names)
   if(length(not_matched_objs) > 0){
-    message(sprintf("Skipping the following object(s) for not matching the name of an existing object: %s", paste0(not_matched_objs, collapse=", ")))
+    message(sprintf(paste0("Skipping the following object(s) for not matching ", 
+                           "the name of an existing object: %s", 
+                           paste0(not_matched_objs, collapse=", "))))
   }
 
   object_names <- object_names %>%
@@ -55,10 +57,14 @@ sf_describe_objects <- function(object_names,
       resultset[[i]] <- response_parsed$objectDescribe
     }
   } else if(which_api == "SOAP"){
+    api_type <- match.arg(api_type)
+    # determine how to pass along the control args 
+    all_args <- list(...)
     control_args <- return_matching_controls(control)
     control_args$api_type <- "SOAP"
     control_args$operation <- "describeSObjects"
-    control <- do.call("sf_control", control_args)
+    control <- filter_valid_controls(control)
+    
     r <- make_soap_xml_skeleton(soap_headers = control)
     xml_dat <- build_soap_xml_from_list(input_data = object_names$sObjectType,
                                         operation = "describeSObjects",
