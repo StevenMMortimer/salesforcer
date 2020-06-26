@@ -172,8 +172,23 @@ sf_control <- function(AllOrNoneHeader=list(allOrNone=FALSE),
     modify(~modify_if(., is.logical, tolower))
   
   # check that they are all lists
-  if(!all(sapply(supplied_arguments, is.list))){
-    stop("All control arguments must be lists. Review the argument defaults in 'sf_control()' for help formatting.")
+  list_argument <- sapply(supplied_arguments, is.list)
+  if(!all(list_argument)){
+    if(!all(names(which(!list_argument)) %in% c("api_type", "operation"))){
+      mismatched_warn_str <- c()
+      for(n in names(which(!list_argument))){
+        if(!(n %in% c("api_type", "operation"))){
+          mismatched_warn_str <- c(mismatched_warn_str, n)
+        }
+      }
+      mismatched_warn_str <- paste0(mismatched_warn_str, collapse=", ")  
+      stop(
+        sprintf(paste0("The following control arguments were not provided as lists: \n%s\n\n",
+                       "Review the argument defaults in 'sf_control()' for help formatting."), 
+                mismatched_warn_str)
+        , call. = FALSE
+      )
+    }
   }
   
   # check that the controls valid for the API and operation

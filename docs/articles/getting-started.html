@@ -174,8 +174,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012ML1eAAG TRUE   </span>
-<span class="co">#&gt; 2 0033s000012ML1fAAG TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012Mm0rAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012Mm0sAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -188,13 +188,13 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012ML1eAAG Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012ML1fAAG Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012Mm0rAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012Mm0sAAC Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
-<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all <code>NA</code> since we have yet to provide information to link these Contacts with Accounts.</p>
+<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. You’ll notice that the Account column does not appear in the results. This is because Salesforce does not return Account information if it does not exist and there is no way reliable way to extract and rebuild the emply columns based on the query string. If there were Account information, an additional column titled “Account.Name” would appear in the results.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -205,11 +205,11 @@
 
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">my_soql</span>)
 <span class="no">queried_records</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012ML1eAAG NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012ML1fAAG NA      Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   FirstName Id                 LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;              &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 Test      0033s000012Mm0rAAC Contact-Create-1</span>
+<span class="co">#&gt; 2 Test      0033s000012Mm0sAAC Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -217,16 +217,15 @@
 <p>After creating records you can update them using <code><a href="../reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Update some of those records</span>
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="no">queried_records</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"TestTest"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">Account</span>)
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"TestTest"</span>)
 
 <span class="no">updated_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_update.html">sf_update</a></span>(<span class="no">queried_records</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
 <span class="no">updated_records</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012ML1eAAG TRUE   </span>
-<span class="co">#&gt; 2 0033s000012ML1fAAG TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012Mm0rAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012Mm0sAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -237,8 +236,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0033s000012ML1eAAG TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0033s000012ML1fAAG TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012Mm0rAAC TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0033s000012Mm0sAAC TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -265,9 +264,9 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 FALSE   0033s000012ML1jAAG TRUE   </span>
-<span class="co">#&gt; 2 FALSE   0033s000012ML1kAAG TRUE   </span>
-<span class="co">#&gt; 3 TRUE    0033s000012ML1oAAG TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 FALSE   0033s000012Mm11AAC TRUE   </span>
+<span class="co">#&gt; 2 FALSE   0033s000012Mm12AAC TRUE   </span>
+<span class="co">#&gt; 3 TRUE    0033s000012Mm16AAC TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">

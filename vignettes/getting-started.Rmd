@@ -119,8 +119,11 @@ Language). SOQL is a powerful tool that allows you to return the attributes of r
 on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, 
 even Attachments! Below is an example where we grab the data we just created 
 including Account object information for which the Contact record is associated 
-with. The Account column is all `NA` since we have yet to provide information to 
-link these Contacts with Accounts.
+with. You'll notice that the Account column does not appear in the results. This 
+is because Salesforce does not return Account information if it does not exist and 
+there is no way reliable way to extract and rebuild the emply columns based on the 
+query string. If there were Account information, an additional column titled "Account.Name" 
+would appear in the results.
 
 ```{r query-records}
 my_soql <- sprintf("SELECT Id, 
@@ -148,8 +151,7 @@ called "TestTest".
 ```{r update-records}
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest") %>% 
-  select(-Account)
+  mutate(FirstName = "TestTest")
 
 updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
