@@ -22,7 +22,7 @@ Package features include:
     Authentication methods (`sf_auth()`)
   - CRUD (Create, Retrieve, Update, Delete) methods for records using
     the SOAP, REST, and Bulk APIs
-  - Query records via the SOAP, REST, and Bulk 1.0 APIs using
+  - Query records via the SOAP, REST, Bulk 1.0, and Bulk 2.0 APIs using
     `sf_query()`
   - Retrieve and modify metadata (Custom Objects, Fields, etc.) using
     the Metadata API with:
@@ -155,8 +155,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012MGHEAA4 TRUE   
-#> 2 0033s000012MGHFAA4 TRUE
+#> 1 0033s000012MuwOAAS TRUE   
+#> 2 0033s000012MuwPAAS TRUE
 ```
 
 ### Query
@@ -166,9 +166,7 @@ Query Language). SOQL is a powerful tool that allows you to return the
 attributes of records on almost any object in Salesforce including
 Accounts, Contacts, Tasks, Opportunities, even Attachments\! Below is an
 example where we grab the data we just created including Account object
-information for which the Contact record is associated with. The Account
-column is all `NA` since we have yet to provide information to link
-these Contacts with Accounts.
+information for which the Contact record is associated with.
 
 ``` r
 my_soql <- sprintf("SELECT Id, 
@@ -180,12 +178,21 @@ my_soql <- sprintf("SELECT Id,
                    paste0(created_records$id , collapse = "','"))
 queried_records <- sf_query(my_soql)
 queried_records
-#> # A tibble: 2 x 4
-#>   Id                 Account FirstName LastName        
-#>   <chr>              <lgl>   <chr>     <chr>           
-#> 1 0033s000012MGHEAA4 NA      Test      Contact-Create-1
-#> 2 0033s000012MGHFAA4 NA      Test      Contact-Create-2
+#> # A tibble: 2 x 3
+#>   Id                 FirstName LastName        
+#>   <chr>              <chr>     <chr>           
+#> 1 0033s000012MuwOAAS Test      Contact-Create-1
+#> 2 0033s000012MuwPAAS Test      Contact-Create-2
 ```
+
+You’ll notice that the `"Account.Name"` column does not appear in the
+results. This is because the SOAP and REST APIs do not return any
+Account information if it does not exist on the record and there is no
+reliable way to extract and rebuild the empty columns based on the query
+string. If there were Account information, an additional column titled
+`"Account.Name"` would appear in the results. Note, that the Bulk 1.0
+and Bulk 2.0 APIs will return `"Account.Name"` as a column of all `NA`
+values for this query because they return results differently.
 
 ### Update
 
@@ -201,16 +208,15 @@ called “TestTest”.
 ``` r
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest") %>% 
-  select(-Account)
+  mutate(FirstName = "TestTest")
 
 updated_records <- sf_update(queried_records, object_name = "Contact")
 updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012MGHEAA4 TRUE   
-#> 2 0033s000012MGHFAA4 TRUE
+#> 1 0033s000012MuwOAAS TRUE   
+#> 2 0033s000012MuwPAAS TRUE
 ```
 
 ### Bulk Operations
@@ -247,8 +253,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012MGHGAA4 TRUE    TRUE    NA   
-#> 2 0033s000012MGHHAA4 TRUE    TRUE    NA
+#> 1 0033s000012MuwTAAS TRUE    TRUE    NA   
+#> 2 0033s000012MuwUAAS TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -263,8 +269,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012MGHGAA4 Test      Contact-Create-1
-#> 2 0033s000012MGHHAA4 Test      Contact-Create-2
+#> 1 0033s000012MuwTAAS Test      Contact-Create-1
+#> 2 0033s000012MuwUAAS Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -272,8 +278,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created Id                 sf__Error
 #>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012MGHGAA4 FALSE       0033s000012MGHGAA4 <NA>     
-#> 2 0033s000012MGHHAA4 FALSE       0033s000012MGHHAA4 <NA>
+#> 1 0033s000012MuwTAAS FALSE       0033s000012MuwTAAS <NA>     
+#> 2 0033s000012MuwUAAS FALSE       0033s000012MuwUAAS <NA>
 ```
 
 ### Using the Metadata API

@@ -188,8 +188,8 @@ the specified criteria.</p>
   <span class='no'>soql</span>,
   <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>),
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='no'>...</span>,
   <span class='kw'>next_records_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -246,7 +246,7 @@ by the function to paginate through to more records until complete</p></td>
     <tr>
       <th>bind_using_character_cols</th>
       <td><p><code>logical</code>; an indicator of whether to 
-cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code> 
+cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
 does not fail because two paginated recordsets have differing datatypes for the 
 same column. Set this to <code>TRUE</code> rarely, typically only when having this 
 set to <code>FALSE</code> returns an error or you want all columns in the data to be 

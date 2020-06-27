@@ -6,10 +6,13 @@
 \usage{
 sf_query_result_bulk(
   job_id,
-  batch_id,
-  result_id,
   guess_types = TRUE,
-  api_type = c("Bulk 1.0"),
+  batch_id = NULL,
+  result_id = NULL,
+  bind_using_character_cols = FALSE,
+  batch_size = 50000,
+  locator = NULL,
+  api_type = c("Bulk 1.0", "Bulk 2.0"),
   verbose = FALSE
 )
 }
@@ -17,14 +20,14 @@ sf_query_result_bulk(
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 
 returned by \link{sf_create_job_bulk}}
 
+\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
+and FALSE returns all values as character strings.}
+
 \item{batch_id}{character; the Salesforce Id assigned assigned to a submitted 
 batch as returned by \link{sf_create_batches_bulk}}
 
 \item{result_id}{a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset}
-
-\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-and FALSE returns all values as character strings.}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}

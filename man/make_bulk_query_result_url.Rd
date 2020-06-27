@@ -6,9 +6,9 @@
 \usage{
 make_bulk_query_result_url(
   job_id,
-  batch_id,
-  result_id,
-  api_type = c("Bulk 1.0")
+  batch_id = NULL,
+  result_id = NULL,
+  api_type = c("Bulk 1.0", "Bulk 2.0")
 )
 }
 \description{

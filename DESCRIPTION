@@ -44,6 +44,7 @@ Suggests:
     testthat,
     rmarkdown,
     here,
+    microbenchmark,
     RForcecom
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0

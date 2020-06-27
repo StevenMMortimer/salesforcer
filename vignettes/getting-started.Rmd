@@ -114,16 +114,12 @@ retrieved_records
 
 ### Query
 
-Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query 
-Language). SOQL is a powerful tool that allows you to return the attributes of records 
-on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, 
-even Attachments! Below is an example where we grab the data we just created 
-including Account object information for which the Contact record is associated 
-with. You'll notice that the Account column does not appear in the results. This 
-is because Salesforce does not return Account information if it does not exist and 
-there is no way reliable way to extract and rebuild the emply columns based on the 
-query string. If there were Account information, an additional column titled "Account.Name" 
-would appear in the results.
+Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query
+Language). SOQL is a powerful tool that allows you to return the fields of
+records in almost any object in Salesforce including Accounts, Contacts, Tasks,
+Opportunities, even Attachments! Below is an example where we grab the data we
+just created including Account object information for which the Contact record
+is associated with.
 
 ```{r query-records}
 my_soql <- sprintf("SELECT Id, 
@@ -137,6 +133,14 @@ my_soql <- sprintf("SELECT Id,
 queried_records <- sf_query(my_soql)
 queried_records
 ```
+
+You'll notice that the `"Account.Name"` column does not appear in the results. This is 
+because the SOAP and REST APIs do not return any Account information if it does not 
+exist on the record and there is no reliable way to extract and rebuild the empty
+columns based on the query string. If there were Account information, an
+additional column titled `"Account.Name"` would appear in the results. Note, that 
+the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a column of all 
+`NA` values for this query because they return results differently.
 
 ### Update
 

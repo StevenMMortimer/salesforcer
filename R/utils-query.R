@@ -55,7 +55,7 @@ drop_attributes_recursively <- function(x, object_name_append=FALSE) {
 
 #' Remove all NULL or zero-length elements from list
 #' 
-#' This function wraps the \code{\link[purrr]{compact}} function to recursively 
+#' This function wraps the \code{\link[purrr:keep]{compact}} function to recursively 
 #' remove elements from lists that contain no information.
 #' 
 #' @importFrom purrr map_if compact

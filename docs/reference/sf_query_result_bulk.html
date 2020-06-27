@@ -186,10 +186,13 @@ which has already been submitted to Bulk API Job and has Completed state</p>
 
     <pre class="usage"><span class='fu'>sf_query_result_bulk</span>(
   <span class='no'>job_id</span>,
-  <span class='no'>batch_id</span>,
-  <span class='no'>result_id</span>,
   <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>),
+  <span class='kw'>batch_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>result_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>locator</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -202,6 +205,12 @@ which has already been submitted to Bulk API Job and has Completed state</p>
 returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></p></td>
     </tr>
     <tr>
+      <th>guess_types</th>
+      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
+and FALSE returns all values as character strings.</p></td>
+    </tr>
+    <tr>
       <th>batch_id</th>
       <td><p>character; the Salesforce Id assigned assigned to a submitted 
 batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a></p></td>
@@ -209,12 +218,6 @@ batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bul
     <tr>
       <th>result_id</th>
       <td><p>a character string returned from <a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to get the recordset</p></td>
-    </tr>
-    <tr>
-      <th>guess_types</th>
-      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
-and FALSE returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>api_type</th>

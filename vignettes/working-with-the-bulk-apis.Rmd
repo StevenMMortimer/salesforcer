@@ -30,12 +30,14 @@ First, load the **salesforcer** and **dplyr** packages and login, if needed.
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
+library(microbenchmark)
 token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
 suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
 
 ```{r load-package, eval=FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
+library(microbenchmark)
 library(salesforcer)
 sf_auth()
 ```
@@ -149,24 +151,19 @@ new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n), 
                        test_number__c = 1:10)
 ```
-
+```{r, include=FALSE}
+new_contacts <- new_contacts %>% 
+  select(-My_External_Id__c)
+```
 ```{r}
-created_records_v1 <- sf_create(new_contacts, "Contact", api_type="Bulk 1.0", batch_size=2)
+created_records_v1 <- sf_create(new_contacts, 
+                                object_name = "Contact", 
+                                api_type = "Bulk 1.0", 
+                                batch_size = 1) # split into 10 batches of 1
 created_records_v1
 
-# query the records so we can compare the ordering of the Id field to the 
-# original dataset
-my_soql <- sprintf("SELECT Id,
-                           test_number__c
-                    FROM Contact 
-                    WHERE Id in ('%s')", 
-                   paste0(created_records_v1$Id , collapse="','"))
-queried_records <- sf_query(my_soql)
-queried_records <- queried_records %>% 
-  arrange(test_number__c)
-
 # same ordering of rows!
-cbind(created_records_v1 %>% select(Id), queried_records)
+cbind(created_records_v1, new_contacts)
 ```
 
 The Bulk 2.0 API returns every single field that was included in the call so if you 
@@ -190,7 +187,10 @@ created_records_v2 <- created_records_v2 %>%
   select(-My_External_Id__c)
 ```
 ```{r, eval=FALSE}
-created_records_v2 <- sf_create(new_contacts, "Contact", api_type="Bulk 2.0", batch_size=2)
+created_records_v2 <- sf_create(new_contacts, 
+                                object_name = "Contact", 
+                                api_type = "Bulk 2.0", 
+                                batch_size = 1)
 ```
 
 The result in Bulk 2.0 API returns all fields so that you can still associate the 
@@ -208,9 +208,22 @@ For these above I typically prefer using the Bulk 1.0 API when creating or updat
 records. That way I can be confident in that the order of the records returned 
 from the process matches the order of the original dataset I put into the process. 
 All of this does not matter when deleting records, so if you want minor performance 
-improvements then switch to the Bulk 2.0 when deleting records.
+improvements then switch to the Bulk 2.0 when deleting or querying records.
+
+Here is an example performance benchmark between the Bulk 1.0 and Bulk 2.0 
+APIs for a small query. You'll notice that the Bulk 2.0 API is slightly faster. 
+In general, the Bulk 2.0 should be faster and the difference in performance 
+should grow as size of the queried records grows.
 
 ```{r}
+soql <- "SELECT Id, Name FROM Contact"
+bulk1_query <- function(){sf_query(soql, "Contact", api_type="Bulk 1.0")}
+bulk2_query <- function(){sf_query(soql, api_type="Bulk 2.0")} # the Bulk 2.0 does not need the object name
+
+microbenchmark(bulk1_query, bulk2_query, times=10)
+```
+
+```{r, include=FALSE}
 sf_delete(c(created_records_v1$Id, created_records_v2$sf__Id), 
           object_name = "Contact", api_type="Bulk 2.0")
 ```

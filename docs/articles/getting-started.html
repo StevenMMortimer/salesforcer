@@ -174,8 +174,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012Mu7zAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012Mu80AAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012MuxCAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012MuxDAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -188,13 +188,13 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012Mu7zAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012Mu80AAC Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012MuxCAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MuxDAAS Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
-<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. You’ll notice that the Account column does not appear in the results. This is because Salesforce does not return Account information if it does not exist and there is no way reliable way to extract and rebuild the emply columns based on the query string. If there were Account information, an additional column titled “Account.Name” would appear in the results.</p>
+<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the fields of records in almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -206,10 +206,11 @@
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">my_soql</span>)
 <span class="no">queried_records</span>
 <span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   FirstName Id                 LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;              &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 Test      0033s000012Mu7zAAC Contact-Create-1</span>
-<span class="co">#&gt; 2 Test      0033s000012Mu80AAC Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000012MuxCAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MuxDAAS Test      Contact-Create-2</span></pre></body></html></div>
+<p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -224,8 +225,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012Mu7zAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012Mu80AAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012MuxCAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012MuxDAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -236,8 +237,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0033s000012Mu7zAAC TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0033s000012Mu80AAC TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012MuxCAAS TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0033s000012MuxDAAS TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -264,9 +265,9 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   created id                 success</span>
 <span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 FALSE   0033s000012Mu84AAC TRUE   </span>
-<span class="co">#&gt; 2 FALSE   0033s000012Mu85AAC TRUE   </span>
-<span class="co">#&gt; 3 TRUE    0033s000012Mu89AAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 FALSE   0033s000012MuxHAAS TRUE   </span>
+<span class="co">#&gt; 2 FALSE   0033s000012MuxIAAS TRUE   </span>
+<span class="co">#&gt; 3 TRUE    0033s000012MuxMAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">

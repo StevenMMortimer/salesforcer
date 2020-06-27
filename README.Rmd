@@ -26,22 +26,26 @@ Bulk 2.0, and Metadata APIs.
 
 Package features include: 
 
-  * OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (`sf_auth()`)
-  * CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs 
-  * Query records via the SOAP, REST, and Bulk 1.0 APIs using `sf_query()`
-  * Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API with: 
+  * OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication 
+  methods (`sf_auth()`)
+  * CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, 
+  REST, and Bulk APIs 
+  * Query records via the SOAP, REST, Bulk 1.0, and Bulk 2.0 APIs using `sf_query()`
+  * Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata 
+  API with: 
     * `sf_describe_objects()`, `sf_create_metadata()`, `sf_update_metadata()`
   * Utilize backwards compatible functions for the **RForcecom** package, such as: 
-    * `rforcecom.login()`, `rforcecom.getObjectDescription()`, `rforcecom.query()`, `rforcecom.create()`
+    * `rforcecom.login()`, `rforcecom.getObjectDescription()`, `rforcecom.query()`, 
+    `rforcecom.create()`
   * Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`, `sf_list_objects()`)
-  * Functions to assist with master data managment (MDM) or data integrity of records by 
-  finding duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`), merging 
-  records (`sf_merge()`), and converting leads (`sf_convert_lead()`)
+  * Functions to assist with master data managment (MDM) or data integrity of 
+  records by finding duplicates (`sf_find_duplicates()`, `sf_find_duplicates_by_id()`), 
+  merging records (`sf_merge()`), and converting leads (`sf_convert_lead()`)
   * Recover (`sf_undelete()`) or delete from the Recycle Bin (`sf_empty_recycle_bin()`) 
   and list ids of records deleted (`sf_get_deleted()`) or updated (`sf_get_updated()`) 
   in a timeframe
-  * Passing API call control parameters such as, "All or None", "Duplicate Rule", "Assignment Rule" 
-  execution and many more!
+  * Passing API call control parameters such as, "All or None", "Duplicate Rule", 
+  "Assignment Rule" execution and many more!
 
 ## Table of Contents  
   * [Installation](#installation)
@@ -73,8 +77,8 @@ example on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
 
 ## Vignettes
 
-The README below outlines the basic package functionality. Review the vignettes for 
-more detailed examples on usage.
+The README below outlines the basic package functionality. Review the vignettes 
+for more detailed examples on usage.
 
   * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   * [Working with the Bulk APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
@@ -153,8 +157,7 @@ Language). SOQL is a powerful tool that allows you to return the attributes of r
 on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, 
 even Attachments! Below is an example where we grab the data we just created 
 including Account object information for which the Contact record is associated 
-with. The Account column is all `NA` since we have yet to provide information to 
-link these Contacts with Accounts.
+with.
 
 ```{r query-records}
 my_soql <- sprintf("SELECT Id, 
@@ -167,6 +170,14 @@ my_soql <- sprintf("SELECT Id,
 queried_records <- sf_query(my_soql)
 queried_records
 ```
+
+You'll notice that the `"Account.Name"` column does not appear in the results. This is 
+because the SOAP and REST APIs do not return any Account information if it does not 
+exist on the record and there is no reliable way to extract and rebuild the empty
+columns based on the query string. If there were Account information, an
+additional column titled `"Account.Name"` would appear in the results. Note, that 
+the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a column of all 
+`NA` values for this query because they return results differently.
 
 ### Update
 
@@ -181,8 +192,7 @@ called "TestTest".
 ```{r update-records}
 # Update some of those records
 queried_records <- queried_records %>%
-  mutate(FirstName = "TestTest") %>% 
-  select(-Account)
+  mutate(FirstName = "TestTest")
 
 updated_records <- sf_update(queried_records, object_name = "Contact")
 updated_records

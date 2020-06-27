@@ -4,7 +4,7 @@
 \alias{make_bulk_query_url}
 \title{Bulk Query URL Generator}
 \usage{
-make_bulk_query_url(job_id, api_type = c("Bulk 1.0"))
+make_bulk_query_url(job_id = NULL, api_type = c("Bulk 1.0", "Bulk 2.0"))
 }
 \description{
 Bulk Query URL Generator

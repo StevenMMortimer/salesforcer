@@ -140,6 +140,7 @@
 <a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h3>
 <p>First, load the <strong>salesforcer</strong> and <strong>dplyr</strong> packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">microbenchmark</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>For really large inserts, updates, deletes, upserts, and queries you can just add <code>api_type = "Bulk 1.0"</code> to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. The change you have to make from using the REST API to the Bulk 1.0 API as simple as adding <code>api_type="Bulk 1.0"</code> to your function arguments. First, let’s build a <code>tbl_df</code> with two new records to be created.</p>
@@ -158,8 +159,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   id                 success errors    </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0033s000012Mu8sAAC TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0033s000012Mu8tAAC TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 1 0033s000012MusmAAC TRUE    &lt;list [0]&gt;</span>
+<span class="co">#&gt; 2 0033s000012MusnAAC TRUE    &lt;list [0]&gt;</span>
 
 <span class="co"># Bulk</span>
 <span class="no">bulk_created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts2</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -180,8 +181,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012Mr4wAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012Mr4xAAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012MuxcAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012MuxdAAC TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -196,8 +197,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012Mr4wAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012Mr4xAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012MuxcAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MuxdAAC Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="no">object</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -205,8 +206,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012Mr4wAAC TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000012Mr4xAAC TRUE    FALSE   NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012MuxcAAC TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s000012MuxdAAC TRUE    FALSE   NA</span></pre></body></html></div>
 </div>
 <div id="query-limitations" class="section level3">
 <h3 class="hasAnchor">
@@ -233,90 +234,81 @@
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
                        <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>),
                        <span class="kw">test_number__c</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">10</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">created_records_v1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>, <span class="kw">batch_size</span><span class="kw">=</span><span class="fl">2</span>)
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">created_records_v1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>,
+                                <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
+                                <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 1.0"</span>,
+                                <span class="kw">batch_size</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="co"># split into 10 batches of 1</span>
 <span class="no">created_records_v1</span>
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;    Id                 Success Created Error</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt;  1 0033s000012Mu9CAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  2 0033s000012Mu9DAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  3 0033s000012Mu97AAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  4 0033s000012Mu98AAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  5 0033s000012Mu99AAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  6 0033s000012Mu9AAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  7 0033s000012Mu8PAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  8 0033s000012Mu8QAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  9 0033s000012Mu9HAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 10 0033s000012Mu9IAAS TRUE    TRUE    NA</span>
-
-<span class="co"># query the records so we can compare the ordering of the Id field to the </span>
-<span class="co"># original dataset</span>
-<span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
-                           test_number__c
-                    FROM Contact 
-                    WHERE Id in ('%s')"</span>,
-                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">created_records_v1</span>$<span class="no">Id</span> , <span class="kw">collapse</span><span class="kw">=</span><span class="st">"','"</span>))
-<span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">my_soql</span>)
-<span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="no">queried_records</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">test_number__c</span>)
+<span class="co">#&gt;  1 0033s000012MuyFAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  2 0033s000012MuyVAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  3 0033s000012MuyeAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  4 0033s000012MuxxAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  5 0033s000012MuyKAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  6 0033s000012MuyPAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  7 0033s000012MuyQAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  8 0033s000012MuyUAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  9 0033s000012MuyZAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 10 0033s000012MuyjAAC TRUE    TRUE    NA</span>
 
 <span class="co"># same ordering of rows!</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">created_records_v1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">Id</span>), <span class="no">queried_records</span>)
-<span class="co">#&gt;                    Id                 Id test_number__c</span>
-<span class="co">#&gt; 1  0033s000012Mu9CAAS 0033s000012Mu97AAC              1</span>
-<span class="co">#&gt; 2  0033s000012Mu9DAAS 0033s000012Mu98AAC              2</span>
-<span class="co">#&gt; 3  0033s000012Mu97AAC 0033s000012Mu99AAC              3</span>
-<span class="co">#&gt; 4  0033s000012Mu98AAC 0033s000012Mu9AAAS              4</span>
-<span class="co">#&gt; 5  0033s000012Mu99AAC 0033s000012Mu8PAAS              5</span>
-<span class="co">#&gt; 6  0033s000012Mu9AAAS 0033s000012Mu8QAAS              6</span>
-<span class="co">#&gt; 7  0033s000012Mu8PAAS 0033s000012Mu9CAAS              7</span>
-<span class="co">#&gt; 8  0033s000012Mu8QAAS 0033s000012Mu9DAAS              8</span>
-<span class="co">#&gt; 9  0033s000012Mu9HAAS 0033s000012Mu9HAAS              9</span>
-<span class="co">#&gt; 10 0033s000012Mu9IAAS 0033s000012Mu9IAAS             10</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">created_records_v1</span>, <span class="no">new_contacts</span>)
+<span class="co">#&gt;                    Id Success Created Error FirstName          LastName</span>
+<span class="co">#&gt; 1  0033s000012MuyFAAS    TRUE    TRUE    NA      Test  Contact-Create-1</span>
+<span class="co">#&gt; 2  0033s000012MuyVAAS    TRUE    TRUE    NA      Test  Contact-Create-2</span>
+<span class="co">#&gt; 3  0033s000012MuyeAAC    TRUE    TRUE    NA      Test  Contact-Create-3</span>
+<span class="co">#&gt; 4  0033s000012MuxxAAC    TRUE    TRUE    NA      Test  Contact-Create-4</span>
+<span class="co">#&gt; 5  0033s000012MuyKAAS    TRUE    TRUE    NA      Test  Contact-Create-5</span>
+<span class="co">#&gt; 6  0033s000012MuyPAAS    TRUE    TRUE    NA      Test  Contact-Create-6</span>
+<span class="co">#&gt; 7  0033s000012MuyQAAS    TRUE    TRUE    NA      Test  Contact-Create-7</span>
+<span class="co">#&gt; 8  0033s000012MuyUAAS    TRUE    TRUE    NA      Test  Contact-Create-8</span>
+<span class="co">#&gt; 9  0033s000012MuyZAAS    TRUE    TRUE    NA      Test  Contact-Create-9</span>
+<span class="co">#&gt; 10 0033s000012MuyjAAC    TRUE    TRUE    NA      Test Contact-Create-10</span>
+<span class="co">#&gt;    test_number__c</span>
+<span class="co">#&gt; 1               1</span>
+<span class="co">#&gt; 2               2</span>
+<span class="co">#&gt; 3               3</span>
+<span class="co">#&gt; 4               4</span>
+<span class="co">#&gt; 5               5</span>
+<span class="co">#&gt; 6               6</span>
+<span class="co">#&gt; 7               7</span>
+<span class="co">#&gt; 8               8</span>
+<span class="co">#&gt; 9               9</span>
+<span class="co">#&gt; 10             10</span></pre></body></html></div>
 <p>The Bulk 2.0 API returns every single field that was included in the call so if you have an identifying key your dataset, then it should not be a problem to join on that key with your original data to bring in the newly assigned Salesforce Id that is generated when the record is created in Salesforce. However, I have find it wasteful to transfer all of the field information back after the query and have not found a significant performance improvement between the Bulk 1.0 and Bulk 2.0.</p>
 <p><strong>Bulk 2.0</strong></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">created_records_v2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 2.0"</span>, <span class="kw">batch_size</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">created_records_v2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>,
+                                <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
+                                <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>,
+                                <span class="kw">batch_size</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
 <p>The result in Bulk 2.0 API returns all fields so that you can still associate the records if the ordering was changed during processing. However, in this simple case the ordering is still preserved because the number of records processed in this example was not enough to create separate batches to process asynchronously. Finally, note that the field names are different from the Bulk 1.0 API, this is the Salesforcer convention for the Bulk 2.0 API.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">created_records_v2</span>
 <span class="co">#&gt; # A tibble: 10 x 6</span>
 <span class="co">#&gt;    sf__Id          sf__Created FirstName LastName       test_number__c sf__Error</span>
 <span class="co">#&gt;    &lt;chr&gt;           &lt;lgl&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012MsQ… TRUE        Test      Contact-Creat…              1 &lt;NA&gt;     </span>
-<span class="co">#&gt;  2 0033s000012MsQ… TRUE        Test      Contact-Creat…              2 &lt;NA&gt;     </span>
-<span class="co">#&gt;  3 0033s000012MsQ… TRUE        Test      Contact-Creat…              3 &lt;NA&gt;     </span>
-<span class="co">#&gt;  4 0033s000012MsQ… TRUE        Test      Contact-Creat…              4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  5 0033s000012Mu9… TRUE        Test      Contact-Creat…              5 &lt;NA&gt;     </span>
-<span class="co">#&gt;  6 0033s000012Mu9… TRUE        Test      Contact-Creat…              6 &lt;NA&gt;     </span>
-<span class="co">#&gt;  7 0033s000012Mu9… TRUE        Test      Contact-Creat…              7 &lt;NA&gt;     </span>
-<span class="co">#&gt;  8 0033s000012Mu9… TRUE        Test      Contact-Creat…              8 &lt;NA&gt;     </span>
-<span class="co">#&gt;  9 0033s000012Mu9… TRUE        Test      Contact-Creat…              9 &lt;NA&gt;     </span>
-<span class="co">#&gt; 10 0033s000012Mu9… TRUE        Test      Contact-Creat…             10 &lt;NA&gt;</span></pre></body></html></div>
-<p>For these above I typically prefer using the Bulk 1.0 API when creating or updating records. That way I can be confident in that the order of the records returned from the process matches the order of the original dataset I put into the process. All of this does not matter when deleting records, so if you want minor performance improvements then switch to the Bulk 2.0 when deleting records.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">created_records_v1</span>$<span class="no">Id</span>, <span class="no">created_records_v2</span>$<span class="no">sf__Id</span>),
-          <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 2.0"</span>)
-<span class="co">#&gt; # A tibble: 20 x 4</span>
-<span class="co">#&gt;    sf__Id             sf__Created Id                 sf__Error</span>
-<span class="co">#&gt;    &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012Mu9CAAS FALSE       0033s000012Mu9CAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  2 0033s000012Mu9DAAS FALSE       0033s000012Mu9DAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  3 0033s000012Mu97AAC FALSE       0033s000012Mu97AAC &lt;NA&gt;     </span>
-<span class="co">#&gt;  4 0033s000012Mu98AAC FALSE       0033s000012Mu98AAC &lt;NA&gt;     </span>
-<span class="co">#&gt;  5 0033s000012Mu99AAC FALSE       0033s000012Mu99AAC &lt;NA&gt;     </span>
-<span class="co">#&gt;  6 0033s000012Mu9AAAS FALSE       0033s000012Mu9AAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  7 0033s000012Mu8PAAS FALSE       0033s000012Mu8PAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  8 0033s000012Mu8QAAS FALSE       0033s000012Mu8QAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  9 0033s000012Mu9HAAS FALSE       0033s000012Mu9HAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 10 0033s000012Mu9IAAS FALSE       0033s000012Mu9IAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 11 0033s000012MsQjAAK FALSE       0033s000012MsQjAAK &lt;NA&gt;     </span>
-<span class="co">#&gt; 12 0033s000012MsQkAAK FALSE       0033s000012MsQkAAK &lt;NA&gt;     </span>
-<span class="co">#&gt; 13 0033s000012MsQlAAK FALSE       0033s000012MsQlAAK &lt;NA&gt;     </span>
-<span class="co">#&gt; 14 0033s000012MsQmAAK FALSE       0033s000012MsQmAAK &lt;NA&gt;     </span>
-<span class="co">#&gt; 15 0033s000012Mu9MAAS FALSE       0033s000012Mu9MAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 16 0033s000012Mu9NAAS FALSE       0033s000012Mu9NAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 17 0033s000012Mu9OAAS FALSE       0033s000012Mu9OAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 18 0033s000012Mu9PAAS FALSE       0033s000012Mu9PAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 19 0033s000012Mu9QAAS FALSE       0033s000012Mu9QAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 20 0033s000012Mu9RAAS FALSE       0033s000012Mu9RAAS &lt;NA&gt;</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012Muu… TRUE        Test      Contact-Creat…              1 &lt;NA&gt;     </span>
+<span class="co">#&gt;  2 0033s000012Muu… TRUE        Test      Contact-Creat…              2 &lt;NA&gt;     </span>
+<span class="co">#&gt;  3 0033s000012Muu… TRUE        Test      Contact-Creat…              3 &lt;NA&gt;     </span>
+<span class="co">#&gt;  4 0033s000012Muv… TRUE        Test      Contact-Creat…              4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  5 0033s000012Muy… TRUE        Test      Contact-Creat…              5 &lt;NA&gt;     </span>
+<span class="co">#&gt;  6 0033s000012Muy… TRUE        Test      Contact-Creat…              6 &lt;NA&gt;     </span>
+<span class="co">#&gt;  7 0033s000012Muy… TRUE        Test      Contact-Creat…              7 &lt;NA&gt;     </span>
+<span class="co">#&gt;  8 0033s000012Muy… TRUE        Test      Contact-Creat…              8 &lt;NA&gt;     </span>
+<span class="co">#&gt;  9 0033s000012Muy… TRUE        Test      Contact-Creat…              9 &lt;NA&gt;     </span>
+<span class="co">#&gt; 10 0033s000012Muy… TRUE        Test      Contact-Creat…             10 &lt;NA&gt;</span></pre></body></html></div>
+<p>For these above I typically prefer using the Bulk 1.0 API when creating or updating records. That way I can be confident in that the order of the records returned from the process matches the order of the original dataset I put into the process. All of this does not matter when deleting records, so if you want minor performance improvements then switch to the Bulk 2.0 when deleting or querying records.</p>
+<p>Here is an example performance benchmark between the Bulk 1.0 and Bulk 2.0 APIs for a small query. You’ll notice that the Bulk 2.0 API is slightly faster. In general, the Bulk 2.0 should be faster and the difference in performance should grow as size of the queried records grows.</p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">soql</span> <span class="kw">&lt;-</span> <span class="st">"SELECT Id, Name FROM Contact"</span>
+<span class="no">bulk1_query</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(){<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)}
+<span class="no">bulk2_query</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(){<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 2.0"</span>)} <span class="co"># the Bulk 2.0 does not need the object name</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(<span class="no">bulk1_query</span>, <span class="no">bulk2_query</span>, <span class="kw">times</span><span class="kw">=</span><span class="fl">10</span>)
+<span class="co">#&gt; Unit: nanoseconds</span>
+<span class="co">#&gt;         expr min lq  mean median  uq  max neval</span>
+<span class="co">#&gt;  bulk1_query  47 66 584.8     73 226 4812    10</span>
+<span class="co">#&gt;  bulk2_query  47 56 149.7     60  61  976    10</span></pre></body></html></div>
 </div>
   </div>
 

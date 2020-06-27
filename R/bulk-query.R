@@ -89,11 +89,41 @@ sf_submit_query_bulk <- function(job_id,
 #' sf_close_job_bulk(job_info$id)
 #' }
 #' @export
-sf_query_result_bulk <- function(job_id, batch_id, result_id, 
-                                 guess_types = TRUE,
-                                 api_type = c("Bulk 1.0"), 
+sf_query_result_bulk <- function(job_id, 
+                                 guess_types=TRUE,
+                                 batch_id=NULL, 
+                                 result_id=NULL,
+                                 bind_using_character_cols = FALSE,
+                                 batch_size=50000,
+                                 locator=NULL,
+                                 api_type = c("Bulk 1.0", "Bulk 2.0"), 
                                  verbose = FALSE){
-    
+  api_type <- match.arg(api_type)
+  if(api_type == "Bulk 2.0"){
+    resultset <- sf_query_result_bulk_v2(job_id = job_id, 
+                                         guess_types = guess_types,
+                                         bind_using_character_cols = bind_using_character_cols,
+                                         batch_size = batch_size,
+                                         locator = locator,
+                                         api_type = api_type,
+                                         verbose = verbose)      
+  } else {
+    resultset <- sf_query_result_bulk_v1(job_id=job_id, 
+                                         guess_types=guess_types,
+                                         batch_id=batch_id, 
+                                         result_id=result_id,
+                                         api_type = api_type,
+                                         verbose = verbose)    
+  }
+  return(resultset)
+}
+
+sf_query_result_bulk_v1 <- function(job_id, 
+                                    guess_types=TRUE,
+                                    batch_id=NULL, 
+                                    result_id=NULL,
+                                    api_type = c("Bulk 1.0"), 
+                                    verbose = FALSE){
   api_type <- match.arg(api_type)
   bulk_query_result_url <- make_bulk_query_result_url(job_id, batch_id, result_id, api_type)
   httr_response <- rGET(url = bulk_query_result_url)
@@ -113,53 +143,126 @@ sf_query_result_bulk <- function(job_id, batch_id, result_id,
       res <- tibble()
     } else {
       cols_default <- if(guess_types) col_guess() else col_character()
-      res<- content(httr_response, as="parsed", encoding="UTF-8", 
+      res <- content(httr_response, as="parsed", encoding="UTF-8", 
                     col_types = cols(.default=cols_default))
+      res <- res %>% 
+        # sort column names ...
+        select(sort(names(.))) %>% 
+        # ... then move columns without dot up since those with are related
+        select(any_of(c("Id", "id")), -matches("\\."), everything())      
     }
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
     res <- content(httr_response, as="parsed", encoding="UTF-8")
   }
+  
   return(res)
 }
 
-#' Run Bulk Query 
+sf_query_result_bulk_v2 <- function(job_id, 
+                                    guess_types = TRUE,
+                                    bind_using_character_cols = FALSE,
+                                    batch_size = 10000,
+                                    locator = NULL,
+                                    api_type = c("Bulk 2.0"), 
+                                    verbose = FALSE){  
+  
+  api_type <- match.arg(api_type)
+
+  # construct the url for requesting the records
+  bulk_query_result_url <- make_bulk_query_result_url(job_id, api_type=api_type)
+  query_params <- list(locator=locator, maxRecords=batch_size)
+  bulk_query_result_url <- parse_url(bulk_query_result_url)
+  bulk_query_result_url$query <- query_params
+  bulk_query_result_url <- build_url(bulk_query_result_url)
+  
+  httr_response <- rGET(url = bulk_query_result_url, headers = c("Accept"="text/csv"))
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  
+  content_type <- httr_response$headers$`content-type`
+  if(grepl('text/csv', content_type)) {
+    cols_default <- if(bind_using_character_cols) col_character() else col_guess()
+    resultset <- content(httr_response, as="parsed", encoding="UTF-8", 
+                         col_types = cols(.default=cols_default))
+  } else {
+    message(sprintf("Unexpected content-type: %s", content_type))
+    resultset <- content(httr_response, as="parsed", encoding="UTF-8")
+  }
+  
+  # check whether the query has more results to pull via pagination
+  locator <- httr_response$headers$`sforce-locator`
+  if(!is.null(locator) && locator != "null"){
+    next_records <- sf_query_result_bulk_v2(job_id = job_id, 
+                                            guess_types = guess_types,
+                                            bind_using_character_cols = bind_using_character_cols,
+                                            batch_size = batch_size,
+                                            locator = locator,
+                                            api_type = api_type,
+                                            verbose = verbose)
+    resultset <- bind_query_resultsets(resultset, next_records)
+  }
+  
+  # handle the final iteration
+  if((is.null(locator) || locator == "null") & (nrow(resultset) > 0)){
+    resultset <- resultset %>% 
+      # sort column names ...
+      select(sort(names(.))) %>% 
+      # ... then move columns without dot up since those with are related
+      select(any_of(c("Id", "id")), -matches("\\."), everything())
+    # cast the types if requested
+    if (guess_types){  
+      resultset <- resultset %>% 
+        type_convert(col_types = cols(.default = col_guess()))
+    }    
+  }
+  return(resultset)  
+}
+
+#' Run Bulk 1.0 Query 
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
-#' bulk query API jobs
+#' query API jobs from the Bulk 1.0 API.
 #'
 #' @template soql
 #' @template object_name
 #' @template queryall
-#' @param guess_types logical; indicating whether or not to use \code{col_guess()} 
-#' to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-#' and FALSE returns all values as character strings.
-#' @template api_type
+#' @template guess_types
 #' @param interval_seconds integer; defines the seconds between attempts to check 
 #' for job completion
 #' @param max_attempts integer; defines then max number attempts to check for job 
 #' completion before stopping
 #' @template control
-#' @param ... arguments passed to \code{\link{sf_control}}
+#' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
+#' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
+#' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)
-#' ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000', 
-#'                      object_name = 'Account')
+#' ids <- sf_query_bulk_v1(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                         object_name = 'Account')
+#' # alternatively you can specify as 
+#' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                 object_name = 'Account', 
+#'                 api_type="Bulk 1.0")
 #' }
 #' @export
-sf_query_bulk <- function(soql,
-                          object_name = NULL,
-                          queryall = FALSE,
-                          guess_types = TRUE,
-                          api_type = c("Bulk 1.0"),
-                          interval_seconds = 5,
-                          max_attempts = 100, 
-                          control = list(...), ...,
-                          verbose = FALSE){
+sf_query_bulk_v1 <- function(soql,
+                             object_name = NULL,
+                             queryall = FALSE,
+                             guess_types = TRUE,
+                             interval_seconds = 5,
+                             max_attempts = 100, 
+                             control = list(...), ...,
+                             api_type = "Bulk 1.0",
+                             verbose = FALSE){
   
   if(is.null(object_name)){
     object_name <- guess_object_name_from_soql(soql)
@@ -230,3 +333,206 @@ sf_query_bulk <- function(soql,
   }
   return(res)
 }
+
+#' Run Bulk 2.0 Query 
+#' 
+#' This function is a convenience wrapper for submitting and retrieving 
+#' query API jobs from the Bulk 2.0 API.
+#'
+#' @template soql
+#' @template object_name
+#' @template queryall
+#' @template guess_types
+#' @template bind_using_character_cols
+#' @param interval_seconds integer; defines the seconds between attempts to check 
+#' for job completion
+#' @param max_attempts integer; defines then max number attempts to check for job 
+#' completion before stopping
+#' @template control
+#' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
+#' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
+#' @template api_type
+#' @template verbose
+#' @return A \code{tbl_df} of the recordset returned by the query
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}
+#' @examples
+#' \dontrun{
+#' # select all Ids from Account object (up to 1000)
+#' ids <- sf_query_bulk_v2(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                         object_name = 'Account')
+#' # alternatively you can specify as 
+#' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                 object_name = 'Account', 
+#'                 api_type="Bulk 2.0")
+#' }
+#' @export
+sf_query_bulk_v2 <- function(soql,
+                             object_name = NULL,
+                             queryall = FALSE,
+                             guess_types = TRUE,
+                             bind_using_character_cols = FALSE,
+                             interval_seconds = 5,
+                             max_attempts = 100, 
+                             control = list(...), ...,
+                             api_type = "Bulk 2.0",
+                             verbose = FALSE){
+  
+  # supplying an object name is not required in Bulk 2.0 queries, but if it has 
+  # been provided, then check if the object exists to fail early in the event 
+  # that a user has supplied the name of an object that does not exist or that 
+  # they do not have access to
+  if(!is.null(object_name)){
+    listed_objects <- sf_list_objects()
+    valid_object_names <- sapply(listed_objects$sobjects, FUN=function(x){x$name})
+    if(!object_name %in% valid_object_names){
+      stop(paste0("The supplied object name (", object_name, ") does not exist ", 
+                  "or the user does not have permission to view"), 
+           call. = FALSE)
+    }
+  }
+  
+  api_type <- match.arg(api_type)
+  
+  # determine how to pass along the control args
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  this_operation <- if(queryall) "queryall" else "query"
+  control_args$operation <- this_operation
+  # save out the query batch size control because for the Bulk 2.0 API 
+  # it is not a header argument, it's actually a query parameter and, 
+  # thus, needs to be passed in differently
+  if(!is.null(control_args$QueryOptions$batchSize)){
+    batch_size <- control_args$QueryOptions$batchSize
+    control_args$QueryOptions <- NULL
+  } else {
+    batch_size <- 50000
+  }
+  
+  # submit the query
+  job_info <- sf_create_job_bulk(operation = this_operation,
+                                 soql = soql,
+                                 object_name = object_name, 
+                                 api_type = api_type, 
+                                 control = control_args,
+                                 verbose = verbose, ...)
+  
+  # continually check the status for JobComplete which indicates the recordset 
+  # is ready to be pulled down
+  status_complete <- FALSE
+  z <- 1
+  Sys.sleep(interval_seconds)
+  while (z < max_attempts & !status_complete){
+    if (verbose){
+      message(paste0("Attempt #", z))
+    }
+    Sys.sleep(interval_seconds)
+    query_status <- sf_get_job_bulk(job_info$id, api_type=api_type, query_operation=TRUE) 
+    if(query_status$state == 'Failed'){
+      stop(query_status$stateMessage)
+    } else if(query_status$state == "JobComplete"){
+      status_complete <- TRUE
+    } else {
+      # continue checking the status until done or max attempts
+      z <- z + 1
+    }
+  }
+  if (!status_complete) {
+    message("The query took too long to complete. Aborting job now.")
+    message("Consider increasing the `max_attempts` and/or `interval_seconds` arguments.")
+    res <- sf_abort_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
+  } else {
+    res <- sf_query_result_bulk(job_id = job_info$id,
+                                guess_types = guess_types,
+                                bind_using_character_cols = bind_using_character_cols,
+                                batch_size = batch_size,
+                                api_type = api_type,
+                                verbose = verbose)
+  }
+  return(res)
+}
+
+
+#' Run Bulk Query 
+#' 
+#' This function is a convenience wrapper for submitting and retrieving 
+#' query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.
+#'
+#' @template soql
+#' @template object_name
+#' @template queryall
+#' @template guess_types
+#' @template bind_using_character_cols
+#' @param interval_seconds integer; defines the seconds between attempts to check 
+#' for job completion
+#' @param max_attempts integer; defines then max number attempts to check for job 
+#' completion before stopping
+#' @template control
+#' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
+#' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
+#' @template api_type
+#' @template verbose
+#' @return A \code{tbl_df} of the recordset returned by the query
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}
+#' @examples
+#' \dontrun{
+#' # select all Ids from Account object (up to 1000), note that by default bulk 
+#' # queries are executed using the Bulk 2.0 API, but Bulk 1.0 API can be specified 
+#' # by setting to `api_type="Bulk 1.0"`.
+#' ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                      object_name = 'Account')
+#'                      
+#' # alternatively you can specify as 
+#' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                 object_name = 'Account', 
+#'                 api_type="Bulk 2.0") 
+#' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                 object_name = 'Account', 
+#'                 api_type="Bulk 1.0")
+#' }
+#' @export
+sf_query_bulk <- function(soql,
+                          object_name = NULL,
+                          queryall = FALSE,
+                          guess_types = TRUE,
+                          bind_using_character_cols = FALSE,
+                          interval_seconds = 5,
+                          max_attempts = 100, 
+                          control = list(...), ...,
+                          api_type = c("Bulk 2.0", "Bulk 1.0"),
+                          verbose = FALSE){
+  
+  api_type <- match.arg(api_type)
+  
+  # this code is redundant because it exists in the sf_query wrapper, 
+  # but it is possible that some people are creating jobs with this 
+  # function instead of the others, so make sure that we do it here as well. 
+  # It should be a relatively small performance hit given its a bulk operation.
+  control_args <- return_matching_controls(control)
+  control_args$api_type <- api_type
+  control_args$operation <- if(queryall) "queryall" else "query"  
+  
+  if(api_type == "Bulk 2.0"){
+    resultset <- sf_query_bulk_v2(soql = soql, 
+                                  object_name = object_name,
+                                  queryall = queryall,
+                                  guess_types = guess_types,
+                                  bind_using_character_cols = bind_using_character_cols,
+                                  interval_seconds = interval_seconds,
+                                  max_attempts = max_attempts, 
+                                  control = control_args, ...,
+                                  api_type = api_type,
+                                  verbose = verbose)
+  } else {
+    resultset <- sf_query_bulk_v1(soql = soql, 
+                                  object_name = object_name,
+                                  queryall = queryall,
+                                  guess_types = guess_types,
+                                  interval_seconds = interval_seconds,
+                                  max_attempts = max_attempts, 
+                                  control = control_args, ...,
+                                  api_type = api_type,
+                                  verbose = verbose)
+  }
+  return(resultset)
+}  

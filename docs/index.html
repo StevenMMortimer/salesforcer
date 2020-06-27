@@ -136,7 +136,7 @@
 <ul>
 <li>OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs</li>
-<li>Query records via the SOAP, REST, and Bulk 1.0 APIs using <code><a href="reference/sf_query.html">sf_query()</a></code>
+<li>Query records via the SOAP, REST, Bulk 1.0, and Bulk 2.0 APIs using <code><a href="reference/sf_query.html">sf_query()</a></code>
 </li>
 <li>Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API with:
 <ul>
@@ -249,13 +249,13 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012MGHJAA4 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012MGHKAA4 TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MuwdAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012MuweAAC TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
-<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with. The Account column is all <code>NA</code> since we have yet to provide information to link these Contacts with Accounts.</p>
+<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with.</p>
 <div class="sourceCode" id="cb5"><pre class="r"><span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -265,11 +265,12 @@
                    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">created_records</span>$<span class="no">id</span> , <span class="kw">collapse</span> <span class="kw">=</span> <span class="st">"','"</span>))
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_query.html">sf_query</a></span>(<span class="no">my_soql</span>)
 <span class="no">queried_records</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id                 Account FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MGHJAA4 NA      Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MGHKAA4 NA      Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000012MuwdAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MuweAAC Test      Contact-Create-2</span></pre></div>
+<p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -277,16 +278,15 @@
 <p>After creating records you can update them using <code><a href="reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="co"># Update some of those records</span>
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="no">queried_records</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"TestTest"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">Account</span>)
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"TestTest"</span>)
 
 <span class="no">updated_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_update.html">sf_update</a></span>(<span class="no">queried_records</span>, <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>)
 <span class="no">updated_records</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012MGHJAA4 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012MGHKAA4 TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MuwdAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012MuweAAC TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -302,8 +302,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012MGHOAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012MGHPAA4 TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012MuwiAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012MuwjAAC TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -318,8 +318,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MGHOAA4 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MGHPAA4 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012MuwiAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012MuwjAAC Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -327,8 +327,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012MGHOAA4 FALSE       0033s000012MGHOAA4 &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012MGHPAA4 FALSE       0033s000012MGHPAA4 &lt;NA&gt;</span></pre></div>
+<span class="co">#&gt; 1 0033s000012MuwiAAC FALSE       0033s000012MuwiAAC &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012MuwjAAC FALSE       0033s000012MuwjAAC &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">

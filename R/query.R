@@ -13,12 +13,7 @@
 #' to \code{\link{sf_query_bulk}}.
 #' @param next_records_url \code{character} (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
-#' @param bind_using_character_cols \code{logical}; an indicator of whether to 
-#' cast the data to all character columns to ensure that \code{\link[dplyr]{bind_rows}} 
-#' does not fail because two paginated recordsets have differing datatypes for the 
-#' same column. Set this to \code{TRUE} rarely, typically only when having this 
-#' set to \code{FALSE} returns an error or you want all columns in the data to be 
-#' character.
+#' @template bind_using_character_cols
 #' @template verbose
 #' @return \code{tbl_df} of records
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -41,8 +36,8 @@
 sf_query <- function(soql,
                      object_name = NULL,
                      queryall = FALSE,
-                     guess_types = FALSE,
-                     api_type = c("REST", "SOAP", "Bulk 1.0"),
+                     guess_types = TRUE,
+                     api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
                      control = list(...), ...,
                      next_records_url = NULL,
                      bind_using_character_cols = FALSE,
@@ -85,20 +80,26 @@ sf_query <- function(soql,
     if(is.null(object_name)){
       object_name <- guess_object_name_from_soql(soql)
     }
-    resultset <- sf_query_bulk(soql = soql,
-                               object_name = object_name,
-                               queryall = queryall,
-                               guess_types = guess_types,
-                               control = control_args,
-                               verbose = verbose, ...)
+    resultset <- sf_query_bulk_v1(soql = soql,
+                                  object_name = object_name,
+                                  queryall = queryall,
+                                  guess_types = guess_types,
+                                  control = control_args,
+                                  verbose = verbose, ...)
+  } else if(api_type == "Bulk 2.0"){
+    resultset <- sf_query_bulk_v2(soql = soql,
+                                  object_name = object_name,
+                                  queryall = queryall,
+                                  guess_types = guess_types,
+                                  control = control_args,
+                                  verbose = verbose, ...)
   } else {
-    stop(paste0("Currently, queries using the Bulk 2.0 API has not been ", 
-                "implemented. Set api_type equal to 'REST', 'SOAP', or 'Bulk 1.0'."))
+    stop("Unknown API type.")
   }
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows tibble select everything matches mutate_all
+#' @importFrom dplyr bind_rows tibble select any_of matches everything mutate_all
 #' @importFrom httr content
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr pluck pluck<-
@@ -214,7 +215,7 @@ sf_query_rest <- function(soql,
       # sort column names ...
       select(sort(names(.))) %>% 
       # ... then move columns without dot up since those with are related
-      select(-matches("\\."), everything())
+      select(any_of(c("Id", "id")), -matches("\\."), everything())
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 
@@ -348,7 +349,7 @@ sf_query_soap <- function(soql,
       # sort column names ...
       select(sort(names(.))) %>% 
       # ... then move columns without dot up since those with are related
-      select(-matches("\\."), everything())
+      select(any_of(c("Id", "id")), -matches("\\."), everything())
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 

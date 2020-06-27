@@ -4,7 +4,11 @@
 \alias{make_bulk_get_job_url}
 \title{Bulk Get Job Generic URL Generator}
 \usage{
-make_bulk_get_job_url(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"))
+make_bulk_get_job_url(
+  job_id,
+  api_type = c("Bulk 1.0", "Bulk 2.0"),
+  query_operation = NULL
+)
 }
 \description{
 Bulk Get Job Generic URL Generator

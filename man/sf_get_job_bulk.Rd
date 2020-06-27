@@ -4,7 +4,12 @@
 \alias{sf_get_job_bulk}
 \title{Get Bulk API Job}
 \usage{
-sf_get_job_bulk(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"), verbose = FALSE)
+sf_get_job_bulk(
+  job_id,
+  api_type = c("Bulk 1.0", "Bulk 2.0"),
+  query_operation = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{job_id}{character; the Salesforce Id assigned to a submitted job as 
@@ -12,6 +17,10 @@ returned by \link{sf_create_job_bulk}}
 
 \item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request}
+
+\item{query_operation}{logical; an indicator of whether the job is a query job, 
+which is needed when using the Bulk 2.0 API because the URI endpoints are different 
+for the "ingest" vs. the "query" jobs.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

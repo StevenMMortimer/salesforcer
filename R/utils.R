@@ -259,7 +259,9 @@ guess_object_name_from_soql <- function(soql){
   if(is.null(object_name)){
     stop("The `object_name` argument is NULL. This argument must be provided when using the Bulk APIs.")
   }
-  message(sprintf("Guessed %s as the object_name from supplied SOQL. Please set `object_name` explicity if this is incorrect because it is required by the Bulk 1.0 API.", object_name))
+  message(sprintf(paste0("Guessed '%s' as the object_name from supplied SOQL.\n\n", 
+                         "Please set `object_name` explicity if this is incorrect ", 
+                         "because it is required by the Bulk APIs."), object_name))
   return(object_name)
 }
 

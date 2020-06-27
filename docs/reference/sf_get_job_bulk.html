@@ -182,7 +182,12 @@
     <p>This function retrieves details about a Job in the Salesforce Bulk API</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_get_job_bulk</span>(<span class='no'>job_id</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_get_job_bulk</span>(
+  <span class='no'>job_id</span>,
+  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
+  <span class='kw'>query_operation</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,6 +201,12 @@ returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></p></td>
       <th>api_type</th>
       <td><p>character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
 "Chatter" indicating which API to use when making the request</p></td>
+    </tr>
+    <tr>
+      <th>query_operation</th>
+      <td><p>logical; an indicator of whether the job is a query job, 
+which is needed when using the Bulk 2.0 API because the URI endpoints are different 
+for the "ingest" vs. the "query" jobs.</p></td>
     </tr>
     <tr>
       <th>verbose</th>

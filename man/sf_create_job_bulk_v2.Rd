@@ -5,8 +5,9 @@
 \title{Create Job using Bulk 2.0 API}
 \usage{
 sf_create_job_bulk_v2(
-  operation = c("insert", "delete", "upsert", "update"),
+  operation = c("insert", "delete", "upsert", "update", "query", "queryall"),
   object_name,
+  soql = NULL,
   external_id_fieldname = NULL,
   content_type = "CSV",
   column_delimiter = c("COMMA", "TAB", "PIPE", "SEMICOLON", "CARET", "BACKQUOTE"),

@@ -2,7 +2,8 @@
 
 ### Features
 
-  * Bulk 2.0 API Queries (NOT YET COMPLETED - PLANNED)
+  * Added support for Bulk 2.0 queries that was added in Salesforce version 47.0. 
+  This is now the default API when using `sf_query_bulk()`.
   
 ### Bug Fixes
 

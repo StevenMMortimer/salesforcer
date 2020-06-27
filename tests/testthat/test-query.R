@@ -48,6 +48,18 @@ test_that("testing zero row query", {
   expect_is(bulk1_queried_records, "tbl_df")
   expect_equal(nrow(bulk1_queried_records), 0)
   expect_equal(names(bulk1_queried_records), character(0)) 
+
+  # Bulk 2.0 API ---------------------------------------------------------------
+  expect_error(sf_query(zero_row_soql, api_type="Bulk 2.0"), 
+               "API_ERROR: Selecting compound data not supported in Bulk Query")
+  
+  zero_row_soql_wo_compound <- sprintf("SELECT %s FROM Contact WHERE FirstName='ksfheifh'", 
+                                       paste0(contact_fields_to_test_wo_compound, collapse=", "))  
+  bulk2_queried_records <- sf_query(zero_row_soql_wo_compound, api_type="Bulk 2.0")
+  expect_is(bulk2_queried_records, "tbl_df")
+  expect_equal(nrow(bulk2_queried_records), 0)
+  expect_equal(sort(names(bulk2_queried_records)), 
+               sort(contact_fields_to_test_wo_compound))   
 })
 
 
@@ -81,7 +93,20 @@ test_that("testing simple SELECT query", {
   bulk1_queried_records <- sf_query(simple_select_soql_wo_compound, object_name=object, api_type="Bulk 1.0")
   expect_is(bulk1_queried_records, "tbl_df")
   expect_gt(nrow(bulk1_queried_records), 0)
-  expect_equal(sort(names(bulk1_queried_records)), sort(contact_fields_to_test_wo_compound))
+  expect_equal(sort(names(bulk1_queried_records)), 
+               sort(contact_fields_to_test_wo_compound))
+  
+  # Bulk 2.0 API ---------------------------------------------------------------
+  expect_error(sf_query(simple_select_soql, api_type="Bulk 2.0"), 
+               "API_ERROR: Selecting compound data not supported in Bulk Query")
+  
+  simple_select_soql_wo_compound <- sprintf("SELECT %s FROM Contact", 
+                                            paste0(contact_fields_to_test_wo_compound, collapse=", "))  
+  bulk2_queried_records <- sf_query(simple_select_soql_wo_compound, api_type="Bulk 2.0")
+  expect_is(bulk2_queried_records, "tbl_df")
+  expect_gt(nrow(bulk2_queried_records), 0)
+  expect_equal(sort(names(bulk2_queried_records)), 
+               sort(contact_fields_to_test_wo_compound)) 
 })
 
 test_that("testing simple relationship query", {
@@ -106,6 +131,12 @@ test_that("testing simple relationship query", {
   expect_is(bulk1_queried_records, "tbl_df")
   expect_gt(nrow(bulk1_queried_records), 0)
   expect_equal(sort(names(bulk1_queried_records)), sort(relationship_fields)) 
+
+  # Bulk 2.0 API ---------------------------------------------------------------
+  bulk2_queried_records <- sf_query(relationship_soql, api_type="Bulk 2.0")
+  expect_is(bulk2_queried_records, "tbl_df")
+  expect_gt(nrow(bulk2_queried_records), 0)
+  expect_equal(sort(names(bulk2_queried_records)), sort(relationship_fields))     
 })
 
 test_that("testing parent-child nested query", {
@@ -145,4 +176,9 @@ test_that("testing parent-child nested query", {
   expect_error(sf_query(nested_soql, object_name="Account", api_type="Bulk 1.0"), 
                paste0("FeatureNotEnabled : Aggregate Relationships not supported ", 
                       "in Bulk Query with CSV content type"))
+  
+  # Bulk 2.0 API ---------------------------------------------------------------  
+  expect_error(sf_query(nested_soql, api_type="Bulk 2.0"), 
+               paste0("API_ERROR: Aggregate Relationships not supported ", 
+                      "in Bulk V2 Query with CSV content type"))
 })

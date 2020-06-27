@@ -52,7 +52,7 @@ the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}}
 
 \item{...}{other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
-such as \code{content_type}, \code{concurrency_mode}, or \code{column_delimiter}}
+to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.}
 
 \item{verbose}{logical; do you want informative messages?}
 }

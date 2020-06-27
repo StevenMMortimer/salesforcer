@@ -39,8 +39,8 @@ test_that("testing Bulk 1.0 Functionality", {
   my_soql <- sprintf("SELECT Id, 
                              FirstName, 
                              LastName, 
-                             test_number__c,
-                             My_External_Id__c
+                             My_External_Id__c,
+                             test_number__c
                      FROM Contact 
                      WHERE Id in ('%s')", 
                      paste0(ids_from_created, collapse="','"))
@@ -49,7 +49,7 @@ test_that("testing Bulk 1.0 Functionality", {
   expect_is(queried_records, "tbl_df")
   expect_equal(lapply(queried_records, class), 
                list(Id="character", FirstName="character", LastName="character", 
-                    test_number__c="numeric", My_External_Id__c="character"))
+                    My_External_Id__c="character", test_number__c="numeric"))
   expect_equal(nrow(queried_records), n)
   
   # test the column force to all character
@@ -82,8 +82,8 @@ test_that("testing Bulk 1.0 Functionality", {
   
   new_record <- tibble(FirstName = "Test",
                        LastName = paste0("Bulk 1.0-Contact-Upsert-", n+1), 
-                       test_number__c = 23,
-                       My_External_Id__c=paste0(prefix, letters[n+1]))
+                       My_External_Id__c=paste0(prefix, letters[n+1]), 
+                       test_number__c = 23)
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
 
   # sf_upsert ------------------------------------------------------------------
@@ -153,12 +153,9 @@ test_that("testing Bulk 2.0 Functionality", {
                       WHERE Id in ('%s')", 
                      paste0(ids_from_created, collapse="','"))
   # sf_query -------------------------------------------------------------------
-  # expect error because this has not yet been implemented
-  expect_error(
-    queried_records <- sf_query(soql=my_soql, object_name=object, api_type="Bulk 2.0")
-  )
-  
-  queried_records <- sf_query(soql=my_soql, object_name=object, api_type="Bulk 1.0")
+  queried_records <- sf_query(soql=my_soql, 
+                              object_name=object, 
+                              api_type="Bulk 2.0")
   queried_records <- queried_records %>%
     mutate(FirstName = "TestTest")
   

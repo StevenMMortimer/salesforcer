@@ -8,8 +8,8 @@ sf_query(
   soql,
   object_name = NULL,
   queryall = FALSE,
-  guess_types = FALSE,
-  api_type = c("REST", "SOAP", "Bulk 1.0"),
+  guess_types = TRUE,
+  api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
   control = list(...),
   ...,
   next_records_url = NULL,
@@ -46,7 +46,7 @@ to \code{\link{sf_query_bulk}}.}
 by the function to paginate through to more records until complete}
 
 \item{bind_using_character_cols}{\code{logical}; an indicator of whether to 
-cast the data to all character columns to ensure that \code{\link[dplyr]{bind_rows}} 
+cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
 does not fail because two paginated recordsets have differing datatypes for the 
 same column. Set this to \code{TRUE} rarely, typically only when having this 
 set to \code{FALSE} returns an error or you want all columns in the data to be 

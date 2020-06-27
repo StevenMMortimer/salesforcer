@@ -8,6 +8,7 @@ sf_create_job_bulk(
   operation = c("insert", "delete", "upsert", "update", "hardDelete", "query",
     "queryall"),
   object_name,
+  soql = NULL,
   external_id_fieldname = NULL,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
   content_type = c("CSV", "ZIP_CSV", "ZIP_XML", "ZIP_JSON"),
@@ -24,6 +25,8 @@ performed (e.g. "insert", "update", "upsert", "delete")}
 
 \item{object_name}{character; the name of one Salesforce objects that the 
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+
+\item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
 
 \item{external_id_fieldname}{character; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
