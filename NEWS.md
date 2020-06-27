@@ -6,7 +6,8 @@
   
 ### Bug Fixes
 
-  * Fix bugs in REST and SOAP API Queries (#35, #38) (NOT YET COMPLETED - PLANNED)
+  * Fix bugs in REST and SOAP API queries to prevent infinite looping and 
+  mangling results of parent-child nested queries (#35, #38)
 
 ---
 

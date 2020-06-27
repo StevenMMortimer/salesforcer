@@ -182,12 +182,12 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000ZAwfrEAD TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000ZAwfwEAD TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000ZAwg1EAD TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000ZAwXMEA1 TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000ZAwg6EAD TRUE   </span>
-<span class="co">#&gt; 6 00P3s00000ZAwYIEA1 TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 00P3s00000ZBMqsEAH TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000ZBMroEAH TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000ZBMrtEAH TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000ZBMryEAH TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000ZBMs3EAH TRUE   </span>
+<span class="co">#&gt; 6 00P3s00000ZBMs8EAH TRUE</span></pre></body></html></div>
 </div>
 <div id="downloading-attachments" class="section level3">
 <h3 class="hasAnchor">
@@ -202,12 +202,12 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Body                                     Id            Name      ParentId     </span>
 <span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZA… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 2 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZA… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 3 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZA… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 4 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZA… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 5 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZA… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 6 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZA… old-logo… 0016A0000035…</span></pre></body></html></div>
+<span class="co">#&gt; 1 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZB… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 2 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZB… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 3 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZB… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 4 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZB… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 5 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZB… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 6 /services/data/v48.0/sobjects/Attachmen… 00P3s00000ZB… old-logo… 0016A0000035…</span></pre></body></html></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
 <ol style="list-style-type: decimal">
 <li>Create a new column (e.g. <code>unique_name</code>) that is the concatenation of the Attachment Id and the Attachment’s name which is guaranteed to be unique.</li>
@@ -234,17 +234,17 @@
                           <span class="no">queried_attachments</span>$<span class="no">Name</span>,
                           <span class="no">queried_attachments</span>$<span class="no">Path</span>)
 <span class="no">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZAwg1EAD/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZBMrtEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZAwfwEAD/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZBMroEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZAwfrEAD/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZBMqsEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZAwg6EAD/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZBMryEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZAwXMEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZBMs3EAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZAwYIEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZBMs8EAH/Body </span>
 <span class="co">#&gt;                                                             TRUE</span></pre></body></html></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
 <p>The SOAP and REST APIs are good for working with a few attachements at a time. However, the Bulk API can be envoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload In the example above we downloaded the 3 attachments each belonging to 2 different parent records. Assuming that I have a directory on my computer</p>
@@ -257,12 +257,12 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000ZAwZLEA1 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000ZAwZMEA1 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000ZAwZNEA1 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000ZAwZOEA1 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000ZAwgBEAT TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 6 00P3s00000ZAwgCEAT TRUE    TRUE    NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 00P3s00000ZBMsIEAX TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000ZBMsJEAX TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000ZBMsKEAX TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000ZBMsLEAX TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000ZBMsMEAX TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 6 00P3s00000ZBMsNEAX TRUE    TRUE    NA</span></pre></body></html></div>
 </div>
 <div id="extending-to-documents-and-other-blob-data" class="section level3">
 <h3 class="hasAnchor">
@@ -282,7 +282,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gXRyAAM TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0153s000001gXZEAA2 TRUE</span></pre></body></html></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">cheatsheet_url</span> <span class="kw">&lt;-</span> <span class="st">"https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"</span>
 <span class="no">document_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 2"</span>,
@@ -295,7 +295,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gXS3AAM TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0153s000001gXZJAA2 TRUE</span></pre></body></html></div>
 </div>
 <div id="reference-links" class="section level3">
 <h3 class="hasAnchor">

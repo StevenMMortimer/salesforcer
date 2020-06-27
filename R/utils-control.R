@@ -2,8 +2,8 @@
 #' 
 #' Typically only used internally by functions when control parameters are passed 
 #' through via dots (...), but it can be called directly to control the behavior 
-#' of API calls. This function behaves exactly like \code{\link[stats:glm.control]{glm.control}} 
-#' for the \code{\link[stats:glm]{glm}} function.
+#' of API calls. This function behaves exactly like \code{\link[stats]{glm.control}} 
+#' for the \code{\link[stats]{glm}} function.
 #' 
 #' @importFrom purrr modify modify_if map
 #' @param AllOrNoneHeader \code{list}; containing the \code{allOrNone} element with 
