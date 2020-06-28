@@ -200,24 +200,28 @@ constitute a match. For example, list(FirstName="Marc", Company="Salesforce")</p
     </tr>
     <tr>
       <th>object_name</th>
-      <td><p>character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+      <td><p><code>character</code>; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>include_record_details</th>
-      <td><p>logical; get fields and values for records detected 
-as duplicates by setting this property to <code>TRUE</code>. Get only record IDs for 
-records detected as duplicates by setting this property to <code>FALSE</code></p></td>
+      <td><p><code>logical</code>; get fields and values for records 
+detected as duplicates by setting this property to <code>TRUE</code>. Get only 
+record IDs for records detected as duplicates by setting this property to 
+<code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
-and FALSE returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
+<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 

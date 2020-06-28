@@ -21,17 +21,21 @@ to perform a search using SOSL.}
 
 \item{is_sosl}{logical; indicating whether or not to try the string as SOSL}
 
-\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-and FALSE returns all values as character strings.}
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. \code{TRUE} uses 
+\code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
 \item{parameterized_search_options}{\code{list}; a list of parameters for 
 controlling the search if not using SOSL. If using SOSL this argument is ignored.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 
 \item{...}{arguments to be used to form the parameterized search options argument 
 if it is not supplied directly.}

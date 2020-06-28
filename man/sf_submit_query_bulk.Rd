@@ -7,15 +7,20 @@
 sf_submit_query_bulk(job_id, soql, api_type = c("Bulk 1.0"), verbose = FALSE)
 }
 \arguments{
-\item{job_id}{character; the Salesforce Id assigned to a submitted job as 
-returned by \link{sf_create_job_bulk}}
+\item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
+returned by \link{sf_create_job_bulk}.}
 
-\item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
+\item{soql}{\code{character}; a string defining a SOQL query 
+(e.g. "SELECT Id, Name FROM Account").}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{list} parameters of the batch
@@ -45,5 +50,5 @@ query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = my_query)
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation}
 }

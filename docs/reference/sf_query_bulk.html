@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run Bulk Query — sf_query_bulk • salesforcer</title>
+<title>Run bulk query — sf_query_bulk • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Run Bulk Query — sf_query_bulk" />
+<meta property="og:title" content="Run bulk query — sf_query_bulk" />
 <meta property="og:description" content="This function is a convenience wrapper for submitting and retrieving 
 query API jobs from the Bulk 1.0 and Bulk 2.0 APIs." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
@@ -174,7 +174,7 @@ query API jobs from the Bulk 1.0 and Bulk 2.0 APIs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run Bulk Query</h1>
+    <h1>Run bulk query</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/bulk-query.R'><code>R/bulk-query.R</code></a></small>
     <div class="hidden name"><code>sf_query_bulk.Rd</code></div>
     </div>
@@ -203,25 +203,26 @@ query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>soql</th>
-      <td><p>character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")</p></td>
+      <td><p><code>character</code>; a string defining a SOQL query 
+(e.g. "SELECT Id, Name FROM Account").</p></td>
     </tr>
     <tr>
       <th>object_name</th>
-      <td><p>character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+      <td><p><code>character</code>; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>queryall</th>
-      <td><p>logical; indicating if the query recordset should include records 
-that have been deleted because of a merge or delete. QueryAll will also return 
-information about archived Task and Event records. QueryAll is available in API 
-version 29.0 and later.</p></td>
+      <td><p><code>logical</code>; indicating if the query recordset should include records 
+that have been deleted because of a merge or delete. Setting this argument to 
+<code>TRUE</code> will also return information about archived Task and Event records. 
+It is available in API versions 29.0 and later.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
-and FALSE returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
+<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>bind_using_character_cols</th>
@@ -234,33 +235,38 @@ character.</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>
-      <td><p>integer; defines the seconds between attempts to check 
-for job completion</p></td>
+      <td><p><code>integer</code>; defines the seconds between attempts to check 
+for job completion.</p></td>
     </tr>
     <tr>
       <th>max_attempts</th>
-      <td><p>integer; defines then max number attempts to check for job 
-completion before stopping</p></td>
+      <td><p><code>integer</code>; defines then max number attempts to check for job 
+completion before stopping.</p></td>
     </tr>
     <tr>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code> 
-to specify the <code>content_type</code>, <code>concurrency_mode</code>, and/or <code>column_delimiter</code>.</p></td>
+      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or 
+<code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code> to specify the <code>content_type</code>, 
+<code>concurrency_mode</code>, and/or <code>column_delimiter</code>.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request</p></td>
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+making the request.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
@@ -269,24 +275,24 @@ to specify the <code>content_type</code>, <code>concurrency_mode</code>, and/or 
     <p>A <code>tbl_df</code> of the recordset returned by the query</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm</a></p>
-<p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm'>https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm</a></p>
+    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm'>Bulk 1.0 documentation</a> and <a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm'>Bulk 2.0 documentation</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># select all Ids from Account object (up to 1000), note that by default bulk </span>
-<span class='co'># queries are executed using the Bulk 2.0 API, but Bulk 1.0 API can be specified </span>
-<span class='co'># by setting to `api_type="Bulk 1.0"`.</span>
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_query_bulk</span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>,
-                     <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>'Account'</span>)
+<span class='co'># select all Ids from Account object (up to 1000)</span>
+<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_query_bulk</span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>)
 
-<span class='co'># alternatively you can specify as </span>
+<span class='co'># note that, by default, bulk queries are executed using the Bulk 2.0 API, which </span>
+<span class='co'># does not required the object name, but the Bulk 1.0 API can be still be invoked </span>
+<span class='co'># for queries by setting api_type="Bulk 1.0".</span>
+
+<span class='co'># alternatively you can specify as:</span>
+<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>,
+                <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"Bulk 2.0"</span>)
+
 <span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>,
                 <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>'Account'</span>,
-                <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk 2.0"</span>)
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>,
-                <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>'Account'</span>,
-                <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk 1.0"</span>)
+                <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"Bulk 1.0"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

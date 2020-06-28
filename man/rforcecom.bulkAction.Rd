@@ -26,7 +26,7 @@ rforcecom.bulkAction(
 
 \item{object}{a character string defining the target salesforce object that the operation will be performed on}
 
-\item{external_id_fieldname}{character; string identifying a custom field on the 
+\item{external_id_fieldname}{\code{character}; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
@@ -39,7 +39,10 @@ The max value is 10000 in accordance with salesforce limits.}
 
 \item{max_attempts}{an integer defining then max number attempts to check for job completion before stopping}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_df} of the results of the bulk job

@@ -140,11 +140,13 @@ for a bulk query job. This works for queries run through the Bulk 1.0 API either
 more information, read the Salesforce documentation 
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_enable_pk_chunking.htm}{here}.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
-\item{operation}{character; a string defining the type of operation being 
-performed (e.g. "insert", "update", "upsert", "delete")}
+\item{operation}{\code{character}; a string defining the type of operation being 
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete", 
+"query", "queryall").}
 }
 \description{
 Typically only used internally by functions when control parameters are passed 

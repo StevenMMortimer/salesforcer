@@ -9,8 +9,9 @@ remove_empty_linked_object_cols(dat, api_type = c("SOAP", "REST"))
 \arguments{
 \item{dat}{data; a \code{tbl_df} or \code{data.frame} of a returned resultset}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 }
 \description{
 This function will detect if there are related entity columns coming back 

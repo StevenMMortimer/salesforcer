@@ -207,14 +207,15 @@ to perform a search using SOSL.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
-and FALSE returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
+<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p>character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request</p></td>
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+making the request.</p></td>
     </tr>
     <tr>
       <th>parameterized_search_options</th>
@@ -223,7 +224,10 @@ controlling the search if not using SOSL. If using SOSL this argument is ignored
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     <tr>
       <th>...</th>

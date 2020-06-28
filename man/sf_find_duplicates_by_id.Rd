@@ -12,17 +12,22 @@ sf_find_duplicates_by_id(
 )
 }
 \arguments{
-\item{sf_id}{character; a Salesforce generated Id that identifies a record}
+\item{sf_id}{\code{character}; a Salesforce generated Id that uniquely 
+identifies a record.}
 
-\item{include_record_details}{logical; get fields and values for records detected 
-as duplicates by setting this property to \code{TRUE}. Get only record IDs for 
-records detected as duplicates by setting this property to \code{FALSE}}
+\item{include_record_details}{\code{logical}; get fields and values for records 
+detected as duplicates by setting this property to \code{TRUE}. Get only 
+record IDs for records detected as duplicates by setting this property to 
+\code{FALSE}.}
 
-\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-and FALSE returns all values as character strings.}
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. \code{TRUE} uses 
+\code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records found to be duplicates by the match rules

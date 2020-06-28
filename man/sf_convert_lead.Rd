@@ -18,16 +18,20 @@ sf_convert_lead(
 below on how format your input data to control things like whether an opportunity 
 will be created, an email will be sent to the new owner, and other control options.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for \code{\link{sf_control}}}
+look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}}}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} with details of the converted record

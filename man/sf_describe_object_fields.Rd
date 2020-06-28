@@ -7,8 +7,8 @@
 sf_describe_object_fields(object_name)
 }
 \arguments{
-\item{object_name}{character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_name}{\code{character}; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 }
 \value{
 A \code{tbl_df} containing one row per field for the requested object.

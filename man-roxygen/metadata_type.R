@@ -1,1 +1,1 @@
-#' @param metadata_type character; string on what type of metadata to create
+#' @param metadata_type \code{character}; string on what type of metadata to create.

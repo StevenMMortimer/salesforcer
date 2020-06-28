@@ -2,7 +2,7 @@
 % Please edit documentation in R/bulk-query.R
 \name{sf_query_bulk}
 \alias{sf_query_bulk}
-\title{Run Bulk Query}
+\title{Run bulk query}
 \usage{
 sf_query_bulk(
   soql,
@@ -19,19 +19,20 @@ sf_query_bulk(
 )
 }
 \arguments{
-\item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
+\item{soql}{\code{character}; a string defining a SOQL query 
+(e.g. "SELECT Id, Name FROM Account").}
 
-\item{object_name}{character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_name}{\code{character}; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{queryall}{logical; indicating if the query recordset should include records 
-that have been deleted because of a merge or delete. QueryAll will also return 
-information about archived Task and Event records. QueryAll is available in API 
-version 29.0 and later.}
+\item{queryall}{\code{logical}; indicating if the query recordset should include records 
+that have been deleted because of a merge or delete. Setting this argument to 
+\code{TRUE} will also return information about archived Task and Event records. 
+It is available in API versions 29.0 and later.}
 
-\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-and FALSE returns all values as character strings.}
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. \code{TRUE} uses 
+\code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
 \item{bind_using_character_cols}{\code{logical}; an indicator of whether to 
 cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
@@ -40,23 +41,28 @@ same column. Set this to \code{TRUE} rarely, typically only when having this
 set to \code{FALSE} returns an error or you want all columns in the data to be 
 character.}
 
-\item{interval_seconds}{integer; defines the seconds between attempts to check 
-for job completion}
+\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check 
+for job completion.}
 
-\item{max_attempts}{integer; defines then max number attempts to check for job 
-completion before stopping}
+\item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
+completion before stopping.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for \code{\link{sf_control}}}
+look at the documentation for \code{\link{sf_control}}.}
 
-\item{...}{other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
-to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.}
+\item{...}{other arguments passed on to \code{\link{sf_control}} or 
+\code{\link{sf_create_job_bulk}} to specify the \code{content_type}, 
+\code{concurrency_mode}, and/or \code{column_delimiter}.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_df} of the recordset returned by the query
@@ -67,23 +73,22 @@ query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.
 }
 \examples{
 \dontrun{
-# select all Ids from Account object (up to 1000), note that by default bulk 
-# queries are executed using the Bulk 2.0 API, but Bulk 1.0 API can be specified 
-# by setting to `api_type="Bulk 1.0"`.
-ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000', 
-                     object_name = 'Account')
-                     
-# alternatively you can specify as 
+# select all Ids from Account object (up to 1000)
+ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000')
+
+# note that, by default, bulk queries are executed using the Bulk 2.0 API, which 
+# does not required the object name, but the Bulk 1.0 API can be still be invoked 
+# for queries by setting api_type="Bulk 1.0".
+
+# alternatively you can specify as:
+ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
+                api_type = "Bulk 2.0")
+
 ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
                 object_name = 'Account', 
-                api_type="Bulk 2.0") 
-ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
-                object_name = 'Account', 
-                api_type="Bulk 1.0")
+                api_type = "Bulk 1.0")
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
-
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
 }

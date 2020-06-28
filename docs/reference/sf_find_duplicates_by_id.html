@@ -194,23 +194,28 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sf_id</th>
-      <td><p>character; a Salesforce generated Id that identifies a record</p></td>
+      <td><p><code>character</code>; a Salesforce generated Id that uniquely 
+identifies a record.</p></td>
     </tr>
     <tr>
       <th>include_record_details</th>
-      <td><p>logical; get fields and values for records detected 
-as duplicates by setting this property to <code>TRUE</code>. Get only record IDs for 
-records detected as duplicates by setting this property to <code>FALSE</code></p></td>
+      <td><p><code>logical</code>; get fields and values for records 
+detected as duplicates by setting this property to <code>TRUE</code>. Get only 
+record IDs for records detected as duplicates by setting this property to 
+<code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p>logical; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. TRUE uses <code>col_guess()</code> 
-and FALSE returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
+<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 

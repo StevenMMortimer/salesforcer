@@ -199,16 +199,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>session</th>
-      <td><p><code>list</code>; a list containing "sessionID", "instanceURL", and "
-apiVersion" as returned by <code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>RForcecom::rforcecom.login()</a></code>. This argument is
-ignored in all backward compatible calls because the authorization credentials 
-are stored in an environment internal to the salesforcer package, so it is no longer 
+      <td><p><code>list</code>; a list containing <code>"sessionID"</code>, 
+<code>"instanceURL"</code>, and <code>"apiVersion"</code> as returned by 
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>rforcecom.login</a></code>. This argument is ignored in all 
+backward compatible calls because the authorization credentials are stored 
+in an environment internal to the salesforcer package, so it is no longer 
 necessary to pass the session in each function call.</p></td>
     </tr>
     <tr>
       <th>objectName</th>
-      <td><p>character; the name of the Salesforce object that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+      <td><p><code>character</code>; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>fields</th>

@@ -1,1 +1,2 @@
-#' @param sf_id character; a Salesforce generated Id that identifies a record
+#' @param sf_id \code{character}; a Salesforce generated Id that uniquely 
+#' identifies a record.

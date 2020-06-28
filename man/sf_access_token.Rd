@@ -7,7 +7,10 @@
 sf_access_token(verbose = FALSE)
 }
 \arguments{
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 character; a string of the access_token element of the current token in 

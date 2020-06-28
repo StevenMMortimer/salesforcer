@@ -21,7 +21,10 @@ attempting to retrieve the zip file. If omitted, this argument defaults to true.
 name must have a .zip extension. The default behavior will be to save in the current 
 working directory as package.zip}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{list} of the response

@@ -13,19 +13,23 @@ sf_describe_objects(
 )
 }
 \arguments{
-\item{object_names}{character; the name of one or more Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_names}{\code{character}; the name of one or more Salesforce objects 
+that the function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for \code{\link{sf_control}}}
+look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}}}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{list}

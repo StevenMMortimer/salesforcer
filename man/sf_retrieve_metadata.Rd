@@ -26,7 +26,10 @@ status requests to check if complete}
 \item{max_tries}{numeric; specifying the maximum number of times to check 
 whether the retrieve package.zip is complete before the function times out}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{list} of details from the created retrieve request

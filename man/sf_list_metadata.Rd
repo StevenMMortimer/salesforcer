@@ -11,7 +11,10 @@ sf_list_metadata(queries, verbose = FALSE)
 the metadata type being requested and 2) the folder associated with the type that required for types 
 that use folders, such as Dashboard, Document, EmailTemplate, or Report.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_dfs} containing the queried metadata types

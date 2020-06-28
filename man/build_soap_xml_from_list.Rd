@@ -21,16 +21,17 @@ build_soap_xml_from_list(
 \arguments{
 \item{input_data}{a \code{data.frame} of data to fill the XML body}
 
-\item{operation}{character; a string defining the type of operation being 
-performed (e.g. "insert", "update", "upsert", "delete")}
+\item{operation}{\code{character}; a string defining the type of operation being 
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete", 
+"query", "queryall").}
 
-\item{object_name}{character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_name}{\code{character}; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
 \item{fields}{character; one or more strings indicating the fields to be returned 
 on the records}
 
-\item{external_id_fieldname}{character; string identifying a custom field on the 
+\item{external_id_fieldname}{\code{character}; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
 

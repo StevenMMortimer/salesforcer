@@ -18,26 +18,28 @@ sf_query(
 )
 }
 \arguments{
-\item{soql}{character; a string defining a SOQL query (e.g. "SELECT Id, Name FROM Account")}
+\item{soql}{\code{character}; a string defining a SOQL query 
+(e.g. "SELECT Id, Name FROM Account").}
 
-\item{object_name}{character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_name}{\code{character}; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{queryall}{logical; indicating if the query recordset should include records 
-that have been deleted because of a merge or delete. QueryAll will also return 
-information about archived Task and Event records. QueryAll is available in API 
-version 29.0 and later.}
+\item{queryall}{\code{logical}; indicating if the query recordset should include records 
+that have been deleted because of a merge or delete. Setting this argument to 
+\code{TRUE} will also return information about archived Task and Event records. 
+It is available in API versions 29.0 and later.}
 
-\item{guess_types}{logical; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the query recordset. TRUE uses \code{col_guess()} 
-and FALSE returns all values as character strings.}
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. \code{TRUE} uses 
+\code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for \code{\link{sf_control}}}
+look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
 to \code{\link{sf_query_bulk}}.}
@@ -52,7 +54,10 @@ same column. Set this to \code{TRUE} rarely, typically only when having this
 set to \code{FALSE} returns an error or you want all columns in the data to be 
 character.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records

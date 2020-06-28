@@ -23,7 +23,7 @@
 #'    \item Relationship fields
 #'    }
 #' Additionally, Bulk API can't access or query compound address or compound geolocation fields.
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
@@ -59,23 +59,23 @@ sf_submit_query_bulk <- function(job_id,
   return(resultset)
 }
 
-#' Retrieving the Results of a Bulk Query Batch in a Bulk API Job 
+#' Retrieve the results of a completed bulk query
 #' 
-#' This function returns the row-level recordset of a bulk query
-#' which has already been submitted to Bulk API Job and has Completed state
+#' This function returns the recordset of a bulk query which has already been 
+#' submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.
 #' 
-#' @importFrom readr read_csv col_guess col_character
-#' @importFrom httr content
-#' @importFrom XML xmlToList
-#' @importFrom dplyr as_tibble tibble
 #' @template job_id
-#' @template batch_id
-#' @param result_id a character string returned from \link{sf_batch_details_bulk} when a query has completed and specifies how to get the recordset
 #' @template guess_types
+#' @template batch_id
+#' @param result_id \code{character}; a string returned from 
+#' \link{sf_batch_details_bulk} when a query has completed and specifies how to 
+#' get the recordset
+#' @template bind_using_character_cols
+#' @template batch_size
 #' @template api_type
 #' @template verbose
-#' @return A \code{tbl_df}, formatted by Salesforce, containing query results
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @return \code{tbl_df}, formatted by Salesforce, containing query results
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
@@ -90,12 +90,11 @@ sf_submit_query_bulk <- function(job_id,
 #' }
 #' @export
 sf_query_result_bulk <- function(job_id, 
-                                 guess_types=TRUE,
-                                 batch_id=NULL, 
-                                 result_id=NULL,
+                                 guess_types = TRUE,
+                                 batch_id = NULL, 
+                                 result_id = NULL,
                                  bind_using_character_cols = FALSE,
-                                 batch_size=50000,
-                                 locator=NULL,
+                                 batch_size = 50000,
                                  api_type = c("Bulk 1.0", "Bulk 2.0"), 
                                  verbose = FALSE){
   api_type <- match.arg(api_type)
@@ -104,24 +103,59 @@ sf_query_result_bulk <- function(job_id,
                                          guess_types = guess_types,
                                          bind_using_character_cols = bind_using_character_cols,
                                          batch_size = batch_size,
-                                         locator = locator,
+                                         locator = NULL,
                                          api_type = api_type,
                                          verbose = verbose)      
   } else {
     resultset <- sf_query_result_bulk_v1(job_id=job_id, 
-                                         guess_types=guess_types,
-                                         batch_id=batch_id, 
-                                         result_id=result_id,
+                                         guess_types = guess_types,
+                                         batch_id = batch_id, 
+                                         result_id = result_id,
                                          api_type = api_type,
                                          verbose = verbose)    
   }
   return(resultset)
 }
 
+
+#' Retrieve the results of a Bulk 1.0 query
+#' 
+#' This function returns the row-level recordset of a Bulk 1.0 query
+#' which has already been submitted to Bulk API Job and has Completed state
+#' 
+#' @importFrom readr col_guess col_character
+#' @importFrom httr content
+#' @importFrom XML xmlToList
+#' @importFrom dplyr as_tibble tibble select any_of matches everything
+#' @template job_id
+#' @template guess_types
+#' @template batch_id
+#' @param result_id \code{character}; a string returned from 
+#' \link{sf_batch_details_bulk} when a query has completed and specifies how to 
+#' get the recordset
+#' @template bind_using_character_cols
+#' @template batch_size
+#' @template api_type
+#' @template verbose
+#' @return \code{tbl_df}, formatted by Salesforce, containing query results
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation}
+#' @examples
+#' \dontrun{
+#' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
+#' job_info <- sf_create_job_bulk(operation = 'query', object = 'Account', api_type="Bulk 1.0")
+#' query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = my_query, api_type="Bulk 1.0")
+#' result <- sf_batch_details_bulk(job_id = query_info$jobId,
+#'                                 batch_id = query_info$id)
+#' recordset <- sf_query_result_bulk(job_id = query_info$jobId,
+#'                                   batch_id = query_info$id,
+#'                                   result_id = result$result)
+#' sf_close_job_bulk(job_info$id, api_type="Bulk 1.0")
+#' }
+#' @export
 sf_query_result_bulk_v1 <- function(job_id, 
-                                    guess_types=TRUE,
-                                    batch_id=NULL, 
-                                    result_id=NULL,
+                                    guess_types = TRUE,
+                                    batch_id = NULL, 
+                                    result_id = NULL,
                                     api_type = c("Bulk 1.0"), 
                                     verbose = FALSE){
   api_type <- match.arg(api_type)
@@ -159,6 +193,41 @@ sf_query_result_bulk_v1 <- function(job_id,
   return(res)
 }
 
+
+#' Retrieve the results of a Bulk 2.0 query
+#' 
+#' This function returns the row-level recordset of a Bulk 2.0 query
+#' which has already been submitted as a Bulk 2.0 API job and has a JobComplete
+#' state.
+#' 
+#' @importFrom readr col_guess col_character type_convert
+#' @importFrom httr content parse_url build_url
+#' @importFrom dplyr select any_of matches everything
+#' @template job_id
+#' @template guess_types
+#' @template bind_using_character_cols
+#' @template batch_size
+#' @param locator \code{character}; a string returned found in the API response 
+#' header of a prior iteration of \link{sf_query_result_bulk_v2} that is included 
+#' in the query string of the next call to paginate through all records returned 
+#' by the query.
+#' @template api_type
+#' @template verbose
+#' @return \code{tbl_df}, formatted by Salesforce, containing query results
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @examples
+#' \dontrun{
+#' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
+#' job_info <- sf_create_job_bulk(operation = 'query', object = 'Account', api_type="Bulk 2.0")
+#' query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = my_query, api_type="Bulk 2.0")
+#' result <- sf_batch_details_bulk(job_id = query_info$jobId,
+#'                                 batch_id = query_info$id)
+#' recordset <- sf_query_result_bulk(job_id = query_info$jobId,
+#'                                   batch_id = query_info$id,
+#'                                   result_id = result$result)
+#' sf_close_job_bulk(job_info$id, api_type="Bulk 2.0")
+#' }
+#' @export
 sf_query_result_bulk_v2 <- function(job_id, 
                                     guess_types = TRUE,
                                     bind_using_character_cols = FALSE,
@@ -223,7 +292,7 @@ sf_query_result_bulk_v2 <- function(job_id,
   return(resultset)  
 }
 
-#' Run Bulk 1.0 Query 
+#' Run Bulk 1.0 query 
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 API.
@@ -242,7 +311,7 @@ sf_query_result_bulk_v2 <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)
@@ -334,7 +403,7 @@ sf_query_bulk_v1 <- function(soql,
   return(res)
 }
 
-#' Run Bulk 2.0 Query 
+#' Run Bulk 2.0 query 
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 2.0 API.
@@ -344,9 +413,9 @@ sf_query_bulk_v1 <- function(soql,
 #' @template queryall
 #' @template guess_types
 #' @template bind_using_character_cols
-#' @param interval_seconds integer; defines the seconds between attempts to check 
+#' @param interval_seconds \code{integer}; defines the seconds between attempts to check 
 #' for job completion
-#' @param max_attempts integer; defines then max number attempts to check for job 
+#' @param max_attempts \code{integer}; defines then max number attempts to check for job 
 #' completion before stopping
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
@@ -354,7 +423,7 @@ sf_query_bulk_v1 <- function(soql,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)
@@ -451,8 +520,7 @@ sf_query_bulk_v2 <- function(soql,
   return(res)
 }
 
-
-#' Run Bulk Query 
+#' Run bulk query 
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.
@@ -462,33 +530,32 @@ sf_query_bulk_v2 <- function(soql,
 #' @template queryall
 #' @template guess_types
 #' @template bind_using_character_cols
-#' @param interval_seconds integer; defines the seconds between attempts to check 
-#' for job completion
-#' @param max_attempts integer; defines then max number attempts to check for job 
-#' completion before stopping
+#' @template interval_seconds
+#' @template max_attempts
 #' @template control
-#' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
-#' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
+#' @param ... other arguments passed on to \code{\link{sf_control}} or 
+#' \code{\link{sf_create_job_bulk}} to specify the \code{content_type}, 
+#' \code{concurrency_mode}, and/or \code{column_delimiter}.
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
-#' # select all Ids from Account object (up to 1000), note that by default bulk 
-#' # queries are executed using the Bulk 2.0 API, but Bulk 1.0 API can be specified 
-#' # by setting to `api_type="Bulk 1.0"`.
-#' ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000', 
-#'                      object_name = 'Account')
-#'                      
-#' # alternatively you can specify as 
+#' # select all Ids from Account object (up to 1000)
+#' ids <- sf_query_bulk(soql = 'SELECT Id FROM Account LIMIT 1000')
+#' 
+#' # note that, by default, bulk queries are executed using the Bulk 2.0 API, which 
+#' # does not required the object name, but the Bulk 1.0 API can be still be invoked 
+#' # for queries by setting api_type="Bulk 1.0".
+#' 
+#' # alternatively you can specify as:
+#' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
+#'                 api_type = "Bulk 2.0")
+#' 
 #' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
 #'                 object_name = 'Account', 
-#'                 api_type="Bulk 2.0") 
-#' ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000', 
-#'                 object_name = 'Account', 
-#'                 api_type="Bulk 1.0")
+#'                 api_type = "Bulk 1.0")
 #' }
 #' @export
 sf_query_bulk <- function(soql,

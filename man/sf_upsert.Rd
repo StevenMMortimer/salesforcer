@@ -18,24 +18,28 @@ sf_upsert(
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; data can be coerced into a \code{data.frame}}
 
-\item{object_name}{character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_name}{\code{character}; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{external_id_fieldname}{character; string identifying a custom field on the 
+\item{external_id_fieldname}{\code{character}; string identifying a custom field on the 
 object that has been set as an "External ID" field. This field is used to reference 
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
-\item{api_type}{character; one of "REST", "SOAP", "Bulk 1.0", "Bulk 2.0", or 
-"Chatter" indicating which API to use when making the request}
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+making the request.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for \code{\link{sf_control}}}
+look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
 to \code{\link{sf_bulk_operation}}}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records with success indicator

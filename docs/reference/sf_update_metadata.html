@@ -197,18 +197,18 @@ to Salesforce to update an object that already exists</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>metadata_type</th>
-      <td><p>character; string on what type of metadata to create</p></td>
+      <td><p><code>character</code>; string on what type of metadata to create.</p></td>
     </tr>
     <tr>
       <th>metadata</th>
       <td><p><code>list</code>; metadata components to be created formatted as 
-XML before being sent via API</p></td>
+XML before being sent via API.</p></td>
     </tr>
     <tr>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 
-look at the documentation for <code><a href='sf_control.html'>sf_control</a></code></p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -216,7 +216,10 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 

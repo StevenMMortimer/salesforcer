@@ -7,8 +7,8 @@
 sf_get_deleted(object_name, start, end, verbose = FALSE)
 }
 \arguments{
-\item{object_name}{character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
+\item{object_name}{\code{character}; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
 \item{start}{\code{date} or \code{datetime}; starting datetime of the timespan 
 for which to retrieve the data.}
@@ -16,7 +16,10 @@ for which to retrieve the data.}
 \item{end}{\code{date} or \code{datetime}; ending datetime of the timespan for
 which to retrieve the data.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \description{
 Retrieves the list of individual records that have been deleted within the given 

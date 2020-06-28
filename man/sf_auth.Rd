@@ -40,7 +40,10 @@ connected apps' consumer key, secret, and callback url}
 file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use 
 the specified path as the cache file.}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \description{
 Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does

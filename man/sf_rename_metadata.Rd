@@ -7,7 +7,7 @@
 sf_rename_metadata(metadata_type, old_fullname, new_fullname, verbose = FALSE)
 }
 \arguments{
-\item{metadata_type}{character; string on what type of metadata to create}
+\item{metadata_type}{\code{character}; string on what type of metadata to create.}
 
 \item{old_fullname}{character; string corresponding to the fullName of the element you would 
 like to rename}
@@ -15,7 +15,10 @@ like to rename}
 \item{new_fullname}{character; string corresponding to the new fullName you would like 
 to apply the targeted element}
 
-\item{verbose}{logical; do you want informative messages?}
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 A \code{data.frame} containing the creation result for each submitted metadata component

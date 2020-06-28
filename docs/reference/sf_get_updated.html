@@ -191,8 +191,8 @@ within the given timespan in the specified object.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object_name</th>
-      <td><p>character; the name of one Salesforce objects that the 
-function is operating against (e.g. "Account", "Contact", "CustomObject__c")</p></td>
+      <td><p><code>character</code>; the name of the Salesforce object that the 
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>start</th>
@@ -206,7 +206,10 @@ which to retrieve the data.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>logical; do you want informative messages?</p></td>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
