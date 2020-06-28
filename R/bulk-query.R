@@ -133,8 +133,6 @@ sf_query_result_bulk <- function(job_id,
 #' @param result_id \code{character}; a string returned from 
 #' \link{sf_batch_details_bulk} when a query has completed and specifies how to 
 #' get the recordset
-#' @template bind_using_character_cols
-#' @template batch_size
 #' @template api_type
 #' @template verbose
 #' @return \code{tbl_df}, formatted by Salesforce, containing query results
@@ -202,7 +200,7 @@ sf_query_result_bulk_v1 <- function(job_id,
 #' 
 #' @importFrom readr col_guess col_character type_convert
 #' @importFrom httr content parse_url build_url
-#' @importFrom dplyr select any_of matches everything
+#' @importFrom dplyr select any_of contains
 #' @template job_id
 #' @template guess_types
 #' @template bind_using_character_cols
@@ -281,8 +279,10 @@ sf_query_result_bulk_v2 <- function(job_id,
     resultset <- resultset %>% 
       # sort column names ...
       select(sort(names(.))) %>% 
-      # ... then move columns without dot up since those with are related
-      select(any_of(c("Id", "id")), -matches("\\."), everything())
+      # ... then move Id and columns without dot up since those with are related
+      select(any_of(unique(c("Id", "id", 
+                             names(.)[which(!grepl("\\.", names(.)))]))), 
+             contains("."))
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 

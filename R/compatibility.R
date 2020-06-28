@@ -93,7 +93,7 @@ rforcecom.bulkQuery <- function(session,
   
   sf_query(soql = soqlQuery, 
            object_name = object,
-           api_type = "Bulk", 
+           api_type = "Bulk 1.0", 
            interval_seconds = 5,
            max_attempts = 100)
 }

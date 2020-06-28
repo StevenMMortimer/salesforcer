@@ -144,17 +144,16 @@ test_that("testing parent-child nested query", {
   nested_soql <- "SELECT Name, (SELECT LastName, test_number__c, Owner.Id FROM Contacts) FROM Account"
   
   # SOAP API -------------------------------------------------------------------  
-  soap_queried_records <- sf_query(nested_soql, object_name=object, api_type="SOAP")
+  soap_queried_records <- sf_query(nested_soql, object_name="Account", api_type="SOAP")
   expect_is(soap_queried_records, "tbl_df")
   expect_gt(nrow(soap_queried_records), 0)
   expect_equal(sort(names(soap_queried_records)), 
                sort(c("Name", 
                       "Contact.LastName", "Contact.test_number__c", 
                       "Contact.Owner.Id")))
-  expect_is(soap_queried_records$`Contact.test_number__c`, 'character')
   
   # REST API -------------------------------------------------------------------  
-  rest_queried_records <- sf_query(nested_soql, object_name=object, api_type="REST")
+  rest_queried_records <- sf_query(nested_soql, object_name="Account", api_type="REST")
   expect_is(rest_queried_records, "tbl_df")
   expect_gt(nrow(rest_queried_records), 0)
   # slightly different than SOAP API because it has "Contact.Owner.User.Id" instead of Contact.Owner.Id
@@ -162,9 +161,6 @@ test_that("testing parent-child nested query", {
                sort(c("Name", 
                       "Contact.LastName", "Contact.test_number__c", 
                       "Contact.Owner.User.Id")))
-  # also slightly different in that the field "Contact.test_number__c" is still 
-  # preserved as a numeric field
-  expect_is(rest_queried_records$`Contact.test_number__c`, 'numeric')
   
   # Bulk 1.0 API ---------------------------------------------------------------
   expect_error(sf_query(nested_soql, object_name=object, api_type="Bulk 1.0"), 

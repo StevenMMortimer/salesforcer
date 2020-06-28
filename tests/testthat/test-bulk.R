@@ -41,7 +41,7 @@ test_that("testing Bulk 1.0 Functionality", {
                              LastName, 
                              My_External_Id__c,
                              test_number__c
-                     FROM Contact 
+                     FROM Contact
                      WHERE Id in ('%s')", 
                      paste0(ids_from_created, collapse="','"))
   # sf_query -------------------------------------------------------------------
@@ -56,11 +56,11 @@ test_that("testing Bulk 1.0 Functionality", {
   queried_records2 <- sf_query(soql = my_soql, 
                                object_name = object, 
                                guess_types = FALSE,
-                               api_type="Bulk 1.0")
+                               api_type = "Bulk 1.0")
   expect_is(queried_records2, "tbl_df")
   expect_equal(lapply(queried_records2, class), 
                list(Id="character", FirstName="character", LastName="character", 
-                    test_number__c="character", My_External_Id__c="character"))
+                    My_External_Id__c="character", test_number__c="character"))
   
   # test query that returns nothing
   queried_records3 <- sf_query(soql = "SELECT Id FROM Contact WHERE FirstName='ZZZYYYXXX'", 

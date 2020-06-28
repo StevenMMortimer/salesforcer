@@ -99,7 +99,7 @@ sf_query <- function(soql,
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows tibble select any_of matches everything mutate_all
+#' @importFrom dplyr bind_rows tibble select any_of contains mutate_all
 #' @importFrom httr content
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr pluck pluck<-
@@ -214,8 +214,10 @@ sf_query_rest <- function(soql,
     resultset <- resultset %>% 
       # sort column names ...
       select(sort(names(.))) %>% 
-      # ... then move columns without dot up since those with are related
-      select(any_of(c("Id", "id")), -matches("\\."), everything())
+      # ... then move Id and columns without dot up since those with are related
+      select(any_of(unique(c("Id", "id", 
+                             names(.)[which(!grepl("\\.", names(.)))]))), 
+             contains("."))
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 
@@ -225,7 +227,7 @@ sf_query_rest <- function(soql,
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows select everything matches mutate_all tibble as_tibble
+#' @importFrom dplyr bind_rows select any_of contains mutate_all tibble as_tibble
 #' @importFrom httr content
 #' @importFrom purrr map_df modify_if
 #' @importFrom readr type_convert cols col_guess
@@ -348,8 +350,10 @@ sf_query_soap <- function(soql,
     resultset <- resultset %>% 
       # sort column names ...
       select(sort(names(.))) %>% 
-      # ... then move columns without dot up since those with are related
-      select(any_of(c("Id", "id")), -matches("\\."), everything())
+      # ... then move Id and columns without dot up since those with are related
+      select(any_of(unique(c("Id", "id", 
+                             names(.)[which(!grepl("\\.", names(.)))]))), 
+             contains("."))
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 

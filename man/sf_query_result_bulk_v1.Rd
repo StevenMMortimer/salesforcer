@@ -36,16 +36,6 @@ making the request.}
 detail for each API call, which is useful for debugging. More specifically, when 
 set to \code{TRUE} the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.}
-
-\item{bind_using_character_cols}{\code{logical}; an indicator of whether to 
-cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
-does not fail because two paginated recordsets have differing datatypes for the 
-same column. Set this to \code{TRUE} rarely, typically only when having this 
-set to \code{FALSE} returns an error or you want all columns in the data to be 
-character.}
-
-\item{batch_size}{\code{integer}; the number of individual records to be included in a 
-single batch uploaded to the Bulk APIs (1.0 or 2.0).}
 }
 \value{
 \code{tbl_df}, formatted by Salesforce, containing query results
