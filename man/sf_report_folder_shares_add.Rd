@@ -7,14 +7,14 @@
 sf_report_folder_shares_add(report_folder_id, body)
 }
 \arguments{
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics folder (it will start with "00l").}
+
 \item{body}{\code{list}; a list of data to be formatted as JSON before being
 sent to an API endpoint. This is NOT validated and is only experimental in
 allowing users to utilize the API functionality before wrapper functions
 have been written in R to format and validate the request in a more
 user-friendly format.}
-
-\item{folder_id}{\code{character}; the Salesforce Id assigned to a created 
-analytics folder (it will start with "00l").}
 }
 \value{
 \code{list}

@@ -12,6 +12,9 @@ sf_report_folder_share_recipients(
 )
 }
 \arguments{
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics folder (it will start with "00l").}
+
 \item{share_type}{\code{character}; Return data for the recipients of the 
 specified type, such as "User", "Group", or "Role".}
 
@@ -19,9 +22,6 @@ specified type, such as "User", "Group", or "Role".}
 Default is "" (no restriction).}
 
 \item{limit}{\code{integer}; Limit to the number of search results. Default is 100.}
-
-\item{folder_id}{\code{character}; the Salesforce Id assigned to a created 
-analytics folder (it will start with "00l").}
 }
 \value{
 \code{list}

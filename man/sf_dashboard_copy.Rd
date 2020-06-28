@@ -10,7 +10,7 @@ sf_dashboard_copy(dashboard_id, report_folder_id)
 \item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
 dashboard. It will start with \code{"01Z"}.}
 
-\item{folder_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics folder (it will start with "00l").}
 }
 \value{

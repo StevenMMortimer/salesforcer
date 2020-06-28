@@ -32,8 +32,8 @@ sf_dashboard_describe <- function(dashboard_id){
 #' Describe dashboard components
 #' 
 #' @template dashboard_id
-#' @param \code{character}; a vector of Unique Salesforce Ids of a dashboard 
-#' component.
+#' @param component_ids \code{character}; a vector of Unique Salesforce Ids of a 
+#' dashboard component.
 #' @return \code{list}
 #' @export
 sf_dashboard_components_describe <- function(dashboard_id, 

@@ -7,6 +7,9 @@
 sf_report_folder_share_update(report_folder_id, share_id, body)
 }
 \arguments{
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics folder (it will start with "00l").}
+
 \item{share_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics folder share (it will start with "004").}
 
@@ -15,9 +18,6 @@ sent to an API endpoint. This is NOT validated and is only experimental in
 allowing users to utilize the API functionality before wrapper functions
 have been written in R to format and validate the request in a more
 user-friendly format.}
-
-\item{folder_id}{\code{character}; the Salesforce Id assigned to a created 
-analytics folder (it will start with "00l").}
 }
 \value{
 \code{list}
