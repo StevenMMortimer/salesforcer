@@ -239,7 +239,10 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
            FUN=function(x, y, z){
              parent_record <- y[x,]
              child_records <- z[x][[1]]
-             if(!is.null(child_records) && !is.na(child_records) && nrow(child_records) > 0){
+             if(!is.null(child_records) && 
+                is.tbl(parent_record) && 
+                is.tbl(child_records) && 
+                (nrow(child_records) > 0)){
                combined <- bind_cols(parent_record, child_records)  
              } else {
                combined <- parent_record

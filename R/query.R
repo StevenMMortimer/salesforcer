@@ -303,10 +303,11 @@ sf_query_soap <- function(soql,
                                                 object_name = object_name,
                                                 queryall = queryall,
                                                 guess_types = FALSE,
+                                                bind_using_character_cols = bind_using_character_cols,
                                                 control = control,
                                                 verbose = verbose)
+            child_records <- bind_rows(child_records, next_child_records)
           }
-          child_records <- bind_rows(child_records, next_child_records)
           y <- combine_parent_and_child_resultsets(parent_record, child_records) 
         } else {
           y <- extract_parent_and_child_result(x)
