@@ -4,7 +4,14 @@
 \alias{sf_report_describe}
 \title{Describe a report}
 \usage{
-sf_report_describe()
+sf_report_describe(report_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+}
+\value{
+\code{list}
 }
 \description{
 Describe a report

@@ -6,6 +6,13 @@
 \usage{
 sf_dashboard_describe(dashboard_id)
 }
+\arguments{
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+dashboard. It will start with \code{"01Z"}.}
+}
+\value{
+\code{list}
+}
 \description{
 Describe a dashboard
 }

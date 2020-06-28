@@ -6,6 +6,9 @@
 \usage{
 sf_report_types_list()
 }
+\value{
+\code{list}
+}
 \description{
 List report types
 }

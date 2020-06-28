@@ -2,6 +2,10 @@
 
 #' List analytics notifications
 #'
+#' @template source
+#' @template owner_id
+#' @template record_id
+#' @return \code{list}
 #' @export
 sf_analytics_notifications_list <- function(source=c("lightningDashboardSubscribe",
                                                      "lightningReportSubscribe",
@@ -32,6 +36,9 @@ sf_analytics_notifications_list <- function(source=c("lightningDashboardSubscrib
 
 #' Return limits of analytics notifications
 #'
+#' @template source
+#' @template record_id
+#' @return \code{list}
 #' @export
 sf_analytics_notifications_limits <- function(source=c("lightningDashboardSubscribe",
                                                        "lightningReportSubscribe",
@@ -61,6 +68,8 @@ sf_analytics_notifications_limits <- function(source=c("lightningDashboardSubscr
 
 #' Create an analytics notification
 #'
+#' @template body
+#' @return \code{list}
 #' @export
 sf_analytics_notification_create <- function(body){
   .NotYetImplemented()
@@ -73,6 +82,8 @@ sf_analytics_notification_create <- function(body){
 
 #' Describe an analytics notification
 #'
+#' @template notification_id
+#' @return \code{list}
 #' @export
 sf_analytics_notification_describe <- function(notification_id){
   
@@ -97,6 +108,9 @@ sf_analytics_notification_describe <- function(notification_id){
 
 #' Update an analytics notification
 #'
+#' @template notification_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_analytics_notification_update <- function(notification_id, body){
   .NotYetImplemented()  
@@ -108,7 +122,9 @@ sf_analytics_notification_update <- function(notification_id, body){
 }
 
 #' Delete an analytics notification
-#'
+#' 
+#' @template notification_id
+#' @return \code{logical}
 #' @export
 sf_analytics_notification_delete <- function(notification_id){
   .NotYetImplemented()

@@ -4,7 +4,14 @@
 \alias{sf_get_report_data}
 \title{Get a report's data in tabular format}
 \usage{
-sf_get_report_data()
+sf_get_report_data(report_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+}
+\value{
+\code{tbl_df}
 }
 \description{
 Get a report's data in tabular format

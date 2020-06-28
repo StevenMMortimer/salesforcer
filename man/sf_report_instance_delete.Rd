@@ -4,7 +4,18 @@
 \alias{sf_report_instance_delete}
 \title{Delete a report instance}
 \usage{
-sf_report_instance_delete()
+sf_report_instance_delete(report_id, report_instance_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+
+\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
+created analytics report instance (an asynchronous run). It will start with 
+\code{"0LG"}.}
+}
+\value{
+\code{logical}
 }
 \description{
 Delete a report instance

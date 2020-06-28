@@ -6,6 +6,19 @@
 \usage{
 sf_report_folder_shares_update(report_folder_id, body)
 }
+\arguments{
+\item{body}{\code{list}; a list of data to be formatted as JSON before being
+sent to an API endpoint. This is NOT validated and is only experimental in
+allowing users to utilize the API functionality before wrapper functions
+have been written in R to format and validate the request in a more
+user-friendly format.}
+
+\item{folder_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics folder (it will start with "00l").}
+}
+\value{
+\code{list}
+}
 \description{
 Creates new shares to replace the existing shares in the share list for the folder.
 }

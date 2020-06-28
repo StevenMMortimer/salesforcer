@@ -6,6 +6,15 @@
 \usage{
 sf_report_folder_children(report_folder_id, page_size = 10, page = NULL)
 }
+\arguments{
+\item{page_size}{\code{integer}; integer that indicates how many results each 
+page returns. Default is 10.}
+
+\item{page}{\code{integer}; integer that indicates which page of results to return.}
+
+\item{folder_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics folder (it will start with "00l").}
+}
 \description{
 Get the subfolders (children) of a report folder
 }

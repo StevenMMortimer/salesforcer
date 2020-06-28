@@ -4,7 +4,15 @@
 \alias{sf_report_type_describe}
 \title{Describe a report type}
 \usage{
-sf_report_type_describe()
+sf_report_type_describe(report_type)
+}
+\arguments{
+\item{report_type}{\code{character}; a character representing the type of 
+report to retrieve the metadata information on. A list of valid options for 
+this parameter can be gotten using \link{sf_report_types_list}.}
+}
+\value{
+\code{list}
 }
 \description{
 Describe a report type

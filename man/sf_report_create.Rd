@@ -6,6 +6,16 @@
 \usage{
 sf_report_create(name, report_type)
 }
+\arguments{
+\item{name}{\code{character}; a user-specified name for the report.}
+
+\item{report_type}{\code{character}; a character representing the type of 
+report to retrieve the metadata information on. A list of valid options for 
+this parameter can be gotten using \link{sf_report_types_list}.}
+}
+\value{
+\code{list}
+}
 \description{
 Create a report
 }

@@ -6,6 +6,19 @@
 \usage{
 sf_report_update(report_id, body)
 }
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+
+\item{body}{\code{list}; a list of data to be formatted as JSON before being
+sent to an API endpoint. This is NOT validated and is only experimental in
+allowing users to utilize the API functionality before wrapper functions
+have been written in R to format and validate the request in a more
+user-friendly format.}
+}
+\value{
+\code{list}
+}
 \description{
 Update a report
 }

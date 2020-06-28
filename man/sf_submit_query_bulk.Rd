@@ -8,7 +8,7 @@ sf_submit_query_bulk(job_id, soql, api_type = c("Bulk 1.0"), verbose = FALSE)
 }
 \arguments{
 \item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
-returned by \link{sf_create_job_bulk}.}
+returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
 \item{soql}{\code{character}; a string defining a SOQL query 
 (e.g. "SELECT Id, Name FROM Account").}

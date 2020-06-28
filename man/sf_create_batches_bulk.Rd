@@ -14,7 +14,7 @@ sf_create_batches_bulk(
 }
 \arguments{
 \item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
-returned by \link{sf_create_job_bulk}.}
+returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
 \code{tbl_df}; data can be coerced into .csv file for submitting as batch request}

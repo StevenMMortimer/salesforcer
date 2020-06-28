@@ -4,7 +4,18 @@
 \alias{sf_report_instance_results}
 \title{List report instance results}
 \usage{
-sf_report_instance_results()
+sf_report_instance_results(report_id, report_instance_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+
+\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
+created analytics report instance (an asynchronous run). It will start with 
+\code{"0LG"}.}
+}
+\value{
+\code{list}
 }
 \description{
 List report instance results

@@ -4,7 +4,28 @@
 \alias{sf_get_dashboard_data}
 \title{Get dashboard data in a tabular format}
 \usage{
-sf_get_dashboard_data(dashboard_id, running_user = NULL, filters = list())
+sf_get_dashboard_data(
+  dashboard_id,
+  running_user = NULL,
+  filter_ids = c(character(0))
+)
+}
+\arguments{
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+dashboard. It will start with \code{"01Z"}.}
+
+\item{running_user}{\code{character}; the Salesforce Id that should be assigned 
+as the runner of the job. This should be from a User record (i.e. the Id will 
+start with "005"). Note that this will throw an error if the User is not 
+allowed to change the running User, or if the selected running User is invalid.}
+
+\item{filter_ids}{\code{character}; Dashboard results are always unfiltered, unless you 
+have specified filter parameters in your request. Use this argument to include 
+up to three optional filter Ids. You can obtain the list of defined filter Ids 
+from the dashboard metadata using \link{sf_dashboard_describe}.}
+}
+\value{
+\code{tbl_df}
 }
 \description{
 Get dashboard data in a tabular format

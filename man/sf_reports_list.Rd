@@ -6,6 +6,9 @@
 \usage{
 sf_reports_list()
 }
+\value{
+\code{list}
+}
 \description{
 Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other

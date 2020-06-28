@@ -6,6 +6,9 @@
 \usage{
 sf_report_folders_list()
 }
+\value{
+\code{list}
+}
 \description{
 List report folders
 }

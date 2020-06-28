@@ -6,6 +6,9 @@
 \usage{
 sf_dashboard_filter_operators_list()
 }
+\value{
+\code{list}
+}
 \description{
 List dashboard filter operators
 }

@@ -4,7 +4,14 @@
 \alias{sf_report_query}
 \title{Query a report}
 \usage{
-sf_report_query()
+sf_report_query(report_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+}
+\value{
+\code{tbl_df}
 }
 \description{
 This function allows for pulling specific data from a report. There is a convenience 

@@ -4,7 +4,14 @@
 \alias{sf_report_instances_list}
 \title{List report instances}
 \usage{
-sf_report_instances_list()
+sf_report_instances_list(report_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+}
+\value{
+\code{list}
 }
 \description{
 List report instances

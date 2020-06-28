@@ -13,10 +13,10 @@ sf_batch_status_bulk(
 }
 \arguments{
 \item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
-returned by \link{sf_create_job_bulk}.}
+returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
-\item{batch_id}{\code{character}; the Salesforce Id assigned assigned to a submitted 
-batch as returned by \link{sf_create_batches_bulk}.}
+\item{batch_id}{\code{character}; the Salesforce Id assigned to a submitted 
+batch as returned by \link{sf_create_batches_bulk}. It will start with \code{"751"}.}
 
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 

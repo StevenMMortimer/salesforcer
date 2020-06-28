@@ -6,6 +6,16 @@
 \usage{
 sf_dashboard_components_describe(dashboard_id, component_ids = c(character(0)))
 }
+\arguments{
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+dashboard. It will start with \code{"01Z"}.}
+
+\item{\code{character};}{a vector of Unique Salesforce Ids of a dashboard 
+component.}
+}
+\value{
+\code{list}
+}
 \description{
 Describe dashboard components
 }

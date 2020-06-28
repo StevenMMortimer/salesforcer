@@ -6,7 +6,7 @@
 make_report_types_list_url <- function(){
   # ensure we are authenticated first so the url can be formed
   sf_auth_check()
-  sprintf("%s/services/data/v%s/analytics/report-types",
+  sprintf("%s/services/data/v%s/analytics/reportTypes",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"))      
 }

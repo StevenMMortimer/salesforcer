@@ -2,6 +2,7 @@
 
 #' List report folders
 #'
+#' @return \code{list}
 #' @export
 sf_report_folders_list <- function(){
   .NotYetImplemented()
@@ -13,6 +14,8 @@ sf_report_folders_list <- function(){
 
 #' Create report folder
 #'
+#' @template body
+#' @return \code{list}
 #' @export
 sf_report_folder_create <- function(body){
   .NotYetImplemented()
@@ -25,6 +28,8 @@ sf_report_folder_create <- function(body){
 
 #' Describe a report folder
 #'
+#' @template report_folder_id
+#' @return \code{list}
 #' @export
 sf_report_folder_describe <- function(report_folder_id){
   # # make_report_folder_url
@@ -35,6 +40,9 @@ sf_report_folder_describe <- function(report_folder_id){
 
 #' Update a report folder
 #'
+#' @template report_folder_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_report_folder_update <- function(report_folder_id, body){
   .NotYetImplemented()  
@@ -47,6 +55,8 @@ sf_report_folder_update <- function(report_folder_id, body){
 
 #' Delete a report folder
 #'
+#' @template report_folder_id
+#' @return \code{logical}
 #' @export
 sf_report_folder_delete <- function(report_folder_id){
   .NotYetImplemented()
@@ -57,10 +67,13 @@ sf_report_folder_delete <- function(report_folder_id){
 
 #' List the shares in a report folder
 #'
+#' @template report_folder_id
+#' @return \code{list}
 #' @export
 sf_report_folder_shares_list <- function(report_folder_id){
   # # make_report_folder_share_url
-  # /services/data/v43.0/folders/00lxx000000flSFAAY/shares/004xx000001Sy1GAAS
+  # DO I NEED T
+  # /services/data/v43.0/folders/00lxx000000flSFAAY/shares
   # GET
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_folders_shares.htm 
 }
@@ -69,11 +82,14 @@ sf_report_folder_shares_list <- function(report_folder_id){
 #' 
 #' Creates new shares and appends them to the existing share list for the folder.
 #'
+#' @template report_folder_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_report_folder_shares_add <- function(report_folder_id, body){
   .NotYetImplemented()  
   # # make_report_folder_share_url
-  # /services/data/v43.0/folders/00lxx000000flSFAAY/shares/004xx000001Sy1GAAS
+  # /services/data/v43.0/folders/00lxx000000flSFAAY/shares
   # POST
   # Uses the same format as the GET response body.
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_folders_shares.htm
@@ -83,11 +99,14 @@ sf_report_folder_shares_add <- function(report_folder_id, body){
 #' 
 #' Creates new shares to replace the existing shares in the share list for the folder.
 #'
+#' @template report_folder_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_report_folder_shares_update <- function(report_folder_id, body){
   .NotYetImplemented()
   # # make_report_folder_share_url
-  # /services/data/v43.0/folders/01ZD00000007S89MAE/shares/004xx000001Sy1GAAS
+  # /services/data/v43.0/folders/01ZD00000007S89MAE/shares
   # PUT
   # Uses the same format as the GET response body.
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_folders_shares.htm
@@ -95,6 +114,9 @@ sf_report_folder_shares_update <- function(report_folder_id, body){
 
 #' Describe a report folder share
 #'
+#' @template report_folder_id
+#' @template share_id
+#' @return \code{list}
 #' @export
 sf_report_folder_share_describe <- function(report_folder_id, share_id){
   # # make_report_folder_share_url
@@ -105,6 +127,10 @@ sf_report_folder_share_describe <- function(report_folder_id, share_id){
 
 #' Update a report folder share
 #'
+#' @template report_folder_id
+#' @template share_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_report_folder_share_update <- function(report_folder_id, share_id, body){
   .NotYetImplemented()  
@@ -117,6 +143,9 @@ sf_report_folder_share_update <- function(report_folder_id, share_id, body){
 
 #' Delete a report folder share
 #'
+#' @template report_folder_id
+#' @template share_id
+#' @return \code{logical}
 #' @export
 sf_report_folder_share_delete <- function(report_folder_id, share_id){
   .NotYetImplemented()
@@ -128,6 +157,13 @@ sf_report_folder_share_delete <- function(report_folder_id, share_id){
 
 #' Get report folder share recipients
 #'
+#' @template report_folder_id
+#' @param share_type \code{character}; Return data for the recipients of the 
+#' specified type, such as "User", "Group", or "Role".
+#' @param search_term \code{character}; Search to match share recipients' names. 
+#' Default is "" (no restriction).
+#' @param limit \code{integer}; Limit to the number of search results. Default is 100.
+#' @return \code{list}
 #' @export
 sf_report_folder_share_recipients <- function(report_folder_id, 
                                               share_type = c("User", "Group", "Role"), 
@@ -138,13 +174,14 @@ sf_report_folder_share_recipients <- function(report_folder_id,
   # /services/data/v43.0/folders/01ZD00000007S89MAE/share-recipients?shareType=<shareType>
   # GET
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_folders_share_recipients.htm
-  # share_type \code{character} Return data for the recipients of the specified type, such as "user", "group", or "role".
-  # search_term \code{character} Search to match share recipients' names.	Default is "" (no restriction).
-  # limit	\code{integer} Limit to the number of search results.	Default is 100.
 }
 
 #' Get the subfolders (children) of a report folder
 #'
+#' @template report_folder_id
+#' @param page_size \code{integer}; integer that indicates how many results each 
+#' page returns. Default is 10.
+#' @param page \code{integer}; integer that indicates which page of results to return.
 #' @export
 sf_report_folder_children <- function(report_folder_id, 
                                       page_size = 10, 
@@ -154,6 +191,4 @@ sf_report_folder_children <- function(report_folder_id,
   # /services/data/v43.0/folders/01ZD00000007S89MAE/children
   # GET
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_folders_children.htm
-  # page_size	\code{integer} integer that indicates how many results each page returns. Default is 10.
-  # page	\code{integer} integer that indicates which page of results to return. Default is 1.
 }

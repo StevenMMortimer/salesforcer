@@ -6,6 +6,9 @@
 \usage{
 sf_report_filter_operators_list()
 }
+\value{
+\code{list}
+}
 \description{
 List report filter operators
 }

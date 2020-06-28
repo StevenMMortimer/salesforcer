@@ -2,16 +2,24 @@
 % Please edit documentation in R/analytics-report.R
 \name{sf_report_fields}
 \alias{sf_report_fields}
-\title{Get list of report fields}
+\title{Get a list of report fields}
 \usage{
-sf_report_fields(intersect_with = c(character(0)))
+sf_report_fields(report_id, intersect_with = c(character(0)))
 }
 \arguments{
-\item{intersect_with}{\code{character} a vector of unique report IDs}
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+
+\item{intersect_with}{\code{character} a vector of unique report IDs. This is
+helpful in determining the best fields for use in dashboard filters by seeing 
+which fields different source reports have in common. If this argument is left 
+empty, then the function returns a list of all possible report fields. 
+Otherwise, returns a list of fields that specified reports share.}
+}
+\value{
+\code{list}
 }
 \description{
-The Report Fields resource returns report fields available for specified
-reports. Use the resource to determine the best fields for use in dashboard
-filters by seeing which fields different source reports have in common.
-Available in API version 40.0 and later.
+The Report Fields resource returns report fields available for the specified
+report and even which fields intersect with other reports, if specified.
 }

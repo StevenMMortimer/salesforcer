@@ -6,6 +6,9 @@
 \usage{
 sf_dashboards_list()
 }
+\value{
+\code{list}
+}
 \description{
 Returns a list of recently used dashboards
 }

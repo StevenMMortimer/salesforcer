@@ -15,14 +15,14 @@ sf_query_result_bulk_v1(
 }
 \arguments{
 \item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
-returned by \link{sf_create_job_bulk}.}
+returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
 \item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
 to try and cast the data returned in the query recordset. \code{TRUE} uses 
 \code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
-\item{batch_id}{\code{character}; the Salesforce Id assigned assigned to a submitted 
-batch as returned by \link{sf_create_batches_bulk}.}
+\item{batch_id}{\code{character}; the Salesforce Id assigned to a submitted 
+batch as returned by \link{sf_create_batches_bulk}. It will start with \code{"751"}.}
 
 \item{result_id}{\code{character}; a string returned from 
 \link{sf_batch_details_bulk} when a query has completed and specifies how to 

@@ -4,6 +4,7 @@
 #'
 #' Returns a list of recently used dashboards
 #'
+#' @return \code{list}
 #' @export
 sf_dashboards_list <- function(){
   .NotYetImplemented()
@@ -16,6 +17,8 @@ sf_dashboards_list <- function(){
 
 #' Describe a dashboard
 #'
+#' @template dashboard_id
+#' @return \code{list}
 #' @export
 sf_dashboard_describe <- function(dashboard_id){
   .NotYetImplemented()  
@@ -27,7 +30,11 @@ sf_dashboard_describe <- function(dashboard_id){
 }
 
 #' Describe dashboard components
-#'
+#' 
+#' @template dashboard_id
+#' @param \code{character}; a vector of Unique Salesforce Ids of a dashboard 
+#' component.
+#' @return \code{list}
 #' @export
 sf_dashboard_components_describe <- function(dashboard_id, 
                                              component_ids=c(character(0))){
@@ -44,10 +51,14 @@ sf_dashboard_components_describe <- function(dashboard_id,
 
 #' Get the status of a dashboard
 #'
+#' @template dashboard_id
+#' @template running_user
+#' @template filter_ids
+#' @return \code{list}
 #' @export
-sf_dashboard_status <- function(dashboard_id, 
+sf_dashboard_status <- function(dashboard_id,
                                 running_user = NULL, 
-                                filters = list()){
+                                filter_ids = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_status_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE/status
@@ -59,6 +70,7 @@ sf_dashboard_status <- function(dashboard_id,
 
 #' List dashboard filter operators
 #'
+#' @return \code{list}
 #' @export
 sf_dashboard_filter_operators_list <- function(){
   .NotYetImplemented()
@@ -70,7 +82,14 @@ sf_dashboard_filter_operators_list <- function(){
 }
 
 #' Get an analysis of the filter options for a dashboard
-#'
+#' 
+#' @template dashboard_id
+#' @param filter_columns \code{list}; a list of fields from the source report 
+#' which you check filter values against. Each object in the array has these 
+#' properties:...
+#' @param options \code{list}; a list of objects describing a dashboard filter. 
+#' Each object has these properties:...
+#' @return \code{list}
 #' @export
 sf_dashboard_filter_options_analysis <- function(dashboard_id, 
                                                  filter_columns = list(), 
@@ -81,8 +100,7 @@ sf_dashboard_filter_options_analysis <- function(dashboard_id,
   # GET
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_filteroptionsanalysis.htm
   
-  # filter_columns \code{list}; a list of fields from the source report which you check filter values against. Each object in the array has these properties:...
-  # options \code{list}; a list of objects describing a dashboard filter. Each object has these properties:...
+
 }
 
 #' Get the results of an existing dashboard
@@ -90,11 +108,15 @@ sf_dashboard_filter_options_analysis <- function(dashboard_id,
 #' This function allows for pulling specific data from a dashboard. There is a
 #' convenience function (\link{sf_get_dashboard_data}) to get the dashboard data
 #' in a tabular format returned as a \code{tbl_df}.
-#'
+#' 
+#' @template dashboard_id
+#' @template running_user
+#' @template filter_ids
+#' @return \code{tbl_df}
 #' @export
-sf_dashboard_results <- function(dashboard_id, 
+sf_dashboard_results <- function(dashboard_id,
                                  running_user = NULL, 
-                                 filters = list()){
+                                 filter_ids = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
@@ -105,18 +127,25 @@ sf_dashboard_results <- function(dashboard_id,
 
 #' Get dashboard data in a tabular format
 #' 
+#' @template dashboard_id
+#' @template running_user
+#' @template filter_ids
+#' @return \code{tbl_df}
 #' @export
 sf_get_dashboard_data <- function(dashboard_id,
                                   running_user = NULL, 
-                                  filters = list()){
+                                  filter_ids = c(character(0))){
   .NotYetImplemented()
 }
 
 #' Refresh an existing dashboard
 #'
+#' @template dashboard_id
+#' @template filter_ids
+#' @return \code{list}
 #' @export
 sf_dashboard_refresh <- function(dashboard_id, 
-                                 filters=list()){
+                                 filter_ids=c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
@@ -129,8 +158,11 @@ sf_dashboard_refresh <- function(dashboard_id,
 
 #' Copy a dashboard
 #'
+#' @template dashboard_id
+#' @template report_folder_id
+#' @return \code{list}
 #' @export
-sf_dashboard_copy <- function(dashboard_id, folder_id){
+sf_dashboard_copy <- function(dashboard_id, report_folder_id){
   .NotYetImplemented()
   # # make_dashboard_copy_url
   # /services/data/v34.0/analytics/dashboards/?cloneId=01ZD00000007S89MAE
@@ -144,6 +176,9 @@ sf_dashboard_copy <- function(dashboard_id, folder_id){
 
 #' Update a dashboard
 #'
+#' @template dashboard_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_dashboard_update <- function(dashboard_id, body){
   .NotYetImplemented()
@@ -167,10 +202,16 @@ sf_dashboard_update <- function(dashboard_id, body){
 #' while viewing the dashboard, then the filter value you set in the user
 #' interface overwrites the value you set via the API. To set sticky filters for
 #' a dashboard, \code{canUseStickyFilter} must equal true.
+#' Saves any dashboard filters set in the request so that they’re also set the 
+#' next time you open the dashboard. NOTE: You can only set dashboard filters for 
+#' yourself, not for other users.
 #'
+#' @template dashboard_id
+#' @template filter_ids
+#' @return \code{list}
 #' @export
 sf_dashboard_set_sticky_filter <- function(dashboard_id, 
-                                           filters = list()){
+                                           filter_ids = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url(sticky_filter_save = TRUE)
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE?isStickyFilterSave=true
@@ -188,6 +229,8 @@ sf_dashboard_set_sticky_filter <- function(dashboard_id,
 
 #' Delete a dashboard
 #'
+#' @template dashboard_id
+#' @return \code{logical}
 #' @export
 sf_dashboard_delete <- function(dashboard_id){
   .NotYetImplemented()

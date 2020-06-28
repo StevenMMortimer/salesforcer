@@ -7,6 +7,7 @@
 #' fields, use a SOQL query on the Report object. The resource can also be used
 #' to make a copy of a report.
 #'
+#' @return \code{list}
 #' @export
 sf_reports_list <- function(){
   .NotYetImplemented()
@@ -18,11 +19,12 @@ sf_reports_list <- function(){
 
 #' List report filter operators
 #'
+#' @return \code{list}
 #' @export
 sf_report_filter_operators_list <- function(){
   .NotYetImplemented()
 # make_report_filter_operators_list_url
-# /services/data/v34.0/analytics/reportTypes?forDashboards=false
+# /services/data/v34.0/analytics/filteroperators
 # GET
   # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Documentation}
   # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Example} 
@@ -30,10 +32,11 @@ sf_report_filter_operators_list <- function(){
 
 #' List report types
 #'
+#' @return \code{list}
 #' @export
 sf_report_types_list <- function(){
   .NotYetImplemented()
-# # sf_report_type_list
+# # make_report_types_list_url
 # /services/data/v34.0/analytics/reportTypes
 # GET
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_list.htm
@@ -41,10 +44,14 @@ sf_report_types_list <- function(){
   
 #' Describe a report type
 #'
+#' @param report_type \code{character}; a character representing the type of 
+#' report to retrieve the metadata information on. A list of valid options for 
+#' this parameter can be gotten using \link{sf_report_types_list}.
+#' @return \code{list}
 #' @export
-sf_report_type_describe <- function(){
+sf_report_type_describe <- function(report_type){
   .NotYetImplemented()  
-# # 
+#  make_report_type_describe_url
 # /services/data/v34.0/analytics/reportTypes/{type}
 # GET
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_reporttype.htm
@@ -52,6 +59,11 @@ sf_report_type_describe <- function(){
 
 #' Create a report
 #'
+#' @param name \code{character}; a user-specified name for the report.
+#' @param report_type \code{character}; a character representing the type of 
+#' report to retrieve the metadata information on. A list of valid options for 
+#' this parameter can be gotten using \link{sf_report_types_list}.
+#' @return \code{list}
 #' @export
 sf_report_create <- function(name, report_type){
   .NotYetImplemented()
@@ -66,6 +78,8 @@ sf_report_create <- function(name, report_type){
 
 #' Copy a report
 #'
+#' @template report_id
+#' @return \code{list}
 #' @export
 sf_report_copy <- function(report_id){
   .NotYetImplemented()
@@ -81,6 +95,9 @@ sf_report_copy <- function(report_id){
 
 #' Update a report
 #'
+#' @template report_id
+#' @template body
+#' @return \code{list}
 #' @export
 sf_report_update <- function(report_id, body){
   .NotYetImplemented()
@@ -97,6 +114,8 @@ sf_report_update <- function(report_id, body){
 
 #' Delete a report
 #'
+#' @template report_id
+#' @return \code{logical}
 #' @export
 sf_report_delete <- function(report_id){
   .NotYetImplemented()
@@ -106,16 +125,21 @@ sf_report_delete <- function(report_id){
   # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_delete_report.htm#example_delete_report
 }
   
-#' Get list of report fields
+#' Get a list of report fields
 #' 
-#' The Report Fields resource returns report fields available for specified
-#' reports. Use the resource to determine the best fields for use in dashboard
-#' filters by seeing which fields different source reports have in common.
-#' Available in API version 40.0 and later.
+#' The Report Fields resource returns report fields available for the specified
+#' report and even which fields intersect with other reports, if specified.
 #' 
-#' @param intersect_with \code{character} a vector of unique report IDs
+#' @template report_id
+#' @param intersect_with \code{character} a vector of unique report IDs. This is
+#' helpful in determining the best fields for use in dashboard filters by seeing 
+#' which fields different source reports have in common. If this argument is left 
+#' empty, then the function returns a list of all possible report fields. 
+#' Otherwise, returns a list of fields that specified reports share.
+#' @return \code{list}
 #' @export
-sf_report_fields <- function(intersect_with = c(character(0))){
+sf_report_fields <- function(report_id, 
+                             intersect_with = c(character(0))){
   .NotYetImplemented()
 # # 
 # /services/data/v34.0/analytics/reports/00OD0000001cxIE/fields
@@ -125,8 +149,10 @@ sf_report_fields <- function(intersect_with = c(character(0))){
   
 #' Describe a report
 #'
+#' @template report_id
+#' @return \code{list}
 #' @export
-sf_report_describe <- function(){
+sf_report_describe <- function(report_id){
   .NotYetImplemented()  
 # # 
 # /services/data/v34.0/analytics/reports/00OD0000001cxIE/describe
@@ -138,8 +164,10 @@ sf_report_describe <- function(){
 
 #' Execute a report
 #'
+#' @template report_id
+#' @return \code{list}
 #' @export
-sf_report_execute <- function(){
+sf_report_execute <- function(report_id){
   .NotYetImplemented()  
 # # 
 # /services/data/v34.0/analytics/reports/00OD0000001cxIE
@@ -156,8 +184,10 @@ sf_report_execute <- function(){
 
 #' List report instances
 #'
+#' @template report_id
+#' @return \code{list}
 #' @export
-sf_report_instances_list <- function(){
+sf_report_instances_list <- function(report_id){
   .NotYetImplemented()
 # # 
 # /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances
@@ -168,8 +198,11 @@ sf_report_instances_list <- function(){
 
 #' List report instance results
 #'
+#' @template report_id
+#' @template report_instance_id
+#' @return \code{list}
 #' @export
-sf_report_instance_results <- function(){
+sf_report_instance_results <- function(report_id, report_instance_id){
   .NotYetImplemented()  
 # # 
 # /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances/0LGR00000000He3OAE
@@ -180,8 +213,11 @@ sf_report_instance_results <- function(){
 
 #' Delete a report instance
 #'
+#' @template report_id
+#' @template report_instance_id
+#' @return \code{logical}
 #' @export
-sf_report_instance_delete <- function(){
+sf_report_instance_delete <- function(report_id, report_instance_id){
   .NotYetImplemented()
 # # 
 # /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances/0LGR00000000He3OAE
@@ -195,8 +231,10 @@ sf_report_instance_delete <- function(){
 #' function (\link{sf_get_report_data}) to get the report data in a tabular 
 #' format returned as a \code{tbl_df}.
 #'
+#' @template report_id
+#' @return \code{tbl_df}
 #' @export
-sf_report_query <- function(){
+sf_report_query <- function(report_id){
   .NotYetImplemented()
 # # 
 # Tabular Report is T!T key, Summary & Matrix Report is all over the place
@@ -212,7 +250,9 @@ sf_report_query <- function(){
 
 #' Get a report's data in tabular format
 #' 
+#' @template report_id
+#' @return \code{tbl_df}
 #' @export
-sf_get_report_data <- function(){
+sf_get_report_data <- function(report_id){
   .NotYetImplemented()
 }

@@ -4,7 +4,14 @@
 \alias{sf_report_execute}
 \title{Execute a report}
 \usage{
-sf_report_execute()
+sf_report_execute(report_id)
+}
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+analytics report. It will start with \code{"00O"}.}
+}
+\value{
+\code{list}
 }
 \description{
 Execute a report
