@@ -4,13 +4,13 @@
 \alias{sf_dashboard_refresh}
 \title{Refresh an existing dashboard}
 \usage{
-sf_dashboard_refresh(dashboard_id, filter_ids = c(character(0)))
+sf_dashboard_refresh(dashboard_id, dashboard_filters = c(character(0)))
 }
 \arguments{
 \item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
 dashboard. It will start with \code{"01Z"}.}
 
-\item{filter_ids}{\code{character}; Dashboard results are always unfiltered, unless you 
+\item{dashboard_filters}{\code{character}; Dashboard results are always unfiltered, unless you 
 have specified filter parameters in your request. Use this argument to include 
 up to three optional filter Ids. You can obtain the list of defined filter Ids 
 from the dashboard metadata using \link{sf_dashboard_describe}.}

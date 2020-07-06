@@ -4,11 +4,16 @@
 \alias{sf_report_query}
 \title{Query a report}
 \usage{
-sf_report_query(report_id)
+sf_report_query(report_id, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df}
@@ -17,4 +22,7 @@ analytics report. It will start with \code{"00O"}.}
 This function allows for pulling specific data from a report. There is a convenience 
 function (\link{sf_get_report_data}) to get the report data in a tabular 
 format returned as a \code{tbl_df}.
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example}{Salesforce Example}
 }

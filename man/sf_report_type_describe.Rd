@@ -4,16 +4,46 @@
 \alias{sf_report_type_describe}
 \title{Describe a report type}
 \usage{
-sf_report_type_describe(report_type)
+sf_report_type_describe(report_type, verbose = FALSE)
 }
 \arguments{
 \item{report_type}{\code{character}; a character representing the type of 
-report to retrieve the metadata information on. A list of valid options for 
-this parameter can be gotten using \link{sf_report_types_list}.}
+report to retrieve the metadata information on. A list of valid report types 
+that can be described using this function will be available in the 
+\code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
+(e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
+etc.)}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{list}
+\code{list} containing up to 4 properties that describe the report: 
+\describe{
+  \item{attributes}{Report type along with the URL to retrieve common objects and 
+  joined metadata.}
+  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+}
 }
 \description{
-Describe a report type
+Return metadata about a report type.
+}
+\examples{
+\dontrun{
+reports <- sf_report_types_list()
+unique_report_types <- reports \%>\% distinct(reportTypes.type)
+
+# first unique report type
+unique_report_types[[1,1]]
+
+# describe that report type
+described_report <- sf_report_type_describe(unique_report_types[[1,1]])
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_reporttype.htm}{Salesforce Documentation}
 }

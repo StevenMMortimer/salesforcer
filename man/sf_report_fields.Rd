@@ -4,7 +4,7 @@
 \alias{sf_report_fields}
 \title{Get a list of report fields}
 \usage{
-sf_report_fields(report_id, intersect_with = c(character(0)))
+sf_report_fields(report_id, intersect_with = c(character(0)), verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
@@ -17,9 +17,32 @@ empty, then the function returns a list of all possible report fields.
 Otherwise, returns a list of fields that specified reports share.}
 }
 \value{
-\code{list}
+\code{list} representing the 4 different field report properties:
+\describe{
+  \item{displayGroups}{Fields available when adding a filter.}
+  \item{equivalentFields}{Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.}
+  \item{equivalentFieldIndices}{Map of each field’s API name to the index of the field in the \code{equivalentFields} array.}
+  \item{mergedGroups}{Merged fields.}
+}
 }
 \description{
-The Report Fields resource returns report fields available for the specified
-report and even which fields intersect with other reports, if specified.
+The Report Fields resource returns report fields available for specified reports. 
+Use the resource to determine the best fields for use in dashboard filters by 
+seeing which fields different source reports have in common. Available in API 
+version 40.0 and later.
+}
+\examples{
+\dontrun{
+# first, grab all possible reports in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+
+# second, get the id of the report to check fields on
+this_report_id <- all_reports$Id[1]
+
+# third, pull that report and intersect its fields with up to three other reports
+fields <- sf_report_fields(this_report_id, intersect_with=head(all_reports[["Id"]],3))
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_fields.htm}{Salesforce Documentation}
 }

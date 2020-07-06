@@ -4,7 +4,7 @@
 \alias{make_report_execute_url}
 \title{Report Execute URL generator}
 \usage{
-make_report_execute_url(report_id, async = FALSE)
+make_report_execute_url(report_id, async = TRUE, include_details = FALSE)
 }
 \description{
 Report Execute URL generator

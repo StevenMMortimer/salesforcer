@@ -4,7 +4,7 @@
 \alias{make_report_instance_url}
 \title{Report Instance URL generator}
 \usage{
-make_report_instance_url(report_id, result_id)
+make_report_instance_url(report_id, report_instance_id)
 }
 \description{
 Report Instance URL generator

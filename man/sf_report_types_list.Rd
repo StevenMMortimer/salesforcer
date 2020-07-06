@@ -4,11 +4,33 @@
 \alias{sf_report_types_list}
 \title{List report types}
 \usage{
-sf_report_types_list()
+sf_report_types_list(as_tbl = TRUE, verbose = FALSE)
+}
+\arguments{
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+JSON into a \code{tbl_df}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{list}
+\code{tbl_df} by default, or a \code{list} depending on the value of 
+argument \code{as_tbl}
 }
 \description{
-List report types
+Return a list of report types.
+}
+\examples{
+\dontrun{
+report_types <- sf_report_types_list()
+unique_report_types <- report_types \%>\% select(reportTypes.type)
+
+# return the results as a list
+reports_as_list <- sf_report_types_list(as_tbl=FALSE)
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_list.htm}{Salesforce Documentation}
 }

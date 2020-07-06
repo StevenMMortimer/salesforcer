@@ -4,14 +4,42 @@
 \alias{sf_reports_list}
 \title{List reports}
 \usage{
-sf_reports_list()
+sf_reports_list(as_tbl = TRUE, verbose = FALSE)
+}
+\arguments{
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+JSON into a \code{tbl_df}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{list}
+\code{tbl_df} by default, or a \code{list} depending on the value of 
+argument \code{as_tbl}
 }
 \description{
 Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other
-fields, use a SOQL query on the Report object. The resource can also be used
-to make a copy of a report.
+fields, use a SOQL query on the Report object.
+}
+\note{
+This function will only return up to 200 of recently viewed reports. For 
+a COMPLETE list you must use \code{\link{sf_query}} on the report object.
+}
+\examples{
+\dontrun{
+# return up to 200 recently viewed reports
+reports <- sf_reports_list()
+
+# return the results as a list
+reports_as_list <- sf_reports_list(as_tbl=FALSE)
+
+# to return all possible reports, query the Report object
+reports <- sf_query("SELECT Id, Name FROM Report")
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_recentreportslist.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist}{Salesforce Example}
 }

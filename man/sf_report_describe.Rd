@@ -4,15 +4,50 @@
 \alias{sf_report_describe}
 \title{Describe a report}
 \usage{
-sf_report_describe(report_id)
+sf_report_describe(report_id, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{list}
+\code{list} containing up to 4 properties that describe the report: 
+\describe{
+  \item{attributes}{Report type along with the URL to retrieve common objects and joined metadata.}
+  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+}
 }
 \description{
-Describe a report
+Retrieves report, report type, and related metadata for a tabular, summary, 
+or matrix report.
+}
+\details{
+\itemize{
+  \item Report metadata gives information about the report as a whole. Tells you such things as, the report type, format, the fields that are summaries, row or column groupings, filters saved to the report, and so on.
+  \item Report type metadata tells you about all the fields available in the report type, those you can filter, and by what filter criteria.
+  \item Report extended metadata tells you about the fields that are summaries, groupings, and contain record details in the report.
+}
+}
+\examples{
+\dontrun{
+# pull a list of up to 200 recent reports
+# (for a full list you must use sf_query on the Report object)
+reports <- sf_reports_list()
+
+# id for the first report
+reports[[1,"id"]]
+
+# describe that report type
+described_report <- sf_report_type_describe(unique_report_types[[1,"id"]])
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportmetadata.htm#example_report_getdescribe}{Salesforce Example}
 }

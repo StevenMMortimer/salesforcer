@@ -120,6 +120,8 @@ sf_input_data_validation <- function(input_data, operation=''){
     # dont try to cast the input for these operations, simply check existence of params
     list_based <- TRUE
     stopifnot(names(input_data) == c("start", "end"))
+  } else if(operation %in% c("create_report", "filter_report")){
+    list_based <- TRUE
   } else if(!is.data.frame(input_data)){
     list_based <- FALSE
     if(is.null(names(input_data))){
@@ -197,6 +199,107 @@ sf_input_data_validation <- function(input_data, operation=''){
       if(length(missing_cols) > 0){
         stop(sprintf("The following columns are required but missing from the input: %s", 
                      paste0(missing_cols, collapse = ",")))
+      }
+    }
+  }
+  
+  if(operation %in% c("create_report")){
+    report_properties <- c('reportMetadata', 'reportTypeMetadata', 'reportExtendedMetadata')
+    if(!is.list(input_data)){
+      stop(sprintf(paste0("The report metadata must be a list with up ", 
+                          "to 3 elements matching the properties of a report: %s."), 
+                   paste0(report_properties, collapse=", ")), call.=FALSE)
+    }    
+    if(any(!(names(input_data) %in% report_properties))){
+      if("attributes" %in% names(input_data)){
+        # drop the attributes element which is returned as part of sf_report_describe
+        # so that users do not need to remove themselves if passing metadata from 
+        # one function to the next
+        input_data$attributes <- NULL
+      } else {
+        stop(sprintf(paste0("Found properties the report metadata that are ", 
+                            "not supported. Only the following are supported: %s"), 
+                     paste0(report_properties, collapse=", ")), call. = FALSE)
+      }
+    }
+    # drop NULLs if they exist, which can occur if using straight from sf_report_describe
+    input_data <- drop_empty_recursively(input_data)    
+  }
+  
+  if(operation %in% c("filter_report")){
+    if(all(!(names(input_data) == "reportMetadata"))){
+      if(length(input_data) != 1){
+        # if the list has not been wrapped in reportMetadata, then do that
+        input_data <- list(reportMetadata=input_data)
+      } else {
+        stop(paste0("You must format the report metadata as a list of length 1 ", 
+                    "and that element named 'reportMetadata'.", call.=FALSE))
+      }
+    }
+    if("attributes" %in% names(input_data$reportMetadata)){
+      # drop the attributes element which is returned as part of sf_report_describe
+      # so that users do not need to remove themselves if passing metadata from 
+      # one function to the next
+      input_data$reportMetadata$attributes <- NULL
+    }
+    report_metadata_properties <- c('aggregates', 
+                                    'allowedInCustomDetailFormula', 
+                                    'buckets', 
+                                    'chart', 
+                                    'crossFilters', 
+                                    'customDetailFormula', 
+                                    'customSummaryFormula', 
+                                    'currency', 
+                                    'dashboardSetting', 
+                                    'detailColumns', 
+                                    'developerName', 
+                                    'division', 
+                                    'folderId', 
+                                    'groupingsAcross', 
+                                    'groupingsDown', 
+                                    'hasDetailRows', 
+                                    'hasRecordCount', 
+                                    'historicalSnapshotDates', 
+                                    'id', 
+                                    'name', 
+                                    'presentationOptions', 
+                                    'reportBooleanFilter', 
+                                    'reportFilters', 
+                                    'reportFormat', 
+                                    'reportType', 
+                                    'scope', 
+                                    'showGrandTotal', 
+                                    'showSubtotals', 
+                                    'sortBy', 
+                                    'standardDateFilter', 
+                                    'standardFilters', 
+                                    'supportsRoleHierarchy', 
+                                    'topRows', 
+                                    'userOrHierarchyFilterId')
+    if(any(!(names(input_data$reportMetadata) %in% report_metadata_properties))){
+      if(all(!(names(input_data$reportMetadata) %in% report_metadata_properties))){
+        stop(sprintf(paste0("None of the supplied properties are valid report metadata. ", 
+                            "Only the following are supported: %s."), 
+                     paste0(report_metadata_properties, collapse=", ")), call. = FALSE)
+      } else {
+        properties_to_drop <- setdiff(names(input_data$reportMetadata), report_metadata_properties)
+        message(sprintf(paste0("Dropping the following supplied report metadata properties, ", 
+                               "which are not supported: %s."), 
+                        paste0(properties_to_drop, collapse=", ")))
+        for(i in 1:length(input_data$reportMetadata)){
+          input_data$reportMetadata[[properties_to_drop[i]]] <- NULL
+        }
+      }
+    }
+    # drop NULLs if they exist, which can occur if using straight from sf_report_describe
+    input_data <- drop_empty_recursively(input_data)  
+    
+    # validate the report filters which are commonly passed
+    if("reportFilters" %in% names(input_data$reportMetadata)){
+      for(i in 1:length(input_data$reportMetadata$reportFilters)){
+        input_data$reportMetadata$reportFilters[[i]] <- metadata_type_validator(
+          obj_type = "ReportFilterItem", obj_data = input_data$reportMetadata$reportFilters[[i]]
+        )
       }
     }
   }
@@ -286,6 +389,51 @@ make_verbose_httr_message <- function(method, url, headers = NULL, body = NULL){
   if(!is.null(body)) message(sprintf("--Body------------------------\n%s", 
                                      body))
   return(invisible())
+}
+
+#' Execute a non-paginated REST API call to list items
+#' 
+#' @template as_tbl
+#' @param records_root \code{character} or \code{integer}; an index or string that 
+#' identifies the element in the parsed list which contains the records returned 
+#' by the API call. By default, this argument is \code{NULL}, which means that 
+#' each element in the list is an individual record.
+#' @template verbose
+#' @importFrom purrr map_df
+#' @importFrom dplyr as_tibble tibble
+#' @importFrom readr col_guess type_convert
+#' @importFrom httr content
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_rest_list <- function(url, 
+                         as_tbl=FALSE, 
+                         records_root=NULL,
+                         verbose=FALSE){
+  httr_response <- rGET(url = url)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  
+  if(as_tbl){
+    if(is.null(records_root)){
+      records_list <- response_parsed
+    } else {
+      records_list <- response_parsed[[records_root]]  
+    }
+    if(length(records_list) > 0){
+      response_parsed <- records_list %>% 
+        map_df(as_tibble) %>%
+        type_convert(col_types = cols(.default = col_guess()))
+    } else {
+      response_parsed <- tibble()
+    }
+  }
+  return(response_parsed)
 }
 
 #' Format Datetimes for Create and Update operations

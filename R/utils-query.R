@@ -87,6 +87,41 @@ flatten_to_tbl_df <- function(x){
   list.flatten(x) %>% as_tibble()
 }
 
+#' Flatten list column
+#' 
+#' This function is a convenience function to handle a list column in a \code{tbl_df}. 
+#' The column is unnested wide preserving the row count.
+#' 
+#' @importFrom dplyr select all_of
+#' @param df \code{tbl_df}; a data frame with list column to be extracted into 
+#' multiple individual columns.
+#' @param col \code{character}; the name of the column to unnest
+#' @return \code{tbl_df} parsed from the flattened list.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+unnest_col <- function(df, col){
+  key_rows <- df %>% select(-all_of(col))
+  col_data <- df %>% select(all_of(col))
+  bind_rows(
+    lapply(1:nrow(key_rows), 
+           FUN=function(x, y, z){
+             key_record <- y[x,]
+             col_to_unnest <- flatten_to_tbl_df(z[x,,drop=FALSE])
+             if(!is.null(col_to_unnest) && 
+                is.tbl(key_record) && 
+                is.tbl(col_to_unnest) && 
+                (nrow(col_to_unnest) > 0)){
+               combined <- bind_cols(key_record, col_to_unnest)  
+             } else {
+               combined <- key_record
+             }
+             return(combined)
+           }, 
+           key_rows, 
+           col_data
+    ))
+}
 
 #' Drop Id and type metadata present on every queried record and unlist
 #' 

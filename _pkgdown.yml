@@ -42,16 +42,16 @@ navbar:
       
 reference:
   - title: Authentication
-    desc: Functions used for authenticating
+    desc: Functions to authenticate
     contents:
       - '`sf_auth`'
   - title: Query/Search Functions
-    desc: Functions used for querying and searching
+    desc: Functions to query and search records
     contents:
       - '`sf_query`'
       - '`sf_search`'
   - title: CRUD Functions
-    desc: Functions used for create, retrieve, update, and delete records.
+    desc: Functions to create, retrieve, update, and delete records.
     contents:
       - '`sf_create`'
       - '`sf_create_attachment`'
@@ -63,8 +63,27 @@ reference:
       - '`sf_undelete`'
       - '`sf_get_deleted`'
       - '`sf_get_updated`'
+  - title: Report Functions
+    desc: Functions to create, retrieve, update, delete and query reports and their data.
+    contents:
+      - '`sf_get_report_data`'
+      - '`sf_reports_list`'
+      - '`sf_report_describe`'
+      - '`sf_report_create`'
+      - '`sf_report_copy`'
+      - '`sf_report_update`'
+      - '`sf_report_execute`'
+      - '`sf_report_query`'
+      - '`sf_report_delete`'
+      - '`sf_report_instances_list`'
+      - '`sf_report_instance_result`'
+      - '`sf_report_instance_delete`'
+      - '`sf_report_types_list`'
+      - '`sf_report_type_describe`'
+      - '`sf_report_fields`'
+      - '`sf_report_filter_operators_list`'
   - title: Metadata Functions
-    desc: Functions used for create, retrieve, update, and delete metadata.
+    desc: Functions to create, retrieve, update, and delete metadata.
     contents:
       - '`sf_create_metadata`'
       - '`sf_update_metadata`'
@@ -78,7 +97,7 @@ reference:
       - '`sf_describe_objects`'
       - '`sf_describe_object_fields`'
   - title: Salesforce Org Utility Functions
-    desc: Functions used for basic calls to understand the org.
+    desc: Functions to perform basic org-wide routines.
     contents:
       - '`sf_merge`'
       - '`sf_convert_lead`'
@@ -97,7 +116,7 @@ reference:
       - '`sf_reset_password`'
       - '`sf_control`'
   - title: Backward Compatibility with RForcecom
-    desc: Functions that mirror RForcecom to ease code transitions between salesforcer and RForcecom
+    desc: Functions that mirror RForcecom to ease code transitions between salesforcer and RForcecom.
     contents:
       - '`rforcecom.login`'
       - '`rforcecom.getServerTimestamp`'

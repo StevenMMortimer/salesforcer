@@ -4,15 +4,79 @@
 \alias{sf_get_report_data}
 \title{Get a report's data in tabular format}
 \usage{
-sf_get_report_data(report_id)
+sf_get_report_data(
+  report_id,
+  report_filters = NULL,
+  report_boolean_logic = NULL,
+  sort_by = NULL,
+  top_n = NULL,
+  decreasing = FALSE,
+  async = TRUE,
+  interval_seconds = 3,
+  max_attempts = 200,
+  wait_for_results = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
+
+\item{report_filters}{\code{list}; A \code{list} of reportFilter specifications. 
+Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 
+3) \code{value}. You can find out how certain field types can be filtered by 
+reviewing the results of \code{\link{sf_report_filter_operators_list}}.}
+
+\item{report_boolean_logic}{\code{character}; a string of boolean logic to parse 
+custom field filters if more than one is specified. For example, if three filters 
+are specified, then they can be combined using the logic \code{"(1 OR 2) AND 3"}.}
+
+\item{sort_by}{\code{character}; the name of the column used to sort the results. 
+Currently, you can sort on only one column at a time.}
+
+\item{top_n}{\code{integer}; an integer which sets a row limit filter to a report. 
+The results will be ordered as they appear in the report unless specified differently 
+via the \code{sort_by} and \code{decreasing} arguments. Note, it is sometimes 
+helpful to specify the \code{top_n} argument if a report contains many rows, but 
+you are only interested in a subset of them. Alternatively, you can limit the count 
+of returned rows via the \code{report_filters} argument.}
+
+\item{decreasing}{\code{logical}; a indicator of whether the results should be 
+ordered by increasing or decreasing values in \code{sort_by} column when selecting the 
+top N records. Note, this argument will be ignored if not specifying Top N. You can  
+sort the records using \code{\link{[dplyr]arrange}} after the results are returned.}
+
+\item{async}{\code{logical}; an indicator, by default set to \code{TRUE}, which 
+executes the report asynchronously. If executed asynchronously, this function
+will return a list of attributes of the created report instance. The results 
+can be pulled down by providing the report id and instance id to 
+the function \code{\link{sf_report_instance_results}}. Refer to the details 
+of the documentation on why executing a report asynchronously is preferred.}
+
+\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check 
+for job completion.}
+
+\item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
+completion before stopping.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df}
 }
 \description{
-Get a report's data in tabular format
+A convenience function for retrieving the data from a report, which runs 
+asynchronously by default and waits for the results summarized by a tabular 
+format, before pulling them down and returning as a \code{tbl_df}.
+}
+\details{
+This function is essentially a wrapper around \code{\link{sf_report_execute}}. 
+Please review or use that function if you want to have more control over 
+how the report is run and what format should be returned. In this case we've 
+forced the \code{reportFormat="TABULAR"} without total rows and the option to 
+filter, and show the Top N and sort as a function argument rather than forcing the user 
+to create an entire \code{list} variable of report metadata.
 }

@@ -2,13 +2,18 @@
 % Please edit documentation in R/analytics-report.R
 \name{sf_report_instance_results}
 \alias{sf_report_instance_results}
-\title{List report instance results}
+\title{Get report instance results}
 \usage{
-sf_report_instance_results(report_id, report_instance_id)
+sf_report_instance_results(report_id, result_id, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 
 \item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
 created analytics report instance (an asynchronous run). It will start with 
@@ -18,5 +23,10 @@ created analytics report instance (an asynchronous run). It will start with
 \code{list}
 }
 \description{
-List report instance results
+Retrieves results for an instance of a report run asynchronously with or without 
+filters. Depending on your asynchronous report run request, data can be at the 
+summary level or include details.
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}
 }

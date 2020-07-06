@@ -4,7 +4,7 @@
 \alias{sf_report_instance_delete}
 \title{Delete a report instance}
 \usage{
-sf_report_instance_delete(report_id, report_instance_id)
+sf_report_instance_delete(report_id, report_instance_id, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
@@ -13,10 +13,30 @@ analytics report. It will start with \code{"00O"}.}
 \item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
 created analytics report instance (an asynchronous run). It will start with 
 \code{"0LG"}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{logical}
+\code{logical} indicating whether the report instance was deleted. This function 
+will return \code{TRUE} if successful in deleting the report instance.
 }
 \description{
-Delete a report instance
+If the given report instance has a status of \code{Success} or \code{Error}, 
+delete the report instance.
+}
+\examples{
+\dontrun{
+# first, grab all possible reports in your Org
+report_instances <- sf_report_instances_list()
+
+# second, delete that report instance using its id and its parent report id
+success <- sf_report_instance_delete(report_instances[[1]]$attributes$id, 
+                                     report_instances[[1]]$attributes$reportId)
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}
 }

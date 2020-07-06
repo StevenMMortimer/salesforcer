@@ -4,21 +4,56 @@
 \alias{sf_report_update}
 \title{Update a report}
 \usage{
-sf_report_update(report_id, body)
+sf_report_update(report_id, report_metadata)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
 
-\item{body}{\code{list}; a list of data to be formatted as JSON before being
-sent to an API endpoint. This is NOT validated and is only experimental in
-allowing users to utilize the API functionality before wrapper functions
-have been written in R to format and validate the request in a more
-user-friendly format.}
+\item{report_metadata}{\code{list}; a list representing the properties to create 
+the report with. The names of the list must be one or more of the 3 accepted 
+metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
+\code{reportExtendedMetadata}.}
 }
 \value{
-\code{list}
+\code{list} representing the newly cloned report with up to 4 properties 
+that describe the report: 
+\describe{
+  \item{attributes}{Report type along with the URL to retrieve common objects and 
+  joined metadata.}
+  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+}
 }
 \description{
-Update a report
+Save changes to a report by sending a PATCH request to the Report resource. 
+Note that saving a report deletes any running async report jobs because they 
+might be obsolete based on the updates.
+}
+\examples{
+\dontrun{
+# first, grab all possible reports in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+
+# second, get the id of the report to update
+this_report_id <- all_reports$Id[1]
+
+my_updated_report <- sf_report_update(this_report_id,
+                                      report_metadata =
+                                        list(reportMetadata =
+                                          list(name = "Updated Report Name!")))
+
+# alternatively, pull down its metadata and update the name
+report_details <- sf_report_describe(this_report_id)
+report_details$reportMetadata$name <- paste0(report_details$reportMetadata$name,
+                                             " - UPDATED")
+
+# fourth, create the report by passing the metadata
+my_updated_report <- sf_report_update(this_report_id,
+                                      report_metadata = report_details)
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_save_report.htm#example_save_report}{Salesforce Documentation}
 }

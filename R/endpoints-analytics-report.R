@@ -11,6 +11,19 @@ make_report_types_list_url <- function(){
           getOption("salesforcer.api_version"))      
 }
 
+#' Reports List URL generator
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_reports_list_url <- function(){
+  # ensure we are authenticated first so the url can be formed
+  sf_auth_check()
+  sprintf("%s/services/data/v%s/analytics/reports",
+          salesforcer_state()$instance_url,
+          getOption("salesforcer.api_version"))      
+}
+
 #' Report Type Describe URL generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -72,7 +85,7 @@ make_report_describe_url <- function(report_id){
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-make_report_execute_url <- function(report_id, async=FALSE){
+make_report_execute_url <- function(report_id, async=TRUE, include_details=FALSE){
   # ensure we are authenticated first so the url can be formed
   sf_auth_check()
   if(async){
@@ -81,10 +94,11 @@ make_report_execute_url <- function(report_id, async=FALSE){
             getOption("salesforcer.api_version"), 
             report_id)   
   } else {
-    sprintf("%s/services/data/v%s/analytics/reports/%s",
+    sprintf("%s/services/data/v%s/analytics/reports/%s?includeDetails=",
             salesforcer_state()$instance_url,
             getOption("salesforcer.api_version"), 
-            report_id)      
+            report_id, 
+            tolower(include_details)) 
   }
 }
 
@@ -107,14 +121,14 @@ make_report_instances_list_url <- function(report_id){
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-make_report_instance_url <- function(report_id, result_id){
+make_report_instance_url <- function(report_id, report_instance_id){
   # ensure we are authenticated first so the url can be formed
   sf_auth_check()
   sprintf("%s/services/data/v%s/analytics/reports/%s/instances/%s",
           salesforcer_state()$instance_url,
           getOption("salesforcer.api_version"), 
           report_id, 
-          result_id)
+          report_instance_id)
 }
 
 #' Report Query URL generator

@@ -4,15 +4,37 @@
 \alias{sf_report_delete}
 \title{Delete a report}
 \usage{
-sf_report_delete(report_id)
+sf_report_delete(report_id, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{logical}
+\code{logical} indicating whether the report was deleted. This function 
+will return \code{TRUE} if successful in deleting the report.
 }
 \description{
-Delete a report
+Delete a report by sending a DELETE request to the Report resource. Deleted 
+reports are moved to the Recycle Bin.
+}
+\examples{
+\dontrun{
+# first, grab all possible reports in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+
+# second, get the id of the report to delete
+this_report_id <- all_reports$Id[1]
+
+# third, delete that report using its Id
+success <- sf_report_delete(this_report_id)
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_delete_report.htm#example_delete_report}{Salesforce Documentation}
 }

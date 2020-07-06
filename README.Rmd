@@ -291,6 +291,13 @@ Future APIs to support:
 
  - [Reports and Dashboards REST API](https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm)
  - [Analytics REST API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm)
+ - [Connect (Chatter) REST API](https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm)
+ - [Tooling API](https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm)
+ - [Actions API](https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm)
+ - [Streaming API](https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm)
+ - [Place Order API](https://developer.salesforce.com/docs/atlas.en-us.api_placeorder.meta/api_placeorder/sforce_placeorder_rest_api_intro.htm)
+ - [Industries API](https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm)
+ - [Data.com API](https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm)
 
 ## Credits
 

@@ -199,7 +199,7 @@ which has already been submitted to Bulk API Job and has Completed state</p>
     <tr>
       <th>job_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as 
-returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>.</p></td>
+returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
@@ -209,8 +209,8 @@ to try and cast the data returned in the query recordset. <code>TRUE</code> uses
     </tr>
     <tr>
       <th>batch_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned assigned to a submitted 
-batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>.</p></td>
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted 
+batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
     </tr>
     <tr>
       <th>result_id</th>
@@ -230,20 +230,6 @@ making the request.</p></td>
 detail for each API call, which is useful for debugging. More specifically, when 
 set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.</p></td>
-    </tr>
-    <tr>
-      <th>bind_using_character_cols</th>
-      <td><p><code>logical</code>; an indicator of whether to 
-cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
-does not fail because two paginated recordsets have differing datatypes for the 
-same column. Set this to <code>TRUE</code> rarely, typically only when having this 
-set to <code>FALSE</code> returns an error or you want all columns in the data to be 
-character.</p></td>
-    </tr>
-    <tr>
-      <th>batch_size</th>
-      <td><p><code>integer</code>; the number of individual records to be included in a 
-single batch uploaded to the Bulk APIs (1.0 or 2.0).</p></td>
     </tr>
     </table>
 

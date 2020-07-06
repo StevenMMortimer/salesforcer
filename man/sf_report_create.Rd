@@ -4,18 +4,68 @@
 \alias{sf_report_create}
 \title{Create a report}
 \usage{
-sf_report_create(name, report_type)
+sf_report_create(
+  name = NULL,
+  report_type = NULL,
+  report_metadata = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{name}{\code{character}; a user-specified name for the report.}
 
 \item{report_type}{\code{character}; a character representing the type of 
-report to retrieve the metadata information on. A list of valid options for 
-this parameter can be gotten using \link{sf_report_types_list}.}
+report to retrieve the metadata information on.  A list of valid report types 
+that can be created using this function will be available in the 
+\code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
+(e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
+etc.)}
+
+\item{report_metadata}{\code{list}; a list representing the properties to create 
+the report with. The names of the list must be one or more of the 3 accepted 
+metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
+\code{reportExtendedMetadata}.}
 }
 \value{
-\code{list}
+\code{list} representing the newly cloned report with up to 4 properties 
+that describe the report: 
+\describe{
+  \item{attributes}{Report type along with the URL to retrieve common objects and 
+  joined metadata.}
+  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+}
 }
 \description{
-Create a report
+Create a new report using a POST request. To create a report, you only have to 
+specify a name and report type to create a new report; all other metadata properties 
+are optional. It is recommended to use the metadata from existing reports pulled 
+using \code{\link{sf_report_describe}} as a guide on how to specify the properties 
+of a new report.
+}
+\examples{
+\dontrun{
+# creating a blank report using just the name and type
+my_new_report <- sf_report_create("Top Accounts Report", "AccountList")
+
+# creating a report with additional metadata by grabbing an existing report
+# and modifying it slightly (only the name in this case)
+
+# first, grab all possible reports in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+
+# second, get the id of the report to copy
+this_report_id <- all_reports$Id[1]
+
+# third, pull down its metadata and update the name
+report_describe_list <- sf_report_describe(this_report_id)
+report_describe_list$reportMetadata$name <- "TEST API Report Creation"
+
+# fourth, create the report by passing the metadata
+my_new_report <- sf_report_create(report_metadata=report_describe_list)
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm}{Salesforce Documentation}
 }

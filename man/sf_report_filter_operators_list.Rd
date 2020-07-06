@@ -4,11 +4,35 @@
 \alias{sf_report_filter_operators_list}
 \title{List report filter operators}
 \usage{
-sf_report_filter_operators_list()
+sf_report_filter_operators_list(as_tbl = TRUE, verbose = FALSE)
+}
+\arguments{
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+JSON into a \code{tbl_df}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
-\code{list}
+\code{tbl_df} by default, or a \code{list} depending on the value of 
+argument \code{as_tbl}
 }
 \description{
-List report filter operators
+Use the Filter Operators API to get information about which filter operators are 
+available for reports and dashboards. The Filter Operators API is available in 
+API version 40.0 and later.
+}
+\examples{
+\dontrun{
+report_filters <- sf_report_filter_operators_list()
+unique_supported_fields <- report_filters \%>\% distinct(supported_field_type)
+
+# operators to filter a picklist field
+picklist_field_operators <- report_filters \%>\% filter(supported_field_type == "picklist")
+}
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example}
 }

@@ -4,131 +4,430 @@
 #' 
 #' Displays a list of up to 200 tabular, matrix, or summary reports that you
 #' recently viewed. To get a full list of reports by format, name, and other
-#' fields, use a SOQL query on the Report object. The resource can also be used
-#' to make a copy of a report.
+#' fields, use a SOQL query on the Report object.
 #'
-#' @return \code{list}
+#' @importFrom dplyr everything
+#' @template as_tbl
+#' @template verbose
+#' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
+#' argument \code{as_tbl}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_recentreportslist.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist}{Salesforce Example}
+#' @note This function will only return up to 200 of recently viewed reports. For 
+#' a COMPLETE list you must use \code{\link{sf_query}} on the report object.
+#' @examples \dontrun{
+#' # return up to 200 recently viewed reports
+#' reports <- sf_reports_list()
+#' 
+#' # return the results as a list
+#' reports_as_list <- sf_reports_list(as_tbl=FALSE)
+#' 
+#' # to return all possible reports, query the Report object
+#' reports <- sf_query("SELECT Id, Name FROM Report")
+#' }
 #' @export
-sf_reports_list <- function(){
-  .NotYetImplemented()
-# make_report_types_list_url
-# /services/data/v34.0/analytics/reports
-# GET
-  #https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist
+sf_reports_list <- function(as_tbl=TRUE, verbose=FALSE){
+  this_url <- make_reports_list_url()
+  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  if(as_tbl){
+    # bring id and name up front
+    resultset <- resultset %>% 
+      select(id, name, everything())
+  }
+  return(resultset)
 }
 
 #' List report filter operators
+#' 
+#' Use the Filter Operators API to get information about which filter operators are 
+#' available for reports and dashboards. The Filter Operators API is available in 
+#' API version 40.0 and later.
 #'
-#' @return \code{list}
+#' @template as_tbl
+#' @template verbose
+#' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
+#' argument \code{as_tbl}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example} 
+#' @examples \dontrun{
+#' report_filters <- sf_report_filter_operators_list()
+#' unique_supported_fields <- report_filters %>% distinct(supported_field_type)
+#' 
+#' # operators to filter a picklist field
+#' picklist_field_operators <- report_filters %>% filter(supported_field_type == "picklist")
+#' }
 #' @export
-sf_report_filter_operators_list <- function(){
-  .NotYetImplemented()
-# make_report_filter_operators_list_url
-# /services/data/v34.0/analytics/filteroperators
-# GET
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Example} 
+sf_report_filter_operators_list <- function(as_tbl=TRUE, verbose=FALSE){
+  this_url <- make_report_filter_operators_list_url()
+  resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
+  if(as_tbl){
+    resultset <- lapply(resultset, FUN=function(x){x %>% map_df(flatten_to_tbl_df)})
+    resultset <- bind_rows(resultset, .id="supported_field_type")
+  }
+  return(resultset)
 }
 
 #' List report types
+#' 
+#' Return a list of report types.
 #'
-#' @return \code{list}
+#' @template as_tbl
+#' @template verbose
+#' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
+#' argument \code{as_tbl}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_list.htm}{Salesforce Documentation} 
+#' @examples \dontrun{
+#' report_types <- sf_report_types_list()
+#' unique_report_types <- report_types %>% select(reportTypes.type)
+#' 
+#' # return the results as a list
+#' reports_as_list <- sf_report_types_list(as_tbl=FALSE)
+#' }
 #' @export
-sf_report_types_list <- function(){
-  .NotYetImplemented()
-# # make_report_types_list_url
-# /services/data/v34.0/analytics/reportTypes
-# GET
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_list.htm
+sf_report_types_list <- function(as_tbl=TRUE, verbose=FALSE){
+  this_url <- make_report_types_list_url()
+  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  if(as_tbl){
+    resultset <- resultset %>% unnest_col(col="reportTypes")
+  }
+  return(resultset)
 }
   
 #' Describe a report type
+#' 
+#' Return metadata about a report type.
 #'
 #' @param report_type \code{character}; a character representing the type of 
-#' report to retrieve the metadata information on. A list of valid options for 
-#' this parameter can be gotten using \link{sf_report_types_list}.
-#' @return \code{list}
+#' report to retrieve the metadata information on. A list of valid report types 
+#' that can be described using this function will be available in the 
+#' \code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
+#' (e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
+#' etc.)
+#' @template verbose
+#' @return \code{list} containing up to 4 properties that describe the report: 
+#' \describe{
+#'   \item{attributes}{Report type along with the URL to retrieve common objects and 
+#'   joined metadata.}
+#'   \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+#'   \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+#'   \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+#' }
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_reporttype.htm}{Salesforce Documentation}
+#' @examples \dontrun{
+#' reports <- sf_report_types_list()
+#' unique_report_types <- reports %>% distinct(reportTypes.type)
+#' 
+#' # first unique report type
+#' unique_report_types[[1,1]]
+#' 
+#' # describe that report type
+#' described_report <- sf_report_type_describe(unique_report_types[[1,1]])
+#' }
 #' @export
-sf_report_type_describe <- function(report_type){
-  .NotYetImplemented()  
-#  make_report_type_describe_url
-# /services/data/v34.0/analytics/reportTypes/{type}
-# GET
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_reporttype.htm
+sf_report_type_describe <- function(report_type, verbose=FALSE){
+  this_url <- make_report_type_describe_url(report_type)
+  resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
+  return(resultset)  
 }
 
-#' Create a report
-#'
-#' @param name \code{character}; a user-specified name for the report.
-#' @param report_type \code{character}; a character representing the type of 
-#' report to retrieve the metadata information on. A list of valid options for 
-#' this parameter can be gotten using \link{sf_report_types_list}.
-#' @return \code{list}
+#' Describe a report
+#' 
+#' Retrieves report, report type, and related metadata for a tabular, summary, 
+#' or matrix report.
+#' 
+#' @details \itemize{
+#'   \item Report metadata gives information about the report as a whole. Tells you such things as, the report type, format, the fields that are summaries, row or column groupings, filters saved to the report, and so on.
+#'   \item Report type metadata tells you about all the fields available in the report type, those you can filter, and by what filter criteria.
+#'   \item Report extended metadata tells you about the fields that are summaries, groupings, and contain record details in the report.
+#' }
+#' @template report_id
+#' @template verbose
+#' @return \code{list} containing up to 4 properties that describe the report: 
+#' \describe{
+#'   \item{attributes}{Report type along with the URL to retrieve common objects and joined metadata.}
+#'   \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+#'   \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+#'   \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+#' }
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportmetadata.htm#example_report_getdescribe}{Salesforce Example}
+#' @examples \dontrun{
+#' # pull a list of up to 200 recent reports
+#' # (for a full list you must use sf_query on the Report object)
+#' reports <- sf_reports_list()
+#' 
+#' # id for the first report
+#' reports[[1,"id"]]
+#' 
+#' # describe that report type
+#' described_report <- sf_report_type_describe(unique_report_types[[1,"id"]])
+#' }
 #' @export
-sf_report_create <- function(name, report_type){
-  .NotYetImplemented()
-  # make_report_create_url
-  # /services/data/v34.0/analytics/reports
-  # POST
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm
-  # reportMetadata
-  # reportExtendedMetadata
-  # reportTypeMetadata
+sf_report_describe <- function(report_id, verbose=FALSE){
+  this_url <- make_report_describe_url(report_id)
+  resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
+  return(resultset)
 }
 
 #' Copy a report
 #'
 #' @template report_id
-#' @return \code{list}
+#' @param name \code{character}; a user-specified name for the newly cloned report. 
+#' If left \code{NULL}, then the new name will be the same name as the report being 
+#' cloned appended with " = Copy" that is prefixed with a number if that name is 
+#' not unique. It is highly recommended to provide a name, if possible.
+#' @template verbose
+#' @return \code{list} representing the newly cloned report with up to 4 properties 
+#' that describe the report: 
+#' \describe{
+#'   \item{attributes}{Report type along with the URL to retrieve common objects and 
+#'   joined metadata.}
+#'   \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+#'   \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+#'   \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+#' }
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_report.htm}{Salesforce Documentation}
+#' @examples \dontrun{
+#' # only the 200 most recently viewed reports
+#' most_recent_reports <- sf_report_list()
+#' 
+#' # all possible reports in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' 
+#' # id of the report to copy
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' # not providing a name appends " - Copy" to the name of the report being cloned
+#' report_details <- sf_report_copy(this_report_id)
+#' 
+#' # example of providing new name to the copied report
+#' report_details <- sf_report_copy(this_report_id, "My New Copy of Report ABC")
+#' }
 #' @export
-sf_report_copy <- function(report_id){
-  .NotYetImplemented()
-  # # make_report_copy_url
-  # /services/data/v34.0/analytics/reports?cloneId=00OD0000001cxIE
-  # POST
-  # {
-  #   "reportMetadata" : {
-  #     "name":"myNewReport"
-  # }
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_report.htm
+sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
+  this_url <- make_report_copy_url(report_id)
+  if(is.null(name)){
+    existing_reports <- sf_query("SELECT Id, Name FROM Report")
+    # remove names reflecting a " - Copy"
+    existing_reports <- existing_reports %>% 
+      mutate(original_name = gsub(" - Copy[0-9]{0,}$", "", Name))
+    # which report is being requested to copy
+    this_report <- existing_reports %>%
+      filter(Id == report_id)
+    # check that a report matching the supplied Id exists
+    if(nrow(this_report) == 0){
+      stop(sprintf("No report found with Id: %s", report_id))
+    }
+    # how many other reports have that same name (after dropping " - Copy")?
+    report_name_cnt <- existing_reports %>% 
+      filter(original_name == this_report[['original_name']]) %>% 
+      nrow()
+    if(report_name_cnt == 1){
+      name <- paste0(this_report[['original_name']], " - Copy")
+    } else {
+      name <- paste0(this_report[['original_name']], " - Copy", report_name_cnt - 1)
+    }
+    message(sprintf("Naming the new report: '%s'", name))
+  }
+  this_url <- make_report_copy_url(report_id)
+  httr_response <- rPOST(url = this_url, 
+                         body = list(reportMetadata=list(name=name)), 
+                         encode = "json")
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  return(response_parsed)
+}
+
+#' Create a report
+#' 
+#' Create a new report using a POST request. To create a report, you only have to 
+#' specify a name and report type to create a new report; all other metadata properties 
+#' are optional. It is recommended to use the metadata from existing reports pulled 
+#' using \code{\link{sf_report_describe}} as a guide on how to specify the properties 
+#' of a new report. 
+#'
+#' @param name \code{character}; a user-specified name for the report.
+#' @param report_type \code{character}; a character representing the type of 
+#' report to retrieve the metadata information on.  A list of valid report types 
+#' that can be created using this function will be available in the 
+#' \code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
+#' (e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
+#' etc.)
+#' @param report_metadata \code{list}; a list representing the properties to create 
+#' the report with. The names of the list must be one or more of the 3 accepted 
+#' metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
+#' \code{reportExtendedMetadata}.
+#' @return \code{list} representing the newly cloned report with up to 4 properties 
+#' that describe the report: 
+#' \describe{
+#'   \item{attributes}{Report type along with the URL to retrieve common objects and 
+#'   joined metadata.}
+#'   \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+#'   \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+#'   \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+#' }
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm}{Salesforce Documentation}
+#' @examples \dontrun{
+#' # creating a blank report using just the name and type
+#' my_new_report <- sf_report_create("Top Accounts Report", "AccountList")
+#' 
+#' # creating a report with additional metadata by grabbing an existing report
+#' # and modifying it slightly (only the name in this case)
+#' 
+#' # first, grab all possible reports in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' 
+#' # second, get the id of the report to copy
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' # third, pull down its metadata and update the name
+#' report_describe_list <- sf_report_describe(this_report_id)
+#' report_describe_list$reportMetadata$name <- "TEST API Report Creation"
+#' 
+#' # fourth, create the report by passing the metadata
+#' my_new_report <- sf_report_create(report_metadata=report_describe_list)
+#' }
+#' @export
+sf_report_create <- function(name=NULL, 
+                             report_type=NULL, 
+                             report_metadata=NULL, 
+                             verbose=FALSE){
+  if(!is.null(report_metadata)){
+    report_metadata <- sf_input_data_validation(report_metadata, 
+                                                operation='create_report')
+  } else {
+    if(is.null(name)){
+      stop(paste0("The report name is required. Specify it using the `name` ", 
+                  "argument or as part of the `report_metadata` argument"), call.=FALSE)
+    }
+    if(is.null(report_type)){
+      stop(paste0("The report type is required. Specify it using the `report_type` ", 
+                  "argument or as part of the `report_metadata` argument"), call.=FALSE)
+    } 
+    report_metadata <- list(reportMetadata =
+                               list(name = name, 
+                                    reportType =
+                                      list(type=report_type)))
+  }
+  this_url <- make_report_create_url()
+  httr_response <- rPOST(url = this_url, 
+                         body = report_metadata, 
+                         encode = "json")
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  return(response_parsed)  
 }
 
 #' Update a report
+#' 
+#' Save changes to a report by sending a PATCH request to the Report resource. 
+#' Note that saving a report deletes any running async report jobs because they 
+#' might be obsolete based on the updates.
 #'
 #' @template report_id
-#' @template body
-#' @return \code{list}
+#' @param report_metadata \code{list}; a list representing the properties to create 
+#' the report with. The names of the list must be one or more of the 3 accepted 
+#' metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
+#' \code{reportExtendedMetadata}.
+#' @return \code{list} representing the newly cloned report with up to 4 properties 
+#' that describe the report: 
+#' \describe{
+#'   \item{attributes}{Report type along with the URL to retrieve common objects and 
+#'   joined metadata.}
+#'   \item{reportMetadata}{Unique identifiers for groupings and summaries.}
+#'   \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+#'   \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+#' }
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_save_report.htm#example_save_report}{Salesforce Documentation}
+#' @examples \dontrun{
+#' # first, grab all possible reports in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' 
+#' # second, get the id of the report to update
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' my_updated_report <- sf_report_update(this_report_id,
+#'                                       report_metadata =
+#'                                         list(reportMetadata =
+#'                                           list(name = "Updated Report Name!")))
+#' 
+#' # alternatively, pull down its metadata and update the name
+#' report_details <- sf_report_describe(this_report_id)
+#' report_details$reportMetadata$name <- paste0(report_details$reportMetadata$name,
+#'                                              " - UPDATED")
+#' 
+#' # fourth, create the report by passing the metadata
+#' my_updated_report <- sf_report_update(this_report_id,
+#'                                       report_metadata = report_details)
+#' }
 #' @export
-sf_report_update <- function(report_id, body){
-  .NotYetImplemented()
-  # # make_report_url
-  # /services/data/v34.0/analytics/reports/00OD0000001cxIE
-  # PATCH
-  # {
-  #   "reportMetadata" : {
-  #     "name":"myUpdatedReport",
-  #     "folderId":"00DD00000007enH"}
-  # }
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_save_report.htm#example_save_report
+sf_report_update <- function(report_id, report_metadata){
+  report_metadata <- sf_input_data_validation(report_metadata, 
+                                              operation='create_report')
+  this_url <- make_report_url(report_id)
+  httr_response <- rPATCH(url = this_url, 
+                         body = report_metadata, 
+                         encode = "json")
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  return(response_parsed)    
 }
 
 #' Delete a report
 #'
+#' Delete a report by sending a DELETE request to the Report resource. Deleted 
+#' reports are moved to the Recycle Bin.
+#'
 #' @template report_id
-#' @return \code{logical}
+#' @template verbose
+#' @return \code{logical} indicating whether the report was deleted. This function 
+#' will return \code{TRUE} if successful in deleting the report.
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_delete_report.htm#example_delete_report}{Salesforce Documentation}
+#' @examples \dontrun{
+#' # first, grab all possible reports in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' 
+#' # second, get the id of the report to delete
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' # third, delete that report using its Id
+#' success <- sf_report_delete(this_report_id)
+#' }
 #' @export
-sf_report_delete <- function(report_id){
-  .NotYetImplemented()
-  # # make_report_url
-  # /services/data/v34.0/analytics/reports/00OD0000001cxIE
-  # DELETE
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_delete_report.htm#example_delete_report
+sf_report_delete <- function(report_id, verbose=FALSE){
+  this_url <- make_report_url(report_id)
+  httr_response <- rDELETE(url = this_url)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  if(is.null(response_parsed) & status_code(httr_response) == 204){
+    response_parsed <- TRUE
+  }
+  return(invisible(response_parsed))
 }
   
 #' Get a list of report fields
 #' 
-#' The Report Fields resource returns report fields available for the specified
-#' report and even which fields intersect with other reports, if specified.
+#' The Report Fields resource returns report fields available for specified reports. 
+#' Use the resource to determine the best fields for use in dashboard filters by 
+#' seeing which fields different source reports have in common. Available in API 
+#' version 40.0 and later.
 #' 
 #' @template report_id
 #' @param intersect_with \code{character} a vector of unique report IDs. This is
@@ -136,93 +435,225 @@ sf_report_delete <- function(report_id){
 #' which fields different source reports have in common. If this argument is left 
 #' empty, then the function returns a list of all possible report fields. 
 #' Otherwise, returns a list of fields that specified reports share.
-#' @return \code{list}
+#' @return \code{list} representing the 4 different field report properties:
+#' \describe{
+#'   \item{displayGroups}{Fields available when adding a filter.}
+#'   \item{equivalentFields}{Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.}
+#'   \item{equivalentFieldIndices}{Map of each field’s API name to the index of the field in the \code{equivalentFields} array.}
+#'   \item{mergedGroups}{Merged fields.}
+#' }
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_fields.htm}{Salesforce Documentation}
+#' @examples \dontrun{
+#' # first, grab all possible reports in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' 
+#' # second, get the id of the report to check fields on
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' # third, pull that report and intersect its fields with up to three other reports
+#' fields <- sf_report_fields(this_report_id, intersect_with=head(all_reports[["Id"]],3))
+#' }
 #' @export
 sf_report_fields <- function(report_id, 
-                             intersect_with = c(character(0))){
-  .NotYetImplemented()
-# # 
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE/fields
-# POST
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_fields.htm
+                             intersect_with = c(character(0)),
+                             verbose=FALSE){
+  this_url <- make_report_fields_url(report_id)
+  
+  if(length(intersect_with) > 0){
+    request_body <- list(intersectWith=intersect_with)
+    httr_response <- rPOST(url = this_url, 
+                           body = request_body, 
+                           encode = "json")    
+  } else {
+    httr_response <- rPOST(url = this_url)
+  }
+  
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")  
+  return(response_parsed)
 }
   
-#' Describe a report
-#'
-#' @template report_id
-#' @return \code{list}
-#' @export
-sf_report_describe <- function(report_id){
-  .NotYetImplemented()  
-# # 
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE/describe
-# GET
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportmetadata.htm#example_report_getdescribe}{Example}
-  
-}
-
 #' Execute a report
-#'
+#' 
+#' Get summary data with or without details by running a report synchronously or
+#' asynchronously through the API. When you run a report, the API returns data
+#' for the same number of records that are available when the report is run in
+#' the Salesforce user interface. Include the \code{filters} argument in your
+#' request to get specific results on the fly by passing dynamic filters,
+#' groupings, and aggregates in the report metadata. Finally, you may want to 
+#' use \code{\link{sf_get_report_data}}
+#' 
+#' @details Run a report synchronously if you expect it to finish running quickly. 
+#' Otherwise, we recommend that you run reports through the API asynchronously 
+#' for these reasons:
+#' \itemize{
+#'   \item Long running reports have a lower risk of reaching the timeout limit when run asynchronously.
+#'   \item The 2-minute overall Salesforce API timeout limit doesn’t apply to asynchronous runs.
+#'   \item The Salesforce Reports and Dashboards REST API can handle a higher number of asynchronous run requests at a time.
+#'   \item Since the results of an asynchronously run report are stored for a 24-hr rolling period, they’re available for recurring access.
+#' }
+#' 
+#' Before you filter a report, it helpful to check the following properties in the metadata 
+#' that tell you if a field can be filtered, the values and criteria you can filter 
+#' by, and filters that already exist in the report: 
+#' \itemize{
+#'   \item filterable
+#'   \item filterValues
+#'   \item dataTypeFilterOperatorMap
+#'   \item reportFilters
+#' }
+#' 
 #' @template report_id
-#' @return \code{list}
+#' @template async
+#' @param include_details \code{logical}; an indicator applying to a synchronous 
+#' indicating whether the run should return summary data with details.
+#' @template report_metadata
+#' @template as_tbl
+#' @template verbose
+#' @return \code{list} by default when \code{async=TRUE} or a \code{tbl_df} when 
+#' \code{async=FALSE}.
+#' @seealso Please see the following resources for more information: 
+#' \itemize{
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
+#'   \item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
+#' }
 #' @export
-sf_report_execute <- function(report_id){
-  .NotYetImplemented()  
-# # 
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE
-# GET or POST
-# # if async
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances
-# POST  
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}  
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}  
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}  
+sf_report_execute <- function(report_id, 
+                              async = TRUE, 
+                              include_details = FALSE, 
+                              report_metadata = NULL,
+                              as_tbl = !async,
+                              verbose = FALSE){
+  ##############
+  #### TODO ####
+  ##############
+  .NotYetImplemented()
+  
+  # if(!is.null(report_metadata)){
+  #   report_metadata <- sf_input_data_validation(report_metadata, 
+  #                                               operation = "filter_report")
+  # }
+  # 
+  # this_url <- make_report_execute_url(report_id, async, include_details)
+  # 
+  # if(!is.null(report_metadata)){
+  #   httr_response <- rPOST(url = this_url, 
+  #                          body = report_metadata, 
+  #                          encode = "json")
+  # } else {
+  #   httr_response <- rGET(url = this_url)
+  # }
+  # 
+  # if(verbose){
+  #   make_verbose_httr_message(httr_response$request$method, 
+  #                             httr_response$request$url, 
+  #                             httr_response$request$headers)
+  # }
+  # catch_errors(httr_response)
+  # response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  # 
+  # # # formatting????
+  # # if(async){
+  # #   
+  # # }
+  # return(response_parsed)
 }
 
 #' List report instances
+#' 
+#' Returns a list of instances for a report that you requested to be run asynchronously. 
+#' Each item in the list is treated as a separate instance of the report run with 
+#' metadata in that snapshot of time.
 #'
 #' @template report_id
-#' @return \code{list}
+#' @template as_tbl
+#' @template verbose
+#' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
+#' argument \code{as_tbl}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_asyncreportruns.htm#example_async_fetchresults_instances}{Salesforce Example}
 #' @export
-sf_report_instances_list <- function(report_id){
-  .NotYetImplemented()
-# # 
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances
-# GET
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_resource.htm
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_asyncreportruns.htm#example_async_fetchresults_instances}{Example}
-}
-
-#' List report instance results
-#'
-#' @template report_id
-#' @template report_instance_id
-#' @return \code{list}
-#' @export
-sf_report_instance_results <- function(report_id, report_instance_id){
-  .NotYetImplemented()  
-# # 
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances/0LGR00000000He3OAE
-# GET
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Example}
+sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
+  this_url <- make_report_instances_list_url(report_id)
+  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  if(as_tbl){
+    # bring id and name up front
+    resultset <- resultset %>% 
+      select(id, everything())
+  }
+  return(resultset)
 }
 
 #' Delete a report instance
+#' 
+#' If the given report instance has a status of \code{Success} or \code{Error}, 
+#' delete the report instance.
 #'
 #' @template report_id
 #' @template report_instance_id
-#' @return \code{logical}
+#' @template verbose
+#' @return \code{logical} indicating whether the report instance was deleted. This function 
+#' will return \code{TRUE} if successful in deleting the report instance.
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}
+#' @examples \dontrun{
+#' # first, grab all possible reports in your Org
+#' report_instances <- sf_report_instances_list()
+#' 
+#' # second, delete that report instance using its id and its parent report id
+#' success <- sf_report_instance_delete(report_instances[[1]]$attributes$id, 
+#'                                      report_instances[[1]]$attributes$reportId)
+#' }
 #' @export
-sf_report_instance_delete <- function(report_id, report_instance_id){
+sf_report_instance_delete <- function(report_id, report_instance_id, verbose=FALSE){
+  this_url <- make_report_instance_url(report_id, report_instance_id)
+  httr_response <- rDELETE(url = this_url)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  if(is.null(response_parsed) & status_code(httr_response) == 204){
+    response_parsed <- TRUE
+  }
+  return(invisible(response_parsed))
+}
+
+#' Get report instance results
+#' 
+#' Retrieves results for an instance of a report run asynchronously with or without 
+#' filters. Depending on your asynchronous report run request, data can be at the 
+#' summary level or include details.
+#'
+#' @template report_id
+#' @template report_instance_id
+#' @template verbose
+#' @return \code{list}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}
+#' @export
+sf_report_instance_results <- function(report_id, 
+                                       result_id, 
+                                       verbose=FALSE){
+  
+  ##############
+  #### TODO ####
+  ##############
   .NotYetImplemented()
-# # 
-# /services/data/v34.0/analytics/reports/00OD0000001cxIE/instances/0LGR00000000He3OAE
-# DELETE
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm
+  
+  # this_url <- make_report_instance_url(report_id, result_id)
+  # resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  # if(as_tbl){
+  #   # bring id and name up front
+  #   resultset <- resultset %>% 
+  #     select(id, everything())
+  # }
+  # return(resultset)
 }
 
 #' Query a report
@@ -232,27 +663,149 @@ sf_report_instance_delete <- function(report_id, report_instance_id){
 #' format returned as a \code{tbl_df}.
 #'
 #' @template report_id
+#' @template verbose
 #' @return \code{tbl_df}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example}{Salesforce Example}
 #' @export
-sf_report_query <- function(report_id){
+sf_report_query <- function(report_id, verbose=FALSE){
+  
+  ##############
+  #### TODO ####
+  ##############
   .NotYetImplemented()
-# # 
-# Tabular Report is T!T key, Summary & Matrix Report is all over the place
-# /services/data/v37.0/analytics/reports/query
-# POST
-# {
-#   "reportMetadata" : {
-#     ...
-#   }
-# }
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm
+  # # 
+  # Tabular Report is T!T key, Summary & Matrix Report is all over the place
+  # /services/data/v37.0/analytics/reports/query
+  # POST
+  # {
+  #   "reportMetadata" : {
+  #     ...
+  #   }
+  # }
 }
 
 #' Get a report's data in tabular format
 #' 
+#' A convenience function for retrieving the data from a report, which runs 
+#' asynchronously by default and waits for the results summarized by a tabular 
+#' format, before pulling them down and returning as a \code{tbl_df}.
+#' 
+#' @details This function is essentially a wrapper around \code{\link{sf_report_execute}}. 
+#' Please review or use that function if you want to have more control over 
+#' how the report is run and what format should be returned. In this case we've 
+#' forced the \code{reportFormat="TABULAR"} without total rows and the option to 
+#' filter, and show the Top N and sort as a function argument rather than forcing the user 
+#' to create an entire \code{list} variable of report metadata. 
+#' 
 #' @template report_id
+#' @param report_filters \code{list}; A \code{list} of reportFilter specifications. 
+#' Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 
+#' 3) \code{value}. You can find out how certain field types can be filtered by 
+#' reviewing the results of \code{\link{sf_report_filter_operators_list}}.
+#' @param report_boolean_logic \code{character}; a string of boolean logic to parse 
+#' custom field filters if more than one is specified. For example, if three filters 
+#' are specified, then they can be combined using the logic \code{"(1 OR 2) AND 3"}.
+#' @param sort_by \code{character}; the name of the column used to sort the results. 
+#' Currently, you can sort on only one column at a time.
+#' @param top_n \code{integer}; an integer which sets a row limit filter to a report. 
+#' The results will be ordered as they appear in the report unless specified differently 
+#' via the \code{sort_by} and \code{decreasing} arguments. Note, it is sometimes 
+#' helpful to specify the \code{top_n} argument if a report contains many rows, but 
+#' you are only interested in a subset of them. Alternatively, you can limit the count 
+#' of returned rows via the \code{report_filters} argument.
+#' @param decreasing \code{logical}; a indicator of whether the results should be 
+#' ordered by increasing or decreasing values in \code{sort_by} column when selecting the 
+#' top N records. Note, this argument will be ignored if not specifying Top N. You can  
+#' sort the records using \code{\link{[dplyr]arrange}} after the results are returned.
+#' @template async
+#' @template interval_seconds
+#' @template max_attempts
+#' @template verbose
 #' @return \code{tbl_df}
 #' @export
-sf_get_report_data <- function(report_id){
-  .NotYetImplemented()
+sf_get_report_data <- function(report_id,
+                               report_filters = NULL,
+                               report_boolean_logic = NULL,
+                               sort_by = NULL,
+                               top_n = NULL,
+                               decreasing = FALSE,
+                               async = TRUE,
+                               interval_seconds = 3,
+                               max_attempts = 200,
+                               wait_for_results = TRUE,
+                               verbose = FALSE){
+  if(!is.null(report_filters)){
+    stopifnot(is.list(report_filters))
+    for(i in 1:length(report_filters)){
+      report_filters[[i]] <- metadata_type_validator(obj_type = "ReportFilterItem", 
+                                                     obj_data = report_filters[[i]])
+    }
+    if(is.null(report_boolean_logic)){
+      report_boolean_logic <- paste((1:length(report_filters)), collapse=" AND ")
+      message(sprintf(paste0("The argument `report_boolean_logic` was left NULL. ", 
+                             "Assuming the report filters should be combined using 'AND' ", 
+                             "like so: %s"), report_boolean_logic))
+    }
+  } else {
+    # value must be null when filter logic is not specified
+    report_boolean_logic <- NULL
+  }
+  
+  # build out the body of the request based on the inputted arguments
+  request_body <- list(reportMetadata=list(reportFormat="TABULAR", 
+                                           showGrandTotal=FALSE, 
+                                           showSubtotals=FALSE))
+  stopifnot(is.character(report_boolean_logic))
+  request_body$reportMetadata$reportBooleanFilter <- report_filters
+  request_body$reportMetadata$reportFilters <- report_filters
+  if(!is.null(sort_by)){
+    if(length(sort_by) > 1){
+      stop("You may only sort by one column at a time.", call.=FALSE)
+    }
+    request_body$reportMetadata$sortBy <- I(sort_by)
+  }
+  if(!is.null(top_n)){
+    request_body$reportMetadata$topRows <- list(rowLimit = top_n, 
+                                                direction = if(decreasing) "desc" else "asc")
+  }
+  
+  results <- sf_report_execute(report_id, 
+                               async = async, 
+                               report_metadata = request_body, 
+                               verbose = verbose)
+  
+  # request the report results (still wait if async is specified)
+  if(async){
+    if(wait_for_results){
+      status_complete <- FALSE
+      z <- 1
+      Sys.sleep(interval_seconds)
+      while (z < max_attempts & !status_complete){
+        if (verbose){
+          if(z %% 5 == 0){
+            message(paste0("Attempt to retrieve records #", z))
+          }
+        }
+        Sys.sleep(interval_seconds)
+        instances_list <- sf_report_instances_list(report_id, verbose=verbose)
+        instance_status <- instances_list %>% 
+          filter(id == results$id) %>% 
+          .[["status"]]
+        if(instance_status == "Error"){
+          stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
+                       report_id, results$id), 
+               call.=FALSE)
+        } else {
+          if(instance_status == "Success"){
+            status_complete <- TRUE
+          } else {
+            # continue checking the status until success or max attempts
+            z <- z + 1
+          }
+        }
+      }
+      results <- sf_report_instance_results(report_id, results$id, verbose=verbose)
+    }
+  }
+  return(results)
 }

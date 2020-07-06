@@ -4,29 +4,40 @@
 #'
 #' Returns a list of recently used dashboards
 #'
-#' @return \code{list}
+#' @template as_tbl
+#' @template verbose
+#' @return \code{list} or \code{tbl_df} depending on the value of argument \code{as_tbl}
+#' @seealso 
+#' \itemize{
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Salesforce Documentation}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_list.htm#topic-title}{Salesforce Example}
+#' }
 #' @export
-sf_dashboards_list <- function(){
-  .NotYetImplemented()
-  # make_dashboards_list_url
-  # /services/data/v34.0/analytics/dashboards
-  # GET
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_list.htm#topic-title}{Example}
+sf_dashboards_list <- function(as_tbl=TRUE, verbose=FALSE){
+  this_url <- make_dashboards_list_url()
+  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  return(resultset)
 }
 
 #' Describe a dashboard
+#' 
+#' Returns metadata for the specified dashboard, including dashboard components, 
+#' filters, layout, and the running user.
 #'
 #' @template dashboard_id
-#' @return \code{list}
+#' @template as_tbl
+#' @template verbose
+#' @return \code{list} or \code{tbl_df} depending on the value of argument \code{as_tbl}
+#' @seealso 
+#' \itemize{
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_describe_resource.htm}{Salesforce Documentation}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_example_get_dashboard_metadata.htm#analytics_api_dashboard_example_get_dashboard_metadata}{Salesforce Example}
+#' }
 #' @export
-sf_dashboard_describe <- function(dashboard_id){
-  .NotYetImplemented()  
-  # # make_dashboard_describe_url
-  # /services/data/v34.0/analytics/dashboards/01ZR00000004SknMAE/describe
-  # GET
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_results.htm#topic-title}{Example}
+sf_dashboard_describe <- function(dashboard_id, as_tbl=TRUE, verbose=FALSE){
+  this_url <- make_dashboard_describe_url(dashboard_id)
+  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  return(resultset)
 }
 
 #' Describe dashboard components
@@ -45,26 +56,26 @@ sf_dashboard_components_describe <- function(dashboard_id,
   # {
   #   "componentIds": ["01aR00000005aT4IAI", "01aR00000005aT5IAI"]
   # }
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_results.htm#topic-title}{Example}  
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_results.htm#topic-title}{Salesforce Example}  
 }
 
 #' Get the status of a dashboard
 #'
 #' @template dashboard_id
 #' @template running_user
-#' @template filter_ids
+#' @template dashboard_filters
 #' @return \code{list}
 #' @export
 sf_dashboard_status <- function(dashboard_id,
                                 running_user = NULL, 
-                                filter_ids = c(character(0))){
+                                dashboard_filters = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_status_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE/status
   # ?runningUser=runningUserID&filter1=filter1ID&filter2=filter2ID&filter3=filter3ID
   # GET
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_status_resource.htm#topic-title}{Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_status_resource.htm#topic-title}{Salesforce Documentation}
   # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_status_resource.htm#topic-title}{Example - Filtering results}
 }
 
@@ -77,8 +88,8 @@ sf_dashboard_filter_operators_list <- function(){
   # make_report_filter_operators_list_url
   # /services/data/v34.0/analytics/filteroperators?forDashboards=true
   # GET
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Example}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example}
 }
 
 #' Get an analysis of the filter options for a dashboard
@@ -111,12 +122,12 @@ sf_dashboard_filter_options_analysis <- function(dashboard_id,
 #' 
 #' @template dashboard_id
 #' @template running_user
-#' @template filter_ids
+#' @template dashboard_filters
 #' @return \code{tbl_df}
 #' @export
 sf_dashboard_results <- function(dashboard_id,
                                  running_user = NULL, 
-                                 filter_ids = c(character(0))){
+                                 dashboard_filters = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
@@ -129,30 +140,30 @@ sf_dashboard_results <- function(dashboard_id,
 #' 
 #' @template dashboard_id
 #' @template running_user
-#' @template filter_ids
+#' @template dashboard_filters
 #' @return \code{tbl_df}
 #' @export
 sf_get_dashboard_data <- function(dashboard_id,
                                   running_user = NULL, 
-                                  filter_ids = c(character(0))){
+                                  dashboard_filters = c(character(0))){
   .NotYetImplemented()
 }
 
 #' Refresh an existing dashboard
 #'
 #' @template dashboard_id
-#' @template filter_ids
+#' @template dashboard_filters
 #' @return \code{list}
 #' @export
 sf_dashboard_refresh <- function(dashboard_id, 
-                                 filter_ids=c(character(0))){
+                                 dashboard_filters=c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
   # PUT
   # does this support running_user?????
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_refresh.htm}{Example}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_refresh.htm}{Salesforce Example}
   # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_filter_results.htm}{Example - Filtering during refresh}
 }
 
@@ -170,8 +181,8 @@ sf_dashboard_copy <- function(dashboard_id, report_folder_id){
   # {
   #   "folderId" : "00lR0000000DnRZIA0"
   # }
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_dashboard.htm#topic-title}{Example}  
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_dashboard.htm#topic-title}{Salesforce Example}  
 }
 
 #' Update a dashboard
@@ -190,8 +201,8 @@ sf_dashboard_update <- function(dashboard_id, body){
   #     "name":"myUpdatedDashboard",
   #     "folderId":"00DD00000007enH"}
   # }
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_save_dashboard.htm#topic-title}{Example}  
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_save_dashboard.htm#topic-title}{Salesforce Example}  
 }
 
 #' Set a sticky dashboard filter
@@ -207,11 +218,11 @@ sf_dashboard_update <- function(dashboard_id, body){
 #' yourself, not for other users.
 #'
 #' @template dashboard_id
-#' @template filter_ids
+#' @template dashboard_filters
 #' @return \code{list}
 #' @export
 sf_dashboard_set_sticky_filter <- function(dashboard_id, 
-                                           filter_ids = c(character(0))){
+                                           dashboard_filters = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url(sticky_filter_save = TRUE)
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE?isStickyFilterSave=true
@@ -238,6 +249,6 @@ sf_dashboard_delete <- function(dashboard_id){
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
   # DELETE
   #
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_delete.htm#example_recent_reportslist}{Example}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_results_resource.htm}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_delete.htm#example_recent_reportslist}{Salesforce Example}
 }
