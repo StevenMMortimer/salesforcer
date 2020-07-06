@@ -240,7 +240,7 @@ of returned rows via the <code>report_filters</code> argument.</p></td>
       <td><p><code>logical</code>; a indicator of whether the results should be 
 ordered by increasing or decreasing values in <code>sort_by</code> column when selecting the 
 top N records. Note, this argument will be ignored if not specifying Top N. You can  
-sort the records using <code>[dplyr]arrange</code> after the results are returned.</p></td>
+sort the records using <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code> after the results are returned.</p></td>
     </tr>
     <tr>
       <th>async</th>
@@ -260,6 +260,12 @@ for job completion.</p></td>
       <th>max_attempts</th>
       <td><p><code>integer</code>; defines then max number attempts to check for job 
 completion before stopping.</p></td>
+    </tr>
+    <tr>
+      <th>wait_for_results</th>
+      <td><p><code>logical</code>; indicating whether to wait for the 
+report finish running so that data can be obtained; otherwise, return the 
+report instance details.</p></td>
     </tr>
     <tr>
       <th>verbose</th>

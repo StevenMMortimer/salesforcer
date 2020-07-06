@@ -25,6 +25,11 @@ etc.)}
 the report with. The names of the list must be one or more of the 3 accepted 
 metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
 \code{reportExtendedMetadata}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{list} representing the newly cloned report with up to 4 properties 

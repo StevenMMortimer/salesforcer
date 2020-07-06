@@ -44,7 +44,7 @@ of returned rows via the \code{report_filters} argument.}
 \item{decreasing}{\code{logical}; a indicator of whether the results should be 
 ordered by increasing or decreasing values in \code{sort_by} column when selecting the 
 top N records. Note, this argument will be ignored if not specifying Top N. You can  
-sort the records using \code{\link{[dplyr]arrange}} after the results are returned.}
+sort the records using \code{\link[dplyr]{arrange}} after the results are returned.}
 
 \item{async}{\code{logical}; an indicator, by default set to \code{TRUE}, which 
 executes the report asynchronously. If executed asynchronously, this function
@@ -58,6 +58,10 @@ for job completion.}
 
 \item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
 completion before stopping.}
+
+\item{wait_for_results}{\code{logical}; indicating whether to wait for the 
+report finish running so that data can be obtained; otherwise, return the 
+report instance details.}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 

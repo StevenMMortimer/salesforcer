@@ -76,7 +76,7 @@ reference:
       - '`sf_report_query`'
       - '`sf_report_delete`'
       - '`sf_report_instances_list`'
-      - '`sf_report_instance_result`'
+      - '`sf_report_instance_results`'
       - '`sf_report_instance_delete`'
       - '`sf_report_types_list`'
       - '`sf_report_type_describe`'

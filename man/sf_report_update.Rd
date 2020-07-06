@@ -4,7 +4,7 @@
 \alias{sf_report_update}
 \title{Update a report}
 \usage{
-sf_report_update(report_id, report_metadata)
+sf_report_update(report_id, report_metadata, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
@@ -14,6 +14,11 @@ analytics report. It will start with \code{"00O"}.}
 the report with. The names of the list must be one or more of the 3 accepted 
 metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
 \code{reportExtendedMetadata}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{list} representing the newly cloned report with up to 4 properties 

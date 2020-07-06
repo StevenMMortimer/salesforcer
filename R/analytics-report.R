@@ -206,23 +206,19 @@ sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
   if(is.null(name)){
     existing_reports <- sf_query("SELECT Id, Name FROM Report")
     # remove names reflecting a " - Copy"
-    existing_reports <- existing_reports %>% 
-      mutate(original_name = gsub(" - Copy[0-9]{0,}$", "", Name))
+    existing_reports$original_name <- gsub(" - Copy[0-9]{0,}$", "", existing_reports$Name)
     # which report is being requested to copy
-    this_report <- existing_reports %>%
-      filter(Id == report_id)
+    this_report <- existing_reports[existing_reports$Id == report_id,,drop=FALSE]
     # check that a report matching the supplied Id exists
     if(nrow(this_report) == 0){
       stop(sprintf("No report found with Id: %s", report_id))
     }
     # how many other reports have that same name (after dropping " - Copy")?
-    report_name_cnt <- existing_reports %>% 
-      filter(original_name == this_report[['original_name']]) %>% 
-      nrow()
+    report_name_cnt <- sum(existing_reports$original_name == this_report$original_name)
     if(report_name_cnt == 1){
-      name <- paste0(this_report[['original_name']], " - Copy")
+      name <- paste0(this_report$original_name, " - Copy")
     } else {
-      name <- paste0(this_report[['original_name']], " - Copy", report_name_cnt - 1)
+      name <- paste0(this_report$original_name, " - Copy", report_name_cnt - 1)
     }
     message(sprintf("Naming the new report: '%s'", name))
   }
@@ -259,6 +255,7 @@ sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
 #' the report with. The names of the list must be one or more of the 3 accepted 
 #' metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
 #' \code{reportExtendedMetadata}.
+#' @template verbose
 #' @return \code{list} representing the newly cloned report with up to 4 properties 
 #' that describe the report: 
 #' \describe{
@@ -336,6 +333,7 @@ sf_report_create <- function(name=NULL,
 #' the report with. The names of the list must be one or more of the 3 accepted 
 #' metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
 #' \code{reportExtendedMetadata}.
+#' @template verbose
 #' @return \code{list} representing the newly cloned report with up to 4 properties 
 #' that describe the report: 
 #' \describe{
@@ -368,7 +366,7 @@ sf_report_create <- function(name=NULL,
 #'                                       report_metadata = report_details)
 #' }
 #' @export
-sf_report_update <- function(report_id, report_metadata){
+sf_report_update <- function(report_id, report_metadata, verbose=FALSE){
   report_metadata <- sf_input_data_validation(report_metadata, 
                                               operation='create_report')
   this_url <- make_report_url(report_id)
@@ -435,6 +433,7 @@ sf_report_delete <- function(report_id, verbose=FALSE){
 #' which fields different source reports have in common. If this argument is left 
 #' empty, then the function returns a list of all possible report fields. 
 #' Otherwise, returns a list of fields that specified reports share.
+#' @template verbose
 #' @return \code{list} representing the 4 different field report properties:
 #' \describe{
 #'   \item{displayGroups}{Fields available when adding a filter.}
@@ -638,7 +637,7 @@ sf_report_instance_delete <- function(report_id, report_instance_id, verbose=FAL
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}
 #' @export
 sf_report_instance_results <- function(report_id, 
-                                       result_id, 
+                                       report_instance_id, 
                                        verbose=FALSE){
   
   ##############
@@ -716,10 +715,13 @@ sf_report_query <- function(report_id, verbose=FALSE){
 #' @param decreasing \code{logical}; a indicator of whether the results should be 
 #' ordered by increasing or decreasing values in \code{sort_by} column when selecting the 
 #' top N records. Note, this argument will be ignored if not specifying Top N. You can  
-#' sort the records using \code{\link{[dplyr]arrange}} after the results are returned.
+#' sort the records using \code{\link[dplyr]{arrange}} after the results are returned.
 #' @template async
 #' @template interval_seconds
 #' @template max_attempts
+#' @param wait_for_results \code{logical}; indicating whether to wait for the 
+#' report finish running so that data can be obtained; otherwise, return the 
+#' report instance details.
 #' @template verbose
 #' @return \code{tbl_df}
 #' @export

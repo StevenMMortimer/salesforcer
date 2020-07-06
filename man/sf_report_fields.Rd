@@ -15,6 +15,11 @@ helpful in determining the best fields for use in dashboard filters by seeing
 which fields different source reports have in common. If this argument is left 
 empty, then the function returns a list of all possible report fields. 
 Otherwise, returns a list of fields that specified reports share.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to \code{TRUE} the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.}
 }
 \value{
 \code{list} representing the 4 different field report properties:

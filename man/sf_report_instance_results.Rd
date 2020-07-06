@@ -4,20 +4,20 @@
 \alias{sf_report_instance_results}
 \title{Get report instance results}
 \usage{
-sf_report_instance_results(report_id, result_id, verbose = FALSE)
+sf_report_instance_results(report_id, report_instance_id, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
 
+\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
+created analytics report instance (an asynchronous run). It will start with 
+\code{"0LG"}.}
+
 \item{verbose}{\code{logical}; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 
 set to \code{TRUE} the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.}
-
-\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
-created analytics report instance (an asynchronous run). It will start with 
-\code{"0LG"}.}
 }
 \value{
 \code{list}

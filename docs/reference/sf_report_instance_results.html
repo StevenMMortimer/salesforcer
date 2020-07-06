@@ -186,7 +186,7 @@ filters. Depending on your asynchronous report run request, data can be at the
 summary level or include details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_instance_results</span>(<span class='no'>report_id</span>, <span class='no'>result_id</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_report_instance_results</span>(<span class='no'>report_id</span>, <span class='no'>report_instance_id</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,17 +197,17 @@ summary level or include details.</p>
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
+      <th>report_instance_id</th>
+      <td><p><code>character</code>; the Salesforce Id assigned to a 
+created analytics report instance (an asynchronous run). It will start with 
+<code>"0LG"</code>.</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
       <td><p><code>logical</code>; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 
 set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.</p></td>
-    </tr>
-    <tr>
-      <th>report_instance_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a 
-created analytics report instance (an asynchronous run). It will start with 
-<code>"0LG"</code>.</p></td>
     </tr>
     </table>
 

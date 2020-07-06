@@ -186,7 +186,7 @@ Note that saving a report deletes any running async report jobs because they
 might be obsolete based on the updates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_update</span>(<span class='no'>report_id</span>, <span class='no'>report_metadata</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_report_update</span>(<span class='no'>report_id</span>, <span class='no'>report_metadata</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,6 +202,13 @@ analytics report. It will start with <code>"00O"</code>.</p></td>
 the report with. The names of the list must be one or more of the 3 accepted 
 metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>, 
 <code>reportExtendedMetadata</code>.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p><code>logical</code>; an indicator of whether to print additional 
+detail for each API call, which is useful for debugging. More specifically, when 
+set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
