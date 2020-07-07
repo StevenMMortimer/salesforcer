@@ -328,7 +328,10 @@ sf_find_duplicates <- function(search_criteria,
   }
   
   # build the body
-  r <- make_soap_xml_skeleton(soap_headers=list(DuplicateRuleHeader = list(includeRecordDetails = tolower(include_record_details))))
+  r <- make_soap_xml_skeleton(soap_headers =
+                                list(DuplicateRuleHeader = 
+                                       list(includeRecordDetails = 
+                                              tolower(include_record_details))))
   xml_dat <- build_soap_xml_from_list(input_data = search_criteria,
                                       operation = "findDuplicates",
                                       object_name = object_name,
@@ -364,28 +367,23 @@ sf_find_duplicates <- function(search_criteria,
     xml_find_all('.//duplicateResults//matchResults//matchRecords//record') 
   
   if(length(this_res) > 0){
-    this_res <- this_res %>%
-      map_df(xml_nodeset_to_df) %>% 
-      rename(sObject = `sf:type`) %>% 
-      remove_empty_linked_object_cols() %>% 
-      # remove redundant linked entity object types.type
-      select(-matches("\\.sf:type")) %>% 
-      rename_at(.vars = vars(starts_with("sf:")), 
-                .funs = list(~sub("^sf:", "", .))) %>%
-      rename_at(.vars = vars(matches("\\.sf:")), 
-                .funs = list(~sub("sf:", "", .))) %>%
-      # move columns without dot up since those are related entities
-      select(-matches("\\."), everything())
+    resultset <- this_res %>%
+      map_df(extract_records_from_xml_node2, 
+             object_name_as_col=TRUE) %>% 
+      # sort column names ...
+      select(sort(names(.))) %>% 
+      # ... then move Id and columns without dot up since those with are related
+      select(any_of(unique(c("sObject", "Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
+    # cast the types if requested
+    if (guess_types){  
+      resultset <- resultset %>% 
+        type_convert(col_types = cols(.default = col_guess()))
+    }     
   } else {
-    this_res <- tibble()
+    resultset <- tibble()
   }
   
-  if(guess_types){
-    this_res <- this_res %>% 
-      type_convert(col_types = cols(.default = col_guess()))
-  }
-  
-  return(this_res)
+  return(resultset)
 }
 
 #' Find Duplicate Records By Id
@@ -462,28 +460,23 @@ sf_find_duplicates_by_id <- function(sf_id,
     xml_find_all('.//duplicateResults//matchResults//matchRecords//record')
   
   if(length(this_res) > 0){
-    this_res <- this_res %>%
-      map_df(xml_nodeset_to_df) %>%
-      rename(sObject = `sf:type`) %>% 
-      remove_empty_linked_object_cols() %>% 
-      # remove redundant linked entity object types.type
-      select(-matches("\\.sf:type")) %>% 
-      rename_at(.vars = vars(starts_with("sf:")), 
-                .funs = list(~sub("^sf:", "", .))) %>%
-      rename_at(.vars = vars(matches("\\.sf:")), 
-                .funs = list(~sub("sf:", "", .))) %>%
-      # move columns without dot up since those are related entities
-      select(-matches("\\."), everything())
+    resultset <- this_res %>%
+      map_df(extract_records_from_xml_node2, 
+             object_name_as_col=TRUE) %>% 
+      # sort column names ...
+      select(sort(names(.))) %>% 
+      # ... then move Id and columns without dot up since those with are related
+      select(any_of(unique(c("sObject", "Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
+    # cast the types if requested
+    if (guess_types){  
+      resultset <- resultset %>% 
+        type_convert(col_types = cols(.default = col_guess()))
+    }
   } else {
-    this_res <- tibble()
+    resultset <- tibble()
   }
-  
-  if(guess_types){
-    this_res <- this_res %>% 
-      type_convert(col_types = cols(.default = col_guess()))
-  }
-  
-  return(this_res)
+
+  return(resultset)
 }
 
 #' Convert Leads

@@ -7,7 +7,7 @@
 sf_search(
   search_string,
   is_sosl = FALSE,
-  guess_types = TRUE,
+  guess_types = FALSE,
   api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
   parameterized_search_options = list(...),
   verbose = FALSE,
@@ -45,6 +45,12 @@ if it is not supplied directly.}
 }
 \description{
 Searches for records in your organization’s data.
+}
+\note{
+The maximum number of returned rows in the SOSL query results is 2,000. 
+Please refer to the limits 
+\href{https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm}{HERE} 
+for more detail.
 }
 \examples{
 \dontrun{

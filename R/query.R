@@ -106,7 +106,7 @@ sf_query <- function(soql,
 sf_query_rest <- function(soql,
                           object_name = NULL,
                           queryall = FALSE,
-                          guess_types = FALSE,
+                          guess_types = TRUE,
                           control = list(),
                           next_records_url = NULL,
                           bind_using_character_cols = FALSE,
@@ -188,7 +188,7 @@ sf_query_rest <- function(soql,
     resultset <- tibble()
   }
     
-  # TODO: Switch to all character if guess_types was provided or flipped on 
+  # TODO: Consider switching to all character if guess_types was provided or flipped on 
   # in the case where the types do not match between pages and then bind_rows 
   # fails. Casting all as character and switching to guess types allows all 
   # pages to be pulled without breaking and then trying to reconcile why 
@@ -215,9 +215,7 @@ sf_query_rest <- function(soql,
       # sort column names ...
       select(sort(names(.))) %>% 
       # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("Id", "id", 
-                             names(.)[which(!grepl("\\.", names(.)))]))), 
-             contains("."))
+      select(any_of(unique(c("Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 
@@ -321,6 +319,11 @@ sf_query_soap <- function(soql,
     resultset <- extract_records_from_xml_nodeset_of_records(resultset)
   }
   
+  # NOTE: Because of the way that XML data is returned it is not clear the datatype
+  # of the value. For example, a character will not be surrounded by quotes and 
+  # neither will a number, so the `as_list()` function will return all values as 
+  # characters, which is why we should have the default value of the `guess_types`
+  # argument to be set to TRUE
   if(bind_using_character_cols){
     resultset <- resultset %>% 
       mutate_all(as.character)
@@ -352,9 +355,7 @@ sf_query_soap <- function(soql,
       # sort column names ...
       select(sort(names(.))) %>% 
       # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("Id", "id", 
-                             names(.)[which(!grepl("\\.", names(.)))]))), 
-             contains("."))
+      select(any_of(unique(c("Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
     # cast the types if requested
     if (guess_types){  
       resultset <- resultset %>% 

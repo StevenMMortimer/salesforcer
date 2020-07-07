@@ -10,23 +10,30 @@
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-drop_attributes <- function(l, object_name_append=FALSE) {
+drop_attributes <- function(l, 
+                            object_name_append=FALSE, 
+                            object_name_as_col=FALSE){
   result <- l %>% 
     modify_if(.p=function(x){
       ((is.list(x)) 
        && ("attributes" %in% names(x)) 
        && (identical(names(x[["attributes"]]), c("type", "url"))))
     }, 
-    .f=function(x, obj_name_append){
-      if(obj_name_append){
+    .f=function(x, obj_name_append, obj_name_as_col){
+      if(obj_name_append | obj_name_as_col){
         obj_name <- x[["attributes"]][["type"]]
       }
       x[["attributes"]] <- NULL
       if(obj_name_append){
         names(x) <- paste(obj_name, names(x), sep='.')
-      }      
+      }
+      if(obj_name_as_col){
+        x$sObject <- obj_name
+      }
       return(x)
-    }, obj_name_append = object_name_append
+    }, 
+    obj_name_append = object_name_append, 
+    obj_name_as_col = object_name_as_col
     )
   return(result)
 }
@@ -40,17 +47,27 @@ drop_attributes <- function(l, object_name_append=FALSE) {
 #' 
 #' @importFrom purrr map_if
 #' @param x \code{list}; a list to be cleaned.
-#' @return \code{list} containing no 'attributes' elements.
+#' @param object_name_append \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
+#' @param object_name_as_col \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as a new column.
+#' @return \code{list} containing no 'attributes' elements with the object information 
+#' in the column names or the values within an object entitled \code{'sObject'}.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-drop_attributes_recursively <- function(x, object_name_append=FALSE) {
+drop_attributes_recursively <- function(x, 
+                                        object_name_append=FALSE, 
+                                        object_name_as_col=FALSE){
   x %>% 
-    map_if(is.list, 
-           .f=function(x, obj_name_append){
-             drop_attributes_recursively(x, obj_name_append)
-             }, obj_name_append = object_name_append) %>% 
-    drop_attributes(object_name_append = object_name_append)
+    map_if(is.list, .f=function(x, obj_name_append, obj_name_as_col){
+        drop_attributes_recursively(x, obj_name_append, obj_name_as_col)
+      }, 
+      obj_name_append = object_name_append, 
+      obj_name_as_col = object_name_as_col
+    ) %>% 
+    drop_attributes(object_name_append = object_name_append, 
+                    object_name_as_col = object_name_as_col)
 }
 
 #' Remove all NULL or zero-length elements from list
@@ -133,61 +150,20 @@ unnest_col <- function(df, col){
 #' 
 #' @param x \code{list}; a list of \code{xml_node} from an xml2 parsed response 
 #' @importFrom purrr map modify_if
+#' @importFrom rlist list.flatten
 #' @importFrom utils head tail
 #' @keywords internal
 #' @export
 xml_drop_and_unlist <- function(x){
-  x <- map(x, ~modify_if(.x, ~(length(.x) == 1 && is.list(.x)), 
-                         unlist, recursive=FALSE))
+  x <- x %>% map(.f=function(x){x %>% modify_if(~(length(.x) == 1 && is.list(.x)), list.flatten)})
   if(identical(head(names(x), 2), c("type", "Id"))){
     x <- tail(x, -2)
   }
-  x <- modify_if(x, ~(length(.x) == 1 & is.list(.x) & 
-                        length(.x[1]) == 1), 
-                 unlist, recursive=FALSE)
-  x <- modify_if(x, ~(is.list(.x) && 
-                        (identical(head(names(.x), 2), c("type", "Id")))), 
-                 ~tail(., -2))
-  x <- unlist(x, recursive=FALSE)
-  return(x)
-}
-
-#' Pulls out a tibble of record info from an XML node
-#' 
-#' This function accepts an \code{xml_node} and searches for all './/records' 
-#' in the document to format into a single tidy \code{tbl_df}.
-#' 
-#' @importFrom dplyr mutate_all as_tibble tibble
-#' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all as_list
-#' @importFrom purrr modify_if map_df
-#' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
-#' @param object_name_append \code{logical}; an indicator for whether to append the 
-#' name of the object onto the the front of the field names of the records.
-#' @return \code{tbl_df} parsed from the supplied node
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-extract_records_from_xml_node <- function(node, object_name_append=FALSE){
-  object_name <- node %>% xml_find_first('.//sf:type') %>% xml_text()
-  if(length(node) > 0){
-    x_list <- as_list(node)
-    x_list <- xml_drop_and_unlist(x_list)
-    while(any(sapply(x_list, is.list))){
-      x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
-    }
-    if(is.list(x_list)){
-      x <- x_list %>% 
-        map_df(~as_tibble_row(.x))    
-    } else {
-      x <- as_tibble_row(x_list)
-    }
-    if(object_name_append){
-      colnames(x) <- paste(object_name, colnames(x), sep='.')
-    }
-  } else {
-    x <- tibble()
-  }
+  x <- x %>% modify_if(~(length(.x) == 1 & is.list(.x) & length(.x[1]) == 1), ~list.flatten(.))
+  x <- x %>% modify_if(~(is.list(.x) && 
+                           (identical(head(names(.x), 2), c("type", "Id")))), 
+                       ~tail(., -2))
+  x <- list.flatten(x)
   return(x)
 }
 
@@ -200,18 +176,26 @@ extract_records_from_xml_node <- function(node, object_name_append=FALSE){
 #' @importFrom xml2 xml_find_all as_list
 #' @importFrom purrr modify_if map_df
 #' @param nodeset \code{xml_nodeset}; nodeset to have records extracted into a \code{tbl_df}
+#' @param object_name_append \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
+#' @param object_name_as_col \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as a new column.
 #' @return \code{tbl_df} parsed from the supplied \code{xml_nodeset}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-extract_records_from_xml_nodeset <- function(nodeset, object_name_append=FALSE){
+extract_records_from_xml_nodeset <- function(nodeset, 
+                                             object_name_append=FALSE, 
+                                             object_name_as_col=FALSE){
   x <- nodeset %>% xml_find_all('.//records')
-  if(object_name_append){
+  if(object_name_append | object_name_as_col){
     object_name <- x %>% xml_find_first('.//sf:type') %>% xml_text()
   } else {
     object_name <- NULL
   }
-  res <- extract_records_from_xml_nodeset_of_records(x, object_name=object_name)
+  res <- extract_records_from_xml_nodeset_of_records(x, 
+                                                     object_name=object_name, 
+                                                     as_col=object_name_as_col)
   return(res)
 }
 
@@ -228,24 +212,123 @@ extract_records_from_xml_nodeset <- function(nodeset, object_name_append=FALSE){
 #' @param object_name \code{character}; a list of character strings to pre-pend
 #' to each variable name in the event that we would like to tag the fields with 
 #' the name of the object that they came from.
+#' @param as_col \code{logical}; an indicator that, if an \code{object_name} is 
+#' supplied, will be placed in a new column. If \code{FALSE}, the default, the 
+#' object name will be appended to the column names separated by a period.
 #' @return \code{tbl_df} parsed from the supplied \code{xml_nodeset}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-extract_records_from_xml_nodeset_of_records <- function(x, object_name=NULL){
+extract_records_from_xml_nodeset_of_records <- function(x, 
+                                                        object_name = NULL, 
+                                                        as_col = FALSE){
   if(length(x) > 0){
     x_list <- as_list(x)
     while(any(sapply(x_list, is.list))){
       x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
     }
     x <- x_list %>% 
-      map_df(.f=function(x, nms){
+      map_df(.f=function(x, nms, as_col){
         y <- as_tibble_row(x)
         if(!is.null(nms) && !any(sapply(nms, is.null))){
-          colnames(y) <- paste(nms, colnames(y), sep='.')
+          if(as_col){
+            y$sObject <- nms
+          } else {
+            colnames(y) <- paste(nms, colnames(y), sep='.')  
+          }
         }
         return(y)
-      }, nms=object_name)
+      }, nms=object_name, as_col=as_col)
+  } else {
+    x <- tibble()
+  }
+  return(x)
+}
+
+#' Pulls out a tibble of record info from an XML node
+#' 
+#' This function accepts an \code{xml_node} and searches for all './/records' 
+#' in the document to format into a single tidy \code{tbl_df}.
+#' 
+#' @importFrom dplyr mutate_all as_tibble tibble
+#' @importFrom tibble as_tibble_row
+#' @importFrom xml2 xml_find_all as_list
+#' @importFrom purrr modify_if map_df
+#' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
+#' @param object_name_append \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
+#' @param object_name_as_col \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as a new column.
+#' @return \code{tbl_df} parsed from the supplied node
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal  
+#' @export
+extract_records_from_xml_node <- function(node, 
+                                          object_name_append = FALSE, 
+                                          object_name_as_col = FALSE){
+  object_name <- node %>% xml_find_first('.//sf:type') %>% xml_text()
+  if(length(node) > 0){
+    x_list <- as_list(node)
+    x_list <- xml_drop_and_unlist(x_list)
+    while(any(sapply(x_list, is.list))){
+      x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
+    }
+    if(is.list(x_list)){
+      x <- x_list %>% 
+        map_df(~as_tibble_row(.x))    
+    } else {
+      x <- as_tibble_row(x_list)
+    }
+    if(object_name_append){
+      colnames(x) <- paste(object_name, colnames(x), sep='.')
+    }
+    if(object_name_as_col){
+      x$sObject <- object_name
+    } 
+  } else {
+    x <- tibble()
+  }
+  return(x)
+}
+
+#' Pulls out a tibble of record info from an XML node
+#' 
+#' This function accepts an \code{xml_node} assuming it already represents one 
+#' record and formats that node into a single row \code{tbl_df}. This differs from 
+#' \code{\link{extract_records_from_xml_node}} in that it assumes the node already 
+#' represents a single record instead of multiple records as in the case 
+#' of a child node.
+#' 
+#' @importFrom dplyr mutate_all as_tibble tibble
+#' @importFrom tibble as_tibble_row
+#' @importFrom xml2 xml_find_all as_list
+#' @importFrom purrr modify_if map_df
+#' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
+#' @param object_name_append \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
+#' @param object_name_as_col \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as a new column.
+#' @return \code{tbl_df} parsed from the supplied node
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal  
+#' @export
+extract_records_from_xml_node2 <- function(node, 
+                                           object_name_append = FALSE, 
+                                           object_name_as_col = FALSE){
+  object_name <- node %>% xml_find_first('.//sf:type') %>% xml_text()
+  if(length(node) > 0){
+    x_list <- as_list(node)
+    x_list <- xml_drop_and_unlist(x_list)
+    while(any(sapply(x_list, is.list))){
+      x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
+    }
+    x <- as_tibble_row(x_list)
+    if(object_name_append){
+      colnames(x) <- paste(object_name, colnames(x), sep='.')
+    }
+    if(object_name_as_col){
+      x$sObject <- object_name
+    } 
   } else {
     x <- tibble()
   }

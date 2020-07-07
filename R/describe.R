@@ -37,9 +37,9 @@ sf_describe_objects <- function(object_names,
                            paste0(not_matched_objs, collapse=", "))))
   }
 
-  object_names <- object_names %>%
-    filter(sObjectType %in% valid_object_names) %>% 
-    as.data.frame()
+  object_names <- as.data.frame(
+    object_names[object_names$sObjectType %in% valid_object_names, , drop=FALSE]
+  )
   
   if(which_api == "REST"){
     resultset <- list()

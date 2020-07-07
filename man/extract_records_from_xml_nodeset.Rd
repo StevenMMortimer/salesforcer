@@ -4,10 +4,20 @@
 \alias{extract_records_from_xml_nodeset}
 \title{Pulls out a tibble of record info from an XML node}
 \usage{
-extract_records_from_xml_nodeset(nodeset, object_name_append = FALSE)
+extract_records_from_xml_nodeset(
+  nodeset,
+  object_name_append = FALSE,
+  object_name_as_col = FALSE
+)
 }
 \arguments{
 \item{nodeset}{\code{xml_nodeset}; nodeset to have records extracted into a \code{tbl_df}}
+
+\item{object_name_append}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).}
+
+\item{object_name_as_col}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as a new column.}
 }
 \value{
 \code{tbl_df} parsed from the supplied \code{xml_nodeset}

@@ -4,7 +4,7 @@
 \alias{drop_attributes}
 \title{Remove Salesforce attributes data from list}
 \usage{
-drop_attributes(l, object_name_append = FALSE)
+drop_attributes(l, object_name_append = FALSE, object_name_as_col = FALSE)
 }
 \arguments{
 \item{x}{\code{list}; a list to be cleaned.}

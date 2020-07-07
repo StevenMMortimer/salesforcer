@@ -49,8 +49,8 @@ test_that("testing sf_list_objects()", {
   res <- sf_list_objects()
   valid_object_names <- sapply(res$sobjects, FUN=function(x){x$name})
   expect_is(res, "list")
-  expect_true(all(c("Account", "Contact", "Lead", 
-                    "Opportunity", "Task") %in% valid_object_names))
+  expect_true(all(c("Account", "Contact", "Lead", "Opportunity", "Task") %in% 
+                    valid_object_names))
 })
 
 test_that("testing sf_find_duplicates()", {
@@ -58,12 +58,25 @@ test_that("testing sf_find_duplicates()", {
                                           object_name = "Contact")
   expect_is(duplicates_search, "tbl_df")
   expect_named(duplicates_search, c("sObject", "Id"))
+
+  duplicates_search_w_details <- sf_find_duplicates(search_criteria = list(Email="bond_john@grandhotels.com"),
+                                                    object_name = "Contact", 
+                                                    include_record_details = TRUE)
+  expect_is(duplicates_search_w_details, "tbl_df")
+  expect_true(all(c("sObject", "Id", "Name", "Phone", "Account.Id", "Owner.Id") %in% 
+                    names(duplicates_search_w_details)))  
 })
 
 test_that("testing sf_find_duplicates_by_id()", {
   duplicates_search <- sf_find_duplicates_by_id(sf_id = "0036A000002C6McQAK") 
   expect_is(duplicates_search, "tbl_df")
   expect_named(duplicates_search, c("sObject", "Id"))
+  
+  duplicates_search_w_details <- sf_find_duplicates_by_id(sf_id = "0036A000002C6McQAK", 
+                                                          include_record_details = TRUE)
+  expect_is(duplicates_search_w_details, "tbl_df")
+  expect_true(all(c("sObject", "Id", "Name", "Phone", "Owner.Id") %in% 
+                    names(duplicates_search_w_details)))    
 })
 
 test_that("testing sf_convert_lead()", {

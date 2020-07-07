@@ -19,6 +19,10 @@
 #' @template verbose
 #' @param ... arguments to be used to form the parameterized search options argument 
 #' if it is not supplied directly.
+#' @note The maximum number of returned rows in the SOSL query results is 2,000. 
+#' Please refer to the limits 
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm}{HERE} 
+#' for more detail.
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_sosl.htm}
 #' @return \code{tibble}
 #' @examples
@@ -42,7 +46,7 @@
 #' @export
 sf_search <- function(search_string,
                       is_sosl = FALSE,
-                      guess_types = TRUE,
+                      guess_types = FALSE,
                       api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
                       parameterized_search_options = list(...),
                       verbose = FALSE, 
@@ -57,6 +61,11 @@ sf_search <- function(search_string,
       httr_response <- rGET(url = target_url,
                             headers = c("Accept"="application/json", 
                                         "Content-Type"="application/json"))
+      if(verbose){
+        make_verbose_httr_message(httr_response$request$method,
+                                  httr_response$request$url, 
+                                  httr_response$request$headers)
+      }     
     } else {
       parameterized_search_control <- do.call("parameterized_search_control",
                                               parameterized_search_options)
@@ -68,30 +77,29 @@ sf_search <- function(search_string,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
                              body = request_body)
+      if(verbose){
+        make_verbose_httr_message(httr_response$request$method,
+                                  httr_response$request$url, 
+                                  httr_response$request$headers, 
+                                  prettify(request_body))
+      }      
     }
-    if(verbose){
-      make_verbose_httr_message(httr_response$request$method,
-                                httr_response$request$url, 
-                                httr_response$request$headers, 
-                                prettify(request_body))
-    }
+
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, "text", encoding="UTF-8")
-    resultset <- fromJSON(response_parsed, flatten=TRUE)$searchRecords
-    if(length(resultset) > 0){
-      suppressMessages(
-        resultset <- resultset %>% 
-          rename(sObject = `attributes.type`) %>%
-          select(-matches("^attributes\\."))
-      ) 
+    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+    
+    if(length(response_parsed$searchRecords) > 0){
+      resultset <- response_parsed$searchRecords %>% 
+        drop_attributes_recursively(object_name_as_col=TRUE) %>% 
+        drop_empty_recursively() %>% 
+        map_df(flatten_to_tbl_df)
     } else {
       resultset <- tibble()
     }
   } else if(which_api == "SOAP"){
-    # TODO: should SOAP only take SOSL?
     if(!is_sosl){
-      stop(paste("The SOAP API only takes SOSL formatted search strings.", 
-                 "Set is_sosl=TRUE or set api_type='REST' if trying to do a free text search"))
+      stop(paste0("The SOAP API only accepts SOSL. Set `is_sosl=TRUE` or, if ", 
+                  "trying to perform a free text search then, set `api_type='REST'`."))
     }
     r <- make_soap_xml_skeleton()
     xml_dat <- build_soap_xml_from_list(input_data = search_string,
@@ -109,38 +117,40 @@ sf_search <- function(search_string,
                                 httr_response$request$headers, 
                                 request_body)
     }
+    
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, encoding="UTF-8")
+    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     resultset <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//record')
+    
     if(length(resultset) > 0){
-      suppressMessages(
-        resultset <- resultset %>%
-          map_df(xml_nodeset_to_df) %>%
-          rename(sObject = `sf:type`) %>%
-          rename_at(.vars = vars(starts_with("sf:")), 
-                    .funs = list(~sub("^sf:", "", .)))
-      )
+      resultset <- resultset %>% 
+        map_df(extract_records_from_xml_node2, 
+               object_name_as_col=TRUE)
     } else {
       resultset <- tibble()
     }
   } else if(which_api == "Bulk 1.0"){
-    stop("SOSL is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
+    stop(paste0("SOSL is not supported in Bulk API. For retrieving a ", 
+                "large number of records use SOQL (queries) instead."))
   } else if(which_api == "Bulk 2.0"){
-    stop("SOSL is not supported in Bulk API. For retrieving a large number of records use SOQL (queries) instead.")
+    stop(paste0("SOSL is not supported in Bulk API. For retrieving a ", 
+                "large number of records use SOQL (queries) instead."))
   } else {
     stop("Unknown API type.")
   }
+    
   if(nrow(resultset) > 0){
     resultset <- resultset %>% 
-      as_tibble() %>%
-      # reorder because the REST API does it differently
-      select(sObject, everything())
-      if(guess_types){
-        resultset <- resultset %>%
-          type_convert(col_types = cols(.default = col_guess()))
-      }
+      # sort column names ...
+      select(sort(names(.))) %>% 
+      # ... then move sObject and Id columns up
+      select(any_of(unique(c("sObject", "Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
+    if(guess_types){
+      resultset <- resultset %>%
+        type_convert(col_types = cols(.default = col_guess()))
+    }
   }
   return(resultset)
 }

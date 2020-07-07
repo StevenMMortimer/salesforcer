@@ -4,7 +4,11 @@
 \alias{extract_records_from_xml_nodeset_of_records}
 \title{Pulls out a tibble of record info from a nodeset of "records" elements}
 \usage{
-extract_records_from_xml_nodeset_of_records(x, object_name = NULL)
+extract_records_from_xml_nodeset_of_records(
+  x,
+  object_name = NULL,
+  as_col = FALSE
+)
 }
 \arguments{
 \item{x}{\code{xml_nodeset}; nodeset to have records extracted into a \code{tbl_df}}
@@ -12,6 +16,10 @@ extract_records_from_xml_nodeset_of_records(x, object_name = NULL)
 \item{object_name}{\code{character}; a list of character strings to pre-pend
 to each variable name in the event that we would like to tag the fields with 
 the name of the object that they came from.}
+
+\item{as_col}{\code{logical}; an indicator that, if an \code{object_name} is 
+supplied, will be placed in a new column. If \code{FALSE}, the default, the 
+object name will be appended to the column names separated by a period.}
 }
 \value{
 \code{tbl_df} parsed from the supplied \code{xml_nodeset}

@@ -5,14 +5,15 @@ sf_auth(token = salesforcer_token)
 
 test_that("testing SOSL", {
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
-                   "contact(id, firstname, lastname, my_external_id__c),",
+                   "contact(id, firstname, lastname, test_number__c, testcustomcheckbox__c),",
                    "lead(id, firstname, lastname)")
   # sf_search ------------------------------------------------------------------
-  searched_records1 <- sf_search(my_sosl, is_sosl=TRUE, api_type="SOAP")  
-  searched_records2 <- sf_search(my_sosl, is_sosl=TRUE, api_type="REST") 
+  searched_records1 <- sf_search(my_sosl, is_sosl=TRUE, api_type="SOAP") 
+  searched_records2 <- sf_search(my_sosl, is_sosl=TRUE, api_type="REST")
   expect_is(searched_records1, "tbl_df")
-  expect_named(searched_records1, c("sObject", "Id", "FirstName", "LastName", "My_External_Id__c"))
-  expect_equal(names(searched_records1), names(searched_records2))
+  record_names <- c("sObject", "Id", "FirstName", "LastName", "test_number__c", "testcustomcheckbox__c")
+  expect_equal(names(searched_records1), record_names)
+  expect_equal(names(searched_records2), record_names)
   expect_equal(nrow(searched_records1), nrow(searched_records2))
 })
 

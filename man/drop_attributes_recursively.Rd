@@ -4,13 +4,24 @@
 \alias{drop_attributes_recursively}
 \title{Recursively remove Salesforce attributes data from list}
 \usage{
-drop_attributes_recursively(x, object_name_append = FALSE)
+drop_attributes_recursively(
+  x,
+  object_name_append = FALSE,
+  object_name_as_col = FALSE
+)
 }
 \arguments{
 \item{x}{\code{list}; a list to be cleaned.}
+
+\item{object_name_append}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).}
+
+\item{object_name_as_col}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as a new column.}
 }
 \value{
-\code{list} containing no 'attributes' elements.
+\code{list} containing no 'attributes' elements with the object information 
+in the column names or the values within an object entitled \code{'sObject'}.
 }
 \description{
 This function wraps the custom \code{drop_attributes} function that removes 
