@@ -4,7 +4,14 @@
 \alias{make_verbose_httr_message}
 \title{Format Verbose Call}
 \usage{
-make_verbose_httr_message(method, url, headers = NULL, body = NULL)
+make_verbose_httr_message(
+  method,
+  url,
+  headers = NULL,
+  body = NULL,
+  auto_unbox = TRUE,
+  ...
+)
 }
 \description{
 Format Verbose Call

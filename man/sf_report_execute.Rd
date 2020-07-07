@@ -71,10 +71,14 @@ Run a report synchronously if you expect it to finish running quickly.
 Otherwise, we recommend that you run reports through the API asynchronously 
 for these reasons:
 \itemize{
-  \item Long running reports have a lower risk of reaching the timeout limit when run asynchronously.
-  \item The 2-minute overall Salesforce API timeout limit doesn’t apply to asynchronous runs.
-  \item The Salesforce Reports and Dashboards REST API can handle a higher number of asynchronous run requests at a time.
-  \item Since the results of an asynchronously run report are stored for a 24-hr rolling period, they’re available for recurring access.
+  \item Long running reports have a lower risk of reaching the timeout limit 
+  when run asynchronously.
+  \item The 2-minute overall Salesforce API timeout limit doesn’t apply to 
+  asynchronous runs.
+  \item The Salesforce Reports and Dashboards REST API can handle a higher 
+  number of asynchronous run requests at a time.
+  \item Since the results of an asynchronously run report are stored for a 
+  24-hr rolling period, they’re available for recurring access.
 }
 
 Before you filter a report, it helpful to check the following properties in the metadata 
@@ -85,6 +89,34 @@ by, and filters that already exist in the report:
   \item filterValues
   \item dataTypeFilterOperatorMap
   \item reportFilters
+}
+}
+\examples{
+\dontrun{
+# first, grab all possible reports in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+
+# second, get the id of a report to execute
+this_report_id <- all_reports$Id[1]
+
+# execute an synchronous report that will wait for the results
+results <- sf_report_execute(this_report_id)
+
+# alternatively, execute an async report and then grab the results
+results <- sf_report_execute(this_report_id)
+
+# check if completed and proceeed if the status is "Success"
+instance_list <- sf_report_instances_list(report_id, verbose=verbose)
+instance_status <- instance_list[instance_list$id == results$id, "status"]
+if(instance_status == "Success"){
+  results <- sf_report_instance_results(report_id, results$id)
+}
+
+# Note: For more complex execution use the report_metadata argument
+# (for simpler results you can leverage the convenience function sf_get_report_data)
+fields <- sf_report_execute(this_report_id) 
+                            async = FALSE,
+                            report_metadata = list()
 }
 }
 \seealso{

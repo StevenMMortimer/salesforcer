@@ -2,8 +2,7 @@
 #' 
 #' Searches for records in your organization’s data.
 #' 
-#' @importFrom jsonlite toJSON fromJSON
-#' @importFrom dplyr as_tibble rename rename_at select matches starts_with vars everything tibble
+#' @importFrom dplyr as_tibble tibble select any_of
 #' @importFrom readr cols type_convert col_guess
 #' @importFrom purrr map_df 
 #' @importFrom xml2 xml_ns_strip xml_find_all
@@ -71,17 +70,16 @@ sf_search <- function(search_string,
                                               parameterized_search_options)
       parameterized_search_control <- c(list(q=search_string), parameterized_search_control)
       target_url <- make_parameterized_search_url()
-      request_body <- toJSON(parameterized_search_control,
-                             auto_unbox = TRUE)
       httr_response <- rPOST(url = target_url,
                              headers = c("Accept"="application/json", 
                                          "Content-Type"="application/json"),
-                             body = request_body)
+                             body = parameterized_search_control, 
+                             encode = "json")
       if(verbose){
         make_verbose_httr_message(httr_response$request$method,
                                   httr_response$request$url, 
                                   httr_response$request$headers, 
-                                  prettify(request_body))
+                                  parameterized_search_control)
       }      
     }
 

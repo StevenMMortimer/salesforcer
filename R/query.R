@@ -133,7 +133,7 @@ sf_query_rest <- function(soql,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, "parsed", encoding="UTF-8")
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
   
   if(length(response_parsed$records) > 0){
     # determine if there are parent-child relationship query results contained within 

@@ -94,7 +94,7 @@ make_report_execute_url <- function(report_id, async=TRUE, include_details=FALSE
             getOption("salesforcer.api_version"), 
             report_id)   
   } else {
-    sprintf("%s/services/data/v%s/analytics/reports/%s?includeDetails=",
+    sprintf("%s/services/data/v%s/analytics/reports/%s?includeDetails=%s",
             salesforcer_state()$instance_url,
             getOption("salesforcer.api_version"), 
             report_id, 

@@ -250,9 +250,9 @@ extract_records_from_xml_nodeset_of_records <- function(x,
 #' This function accepts an \code{xml_node} and searches for all './/records' 
 #' in the document to format into a single tidy \code{tbl_df}.
 #' 
-#' @importFrom dplyr mutate_all as_tibble tibble
+#' @importFrom dplyr mutate_all as_tibble
 #' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all as_list
+#' @importFrom xml2 xml_find_all xml_text as_list
 #' @importFrom purrr modify_if map_df
 #' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
 #' @param object_name_append \code{logical}; whether to include the object type
@@ -266,7 +266,11 @@ extract_records_from_xml_nodeset_of_records <- function(x,
 extract_records_from_xml_node <- function(node, 
                                           object_name_append = FALSE, 
                                           object_name_as_col = FALSE){
-  object_name <- node %>% xml_find_first('.//sf:type') %>% xml_text()
+  if(object_name_append | object_name_as_col){
+    object_name <- node %>% 
+      xml_find_first('.//sf:type') %>% 
+      xml_text()
+  }
   if(length(node) > 0){
     x_list <- as_list(node)
     x_list <- xml_drop_and_unlist(x_list)
@@ -274,8 +278,7 @@ extract_records_from_xml_node <- function(node,
       x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
     }
     if(is.list(x_list)){
-      x <- x_list %>% 
-        map_df(~as_tibble_row(.x))    
+      x <- x_list %>% map_df(~as_tibble_row(.x))    
     } else {
       x <- as_tibble_row(x_list)
     }
@@ -286,8 +289,9 @@ extract_records_from_xml_node <- function(node,
       x$sObject <- object_name
     } 
   } else {
-    x <- tibble()
+    x <- NULL
   }
+  x <- as_tibble(x)
   return(x)
 }
 
@@ -299,9 +303,9 @@ extract_records_from_xml_node <- function(node,
 #' represents a single record instead of multiple records as in the case 
 #' of a child node.
 #' 
-#' @importFrom dplyr mutate_all as_tibble tibble
+#' @importFrom dplyr mutate_all as_tibble
 #' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all as_list
+#' @importFrom xml2 xml_find_all xml_text as_list
 #' @importFrom purrr modify_if map_df
 #' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
 #' @param object_name_append \code{logical}; whether to include the object type
@@ -315,7 +319,11 @@ extract_records_from_xml_node <- function(node,
 extract_records_from_xml_node2 <- function(node, 
                                            object_name_append = FALSE, 
                                            object_name_as_col = FALSE){
-  object_name <- node %>% xml_find_first('.//sf:type') %>% xml_text()
+  if(object_name_append | object_name_as_col){
+    object_name <- node %>% 
+      xml_find_first('.//sf:type') %>% 
+      xml_text()
+  }
   if(length(node) > 0){
     x_list <- as_list(node)
     x_list <- xml_drop_and_unlist(x_list)
@@ -330,8 +338,9 @@ extract_records_from_xml_node2 <- function(node,
       x$sObject <- object_name
     } 
   } else {
-    x <- tibble()
+    x <- NULL
   }
+  x <- as_tibble(x)
   return(x)
 }
 

@@ -379,16 +379,32 @@ format_headers_for_verbose <- function(request_headers){
 
 #' Format Verbose Call
 #' 
+#' @importFrom jsonlite prettify
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-make_verbose_httr_message <- function(method, url, headers = NULL, body = NULL){
+make_verbose_httr_message <- function(method, 
+                                      url, 
+                                      headers = NULL, 
+                                      body = NULL, 
+                                      auto_unbox = TRUE,
+                                      ...){
   message(sprintf("\n--HTTP Request----------------\n%s %s", method, url))
-  if(!is.null(headers)) message(sprintf("--Headers---------------------\n%s", 
-                                        format_headers_for_verbose(headers)))
-  if(!is.null(body)) message(sprintf("--Body------------------------\n%s", 
-                                     body))
-  return(invisible())
+  
+  if(!is.null(headers)){ 
+    message(sprintf("--Headers---------------------\n%s", 
+                    format_headers_for_verbose(headers)))
+  }
+  
+  if(!is.null(body)){
+    if(is.list(body)){
+      body <- toJSON(body, pretty = TRUE, auto_unbox = auto_unbox, ...)
+    }
+    message(sprintf("--Body------------------------\n%s", 
+                    body))
+  }
+  
+  return(invisible(NULL))
 }
 
 #' Execute a non-paginated REST API call to list items

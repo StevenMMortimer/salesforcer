@@ -19,9 +19,9 @@ along with additional diagnostic information where available.}
 \code{tbl_df}
 }
 \description{
-This function allows for pulling specific data from a report. There is a convenience 
-function (\link{sf_get_report_data}) to get the report data in a tabular 
-format returned as a \code{tbl_df}.
+This function allows for pulling specific data from a report. There is a 
+convenience function (\link{sf_get_report_data}) to get the report data in a 
+tabular format returned as a \code{tbl_df}.
 }
 \seealso{
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example}{Salesforce Example}

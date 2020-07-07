@@ -139,23 +139,22 @@ sf_create_soap <- function(input_data,
                                 request_body)
     }
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, encoding="UTF-8")
+    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
-      map_df(xml_nodeset_to_df)
+      map_df(extract_records_from_xml_node2)
     resultset <- bind_rows(resultset, this_set)
   }
   resultset <- resultset %>%
-    type_convert(col_types = cols())
+    type_convert(col_types = cols(.default = col_guess()))
   return(resultset)
 }
 
 #' Create Records using REST API
 #' 
-#' @importFrom readr cols type_convert
-#' @importFrom dplyr everything as_tibble bind_rows select
-#' @importFrom jsonlite toJSON fromJSON prettify
+#' @importFrom purrr map_df
+#' @importFrom readr cols type_convert col_guess
 #' @importFrom stats quantile
 #' @importFrom utils head
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -183,9 +182,13 @@ sf_create_rest <- function(input_data,
   
   # add attributes to insert multiple records at a time
   # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm?search_text=update%20multiple
-  input_data$attributes <- lapply(1:nrow(input_data), FUN=function(x, obj){list(type=obj, referenceId=paste0("ref" ,x))}, obj=object_name)
+  input_data$attributes <- lapply(1:nrow(input_data), 
+                                  FUN=function(x, obj){
+                                    list(type=obj,
+                                         referenceId=paste0("ref" ,x))
+                                    }, obj=object_name)
   #input_data$attributes <- list(rep(list(type=object_name), nrow(input_data)))[[1]]
-  input_data <- input_data %>% select(attributes, everything())
+  input_data <- input_data %>% select(any_of("attributes"), everything())
   
   composite_url <- make_composite_url()
   # this type of request can only handle 200 records at a time
@@ -205,26 +208,24 @@ sf_create_rest <- function(input_data,
       } 
     }
     batched_data <- input_data[batch_id == batch, , drop=FALSE]
-    request_body <- toJSON(list(allOrNone = tolower(all_or_none), 
-                                records = batched_data), 
-                           auto_unbox = TRUE, 
-                           na = "null")
+    request_body <- list(allOrNone = all_or_none, records = batched_data)
     httr_response <- rPOST(url = composite_url,
                            headers = request_headers,
-                           body = request_body)
+                           body = request_body, 
+                           encode = "json")
     if(verbose){
       make_verbose_httr_message(httr_response$request$method,
                                 httr_response$request$url, 
                                 httr_response$request$headers, 
-                                prettify(request_body))
+                                request_body)
     }
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, "text", encoding="UTF-8")
-    resultset <- bind_rows(resultset, fromJSON(response_parsed))
+    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+    resultset <- c(resultset, response_parsed)
   }
   resultset <- resultset %>%
-    as_tibble() %>%
-    type_convert(col_types = cols())
+    map_df(flatten_to_tbl_df) %>%
+    type_convert(col_types = cols(.default = col_guess()))
   return(resultset)
 }
 

@@ -126,7 +126,7 @@ rforcecom.create <- function(session, objectName, fields){
   created_records <- sf_create(input_data = fields, object_name = objectName)
   
   result <- created_records %>% 
-    select(id, success) %>%
+    select(any_of(c("id", "success"))) %>%
     as.data.frame()
   
   return(result)

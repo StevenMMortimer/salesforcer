@@ -31,7 +31,7 @@ sf_reports_list <- function(as_tbl=TRUE, verbose=FALSE){
   if(as_tbl){
     # bring id and name up front
     resultset <- resultset %>% 
-      select(id, name, everything())
+      select(any_of(c("id", "name")), everything())
   }
   return(resultset)
 }
@@ -491,10 +491,14 @@ sf_report_fields <- function(report_id,
 #' Otherwise, we recommend that you run reports through the API asynchronously 
 #' for these reasons:
 #' \itemize{
-#'   \item Long running reports have a lower risk of reaching the timeout limit when run asynchronously.
-#'   \item The 2-minute overall Salesforce API timeout limit doesn’t apply to asynchronous runs.
-#'   \item The Salesforce Reports and Dashboards REST API can handle a higher number of asynchronous run requests at a time.
-#'   \item Since the results of an asynchronously run report are stored for a 24-hr rolling period, they’re available for recurring access.
+#'   \item Long running reports have a lower risk of reaching the timeout limit 
+#'   when run asynchronously.
+#'   \item The 2-minute overall Salesforce API timeout limit doesn’t apply to 
+#'   asynchronous runs.
+#'   \item The Salesforce Reports and Dashboards REST API can handle a higher 
+#'   number of asynchronous run requests at a time.
+#'   \item Since the results of an asynchronously run report are stored for a 
+#'   24-hr rolling period, they’re available for recurring access.
 #' }
 #' 
 #' Before you filter a report, it helpful to check the following properties in the metadata 
@@ -522,6 +526,32 @@ sf_report_fields <- function(report_id,
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
 #'   \item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
 #' }
+#' @examples \dontrun{
+#' # first, grab all possible reports in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' 
+#' # second, get the id of a report to execute
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' # execute an synchronous report that will wait for the results
+#' results <- sf_report_execute(this_report_id)
+#' 
+#' # alternatively, execute an async report and then grab the results
+#' results <- sf_report_execute(this_report_id)
+#' 
+#' # check if completed and proceeed if the status is "Success"
+#' instance_list <- sf_report_instances_list(report_id, verbose=verbose)
+#' instance_status <- instance_list[instance_list$id == results$id, "status"]
+#' if(instance_status == "Success"){
+#'   results <- sf_report_instance_results(report_id, results$id)
+#' }
+#' 
+#' # Note: For more complex execution use the report_metadata argument
+#' # (for simpler results you can leverage the convenience function sf_get_report_data)
+#' fields <- sf_report_execute(this_report_id) 
+#'                             async = FALSE,
+#'                             report_metadata = list()
+#' }
 #' @export
 sf_report_execute <- function(report_id, 
                               async = TRUE, 
@@ -529,39 +559,35 @@ sf_report_execute <- function(report_id,
                               report_metadata = NULL,
                               as_tbl = !async,
                               verbose = FALSE){
-  ##############
-  #### TODO ####
-  ##############
-  .NotYetImplemented()
   
-  # if(!is.null(report_metadata)){
-  #   report_metadata <- sf_input_data_validation(report_metadata, 
-  #                                               operation = "filter_report")
+  if(!is.null(report_metadata)){
+    report_metadata <- sf_input_data_validation(report_metadata,
+                                                operation = "filter_report")
+  }
+
+  this_url <- make_report_execute_url(report_id, async, include_details)
+
+  if(!is.null(report_metadata)){
+    httr_response <- rPOST(url = this_url,
+                           body = report_metadata,
+                           encode = "json")
+  } else {
+    httr_response <- rGET(url = this_url)
+  }
+
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url,
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+
+  # # formatting????
+  # if(async){
+  #
   # }
-  # 
-  # this_url <- make_report_execute_url(report_id, async, include_details)
-  # 
-  # if(!is.null(report_metadata)){
-  #   httr_response <- rPOST(url = this_url, 
-  #                          body = report_metadata, 
-  #                          encode = "json")
-  # } else {
-  #   httr_response <- rGET(url = this_url)
-  # }
-  # 
-  # if(verbose){
-  #   make_verbose_httr_message(httr_response$request$method, 
-  #                             httr_response$request$url, 
-  #                             httr_response$request$headers)
-  # }
-  # catch_errors(httr_response)
-  # response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
-  # 
-  # # # formatting????
-  # # if(async){
-  # #   
-  # # }
-  # return(response_parsed)
+  return(response_parsed)
 }
 
 #' List report instances
@@ -583,7 +609,7 @@ sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
   if(as_tbl){
     # bring id and name up front
     resultset <- resultset %>% 
-      select(id, everything())
+      select(any_of("id"), everything())
   }
   return(resultset)
 }
@@ -650,16 +676,16 @@ sf_report_instance_results <- function(report_id,
   # if(as_tbl){
   #   # bring id and name up front
   #   resultset <- resultset %>% 
-  #     select(id, everything())
+  #     select(any_of("id"), everything())
   # }
   # return(resultset)
 }
 
 #' Query a report
 #' 
-#' This function allows for pulling specific data from a report. There is a convenience 
-#' function (\link{sf_get_report_data}) to get the report data in a tabular 
-#' format returned as a \code{tbl_df}.
+#' This function allows for pulling specific data from a report. There is a 
+#' convenience function (\link{sf_get_report_data}) to get the report data in a 
+#' tabular format returned as a \code{tbl_df}.
 #'
 #' @template report_id
 #' @template verbose
@@ -790,9 +816,7 @@ sf_get_report_data <- function(report_id,
         }
         Sys.sleep(interval_seconds)
         instances_list <- sf_report_instances_list(report_id, verbose=verbose)
-        instance_status <- instances_list %>% 
-          filter(id == results$id) %>% 
-          .[["status"]]
+        instance_status <- instances_list[instances_list$id == results$id, "status"]
         if(instance_status == "Error"){
           stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
                        report_id, results$id), 

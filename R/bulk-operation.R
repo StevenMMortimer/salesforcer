@@ -499,7 +499,7 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
     # cast the data
     resultset <- resultset %>%
       type_convert(col_types = cols(.default = col_guess())) %>% 
-      filter(operation %in% c('query', 'queryall')) # is queryall an option?
+      filter(.data[["operation"]] %in% c('query', 'queryall')) # is queryall an option?
   }
   return(resultset)
 }

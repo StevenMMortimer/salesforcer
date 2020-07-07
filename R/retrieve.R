@@ -57,13 +57,18 @@ sf_retrieve <- function(ids,
   return(resultset)
 }
 
-#' @importFrom utils head 
-#' @importFrom stats quantile 
-#' @importFrom dplyr bind_rows as_tibble select matches rename_at starts_with
+#' Retrieve records using SOAP API
+#' 
+ 
+#' @importFrom dplyr bind_rows filter
 #' @importFrom httr content
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert cols
-#' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
+#' @importFrom xml2 xml_ns_strip xml_find_all 
+#' @importFrom utils head 
+#' @importFrom stats quantile
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
 sf_retrieve_soap <- function(ids,
                              fields,
                              object_name,
@@ -109,33 +114,29 @@ sf_retrieve_soap <- function(ids,
                                 request_body)
     }
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, encoding="UTF-8")
+    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
-      xml_find_all('.//result')
-    if(length(this_set) > 0){
-      this_set <- this_set %>%
-        map_df(xml_nodeset_to_df) %>%
-        select(-matches("sf:type")) %>%
-        rename_at(.vars = vars(starts_with("sf:")), 
-                  .funs = list(~gsub("^sf:", "", .))) %>%
-        select(-matches("Id1"))
-    } else {
-      this_set <- NULL
-    }
+      xml_find_all('.//result') %>% 
+      map_df(extract_records_from_xml_node2) %>% 
+      # ignore record ids that could not be matched
+      filter(!is.na(.data[["Id"]]))
     resultset <- bind_rows(resultset, this_set)
   }
   resultset <- resultset %>% 
-    type_convert(col_types = cols())
+    type_convert(col_types = cols(.default = col_guess()))
   return(resultset)
 }
 
+#' Retrieve records using REST API
+#' 
+#' @importFrom dplyr select any_of
+#' @importFrom httr content
+#' @importFrom readr type_convert cols col_guess
 #' @importFrom utils head 
 #' @importFrom stats quantile 
-#' @importFrom dplyr bind_rows as_tibble select any_of
-#' @importFrom httr content
-#' @importFrom jsonlite toJSON fromJSON prettify
-#' @importFrom readr type_convert cols
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
 sf_retrieve_rest <- function(ids,
                              fields,
                              object_name,
@@ -165,26 +166,25 @@ sf_retrieve_rest <- function(ids,
       } 
     }
     batched_data <- ids[batch_id == batch, , drop=FALSE]
-    request_body <- toJSON(list(ids = batched_data$Id, fields = fields), 
-                           auto_unbox = FALSE)
+    request_body <- list(ids = I(batched_data$Id), fields = I(fields))
     httr_response <- rPOST(url = composite_url,
                            headers = c("Accept"="application/json", 
                                        "Content-Type"="application/json"),
-                           body = request_body)
+                           body = request_body, 
+                           encode = "json")
     if(verbose){
       make_verbose_httr_message(httr_response$request$method,
                                 httr_response$request$url, 
                                 httr_response$request$headers, 
-                                prettify(request_body))
+                                request_body)
     }
     catch_errors(httr_response)
-    response_parsed <- content(httr_response, "text", encoding="UTF-8")
-    resultset <- bind_rows(resultset, 
-                           fromJSON(response_parsed) %>% 
-                             select(any_of(unique(c("Id", fields)))))
+    response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+    resultset <- c(resultset, response_parsed)
   }
-  resultset <- resultset %>% 
-    as_tibble() %>%
-    type_convert(col_types = cols())
+  resultset <- resultset %>%
+    map_df(flatten_to_tbl_df) %>%
+    select(any_of(unique(c("Id", fields)))) %>% 
+    type_convert(col_types = cols(.default = col_guess()))
   return(resultset)
 }
