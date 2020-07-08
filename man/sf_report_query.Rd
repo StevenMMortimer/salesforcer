@@ -2,13 +2,32 @@
 % Please edit documentation in R/analytics-report.R
 \name{sf_report_query}
 \alias{sf_report_query}
-\title{Query a report}
+\title{Get Report Data without Saving Changes to or Creating a Report}
 \usage{
-sf_report_query(report_id, verbose = FALSE)
+sf_report_query(report_id, report_metadata = NULL, verbose = FALSE)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
 analytics report. It will start with \code{"00O"}.}
+
+\item{report_metadata}{\code{list}; a \code{list} with one element named 
+\code{"reportMetadata"} having additional list elements underneath. All possible 
+elements of \code{reportMetadata} are documented 
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE}, 
+but you will most commonly only need to specify the following 3 elements to 
+filter or query the results of an existing report:  
+\describe{
+  \item{reportFormat}{A \code{character} specifying the format of the report 
+  with possible values: \code{"TABULAR"}, \code{"SUMMARY"}, \code{"MATRIX"}, 
+  or \code{"MULTI_BLOCK"}.}
+  \item{reportBooleanFilter}{A \code{character} denoting how the individuals 
+  filters specified in \code{reportFilters} should be combined. For example, 
+  \code{"(1OR4)AND2AND3"}}.
+  \item{reportFilters}{A \code{list} of reportFilter specifications. Each must 
+  be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 3) \code{value}. 
+  You can find out how certain field types can be filtered by reviewing the results 
+  of \code{\link{sf_report_filter_operators_list}}.}
+}}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 
@@ -19,9 +38,20 @@ along with additional diagnostic information where available.}
 \code{tbl_df}
 }
 \description{
-This function allows for pulling specific data from a report. There is a 
-convenience function (\link{sf_get_report_data}) to get the report data in a 
-tabular format returned as a \code{tbl_df}.
+Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data 
+without filling up your Org with unnecessary reports.
+}
+\details{
+Note that you can query a report's data simply by providing its \code{Id}.
+However, the data will only be the detailed data from the tabular format 
+with no totals or other metadata. If you would like more control, for example, 
+filtering the results or grouping them in specific ways, then you will need 
+to specify a list to the \code{report_metadata} argument. The \code{report_metadata} 
+argument requires specific knowledge on the structure the \code{reportMetadata}
+property of a report. For more information, please review the Salesforce documentation 
+in detail \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE}. 
+Additional references are provided in the \code{"See Also"} section.
 }
 \seealso{
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example}{Salesforce Example}

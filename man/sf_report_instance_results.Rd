@@ -4,7 +4,13 @@
 \alias{sf_report_instance_results}
 \title{Get report instance results}
 \usage{
-sf_report_instance_results(report_id, report_instance_id, verbose = FALSE)
+sf_report_instance_results(
+  report_id,
+  report_instance_id,
+  label = TRUE,
+  fact_map = "T:T",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created 
@@ -20,13 +26,35 @@ set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list}
+\code{tbl_df}; the detail repot data. More specifically, the detailed 
+data from the "T!T" entry in the fact map.
 }
 \description{
 Retrieves results for an instance of a report run asynchronously with or without 
 filters. Depending on your asynchronous report run request, data can be at the 
 summary level or include details.
 }
+\note{
+Aggregates (summary) are currently not provided, but will be in the future.
+}
+\examples{
+\dontrun{
+# execute a report asynchronously in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+this_report_id <- all_reports$Id[1]
+results <- sf_report_execute(this_report_id, async=TRUE)
+
+# check if that report has succeeded, ... 
+instance_list <- sf_report_instances_list(this_report_id)
+instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
+
+# ... if so, then grab the results
+if(instance_status == "Success"){
+  report_data <- sf_report_instance_results(report_id = this_report_id, 
+                                            report_instance_id = results$id)
+}
+}
+}
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm}{Factmap Documentation}
 }

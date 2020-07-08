@@ -1,8 +1,9 @@
-#' @param report_metadata \code{list}; a list of length 1, with that element 
-#' being named \code{"reportMetadata"} having list elements underneath. All possible 
-#' elements of \code{reportMetadata} are documented \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm}{HERE}, 
+#' @param report_metadata \code{list}; a \code{list} with one element named 
+#' \code{"reportMetadata"} having additional list elements underneath. All possible 
+#' elements of \code{reportMetadata} are documented 
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE}, 
 #' but you will most commonly only need to specify the following 3 elements to 
-#' filter the results: 
+#' filter or query the results of an existing report:  
 #' \describe{
 #'   \item{reportFormat}{A \code{character} specifying the format of the report 
 #'   with possible values: \code{"TABULAR"}, \code{"SUMMARY"}, \code{"MATRIX"}, 

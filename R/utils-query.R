@@ -87,6 +87,39 @@ drop_empty_recursively <- function(x) {
     compact()
 }
 
+#' Set all NULL or zero-length elements from list to NA
+#' 
+#' This function is a simple \code{\link[purrr:modify]{modify_if}} function 
+#' to replace zero-length elements (includes \code{NULL}) to \code{NA} in a 
+#' one-level list.
+#' 
+#' @importFrom purrr modify_if
+#' @param x \code{list}; a list to be cleaned.
+#' @return \code{list} containing \code{NA} in place of \code{NULL} element values.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+set_null_elements_to_na <- function(x){
+  x %>% modify_if(~(length(.x) == 0), .f=function(x){return(NA)})
+}
+
+#' Recursively set all NULL or zero-length elements from list to NA
+#' 
+#' This function wraps a simple \code{\link[purrr:modify]{modify_if}} function 
+#' to recursively set NULL elements in a list to NA.
+#' 
+#' @importFrom purrr map_if
+#' @param x \code{list}; a list to be cleaned.
+#' @return \code{list} containing \code{NA} in place of \code{NULL} element values.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+set_null_elements_to_na_recursively <- function(x) {
+  x %>%
+    map_if(is.list, set_null_elements_to_na_recursively) %>% 
+    set_null_elements_to_na()
+}
+
 #' Flatten list and convert to tibble
 #' 
 #' This function is a convenience function to handle deeply nested records usually 

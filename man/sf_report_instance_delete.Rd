@@ -29,12 +29,16 @@ delete the report instance.
 }
 \examples{
 \dontrun{
-# first, grab all possible reports in your Org
-report_instances <- sf_report_instances_list()
+# first, get the Id of a report in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+this_report_id <- all_reports$Id[1]
 
-# second, delete that report instance using its id and its parent report id
-success <- sf_report_instance_delete(report_instances[[1]]$attributes$id, 
-                                     report_instances[[1]]$attributes$reportId)
+# second, ensure that report has been executed at least once asynchronously
+results <- sf_report_execute(this_report_id, async=TRUE)
+
+# check if that report has succeeded, if so (or if it errored), then delete
+instance_list <- sf_report_instances_list(this_report_id)
+instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 }
 }
 \seealso{

@@ -6,10 +6,10 @@
 \usage{
 sf_report_execute(
   report_id,
-  async = TRUE,
+  async = FALSE,
   include_details = FALSE,
   report_metadata = NULL,
-  as_tbl = !async,
+  as_tbl = TRUE,
   verbose = FALSE
 )
 }
@@ -27,11 +27,12 @@ of the documentation on why executing a report asynchronously is preferred.}
 \item{include_details}{\code{logical}; an indicator applying to a synchronous 
 indicating whether the run should return summary data with details.}
 
-\item{report_metadata}{\code{list}; a list of length 1, with that element 
-being named \code{"reportMetadata"} having list elements underneath. All possible 
-elements of \code{reportMetadata} are documented \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm}{HERE}, 
+\item{report_metadata}{\code{list}; a \code{list} with one element named 
+\code{"reportMetadata"} having additional list elements underneath. All possible 
+elements of \code{reportMetadata} are documented 
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE}, 
 but you will most commonly only need to specify the following 3 elements to 
-filter the results: 
+filter or query the results of an existing report:  
 \describe{
   \item{reportFormat}{A \code{character} specifying the format of the report 
   with possible values: \code{"TABULAR"}, \code{"SUMMARY"}, \code{"MATRIX"}, 
@@ -93,29 +94,29 @@ by, and filters that already exist in the report:
 }
 \examples{
 \dontrun{
-# first, grab all possible reports in your Org
+# first, get the Id of a report in your Org
 all_reports <- sf_query("SELECT Id, Name FROM Report")
-
-# second, get the id of a report to execute
 this_report_id <- all_reports$Id[1]
 
-# execute an synchronous report that will wait for the results
+# then execute a synchronous report that will wait for the results
 results <- sf_report_execute(this_report_id)
 
-# alternatively, execute an async report and then grab the results
-results <- sf_report_execute(this_report_id)
+# alternatively, you can execute an async report and then grab its results when done
+#   - The benefit of an async report is that the results will be stored for up to
+#     24 hours for faster recall, if needed
+results <- sf_report_execute(this_report_id, async=TRUE)
 
-# check if completed and proceeed if the status is "Success"
-instance_list <- sf_report_instances_list(report_id, verbose=verbose)
-instance_status <- instance_list[instance_list$id == results$id, "status"]
+# check if completed and proceed if the status is "Success"
+instance_list <- sf_report_instances_list(report_id)
+instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 if(instance_status == "Success"){
   results <- sf_report_instance_results(report_id, results$id)
 }
 
 # Note: For more complex execution use the report_metadata argument
-# (for simpler results you can leverage the convenience function sf_get_report_data)
-fields <- sf_report_execute(this_report_id) 
-                            async = FALSE,
+# However, in most cases, you can leverage the convenience function 
+# sf_get_report_data() which makes it easier to retrieve report results
+fields <- sf_report_execute(this_report_id)
                             report_metadata = list()
 }
 }

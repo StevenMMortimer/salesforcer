@@ -527,37 +527,37 @@ sf_report_fields <- function(report_id,
 #'   \item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
 #' }
 #' @examples \dontrun{
-#' # first, grab all possible reports in your Org
+#' # first, get the Id of a report in your Org
 #' all_reports <- sf_query("SELECT Id, Name FROM Report")
-#' 
-#' # second, get the id of a report to execute
 #' this_report_id <- all_reports$Id[1]
 #' 
-#' # execute an synchronous report that will wait for the results
+#' # then execute a synchronous report that will wait for the results
 #' results <- sf_report_execute(this_report_id)
 #' 
-#' # alternatively, execute an async report and then grab the results
-#' results <- sf_report_execute(this_report_id)
+#' # alternatively, you can execute an async report and then grab its results when done
+#' #   - The benefit of an async report is that the results will be stored for up to
+#' #     24 hours for faster recall, if needed
+#' results <- sf_report_execute(this_report_id, async=TRUE)
 #' 
-#' # check if completed and proceeed if the status is "Success"
-#' instance_list <- sf_report_instances_list(report_id, verbose=verbose)
-#' instance_status <- instance_list[instance_list$id == results$id, "status"]
+#' # check if completed and proceed if the status is "Success"
+#' instance_list <- sf_report_instances_list(report_id)
+#' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 #' if(instance_status == "Success"){
 #'   results <- sf_report_instance_results(report_id, results$id)
 #' }
 #' 
 #' # Note: For more complex execution use the report_metadata argument
-#' # (for simpler results you can leverage the convenience function sf_get_report_data)
-#' fields <- sf_report_execute(this_report_id) 
-#'                             async = FALSE,
+#' # However, in most cases, you can leverage the convenience function 
+#' # sf_get_report_data() which makes it easier to retrieve report results
+#' fields <- sf_report_execute(this_report_id)
 #'                             report_metadata = list()
 #' }
 #' @export
 sf_report_execute <- function(report_id, 
-                              async = TRUE, 
+                              async = FALSE, 
                               include_details = FALSE, 
                               report_metadata = NULL,
-                              as_tbl = !async,
+                              as_tbl = TRUE,
                               verbose = FALSE){
   
   if(!is.null(report_metadata)){
@@ -572,21 +572,38 @@ sf_report_execute <- function(report_id,
                            body = report_metadata,
                            encode = "json")
   } else {
-    httr_response <- rGET(url = this_url)
+    if(async){
+      httr_response <- rPOST(url = this_url)
+    } else {
+      httr_response <- rGET(url = this_url)  
+    }
   }
-
   if(verbose){
     make_verbose_httr_message(httr_response$request$method,
                               httr_response$request$url,
-                              httr_response$request$headers)
+                              httr_response$request$headers, 
+                              report_metadata)
   }
   catch_errors(httr_response)
   response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
 
-  # # formatting????
-  # if(async){
-  #
-  # }
+  if(async){
+    if(as_tbl){
+      response_parsed <- response_parsed %>% 
+        set_null_elements_to_na_recursively() %>%
+        as_tibble_row() %>% 
+        mutate_at(c("completionDate", "requestDate"), 
+                  ~parse_datetime(as.character(.x))) %>% 
+        type_convert(col_types = cols(.default = col_guess())) %>% 
+        select(any_of(c("id", "ownerId", "status", 
+                        "requestDate", "completionDate", 
+                        "hasDetailRows", "queryable", "url")), 
+               everything())
+    }
+  } else {
+    
+    
+  }
   return(response_parsed)
 }
 
@@ -602,14 +619,34 @@ sf_report_execute <- function(report_id,
 #' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
 #' argument \code{as_tbl}
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_asyncreportruns.htm#example_async_fetchresults_instances}{Salesforce Example}
+#' @examples \dontrun{
+#' # first, get the Id of a report in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' this_report_id <- all_reports$Id[1]
+#' 
+#' # second, execute an async report
+#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' 
+#' # third, pull a list of async requests ("instances") usually meant for checking 
+#' # if a recently requested report has succeeded and the results can be retrieved
+#' instance_list <- sf_report_instances_list(this_report_id)
+#' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
+#' }
 #' @export
 sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
   this_url <- make_report_instances_list_url(report_id)
-  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   if(as_tbl){
-    # bring id and name up front
     resultset <- resultset %>% 
-      select(any_of("id"), everything())
+      set_null_elements_to_na_recursively() %>%
+      map_df(flatten_to_tbl_df) %>% 
+      mutate_at(c("completionDate", "requestDate"), 
+                ~parse_datetime(as.character(.x))) %>% 
+      type_convert(col_types = cols(.default = col_guess())) %>% 
+      select(any_of(c("id", "ownerId", "status", 
+                      "requestDate", "completionDate", 
+                      "hasDetailRows", "queryable", "url")), 
+             everything())
   }
   return(resultset)
 }
@@ -626,15 +663,21 @@ sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
 #' will return \code{TRUE} if successful in deleting the report instance.
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}
 #' @examples \dontrun{
-#' # first, grab all possible reports in your Org
-#' report_instances <- sf_report_instances_list()
+#' # first, get the Id of a report in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' this_report_id <- all_reports$Id[1]
 #' 
-#' # second, delete that report instance using its id and its parent report id
-#' success <- sf_report_instance_delete(report_instances[[1]]$attributes$id, 
-#'                                      report_instances[[1]]$attributes$reportId)
+#' # second, ensure that report has been executed at least once asynchronously
+#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' 
+#' # check if that report has succeeded, if so (or if it errored), then delete
+#' instance_list <- sf_report_instances_list(this_report_id)
+#' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 #' }
 #' @export
-sf_report_instance_delete <- function(report_id, report_instance_id, verbose=FALSE){
+sf_report_instance_delete <- function(report_id, 
+                                      report_instance_id, 
+                                      verbose=FALSE){
   this_url <- make_report_instance_url(report_id, report_instance_id)
   httr_response <- rDELETE(url = this_url)
   if(verbose){
@@ -656,57 +699,105 @@ sf_report_instance_delete <- function(report_id, report_instance_id, verbose=FAL
 #' filters. Depending on your asynchronous report run request, data can be at the 
 #' summary level or include details.
 #'
+#' @importFrom purrr map_df pluck set_names map_chr
 #' @template report_id
 #' @template report_instance_id
 #' @template verbose
-#' @return \code{list}
-#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}
+#' @return \code{tbl_df}; the detail repot data. More specifically, the detailed 
+#' data from the "T!T" entry in the fact map. 
+#' @note Aggregates (summary) are currently not provided, but will be in the future.
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm}{Factmap Documentation}
+#' @examples \dontrun{
+#' # execute a report asynchronously in your Org
+#' all_reports <- sf_query("SELECT Id, Name FROM Report")
+#' this_report_id <- all_reports$Id[1]
+#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' 
+#' # check if that report has succeeded, ... 
+#' instance_list <- sf_report_instances_list(this_report_id)
+#' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
+#' 
+#' # ... if so, then grab the results
+#' if(instance_status == "Success"){
+#'   report_data <- sf_report_instance_results(report_id = this_report_id, 
+#'                                             report_instance_id = results$id)
+#' }
+#' }
 #' @export
 sf_report_instance_results <- function(report_id, 
                                        report_instance_id, 
-                                       verbose=FALSE){
+                                       label = TRUE,
+                                       fact_map = "T:T",
+                                       verbose = FALSE){
+  if(fact_map != "T!T"){
+    stop(paste0("The `fact_map` argument must be 'T!T'. Currently it is the only ", 
+                "format that is supported as this feature is still under active ",
+                "development."), call.=FALSE)
+  }
   
-  ##############
-  #### TODO ####
-  ##############
-  .NotYetImplemented()
-  
-  # this_url <- make_report_instance_url(report_id, result_id)
-  # resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
-  # if(as_tbl){
-  #   # bring id and name up front
-  #   resultset <- resultset %>% 
-  #     select(any_of("id"), everything())
-  # }
-  # return(resultset)
+  this_url <- make_report_instance_url(report_id, report_instance_id)
+  resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
+  resultset <- parse_report_detail_rows(resultset)
+  return(resultset)
 }
 
-#' Query a report
+#' Get Report Data without Saving Changes to or Creating a Report
 #' 
-#' This function allows for pulling specific data from a report. There is a 
-#' convenience function (\link{sf_get_report_data}) to get the report data in a 
-#' tabular format returned as a \code{tbl_df}.
+#' Run a report without creating a new report or changing the existing one by making
+#' a POST request to the query resource. This allows you to get report data 
+#' without filling up your Org with unnecessary reports.
+#' 
+#' @details Note that you can query a report's data simply by providing its \code{Id}.
+#' However, the data will only be the detailed data from the tabular format 
+#' with no totals or other metadata. If you would like more control, for example, 
+#' filtering the results or grouping them in specific ways, then you will need 
+#' to specify a list to the \code{report_metadata} argument. The \code{report_metadata} 
+#' argument requires specific knowledge on the structure the \code{reportMetadata}
+#' property of a report. For more information, please review the Salesforce documentation 
+#' in detail \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE}. 
+#' Additional references are provided in the \code{"See Also"} section.
 #'
 #' @template report_id
+#' @template report_metadata
 #' @template verbose
 #' @return \code{tbl_df}
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example}{Salesforce Example}
 #' @export
-sf_report_query <- function(report_id, verbose=FALSE){
-  
-  ##############
-  #### TODO ####
-  ##############
+sf_report_query <- function(report_id,
+                            report_metadata = NULL, 
+                            verbose = FALSE){
+  # currently not able to specify a complete request body
   .NotYetImplemented()
-  # # 
-  # Tabular Report is T!T key, Summary & Matrix Report is all over the place
-  # /services/data/v37.0/analytics/reports/query
-  # POST
-  # {
-  #   "reportMetadata" : {
-  #     ...
-  #   }
-  # }
+  
+  if(!is.null(report_metadata)){
+    report_metadata <- sf_input_data_validation(report_metadata,
+                                                operation = "filter_report")
+  } else {
+    # copy existing report metadata and then set some options to something simpler
+    report_details <- sf_report_describe(report_id)
+    report_metadata <- list(reportMetadata = report_details$reportMetadata)
+    report_metadata$reportMetadata$aggregates <- I(character(0))
+    report_metadata$reportMetadata$hasDetailRows <- TRUE
+    report_metadata$reportMetadata$reportBooleanFilter <- NA
+    report_metadata$reportMetadata$reportFilters <- I(character(0))
+    report_metadata$reportMetadata$showGrandTotal <- FALSE
+    report_metadata$reportMetadata$showSubtotals <- FALSE
+  }
+  
+  this_url <- make_report_query_url()
+  httr_response <- rPOST(url = this_url,
+                         body = report_metadata,
+                         encode = "json")
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url,
+                              httr_response$request$headers, 
+                              report_metadata)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  resultset <- parse_report_detail_rows(response_parsed)
+  return(resultset)
 }
 
 #' Get a report's data in tabular format

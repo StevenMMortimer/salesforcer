@@ -27,6 +27,21 @@ Returns a list of instances for a report that you requested to be run asynchrono
 Each item in the list is treated as a separate instance of the report run with 
 metadata in that snapshot of time.
 }
+\examples{
+\dontrun{
+# first, get the Id of a report in your Org
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+this_report_id <- all_reports$Id[1]
+
+# second, execute an async report
+results <- sf_report_execute(this_report_id, async=TRUE)
+
+# third, pull a list of async requests ("instances") usually meant for checking 
+# if a recently requested report has succeeded and the results can be retrieved
+instance_list <- sf_report_instances_list(this_report_id)
+instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
+}
+}
 \seealso{
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_asyncreportruns.htm#example_async_fetchresults_instances}{Salesforce Example}
 }
