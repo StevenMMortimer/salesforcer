@@ -74,7 +74,7 @@ for the same number of records that are available when the report is run in
 the Salesforce user interface. Include the \code{filters} argument in your
 request to get specific results on the fly by passing dynamic filters,
 groupings, and aggregates in the report metadata. Finally, you may want to 
-use \code{\link{sf_get_report_data}}
+use \code{\link{sf_run_report}}.
 }
 \details{
 Run a report synchronously if you expect it to finish running quickly. 
