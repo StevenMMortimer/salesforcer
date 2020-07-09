@@ -63,10 +63,15 @@ reference:
       - '`sf_undelete`'
       - '`sf_get_deleted`'
       - '`sf_get_updated`'
+  - title: Bulk API Functions
+    desc: Convenience functions to perform async CRUD and query operations
+    contents:
+      - '`sf_run_bulk_query`'
+      - '`sf_run_bulk_operation`' 
   - title: Report Functions
     desc: Functions to create, retrieve, update, delete and query reports and their data.
     contents:
-      - '`sf_get_report_data`'
+      - '`sf_run_report`'
       - '`sf_reports_list`'
       - '`sf_report_describe`'
       - '`sf_report_create`'

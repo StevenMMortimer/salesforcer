@@ -191,15 +191,16 @@ for the same number of records that are available when the report is run in
 the Salesforce user interface. Include the <code>filters</code> argument in your
 request to get specific results on the fly by passing dynamic filters,
 groupings, and aggregates in the report metadata. Finally, you may want to 
-use <code><a href='sf_get_report_data.html'>sf_get_report_data</a></code></p>
+use <code>sf_get_report_data</code></p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_report_execute</span>(
   <span class='no'>report_id</span>,
-  <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include_details</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>include_details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>as_tbl</span> <span class='kw'>=</span> !<span class='no'>async</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -226,12 +227,27 @@ of the documentation on why executing a report asynchronously is preferred.</p><
 indicating whether the run should return summary data with details.</p></td>
     </tr>
     <tr>
+      <th>label</th>
+      <td><p><code>logical</code>; an indicator of whether the returned data should 
+be the label (i.e. formatted value) or the actual value. By default, the labels  
+are returned because these are what appear in the Salesforce dashboard and 
+more closely align with the column names. For example, "Account.Name" label 
+may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former 
+(label) more accurately reflects the "Account.Name".</p></td>
+    </tr>
+    <tr>
+      <th>as_tbl</th>
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+JSON into a <code>tbl_df</code>.</p></td>
+    </tr>
+    <tr>
       <th>report_metadata</th>
-      <td><p><code>list</code>; a list of length 1, with that element 
-being named <code>"reportMetadata"</code> having list elements underneath. All possible 
-elements of <code>reportMetadata</code> are documented <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm'>HERE</a>, 
+      <td><p><code>list</code>; a <code>list</code> with one element named 
+<code>"reportMetadata"</code> having additional list elements underneath. All possible 
+elements of <code>reportMetadata</code> are documented 
+<a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>, 
 but you will most commonly only need to specify the following 3 elements to 
-filter the results:</p><dl'>
+filter or query the results of an existing report:</p><dl'>
   <dt>reportFormat</dt><dd><p>A <code>character</code> specifying the format of the report 
   with possible values: <code>"TABULAR"</code>, <code>"SUMMARY"</code>, <code>"MATRIX"</code>, 
   or <code>"MULTI_BLOCK"</code>.</p></dd>
@@ -246,11 +262,6 @@ filter the results:</p><dl'>
 </dl></td>
     </tr>
     <tr>
-      <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
-JSON into a <code>tbl_df</code>.</p></td>
-    </tr>
-    <tr>
       <th>verbose</th>
       <td><p><code>logical</code>; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 
@@ -261,17 +272,22 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> by default when <code>async=TRUE</code> or a <code>tbl_df</code> when 
-<code>async=FALSE</code>.</p>
+    <p><code>tbl_df</code> by default, but a <code>list</code> when <code>as_tbl=FALSE</code>, 
+which means that the content from the API is converted from JSON to a list 
+with no other post-processing.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Run a report synchronously if you expect it to finish running quickly. 
 Otherwise, we recommend that you run reports through the API asynchronously 
 for these reasons:</p><ul>
-<li><p>Long running reports have a lower risk of reaching the timeout limit when run asynchronously.</p></li>
-<li><p>The 2-minute overall Salesforce API timeout limit doesn’t apply to asynchronous runs.</p></li>
-<li><p>The Salesforce Reports and Dashboards REST API can handle a higher number of asynchronous run requests at a time.</p></li>
-<li><p>Since the results of an asynchronously run report are stored for a 24-hr rolling period, they’re available for recurring access.</p></li>
+<li><p>Long running reports have a lower risk of reaching the timeout limit 
+  when run asynchronously.</p></li>
+<li><p>The 2-minute overall Salesforce API timeout limit doesn’t apply to 
+  asynchronous runs.</p></li>
+<li><p>The Salesforce Reports and Dashboards REST API can handle a higher 
+  number of asynchronous run requests at a time.</p></li>
+<li><p>Since the results of an asynchronously run report are stored for a 
+  24-hr rolling period, they’re available for recurring access.</p></li>
 </ul>
 
 <p>Before you filter a report, it helpful to check the following properties in the metadata 
@@ -292,6 +308,40 @@ by, and filters that already exist in the report:</p><ul>
 </ul>
 </div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># first, get the Id of a report in your Org</span>
+<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
+<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
+
+<span class='co'># then execute a synchronous report that will wait for the results</span>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_execute</span>(<span class='no'>this_report_id</span>)
+
+<span class='co'># alternatively, you can execute an async report and then grab its results when done</span>
+<span class='co'>#   - The benefit of an async report is that the results will be stored for up to</span>
+<span class='co'>#     24 hours for faster recall, if needed</span>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_execute</span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+
+<span class='co'># check if completed and proceed if the status is "Success"</span>
+<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instances_list.html'>sf_report_instances_list</a></span>(<span class='no'>report_id</span>)
+<span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
+<span class='kw'>if</span>(<span class='no'>instance_status</span> <span class='kw'>==</span> <span class='st'>"Success"</span>){
+  <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instance_results.html'>sf_report_instance_results</a></span>(<span class='no'>report_id</span>, <span class='no'>results</span>$<span class='no'>id</span>)
+}
+
+<span class='co'># Note: For more complex execution use the report_metadata argument</span>
+<span class='co'># This can be done by building the list from scratch based on Salesforce </span>
+<span class='co'># documentation (not recommended) or pulling down the existing reportMetadata </span>
+<span class='co'># property of the report and modifying the list slightly (recommended). </span>
+<span class='co'># In addition, for relatively simple changes, you can leverage the convenience </span>
+<span class='co'># function sf_report_wrapper() which makes it easier to retrieve report results</span>
+<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_describe.html'>sf_report_describe</a></span>(<span class='no'>this_report_id</span>)
+<span class='no'>report_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>reportMetadata</span> <span class='kw'>=</span> <span class='no'>report_details</span>$<span class='no'>reportMetadata</span>)
+<span class='no'>report_metadata</span>$<span class='no'>reportMetadata</span>$<span class='no'>showGrandTotal</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
+<span class='no'>report_metadata</span>$<span class='no'>reportMetadata</span>$<span class='no'>showSubtotals</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
+<span class='no'>fields</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_execute</span>(<span class='no'>this_report_id</span>,
+                            <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='no'>report_metadata</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -145,6 +145,9 @@ sf_delete_soap <- function(ids,
     resultset <- bind_rows(resultset, this_set)
   }
   resultset <- resultset %>%
+    select(any_of(c("id", "success", "created", 
+                    "errors.statusCode", "errors.message")), 
+           everything()) %>%     
     type_convert(col_types = cols(.default = col_guess()))
   return(resultset)
 }

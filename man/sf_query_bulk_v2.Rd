@@ -42,10 +42,10 @@ set to \code{FALSE} returns an error or you want all columns in the data to be
 character.}
 
 \item{interval_seconds}{\code{integer}; defines the seconds between attempts to check 
-for job completion}
+for job completion.}
 
 \item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
-completion before stopping}
+completion before stopping.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 

@@ -338,7 +338,7 @@ extract_records_from_xml_node <- function(node,
 #' 
 #' @importFrom dplyr mutate_all as_tibble
 #' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all xml_text as_list
+#' @importFrom xml2 xml_find_all xml_text as_list xml_find_first xml_children xml_name xml_remove
 #' @importFrom purrr modify_if map_df
 #' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
 #' @param object_name_append \code{logical}; whether to include the object type
@@ -352,11 +352,26 @@ extract_records_from_xml_node <- function(node,
 extract_records_from_xml_node2 <- function(node, 
                                            object_name_append = FALSE, 
                                            object_name_as_col = FALSE){
+  # TODO: Consider doing something with the duplicate match data because what is returned
+  # in the duplicateResult element is very detailed. For now just remove it
+  # if(length(xml_find_all(node, "//errors[@xsi:type='DuplicateError']")) > 0){
+  if(length(xml_find_first(node, "//errors | //error")) > 0){
+    children <- xml_find_first(node, "//errors | //error") %>% xml_children()
+    for(i in 1:length(children)){
+      if(!(xml_name(children[[i]]) %in% c("message", "statusCode", 
+                                          "errorMessage", "errorCode"))){
+        node_to_remove <- children[[i]]
+        xml_remove(node_to_remove)
+      }
+    }
+  }
+  
   if(object_name_append | object_name_as_col){
     object_name <- node %>% 
       xml_find_first('.//sf:type') %>% 
       xml_text()
   }
+  
   if(length(node) > 0){
     x_list <- as_list(node)
     x_list <- xml_drop_and_unlist(x_list)

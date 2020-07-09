@@ -103,9 +103,22 @@ sf_auth <- function(username = NULL,
       xml_set_namespace("soapenv") %>%
       xml_add_child("login") %>% 
       xml_set_namespace("urn") %>%
-      xml_add_child("username", username) %>%
-      xml_add_sibling("password", paste0(password, security_token))
-
+      {
+        xml_add_child(., "username", username) %>% 
+        xml_add_sibling("password", paste0(password, security_token))
+        if(getOption("salesforcer.proxy_url") != "" & 
+           !is.null(getOption("salesforcer.proxy_port"))){ 
+          xml_add_child(., "proxy") %>%
+            xml_add_child("proxyhost", getOption("salesforcer.proxy_url")) %>% 
+            xml_add_sibling("proxyport", getOption("salesforcer.proxy_port"))
+        }
+        if(!is.null(getOption("salesforcer.proxy_username")) & 
+           !is.null(getOption("salesforcer.proxy_password"))){ 
+          xml_add_child(., "proxyusername", getOption("salesforcer.proxy_username")) %>% 
+            xml_add_child("proxypassword", getOption("salesforcer.proxy_password"))
+        }
+      }
+    
     # POST the data using httr package and handle response
     httr_response <- rPOST(url = make_login_url(login_url),
                            headers = c("SOAPAction"="login", "Content-Type"="text/xml"), 

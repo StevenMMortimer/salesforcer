@@ -2,11 +2,29 @@
 
 ### Features
 
+  * Added support for the Reports and Dashboards REST API ...
+
   * Added support for Bulk 2.0 queries that was added in Salesforce version 47.0. 
-  This is now the default API when using `sf_query_bulk()`.
+  This is now the default API when using `sf_run_bulk_query()`.
+  * Standardized names of functions that submit long running jobs to Salesforce. 
+  These functions all start with `sf_run_*`. For example, `sf_run_bulk_query()`, 
+  `sf_run_bulk_operation()`, sf_run_report()`.
+  * Added support for logging in with a proxy without having to use OAuth 2.0 as 
+  the authentication method. When proxy support was first implemented in 0.1.4, 
+  it only supported proxy connections when logging in via OAuth 2.0. Now, this 
+  untested version of support for basic authentication has been implemented. This 
+  means that proxy users should be able to login using just a username, password, 
+  and security token if their organization has not implemented OAuth 2.0 or if 
+  they do not want to use OAuth 2.0 while logging in via this package.  
   
 ### Bug Fixes
 
+  * Fix bug in and SOAP API where the creation of a record that fails duplicate 
+  rules will return the duplicate match results as well and cause the entire 
+  function call to fail because it cannot parse the results. Now only the 
+  status code and message are returned and the function will execute successfully 
+  even if the record has not been created due to the rule.
+  mangling results of parent-child nested queries (#35, #38)
   * Fix bugs in REST and SOAP API queries to prevent infinite looping and 
   mangling results of parent-child nested queries (#35, #38)
 

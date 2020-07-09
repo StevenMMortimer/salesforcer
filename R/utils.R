@@ -167,8 +167,8 @@ sf_input_data_validation <- function(input_data, operation=''){
       # Body, ParentId is required (Name will be created from Body if missing)
       missing_cols <- setdiff(c("Body", "ParentId"), names(input_data))
       if(length(missing_cols) > 0){
-        stop(sprintf("The following columns are required but missing from the input: %s", 
-                     paste0(missing_cols, collapse = ",")))
+        stop_w_errors_listed(paste0("The following columns are required but missing ", 
+                                    "from the input:"), missing_cols)
       }
       # 6/10 Turn off this warning because there could be multiple Attachment object fields that are allowed
       # # Warn that you can only insert certain columns Name, Body, Description, ParentId, IsPrivate, and OwnerId
@@ -197,8 +197,8 @@ sf_input_data_validation <- function(input_data, operation=''){
       other_missing_cols <- setdiff(c("Name", "FolderId"), names(input_data))
       missing_cols <- c(missing_cols, other_missing_cols) 
       if(length(missing_cols) > 0){
-        stop(sprintf("The following columns are required but missing from the input: %s", 
-                     paste0(missing_cols, collapse = ",")))
+        stop_w_errors_listed(paste0("The following columns are required but missing ", 
+                                    "from the input:"), missing_cols)        
       }
     }
   }
@@ -405,6 +405,60 @@ make_verbose_httr_message <- function(method,
   }
   
   return(invisible(NULL))
+}
+
+#' List a vector of errors and stop execution
+#' 
+#' @param main_text \code{character}; The text used to introduce the list of 
+#' errors, typically ending with a colon. For example: \code{"Please fix the 
+#' following issue(s) before proceeding:"}.
+#' @param errors \code{errors}; a vector of errors that will be formatted into 
+#' a bulleted list for the user to review with each error listed on a new line.
+#' @return \code{simpleError}
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+stop_w_errors_listed <- function(main_text=NULL, errors=NULL){
+  if(!is.null(errors)){
+    if(is.null(main_text)){
+      if(length(errors) == 0){
+        stop()
+      } else {
+        main_text <- sprintf("Please fix the following issue%s before proceeding:", 
+                             if(length(errors) > 1) 's' else '')
+      }
+    }
+    stop(sprintf(paste0(trimws(main_text), "\n  - %s"), 
+                 paste0(errors, collapse="\n  - ")), call.=FALSE)    
+  } else {
+    stop(main_text, call.=FALSE)
+  }
+}
+
+#' List a vector of errors and provide a warning
+#' 
+#' @param main_text \code{character}; The text used to introduce the list of 
+#' errors, typically ending with a colon. For example: \code{"Consider fixing the 
+#' following issue(s):"}.
+#' @param errors \code{errors}; a vector of errors that will be formatted into 
+#' a bulleted list for the user to review with each error listed on a new line.
+#' @return \code{simpleError}
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+warn_w_errors_listed <- function(main_text=NULL, errors=NULL){
+  if(!is.null(errors)){
+    if(is.null(main_text)){
+      if(length(errors) > 0){
+        main_text <- sprintf("Consider fixing the following issue%s:", 
+                             if(length(errors) > 1) 's' else '')
+      }
+    }
+    warning(sprintf(paste0(trimws(main_text), "\n  - %s"), 
+                    paste0(errors, collapse="\n  - ")), call.=FALSE)    
+  } else {
+    warning(main_text, call.=FALSE)
+  }
 }
 
 #' Execute a non-paginated REST API call to list items

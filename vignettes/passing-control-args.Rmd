@@ -1,7 +1,7 @@
 ---
 title: "Passing Control Args"
 author: "Steven M. Mortimer"
-date: "2019-06-08"
+date: "2020-07-08"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -44,15 +44,13 @@ suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
 
 ```{r sample-create}
-new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
-record <- sf_create(new_contact,
-                    object_name = "Contact",
-                    DisableFeedTrackingHeader = list(disableFeedTracking = TRUE), 
-                    api_type = "SOAP")
-```
-
-```{r, include = FALSE}
-deleted_records <- sf_delete(record$id)
+new_contact <- c(FirstName = "Jenny", 
+                 LastName = "Williams", 
+                 Email = "jennyw@gmail.com")
+record1 <- sf_create(new_contact,
+                     object_name = "Contact",
+                     DisableFeedTrackingHeader = list(disableFeedTracking = TRUE))
+record1
 ```
 
 You will notice that the argument `DisableFeedTrackingHeader` can be included right into 
@@ -72,43 +70,80 @@ Salesforce APIs documents these options, which are typically referred to as "hea
 because they are passed as a named header of the HTTP request and then the header fields 
 and values are provided for that header. Second, some headers have multiple fields and values 
 so a list is the only way to provide multiple named fields and values under a single header entity. 
-For example, the <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">DuplicateRuleHeader</a>, which controls whether 
-the duplicate rules can be overridden when inserting records from the API, has three 
-fields: `allowSave`, `includeRecordDetails`, and `runAsCurrentUser`. Supplying all 
-three requires a list-like structure, which may seem redundant in other cases, but is 
-necessary to follow.
 
+### An example using the `DuplicateRuleHeader`
+
+The `DuplicateRuleHeader` that controls whether the duplicate rules are 
+followed when inserting records from the API, has three fields: 
+
+ 1. `allowSave` - For a duplicate rule, when the Alert option is enabled, bypass 
+ alerts and save duplicate records by setting this property to true. Prevent 
+ duplicate records from being saved by setting this property to false.
+ 
+ 2. `includeRecordDetails` - Get fields and values for records detected as
+ duplicates by setting this property to true. Get only record IDs for records 
+ detected as duplicates by setting this property to false.
+ 
+ 3. `runAsCurrentUser` - Make sure that sharing rules for the current user are 
+ enforced when duplicate rules run by setting this property to true. Use the sharing 
+ rules specified in the class for the request by setting this property to false. 
+ If no sharing rules are specified, Apex code runs in system context and sharing 
+ rules for the current user are not enforced.
+ 
+Specifying these arguments requires a `list` structure in R, which may seem redundant 
+in some cases, but is necessary to follow in order to build the API request correctly. 
+ 
 ```{r sample-create-w-duplicate}
-new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
-record <- sf_create(new_contact,
-                    object_name = "Contact",
-                    DuplicateRuleHeader = list(allowSave = TRUE, 
-                                               includeRecordDetails = FALSE, 
-                                               runAsCurrentUser = TRUE))
+# override the duplicate rules ...
+record2 <- sf_create(new_contact,
+                     object_name = "Contact",
+                     DuplicateRuleHeader = list(allowSave = TRUE, 
+                                                includeRecordDetails = FALSE, 
+                                                runAsCurrentUser = TRUE))
+record2
+
+# ... or succumb to the duplicate rules
+record3 <- sf_create(new_contact,
+                     object_name = "Contact",
+                     DuplicateRuleHeader = list(allowSave = FALSE, 
+                                                includeRecordDetails = FALSE, 
+                                                runAsCurrentUser = TRUE))
+record3
 ```
 
-```{r, include = FALSE}
-deleted_records <- sf_delete(record$id)
-```
+Per the description above, note that setting `allowSave=TRUE` will not override 
+rules where the "Action on Create" for a rule is set to "Block". If the 
+duplicate rule's action is "Allow" with an alert, then setting `allowSave=TRUE` 
+means the record will be created with no warning message. If `allowSave=FALSE`, 
+then the record will be prevented from being created. For additional information 
+on the `DuplicateRuleHeader`, please see the Salesforce documentation at: 
+<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a>
 
-Finally, you will notice in the example call that the `api_type` argument is set to "SOAP". 
-This is because the `DisableFeedTrackingHeader` is a control that is only available when 
-making calls via the SOAP API. You will receive a warning when trying to set control 
-parameters for APIs or operations that do not recognize that control. For example, 
-the following code tries to set the `BatchRetryHeader` for a call to the SOAP 
-API which does not acknowledge that control. That control is only used with the Bulk 
-1.0 API since its records as submitted in batches and automatic retry can be controlled.
+Finally, you may notice during your use that only certain control arguments are 
+permitted based on the API. For example, the `DuplicateRuleHeader` is not implemented 
+in the REST API like it is in the SOAP API. In the example below you should take 
+note of two things: 
+
+ 1. When using the REST API and setting the `DuplicateRuleHeader`, then you will 
+ notice a warning that the header was ignored. You will receive warnings when 
+ trying to set any control parameters for an API or operation that does not 
+ recognize that particular control.
+ 
+ 2. In this example, you cannot bypass the duplicate rule alert to create the 
+ record if using the REST API like you can with the SOAP API. 
 
 ```{r sample-create-w-warning}
-new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
-record <- sf_create(new_contact,
-                    object_name = "Contact",
-                    BatchRetryHeader = list(`Sforce-Disable-Batch-Retry` = FALSE), 
-                    api_type = "SOAP")
+record4 <- sf_create(new_contact,
+                     object_name = "Contact",
+                     DuplicateRuleHeader = list(allowSave = FALSE, 
+                                                includeRecordDetails = FALSE, 
+                                                runAsCurrentUser = TRUE),
+                     api_type = "REST")
+record4
 ```
 
 ```{r, include = FALSE}
-deleted_records <- sf_delete(record$id)
+deleted_records <- sf_delete(c(record1$id, record2$id))
 ```
 
 ### Creating the control argument with sf_control
@@ -121,11 +156,9 @@ gathered up into the control by `control = list(...)`. However, you can specify 
 control directly like this: 
 
 ```{r sample-query}
-new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
-records <- sf_query("SELECT Id, Name FROM Account LIMIT 1000",
-                    object_name = "Account",
-                    control = sf_control(QueryOptions = list(batchSize = 100)), 
-                    api_type = "SOAP")
+sf_query("SELECT Id, Name FROM Account LIMIT 1000",
+         object_name = "Account",
+         control = sf_control(QueryOptions = list(batchSize = 200)))
 ```
 
 ### Backwards compatibility for all_or_none and other named arguments
@@ -158,8 +191,21 @@ control arguments match exactly as they are listed in the SOAP API, but can be u
 across other APIs even if not exactly written that way in the Salesforce documentation 
 referenced below.
 
- * **SOAP API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
- * **REST API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a>
- * **Bulk 1.0 API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a>
- * **Bulk 2.0 API Headers**: None
- * **Metadata API Headers**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a>
+ * **SOAP API Headers**: 
+   
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
+   
+ * **REST API Headers**: 
+   
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a>
+   
+ * **Bulk 1.0 API Headers**: 
+   
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a>
+   
+ * **Metadata API Headers**: 
+   
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a>
+ 
+ * **Bulk 2.0 API Headers**: None  
+ * **Reports and Dashboards REST API Headers**: None

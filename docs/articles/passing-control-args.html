@@ -126,7 +126,7 @@
       <h1 data-toc-skip>Passing Control Args</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2019-06-08</h4>
+            <h4 class="date">2020-07-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/passing-control-args.Rmd"><code>vignettes/passing-control-args.Rmd</code></a></small>
       <div class="hidden name"><code>passing-control-args.Rmd</code></div>
@@ -140,38 +140,93 @@
 <h3 class="hasAnchor">
 <a href="#the-new-control-argument" class="anchor"></a>The new control argument</h3>
 <p>This new feature can be seen in the <code>sf_create</code> (and many other functions) as <code>control=list(...)</code>. The dots mean that you can pass any number of controls directly into the function. For example, the following code will create a record, but prevent its creation from showing up in the Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">new_contact</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Test"</span>, <span class="kw">LastName</span> <span class="kw">=</span> <span class="st">"Contact-Create"</span>)
-<span class="no">record</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
-                    <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
-                    <span class="kw">DisableFeedTrackingHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">disableFeedTracking</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-                    <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"SOAP"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">new_contact</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Jenny"</span>,
+                 <span class="kw">LastName</span> <span class="kw">=</span> <span class="st">"Williams"</span>,
+                 <span class="kw">Email</span> <span class="kw">=</span> <span class="st">"jennyw@gmail.com"</span>)
+<span class="no">record1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
+                     <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
+                     <span class="kw">DisableFeedTrackingHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">disableFeedTracking</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<span class="no">record1</span>
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;   success errors.statusCode   errors.message                                    </span>
+<span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;               &lt;chr&gt;                                             </span>
+<span class="co">#&gt; 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.</span></pre></body></html></div>
 <p>You will notice that the argument <code>DisableFeedTrackingHeader</code> can be included right into the function without any documentation existing for it in the <code>sf_create</code> function. This is because the dots (<code>...</code>) allow you to pass over a dozen different control parameters and that documentation would be tedious to create and maintain over multiple functions in the package. However, you will notice in the documentation entry for the <code>control</code> argument there is a link to a function called <code>sf_control</code> which you can use to directly to pass into <code>control</code> or simply to review its documentation of all the possible control parameters and their defaults. This is where you can review the various control options in more detail before trying to set them.</p>
-<p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity. For example, the <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">DuplicateRuleHeader</a>, which controls whether the duplicate rules can be overridden when inserting records from the API, has three fields: <code>allowSave</code>, <code>includeRecordDetails</code>, and <code>runAsCurrentUser</code>. Supplying all three requires a list-like structure, which may seem redundant in other cases, but is necessary to follow.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">new_contact</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Test"</span>, <span class="kw">LastName</span> <span class="kw">=</span> <span class="st">"Contact-Create"</span>)
-<span class="no">record</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
-                    <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
-                    <span class="kw">DuplicateRuleHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">allowSave</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                                               <span class="kw">includeRecordDetails</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
-                                               <span class="kw">runAsCurrentUser</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
-<p>Finally, you will notice in the example call that the <code>api_type</code> argument is set to “SOAP”. This is because the <code>DisableFeedTrackingHeader</code> is a control that is only available when making calls via the SOAP API. You will receive a warning when trying to set control parameters for APIs or operations that do not recognize that control. For example, the following code tries to set the <code>BatchRetryHeader</code> for a call to the SOAP API which does not acknowledge that control. That control is only used with the Bulk 1.0 API since its records as submitted in batches and automatic retry can be controlled.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">new_contact</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Test"</span>, <span class="kw">LastName</span> <span class="kw">=</span> <span class="st">"Contact-Create"</span>)
-<span class="no">record</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
-                    <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
-                    <span class="kw">BatchRetryHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">`Sforce-Disable-Batch-Retry`</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-                    <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"SOAP"</span>)
-<span class="co">#&gt; Warning in filter_valid_controls(supplied_arguments, api_type = api_type, :</span>
-<span class="co">#&gt; Ignoring the following controls which are not used in the SOAP API:</span>
-<span class="co">#&gt; BatchRetryHeader</span></pre></body></html></div>
+<p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity.</p>
+</div>
+<div id="an-example-using-the-duplicateruleheader" class="section level3">
+<h3 class="hasAnchor">
+<a href="#an-example-using-the-duplicateruleheader" class="anchor"></a>An example using the <code>DuplicateRuleHeader</code>
+</h3>
+<p>The <code>DuplicateRuleHeader</code> that controls whether the duplicate rules are followed when inserting records from the API, has three fields:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>allowSave</code> - For a duplicate rule, when the Alert option is enabled, bypass alerts and save duplicate records by setting this property to true. Prevent duplicate records from being saved by setting this property to false.</p></li>
+<li><p><code>includeRecordDetails</code> - Get fields and values for records detected as duplicates by setting this property to true. Get only record IDs for records detected as duplicates by setting this property to false.</p></li>
+<li><p><code>runAsCurrentUser</code> - Make sure that sharing rules for the current user are enforced when duplicate rules run by setting this property to true. Use the sharing rules specified in the class for the request by setting this property to false. If no sharing rules are specified, Apex code runs in system context and sharing rules for the current user are not enforced.</p></li>
+</ol>
+<p>Specifying these arguments requires a <code>list</code> structure in R, which may seem redundant in some cases, but is necessary to follow in order to build the API request correctly.</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># override the duplicate rules ...</span>
+<span class="no">record2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
+                     <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
+                     <span class="kw">DuplicateRuleHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">allowSave</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+                                                <span class="kw">includeRecordDetails</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+                                                <span class="kw">runAsCurrentUser</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<span class="no">record2</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0033s000012NdYTAA0 TRUE</span>
+
+<span class="co"># ... or succumb to the duplicate rules</span>
+<span class="no">record3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
+                     <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
+                     <span class="kw">DuplicateRuleHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">allowSave</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+                                                <span class="kw">includeRecordDetails</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+                                                <span class="kw">runAsCurrentUser</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<span class="no">record3</span>
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;   success errors.statusCode   errors.message                                    </span>
+<span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;               &lt;chr&gt;                                             </span>
+<span class="co">#&gt; 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.</span></pre></body></html></div>
+<p>Per the description above, note that setting <code>allowSave=TRUE</code> will not override rules where the “Action on Create” for a rule is set to “Block”. If the duplicate rule’s action is “Allow” with an alert, then setting <code>allowSave=TRUE</code> means the record will be created with no warning message. If <code>allowSave=FALSE</code>, then the record will be prevented from being created. For additional information on the <code>DuplicateRuleHeader</code>, please see the Salesforce documentation at: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a></p>
+<p>Finally, you may notice during your use that only certain control arguments are permitted based on the API. For example, the <code>DuplicateRuleHeader</code> is not implemented in the REST API like it is in the SOAP API. In the example below you should take note of two things:</p>
+<ol style="list-style-type: decimal">
+<li><p>When using the REST API and setting the <code>DuplicateRuleHeader</code>, then you will notice a warning that the header was ignored. You will receive warnings when trying to set any control parameters for an API or operation that does not recognize that particular control.</p></li>
+<li><p>In this example, you cannot bypass the duplicate rule alert to create the record if using the REST API like you can with the SOAP API.</p></li>
+</ol>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">record4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
+                     <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Contact"</span>,
+                     <span class="kw">DuplicateRuleHeader</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">allowSave</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+                                                <span class="kw">includeRecordDetails</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
+                                                <span class="kw">runAsCurrentUser</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
+                     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"REST"</span>)
+<span class="co">#&gt; Warning: Ignoring the following controls which are not used in the REST API:</span>
+<span class="co">#&gt; DuplicateRuleHeader</span>
+<span class="no">record4</span>
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;   success errors.statusCode   errors.message                                    </span>
+<span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;               &lt;chr&gt;                                             </span>
+<span class="co">#&gt; 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.</span></pre></body></html></div>
 </div>
 <div id="creating-the-control-argument-with-sf_control" class="section level3">
 <h3 class="hasAnchor">
 <a href="#creating-the-control-argument-with-sf_control" class="anchor"></a>Creating the control argument with sf_control</h3>
 <p>If this type of control structure is new to you, take a look at the documentation for the <code>glm</code> and <code>glm.control</code> functions. The way these two functions behave is exactly how functions like <code>sf_create</code> and <code>sf_control</code> work with each other. As demonstrated above you can pass any number of arbitrary controls into the function and they are all gathered up into the control by <code>control = list(...)</code>. However, you can specify the control directly like this:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">new_contact</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Test"</span>, <span class="kw">LastName</span> <span class="kw">=</span> <span class="st">"Contact-Create"</span>)
-<span class="no">records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
-                    <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Account"</span>,
-                    <span class="kw">control</span> <span class="kw">=</span> <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(<span class="kw">QueryOptions</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">batchSize</span> <span class="kw">=</span> <span class="fl">100</span>)),
-                    <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"SOAP"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
+         <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Account"</span>,
+         <span class="kw">control</span> <span class="kw">=</span> <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(<span class="kw">QueryOptions</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">batchSize</span> <span class="kw">=</span> <span class="fl">200</span>)))
+<span class="co">#&gt; # A tibble: 9 x 2</span>
+<span class="co">#&gt;   Id                 Name                               </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                              </span>
+<span class="co">#&gt; 1 0016A0000035mJEQAY GenePoint                          </span>
+<span class="co">#&gt; 2 0016A0000035mJCQAY United Oil &amp; Gas, UK               </span>
+<span class="co">#&gt; 3 0016A0000035mJDQAY United Oil &amp; Gas, Singapore        </span>
+<span class="co">#&gt; 4 0016A0000035mJ4QAI Edge Communications                </span>
+<span class="co">#&gt; 5 0016A0000035mJ5QAI Burlington Textiles Corp of America</span>
+<span class="co">#&gt; 6 0016A0000035mJ8QAI Grand Hotels &amp; Resorts Ltd         </span>
+<span class="co">#&gt; 7 0016A0000035mJAQAY Express Logistics and Transport    </span>
+<span class="co">#&gt; 8 0016A0000035mJBQAY University of Arizona              </span>
+<span class="co">#&gt; 9 0016A0000035mJ9QAI United Oil &amp; Gas Corp.</span></pre></body></html></div>
 </div>
 <div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level3">
 <h3 class="hasAnchor">
@@ -184,19 +239,31 @@
 <p>Below is a list of links that go directly to the control arguments (a.k.a headers) for the different APIs. I highly recommend reading this documentation before setting a control parameter in R so you know exactly what the behavior will be and how to specify it in R. You may notice that some controls are not included in the R package. Some may be added in the future if requested and some will not be added given the scope of the package. One final note is that some arguments in the REST API, like the “All or None” behavior is not a header, but a parameter in the API call. For this reason you will not see it listed in the REST API Headers section, but it is set in this R package using the <code>AllOrNoneHeader</code> argument in <code>sf_control</code> just to provide consistency between the SOAP and REST APIs. It would be confusing to have two arguments named differently, one for each API, but to do the exact same thing from R. For this reason, many of the control arguments match exactly as they are listed in the SOAP API, but can be used across other APIs even if not exactly written that way in the Salesforce documentation referenced below.</p>
 <ul>
 <li>
-<strong>SOAP API Headers</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
+<p><strong>SOAP API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a></li>
+</ul>
 </li>
 <li>
-<strong>REST API Headers</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a>
+<p><strong>REST API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a></li>
+</ul>
 </li>
 <li>
-<strong>Bulk 1.0 API Headers</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a>
+<p><strong>Bulk 1.0 API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a></li>
+</ul>
 </li>
 <li>
-<strong>Bulk 2.0 API Headers</strong>: None</li>
-<li>
-<strong>Metadata API Headers</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a>
+<p><strong>Metadata API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a></li>
+</ul>
 </li>
+<li><p><strong>Bulk 2.0 API Headers</strong>: None<br></p></li>
+<li><p><strong>Reports and Dashboards REST API Headers</strong>: None</p></li>
 </ul>
 </div>
   </div>

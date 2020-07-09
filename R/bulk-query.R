@@ -301,10 +301,8 @@ sf_query_result_bulk_v2 <- function(job_id,
 #' @template object_name
 #' @template queryall
 #' @template guess_types
-#' @param interval_seconds integer; defines the seconds between attempts to check 
-#' for job completion
-#' @param max_attempts integer; defines then max number attempts to check for job 
-#' completion before stopping
+#' @template interval_seconds
+#' @template max_attempts
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
 #' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
@@ -339,8 +337,9 @@ sf_query_bulk_v1 <- function(soql,
   listed_objects <- sf_list_objects()
   valid_object_names <- sapply(listed_objects$sobjects, FUN=function(x){x$name})
   if(!object_name %in% valid_object_names){
-    stop(sprintf("The supplied object name (%s) does not exist or the user does not have permission to view", 
-                 object_name))
+    stop(sprintf(paste0("The supplied object name (%s) does not exist or ", 
+                        "the user does not have permission to view"), object_name), 
+         call.=FALSE)
   }
 
   api_type <- match.arg(api_type)
@@ -413,10 +412,8 @@ sf_query_bulk_v1 <- function(soql,
 #' @template queryall
 #' @template guess_types
 #' @template bind_using_character_cols
-#' @param interval_seconds \code{integer}; defines the seconds between attempts to check 
-#' for job completion
-#' @param max_attempts \code{integer}; defines then max number attempts to check for job 
-#' completion before stopping
+#' @template interval_seconds
+#' @template max_attempts
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
 #' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
@@ -454,9 +451,9 @@ sf_query_bulk_v2 <- function(soql,
     listed_objects <- sf_list_objects()
     valid_object_names <- sapply(listed_objects$sobjects, FUN=function(x){x$name})
     if(!object_name %in% valid_object_names){
-      stop(paste0("The supplied object name (", object_name, ") does not exist ", 
-                  "or the user does not have permission to view"), 
-           call. = FALSE)
+      stop(sprintf(paste0("The supplied object name (%s) does not exist or ", 
+                          "the user does not have permission to view"), object_name), 
+           call.=FALSE)
     }
   }
   
@@ -558,7 +555,7 @@ sf_query_bulk_v2 <- function(soql,
 #'                 api_type = "Bulk 1.0")
 #' }
 #' @export
-sf_query_bulk <- function(soql,
+sf_run_bulk_query <- function(soql,
                           object_name = NULL,
                           queryall = FALSE,
                           guess_types = TRUE,
@@ -603,3 +600,10 @@ sf_query_bulk <- function(soql,
   }
   return(resultset)
 }  
+
+# allows for the inclusion of sf_run version of the function for a consistent
+# interface as other "run" functions provided by the package which are a wrapper
+# around more complex data processing tasks in Salesforce
+#' @export
+#' @rdname sf_run_bulk_query
+sf_query_bulk <- sf_run_bulk_query

@@ -185,7 +185,7 @@
     <pre class="usage"><span class='fu'>sf_search</span>(
   <span class='no'>search_string</span>,
   <span class='kw'>is_sosl</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   <span class='kw'>parameterized_search_options</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -239,6 +239,12 @@ if it is not supplied directly.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>tibble</code></p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The maximum number of returned rows in the SOSL query results is 2,000. 
+Please refer to the limits 
+<a href='https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm'>HERE</a> 
+for more detail.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p><a href='https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_sosl.htm'>https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_sosl.htm</a></p>

@@ -21,7 +21,8 @@
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="An Implementation of Salesforce APIs Using Tidy Principles">
 <meta property="og:description" content="Functions connecting to the Salesforce Platform APIs (REST, SOAP, 
-    Bulk 1.0, Bulk 2.0, and Metadata) &lt;https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview&gt;. 
+    Bulk 1.0, Bulk 2.0, Metadata, Reports and Dashboards) 
+    &lt;https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview&gt;. 
     Most all calls from these APIs are supported as they use CSV, XML or JSON data 
     that can be parsed into R data structures. For more details please see the 
     Salesforce API documentation and this package's website 
@@ -185,7 +186,7 @@
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.1.4)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
-<span class="co"># or get the latest version available on GitHub using the devtools package</span>
+<span class="co"># or get the development version on GitHub</span>
 <span class="co"># install.packages("devtools")</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)</pre></div>
 <p>If you encounter an issue while using this package, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">GitHub</a>.</p>
@@ -249,8 +250,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012MuwdAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012MuweAAC TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012Nd3QAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012Nd3RAAS TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -268,8 +269,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MuwdAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MuweAAC Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012Nd3QAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012Nd3RAAS Test      Contact-Create-2</span></pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -285,8 +286,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012MuwdAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012MuweAAC TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012Nd3QAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012Nd3RAAS TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -302,8 +303,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012MuwiAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012MuwjAAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012Nd3aAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012Nd3bAAC TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -318,8 +319,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MuwiAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MuwjAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012Nd3aAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012Nd3bAAC Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -327,8 +328,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012MuwiAAC FALSE       0033s000012MuwiAAC &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012MuwjAAC FALSE       0033s000012MuwjAAC &lt;NA&gt;</span></pre></div>
+<span class="co">#&gt; 1 0033s000012Nd3aAAC FALSE       0033s000012Nd3aAAC &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012Nd3bAAC FALSE       0033s000012Nd3bAAC &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
@@ -409,10 +410,18 @@
 <div id="future" class="section level2">
 <h2 class="hasAnchor">
 <a href="#future" class="anchor"></a>Future</h2>
-<p>Future APIs to support:</p>
+<p>Future APIs to support (roughly in priority order):</p>
 <ul>
 <li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm">Analytics External Data API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm">Connect (Chatter) REST API</a></li>
 <li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm">Analytics REST API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm">Tooling API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm">Actions API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm">Streaming API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_placeorder.meta/api_placeorder/sforce_placeorder_rest_api_intro.htm">Place Order API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm">Industries API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm">Data.com API</a></li>
 </ul>
 </div>
 <div id="credits" class="section level2">

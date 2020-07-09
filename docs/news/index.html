@@ -183,13 +183,17 @@
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
 <ul>
-<li>Added support for Bulk 2.0 queries that was added in Salesforce version 47.0. This is now the default API when using <code><a href="../reference/sf_query_bulk.html">sf_query_bulk()</a></code>.</li>
+<li><p>Added support for the Reports and Dashboards REST API …</p></li>
+<li><p>Added support for Bulk 2.0 queries that was added in Salesforce version 47.0. This is now the default API when using <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code>.</p></li>
+<li><p>Standardized names of functions that submit long running jobs to Salesforce. These functions all start with <code>sf_run_*</code>. For example, <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code>, <code><a href="../reference/sf_run_bulk_operation.html">sf_run_bulk_operation()</a></code>, sf_run_report()`.</p></li>
+<li><p>Added support for logging in with a proxy without having to use OAuth 2.0 as the authentication method. When proxy support was first implemented in 0.1.4, it only supported proxy connections when logging in via OAuth 2.0. Now, this untested version of support for basic authentication has been implemented. This means that proxy users should be able to login using just a username, password, and security token if their organization has not implemented OAuth 2.0 or if they do not want to use OAuth 2.0 while logging in via this package.</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
+<li>Fix bug in and SOAP API where the creation of a record that fails duplicate rules will return the duplicate match results as well and cause the entire function call to fail because it cannot parse the results. Now only the status code and message are returned and the function will execute successfully even if the record has not been created due to the rule. mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</li>
 <li>Fix bugs in REST and SOAP API queries to prevent infinite looping and mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</li>
 </ul>
 <hr>
@@ -278,7 +282,7 @@
 <ul>
 <li>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</li>
 <li>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</li>
-<li>Created internal functions that explicity call each API for an operation. For example, <code><a href="../reference/sf_create.html">sf_create()</a></code> routes into <code><a href="../reference/sf_create_soap.html">sf_create_soap()</a></code>, <code><a href="../reference/sf_create_rest.html">sf_create_rest()</a></code>, and <code><a href="../reference/sf_bulk_operation.html">sf_bulk_operation()</a></code>.</li>
+<li>Created internal functions that explicity call each API for an operation. For example, <code><a href="../reference/sf_create.html">sf_create()</a></code> routes into <code><a href="../reference/sf_create_soap.html">sf_create_soap()</a></code>, <code><a href="../reference/sf_create_rest.html">sf_create_rest()</a></code>, and <code><a href="../reference/sf_run_bulk_operation.html">sf_bulk_operation()</a></code>.</li>
 </ul>
 <hr>
 </div>

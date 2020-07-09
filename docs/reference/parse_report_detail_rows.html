@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a report's data in tabular format — sf_get_report_data • salesforcer</title>
+<title>Format the detailed data from the "T!T" fact map in a tabular report — parse_report_detail_rows • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,10 @@
 
 
 
-<meta property="og:title" content="Get a report's data in tabular format — sf_get_report_data" />
-<meta property="og:description" content="A convenience function for retrieving the data from a report, which runs 
-asynchronously by default and waits for the results summarized by a tabular 
-format, before pulling them down and returning as a tbl_df." />
+<meta property="og:title" content="Format the detailed data from the "T!T" fact map in a tabular report — parse_report_detail_rows" />
+<meta property="og:description" content="This function accepts a list that is directly returned by the API and further 
+parses it to return a single tbl_df representing the detail rows and 
+columns of the report without any filters, aggregates, or totals." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -175,118 +175,46 @@ format, before pulling them down and returning as a tbl_df." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a report's data in tabular format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_get_report_data.Rd</code></div>
+    <h1>Format the detailed data from the "T!T" fact map in a tabular report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-report.R'><code>R/utils-report.R</code></a></small>
+    <div class="hidden name"><code>parse_report_detail_rows.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A convenience function for retrieving the data from a report, which runs 
-asynchronously by default and waits for the results summarized by a tabular 
-format, before pulling them down and returning as a <code>tbl_df</code>.</p>
+    <p>This function accepts a list that is directly returned by the API and further 
+parses it to return a single <code>tbl_df</code> representing the detail rows and 
+columns of the report without any filters, aggregates, or totals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_get_report_data</span>(
-  <span class='no'>report_id</span>,
-  <span class='kw'>report_filters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>report_boolean_logic</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>top_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>wait_for_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>parse_report_detail_rows</span>(<span class='no'>content</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fact_map_key</span> <span class='kw'>=</span> <span class='st'>"T!T"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
-analytics report. It will start with <code>"00O"</code>.</p></td>
+      <th>content</th>
+      <td><p><code>list</code>; the list returned from the <code><a href='https://httr.r-lib.org/reference/content.html'>content</a></code> 
+function that parses the JSON response to a <code>list</code>.</p></td>
     </tr>
     <tr>
-      <th>report_filters</th>
-      <td><p><code>list</code>; A <code>list</code> of reportFilter specifications. 
-Each must be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 
-3) <code>value</code>. You can find out how certain field types can be filtered by 
-reviewing the results of <code><a href='sf_report_filter_operators_list.html'>sf_report_filter_operators_list</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>report_boolean_logic</th>
-      <td><p><code>character</code>; a string of boolean logic to parse 
-custom field filters if more than one is specified. For example, if three filters 
-are specified, then they can be combined using the logic <code>"(1 OR 2) AND 3"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>sort_by</th>
-      <td><p><code>character</code>; the name of the column used to sort the results. 
-Currently, you can sort on only one column at a time.</p></td>
-    </tr>
-    <tr>
-      <th>top_n</th>
-      <td><p><code>integer</code>; an integer which sets a row limit filter to a report. 
-The results will be ordered as they appear in the report unless specified differently 
-via the <code>sort_by</code> and <code>decreasing</code> arguments. Note, it is sometimes 
-helpful to specify the <code>top_n</code> argument if a report contains many rows, but 
-you are only interested in a subset of them. Alternatively, you can limit the count 
-of returned rows via the <code>report_filters</code> argument.</p></td>
-    </tr>
-    <tr>
-      <th>decreasing</th>
-      <td><p><code>logical</code>; a indicator of whether the results should be 
-ordered by increasing or decreasing values in <code>sort_by</code> column when selecting the 
-top N records. Note, this argument will be ignored if not specifying Top N. You can  
-sort the records using <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code> after the results are returned.</p></td>
-    </tr>
-    <tr>
-      <th>async</th>
-      <td><p><code>logical</code>; an indicator, by default set to <code>TRUE</code>, which 
-executes the report asynchronously. If executed asynchronously, this function
-will return a list of attributes of the created report instance. The results 
-can be pulled down by providing the report id and instance id to 
-the function <code><a href='sf_report_instance_results.html'>sf_report_instance_results</a></code>. Refer to the details 
-of the documentation on why executing a report asynchronously is preferred.</p></td>
-    </tr>
-    <tr>
-      <th>interval_seconds</th>
-      <td><p><code>integer</code>; defines the seconds between attempts to check 
-for job completion.</p></td>
-    </tr>
-    <tr>
-      <th>max_attempts</th>
-      <td><p><code>integer</code>; defines then max number attempts to check for job 
-completion before stopping.</p></td>
-    </tr>
-    <tr>
-      <th>wait_for_results</th>
-      <td><p><code>logical</code>; indicating whether to wait for the 
-report finish running so that data can be obtained; otherwise, return the 
-report instance details.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
-along with additional diagnostic information where available.</p></td>
+      <th>label</th>
+      <td><p><code>logical</code>; an indicator of whether the returned data should 
+be the label (i.e. formatted value) or the actual value. By default, the labels  
+are returned because these are what appear in the Salesforce dashboard and 
+more closely align with the column names. For example, "Account.Name" label 
+may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former 
+(label) more accurately reflects the "Account.Name".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p><code>tbl_df</code>; a data frame representing the detail rows of a parsed 
+report result HTTP response where the rows represent each row in the report 
+and the columns represent the detail columns.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function is essentially a wrapper around <code><a href='sf_report_execute.html'>sf_report_execute</a></code>. 
-Please review or use that function if you want to have more control over 
-how the report is run and what format should be returned. In this case we've 
-forced the <code>reportFormat="TABULAR"</code> without total rows and the option to 
-filter, and show the Top N and sort as a function argument rather than forcing the user 
-to create an entire <code>list</code> variable of report metadata.</p>
+    <p>This function is meant to be used internally. Only use when debugging.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

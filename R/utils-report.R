@@ -11,12 +11,7 @@
 #' map. When the data is in a tabular format, this element usually has the same 
 #' length as the number of columns with each element having a label and value 
 #' element.
-#' @param label \code{logical}; an indicator of whether the returned data should 
-#' be the label (i.e. formatted value) or the actual value. By default, the labels  
-#' are returned because these are what appear in the Salesforce dashboard and 
-#' more closely align with the column names. For example, "Account.Name" label 
-#' may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former 
-#' (label) more accurately reflects the "Account.Name".
+#' @template label
 #' @return \code{tbl_df}; a single row data frame with the data for the row that 
 #' the supplied list represented in the report's fact map.
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -42,37 +37,58 @@ format_report_row <- function(x, label = TRUE){
 #' @importFrom purrr map pluck
 #' @importFrom dplyr as_tibble
 #' @importFrom vctrs vec_as_names
-#' @param x \code{list}; the list returned from the \code{\link[httr]{content}} 
+#' @param content \code{list}; the list returned from the \code{\link[httr]{content}} 
 #' function that parses the JSON response to a \code{list}.
-#' @param label \code{logical}; an indicator of whether the returned data should 
-#' be the label (i.e. formatted value) or the actual value. By default, the labels  
-#' are returned because these are what appear in the Salesforce dashboard and 
-#' more closely align with the column names. For example, "Account.Name" label 
-#' may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former 
-#' (label) more accurately reflects the "Account.Name".
+#' @template label
 #' @return \code{tbl_df}; a data frame representing the detail rows of a parsed 
 #' report result HTTP response where the rows represent each row in the report 
 #' and the columns represent the detail columns.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-parse_report_detail_rows <- function(content, label = TRUE){
+parse_report_detail_rows <- function(content, 
+                                     label = TRUE, 
+                                     fact_map_key = "T!T"){
+  
+  # create a boolean that will be set whenever an offending issue is identified 
+  # that can be used to stop the function execution only after all of the checks 
+  # have been performed. This allows the user to receive all possible information 
+  # at once on how to fix any issues rather than doing them one at a time only 
+  # to discover each time that there is a new issue.
+  stops_triggered <- character(0)
   
   if(!content$allData){
     warning(paste0("Results are the same number of rows as a report run in ", 
                    "Salesforce which is the only allowed behavior. Consider ", 
-                   "using filters to refine results."))
+                   "using filters to refine results."), call.=FALSE)
   }
   
   if(is.null(content$reportExtendedMetadata$detailColumnInfo)){
-    stop(paste0("Please set `include_details=TRUE` when executing the report. ", 
-                "It appears that there is no detail information (data) for this ", 
-                "report."), call.=FALSE)
+    warning(paste0("Please set `include_details=TRUE` when executing the report. ", 
+                   "It appears that there is no detail information (data) for this ", 
+                   "report."), call.=FALSE)
+    stops_triggered <- c(stops_triggered, "No detailColumnInfo")
+  }
+  
+  if(fact_map_key != "T!T"){
+    warning(paste0("The `fact_map_key` argument must be 'T!T'. Currently it is the only ", 
+                   "format that is supported as this feature is still under active ",
+                   "development. In the future we will support fact map key patterns ",
+                   "for 'Summary' and 'Matrix' reports as described in the Salesforce ", 
+                   "documentation at ", 
+                   "https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/", 
+                   "api_analytics/sforce_analytics_rest_api_factmap_example.htm"), call.=FALSE)
+    stops_triggered <- c(stops_triggered, "Fact map key is not 'T!T'")
   }
   
   if(is.null(content$factMap$`T!T`)){
-    stop(paste0("No 'T!T' fact map detected. Please check the report before ", 
-                "requesting again."), call.=FALSE)   
+    warning(paste0("No 'T!T' fact map detected. Please check the report format is ", 
+                   "'TABULAR' before requesting again."), call.=FALSE)
+    stops_triggered <- c(stops_triggered, "Fact map key 'T!T' does not exist in the content.")
+  }
+  
+  if(length(stops_triggered) > 0){
+    stop_w_errors_listed(errors = stops_triggered)
   }
   
   result_colnames <- content$reportExtendedMetadata$detailColumnInfo %>% 
@@ -85,4 +101,32 @@ parse_report_detail_rows <- function(content, label = TRUE){
     set_names(nm = result_colnames)
 
   return(resultset)  
+}
+
+#' Simplify the \code{reportMetadata} property of a report
+#' 
+#' This function accepts the Id of a report in Salesforce and returns its
+#' \code{reportMetadata} property with modifications made so that the report
+#' will return a dataset that is closer to a tidy format. More specifically, the
+#' data will be detailed data (not any report aggregates) in a tabular format
+#' with no filters, grand totals, or subtotals.
+#' 
+#' @template report_id
+#' @template verbose
+#' @return \code{list}; a list representing the \code{reportMetadata} property of 
+#' the report id provided, but with adjustments made.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+simplify_report_metadata <- function(report_id, verbose=FALSE){
+  report_details <- sf_report_describe(report_id, verbose=verbose)
+  report_metadata <- list(reportMetadata = report_details$reportMetadata)
+  report_metadata$reportMetadata$aggregates <- I(character(0))
+  report_metadata$reportMetadata$hasDetailRows <- TRUE
+  report_metadata$reportMetadata$reportBooleanFilter <- NA
+  report_metadata$reportMetadata$reportFilters <- I(character(0))
+  report_metadata$reportMetadata$reportFormat <- "TABULAR"
+  report_metadata$reportMetadata$showGrandTotal <- FALSE
+  report_metadata$reportMetadata$showSubtotals <- FALSE
+  return(report_metadata)
 }

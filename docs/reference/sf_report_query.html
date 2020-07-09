@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query a report — sf_report_query • salesforcer</title>
+<title>Get Report Data without Saving Changes to or Creating a Report — sf_report_query • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,10 @@
 
 
 
-<meta property="og:title" content="Query a report — sf_report_query" />
-<meta property="og:description" content="This function allows for pulling specific data from a report. There is a convenience 
-function (sf_get_report_data) to get the report data in a tabular 
-format returned as a tbl_df." />
+<meta property="og:title" content="Get Report Data without Saving Changes to or Creating a Report — sf_report_query" />
+<meta property="og:description" content="Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data 
+without filling up your Org with unnecessary reports." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -175,18 +175,18 @@ format returned as a tbl_df." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Query a report</h1>
+    <h1>Get Report Data without Saving Changes to or Creating a Report</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
     <div class="hidden name"><code>sf_report_query.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function allows for pulling specific data from a report. There is a convenience 
-function (<a href='sf_get_report_data.html'>sf_get_report_data</a>) to get the report data in a tabular 
-format returned as a <code>tbl_df</code>.</p>
+    <p>Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data 
+without filling up your Org with unnecessary reports.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_query</span>(<span class='no'>report_id</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_report_query</span>(<span class='no'>report_id</span>, <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,6 +195,27 @@ format returned as a <code>tbl_df</code>.</p>
       <th>report_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a created 
 analytics report. It will start with <code>"00O"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>report_metadata</th>
+      <td><p><code>list</code>; a <code>list</code> with one element named 
+<code>"reportMetadata"</code> having additional list elements underneath. All possible 
+elements of <code>reportMetadata</code> are documented 
+<a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>, 
+but you will most commonly only need to specify the following 3 elements to 
+filter or query the results of an existing report:</p><dl'>
+  <dt>reportFormat</dt><dd><p>A <code>character</code> specifying the format of the report 
+  with possible values: <code>"TABULAR"</code>, <code>"SUMMARY"</code>, <code>"MATRIX"</code>, 
+  or <code>"MULTI_BLOCK"</code>.</p></dd>
+  <dt>reportBooleanFilter</dt><dd><p>A <code>character</code> denoting how the individuals 
+  filters specified in <code>reportFilters</code> should be combined. For example, 
+  <code>"(1OR4)AND2AND3"</code></p></dd>.
+  <dt>reportFilters</dt><dd><p>A <code>list</code> of reportFilter specifications. Each must 
+  be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 3) <code>value</code>. 
+  You can find out how certain field types can be filtered by reviewing the results 
+  of <code><a href='sf_report_filter_operators_list.html'>sf_report_filter_operators_list</a></code>.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -208,6 +229,17 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>tbl_df</code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note that you can query a report's data simply by providing its <code>Id</code>.
+However, the data will only be the detailed data from the tabular format 
+with no totals or other metadata. If you would like more control, for example, 
+filtering the results or grouping them in specific ways, then you will need 
+to specify a list to the <code>report_metadata</code> argument. The <code>report_metadata</code> 
+argument requires specific knowledge on the structure the <code>reportMetadata</code>
+property of a report. For more information, please review the Salesforce documentation 
+in detail <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>. 
+Additional references are provided in the <code>"See Also"</code> section.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example'>Salesforce Example</a></p></div>

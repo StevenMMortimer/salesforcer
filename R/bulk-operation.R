@@ -90,15 +90,20 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                           control = control_args, ...,
                                           verbose = verbose)
   } else if(api_type == "Bulk 2.0"){
-    if(!(operation %in% c("insert", "delete", "upsert", "update", "query", "queryall"))){
-      stop(paste("Bulk 2.0 only supports the following operations:\n", 
-                 "'insert', 'delete', 'upsert', 'update', 'query', and 'queryall'."))
+    bulk_v2_supported_operations <- c("insert", "delete", "upsert", 
+                                      "update", "query", "queryall")
+    if(!(operation %in% bulk_v2_supported_operations)){
+      stop_w_errors_listed("Bulk 2.0 only supports the following operations:", 
+                           bulk_v2_supported_operations)
     }
-    if(!(content_type %in% c("CSV"))){
-      stop("Bulk 2.0 only supports the 'CSV' content type.")
+    bulk_v2_supported_content_type <- c("CSV")
+    if(!(content_type %in% bulk_v2_supported_content_type)){
+      stop_w_errors_listed("Bulk 2.0 only supports the following content types:", 
+                           bulk_v2_supported_operations)
     }
     if(!missing(concurrency_mode)){
-      warning("Ignoring the concurrency_mode argument which is not used when calling the Bulk 2.0 API", call. = FALSE)
+      warning(paste0("Ignoring the concurrency_mode argument which is not ", 
+                     "used when calling the Bulk 2.0 API"), call. = FALSE)
     }
     job_response <- sf_create_job_bulk_v2(operation = operation,
                                           object_name = object_name,
@@ -141,7 +146,11 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
     request_headers <- c(request_headers, c("Sforce-Disable-Batch-Retry" = control$BatchRetryHeader[[1]]))
   }
   if("LineEndingHeader" %in% names(control)){
-    stopifnot(control$LineEndingHeader[[1]] %in% c("CRLF", "LF"))
+    bulk_supported_line_ending_headers <- c("CRLF", "LF")
+    if(!(control$LineEndingHeader[[1]] %in% bulk_supported_line_ending_headers)){
+      stop_w_errors_listed("Bulk APIs only supports the following line ending headers:", 
+                           bulk_supported_line_ending_headers)
+    }
     request_headers <- c(request_headers, c("Sforce-Line-Ending" = control$LineEndingHeader[[1]]))
   }
   if("PKChunkingHeader" %in% names(control)){
@@ -215,13 +224,15 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete",
   operation <- match.arg(operation)
   column_delimiter <- match.arg(column_delimiter)
   if(content_type != "CSV"){
-    stop("content_type = 'CSV' is currently the only supported format of returned bulk content")
+    stop("content_type = 'CSV' is currently the only supported format of returned bulk content.")
   }
-  if(column_delimiter != "COMMA"){
-    stop("column_delimiter = 'COMMA' is currently the only supported file delimiter")
+  bulk_v2_supported_column_delimiter <- c("COMMA")
+  if(!(column_delimiter %in% bulk_v2_supported_column_delimiter)){
+    stop_w_errors_listed("Bulk 2.0 API only supports the following file delimiter:", 
+                         bulk_v2_supported_column_delimiter)
   }
-  if(operation == 'upsert'){
-    stopifnot(!is.null(external_id_fieldname))
+  if(operation == 'upsert' & !is.null(external_id_fieldname)){
+    stop("All 'upsert' operations require an external id field. Please specify.", call.=FALSE)
   }
   query_operation <- FALSE
   if(tolower(operation) %in% c("query", "queryall")){
@@ -421,7 +432,7 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' @importFrom httr content
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble bind_rows filter mutate_all
+#' @importFrom dplyr as_tibble bind_rows filter mutate_all across any_of
 #' @param parameterized_search_list list; a list of parameters to be added as part 
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
@@ -499,7 +510,9 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
     # cast the data
     resultset <- resultset %>%
       type_convert(col_types = cols(.default = col_guess())) %>% 
-      filter(.data[["operation"]] %in% c('query', 'queryall')) # is queryall an option?
+      # ignore record ids that could not be matched
+      filter(across(any_of("operation"), 
+                    ~(.x %in% c('query', 'queryall')))) # is queryall an option?
   }
   return(resultset)
 }
@@ -747,8 +760,9 @@ sf_create_batches_bulk_v1 <- function(job_id,
       # use conservative approach and batch in 10MB unzipped, which will be < 10MB zipped
       file_sizes_mb <- sapply(input_data$Body, file.size, USE.NAMES = FALSE) / 1000000
       if(any(file_sizes_mb > 10)){
-        stop("The max file size limit is 10MB. The following files exceed that limit: '%s'", 
-             paste0(input_data$Name[file_sizes_mb > 10], collapse="','"))
+        stop_w_errors_listed(paste0("The max file size limit is 10MB. The following ", 
+                                    "files exceed that limit:"), 
+                                    input_data$Name[file_sizes_mb > 10])
       }
       batch_id <- floor(cumsum(file_sizes_mb) / 10)
     } else {
@@ -1257,10 +1271,8 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @template external_id_fieldname
 #' @template api_type
 #' @template batch_size
-#' @param interval_seconds integer; defines the seconds between attempts to check 
-#' for job completion
-#' @param max_attempts integer; defines then max number attempts to check for job 
-#' completion before stopping
+#' @template interval_seconds
+#' @template max_attempts
 #' @param wait_for_results logical; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
 #' @template control
@@ -1282,7 +1294,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #'                              operation = "insert")
 #' }
 #' @export
-sf_bulk_operation <- function(input_data,
+sf_run_bulk_operation <- function(input_data,
                               object_name,
                               operation = c("insert", "delete", "upsert", 
                                             "update", "hardDelete"),
@@ -1372,3 +1384,10 @@ sf_bulk_operation <- function(input_data,
   }
   return(res)
 }
+
+# allows for the inclusion of sf_run version of the function for a consistent
+# interface as other "run" functions provided by the package which are a wrapper
+# around more complex data processing tasks in Salesforce
+#' @export
+#' @rdname sf_run_bulk_operation
+sf_bulk_operation <- sf_run_bulk_operation

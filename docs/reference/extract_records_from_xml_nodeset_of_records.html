@@ -184,7 +184,11 @@ a single row of a tbl_df." />
 a single row of a <code>tbl_df</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_records_from_xml_nodeset_of_records</span>(<span class='no'>x</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>extract_records_from_xml_nodeset_of_records</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>as_col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,6 +202,12 @@ a single row of a <code>tbl_df</code>.</p>
       <td><p><code>character</code>; a list of character strings to pre-pend
 to each variable name in the event that we would like to tag the fields with 
 the name of the object that they came from.</p></td>
+    </tr>
+    <tr>
+      <th>as_col</th>
+      <td><p><code>logical</code>; an indicator that, if an <code>object_name</code> is 
+supplied, will be placed in a new column. If <code>FALSE</code>, the default, the 
+object name will be appended to the column names separated by a period.</p></td>
     </tr>
     </table>
 

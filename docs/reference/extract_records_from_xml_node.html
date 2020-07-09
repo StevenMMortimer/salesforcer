@@ -184,7 +184,11 @@ in the document to format into a single tidy tbl_df." />
 in the document to format into a single tidy <code>tbl_df</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_records_from_xml_node</span>(<span class='no'>node</span>, <span class='kw'>object_name_append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>extract_records_from_xml_node</span>(
+  <span class='no'>node</span>,
+  <span class='kw'>object_name_append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>object_name_as_col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,8 +199,13 @@ in the document to format into a single tidy <code>tbl_df</code>.</p>
     </tr>
     <tr>
       <th>object_name_append</th>
-      <td><p><code>logical</code>; an indicator for whether to append the 
-name of the object onto the the front of the field names of the records.</p></td>
+      <td><p><code>logical</code>; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).</p></td>
+    </tr>
+    <tr>
+      <th>object_name_as_col</th>
+      <td><p><code>logical</code>; whether to include the object type
+(e.g. Account or Contact) as a new column.</p></td>
     </tr>
     </table>
 

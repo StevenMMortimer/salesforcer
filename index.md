@@ -65,7 +65,7 @@ Package features include:
 # install the current CRAN version (0.1.4)
 install.packages("salesforcer")
 
-# or get the latest version available on GitHub using the devtools package
+# or get the development version on GitHub
 # install.packages("devtools")
 devtools::install_github("StevenMMortimer/salesforcer")
 ```
@@ -155,8 +155,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012MuwdAAC TRUE   
-#> 2 0033s000012MuweAAC TRUE
+#> 1 0033s000012Nd3QAAS TRUE   
+#> 2 0033s000012Nd3RAAS TRUE
 ```
 
 ### Query
@@ -181,8 +181,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012MuwdAAC Test      Contact-Create-1
-#> 2 0033s000012MuweAAC Test      Contact-Create-2
+#> 1 0033s000012Nd3QAAS Test      Contact-Create-1
+#> 2 0033s000012Nd3RAAS Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -215,8 +215,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012MuwdAAC TRUE   
-#> 2 0033s000012MuweAAC TRUE
+#> 1 0033s000012Nd3QAAS TRUE   
+#> 2 0033s000012Nd3RAAS TRUE
 ```
 
 ### Bulk Operations
@@ -253,8 +253,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012MuwiAAC TRUE    TRUE    NA   
-#> 2 0033s000012MuwjAAC TRUE    TRUE    NA
+#> 1 0033s000012Nd3aAAC TRUE    TRUE    NA   
+#> 2 0033s000012Nd3bAAC TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -269,8 +269,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012MuwiAAC Test      Contact-Create-1
-#> 2 0033s000012MuwjAAC Test      Contact-Create-2
+#> 1 0033s000012Nd3aAAC Test      Contact-Create-1
+#> 2 0033s000012Nd3bAAC Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -278,8 +278,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created Id                 sf__Error
 #>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012MuwiAAC FALSE       0033s000012MuwiAAC <NA>     
-#> 2 0033s000012MuwjAAC FALSE       0033s000012MuwjAAC <NA>
+#> 1 0033s000012Nd3aAAC FALSE       0033s000012Nd3aAAC <NA>     
+#> 2 0033s000012Nd3bAAC FALSE       0033s000012Nd3bAAC <NA>
 ```
 
 ### Using the Metadata API
@@ -382,19 +382,28 @@ acct_fields %>%
 
 ## Future
 
-Future APIs to support:
+Future APIs to support (roughly in priority order):
 
   - [Reports and Dashboards REST
     API](https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm)
+  - [Analytics External Data
+    API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm)
+  - [Connect (Chatter) REST
+    API](https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm)
   - [Analytics REST
     API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm)
-  - [Connect (Chatter) REST API](https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm)
-  - [Tooling API](https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm)
-  - [Actions API](https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm)
-  - [Streaming API](https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm)
-  - [Place Order API](https://developer.salesforce.com/docs/atlas.en-us.api_placeorder.meta/api_placeorder/sforce_placeorder_rest_api_intro.htm)
-  - [Industries API](https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm)
-  - [Data.com API](https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm)    
+  - [Tooling
+    API](https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm)
+  - [Actions
+    API](https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm)
+  - [Streaming
+    API](https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm)
+  - [Place Order
+    API](https://developer.salesforce.com/docs/atlas.en-us.api_placeorder.meta/api_placeorder/sforce_placeorder_rest_api_intro.htm)
+  - [Industries
+    API](https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm)
+  - [Data.com
+    API](https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm)
 
 ## Credits
 

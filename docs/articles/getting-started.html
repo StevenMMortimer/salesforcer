@@ -174,8 +174,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012MuxCAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012MuxDAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NdYJAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NdYKAA0 TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -188,8 +188,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MuxCAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MuxDAAS Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NdYJAA0 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NdYKAA0 Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -208,8 +208,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012MuxCAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012MuxDAAS Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NdYJAA0 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NdYKAA0 Test      Contact-Create-2</span></pre></body></html></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -225,8 +225,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012MuxCAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012MuxDAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NdYJAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NdYKAA0 TRUE</span></pre></body></html></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -234,11 +234,11 @@
 <p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">updated_records</span>$<span class="no">id</span>)
 <span class="no">deleted_records</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   id                 success errors    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;list&gt;    </span>
-<span class="co">#&gt; 1 0033s000012MuxCAAS TRUE    &lt;list [0]&gt;</span>
-<span class="co">#&gt; 2 0033s000012MuxDAAS TRUE    &lt;list [0]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0033s000012NdYJAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NdYKAA0 TRUE</span></pre></body></html></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -263,11 +263,11 @@
                               <span class="kw">external_id_fieldname</span><span class="kw">=</span><span class="st">"My_External_Id__c"</span>)
 <span class="no">upserted_records</span>
 <span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   created id                 success</span>
-<span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 FALSE   0033s000012MuxHAAS TRUE   </span>
-<span class="co">#&gt; 2 FALSE   0033s000012MuxIAAS TRUE   </span>
-<span class="co">#&gt; 3 TRUE    0033s000012MuxMAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt;   id                 success created</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 0033s000012NdYOAA0 TRUE    FALSE  </span>
+<span class="co">#&gt; 2 0033s000012NdYPAA0 TRUE    FALSE  </span>
+<span class="co">#&gt; 3 0033s000012NdToAAK TRUE    TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">

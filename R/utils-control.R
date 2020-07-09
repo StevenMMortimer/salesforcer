@@ -276,10 +276,10 @@ filter_valid_controls <- function(supplied, api_type = NULL, operation = NULL){
     valid <- accepted_controls_by_api(api_type)
     # provide a warning before dropping 
     if(length(setdiff(names(supplied), valid)) >  0){
-      warning(sprintf("Ignoring the following controls which are not used in the %s API: %s",
-                      api_type,
-                      paste0(setdiff(names(supplied), valid), collapse=", ")),
-              call. = TRUE)
+      warn_w_errors_listed(sprintf(paste0("Ignoring the following controls which ", 
+                                          "are not used in the %s API: %s"),
+                                   api_type, 
+                                   paste0(setdiff(names(supplied), valid), collapse=", ")))
     }
     supplied <- supplied[intersect(names(supplied), valid)]
   }
@@ -288,10 +288,10 @@ filter_valid_controls <- function(supplied, api_type = NULL, operation = NULL){
     valid <- accepted_controls_by_operation(operation)
     # provide a warning before dropping 
     if(length(setdiff(names(supplied), valid)) >  0){
-      warning(sprintf("Ignoring the following controls which are not used in the '%s' operation: %s",
-                      operation,
-                      paste0(setdiff(names(supplied), valid), collapse=", ")),
-              call. = TRUE)
+      warn_w_errors_listed(sprintf(paste0("Ignoring the following controls which ", 
+                                          "are not used in the %s operation: %s"),
+                                   operation, 
+                                   paste0(setdiff(names(supplied), valid), collapse=", ")))
     }
     supplied <- supplied[intersect(names(supplied), valid)]
   }

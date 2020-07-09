@@ -33,11 +33,11 @@ It is available in API versions 29.0 and later.}
 to try and cast the data returned in the query recordset. \code{TRUE} uses 
 \code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
-\item{interval_seconds}{integer; defines the seconds between attempts to check 
-for job completion}
+\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check 
+for job completion.}
 
-\item{max_attempts}{integer; defines then max number attempts to check for job 
-completion before stopping}
+\item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
+completion before stopping.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 

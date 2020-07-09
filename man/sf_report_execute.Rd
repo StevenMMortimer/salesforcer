@@ -7,9 +7,10 @@
 sf_report_execute(
   report_id,
   async = FALSE,
-  include_details = FALSE,
-  report_metadata = NULL,
+  include_details = TRUE,
+  label = TRUE,
   as_tbl = TRUE,
+  report_metadata = NULL,
   verbose = FALSE
 )
 }
@@ -26,6 +27,16 @@ of the documentation on why executing a report asynchronously is preferred.}
 
 \item{include_details}{\code{logical}; an indicator applying to a synchronous 
 indicating whether the run should return summary data with details.}
+
+\item{label}{\code{logical}; an indicator of whether the returned data should 
+be the label (i.e. formatted value) or the actual value. By default, the labels  
+are returned because these are what appear in the Salesforce dashboard and 
+more closely align with the column names. For example, "Account.Name" label 
+may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former 
+(label) more accurately reflects the "Account.Name".}
+
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+JSON into a \code{tbl_df}.}
 
 \item{report_metadata}{\code{list}; a \code{list} with one element named 
 \code{"reportMetadata"} having additional list elements underneath. All possible 
@@ -46,17 +57,15 @@ filter or query the results of an existing report:
   of \code{\link{sf_report_filter_operators_list}}.}
 }}
 
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
-JSON into a \code{tbl_df}.}
-
 \item{verbose}{\code{logical}; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 
 set to \code{TRUE} the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list} by default when \code{async=TRUE} or a \code{tbl_df} when 
-\code{async=FALSE}.
+\code{tbl_df} by default, but a \code{list} when \code{as_tbl=FALSE}, 
+which means that the content from the API is converted from JSON to a list 
+with no other post-processing.
 }
 \description{
 Get summary data with or without details by running a report synchronously or
@@ -114,10 +123,17 @@ if(instance_status == "Success"){
 }
 
 # Note: For more complex execution use the report_metadata argument
-# However, in most cases, you can leverage the convenience function 
-# sf_get_report_data() which makes it easier to retrieve report results
-fields <- sf_report_execute(this_report_id)
-                            report_metadata = list()
+# This can be done by building the list from scratch based on Salesforce 
+# documentation (not recommended) or pulling down the existing reportMetadata 
+# property of the report and modifying the list slightly (recommended). 
+# In addition, for relatively simple changes, you can leverage the convenience 
+# function sf_report_wrapper() which makes it easier to retrieve report results
+report_details <- sf_report_describe(this_report_id)
+report_metadata <- list(reportMetadata = report_details$reportMetadata)
+report_metadata$reportMetadata$showGrandTotal <- FALSE
+report_metadata$reportMetadata$showSubtotals <- FALSE
+fields <- sf_report_execute(this_report_id,
+                            report_metadata = report_metadata)
 }
 }
 \seealso{

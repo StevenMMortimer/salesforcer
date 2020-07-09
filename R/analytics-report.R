@@ -476,7 +476,7 @@ sf_report_fields <- function(report_id,
   response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")  
   return(response_parsed)
 }
-  
+
 #' Execute a report
 #' 
 #' Get summary data with or without details by running a report synchronously or
@@ -511,15 +511,20 @@ sf_report_fields <- function(report_id,
 #'   \item reportFilters
 #' }
 #' 
+#' @importFrom dplyr mutate across select any_of everything
+#' @importFrom readr parse_datetime type_convert cols col_guess
+#' @importFrom tibble as_tibble_row
+#' @importFrom httr content
 #' @template report_id
 #' @template async
-#' @param include_details \code{logical}; an indicator applying to a synchronous 
-#' indicating whether the run should return summary data with details.
-#' @template report_metadata
+#' @template include_details
+#' @template label
 #' @template as_tbl
+#' @template report_metadata
 #' @template verbose
-#' @return \code{list} by default when \code{async=TRUE} or a \code{tbl_df} when 
-#' \code{async=FALSE}.
+#' @return \code{tbl_df} by default, but a \code{list} when \code{as_tbl=FALSE}, 
+#' which means that the content from the API is converted from JSON to a list 
+#' with no other post-processing.
 #' @seealso Please see the following resources for more information: 
 #' \itemize{
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
@@ -547,17 +552,25 @@ sf_report_fields <- function(report_id,
 #' }
 #' 
 #' # Note: For more complex execution use the report_metadata argument
-#' # However, in most cases, you can leverage the convenience function 
-#' # sf_get_report_data() which makes it easier to retrieve report results
-#' fields <- sf_report_execute(this_report_id)
-#'                             report_metadata = list()
+#' # This can be done by building the list from scratch based on Salesforce 
+#' # documentation (not recommended) or pulling down the existing reportMetadata 
+#' # property of the report and modifying the list slightly (recommended). 
+#' # In addition, for relatively simple changes, you can leverage the convenience 
+#' # function sf_report_wrapper() which makes it easier to retrieve report results
+#' report_details <- sf_report_describe(this_report_id)
+#' report_metadata <- list(reportMetadata = report_details$reportMetadata)
+#' report_metadata$reportMetadata$showGrandTotal <- FALSE
+#' report_metadata$reportMetadata$showSubtotals <- FALSE
+#' fields <- sf_report_execute(this_report_id,
+#'                             report_metadata = report_metadata)
 #' }
 #' @export
 sf_report_execute <- function(report_id, 
                               async = FALSE, 
-                              include_details = FALSE, 
-                              report_metadata = NULL,
+                              include_details = TRUE,
+                              label = TRUE,
                               as_tbl = TRUE,
+                              report_metadata = NULL,
                               verbose = FALSE){
   
   if(!is.null(report_metadata)){
@@ -587,22 +600,23 @@ sf_report_execute <- function(report_id,
   catch_errors(httr_response)
   response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
 
-  if(async){
-    if(as_tbl){
+  # if as_tbl = FALSE, then return the parsed list, else reformat into a tbl_df
+  if(as_tbl){
+    if(async){
       response_parsed <- response_parsed %>% 
         set_null_elements_to_na_recursively() %>%
         as_tibble_row() %>% 
-        mutate_at(c("completionDate", "requestDate"), 
-                  ~parse_datetime(as.character(.x))) %>% 
+        mutate(across(any_of(c("completionDate", "requestDate")), 
+                      ~parse_datetime(as.character(.x)))) %>% 
         type_convert(col_types = cols(.default = col_guess())) %>% 
         select(any_of(c("id", "ownerId", "status", 
                         "requestDate", "completionDate", 
                         "hasDetailRows", "queryable", "url")), 
                everything())
+    } else {
+      # parse the same way you would the report instance results
+      response_parsed <- parse_report_detail_rows(response_parsed, label = label)
     }
-  } else {
-    
-    
   }
   return(response_parsed)
 }
@@ -613,6 +627,9 @@ sf_report_execute <- function(report_id,
 #' Each item in the list is treated as a separate instance of the report run with 
 #' metadata in that snapshot of time.
 #'
+#' @importFrom purrr map_df
+#' @importFrom dplyr mutate across select any_of everything
+#' @importFrom readr parse_datetime type_convert cols col_guess
 #' @template report_id
 #' @template as_tbl
 #' @template verbose
@@ -640,8 +657,8 @@ sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
     resultset <- resultset %>% 
       set_null_elements_to_na_recursively() %>%
       map_df(flatten_to_tbl_df) %>% 
-      mutate_at(c("completionDate", "requestDate"), 
-                ~parse_datetime(as.character(.x))) %>% 
+      mutate(across(any_of(c("completionDate", "requestDate")), 
+                    ~parse_datetime(as.character(.x)))) %>% 
       type_convert(col_types = cols(.default = col_guess())) %>% 
       select(any_of(c("id", "ownerId", "status", 
                       "requestDate", "completionDate", 
@@ -702,10 +719,11 @@ sf_report_instance_delete <- function(report_id,
 #' @importFrom purrr map_df pluck set_names map_chr
 #' @template report_id
 #' @template report_instance_id
+#' @template label
+#' @template fact_map_key
 #' @template verbose
 #' @return \code{tbl_df}; the detail repot data. More specifically, the detailed 
-#' data from the "T!T" entry in the fact map. 
-#' @note Aggregates (summary) are currently not provided, but will be in the future.
+#' data from the "T!T" entry in the fact map.
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm}{Factmap Documentation}
 #' @examples \dontrun{
 #' # execute a report asynchronously in your Org
@@ -727,17 +745,14 @@ sf_report_instance_delete <- function(report_id,
 sf_report_instance_results <- function(report_id, 
                                        report_instance_id, 
                                        label = TRUE,
-                                       fact_map = "T:T",
+                                       fact_map_key = "T!T",
                                        verbose = FALSE){
-  if(fact_map != "T!T"){
-    stop(paste0("The `fact_map` argument must be 'T!T'. Currently it is the only ", 
-                "format that is supported as this feature is still under active ",
-                "development."), call.=FALSE)
-  }
   
   this_url <- make_report_instance_url(report_id, report_instance_id)
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
-  resultset <- parse_report_detail_rows(resultset)
+  resultset <- parse_report_detail_rows(resultset, 
+                                        label = label,
+                                        fact_map_key = fact_map_key)
   return(resultset)
 }
 
@@ -773,15 +788,10 @@ sf_report_query <- function(report_id,
     report_metadata <- sf_input_data_validation(report_metadata,
                                                 operation = "filter_report")
   } else {
-    # copy existing report metadata and then set some options to something simpler
-    report_details <- sf_report_describe(report_id)
-    report_metadata <- list(reportMetadata = report_details$reportMetadata)
-    report_metadata$reportMetadata$aggregates <- I(character(0))
-    report_metadata$reportMetadata$hasDetailRows <- TRUE
-    report_metadata$reportMetadata$reportBooleanFilter <- NA
-    report_metadata$reportMetadata$reportFilters <- I(character(0))
-    report_metadata$reportMetadata$showGrandTotal <- FALSE
-    report_metadata$reportMetadata$showSubtotals <- FALSE
+    # copy existing report metadata and then set options to something simpler, 
+    # meaning no filters, no aggregates, no totals or subtotals, and at the 
+    # detail level in tablular format
+    report_metadata <- simplify_report_metadata(report_id, verbose = verbose)
   }
   
   this_url <- make_report_query_url()
@@ -802,16 +812,18 @@ sf_report_query <- function(report_id,
 
 #' Get a report's data in tabular format
 #' 
-#' A convenience function for retrieving the data from a report, which runs 
-#' asynchronously by default and waits for the results summarized by a tabular 
-#' format, before pulling them down and returning as a \code{tbl_df}.
+#' This function is a convenience wrapper for retrieving the data from a report.
+#' By default, it executes an asynchronous report and waits for the detaile data
+#' summarized in a tabular format, before pulling them down and returning as a
+#' \code{tbl_df}.
 #' 
 #' @details This function is essentially a wrapper around \code{\link{sf_report_execute}}. 
-#' Please review or use that function if you want to have more control over 
-#' how the report is run and what format should be returned. In this case we've 
-#' forced the \code{reportFormat="TABULAR"} without total rows and the option to 
-#' filter, and show the Top N and sort as a function argument rather than forcing the user 
-#' to create an entire \code{list} variable of report metadata. 
+#' Please review or use that function and/or \code{\link{sf_report_query}} if you 
+#' want to have more control over how the report is run and what format should
+#' be returned. In this case we've forced the \code{reportFormat="TABULAR"}
+#' without total rows and given options to filter, and select the Top N as
+#' function arguments rather than forcing the user to create an entire list of
+#' \code{reportMetadata}.
 #' 
 #' @template report_id
 #' @param report_filters \code{list}; A \code{list} of reportFilter specifications. 
@@ -836,23 +848,29 @@ sf_report_query <- function(report_id,
 #' @template async
 #' @template interval_seconds
 #' @template max_attempts
-#' @param wait_for_results \code{logical}; indicating whether to wait for the 
-#' report finish running so that data can be obtained; otherwise, return the 
-#' report instance details.
+#' @param wait_for_results \code{logical}; indicating whether to wait for the
+#' report finish running so that data can be obtained. Otherwise, return the
+#' report instance details which can be used to retrieve the results when the
+#' async report has finished.
 #' @template verbose
 #' @return \code{tbl_df}
 #' @export
-sf_get_report_data <- function(report_id,
-                               report_filters = NULL,
-                               report_boolean_logic = NULL,
-                               sort_by = NULL,
-                               top_n = NULL,
-                               decreasing = FALSE,
-                               async = TRUE,
-                               interval_seconds = 3,
-                               max_attempts = 200,
-                               wait_for_results = TRUE,
-                               verbose = FALSE){
+sf_run_report <- function(report_id,
+                          report_filters = NULL,
+                          report_boolean_logic = NULL,
+                          sort_by = NULL,
+                          top_n = NULL,
+                          decreasing = FALSE,
+                          async = TRUE,
+                          interval_seconds = 3,
+                          max_attempts = 200,
+                          wait_for_results = TRUE,
+                          verbose = FALSE){
+  
+  # build out the body of the request based on the inputted arguments by starting 
+  # with a simplified version and then adding to it based on the user inputted arguments
+  request_body <- simplify_report_metadata(report_id, verbose = verbose)
+  
   if(!is.null(report_filters)){
     stopifnot(is.list(report_filters))
     for(i in 1:length(report_filters)){
@@ -864,19 +882,17 @@ sf_get_report_data <- function(report_id,
       message(sprintf(paste0("The argument `report_boolean_logic` was left NULL. ", 
                              "Assuming the report filters should be combined using 'AND' ", 
                              "like so: %s"), report_boolean_logic))
+    } else {
+      stopifnot(is.character(report_boolean_logic))
     }
   } else {
     # value must be null when filter logic is not specified
-    report_boolean_logic <- NULL
+    report_boolean_logic <- NA
   }
   
-  # build out the body of the request based on the inputted arguments
-  request_body <- list(reportMetadata=list(reportFormat="TABULAR", 
-                                           showGrandTotal=FALSE, 
-                                           showSubtotals=FALSE))
-  stopifnot(is.character(report_boolean_logic))
-  request_body$reportMetadata$reportBooleanFilter <- report_filters
+  request_body$reportMetadata$reportBooleanFilter <- report_boolean_logic
   request_body$reportMetadata$reportFilters <- report_filters
+  
   if(!is.null(sort_by)){
     if(length(sort_by) > 1){
       stop("You may only sort by one column at a time.", call.=FALSE)
@@ -906,8 +922,8 @@ sf_get_report_data <- function(report_id,
           }
         }
         Sys.sleep(interval_seconds)
-        instances_list <- sf_report_instances_list(report_id, verbose=verbose)
-        instance_status <- instances_list[instances_list$id == results$id, "status"]
+        instances_list <- sf_report_instances_list(report_id, verbose = verbose)
+        instance_status <- instances_list[[instances_list$id == results$id, "status"]]
         if(instance_status == "Error"){
           stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
                        report_id, results$id), 
@@ -921,8 +937,13 @@ sf_get_report_data <- function(report_id,
           }
         }
       }
-      results <- sf_report_instance_results(report_id, results$id, verbose=verbose)
+      results <- sf_report_instance_results(report_id, results$id, verbose = verbose)
     }
   }
+  # if not aysnc and waiting for results, then sf_report_execute() will return 
+  # the parsed dataset (if sync) or request details if async to check on the results 
+  # without having the wrapper executing the wait. This is so users can leverage 
+  # the simpler interface (i.e. providing function arguments) instead of researching 
+  # the Salesforce documentation and building the reportMetadata property from scratch
   return(results)
 }
