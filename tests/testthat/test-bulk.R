@@ -181,13 +181,16 @@ test_that("testing Bulk 2.0 Functionality", {
   upserted_contacts <- bind_rows(queried_records %>% select(-Id), new_record)
   
   # sf_upsert ------------------------------------------------------------------
-  upserted_records <- sf_upsert(input_data=upserted_contacts, 
-                                object_name=object,
-                                external_id_fieldname="My_External_Id__c", 
+  upserted_records <- sf_upsert(input_data = upserted_contacts, 
+                                object_name = object,
+                                external_id_fieldname = "My_External_Id__c", 
                                 api_type = "Bulk 2.0")
   expect_is(upserted_records, "tbl_df")
-  expect_named(upserted_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
-                                   "My_External_Id__c", "test_number__c", "sf__Error"))  
+  expect_named(upserted_records, c("sf__Id", "sf__Created", 
+                                   "FirstName", "LastName", 
+                                   "My_External_Id__c", 
+                                   "test_number__c", 
+                                   "sf__Error"))  
   expect_equal(nrow(upserted_records), nrow(upserted_contacts))
   expect_true(all(is.na(upserted_records$sf__Error)))
   expect_equal(upserted_records$sf__Created, c(FALSE, FALSE, TRUE))  

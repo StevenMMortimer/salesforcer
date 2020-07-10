@@ -171,10 +171,12 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
     xml_add_child("operation", operation) %>%
     xml_add_sibling("object", object_name)
   
-  if(operation == "upsert"){
-    stopifnot(!is.null(external_id_fieldname))
-    body %>% 
-      xml_add_child("externalIdFieldName", external_id_fieldname)
+  if(operation == 'upsert'){
+    if(is.null(external_id_fieldname)){
+       stop("All 'upsert' operations require an external id field. Please specify.", call.=FALSE)
+    } else {
+      body %>% xml_add_child("externalIdFieldName", external_id_fieldname)
+    }
   }
   
   body %>% 
@@ -231,7 +233,7 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete",
     stop_w_errors_listed("Bulk 2.0 API only supports the following file delimiter:", 
                          bulk_v2_supported_column_delimiter)
   }
-  if(operation == 'upsert' & !is.null(external_id_fieldname)){
+  if(operation == 'upsert' & is.null(external_id_fieldname)){
     stop("All 'upsert' operations require an external id field. Please specify.", call.=FALSE)
   }
   query_operation <- FALSE

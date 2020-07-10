@@ -3,8 +3,8 @@ context("Bulk 1.0")
 salesforcer_token <- readRDS("salesforcer_token.rds")
 sf_auth(token = salesforcer_token)
 
-common_report_id <- "00O3s000006tAx3EAE"
-common_report_instance <- sf_report_execute(common_report_id, async=TRUE)
+common_report_id <- "00O3s000006tAx8EAE"
+common_report_instance <- sf_report_execute(common_report_id, async=FALSE)
 
 test_that("testing sf_reports_list()", {
   # as_tbl=TRUE
