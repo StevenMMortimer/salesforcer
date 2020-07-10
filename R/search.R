@@ -45,7 +45,7 @@
 #' @export
 sf_search <- function(search_string,
                       is_sosl = FALSE,
-                      guess_types = FALSE,
+                      guess_types = TRUE,
                       api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
                       parameterized_search_options = list(...),
                       verbose = FALSE, 
@@ -136,14 +136,13 @@ sf_search <- function(search_string,
     stop(paste0("SOSL is not supported in Bulk API. For retrieving a ", 
                 "large number of records use SOQL (queries) instead."))
   } else {
-    stop("Unknown API type.")
+    catch_unknown_api(api_type, supported=c("REST", "SOAP"))
   }
-    
-  if(nrow(resultset) > 0){
-    resultset <- resultset %>% 
-      sf_reorder_cols() %>% 
-      sf_guess_cols(guess_types)
-  }
+  
+  resultset <- resultset %>% 
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)
+  
   return(resultset)
 }
 

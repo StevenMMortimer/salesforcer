@@ -6,6 +6,7 @@
 #' \code{tbl_df}; data can be coerced into a \code{data.frame}
 #' @template object_name
 #' @template api_type
+#' @template guess_types
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_bulk_operation}}
@@ -31,6 +32,7 @@
 sf_update <- function(input_data,
                       object_name,
                       api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
+                      guess_types = TRUE,
                       control = list(...), ...,
                       verbose = FALSE){
   
@@ -57,11 +59,13 @@ sf_update <- function(input_data,
   if(api_type == "SOAP"){
     resultset <- sf_update_soap(input_data = input_data,
                                 object_name = object_name,
+                                guess_types = guess_types,
                                 control = control_args, 
                                 verbose = verbose)
   } else if(api_type == "REST"){
     resultset <- sf_update_rest(input_data = input_data,
                                 object_name = object_name,
+                                guess_types = guess_types,
                                 control = control_args, 
                                 verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
@@ -75,7 +79,7 @@ sf_update <- function(input_data,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else {
-    stop("Unknown API type")
+    catch_unknown_api(api_type)
   }
   return(resultset)
 }
@@ -93,6 +97,7 @@ sf_update <- function(input_data,
 #' @keywords internal
 sf_update_soap <- function(input_data, 
                            object_name,
+                           guess_types = TRUE,
                            control, ...,
                            verbose = FALSE){
   
@@ -144,7 +149,7 @@ sf_update_soap <- function(input_data,
   
   resultset <- resultset %>% 
     sf_reorder_cols() %>% 
-    sf_guess_cols()
+    sf_guess_cols(guess_types)
   
   return(resultset)
 }
@@ -159,6 +164,7 @@ sf_update_soap <- function(input_data,
 #' @keywords internal
 sf_update_rest <- function(input_data, 
                            object_name, 
+                           guess_types = TRUE,
                            control, ...,
                            verbose = FALSE){
   
@@ -218,9 +224,12 @@ sf_update_rest <- function(input_data,
     response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     resultset <- c(resultset, response_parsed)
   }
-  resultset <- resultset %>%
+
+  resultset <- resultset %>% 
     map_df(flatten_tbl_df) %>%
-    type_convert(col_types = cols(.default = col_guess()))
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)
+  
   return(resultset)
 }
 

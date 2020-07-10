@@ -7,20 +7,24 @@
 extract_records_from_xml_nodeset_of_records(
   x,
   object_name = NULL,
-  as_col = FALSE
+  object_name_append = FALSE,
+  object_name_as_col = FALSE
 )
 }
 \arguments{
 \item{x}{\code{xml_nodeset}; nodeset to have records extracted into a 
 \code{tbl_df}.}
 
-\item{object_name}{\code{character}; a list of character strings to pre-pend
-to each variable name in the event that we would like to tag the fields with 
-the name of the object that they came from.}
+\item{object_name}{\code{character}; a list of character strings to prefix
+each variable name in the event that we would like to tag the fields with 
+the name of the object that they came from and/or store the object type as a 
+separate column in the resultset.}
 
-\item{as_col}{\code{logical}; an indicator that, if an \code{object_name} is 
-supplied, will be placed in a new column. If \code{FALSE}, the default, the 
-object name will be appended to the column names separated by a period.}
+\item{object_name_append}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).}
+
+\item{object_name_as_col}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as a new column.}
 }
 \value{
 \code{tbl_df} parsed from the supplied \code{xml_nodeset}

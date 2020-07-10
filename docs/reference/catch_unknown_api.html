@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pulls out a tibble of record info from an XML node — extract_records_from_xml_node • salesforcer</title>
+<title>Catch unknown API type — catch_unknown_api • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,9 @@
 
 
 
-<meta property="og:title" content="Pulls out a tibble of record info from an XML node — extract_records_from_xml_node" />
-<meta property="og:description" content="This function accepts an xml_node assuming it already represents one 
-record and formats that node into a single row tbl_df." />
+<meta property="og:title" content="Catch unknown API type — catch_unknown_api" />
+<meta property="og:description" content="This function will alert the user that the supplied value to the argument 
+api_type is not one of the valid options." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -174,44 +174,31 @@ record and formats that node into a single row tbl_df." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pulls out a tibble of record info from an XML node</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
-    <div class="hidden name"><code>extract_records_from_xml_node.Rd</code></div>
+    <h1>Catch unknown API type</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>catch_unknown_api.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function accepts an <code>xml_node</code> assuming it already represents one 
-record and formats that node into a single row <code>tbl_df</code>.</p>
+    <p>This function will alert the user that the supplied value to the argument 
+<code>api_type</code> is not one of the valid options.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_records_from_xml_node</span>(
-  <span class='no'>node</span>,
-  <span class='kw'>object_name_append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>object_name_as_col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>catch_unknown_api</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>node</th>
-      <td><p><code>xml_node</code>; the node to have records extracted into one row <code>tbl_df</code>.</p></td>
-    </tr>
-    <tr>
-      <th>object_name_append</th>
-      <td><p><code>logical</code>; whether to include the object type
-(e.g. Account or Contact) as part of the column names (e.g. Account.Name).</p></td>
-    </tr>
-    <tr>
-      <th>object_name_as_col</th>
-      <td><p><code>logical</code>; whether to include the object type
-(e.g. Account or Contact) as a new column.</p></td>
+      <th>x</th>
+      <td><p><code>character</code>; The value of the <code>api_type</code> argument provided 
+by the user.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code> parsed from the supplied node</p>
+    <p><code>simpleError</code></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function is meant to be used internally. Only use when debugging.</p>

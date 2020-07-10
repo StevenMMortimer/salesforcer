@@ -4,7 +4,15 @@
 \alias{sf_retrieve_soap}
 \title{Retrieve records using SOAP API}
 \usage{
-sf_retrieve_soap(ids, fields, object_name, control, ..., verbose = FALSE)
+sf_retrieve_soap(
+  ids,
+  fields,
+  object_name,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Retrieve records using SOAP API

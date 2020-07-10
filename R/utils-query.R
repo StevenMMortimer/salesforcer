@@ -317,8 +317,9 @@ extract_records_from_xml_nodeset <- function(nodeset,
     object_name <- NULL
   }
   res <- extract_records_from_xml_nodeset_of_records(x, 
-                                                     object_name=object_name, 
-                                                     as_col=object_name_as_col)
+                                                     object_name = object_name, 
+                                                     object_name_append, 
+                                                     object_name_as_col)
   return(res)
 }
 
@@ -333,35 +334,40 @@ extract_records_from_xml_nodeset <- function(nodeset,
 #' @importFrom purrr modify_if map_df
 #' @param x \code{xml_nodeset}; nodeset to have records extracted into a 
 #' \code{tbl_df}.
-#' @param object_name \code{character}; a list of character strings to pre-pend
-#' to each variable name in the event that we would like to tag the fields with 
-#' the name of the object that they came from.
-#' @param as_col \code{logical}; an indicator that, if an \code{object_name} is 
-#' supplied, will be placed in a new column. If \code{FALSE}, the default, the 
-#' object name will be appended to the column names separated by a period.
+#' @param object_name \code{character}; a list of character strings to prefix
+#' each variable name in the event that we would like to tag the fields with 
+#' the name of the object that they came from and/or store the object type as a 
+#' separate column in the resultset.
+#' @template object_name_append
+#' @template object_name_as_col
 #' @return \code{tbl_df} parsed from the supplied \code{xml_nodeset}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
 extract_records_from_xml_nodeset_of_records <- function(x, 
                                                         object_name = NULL, 
-                                                        as_col = FALSE){
+                                                        object_name_append = FALSE, 
+                                                        object_name_as_col = FALSE){
   if(length(x) > 0){
     x_list <- as_list(x) %>% 
       map(xml_drop_and_unlist_recursively) %>% 
       map(drop_empty_recursively)
     x <- x_list %>% 
-      map_df(.f=function(x, nms, as_col){
+      map_df(.f=function(x, nms, obj_name_append, obj_name_as_col){
         y <- as_tibble_row(x)
         if(!is.null(nms) && !any(sapply(nms, is.null))){
-          if(as_col){
-            y$sObject <- nms
-          } else {
+          if(obj_name_append){
             colnames(y) <- paste(nms, colnames(y), sep='.')  
+          }
+          if(obj_name_as_col){
+            y$sObject <- nms
           }
         }
         return(y)
-      }, nms=object_name, as_col=as_col)
+      }, 
+      nms = object_name, 
+      obj_name_append = object_name_append, 
+      obj_name_as_col = object_name_as_col)
   } else {
     x <- tibble()
   }
@@ -517,13 +523,18 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
 #' 
 #' @importFrom purrr map_df
 #' @param x \code{list}; list of records parsed from JSON.
+#' @template object_name_append
+#' @template object_name_as_col
 #' @return \code{tbl_df} a data frame with each row representing a single element 
 #' from the "records" element of the list.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-records_list_to_tbl <- function(x){
+records_list_to_tbl <- function(x, 
+                                object_name_append = FALSE, 
+                                object_name_as_col = FALSE){
   resultset <- x %>% 
+    drop_attributes(object_name_append, object_name_as_col) %>%
     drop_attributes_recursively() %>% 
     drop_empty_recursively() %>% 
     map_df(flatten_tbl_df)
@@ -594,8 +605,10 @@ sf_reorder_cols <- function(df){
     # ... then move Id and columns without dot up since those with are related 
     select(any_of(unique(c("sObject", 
                            "Id", "id", "sf__Id",
-                           "Success", "success", "sf__Success" ,
-                           "Created", "created", "sf__Created", 
+                           "Success", "success", "sf__Success",
+                           "Created", "created", "sf__Created",
+                           "errors.statusCode", "errors.fields", "errors.message",
+                           "sf__Error",
                            names(.)[which(grepl("^errors\\.|^sf__Error", names(.)))],
                            names(.)[which(!grepl("\\.", names(.)))]))), 
              contains("."))

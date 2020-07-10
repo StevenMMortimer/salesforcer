@@ -4,7 +4,15 @@
 \alias{sf_retrieve_rest}
 \title{Retrieve records using REST API}
 \usage{
-sf_retrieve_rest(ids, fields, object_name, control, ..., verbose = FALSE)
+sf_retrieve_rest(
+  ids,
+  fields,
+  object_name,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Retrieve records using REST API

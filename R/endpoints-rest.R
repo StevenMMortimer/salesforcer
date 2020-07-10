@@ -11,6 +11,21 @@ make_base_rest_url <- function(){
           getOption("salesforcer.api_version"))
 }
 
+#' REST API Describe URL Generator
+#' 
+#' @template object_name
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_rest_describe_url <- function(object_name){
+  # ensure we are authenticated first so the url can be formed
+  sf_auth_check()
+  sprintf("%s/services/data/v%s/sobjects/%s/describe/",
+          salesforcer_state()$instance_url,
+          getOption("salesforcer.api_version"), 
+          object_name)
+}
+
 #' Parameterized Search URL Generator
 #' 
 #' @importFrom xml2 url_escape

@@ -6,7 +6,12 @@
 #' recently viewed. To get a full list of reports by format, name, and other
 #' fields, use a SOQL query on the Report object.
 #'
-#' @importFrom dplyr everything
+#' @param recent; \code{logical}; an indicator of whether to return the 200 most 
+#' recently viewed reports or to invoke a query on the \code{Report} object to 
+#' return all reports in the Org. By default, this argument is set to \code{TRUE} 
+#' meaning that only the most recently viewed reports are returned because this 
+#' is the default behavior of the reports list endpoint in the Reports and 
+#' Dashboards REST API. 
 #' @template as_tbl
 #' @template verbose
 #' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
@@ -21,17 +26,34 @@
 #' # return the results as a list
 #' reports_as_list <- sf_reports_list(as_tbl=FALSE)
 #' 
-#' # to return all possible reports, query the Report object
-#' reports <- sf_query("SELECT Id, Name FROM Report")
+#' # to return all possible reports, which is queried from the Report object
+#' all_reports <- sf_reports_list(recent=FALSE)
 #' }
 #' @export
-sf_reports_list <- function(as_tbl=TRUE, verbose=FALSE){
-  this_url <- make_reports_list_url()
-  resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+sf_reports_list <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
+  if(recent){
+    this_url <- make_reports_list_url()
+    resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
+  } else {
+    resultset = sf_query("SELECT Id, Name FROM Report")
+    # add columns to match the actual output of report list
+    report_base_url <- "/services/data/v48.0/analytics/reports"
+    resultset <- resultset %>% 
+      rename_with(tolower) %>% 
+      mutate(url = sprintf('%s/%s', report_base_url, id),  
+             describeUrl = sprintf('%s/%s/%s', report_base_url, id, "describe"), 
+             fieldsUrl = sprintf('%s/%s/%s', report_base_url, id, "fields"),  
+             instancesUrl = sprintf('%s/%s/%s', report_base_url, id, "instances"))    
+    # convert the tibble returned by the query back into a list 
+    if(!as_tbl){
+      resultset <- resultset %>% transpose()
+    }
+  }
   if(as_tbl){
     # bring id and name up front
     resultset <- resultset %>% 
-      select(any_of(c("id", "name")), everything())
+      sf_reorder_cols() %>% 
+      sf_guess_cols()
   }
   return(resultset)
 }

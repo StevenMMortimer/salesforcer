@@ -4,10 +4,16 @@
 \alias{records_list_to_tbl}
 \title{Extract tibble based on the "records" element of a list}
 \usage{
-records_list_to_tbl(x)
+records_list_to_tbl(x, object_name_append = FALSE, object_name_as_col = FALSE)
 }
 \arguments{
 \item{x}{\code{list}; list of records parsed from JSON.}
+
+\item{object_name_append}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).}
+
+\item{object_name_as_col}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as a new column.}
 }
 \value{
 \code{tbl_df} a data frame with each row representing a single element 

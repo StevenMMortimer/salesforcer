@@ -186,7 +186,7 @@ recently viewed. To get a full list of reports by format, name, and other
 fields, use a SOQL query on the Report object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_reports_list</span>(<span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_reports_list</span>(<span class='kw'>recent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,6 +202,15 @@ JSON into a <code>tbl_df</code>.</p></td>
 detail for each API call, which is useful for debugging. More specifically, when 
 set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.</p></td>
+    </tr>
+    <tr>
+      <th>recent;</th>
+      <td><p><code>logical</code>; an indicator of whether to return the 200 most 
+recently viewed reports or to invoke a query on the <code>Report</code> object to 
+return all reports in the Org. By default, this argument is set to <code>TRUE</code> 
+meaning that only the most recently viewed reports are returned because this 
+is the default behavior of the reports list endpoint in the Reports and 
+Dashboards REST API.</p></td>
     </tr>
     </table>
 
@@ -225,8 +234,8 @@ a COMPLETE list you must use <code><a href='sf_query.html'>sf_query</a></code> o
 <span class='co'># return the results as a list</span>
 <span class='no'>reports_as_list</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_reports_list</span>(<span class='kw'>as_tbl</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 
-<span class='co'># to return all possible reports, query the Report object</span>
-<span class='no'>reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
+<span class='co'># to return all possible reports, which is queried from the Report object</span>
+<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_reports_list</span>(<span class='kw'>recent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

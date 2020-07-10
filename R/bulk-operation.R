@@ -114,7 +114,7 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                           control = control_args, ...,
                                           verbose = verbose)
   } else {
-    stop("Unknown API type")
+    catch_unknown_api(api_type)
   }
   return(job_response)
 }

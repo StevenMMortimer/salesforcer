@@ -4,7 +4,14 @@
 \alias{sf_delete_soap}
 \title{Delete records using SOAP API}
 \usage{
-sf_delete_soap(ids, object_name, control, ..., verbose = FALSE)
+sf_delete_soap(
+  ids,
+  object_name = NULL,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Delete records using SOAP API

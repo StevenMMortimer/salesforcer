@@ -12,6 +12,7 @@
 #' that can be passed in the request
 #' @template object_name
 #' @template api_type
+#' @template guess_types
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_bulk_operation}}
@@ -34,8 +35,9 @@
 #' }
 #' @export
 sf_delete <- function(ids,
-                      object_name,
+                      object_name = NULL,
                       api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+                      guess_types = TRUE,
                       control = list(...), ...,
                       verbose = FALSE){
 
@@ -57,11 +59,13 @@ sf_delete <- function(ids,
   if(api_type == "SOAP"){
     resultset <- sf_delete_soap(ids = ids, 
                                 object_name = object_name,
+                                guess_types = guess_types,
                                 control = control_args,
                                 verbose = verbose)
   } else if(api_type == "REST"){
     resultset <- sf_delete_rest(ids = ids, 
                                 object_name = object_name,
+                                guess_types = guess_types,
                                 control = control_args,
                                 verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
@@ -70,12 +74,12 @@ sf_delete <- function(ids,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else if(api_type == "Bulk 2.0"){
-    resultset <- sf_delete_bulk_v2(ids=ids, 
+    resultset <- sf_delete_bulk_v2(ids = ids, 
                                    object_name = object_name, 
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else {
-    stop("Unknown API type.")
+    catch_unknown_api(api_type)
   }
   return(resultset)
 }
@@ -93,7 +97,8 @@ sf_delete <- function(ids,
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 sf_delete_soap <- function(ids, 
-                           object_name,
+                           object_name = NULL,
+                           guess_types = TRUE,
                            control, ...,
                            verbose = FALSE){
   
@@ -147,7 +152,7 @@ sf_delete_soap <- function(ids,
   
   resultset <- resultset %>% 
     sf_reorder_cols() %>% 
-    sf_guess_cols()
+    sf_guess_cols(guess_types)
   
   return(resultset)
 }
@@ -162,7 +167,8 @@ sf_delete_soap <- function(ids,
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 sf_delete_rest <- function(ids, 
-                           object_name,
+                           object_name = NULL,
+                           guess_types = TRUE,
                            control, ...,
                            verbose = FALSE){
   ids <- sf_input_data_validation(ids, operation='delete')
@@ -205,9 +211,12 @@ sf_delete_rest <- function(ids,
     response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     resultset <- c(resultset, response_parsed)
   }
+
   resultset <- resultset %>%
     map_df(flatten_tbl_df) %>%
-    type_convert(col_types = cols(.default = col_guess()))
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)
+  
   return(resultset)
 }
 
@@ -229,7 +238,6 @@ sf_delete_bulk_v1 <- function(ids,
                                  verbose = verbose)
   return(resultset)  
 }
-
 
 #' Delete records using Bulk 2.0 API
 #' 

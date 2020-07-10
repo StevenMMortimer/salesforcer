@@ -7,6 +7,7 @@
 #' @template object_name
 #' @template external_id_fieldname
 #' @template api_type
+#' @template guess_types
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_bulk_operation}}
@@ -37,6 +38,7 @@ sf_upsert <- function(input_data,
                       object_name,
                       external_id_fieldname,
                       api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
+                      guess_types = TRUE,
                       control = list(...), ...,
                       verbose = FALSE){
   
@@ -64,12 +66,14 @@ sf_upsert <- function(input_data,
     resultset <- sf_upsert_soap(input_data = input_data, 
                                 object_name = object_name,
                                 external_id_fieldname = external_id_fieldname,
+                                guess_types = guess_types,
                                 control = control_args,
                                 verbose = verbose)
   } else if(api_type == "REST"){
     resultset <- sf_upsert_rest(input_data = input_data, 
                                 object_name = object_name,
                                 external_id_fieldname = external_id_fieldname,
+                                guess_types = guess_types,
                                 control = control_args,
                                 verbose = verbose)
   } else if(api_type == "Bulk 1.0"){
@@ -85,7 +89,7 @@ sf_upsert <- function(input_data,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else {
-    stop("Unknown API type")
+    catch_unknown_api(api_type)
   }
   return(resultset)
 }
@@ -104,6 +108,7 @@ sf_upsert <- function(input_data,
 sf_upsert_soap <- function(input_data, 
                            object_name, 
                            external_id_fieldname,
+                           guess_types = TRUE,
                            control, ...,
                            verbose = FALSE){
   
@@ -156,7 +161,7 @@ sf_upsert_soap <- function(input_data,
   
   resultset <- resultset %>% 
     sf_reorder_cols() %>% 
-    sf_guess_cols()
+    sf_guess_cols(guess_types)
   
   return(resultset)
 }
@@ -173,6 +178,7 @@ sf_upsert_soap <- function(input_data,
 sf_upsert_rest <- function(input_data, 
                            object_name, 
                            external_id_fieldname, 
+                           guess_types = TRUE,
                            control, ...,
                            verbose = FALSE){
   
@@ -236,8 +242,11 @@ sf_upsert_rest <- function(input_data,
       map_df(~flatten_tbl_df(.x$result))
     resultset <- bind_rows(resultset, response_parsed)
   }
-  resultset <- resultset %>%
-    type_convert(col_types = cols(.default = col_guess()))
+
+  resultset <- resultset %>% 
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)  
+  
   return(resultset)
 } 
 

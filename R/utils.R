@@ -347,7 +347,7 @@ remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
       )
     }
   } else {
-    stop("Unknown API type")
+    catch_unknown_api(api_type)
   }
   return(dat)
 }
@@ -405,6 +405,34 @@ make_verbose_httr_message <- function(method,
   }
   
   return(invisible(NULL))
+}
+
+#' Catch unknown API type
+#' 
+#' This function will alert the user that the supplied value to the argument 
+#' \code{api_type} is not one of the valid options.
+#' 
+#' @param x \code{character}; The value of the \code{api_type} argument provided 
+#' by the user.
+#' @return \code{simpleError}
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+catch_unknown_api <- function(x, supported=c(character(0))){
+  if(x %in% c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0")){
+    if(length(supported) > 0){
+      stop(sprintf(paste0("The %s API is not supported for this function.\n",
+                          "Please use one of the following:\n  - %s"), 
+                   x, paste0(supported, collapse="\n  - ")), 
+           call. = FALSE)    
+    } else {
+      stop(sprintf("The %s API is not supported for this function.", x), 
+           call. = FALSE)
+    }
+  } else {
+    stop(sprintf("Unknown API. The `api_type` argument was set to: %s", x), 
+         call. = FALSE)
+  }
 }
 
 #' List a vector of errors and stop execution

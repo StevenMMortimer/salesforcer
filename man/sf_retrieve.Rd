@@ -9,6 +9,7 @@ sf_retrieve(
   fields,
   object_name,
   api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+  guess_types = TRUE,
   control = list(...),
   ...,
   verbose = FALSE
@@ -28,6 +29,13 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
 making the request.}
+
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the recordset. If \code{TRUE} then 
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
+as character. This is helpful when \code{col_guess()} will mangle field values 
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+like numeric looking values that must be preserved as strings ("48.0").}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of 
 the API call being used. For more information of what parameters are available 

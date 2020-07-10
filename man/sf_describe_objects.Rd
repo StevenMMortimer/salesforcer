@@ -42,5 +42,10 @@ Describes the individual metadata for the specified object.
 account_metadata <- sf_describe_objects("Account")
 account_metadata_SOAP <- sf_describe_objects("Account", api_type="SOAP")
 multiple_objs_metadata <- sf_describe_objects(c("Contact", "Lead"))
+
+account_metadata_REST <- sf_describe_objects("Account", api_type="REST")
 }
+}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_describe.htm}{REST API Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_describe.htm}{REST API Example}
 }

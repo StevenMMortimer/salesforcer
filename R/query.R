@@ -14,6 +14,8 @@
 #' @param next_records_url \code{character} (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template bind_using_character_cols
+#' @template object_name_append
+#' @template object_name_as_col
 #' @template verbose
 #' @return \code{tbl_df} of records
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -41,6 +43,8 @@ sf_query <- function(soql,
                      control = list(...), ...,
                      next_records_url = NULL,
                      bind_using_character_cols = FALSE,
+                     object_name_append = FALSE,
+                     object_name_as_col = FALSE,
                      verbose = FALSE){
   
   api_type <- match.arg(api_type)
@@ -66,6 +70,8 @@ sf_query <- function(soql,
                                control = control_args,
                                next_records_url = next_records_url,
                                bind_using_character_cols = bind_using_character_cols,
+                               object_name_append = object_name_append,
+                               object_name_as_col = object_name_as_col,
                                verbose = verbose)
   } else if(api_type == "SOAP"){
     resultset <- sf_query_soap(soql = soql,
@@ -75,26 +81,40 @@ sf_query <- function(soql,
                                control = control_args,
                                next_records_url = next_records_url,
                                bind_using_character_cols = bind_using_character_cols,
+                               object_name_append = object_name_append,
+                               object_name_as_col = object_name_as_col,
                                verbose = verbose)
-  } else if(api_type == "Bulk 1.0"){
-    if(is.null(object_name)){
-      object_name <- guess_object_name_from_soql(soql)
+  } else if(api_type == "Bulk 1.0" | api_type == "Bulk 2.0"){
+    if(object_name_append){
+      message(paste0("The `object_name_append` argument is set to `TRUE`, ", 
+                     "but will be ignored. Only applicable when ", 
+                     "`api_type`='SOAP' or 'REST'."))
     }
-    resultset <- sf_query_bulk_v1(soql = soql,
-                                  object_name = object_name,
-                                  queryall = queryall,
-                                  guess_types = guess_types,
-                                  control = control_args,
-                                  verbose = verbose, ...)
-  } else if(api_type == "Bulk 2.0"){
-    resultset <- sf_query_bulk_v2(soql = soql,
-                                  object_name = object_name,
-                                  queryall = queryall,
-                                  guess_types = guess_types,
-                                  control = control_args,
-                                  verbose = verbose, ...)
+    if(object_name_as_col){
+      message(paste0("The `object_name_as_col` argument is set to `TRUE`, ", 
+                     "but will be ignored. Only applicable when ", 
+                     "`api_type`='SOAP' or 'REST'."))
+    }
+    if(api_type == "Bulk 1.0"){
+      if(is.null(object_name)){
+        object_name <- guess_object_name_from_soql(soql)
+      }
+      resultset <- sf_query_bulk_v1(soql = soql,
+                                    object_name = object_name,
+                                    queryall = queryall,
+                                    guess_types = guess_types,
+                                    control = control_args,
+                                    verbose = verbose, ...)
+    } else {    
+      resultset <- sf_query_bulk_v2(soql = soql,
+                                    object_name = object_name,
+                                    queryall = queryall,
+                                    guess_types = guess_types,
+                                    control = control_args,
+                                    verbose = verbose, ...)
+    }
   } else {
-    stop("Unknown API type.")
+    catch_unknown_api(api_type)
   }
   return(resultset)
 }
@@ -109,6 +129,8 @@ sf_query_rest <- function(soql,
                           control = list(),
                           next_records_url = NULL,
                           bind_using_character_cols = FALSE,
+                          object_name_append = FALSE, 
+                          object_name_as_col = FALSE,
                           verbose = FALSE){
   
   control <- filter_valid_controls(control)
@@ -158,37 +180,27 @@ sf_query_rest <- function(soql,
                 drop_empty_recursively() %>% 
                 unlist()
               
-              child_records <- x %>% 
-                map(pluck("records")) %>%  
-                map(~drop_attributes(.x, object_name_append = TRUE)) %>%
-                drop_attributes_recursively() %>% 
-                drop_empty_recursively() %>% 
-                map_df(flatten_tbl_df)
-              
+              child_records <- extract_nested_child_records(x)
               # drop the nested child query result node from each parent record
-              x <- x %>% 
-                modify(.f = function(x){
-                  if(all(c("records", "totalSize", "done") %in% names(x))) NULL else x
-                })
+              x <- drop_nested_child_records(x)
               
               # now work forward with x containing only the parent record
               # we wrap with list() so that drop_attributes will pull off from the top level
-              parent_record <- list(x) %>% 
-                drop_attributes_recursively() %>% 
-                drop_empty_recursively() %>% 
-                map_df(flatten_tbl_df)
+              parent_record <- records_list_to_tbl(list(x))
               
               if(!is.null(query_locator) && query_locator != ''){
                 next_child_recs <- sf_query_rest(next_records_url = query_locator,
                                                  object_name = object_name,
                                                  queryall = queryall,
                                                  guess_types = FALSE,
-                                                 bind_using_character_cols = bind_using_character_cols,
                                                  control = control,
+                                                 bind_using_character_cols = bind_using_character_cols,
+                                                 object_name_append = TRUE,
+                                                 object_name_as_col = object_name_as_col, 
                                                  verbose = verbose)
                 child_records <- bind_rows(child_records, next_child_recs)
               }
-              y <- combine_parent_and_child_resultsets(parent_record, child_records) 
+              y <- combine_parent_and_child_resultsets(parent_record, child_records)
             } else {
               y <- list_extract_parent_and_child_result(x)
             }
@@ -201,7 +213,7 @@ sf_query_rest <- function(soql,
       }
     } else {
       resultset <- response_parsed$records %>% 
-        records_list_to_tbl()
+        records_list_to_tbl(object_name_append, object_name_as_col)
     }
   } else {
     resultset <- tibble()
@@ -224,6 +236,8 @@ sf_query_rest <- function(soql,
                                   guess_types = FALSE,
                                   control = control,
                                   bind_using_character_cols = bind_using_character_cols,
+                                  object_name_append = object_name_append,
+                                  object_name_as_col = object_name_as_col,
                                   verbose = verbose)
     resultset <- bind_query_resultsets(resultset, next_records)
   }
@@ -246,6 +260,8 @@ sf_query_soap <- function(soql,
                           control = list(),
                           next_records_url = NULL,
                           bind_using_character_cols = FALSE,
+                          object_name_append = FALSE,
+                          object_name_as_col = FALSE,
                           verbose = FALSE){
   
   control <- filter_valid_controls(control)
@@ -310,8 +326,10 @@ sf_query_soap <- function(soql,
                                              object_name = object_name,
                                              queryall = queryall,
                                              guess_types = FALSE,
-                                             bind_using_character_cols = bind_using_character_cols,
                                              control = control,
+                                             bind_using_character_cols = bind_using_character_cols,
+                                             object_name_append = TRUE,
+                                             object_name_as_col = object_name_as_col,
                                              verbose = verbose)
             child_records <- bind_rows(child_records, next_child_recs)
           }
@@ -326,7 +344,25 @@ sf_query_soap <- function(soql,
         map_df(xml_extract_parent_and_child_result)
     }
   } else {
-    resultset <- extract_records_from_xml_nodeset_of_records(resultset)
+    if(object_name_append | object_name_as_col){
+      obj_name <- resultset %>% 
+        xml_find_first('.//sf:type') %>% 
+        xml_text() %>% 
+        unique()
+      # if not able to parse correctly then set to null
+      if(is.null(obj_name) || is.na(obj_name) || obj_name == ""){
+        obj_name <- NULL
+      }      
+      if(length(obj_name) > 1){
+        stop("Detected multiple object types in the recordset and the query is not nested.")
+      }
+    } else {
+      obj_name <- NULL
+    }
+    resultset <- resultset %>% 
+      extract_records_from_xml_nodeset_of_records(object_name = obj_name, 
+                                                  object_name_append, 
+                                                  object_name_as_col)
   }
   
   # NOTE: Because of the way that XML data is returned it is not clear the datatype
@@ -354,6 +390,8 @@ sf_query_soap <- function(soql,
                                   guess_types = FALSE,
                                   control = control,
                                   bind_using_character_cols = bind_using_character_cols,
+                                  object_name_append = object_name_append,
+                                  object_name_as_col = object_name_as_col,
                                   verbose = verbose)
     resultset <- bind_query_resultsets(resultset, next_records)
   }

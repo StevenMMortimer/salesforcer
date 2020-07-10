@@ -9,11 +9,16 @@ common_report_instance <- sf_report_execute(common_report_id, async=FALSE)
 test_that("testing sf_reports_list()", {
   # as_tbl=TRUE
   reports_tbl <- sf_reports_list()
-  expect_is(report_instances_tbl, "tbl_df")
+  expect_is(reports_tbl, "tbl_df")
   expect_true(common_report_id %in% reports_tbl$id)  
   # as_tbl=FALSE
   reports_list <- sf_reports_list(as_tbl=FALSE)
   expect_is(reports_list, "list")
+  
+  # complete=TRUE
+  reports_tbl <- sf_reports_list(complete=TRUE)
+  expect_is(reports_tbl, "tbl_df")
+  expect_true(common_report_id %in% reports_tbl$id) 
 })
 
 test_that("testing sf_report_describe()", {

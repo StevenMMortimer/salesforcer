@@ -9,6 +9,7 @@
 #' on the records
 #' @template object_name
 #' @template api_type
+#' @template guess_types
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
@@ -28,6 +29,7 @@ sf_retrieve <- function(ids,
                         fields,
                         object_name,
                         api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
+                        guess_types = TRUE,
                         control = list(...), ...,
                         verbose = FALSE){
   
@@ -39,12 +41,14 @@ sf_retrieve <- function(ids,
     resultset <- sf_retrieve_rest(ids = ids, 
                                   fields = fields, 
                                   object_name = object_name,
+                                  guess_types = guess_types,
                                   control = control_args, ...,
                                   verbose = verbose)
   } else if(api_type == "SOAP"){
     resultset <- sf_retrieve_soap(ids = ids, 
                                   fields = fields, 
                                   object_name = object_name,
+                                  guess_types = guess_types,
                                   control = control_args, ...,
                                   verbose = verbose) 
   } else if(api_type == "Bulk 1.0"){
@@ -72,6 +76,7 @@ sf_retrieve <- function(ids,
 sf_retrieve_soap <- function(ids,
                              fields,
                              object_name,
+                             guess_types = TRUE,
                              control, ...,
                              verbose = FALSE){
   
@@ -126,7 +131,7 @@ sf_retrieve_soap <- function(ids,
   
   resultset <- resultset %>% 
     sf_reorder_cols() %>% 
-    sf_guess_cols()
+    sf_guess_cols(guess_types)
   
   return(resultset)
 }
@@ -143,6 +148,7 @@ sf_retrieve_soap <- function(ids,
 sf_retrieve_rest <- function(ids,
                              fields,
                              object_name,
+                             guess_types = TRUE,
                              control, ...,
                              verbose = FALSE){
   
@@ -185,9 +191,11 @@ sf_retrieve_rest <- function(ids,
     response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     resultset <- c(resultset, response_parsed)
   }
+  
   resultset <- resultset %>%
     map_df(flatten_tbl_df) %>%
-    select(any_of(unique(c("Id", fields)))) %>% 
-    type_convert(col_types = cols(.default = col_guess()))
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)
+  
   return(resultset)
 }

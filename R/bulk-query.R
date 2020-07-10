@@ -494,7 +494,7 @@ sf_query_bulk_v2 <- function(soql,
     Sys.sleep(interval_seconds)
     query_status <- sf_get_job_bulk(job_info$id, api_type=api_type, query_operation=TRUE) 
     if(query_status$state == 'Failed'){
-      stop(query_status$stateMessage)
+      stop(query_status$errorMessage)
     } else if(query_status$state == "JobComplete"){
       status_complete <- TRUE
     } else {

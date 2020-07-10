@@ -14,6 +14,8 @@ sf_query(
   ...,
   next_records_url = NULL,
   bind_using_character_cols = FALSE,
+  object_name_append = FALSE,
+  object_name_as_col = FALSE,
   verbose = FALSE
 )
 }
@@ -30,8 +32,11 @@ that have been deleted because of a merge or delete. Setting this argument to
 It is available in API versions 29.0 and later.}
 
 \item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the query recordset. \code{TRUE} uses 
-\code{col_guess()} and \code{FALSE} returns all values as character strings.}
+to try and cast the data returned in the recordset. If \code{TRUE} then 
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
+as character. This is helpful when \code{col_guess()} will mangle field values 
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+like numeric looking values that must be preserved as strings ("48.0").}
 
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
@@ -53,6 +58,12 @@ does not fail because two paginated recordsets have differing datatypes for the
 same column. Set this to \code{TRUE} rarely, typically only when having this 
 set to \code{FALSE} returns an error or you want all columns in the data to be 
 character.}
+
+\item{object_name_append}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).}
+
+\item{object_name_as_col}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as a new column.}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional 
 detail for each API call, which is useful for debugging. More specifically, when 

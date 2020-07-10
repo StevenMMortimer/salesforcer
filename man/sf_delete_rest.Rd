@@ -4,7 +4,14 @@
 \alias{sf_delete_rest}
 \title{Delete records using REST API}
 \usage{
-sf_delete_rest(ids, object_name, control, ..., verbose = FALSE)
+sf_delete_rest(
+  ids,
+  object_name = NULL,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Delete records using REST API

@@ -57,7 +57,7 @@ sf_user_info <- function(api_type=c("SOAP", "Chatter"), verbose=FALSE){
     this_res <- content(httr_response, encoding='UTF-8')
     
   } else {
-    stop("Unknown API type")
+    catch_unknown_api(api_type)
   }
   return(this_res)
 }
