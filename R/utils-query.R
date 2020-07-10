@@ -234,10 +234,7 @@ xml_drop_and_unlist_recursively <- function(x) {
 #' Pulls out a tibble of record info from an XML node
 #' 
 #' This function accepts an \code{xml_node} assuming it already represents one 
-#' record and formats that node into a single row \code{tbl_df}. This differs from 
-#' \code{\link{extract_records_from_single_node_nodeset}} in that it assumes the node already 
-#' represents a single record instead of multiple records as in the case 
-#' of a child node.
+#' record and formats that node into a single row \code{tbl_df}.
 #' 
 #' @importFrom dplyr mutate_all as_tibble
 #' @importFrom tibble as_tibble_row

@@ -186,7 +186,7 @@ sf_query_rest <- function(soql,
                                                  bind_using_character_cols = bind_using_character_cols,
                                                  control = control,
                                                  verbose = verbose)
-                child_records <- bind_rows(child_records, next_child_records)
+                child_records <- bind_rows(child_records, next_child_recs)
               }
               y <- combine_parent_and_child_resultsets(parent_record, child_records) 
             } else {
@@ -306,14 +306,14 @@ sf_query_soap <- function(soql,
           invisible(x %>% xml_find_all(".//*[@xsi:type='QueryResult']") %>% xml_remove())
           parent_record <- extract_records_from_xml_node(x)
           if(!is.na(query_locator) && query_locator != ''){
-            next_child_records <- sf_query_soap(next_records_url = query_locator,
-                                                object_name = object_name,
-                                                queryall = queryall,
-                                                guess_types = FALSE,
-                                                bind_using_character_cols = bind_using_character_cols,
-                                                control = control,
-                                                verbose = verbose)
-            child_records <- bind_rows(child_records, next_child_records)
+            next_child_recs <- sf_query_soap(next_records_url = query_locator,
+                                             object_name = object_name,
+                                             queryall = queryall,
+                                             guess_types = FALSE,
+                                             bind_using_character_cols = bind_using_character_cols,
+                                             control = control,
+                                             verbose = verbose)
+            child_records <- bind_rows(child_records, next_child_recs)
           }
           y <- combine_parent_and_child_resultsets(parent_record, child_records) 
         } else {

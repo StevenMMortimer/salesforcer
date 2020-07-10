@@ -24,10 +24,7 @@ extract_records_from_xml_node(
 }
 \description{
 This function accepts an \code{xml_node} assuming it already represents one 
-record and formats that node into a single row \code{tbl_df}. This differs from 
-\code{\link{extract_records_from_single_node_nodeset}} in that it assumes the node already 
-represents a single record instead of multiple records as in the case 
-of a child node.
+record and formats that node into a single row \code{tbl_df}.
 }
 \note{
 This function is meant to be used internally. Only use when debugging.
