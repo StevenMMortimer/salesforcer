@@ -118,13 +118,16 @@ sf_retrieve_soap <- function(ids,
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
-      map_df(extract_records_from_xml_node2) %>% 
+      map_df(extract_records_from_xml_node) %>% 
       # ignore record ids that could not be matched
       filter(across(any_of("Id"), ~!is.na(.x)))
     resultset <- bind_rows(resultset, this_set)
   }
+  
   resultset <- resultset %>% 
-    type_convert(col_types = cols(.default = col_guess()))
+    sf_reorder_cols() %>% 
+    sf_guess_cols()
+  
   return(resultset)
 }
 
@@ -183,7 +186,7 @@ sf_retrieve_rest <- function(ids,
     resultset <- c(resultset, response_parsed)
   }
   resultset <- resultset %>%
-    map_df(flatten_to_tbl_df) %>%
+    map_df(flatten_tbl_df) %>%
     select(any_of(unique(c("Id", fields)))) %>% 
     type_convert(col_types = cols(.default = col_guess()))
   return(resultset)

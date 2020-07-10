@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract tibble of a parent-child record from one node — list_extract_parent_and_child_result • salesforcer</title>
+<title>Extract tibble of a parent-child record from one JSON element — list_extract_parent_and_child_result • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Extract tibble of a parent-child record from one node — list_extract_parent_and_child_result" />
+<meta property="og:title" content="Extract tibble of a parent-child record from one JSON element — list_extract_parent_and_child_result" />
 <meta property="og:description" content="This function accepts a list representing the result of an individual parent 
 recordset from a nested parent-child query where there are zero or more child 
 records to be joined to the parent. In this case the child and parent will be 
@@ -177,7 +177,7 @@ that parent record." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract tibble of a parent-child record from one node</h1>
+    <h1>Extract tibble of a parent-child record from one JSON element</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
     <div class="hidden name"><code>list_extract_parent_and_child_result.Rd</code></div>
     </div>
@@ -197,11 +197,19 @@ that parent record.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>list</code>; list of records parsed from response representing 
-one individual parent query record</p></td>
+      <td><p><code>list</code>; list of records parsed from JSON representing one 
+individual parent query record.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>tbl_df</code>; a data frame with each row representing a parent-child 
+record (i.e. at least one row per parent or more if cross joined with more 
+than one child record).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>This function is meant to be used internally. Only use when debugging.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

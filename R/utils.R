@@ -362,7 +362,7 @@ guess_object_name_from_soql <- function(soql){
   if(is.null(object_name)){
     stop("The `object_name` argument is NULL. This argument must be provided when using the Bulk APIs.")
   }
-  message(sprintf(paste0("Guessed '%s' as the object_name from supplied SOQL.\n\n", 
+  message(sprintf(paste0("Guessed '%s' as the object_name from supplied SOQL.\n", 
                          "Please set `object_name` explicity if this is incorrect ", 
                          "because it is required by the Bulk APIs."), object_name))
   return(object_name)
@@ -459,6 +459,26 @@ warn_w_errors_listed <- function(main_text=NULL, errors=NULL){
   } else {
     warning(main_text, call.=FALSE)
   }
+}
+
+#' List a vector of issues and in a message
+#' 
+#' @param main_text \code{character}; The text used to introduce the list of 
+#' errors, typically ending with a colon. For example: \code{"Consider fixing the 
+#' following issue(s):"}.
+#' @param errors \code{errors}; a vector of issues that will be formatted into 
+#' a bulleted list for the user to review with each issue listed on a new line.
+#' @return \code{NULL} invisibly
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+message_w_errors_listed <- function(main_text = "Consider the following:", 
+                                    errors = NULL){
+  if(!is.null(errors)){
+    message(sprintf(paste0(trimws(main_text), "\n  - %s"), 
+                    paste0(errors, collapse="\n  - ")))
+  }
+  return(invisible(NULL))
 }
 
 #' Execute a non-paginated REST API call to list items

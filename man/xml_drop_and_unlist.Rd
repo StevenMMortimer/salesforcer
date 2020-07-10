@@ -2,18 +2,21 @@
 % Please edit documentation in R/utils-query.R
 \name{xml_drop_and_unlist}
 \alias{xml_drop_and_unlist}
-\title{Drop Id and type metadata present on every queried record and unlist}
+\title{Drop \code{type} and \code{Id} attributes on XML queried records and unlist}
 \usage{
 xml_drop_and_unlist(x)
 }
 \arguments{
-\item{x}{\code{list}; a list of \code{xml_node} from an xml2 parsed response}
+\item{x}{\code{list}; a list of xml content parsed into a list by xml2}
 }
 \description{
 This function will detect if there are metadata fields returned by the SOAP 
-API XML from \code{sf_query} and remove them as well as unlisting (not recursively)
+API XML from \code{\link{sf_query}} and remove them as well as unlisting (not recursively)
 to unnest the record's values. Only tested on two-level child-to-parent relationships. 
 For example, for every Contact (child) record return attributes from the 
 Account (parent) as well (SOQL = "SELECT Name, Account.Name FROM Contact")
+}
+\note{
+This function is meant to be used internally. Only use when debugging.
 }
 \keyword{internal}

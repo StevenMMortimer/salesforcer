@@ -48,8 +48,11 @@ test_that("testing Bulk 1.0 Functionality", {
   queried_records <- sf_query(soql=my_soql, object_name=object, api_type="Bulk 1.0")
   expect_is(queried_records, "tbl_df")
   expect_equal(lapply(queried_records, class), 
-               list(Id="character", FirstName="character", LastName="character", 
-                    My_External_Id__c="character", test_number__c="numeric"))
+               list(Id = "character", 
+                    FirstName = "character", 
+                    LastName = "character", 
+                    My_External_Id__c = "character", 
+                    test_number__c = "numeric"))
   expect_equal(nrow(queried_records), n)
   
   # test the column force to all character
@@ -59,8 +62,11 @@ test_that("testing Bulk 1.0 Functionality", {
                                api_type = "Bulk 1.0")
   expect_is(queried_records2, "tbl_df")
   expect_equal(lapply(queried_records2, class), 
-               list(Id="character", FirstName="character", LastName="character", 
-                    My_External_Id__c="character", test_number__c="character"))
+               list(Id = "character", 
+                    FirstName = "character", 
+                    LastName = "character", 
+                    My_External_Id__c = "character", 
+                    test_number__c = "character"))
   
   # test query that returns nothing
   queried_records3 <- sf_query(soql = "SELECT Id FROM Contact WHERE FirstName='ZZZYYYXXX'", 

@@ -59,7 +59,7 @@ sf_report_filter_operators_list <- function(as_tbl=TRUE, verbose=FALSE){
   this_url <- make_report_filter_operators_list_url()
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   if(as_tbl){
-    resultset <- lapply(resultset, FUN=function(x){x %>% map_df(flatten_to_tbl_df)})
+    resultset <- lapply(resultset, FUN=function(x){x %>% map_df(flatten_tbl_df)})
     resultset <- bind_rows(resultset, .id="supported_field_type")
   }
   return(resultset)
@@ -456,16 +456,12 @@ sf_report_delete <- function(report_id, verbose=FALSE){
 sf_report_fields <- function(report_id, 
                              intersect_with = c(character(0)),
                              verbose=FALSE){
-  this_url <- make_report_fields_url(report_id)
   
-  if(length(intersect_with) > 0){
-    request_body <- list(intersectWith=intersect_with)
-    httr_response <- rPOST(url = this_url, 
-                           body = request_body, 
-                           encode = "json")    
-  } else {
-    httr_response <- rPOST(url = this_url)
-  }
+  this_url <- make_report_fields_url(report_id)
+  request_body <- list(intersectWith=I(intersect_with))
+  httr_response <- rPOST(url = this_url, 
+                         body = request_body, 
+                         encode = "json")
   
   if(verbose){
     make_verbose_httr_message(httr_response$request$method, 
@@ -656,7 +652,7 @@ sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
   if(as_tbl){
     resultset <- resultset %>% 
       set_null_elements_to_na_recursively() %>%
-      map_df(flatten_to_tbl_df) %>% 
+      map_df(flatten_tbl_df) %>% 
       mutate(across(any_of(c("completionDate", "requestDate")), 
                     ~parse_datetime(as.character(.x)))) %>% 
       type_convert(col_types = cols(.default = col_guess())) %>% 

@@ -11,7 +11,8 @@ extract_records_from_xml_nodeset_of_records(
 )
 }
 \arguments{
-\item{x}{\code{xml_nodeset}; nodeset to have records extracted into a \code{tbl_df}}
+\item{x}{\code{xml_nodeset}; nodeset to have records extracted into a 
+\code{tbl_df}.}
 
 \item{object_name}{\code{character}; a list of character strings to pre-pend
 to each variable name in the event that we would like to tag the fields with 

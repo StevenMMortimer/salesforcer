@@ -92,10 +92,12 @@ test_that("testing sf_convert_lead()", {
                        doNotCreateOpportunity = TRUE)
   converted_lead <- sf_convert_lead(to_convert)
   expect_is(converted_lead, "tbl_df")
-  expect_named(converted_lead, c("accountId", "contactId", "leadId", 
-                                 "opportunityId", "success"))
+  expect_named(converted_lead, c("success", 
+                                 "accountId", 
+                                 "contactId", 
+                                 "leadId"))
   # delete the lead
-  sf_delete(rec$id)
+  invisible(sf_delete(rec$id))
 })
 
 test_that("testing sf_merge()", {

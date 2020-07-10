@@ -143,14 +143,14 @@ sf_create_soap <- function(input_data,
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
-      map_df(extract_records_from_xml_node2)
+      map_df(extract_records_from_xml_node)
     resultset <- bind_rows(resultset, this_set)
   }
-  resultset <- resultset %>%
-    select(any_of(c("id", "success", "created", 
-                    "errors.statusCode", "errors.message")), 
-           everything()) %>% 
-    type_convert(col_types = cols(.default = col_guess()))
+  
+  resultset <- resultset %>% 
+    sf_reorder_cols() %>% 
+    sf_guess_cols()
+  
   return(resultset)
 }
 
@@ -227,7 +227,7 @@ sf_create_rest <- function(input_data,
     resultset <- c(resultset, response_parsed)
   }
   resultset <- resultset %>%
-    map_df(flatten_to_tbl_df) %>%
+    map_df(flatten_tbl_df) %>%
     type_convert(col_types = cols(.default = col_guess()))
   return(resultset)
 }

@@ -150,14 +150,14 @@ sf_upsert_soap <- function(input_data,
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
-      map_df(extract_records_from_xml_node2)
+      map_df(extract_records_from_xml_node)
     resultset <- bind_rows(resultset, this_set)
   }
-  resultset <- resultset %>%
-    select(any_of(c("id", "success", "created", 
-                    "errors.statusCode", "errors.message")), 
-           everything()) %>%     
-    type_convert(col_types = cols(.default = col_guess()))
+  
+  resultset <- resultset %>% 
+    sf_reorder_cols() %>% 
+    sf_guess_cols()
+  
   return(resultset)
 }
 
@@ -233,7 +233,7 @@ sf_upsert_rest <- function(input_data,
     catch_errors(httr_response)
     response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     response_parsed <- response_parsed$results %>%
-      map_df(~flatten_to_tbl_df(.$result))
+      map_df(~flatten_tbl_df(.x$result))
     resultset <- bind_rows(resultset, response_parsed)
   }
   resultset <- resultset %>%

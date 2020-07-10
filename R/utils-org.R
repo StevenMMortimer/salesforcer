@@ -306,7 +306,7 @@ sf_list_objects <- function(){
 #' \dontrun{
 #' # use the duplicate rules associated with the Lead object on the search 
 #' # criteria (email) in order to find duplicates
-#' found_dupes <- sf_find_duplicates(search_criteria = 
+#' found_dupes <- sf_find_duplicates(search_criteria =
 #'                                     list(Email="bond_john@@grandhotels.com"),
 #'                                   object_name = "Lead")
 #'                                   
@@ -327,7 +327,6 @@ sf_find_duplicates <- function(search_criteria,
     message(base_soap_url)
   }
   
-  # build the body
   r <- make_soap_xml_skeleton(soap_headers =
                                 list(DuplicateRuleHeader = 
                                        list(includeRecordDetails = 
@@ -338,7 +337,7 @@ sf_find_duplicates <- function(search_criteria,
                                       root = r)
 
   httr_response <- rPOST(url = base_soap_url,
-                         headers = c("SOAPAction"="create",
+                         headers = c("SOAPAction"="findDuplicates",
                                      "Content-Type"="text/xml"),
                          body = as(xml_dat, "character"))
   catch_errors(httr_response)
@@ -356,10 +355,10 @@ sf_find_duplicates <- function(search_criteria,
     xml_find_all('.//result') %>%
     xml_find_all('.//duplicateResults//duplicateRule') %>%
     map(xml_text) %>% 
-    unlist() %>% 
-    paste(collapse = ", ")
+    unlist()
   
-  message(sprintf("Using %s rules: %s", duplicate_entitytype, which_rules))
+  message_w_errors_listed(main_text = sprintf("Using %s rules:", duplicate_entitytype), 
+                          errors = which_rules)
   
   this_res <- response_parsed %>%
     xml_ns_strip() %>%
@@ -368,17 +367,10 @@ sf_find_duplicates <- function(search_criteria,
   
   if(length(this_res) > 0){
     resultset <- this_res %>%
-      map_df(extract_records_from_xml_node2, 
-             object_name_as_col=TRUE) %>% 
-      # sort column names ...
-      select(sort(names(.))) %>% 
-      # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("sObject", "Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
-    # cast the types if requested
-    if (guess_types){  
-      resultset <- resultset %>% 
-        type_convert(col_types = cols(.default = col_guess()))
-    }     
+      map_df(extract_records_from_xml_node, 
+             object_name_as_col = TRUE) %>%
+      sf_reorder_cols() %>% 
+      sf_guess_cols(guess_types)
   } else {
     resultset <- tibble()
   }
@@ -426,12 +418,15 @@ sf_find_duplicates_by_id <- function(sf_id,
   }
   
   # build the body
-  r <- make_soap_xml_skeleton(soap_headers=list(DuplicateRuleHeader = list(includeRecordDetails = tolower(include_record_details))))
+  r <- make_soap_xml_skeleton(soap_headers = 
+                                list(DuplicateRuleHeader = 
+                                       list(includeRecordDetails = 
+                                              tolower(include_record_details))))
   xml_dat <- build_soap_xml_from_list(input_data = sf_id,
                                       operation = "findDuplicatesByIds",
                                       root = r)
   httr_response <- rPOST(url = base_soap_url,
-                         headers = c("SOAPAction"="create",
+                         headers = c("SOAPAction"="findDuplicatesByIds",
                                      "Content-Type"="text/xml"),
                          body = as(xml_dat, "character"))
   catch_errors(httr_response)
@@ -449,10 +444,10 @@ sf_find_duplicates_by_id <- function(sf_id,
     xml_find_all('.//result') %>%
     xml_find_all('.//duplicateResults//duplicateRule') %>%
     map(xml_text) %>% 
-    unlist() %>% 
-    paste(collapse = ", ")
+    unlist()
   
-  message(sprintf("Using %s rules: %s", duplicate_entitytype, which_rules))
+  message_w_errors_listed(main_text = sprintf("Using %s rules:", duplicate_entitytype), 
+                          errors = which_rules)
   
   this_res <- response_parsed %>%
     xml_ns_strip() %>%
@@ -461,21 +456,14 @@ sf_find_duplicates_by_id <- function(sf_id,
   
   if(length(this_res) > 0){
     resultset <- this_res %>%
-      map_df(extract_records_from_xml_node2, 
-             object_name_as_col=TRUE) %>% 
-      # sort column names ...
-      select(sort(names(.))) %>% 
-      # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("sObject", "Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
-    # cast the types if requested
-    if (guess_types){  
-      resultset <- resultset %>% 
-        type_convert(col_types = cols(.default = col_guess()))
-    }
+      map_df(extract_records_from_xml_node, 
+             object_name_as_col = TRUE) %>%
+        sf_reorder_cols() %>% 
+        sf_guess_cols(guess_types)
   } else {
     resultset <- tibble()
   }
-
+  
   return(resultset)
 }
 
@@ -494,6 +482,7 @@ sf_find_duplicates_by_id <- function(sf_id,
 #' \code{tbl_df}; data can be coerced into a \code{data.frame}. See the details 
 #' below on how format your input data to control things like whether an opportunity 
 #' will be created, an email will be sent to the new owner, and other control options.
+#' @template guess_types
 #' @template api_type
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
@@ -565,7 +554,8 @@ sf_find_duplicates_by_id <- function(sf_id,
 #' }
 #' @export
 sf_convert_lead <- function(input_data, 
-                            api_type = c("SOAP"), 
+                            guess_types = TRUE,
+                            api_type = c("SOAP"),
                             control = list(...), ...,
                             verbose = FALSE){
   
@@ -573,7 +563,8 @@ sf_convert_lead <- function(input_data,
   input_data <- sf_input_data_validation(operation='convertLead', input_data)
   
   # specify the following defaults (all FALSE by default), if not included
-  expected_options <- c("doNotCreateOpportunity", "overwriteLeadSource", 
+  expected_options <- c("doNotCreateOpportunity", 
+                        "overwriteLeadSource", 
                         "sendNotificationEmail")
   for(e in expected_options){
     if(!(e %in% names(input_data))){
@@ -623,11 +614,14 @@ sf_convert_lead <- function(input_data,
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
-      map_df(xml_nodeset_to_df)
+      map_df(extract_records_from_xml_node)
     resultset <- bind_rows(resultset, this_set)
   }
+  
   resultset <- resultset %>%
-    type_convert(col_types = cols())
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)  
+  
   return(resultset)
 }
 
@@ -691,7 +685,8 @@ sf_merge <- function(master_id,
   
   master_fields <- unlist(master_fields)
   master_fields["Id"] <- master_id
-  master_fields <- c(master_fields["Id"], master_fields[names(master_fields) != 'Id'])
+  master_fields <- c(master_fields["Id"], 
+                     master_fields[names(master_fields) != 'Id'])
 
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
@@ -717,24 +712,28 @@ sf_merge <- function(master_id,
                               request_body)
   }
   catch_errors(httr_response)
-  response_parsed <- content(httr_response, encoding="UTF-8")
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  
   this_set <- response_parsed %>%
     xml_ns_strip() %>%
-    xml_find_all('.//result') %>%
+    xml_find_all('.//result') %>% 
     # we must use XML because character elements are not automatically unboxed
     # see https://github.com/r-lib/xml2/issues/215
     map(.f=function(x){
       xmlToList(xmlParse(as(object=x, Class="character")))
-    }) %>% .[[1]]
+    }) %>% 
+    .[[1]]
   
-  res <- tibble(id = merge_null_to_na(this_set$id), 
-                success = merge_null_to_na(this_set$success),
-                mergedRecordIds = merge_null_to_na(list(unname(unlist(this_set[names(this_set) == "mergedRecordIds"])))),
-                updatedRelatedIds = merge_null_to_na(list(unname(unlist(this_set[names(this_set) == "updatedRelatedIds"])))),
-                errors = merge_null_to_na(list(this_set$errors))) %>%
-    type_convert(col_types = cols())
+  resultset <- tibble(
+      id = merge_null_to_na(this_set$id), 
+      success = merge_null_to_na(this_set$success),
+      mergedRecordIds = merge_null_to_na(list(unname(unlist(this_set[names(this_set) == "mergedRecordIds"])))),
+      updatedRelatedIds = merge_null_to_na(list(unname(unlist(this_set[names(this_set) == "updatedRelatedIds"])))),
+      errors = merge_null_to_na(list(this_set$errors))
+    ) %>%
+    type_convert(col_types = cols(.default = col_guess()))
   
-  return(res)
+  return(resultset)
 }
 
 #' Get Deleted Records from a Timeframe

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Recursively remove attributes data from list — drop_attributes_recursively • salesforcer</title>
+<title>Extract tibble of a parent-child record from one XML node — xml_extract_parent_and_child_result • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,11 +52,12 @@
 
 
 
-<meta property="og:title" content="Recursively remove attributes data from list — drop_attributes_recursively" />
-<meta property="og:description" content="This function wraps the custom drop_attributes function that removes 
-elements from Salesforce data parsed to a list where the object type and the 
-record url persists because they were attributes on the record and not  
-part of the requested information." />
+<meta property="og:title" content="Extract tibble of a parent-child record from one XML node — xml_extract_parent_and_child_result" />
+<meta property="og:description" content="This function accepts a node representing the result of an individual parent 
+recordset from a nested parent-child query where there are zero or more child 
+records to be joined to the parent. In this case the child and parent will be 
+bound together to return one complete tbl_df of the query result for 
+that parent record." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -176,47 +177,31 @@ part of the requested information." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Recursively remove attributes data from list</h1>
+    <h1>Extract tibble of a parent-child record from one XML node</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
-    <div class="hidden name"><code>drop_attributes_recursively.Rd</code></div>
+    <div class="hidden name"><code>xml_extract_parent_and_child_result.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function wraps the custom <code>drop_attributes</code> function that removes 
-elements from Salesforce data parsed to a list where the object type and the 
-record url persists because they were attributes on the record and not  
-part of the requested information.</p>
+    <p>This function accepts a node representing the result of an individual parent 
+recordset from a nested parent-child query where there are zero or more child 
+records to be joined to the parent. In this case the child and parent will be 
+bound together to return one complete <code>tbl_df</code> of the query result for 
+that parent record.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>drop_attributes_recursively</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>object_name_append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>object_name_as_col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>xml_extract_parent_and_child_result</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>list</code>; a list to be cleaned.</p></td>
-    </tr>
-    <tr>
-      <th>object_name_append</th>
-      <td><p><code>logical</code>; whether to include the object type
-(e.g. Account or Contact) as part of the column names (e.g. Account.Name).</p></td>
-    </tr>
-    <tr>
-      <th>object_name_as_col</th>
-      <td><p><code>logical</code>; whether to include the object type
-(e.g. Account or Contact) as a new column.</p></td>
+      <td><p><code>xml_node</code>; a <code>xml_node</code> from an xml2 parsed response 
+representing one individual parent query record.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>list</code> containing no 'attributes' elements with the object information 
-in the column names or the values within an object entitled <code>'sObject'</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function is meant to be used internally. Only use when debugging.</p>

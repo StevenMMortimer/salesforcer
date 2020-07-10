@@ -14,8 +14,11 @@ the query recordset, that can be joined with its corresponding child records.}
 is the same length as the number of rows in the parent_df.}
 }
 \description{
-This function accepts a \code{data.frame} with one row representing each parent record 
-returned by a query with a corresponding list element in the list of child 
-record results stored as \code{tbl_df} in a list.
+This function accepts a \code{data.frame} with one row representing each 
+parent record returned by a query with a corresponding list element in the 
+list of child record results stored as \code{tbl_df} in a list.
+}
+\note{
+This function is meant to be used internally. Only use when debugging.
 }
 \keyword{internal}

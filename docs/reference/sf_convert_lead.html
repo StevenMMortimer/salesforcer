@@ -184,6 +184,7 @@
 
     <pre class="usage"><span class='fu'>sf_convert_lead</span>(
   <span class='no'>input_data</span>,
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>),
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='no'>...</span>,
@@ -199,6 +200,12 @@
 <code>tbl_df</code>; data can be coerced into a <code>data.frame</code>. See the details 
 below on how format your input data to control things like whether an opportunity 
 will be created, an email will be sent to the new owner, and other control options.</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
+to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
+<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
     </tr>
     <tr>
       <th>api_type</th>

@@ -4,10 +4,16 @@
 \alias{drop_attributes}
 \title{Remove Salesforce attributes data from list}
 \usage{
-drop_attributes(l, object_name_append = FALSE, object_name_as_col = FALSE)
+drop_attributes(x, object_name_append = FALSE, object_name_as_col = FALSE)
 }
 \arguments{
 \item{x}{\code{list}; a list to be cleaned.}
+
+\item{object_name_append}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).}
+
+\item{object_name_as_col}{\code{logical}; whether to include the object type
+(e.g. Account or Contact) as a new column.}
 }
 \value{
 \code{list} containing no 'attributes' elements.

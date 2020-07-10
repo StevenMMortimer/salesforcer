@@ -186,7 +186,7 @@ the object type and the record url persists because they were attributes on
 the record and not part of the requested information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>drop_attributes</span>(<span class='no'>l</span>, <span class='kw'>object_name_append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>object_name_as_col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>drop_attributes</span>(<span class='no'>x</span>, <span class='kw'>object_name_append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>object_name_as_col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +194,16 @@ the record and not part of the requested information.</p>
     <tr>
       <th>x</th>
       <td><p><code>list</code>; a list to be cleaned.</p></td>
+    </tr>
+    <tr>
+      <th>object_name_append</th>
+      <td><p><code>logical</code>; whether to include the object type
+(e.g. Account or Contact) as part of the column names (e.g. Account.Name).</p></td>
+    </tr>
+    <tr>
+      <th>object_name_as_col</th>
+      <td><p><code>logical</code>; whether to include the object type
+(e.g. Account or Contact) as a new column.</p></td>
     </tr>
     </table>
 

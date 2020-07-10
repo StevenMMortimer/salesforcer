@@ -48,7 +48,7 @@ rules on the search criteria to determine which records in other objects are dup
 \dontrun{
 # use the duplicate rules associated with the Lead object on the search 
 # criteria (email) in order to find duplicates
-found_dupes <- sf_find_duplicates(search_criteria = 
+found_dupes <- sf_find_duplicates(search_criteria =
                                     list(Email="bond_john@grandhotels.com"),
                                   object_name = "Lead")
                                   

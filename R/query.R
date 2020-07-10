@@ -99,10 +99,9 @@ sf_query <- function(soql,
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows tibble select any_of contains mutate_all
+#' @importFrom dplyr tibble bind_rows mutate_all
 #' @importFrom httr content
-#' @importFrom readr type_convert cols col_guess
-#' @importFrom purrr pluck pluck<-
+#' @importFrom purrr map map_df modify map_lgl pluck
 sf_query_rest <- function(soql,
                           object_name = NULL,
                           queryall = FALSE,
@@ -141,53 +140,73 @@ sf_query_rest <- function(soql,
     # there are no additional child records to obtain for that parent record. 
     # Note that only one level of parent-to-child relationship can be specified in 
     # a query so this only needs to be done for one level of records
-    nested_queries <- unlist(lapply(response_parsed$records, function(x){pluck(x, 3, "done")}))
-    nested_queries_exist <- !is.null(nested_queries)
-    if(nested_queries_exist){
-      if(any(!nested_queries)){
-        resultset <- map_df(response_parsed$records, function(x){
-          done_status <- pluck(x, 3, "done")
-          if(!is.null(done_status) && !done_status){
-            query_locator <- pluck(x, 3, "nextRecordsUrl")
-            child_records <- pluck(x, 3, "records") %>% 
-              drop_attributes_recursively(object_name_append=TRUE) %>% 
+    nested_query_done <- response_parsed$records %>% 
+      map(~map(.x, pluck("done"))) %>% 
+      drop_empty_recursively() %>% 
+      map_lgl(~any(unlist(.x)))
+    if(length(nested_query_done) > 0){
+      if(any(!nested_query_done)){
+        resultset <- response_parsed$records %>% 
+          map_df(.f = function(x){
+            done_status <- x %>% 
+              map(pluck("done")) %>% 
               drop_empty_recursively() %>% 
-              map_df(flatten_to_tbl_df)
-            # drop the nested child query result node from each parent record
-            pluck(x, 3) <- NULL
-            parent_record <- list(x) %>% 
-              drop_attributes_recursively() %>% 
-              drop_empty_recursively() %>% 
-              map_df(flatten_to_tbl_df)
-            if(!is.null(query_locator) && query_locator != ''){
-              next_child_records <- sf_query_rest(next_records_url = query_locator,
-                                                  object_name = object_name,
-                                                  queryall = queryall,
-                                                  guess_types = FALSE,
-                                                  bind_using_character_cols = bind_using_character_cols,
-                                                  control = control,
-                                                  verbose = verbose)
-              child_records <- bind_rows(child_records, next_child_records)
+              unlist()
+            if(!is.null(done_status) && !done_status){
+              query_locator <- x %>% 
+                map(pluck("nextRecordsUrl")) %>% 
+                drop_empty_recursively() %>% 
+                unlist()
+              
+              child_records <- x %>% 
+                map(pluck("records")) %>%  
+                map(~drop_attributes(.x, object_name_append = TRUE)) %>%
+                drop_attributes_recursively() %>% 
+                drop_empty_recursively() %>% 
+                map_df(flatten_tbl_df)
+              
+              # drop the nested child query result node from each parent record
+              x <- x %>% 
+                modify(.f = function(x){
+                  if(all(c("records", "totalSize", "done") %in% names(x))) NULL else x
+                })
+              
+              # now work forward with x containing only the parent record
+              # we wrap with list() so that drop_attributes will pull off from the top level
+              parent_record <- list(x) %>% 
+                drop_attributes_recursively() %>% 
+                drop_empty_recursively() %>% 
+                map_df(flatten_tbl_df)
+              
+              if(!is.null(query_locator) && query_locator != ''){
+                next_child_recs <- sf_query_rest(next_records_url = query_locator,
+                                                 object_name = object_name,
+                                                 queryall = queryall,
+                                                 guess_types = FALSE,
+                                                 bind_using_character_cols = bind_using_character_cols,
+                                                 control = control,
+                                                 verbose = verbose)
+                child_records <- bind_rows(child_records, next_child_records)
+              }
+              y <- combine_parent_and_child_resultsets(parent_record, child_records) 
+            } else {
+              y <- list_extract_parent_and_child_result(x)
             }
-            y <- combine_parent_and_child_resultsets(parent_record, child_records) 
-          } else {
-            y <- list_extract_parent_and_child_result(x)
+            return(y)
           }
-          return(y)
-        })
+        )
       } else {
-        resultset <- map_df(response_parsed$records, list_extract_parent_and_child_result)
+        resultset <- response_parsed$records %>% 
+          map_df(list_extract_parent_and_child_result)
       }
     } else {
       resultset <- response_parsed$records %>% 
-        drop_attributes_recursively() %>% 
-        drop_empty_recursively() %>% 
-        map_df(flatten_to_tbl_df)
+        records_list_to_tbl()
     }
   } else {
     resultset <- tibble()
   }
-    
+  
   # TODO: Consider switching to all character if guess_types was provided or flipped on 
   # in the case where the types do not match between pages and then bind_rows 
   # fails. Casting all as character and switching to guess types allows all 
@@ -208,27 +227,17 @@ sf_query_rest <- function(soql,
                                   verbose = verbose)
     resultset <- bind_query_resultsets(resultset, next_records)
   }
-  
-  # handle the final iteration
-  if((response_parsed$done) & (nrow(resultset) > 0)){
-    resultset <- resultset %>% 
-      # sort column names ...
-      select(sort(names(.))) %>% 
-      # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
-    # cast the types if requested
-    if (guess_types){  
-      resultset <- resultset %>% 
-        type_convert(col_types = cols(.default = col_guess()))
-    }    
-  }
+
+  resultset <- resultset %>% 
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)
+    
   return(resultset)
 }
 
-#' @importFrom dplyr bind_rows select any_of contains mutate_all tibble as_tibble
+#' @importFrom dplyr tibble bind_rows mutate_all
 #' @importFrom httr content
 #' @importFrom purrr map_df modify_if
-#' @importFrom readr type_convert cols col_guess
 #' @importFrom xml2 xml_find_first xml_find_all xml_text xml_ns_strip
 sf_query_soap <- function(soql,
                           object_name = NULL,
@@ -292,7 +301,7 @@ sf_query_soap <- function(soql,
         done_status <- x %>% xml_find_first('.//done') %>% xml_text()
         if(!is.na(done_status) && done_status == "false"){
           query_locator <- x %>% xml_find_first('.//queryLocator') %>% xml_text()
-          child_records <- extract_records_from_xml_nodeset(x)
+          child_records <- extract_records_from_xml_nodeset(x, object_name_append=TRUE)
           # drop the nested child query result node from each parent record
           invisible(x %>% xml_find_all(".//*[@xsi:type='QueryResult']") %>% xml_remove())
           parent_record <- extract_records_from_xml_node(x)
@@ -308,12 +317,13 @@ sf_query_soap <- function(soql,
           }
           y <- combine_parent_and_child_resultsets(parent_record, child_records) 
         } else {
-          y <- extract_parent_and_child_result(x)
+          y <- xml_extract_parent_and_child_result(x)
         }
         return(y)
       })
     } else {
-      resultset <- map_df(resultset, extract_parent_and_child_result)
+      resultset <- resultset %>% 
+        map_df(xml_extract_parent_and_child_result)
     }
   } else {
     resultset <- extract_records_from_xml_nodeset_of_records(resultset)
@@ -325,8 +335,7 @@ sf_query_soap <- function(soql,
   # characters, which is why we should have the default value of the `guess_types`
   # argument to be set to TRUE
   if(bind_using_character_cols){
-    resultset <- resultset %>% 
-      mutate_all(as.character)
+    resultset <- resultset %>% mutate_all(as.character)
   }
   
   done_status <- response_parsed %>% 
@@ -348,20 +357,10 @@ sf_query_soap <- function(soql,
                                   verbose = verbose)
     resultset <- bind_query_resultsets(resultset, next_records)
   }
-  
-  # handle the final iteration
-  if((done_status == "true") & (nrow(resultset) > 0)){
-    resultset <- resultset %>% 
-      # sort column names ...
-      select(sort(names(.))) %>% 
-      # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
-    # cast the types if requested
-    if (guess_types){  
-      resultset <- resultset %>% 
-        type_convert(col_types = cols(.default = col_guess()))
-    }
-  }
 
+  resultset <- resultset %>% 
+    sf_reorder_cols() %>% 
+    sf_guess_cols(guess_types)
+    
   return(resultset)
 }

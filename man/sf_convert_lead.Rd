@@ -6,6 +6,7 @@
 \usage{
 sf_convert_lead(
   input_data,
+  guess_types = TRUE,
   api_type = c("SOAP"),
   control = list(...),
   ...,
@@ -17,6 +18,10 @@ sf_convert_lead(
 \code{tbl_df}; data can be coerced into a \code{data.frame}. See the details 
 below on how format your input data to control things like whether an opportunity 
 will be created, an email will be sent to the new owner, and other control options.}
+
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
+to try and cast the data returned in the query recordset. \code{TRUE} uses 
+\code{col_guess()} and \code{FALSE} returns all values as character strings.}
 
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 

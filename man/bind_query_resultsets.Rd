@@ -19,7 +19,7 @@ matched by name have the same datatype as the data frame provided to the
 \description{
 This function accepts two \code{tbl_df} arguments that should represent the 
 data frames returned by two different paginated API requests. It will 
-throw an error if the data frams cannot be bound as-is because of mismatched 
+throw an error if the data frames cannot be bound as-is because of mismatched 
 types and encourage the user to set other arguments in  \code{sf_query()} to 
 work through the issues.
 }

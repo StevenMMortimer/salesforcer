@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract tibble of a parent-child record from one node — extract_parent_and_child_result • salesforcer</title>
+<title>Extract tibble based on the "records" element of a list — records_list_to_tbl • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,12 +52,11 @@
 
 
 
-<meta property="og:title" content="Extract tibble of a parent-child record from one node — extract_parent_and_child_result" />
-<meta property="og:description" content="This function accepts a node representing the result of an individual parent 
-recordset from a nested parent-child query where there are zero or more child 
-records to be joined to the parent. In this case the child and parent will be 
-bound together to return one complete tbl_df of the query result for 
-that parent record." />
+<meta property="og:title" content="Extract tibble based on the "records" element of a list — records_list_to_tbl" />
+<meta property="og:description" content="This function accepts a list representing the parsed JSON recordset In this 
+case the records are not nested, but can have relationship fields. Each element 
+in the &quot;records&quot; element is bound to a single row after dropping the attributes 
+and then returned as one complete tbl_df of all records." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -177,31 +176,36 @@ that parent record." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract tibble of a parent-child record from one node</h1>
+    <h1>Extract tibble based on the "records" element of a list</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
-    <div class="hidden name"><code>extract_parent_and_child_result.Rd</code></div>
+    <div class="hidden name"><code>records_list_to_tbl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function accepts a node representing the result of an individual parent 
-recordset from a nested parent-child query where there are zero or more child 
-records to be joined to the parent. In this case the child and parent will be 
-bound together to return one complete <code>tbl_df</code> of the query result for 
-that parent record.</p>
+    <p>This function accepts a list representing the parsed JSON recordset In this 
+case the records are not nested, but can have relationship fields. Each element 
+in the "records" element is bound to a single row after dropping the attributes 
+and then returned as one complete <code>tbl_df</code> of all records.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_parent_and_child_result</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>records_list_to_tbl</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>xml_node</code>; a <code>xml_node</code> from an xml2 parsed response representing 
-one individual parent query record</p></td>
+      <td><p><code>list</code>; list of records parsed from JSON.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>tbl_df</code> a data frame with each row representing a single element 
+from the "records" element of the list.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>This function is meant to be used internally. Only use when debugging.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

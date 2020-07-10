@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-query.R
 \name{drop_attributes_recursively}
 \alias{drop_attributes_recursively}
-\title{Recursively remove Salesforce attributes data from list}
+\title{Recursively remove attributes data from list}
 \usage{
 drop_attributes_recursively(
   x,

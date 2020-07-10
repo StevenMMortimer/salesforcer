@@ -49,13 +49,13 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_empty_recursively.html</loc>
   </url>
   <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_parent_and_child_result.html</loc>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_nested_child_records.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_nested_child_records.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_node.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_node2.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_nodeset.html</loc>
@@ -67,7 +67,7 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/filter_valid_controls.html</loc>
   </url>
   <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/flatten_to_tbl_df.html</loc>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/flatten_tbl_df.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/format_headers_for_verbose.html</loc>
@@ -253,6 +253,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/merge_null_to_na.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/message_w_errors_listed.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/metadata_type_validator.html</loc>
   </url>
   <url>
@@ -275,6 +278,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/rPUT.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/records_list_to_tbl.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/remove_empty_linked_object_cols.html</loc>
@@ -538,6 +544,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_updated.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_guess_cols.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_input_data_validation.html</loc>
   </url>
   <url>
@@ -584,6 +593,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_rename_metadata.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_reorder_cols.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_copy.html</loc>
@@ -788,6 +800,12 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_drop_and_unlist.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_drop_and_unlist_recursively.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_extract_parent_and_child_result.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_nodeset_to_df.html</loc>

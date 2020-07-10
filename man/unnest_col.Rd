@@ -17,7 +17,7 @@ multiple individual columns.}
 }
 \description{
 This function is a convenience function to handle a list column in a \code{tbl_df}. 
-The column is unnested wide preserving the row count.
+The column is unnested wide while preserving the row count.
 }
 \note{
 This function is meant to be used internally. Only use when debugging.

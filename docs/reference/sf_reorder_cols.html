@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flatten list and convert to tibble — flatten_to_tbl_df • salesforcer</title>
+<title>Reorder resultset columns to prioritize <code>sObject</code> and <code>Id</code> — sf_reorder_cols • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,8 @@
 
 
 
-<meta property="og:title" content="Flatten list and convert to tibble — flatten_to_tbl_df" />
-<meta property="og:description" content="This function is a convenience function to handle deeply nested records usually 
-returned by parsed JSON or XML that need to be converted into a data frame where 
-each record represents a row in the data frame." />
+<meta property="og:title" content="Reorder resultset columns to prioritize <code>sObject</code> and <code>Id</code> — sf_reorder_cols" />
+<meta property="og:description" content="This function accepts a tbl_df with columns rearranged." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -175,31 +173,29 @@ each record represents a row in the data frame." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Flatten list and convert to tibble</h1>
+    <h1>Reorder resultset columns to prioritize <code>sObject</code> and <code>Id</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
-    <div class="hidden name"><code>flatten_to_tbl_df.Rd</code></div>
+    <div class="hidden name"><code>sf_reorder_cols.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is a convenience function to handle deeply nested records usually 
-returned by parsed JSON or XML that need to be converted into a data frame where 
-each record represents a row in the data frame.</p>
+    <p>This function accepts a <code>tbl_df</code> with columns rearranged.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flatten_to_tbl_df</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_reorder_cols</span>(<span class='no'>df</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p><code>list</code>; a list to be extracted into a <code>tbl_df</code>.</p></td>
+      <th>df</th>
+      <td><p><code>tbl_df</code>; the data frame to rearrange columns in</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code> parsed from the flattened list.</p>
+    <p><code>tbl_df</code> the formatted data frame</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function is meant to be used internally. Only use when debugging.</p>

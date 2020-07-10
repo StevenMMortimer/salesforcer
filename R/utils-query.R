@@ -1,73 +1,54 @@
-#' Remove Salesforce attributes data from list
+#' Flatten list and convert to tibble
 #' 
-#' This function removes elements from Salesforce data parsed to a list where 
-#' the object type and the record url persists because they were attributes on 
-#' the record and not part of the requested information.
+#' This function is a convenience function to handle deeply nested records usually 
+#' returned by parsed JSON or XML that need to be converted into a data frame where 
+#' each record represents a row in the data frame.
 #' 
-#' @importFrom purrr modify_if
-#' @param x \code{list}; a list to be cleaned.
-#' @return \code{list} containing no 'attributes' elements.
+#' @importFrom tibble as_tibble_row
+#' @importFrom rlist list.flatten
+#' @param x \code{list}; a list to be extracted into a \code{tbl_df}.
+#' @return \code{tbl_df} parsed from the flattened list.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-drop_attributes <- function(l, 
-                            object_name_append=FALSE, 
-                            object_name_as_col=FALSE){
-  result <- l %>% 
-    modify_if(.p=function(x){
-      ((is.list(x)) 
-       && ("attributes" %in% names(x)) 
-       && (identical(names(x[["attributes"]]), c("type", "url"))))
-    }, 
-    .f=function(x, obj_name_append, obj_name_as_col){
-      if(obj_name_append | obj_name_as_col){
-        obj_name <- x[["attributes"]][["type"]]
-      }
-      x[["attributes"]] <- NULL
-      if(obj_name_append){
-        names(x) <- paste(obj_name, names(x), sep='.')
-      }
-      if(obj_name_as_col){
-        x$sObject <- obj_name
-      }
-      return(x)
-    }, 
-    obj_name_append = object_name_append, 
-    obj_name_as_col = object_name_as_col
-    )
-  return(result)
+flatten_tbl_df <- function(x){
+  x %>% list.flatten() %>% as_tibble_row()
 }
 
-#' Recursively remove Salesforce attributes data from list
+#' Flatten list column
 #' 
-#' This function wraps the custom \code{drop_attributes} function that removes 
-#' elements from Salesforce data parsed to a list where the object type and the 
-#' record url persists because they were attributes on the record and not  
-#' part of the requested information.
+#' This function is a convenience function to handle a list column in a \code{tbl_df}. 
+#' The column is unnested wide while preserving the row count.
 #' 
-#' @importFrom purrr map_if
-#' @param x \code{list}; a list to be cleaned.
-#' @param object_name_append \code{logical}; whether to include the object type
-#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
-#' @param object_name_as_col \code{logical}; whether to include the object type
-#' (e.g. Account or Contact) as a new column.
-#' @return \code{list} containing no 'attributes' elements with the object information 
-#' in the column names or the values within an object entitled \code{'sObject'}.
+#' @importFrom dplyr select all_of
+#' @param df \code{tbl_df}; a data frame with list column to be extracted into 
+#' multiple individual columns.
+#' @param col \code{character}; the name of the column to unnest
+#' @return \code{tbl_df} parsed from the flattened list.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-drop_attributes_recursively <- function(x, 
-                                        object_name_append=FALSE, 
-                                        object_name_as_col=FALSE){
-  x %>% 
-    map_if(is.list, .f=function(x, obj_name_append, obj_name_as_col){
-        drop_attributes_recursively(x, obj_name_append, obj_name_as_col)
-      }, 
-      obj_name_append = object_name_append, 
-      obj_name_as_col = object_name_as_col
-    ) %>% 
-    drop_attributes(object_name_append = object_name_append, 
-                    object_name_as_col = object_name_as_col)
+unnest_col <- function(df, col){
+  key_rows <- df %>% select(-all_of(col))
+  col_data <- df %>% select(all_of(col))
+  bind_rows(
+    lapply(1:nrow(key_rows), 
+           FUN=function(x, y, z){
+             key_record <- y[x,]
+             col_to_unnest <- flatten_tbl_df(z[x,,drop=FALSE])
+             if(!is.null(col_to_unnest) && 
+                is.tbl(key_record) && 
+                is.tbl(col_to_unnest) && 
+                (nrow(col_to_unnest) > 0)){
+               combined <- bind_cols(key_record, col_to_unnest)  
+             } else {
+               combined <- key_record
+             }
+             return(combined)
+           }, 
+           key_rows, 
+           col_data
+    ))
 }
 
 #' Remove all NULL or zero-length elements from list
@@ -120,83 +101,195 @@ set_null_elements_to_na_recursively <- function(x) {
     set_null_elements_to_na()
 }
 
-#' Flatten list and convert to tibble
+#' Remove Salesforce attributes data from list
 #' 
-#' This function is a convenience function to handle deeply nested records usually 
-#' returned by parsed JSON or XML that need to be converted into a data frame where 
-#' each record represents a row in the data frame.
+#' This function removes elements from Salesforce data parsed to a list where 
+#' the object type and the record url persists because they were attributes on 
+#' the record and not part of the requested information.
 #' 
-#' @importFrom dplyr as_tibble tibble
-#' @importFrom rlist list.flatten
-#' @param x \code{list}; a list to be extracted into a \code{tbl_df}.
-#' @return \code{tbl_df} parsed from the flattened list.
+#' @importFrom purrr modify_if
+#' @param x \code{list}; a list to be cleaned.
+#' @template object_name_append
+#' @template object_name_as_col
+#' @return \code{list} containing no 'attributes' elements.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-flatten_to_tbl_df <- function(x){
-  list.flatten(x) %>% as_tibble()
+drop_attributes <- function(x,
+                            object_name_append = FALSE, 
+                            object_name_as_col = FALSE){
+  result <- x %>% 
+    modify_if(.p=function(x){
+      ((is.list(x)) 
+       && ("attributes" %in% names(x)) 
+       && identical(names(x[["attributes"]]), c("type", "url")))
+    }, 
+    .f=function(x, obj_name_append, obj_name_as_col){
+      if(obj_name_append | obj_name_as_col){
+        obj_name <- x[["attributes"]][["type"]]
+      }
+      x[["attributes"]] <- NULL
+      if(obj_name_append){
+        names(x) <- paste(obj_name, names(x), sep='.')
+      }
+      if(obj_name_as_col){
+        x$sObject <- obj_name
+      }
+      return(x)
+    }, 
+    obj_name_append = object_name_append, 
+    obj_name_as_col = object_name_as_col
+    )
+  return(result)
 }
 
-#' Flatten list column
+#' Recursively remove attributes data from list
 #' 
-#' This function is a convenience function to handle a list column in a \code{tbl_df}. 
-#' The column is unnested wide preserving the row count.
+#' This function wraps the custom \code{drop_attributes} function that removes 
+#' elements from Salesforce data parsed to a list where the object type and the 
+#' record url persists because they were attributes on the record and not  
+#' part of the requested information.
 #' 
-#' @importFrom dplyr select all_of
-#' @param df \code{tbl_df}; a data frame with list column to be extracted into 
-#' multiple individual columns.
-#' @param col \code{character}; the name of the column to unnest
-#' @return \code{tbl_df} parsed from the flattened list.
+#' @importFrom purrr map_if
+#' @param x \code{list}; a list to be cleaned.
+#' @template object_name_append
+#' @template object_name_as_col
+#' @return \code{list} containing no 'attributes' elements with the object information 
+#' in the column names or the values within an object entitled \code{'sObject'}.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-unnest_col <- function(df, col){
-  key_rows <- df %>% select(-all_of(col))
-  col_data <- df %>% select(all_of(col))
-  bind_rows(
-    lapply(1:nrow(key_rows), 
-           FUN=function(x, y, z){
-             key_record <- y[x,]
-             col_to_unnest <- flatten_to_tbl_df(z[x,,drop=FALSE])
-             if(!is.null(col_to_unnest) && 
-                is.tbl(key_record) && 
-                is.tbl(col_to_unnest) && 
-                (nrow(col_to_unnest) > 0)){
-               combined <- bind_cols(key_record, col_to_unnest)  
-             } else {
-               combined <- key_record
-             }
-             return(combined)
-           }, 
-           key_rows, 
-           col_data
-    ))
+drop_attributes_recursively <- function(x, 
+                                        object_name_append=FALSE, 
+                                        object_name_as_col=FALSE){
+  x %>% 
+    map_if(is.list, .f=function(x, obj_name_append, obj_name_as_col){
+        drop_attributes_recursively(x, obj_name_append, obj_name_as_col)
+      }, 
+      obj_name_append = object_name_append, 
+      obj_name_as_col = object_name_as_col
+    ) %>% 
+    drop_attributes(object_name_append = object_name_append, 
+                    object_name_as_col = object_name_as_col)
 }
 
-#' Drop Id and type metadata present on every queried record and unlist
+#' Drop \code{type} and \code{Id} attributes on XML queried records and unlist
 #' 
 #' This function will detect if there are metadata fields returned by the SOAP 
-#' API XML from \code{sf_query} and remove them as well as unlisting (not recursively)
+#' API XML from \code{\link{sf_query}} and remove them as well as unlisting (not recursively)
 #' to unnest the record's values. Only tested on two-level child-to-parent relationships. 
 #' For example, for every Contact (child) record return attributes from the 
 #' Account (parent) as well (SOQL = "SELECT Name, Account.Name FROM Contact")
 #' 
-#' @param x \code{list}; a list of \code{xml_node} from an xml2 parsed response 
 #' @importFrom purrr map modify_if
 #' @importFrom rlist list.flatten
 #' @importFrom utils head tail
+#' @param x \code{list}; a list of xml content parsed into a list by xml2
+#' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
 xml_drop_and_unlist <- function(x){
-  x <- x %>% map(.f=function(x){x %>% modify_if(~(length(.x) == 1 && is.list(.x)), list.flatten)})
+  x <- x %>% 
+    map(.f=function(x){
+      x %>% 
+        modify_if(~(is.list(.x) && length(.x) == 1), 
+                  ~unlist(.x, recursive=FALSE))
+    })
+  
   if(identical(head(names(x), 2), c("type", "Id"))){
     x <- tail(x, -2)
   }
-  x <- x %>% modify_if(~(length(.x) == 1 & is.list(.x) & length(.x[1]) == 1), ~list.flatten(.))
-  x <- x %>% modify_if(~(is.list(.x) && 
-                           (identical(head(names(.x), 2), c("type", "Id")))), 
-                       ~tail(., -2))
-  x <- list.flatten(x)
+  
+  x <- x %>% 
+    modify_if(~(is.list(.x) & length(.x) == 1 & length(.x[1]) == 1), 
+              ~unlist(.x, recursive=FALSE))
+  
+  x <- x %>% 
+    modify_if(~(is.list(.x) & (identical(head(names(.x), 2), c("type", "Id")))), 
+              ~tail(., -2))
+  
+  x <- unlist(x, recursive=FALSE)
+  return(x)
+}
+
+#' Recursively Drop \code{type} and \code{Id} attributes and flatten a list
+#' 
+#' This function wraps the \code{\link{xml_drop_and_unlist}} function 
+#' to recursively flatten and remove record type attributes from relationship
+#' and nested queries.
+#' 
+#' @importFrom purrr map_if
+#' @param x \code{list}; a list to be cleaned.
+#' @return \code{list} containing without \code{type} and \code{Id} fields that 
+#' are not requested as part of the query, but Salesforce provides.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+xml_drop_and_unlist_recursively <- function(x) {
+  x %>%
+    map_if(is.list, xml_drop_and_unlist_recursively) %>% 
+    xml_drop_and_unlist()
+}
+
+#' Pulls out a tibble of record info from an XML node
+#' 
+#' This function accepts an \code{xml_node} assuming it already represents one 
+#' record and formats that node into a single row \code{tbl_df}. This differs from 
+#' \code{\link{extract_records_from_single_node_nodeset}} in that it assumes the node already 
+#' represents a single record instead of multiple records as in the case 
+#' of a child node.
+#' 
+#' @importFrom dplyr mutate_all as_tibble
+#' @importFrom tibble as_tibble_row
+#' @importFrom xml2 xml_find_all xml_text as_list xml_find_first xml_children xml_name xml_remove
+#' @importFrom purrr modify_if map_df
+#' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
+#' @param object_name_append \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
+#' @param object_name_as_col \code{logical}; whether to include the object type
+#' (e.g. Account or Contact) as a new column.
+#' @return \code{tbl_df} parsed from the supplied node
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal  
+#' @export
+extract_records_from_xml_node <- function(node, 
+                                          object_name_append = FALSE, 
+                                          object_name_as_col = FALSE){
+  
+  # TODO: Consider doing something with the duplicate match data because what is returned
+  # in the duplicateResult element is very detailed. For now just remove it
+  # if(length(xml_find_all(node, "//errors[@xsi:type='DuplicateError']")) > 0){
+  if(length(xml_find_first(node, "//errors | //error")) > 0){
+    children <- xml_find_first(node, "//errors | //error") %>% xml_children()
+    for(i in 1:length(children)){
+      if(!(xml_name(children[[i]]) %in% c("message", "statusCode", 
+                                          "errorMessage", "errorCode"))){
+        node_to_remove <- children[[i]]
+        xml_remove(node_to_remove)
+      }
+    }
+  }
+  
+  if(object_name_append | object_name_as_col){
+    object_name <- node %>% 
+      xml_find_first('.//sf:type') %>% 
+      xml_text()
+  }
+  
+  if(length(node) > 0){
+    x <- as_list(node) %>% 
+      xml_drop_and_unlist_recursively() %>% 
+      drop_empty_recursively() %>% 
+      as_tibble_row()
+    if(object_name_append){
+      colnames(x) <- paste(object_name, colnames(x), sep='.')
+    }
+    if(object_name_as_col){
+      x$sObject <- object_name
+    } 
+  } else {
+    x <- tibble()
+  }
   return(x)
 }
 
@@ -241,7 +334,8 @@ extract_records_from_xml_nodeset <- function(nodeset,
 #' @importFrom tibble as_tibble_row
 #' @importFrom xml2 as_list
 #' @importFrom purrr modify_if map_df
-#' @param x \code{xml_nodeset}; nodeset to have records extracted into a \code{tbl_df}
+#' @param x \code{xml_nodeset}; nodeset to have records extracted into a 
+#' \code{tbl_df}.
 #' @param object_name \code{character}; a list of character strings to pre-pend
 #' to each variable name in the event that we would like to tag the fields with 
 #' the name of the object that they came from.
@@ -256,10 +350,9 @@ extract_records_from_xml_nodeset_of_records <- function(x,
                                                         object_name = NULL, 
                                                         as_col = FALSE){
   if(length(x) > 0){
-    x_list <- as_list(x)
-    while(any(sapply(x_list, is.list))){
-      x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
-    }
+    x_list <- as_list(x) %>% 
+      map(xml_drop_and_unlist_recursively) %>% 
+      map(drop_empty_recursively)
     x <- x_list %>% 
       map_df(.f=function(x, nms, as_col){
         y <- as_tibble_row(x)
@@ -278,131 +371,120 @@ extract_records_from_xml_nodeset_of_records <- function(x,
   return(x)
 }
 
-#' Pulls out a tibble of record info from an XML node
+#' Extract tibble of a parent-child record from one XML node
 #' 
-#' This function accepts an \code{xml_node} and searches for all './/records' 
-#' in the document to format into a single tidy \code{tbl_df}.
+#' This function accepts a node representing the result of an individual parent 
+#' recordset from a nested parent-child query where there are zero or more child 
+#' records to be joined to the parent. In this case the child and parent will be 
+#' bound together to return one complete \code{tbl_df} of the query result for 
+#' that parent record.
 #' 
-#' @importFrom dplyr mutate_all as_tibble
-#' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all xml_text as_list
-#' @importFrom purrr modify_if map_df
-#' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
-#' @param object_name_append \code{logical}; whether to include the object type
-#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
-#' @param object_name_as_col \code{logical}; whether to include the object type
-#' (e.g. Account or Contact) as a new column.
-#' @return \code{tbl_df} parsed from the supplied node
+#' @param x \code{xml_node}; a \code{xml_node} from an xml2 parsed response 
+#' representing one individual parent query record.
+#' @importFrom xml2 xml_find_all xml_remove
 #' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal  
+#' @keywords internal
 #' @export
-extract_records_from_xml_node <- function(node, 
-                                          object_name_append = FALSE, 
-                                          object_name_as_col = FALSE){
-  if(object_name_append | object_name_as_col){
-    object_name <- node %>% 
-      xml_find_first('.//sf:type') %>% 
-      xml_text()
-  }
-  if(length(node) > 0){
-    x_list <- as_list(node)
-    x_list <- xml_drop_and_unlist(x_list)
-    while(any(sapply(x_list, is.list))){
-      x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
-    }
-    if(is.list(x_list)){
-      x <- x_list %>% map_df(~as_tibble_row(.x))    
-    } else {
-      x <- as_tibble_row(x_list)
-    }
-    if(object_name_append){
-      colnames(x) <- paste(object_name, colnames(x), sep='.')
-    }
-    if(object_name_as_col){
-      x$sObject <- object_name
-    } 
-  } else {
-    x <- NULL
-  }
-  x <- as_tibble(x)
+xml_extract_parent_and_child_result <- function(x){
+  # no more querying needed, just format these child records as dataframe
+  child_records <- extract_records_from_xml_nodeset(x, object_name_append=TRUE)
+  # drop the nested child query result node from each parent record
+  invisible(x %>% xml_find_all(".//*[@xsi:type='QueryResult']") %>% xml_remove())
+  parent_record <- extract_records_from_xml_node(x)
+  resultset <- combine_parent_and_child_resultsets(parent_record, child_records) 
+  return(resultset)
+}
+
+#' Extract nested child records in a record
+#' 
+#' This function accepts a single record from a nested query and "unpacks" the 
+#' "records" which represent the child records belonging to the parent.
+#' 
+#' @importFrom purrr map map_depth pluck
+#' @importFrom dplyr bind_rows
+#' @param x \code{list}; a list parsed from an HTTP response and representing 
+#' one individual parent query record.
+#' @return \code{tbl_df}; a data frame with each row representing a child record.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+extract_nested_child_records <- function(x){
+  
+  child_records <- x %>% 
+    map(pluck("records")) %>%  
+    map(~drop_attributes(.x, object_name_append = TRUE)) %>%
+    drop_attributes_recursively() %>% 
+    drop_empty_recursively() %>%
+    map_depth(2, flatten_tbl_df) %>% 
+    pluck(1) %>% 
+    bind_rows()
+  
+  return(child_records)
+}
+
+#' Drop nested child records in a record
+#' 
+#' This function accepts a single record from a nested query and removes the element 
+#' with nested "records" which represent the child records belonging to the parent.
+#' 
+#' @importFrom purrr modify
+#' @param x \code{list}; a list parsed from JSON and representing one individual 
+#' parent query record.
+#' @return \code{list}; a list without any elements that have nested child records 
+#' assuming they have already been extracted. 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+drop_nested_child_records <- function(x){
+  # drop the nested child query result node from each parent record
+  x <- x %>% 
+    modify(.f = function(x){
+      if(all(c("records", "totalSize", "done") %in% names(x))) NULL else x
+    })
   return(x)
 }
 
-#' Pulls out a tibble of record info from an XML node
+#' Extract tibble of a parent-child record from one JSON element
 #' 
-#' This function accepts an \code{xml_node} assuming it already represents one 
-#' record and formats that node into a single row \code{tbl_df}. This differs from 
-#' \code{\link{extract_records_from_xml_node}} in that it assumes the node already 
-#' represents a single record instead of multiple records as in the case 
-#' of a child node.
+#' This function accepts a list representing the result of an individual parent 
+#' recordset from a nested parent-child query where there are zero or more child 
+#' records to be joined to the parent. In this case the child and parent will be 
+#' bound together to return one complete \code{tbl_df} of the query result for 
+#' that parent record.
 #' 
-#' @importFrom dplyr mutate_all as_tibble
-#' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all xml_text as_list xml_find_first xml_children xml_name xml_remove
-#' @importFrom purrr modify_if map_df
-#' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
-#' @param object_name_append \code{logical}; whether to include the object type
-#' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
-#' @param object_name_as_col \code{logical}; whether to include the object type
-#' (e.g. Account or Contact) as a new column.
-#' @return \code{tbl_df} parsed from the supplied node
+#' @param x \code{list}; list of records parsed from JSON representing one 
+#' individual parent query record.
+#' @return \code{tbl_df}; a data frame with each row representing a parent-child 
+#' record (i.e. at least one row per parent or more if cross joined with more 
+#' than one child record).
 #' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal  
+#' @keywords internal
 #' @export
-extract_records_from_xml_node2 <- function(node, 
-                                           object_name_append = FALSE, 
-                                           object_name_as_col = FALSE){
-  # TODO: Consider doing something with the duplicate match data because what is returned
-  # in the duplicateResult element is very detailed. For now just remove it
-  # if(length(xml_find_all(node, "//errors[@xsi:type='DuplicateError']")) > 0){
-  if(length(xml_find_first(node, "//errors | //error")) > 0){
-    children <- xml_find_first(node, "//errors | //error") %>% xml_children()
-    for(i in 1:length(children)){
-      if(!(xml_name(children[[i]]) %in% c("message", "statusCode", 
-                                          "errorMessage", "errorCode"))){
-        node_to_remove <- children[[i]]
-        xml_remove(node_to_remove)
-      }
-    }
-  }
+list_extract_parent_and_child_result <- function(x){
   
-  if(object_name_append | object_name_as_col){
-    object_name <- node %>% 
-      xml_find_first('.//sf:type') %>% 
-      xml_text()
-  }
+  child_records <- extract_nested_child_records(x)
+  x <- drop_nested_child_records(x)
   
-  if(length(node) > 0){
-    x_list <- as_list(node)
-    x_list <- xml_drop_and_unlist(x_list)
-    while(any(sapply(x_list, is.list))){
-      x_list <- modify_if(x_list, ~is.list(.x), xml_drop_and_unlist)  
-    }
-    x <- as_tibble_row(x_list)
-    if(object_name_append){
-      colnames(x) <- paste(object_name, colnames(x), sep='.')
-    }
-    if(object_name_as_col){
-      x$sObject <- object_name
-    } 
-  } else {
-    x <- NULL
-  }
-  x <- as_tibble(x)
-  return(x)
+  # now work forward with x containing only the parent record
+  # we wrap with list() so that drop_attributes will pull off from the top level
+  parent_record <- records_list_to_tbl(list(x))
+  resultset <- combine_parent_and_child_resultsets(parent_record, child_records)
+  
+  return(resultset)
 }
 
 #' Bind the records from nested parent-to-child queries
 #' 
-#' This function accepts a \code{data.frame} with one row representing each parent record 
-#' returned by a query with a corresponding list element in the list of child 
-#' record results stored as \code{tbl_df} in a list.
+#' This function accepts a \code{data.frame} with one row representing each 
+#' parent record returned by a query with a corresponding list element in the 
+#' list of child record results stored as \code{tbl_df} in a list.
 #' 
+#' @importFrom dplyr is.tbl bind_cols bind_rows
 #' @param parents_df \code{tbl_df}; a dataset with 1 row per parent record from 
 #' the query recordset, that can be joined with its corresponding child records.
 #' @param child_df_list \code{list} of \code{tbl_df}; a list of child records that 
 #' is the same length as the number of rows in the parent_df.
-#' @importFrom dplyr is.tbl bind_cols bind_rows
+#' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
 combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
@@ -429,53 +511,26 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
     ))
 }
 
-#' Extract tibble of a parent-child record from one node
+#' Extract tibble based on the "records" element of a list
 #' 
-#' This function accepts a node representing the result of an individual parent 
-#' recordset from a nested parent-child query where there are zero or more child 
-#' records to be joined to the parent. In this case the child and parent will be 
-#' bound together to return one complete \code{tbl_df} of the query result for 
-#' that parent record.
+#' This function accepts a list representing the parsed JSON recordset In this 
+#' case the records are not nested, but can have relationship fields. Each element 
+#' in the "records" element is bound to a single row after dropping the attributes 
+#' and then returned as one complete \code{tbl_df} of all records.
 #' 
-#' @param x \code{xml_node}; a \code{xml_node} from an xml2 parsed response representing 
-#' one individual parent query record
-#' @importFrom xml2 xml_find_all xml_remove
+#' @importFrom purrr map_df
+#' @param x \code{list}; list of records parsed from JSON.
+#' @return \code{tbl_df} a data frame with each row representing a single element 
+#' from the "records" element of the list.
+#' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-extract_parent_and_child_result <- function(x){
-  # no more querying needed, just format these child records as dataframe
-  child_records <- extract_records_from_xml_nodeset(x, object_name_append=TRUE)
-  # drop the nested child query result node from each parent record
-  invisible(x %>% xml_find_all(".//*[@xsi:type='QueryResult']") %>% xml_remove())
-  parent_record <- extract_records_from_xml_node(x)
-  resultset <- combine_parent_and_child_resultsets(parent_record, child_records) 
-  return(resultset)
-}
-
-#' Extract tibble of a parent-child record from one node
-#' 
-#' This function accepts a list representing the result of an individual parent 
-#' recordset from a nested parent-child query where there are zero or more child 
-#' records to be joined to the parent. In this case the child and parent will be 
-#' bound together to return one complete \code{tbl_df} of the query result for 
-#' that parent record.
-#' 
-#' @param x \code{list}; list of records parsed from response representing 
-#' one individual parent query record
-#' @keywords internal
-#' @export
-list_extract_parent_and_child_result <- function(x){
-  child_records <- pluck(x, 3, "records") %>% 
-    drop_attributes_recursively(object_name_append=TRUE) %>% 
-    drop_empty_recursively() %>% 
-    map_df(flatten_to_tbl_df)
-  # drop the nested child query result node from each parent record
-  pluck(x, 3) <- NULL
-  parent_record <- list(x) %>% 
+records_list_to_tbl <- function(x){
+  resultset <- x %>% 
     drop_attributes_recursively() %>% 
     drop_empty_recursively() %>% 
-    map_df(flatten_to_tbl_df)
-  resultset <- combine_parent_and_child_resultsets(parent_record, child_records) 
+    map_df(flatten_tbl_df)
+  
   return(resultset)
 }
 
@@ -483,7 +538,7 @@ list_extract_parent_and_child_result <- function(x){
 #' 
 #' This function accepts two \code{tbl_df} arguments that should represent the 
 #' data frames returned by two different paginated API requests. It will 
-#' throw an error if the data frams cannot be bound as-is because of mismatched 
+#' throw an error if the data frames cannot be bound as-is because of mismatched 
 #' types and encourage the user to set other arguments in  \code{sf_query()} to 
 #' work through the issues.
 #' 
@@ -509,17 +564,60 @@ bind_query_resultsets <- function(resultset, next_records){
         mismatched_warn_str <- c(mismatched_warn_str, new_warn)
       }
     }
-    mismatched_warn_str <- paste0(mismatched_warn_str, collapse="\n")
     stop(
-      sprintf(paste0("While paginating the recordsets the most recent JSON ", 
-                     "had different datatypes than prior records in the following columns:\n%s\n\n",
+      sprintf(paste0("While paginating the recordsets the most recent response ", 
+                     "had different datatypes than prior records in the following columns:", 
+                     "\n  - %s\n", 
+                     "\n",
                      "Consider setting `bind_using_character_cols=TRUE` to cast the data to ", 
                      "character so that `bind_rows()` between pages will succeed and setting ",
                      "`guess_types=TRUE` which uses readr to determine the datatype based on ", 
                      "values in the column."), 
-              mismatched_warn_str)
+              paste0(mismatched_warn_str, collapse="\n  - "))
       , call. = FALSE
     )
   })
   return(resultset)
+}
+
+#' Reorder resultset columns to prioritize \code{sObject} and \code{Id}
+#' 
+#' This function accepts a \code{tbl_df} with columns rearranged.
+#' 
+#' @importFrom dplyr select any_of contains
+#' @param df \code{tbl_df}; the data frame to rearrange columns in
+#' @return \code{tbl_df} the formatted data frame
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_reorder_cols <- function(df){
+  df %>% 
+    # sort column names ...
+    select(sort(names(.))) %>% 
+    # ... then move Id and columns without dot up since those with are related 
+    select(any_of(unique(c("sObject", 
+                           "Id", "id", "sf__Id",
+                           "Success", "success", "sf__Success" ,
+                           "Created", "created", "sf__Created", 
+                           names(.)[which(grepl("^errors\\.|^sf__Error", names(.)))],
+                           names(.)[which(!grepl("\\.", names(.)))]))), 
+             contains("."))
+}
+
+#' Reorder resultset columns to prioritize \code{sObject} and \code{Id}
+#' 
+#' This function accepts a \code{tbl_df} with columns rearranged.
+#' 
+#' @importFrom readr type_convert cols col_guess
+#' @param df \code{tbl_df}; the data frame to rearrange columns in
+#' @return \code{tbl_df} the formatted data frame
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_guess_cols <- function(df, guess_types=TRUE){
+  if(guess_types){
+    df <- df %>% 
+      type_convert(col_types = cols(.default = col_guess()))
+  }
+  return(df)
 }

@@ -90,7 +90,7 @@ sf_search <- function(search_string,
       resultset <- response_parsed$searchRecords %>% 
         drop_attributes_recursively(object_name_as_col=TRUE) %>% 
         drop_empty_recursively() %>% 
-        map_df(flatten_to_tbl_df)
+        map_df(flatten_tbl_df)
     } else {
       resultset <- tibble()
     }
@@ -124,8 +124,8 @@ sf_search <- function(search_string,
     
     if(length(resultset) > 0){
       resultset <- resultset %>% 
-        map_df(extract_records_from_xml_node2, 
-               object_name_as_col=TRUE)
+        map_df(extract_records_from_xml_node, 
+               object_name_as_col = TRUE)
     } else {
       resultset <- tibble()
     }
@@ -141,14 +141,8 @@ sf_search <- function(search_string,
     
   if(nrow(resultset) > 0){
     resultset <- resultset %>% 
-      # sort column names ...
-      select(sort(names(.))) %>% 
-      # ... then move sObject and Id columns up
-      select(any_of(unique(c("sObject", "Id", "id", names(.)[which(!grepl("\\.", names(.)))]))), contains("."))
-    if(guess_types){
-      resultset <- resultset %>%
-        type_convert(col_types = cols(.default = col_guess()))
-    }
+      sf_reorder_cols() %>% 
+      sf_guess_cols(guess_types)
   }
   return(resultset)
 }

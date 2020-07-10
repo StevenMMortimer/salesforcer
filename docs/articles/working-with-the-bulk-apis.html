@@ -159,8 +159,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NdX2AAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NdX3AAK TRUE</span>
+<span class="co">#&gt; 1 0033s000012NirKAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NirLAAS TRUE</span>
 
 <span class="co"># Bulk</span>
 <span class="no">bulk_created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts2</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -181,8 +181,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012NdZHAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012NdZIAA0 TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012NirUAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012NirVAAS TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -197,8 +197,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NdZHAA0 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NdZIAA0 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012NirUAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NirVAAS Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="no">object</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -206,8 +206,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012NdZHAA0 TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000012NdZIAA0 TRUE    FALSE   NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NirUAAS TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s000012NirVAAS TRUE    FALSE   NA</span></pre></body></html></div>
 </div>
 <div id="query-limitations" class="section level3">
 <h3 class="hasAnchor">
@@ -242,30 +242,30 @@
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;    Id                 Success Created Error</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt;  1 0033s000012NdZSAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  2 0033s000012NdYUAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  3 0033s000012NdZMAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  4 0033s000012NdZRAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  5 0033s000012NdZWAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  6 0033s000012NdZbAAK TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  7 0033s000012NdZgAAK TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  8 0033s000012NdZlAAK TRUE    TRUE    NA   </span>
-<span class="co">#&gt;  9 0033s000012NdShAAK TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 10 0033s000012NdZqAAK TRUE    TRUE    NA</span>
+<span class="co">#&gt;  1 0033s000012NirjAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  2 0033s000012NirGAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  3 0033s000012NireAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  4 0033s000012NirfAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  5 0033s000012NijDAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  6 0033s000012NiroAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  7 0033s000012Nim6AAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  8 0033s000012NirtAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt;  9 0033s000012NiryAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 10 0033s000012Nis3AAC TRUE    TRUE    NA</span>
 
 <span class="co"># same ordering of rows!</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">created_records_v1</span>, <span class="no">new_contacts</span>)
 <span class="co">#&gt;                    Id Success Created Error FirstName          LastName</span>
-<span class="co">#&gt; 1  0033s000012NdZSAA0    TRUE    TRUE    NA      Test  Contact-Create-1</span>
-<span class="co">#&gt; 2  0033s000012NdYUAA0    TRUE    TRUE    NA      Test  Contact-Create-2</span>
-<span class="co">#&gt; 3  0033s000012NdZMAA0    TRUE    TRUE    NA      Test  Contact-Create-3</span>
-<span class="co">#&gt; 4  0033s000012NdZRAA0    TRUE    TRUE    NA      Test  Contact-Create-4</span>
-<span class="co">#&gt; 5  0033s000012NdZWAA0    TRUE    TRUE    NA      Test  Contact-Create-5</span>
-<span class="co">#&gt; 6  0033s000012NdZbAAK    TRUE    TRUE    NA      Test  Contact-Create-6</span>
-<span class="co">#&gt; 7  0033s000012NdZgAAK    TRUE    TRUE    NA      Test  Contact-Create-7</span>
-<span class="co">#&gt; 8  0033s000012NdZlAAK    TRUE    TRUE    NA      Test  Contact-Create-8</span>
-<span class="co">#&gt; 9  0033s000012NdShAAK    TRUE    TRUE    NA      Test  Contact-Create-9</span>
-<span class="co">#&gt; 10 0033s000012NdZqAAK    TRUE    TRUE    NA      Test Contact-Create-10</span>
+<span class="co">#&gt; 1  0033s000012NirjAAC    TRUE    TRUE    NA      Test  Contact-Create-1</span>
+<span class="co">#&gt; 2  0033s000012NirGAAS    TRUE    TRUE    NA      Test  Contact-Create-2</span>
+<span class="co">#&gt; 3  0033s000012NireAAC    TRUE    TRUE    NA      Test  Contact-Create-3</span>
+<span class="co">#&gt; 4  0033s000012NirfAAC    TRUE    TRUE    NA      Test  Contact-Create-4</span>
+<span class="co">#&gt; 5  0033s000012NijDAAS    TRUE    TRUE    NA      Test  Contact-Create-5</span>
+<span class="co">#&gt; 6  0033s000012NiroAAC    TRUE    TRUE    NA      Test  Contact-Create-6</span>
+<span class="co">#&gt; 7  0033s000012Nim6AAC    TRUE    TRUE    NA      Test  Contact-Create-7</span>
+<span class="co">#&gt; 8  0033s000012NirtAAC    TRUE    TRUE    NA      Test  Contact-Create-8</span>
+<span class="co">#&gt; 9  0033s000012NiryAAC    TRUE    TRUE    NA      Test  Contact-Create-9</span>
+<span class="co">#&gt; 10 0033s000012Nis3AAC    TRUE    TRUE    NA      Test Contact-Create-10</span>
 <span class="co">#&gt;    test_number__c</span>
 <span class="co">#&gt; 1               1</span>
 <span class="co">#&gt; 2               2</span>
@@ -288,16 +288,16 @@
 <span class="co">#&gt; # A tibble: 10 x 6</span>
 <span class="co">#&gt;    sf__Id          sf__Created FirstName LastName       test_number__c sf__Error</span>
 <span class="co">#&gt;    &lt;chr&gt;           &lt;lgl&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012NdZ… TRUE        Test      Contact-Creat…              1 &lt;NA&gt;     </span>
-<span class="co">#&gt;  2 0033s000012NdZ… TRUE        Test      Contact-Creat…              2 &lt;NA&gt;     </span>
-<span class="co">#&gt;  3 0033s000012NdZ… TRUE        Test      Contact-Creat…              3 &lt;NA&gt;     </span>
-<span class="co">#&gt;  4 0033s000012NdZ… TRUE        Test      Contact-Creat…              4 &lt;NA&gt;     </span>
-<span class="co">#&gt;  5 0033s000012NdZ… TRUE        Test      Contact-Creat…              5 &lt;NA&gt;     </span>
-<span class="co">#&gt;  6 0033s000012Nda… TRUE        Test      Contact-Creat…              6 &lt;NA&gt;     </span>
-<span class="co">#&gt;  7 0033s000012Nda… TRUE        Test      Contact-Creat…              7 &lt;NA&gt;     </span>
-<span class="co">#&gt;  8 0033s000012Nda… TRUE        Test      Contact-Creat…              8 &lt;NA&gt;     </span>
-<span class="co">#&gt;  9 0033s000012Nda… TRUE        Test      Contact-Creat…              9 &lt;NA&gt;     </span>
-<span class="co">#&gt; 10 0033s000012Nda… TRUE        Test      Contact-Creat…             10 &lt;NA&gt;</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012Nis… TRUE        Test      Contact-Creat…              1 &lt;NA&gt;     </span>
+<span class="co">#&gt;  2 0033s000012Nis… TRUE        Test      Contact-Creat…              2 &lt;NA&gt;     </span>
+<span class="co">#&gt;  3 0033s000012Nis… TRUE        Test      Contact-Creat…              3 &lt;NA&gt;     </span>
+<span class="co">#&gt;  4 0033s000012Nis… TRUE        Test      Contact-Creat…              4 &lt;NA&gt;     </span>
+<span class="co">#&gt;  5 0033s000012Nis… TRUE        Test      Contact-Creat…              5 &lt;NA&gt;     </span>
+<span class="co">#&gt;  6 0033s000012Nis… TRUE        Test      Contact-Creat…              6 &lt;NA&gt;     </span>
+<span class="co">#&gt;  7 0033s000012Nis… TRUE        Test      Contact-Creat…              7 &lt;NA&gt;     </span>
+<span class="co">#&gt;  8 0033s000012Nis… TRUE        Test      Contact-Creat…              8 &lt;NA&gt;     </span>
+<span class="co">#&gt;  9 0033s000012Nis… TRUE        Test      Contact-Creat…              9 &lt;NA&gt;     </span>
+<span class="co">#&gt; 10 0033s000012Nis… TRUE        Test      Contact-Creat…             10 &lt;NA&gt;</span></pre></body></html></div>
 <p>For these above I typically prefer using the Bulk 1.0 API when creating or updating records. That way I can be confident in that the order of the records returned from the process matches the order of the original dataset I put into the process. All of this does not matter when deleting records, so if you want minor performance improvements then switch to the Bulk 2.0 when deleting or querying records.</p>
 <p>Here is an example performance benchmark between the Bulk 1.0 and Bulk 2.0 APIs for a small query. You’ll notice that the Bulk 2.0 API is slightly faster. In general, the Bulk 2.0 should be faster and the difference in performance should grow as size of the queried records grows.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">soql</span> <span class="kw">&lt;-</span> <span class="st">"SELECT Id, Name FROM Contact"</span>
@@ -307,8 +307,8 @@
 <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(<span class="no">bulk1_query</span>, <span class="no">bulk2_query</span>, <span class="kw">times</span><span class="kw">=</span><span class="fl">10</span>)
 <span class="co">#&gt; Unit: nanoseconds</span>
 <span class="co">#&gt;         expr min lq  mean median uq  max neval</span>
-<span class="co">#&gt;  bulk1_query  36 48 115.9   59.5 63  542    10</span>
-<span class="co">#&gt;  bulk2_query  44 50 586.0   58.0 59 5350    10</span></pre></body></html></div>
+<span class="co">#&gt;  bulk1_query  36 47 540.5     57 59 4890    10</span>
+<span class="co">#&gt;  bulk2_query  41 50 102.0     54 58  549    10</span></pre></body></html></div>
 </div>
   </div>
 
