@@ -123,7 +123,8 @@ sf_retrieve_soap <- function(ids,
     this_set <- response_parsed %>%
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
-      map_df(extract_records_from_xml_node) %>% 
+      map_df(extract_records_from_xml_node, 
+             object_name_as_col = TRUE) %>% 
       # ignore record ids that could not be matched
       filter(across(any_of("Id"), ~!is.na(.x)))
     resultset <- bind_rows(resultset, this_set)
@@ -193,6 +194,7 @@ sf_retrieve_rest <- function(ids,
   }
   
   resultset <- resultset %>%
+    drop_attributes_recursively(object_name_as_col = TRUE) %>% 
     map_df(flatten_tbl_df) %>%
     sf_reorder_cols() %>% 
     sf_guess_cols(guess_types)

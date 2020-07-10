@@ -47,7 +47,7 @@ sf_describe_objects <- function(object_names,
   if(which_api == "REST"){
     resultset <- list()
     for(i in 1:nrow(object_names)){
-      describe_object_url <- make_rest_describe_url(object_names[i,"sObjectType"])
+      describe_object_url <- make_rest_describe_url(object_names[i, "sObjectType"])
       httr_response <- rGET(url = describe_object_url)
       if(verbose){
         make_verbose_httr_message(httr_response$request$method,
@@ -56,7 +56,7 @@ sf_describe_objects <- function(object_names,
       }
       catch_errors(httr_response)
       response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
-      resultset[[i]] <- response_parsed$objectDescribe
+      resultset[[i]] <- response_parsed
     }
   } else if(which_api == "SOAP"){
     api_type <- match.arg(api_type)

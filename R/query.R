@@ -312,6 +312,8 @@ sf_query_soap <- function(soql,
   
   nested_queries_exist <- any(!is.na(nested_queries))
   if(nested_queries_exist){
+    # if there are no children, then just fill with true
+    nested_queries[is.na(nested_queries)] <- "true"
     if(any(nested_queries == "false")){
       resultset <- map_df(resultset, function(x){
         done_status <- x %>% xml_find_first('.//done') %>% xml_text()

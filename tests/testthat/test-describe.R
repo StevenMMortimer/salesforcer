@@ -18,5 +18,6 @@ test_that("testing sf_describe_objects", {
   expect_is(multiple_objs_metadata, "list")
   expect_equal(length(multiple_objs_metadata), 2)
   expect_equal(sort(c(unlist(multiple_objs_metadata[[1]]$name), 
-                      unlist(multiple_objs_metadata[[2]]$name))), c("Contact", "Lead"))
+                      unlist(multiple_objs_metadata[[2]]$name))), 
+               c("Contact", "Lead"))
 })

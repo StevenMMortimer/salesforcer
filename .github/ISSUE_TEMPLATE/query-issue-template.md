@@ -8,7 +8,7 @@ assignees: StevenMMortimer
 
 ### Issue submission checklist
 
-When filing your issue please make an attempt to understand your query and debug a little bit on your own. Below are a few suggestions on how to troubleshoot and document your issue. You may also refer to the [Troubleshooting](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html) section of the queries vignette.
+When filing your issue please make an attempt to understand your query and debug a little bit on your own. Below are a few suggestions on how to troubleshoot and document your issue. You may also refer to the [Troubleshooting](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html#troubleshooting) section of the [Supported Queries vignette]((https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html).
 
   - [ ] I have set `verbose=TRUE` in `sf_query()`.
   

@@ -24,7 +24,7 @@ test_that("testing REST API Functionality", {
                                    object_name = object, 
                                    api_type = "REST")
   expect_is(retrieved_records, "tbl_df")
-  expect_equal(names(retrieved_records), c("Id", "FirstName", "LastName"))
+  expect_equal(names(retrieved_records), c("sObject", "Id", "FirstName", "LastName"))
   expect_equal(nrow(retrieved_records), n)
   
   # FYI: Will not find newly created records because records need to be indexed

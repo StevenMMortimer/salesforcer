@@ -23,6 +23,37 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Supported Queries
+
+The following vignette outlines the different types of queries that have been 
+documented and tested. These are the "supported" query types that the **salesforcer** 
+package currently handles. If you run into an issue, please submit [HERE](https://github.com/StevenMMortimer/salesforcer/issues/new?assignees=StevenMMortimer&labels=&template=query-issue-template.md&title=) 
+in the GitHub repository so that we can fix or add your query type to this list. 
+Thank you!
+  
+Note: SOQL is a powerful tool that allows you to return the fields of records in 
+almost any object in Salesforce (e.g. standard objects like Accounts, Contacts, 
+and Tasks, along with any custom objects and custom fields created in your Org. 
+You are encouraged to use Bulk APIs when: 
+
+  - You anticipate returning 10,000 records or more
+  - Your query does not involve a parent-to-child nested relationship query
+  - You would like to reduce the overall number of API calls to your Org
+  
+If you are not familiar with Salesforce's proprietary form of SQL called SOQL 
+(Salesforce Object Query Language), please consider reading the following resources:
+
+ - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_sosl_intro.htm">Introduction to SOQL and SOSL</a>  
+ - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_select.htm">SOQL SELECT Syntax</a>  
+ - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_relationships.htm">Relationship Queries</a>  
+ - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/async_query_overview.htm">Async SOQL</a> 
+ - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm">Overview of queries in Bulk 1.0 API</a> 
+ - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm">Overview of queries in Bulk 2.0 API</a>
+
+----  
+
+## Examples
+  
 First, load the `salesforcer` package and login. There are two ways to authenticate: 
 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
 passwords do not have to be shared/embedded within scripts. User credentials will 
@@ -43,27 +74,45 @@ library(salesforcer)
 sf_auth()
 ```
 
-### Query
-
-Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query
-Language). SOQL is a powerful tool that allows you to return the fields of
-records in almost any object in Salesforce including Accounts, Contacts, Tasks,
-Opportunities, even Attachments! Below is an example where we grab the data we
-just created including Account object information for which the Contact record
-is associated with.
+### Simple query
 
 ```{r query-records}
-my_soql <- sprintf("SELECT Id, 
-                           Account.Name, 
-                           FirstName, 
-                           LastName 
-                    FROM Contact 
-                    WHERE Id in ('%s')", 
-                   paste0(created_records$id , collapse="','"))
+soql <- "SELECT Id,
+                FirstName, 
+                LastName
+         FROM Contact
+         LIMIT 10"
 
-queried_records <- sf_query(my_soql)
+queried_records <- sf_query(soql) # REST API is the default api_type
+queried_records
+
+queried_records <- sf_query(soql, api_type = "SOAP")
 queried_records
 ```
+
+Note that the default API used for queries is the REST API. Every effort has been 
+made so that the format of the results from the REST and SOAP APIs is exactly the 
+same. The only difference will be speed. The REST API uses JSON, which can generally 
+be processed more quickly than XML used in the SOAP API. Below is a small example 
+to roughly demonstrate the magnitude of the performance difference between the 
+REST and SOAP APIs.
+
+```{r}
+microbenchmark::microbenchmark(
+  
+)
+```
+
+```{r}
+queried_records <- sf_query(soql)
+queried_records
+```
+
+Note that the Bulk 1.0 API requires users to specify the target object along with 
+their submitted SOQL. This is because it is needed when creating the bulk job that 
+will manage and execute the query. The **salesforcer** package will try to infer 
+the object in the query if not explicitly provided. If it does not guess correctly, 
+then please specify
 
 You'll notice that the `"Account.Name"` column does not appear in the results. This is 
 because the SOAP and REST APIs do not return any Account information if it does not 

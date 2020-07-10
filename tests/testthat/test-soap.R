@@ -19,14 +19,14 @@ test_that("testing SOAP API Functionality", {
   expect_is(created_records$success, "logical")
   
   # sf_retrieve ----------------------------------------------------------------
-  retrieved_records <- sf_retrieve(ids=created_records$id,
-                                   fields=c("FirstName", "LastName"),
-                                   object_name=object, 
-                                   api_type="SOAP")
+  retrieved_records <- sf_retrieve(ids = created_records$id,
+                                   fields = c("FirstName", "LastName"),
+                                   object_name = object, 
+                                   api_type = "SOAP")
   expect_is(retrieved_records, "tbl_df")
-  expect_equal(names(retrieved_records), c("Id", "FirstName", "LastName"))
+  expect_equal(names(retrieved_records), c("sObject", "Id", "FirstName", "LastName"))
   expect_equal(nrow(retrieved_records), n)
-
+  
   # FYI: Will not find newly created records because records need to be indexed
   # Just search for some default records
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
