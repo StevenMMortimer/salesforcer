@@ -1,14 +1,16 @@
 ---
-name: Query issue template
-about: This issue template is for reporting an issue with a query.
+name: Default issue template
+about: This issue template is the default when reporting an issue.
 title: ''
 labels: ''
 assignees: StevenMMortimer
 ---
 
 <!--
-This issue tracker is dedicated issues related to queries in Salesforce. Please 
-consider some of the suggestions below before submitting an issue. Thank you!
+This issue tracker is for bugs, feature requests, questions or help. If your 
+issue is specifically related to a query, but please consider using the 
+"Query issue template". Also, please consider some of the suggestions below before 
+submitting an issue. Thank you!
 -->
 
 When filing your issue please make an attempt to understand the query and debug 
@@ -16,15 +18,16 @@ a little bit on your own. Below are a few suggests. You may also refer to the
 [Troubleshooting](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html) 
 section of the queries vignette.
 
-  - [ ] I have set `verbose=TRUE` in `sf_query()`.
+  - [ ] I have set `verbose=TRUE` function argument if possible. 
   
   - [ ] I have tried a few different function call arguments to see if I can 
   workaround and/or isolate the issue (e.g. reviewing the output from 
   the "SOAP" vs "REST" or the "Bulk 1.0" vs "Bulk 2.0" or tinkering with the 
   `control` argument in the function call).
   
-  - [ ] I have taken a look at the query unit tests [test-query.R](./tests/testthat/test-query.R) 
-  to see if my type of query has been documented and tested.
+  - [ ] I have taken a look at the unit tests directory 
+  [./tests/testthat/](./tests/testthat/) to see if my type of issue has been 
+  documented and tested.
   
   - [ ] I have considered making a minimal reproducible example using the 
   [**reprex**](http://reprex.tidyverse.org/) package. Details on how to create 
@@ -35,7 +38,7 @@ section of the queries vignette.
   of your issue).
   
   Thank you for considering these steps. It will speed up the process of resolving 
-  your issue.  
+  your issue.
   
 ----
 

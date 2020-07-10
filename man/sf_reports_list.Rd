@@ -7,6 +7,13 @@
 sf_reports_list(recent = TRUE, as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
+\item{recent}{\code{logical}; an indicator of whether to return the 200 most 
+recently viewed reports or to invoke a query on the \code{Report} object to 
+return all reports in the Org. By default, this argument is set to \code{TRUE} 
+meaning that only the most recently viewed reports are returned because this 
+is the default behavior of the reports list endpoint in the Reports and 
+Dashboards REST API.}
+
 \item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
 JSON into a \code{tbl_df}.}
 
@@ -14,13 +21,6 @@ JSON into a \code{tbl_df}.}
 detail for each API call, which is useful for debugging. More specifically, when 
 set to \code{TRUE} the URL, header, and body will be printed for each request, 
 along with additional diagnostic information where available.}
-
-\item{recent;}{\code{logical}; an indicator of whether to return the 200 most 
-recently viewed reports or to invoke a query on the \code{Report} object to 
-return all reports in the Org. By default, this argument is set to \code{TRUE} 
-meaning that only the most recently viewed reports are returned because this 
-is the default behavior of the reports list endpoint in the Reports and 
-Dashboards REST API.}
 }
 \value{
 \code{tbl_df} by default, or a \code{list} depending on the value of 

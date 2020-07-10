@@ -75,10 +75,12 @@ the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a column of all
 
 ### Troubleshooting
 
-If you are having an issue with a query please submit an issue on the **salesforcer** 
-GitHub repository at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, queries are tough to debug because every Salesforce Org is unique. Custom objects or relationships created in your Salesforce Org may be 
-different or even impossible to test in another Org. When filing your issue please 
-make an attempt to understand the and debug yourself. In a couple ways: 
+If you are having an issue with a query please submit in the **salesforcer** GitHub 
+repository at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, queries are tough to debug because every Salesforce 
+Org is unique. Custom objects or relationships created in your Salesforce Org may 
+be different or even impossible to test in another Org. When filing your issue please 
+make an attempt to understand the query and debug a little bit on your own. Here 
+are a few suggestions:  
 
   1. Slightly modify your function call to `sf_query()` to observe the results. Here 
   are a few prompting questions that may assist you:  

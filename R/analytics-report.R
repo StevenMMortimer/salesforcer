@@ -6,12 +6,12 @@
 #' recently viewed. To get a full list of reports by format, name, and other
 #' fields, use a SOQL query on the Report object.
 #'
-#' @param recent; \code{logical}; an indicator of whether to return the 200 most 
+#' @param recent \code{logical}; an indicator of whether to return the 200 most 
 #' recently viewed reports or to invoke a query on the \code{Report} object to 
 #' return all reports in the Org. By default, this argument is set to \code{TRUE} 
 #' meaning that only the most recently viewed reports are returned because this 
 #' is the default behavior of the reports list endpoint in the Reports and 
-#' Dashboards REST API. 
+#' Dashboards REST API.
 #' @template as_tbl
 #' @template verbose
 #' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
