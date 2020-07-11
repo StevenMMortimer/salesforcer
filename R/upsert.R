@@ -15,6 +15,7 @@
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_bulk_operation}}
+#' @template all_or_none
 #' @template verbose
 #' @return \code{tbl_df} of records with success indicator
 #' @examples

@@ -9,6 +9,8 @@
 #' recently viewed. To get a full list of reports by format, name, and other
 #' fields, use a SOQL query on the Report object.
 #'
+#' @importFrom dplyr rename_with mutate expr 
+#' @importFrom purrr transpose
 #' @param recent \code{logical}; an indicator of whether to return the 200 most 
 #' recently viewed reports or to invoke a query on the \code{Report} object to 
 #' return all reports in the Org. By default, this argument is set to \code{TRUE} 
@@ -43,10 +45,10 @@ sf_reports_list <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
     report_base_url <- "/services/data/v48.0/analytics/reports"
     resultset <- resultset %>% 
       rename_with(tolower) %>% 
-      mutate(url = sprintf('%s/%s', report_base_url, id),  
-             describeUrl = sprintf('%s/%s/%s', report_base_url, id, "describe"), 
-             fieldsUrl = sprintf('%s/%s/%s', report_base_url, id, "fields"),  
-             instancesUrl = sprintf('%s/%s/%s', report_base_url, id, "instances"))    
+      mutate(url = sprintf('%s/%s', report_base_url, expr("id")),  
+             describeUrl = sprintf('%s/%s/%s', report_base_url, expr("id"), "describe"), 
+             fieldsUrl = sprintf('%s/%s/%s', report_base_url, expr("id"), "fields"),  
+             instancesUrl = sprintf('%s/%s/%s', report_base_url, expr("id"), "instances"))    
     # convert the tibble returned by the query back into a list 
     if(!as_tbl){
       resultset <- resultset %>% transpose()

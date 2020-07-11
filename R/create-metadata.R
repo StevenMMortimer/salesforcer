@@ -16,6 +16,7 @@
 #' @template metadata
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
+#' @template all_or_none
 #' @template verbose
 #' @return A \code{tbl_df} containing the creation result for each submitted metadata component
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}

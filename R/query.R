@@ -15,6 +15,7 @@
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_query_bulk}}.
+#' @template page_size
 #' @param next_records_url \code{character} (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template bind_using_character_cols

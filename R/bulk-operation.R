@@ -22,6 +22,7 @@
 #' in calls using the Bulk 1.0 API.
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
+#' @template line_ending
 #' @template verbose
 #' @return A \code{tbl_df} parameters defining the created job, including id
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}

@@ -11,6 +11,7 @@
 #' @param object_names a character vector of names that we wish to read metadata for
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
+#' @template all_or_none
 #' @template verbose
 #' @return A \code{data.frame} containing the creation result for each submitted metadata component
 #' @seealso \code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}

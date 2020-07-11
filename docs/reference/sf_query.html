@@ -252,6 +252,12 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
 to <code><a href='sf_run_bulk_query.html'>sf_query_bulk</a></code>.</p></td>
     </tr>
     <tr>
+      <th>page_size</th>
+      <td><p>numeric; a number between 200 and 2000 indicating the number of
+records per page that are returned. Speed benchmarks should be done to better
+understand the speed implications of choosing high or low values of this argument.</p></td>
+    </tr>
+    <tr>
       <th>next_records_url</th>
       <td><p><code>character</code> (leave as NULL); a string used internally
 by the function to paginate through to more records until complete</p></td>

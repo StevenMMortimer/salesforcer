@@ -333,8 +333,8 @@ rforcecom.bulkQuery <- function(session,
            max_attempts = 100)
 }
 
-#' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.bulkAction}}
+#' The \code{salesforcer} backwards compatible version of the RForcecom function 
+#' \code{rforcecom.bulkAction}
 #' 
 #' @description
 #' \lifecycle{soft-deprecated}

@@ -16,6 +16,7 @@
 #' @template metadata
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
+#' @template all_or_none
 #' @template verbose
 #' @return A \code{tbl_df} containing the creation result for each submitted metadata component
 #' @note The upsert key is based on the fullName parameter of the metadata, so updates are triggered

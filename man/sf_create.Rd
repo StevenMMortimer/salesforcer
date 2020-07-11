@@ -40,6 +40,9 @@ look at the documentation for \code{\link{sf_control}}.}
 \item{...}{arguments passed to \code{\link{sf_control}} or further downstream
 to \code{\link{sf_bulk_operation}}}
 
+\item{all_or_none}{logical; allows a call to roll back all changes unless all
+records are processed successfully.}
+
 \item{verbose}{\code{logical}; an indicator of whether to print additional
 detail for each API call, which is useful for debugging. More specifically, when
 set to \code{TRUE} the URL, header, and body will be printed for each request,

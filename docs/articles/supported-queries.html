@@ -184,32 +184,32 @@
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;    Id                 FirstName LastName                 </span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                    </span>
-<span class="co">#&gt;  1 0033s000012NeHwAAK TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  2 0033s000012NeLLAA0 TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  3 0033s000012NdjPAAS TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  4 0033s000012NdjQAAS TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  5 0033s000012Nd6FAAS Jenny     Williams                 </span>
-<span class="co">#&gt;  6 0033s000012Niv7AAC TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  7 0033s000012Niv8AAC TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  8 0033s000012NdARAA0 Jenny     Williams                 </span>
-<span class="co">#&gt;  9 0036A00000kHvVYQA0 John      Bond                     </span>
-<span class="co">#&gt; 10 0033s000012NdjRAAS TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  1 0033s000012Nt56AAC Test      Contact-Create-2         </span>
+<span class="co">#&gt;  2 0033s000012Nt55AAC Test      Contact-Create-1         </span>
+<span class="co">#&gt;  3 0033s000012NeHwAAK TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  4 0033s000012NeLLAA0 TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt;  5 0033s000012NdjPAAS TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  6 0033s000012NdjQAAS TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt;  7 0033s000012Nd6FAAS Jenny     Williams                 </span>
+<span class="co">#&gt;  8 0033s000012Niv7AAC TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  9 0033s000012Niv8AAC TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt; 10 0033s000012NdARAA0 Jenny     Williams</span>
 
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"SOAP"</span>)
 <span class="no">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;    Id                 FirstName LastName                 </span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                    </span>
-<span class="co">#&gt;  1 0033s000012NeHwAAK TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  2 0033s000012NeLLAA0 TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  3 0033s000012NdjPAAS TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  4 0033s000012NdjQAAS TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  5 0033s000012Nd6FAAS Jenny     Williams                 </span>
-<span class="co">#&gt;  6 0033s000012Niv7AAC TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  7 0033s000012Niv8AAC TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  8 0033s000012NdARAA0 Jenny     Williams                 </span>
-<span class="co">#&gt;  9 0036A00000kHvVYQA0 John      Bond                     </span>
-<span class="co">#&gt; 10 0033s000012NdjRAAS TestTest  Bulk 2.0-Contact-Create-1</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012Nt56AAC Test      Contact-Create-2         </span>
+<span class="co">#&gt;  2 0033s000012Nt55AAC Test      Contact-Create-1         </span>
+<span class="co">#&gt;  3 0033s000012NeHwAAK TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  4 0033s000012NeLLAA0 TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt;  5 0033s000012NdjPAAS TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  6 0033s000012NdjQAAS TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt;  7 0033s000012Nd6FAAS Jenny     Williams                 </span>
+<span class="co">#&gt;  8 0033s000012Niv7AAC TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  9 0033s000012Niv8AAC TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt; 10 0033s000012NdARAA0 Jenny     Williams</span></pre></body></html></div>
 <p>Below is a small example to roughly demonstrate the magnitude of the performance difference between the REST and SOAP APIs when querying 1,000 records.</p>
 <p>** Setup performance test**</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># create a new account </span>
@@ -254,12 +254,12 @@
 )
 <span class="no">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;                  expr       min      lq      mean    median        uq       max</span>
-<span class="co">#&gt;  nested_query("REST")  5.686037  5.7221  5.802098  5.726684  5.853177  6.022491</span>
-<span class="co">#&gt;  nested_query("SOAP") 29.437802 29.5432 30.137613 30.036648 30.715843 30.954575</span>
-<span class="co">#&gt;  neval</span>
-<span class="co">#&gt;      5</span>
-<span class="co">#&gt;      5</span>
+<span class="co">#&gt;                  expr       min        lq      mean    median        uq</span>
+<span class="co">#&gt;  nested_query("REST")  5.686537  5.695993  5.895846  5.705421  5.930639</span>
+<span class="co">#&gt;  nested_query("SOAP") 29.282055 29.522838 29.809619 29.692313 29.876637</span>
+<span class="co">#&gt;        max neval</span>
+<span class="co">#&gt;   6.460642     5</span>
+<span class="co">#&gt;  30.674253     5</span>
 
 <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">res</span>) +
   <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="kw">name</span><span class="kw">=</span><span class="st">"Time [seconds]"</span>, <span class="kw">n.breaks</span><span class="kw">=</span><span class="fl">6</span>)
@@ -283,8 +283,8 @@
     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.8 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 2 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.2 seconds...</span>
 <span class="co">#&gt; Error in catch_errors(httr_response) : </span>
 <span class="co">#&gt;   API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
@@ -298,8 +298,8 @@
     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.6 seconds...</span>
 <span class="co">#&gt; Error in catch_errors(httr_response) : </span>
 <span class="co">#&gt;   API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 
@@ -347,7 +347,7 @@
 <span class="co">#&gt;  4 0013s00000zFiWsAAK          0</span>
 <span class="co">#&gt;  5 0013s00000zFiXbAAK          0</span>
 <span class="co">#&gt;  6 0013s00000zFiY5AAK          0</span>
-<span class="co">#&gt;  7 0013s00000zFj8DAAS       1000</span>
+<span class="co">#&gt;  7 0013s00000zFjCeAAK       1000</span>
 <span class="co">#&gt;  8 0016A0000035mJ4QAI          2</span>
 <span class="co">#&gt;  9 0016A0000035mJ5QAI          1</span>
 <span class="co">#&gt; 10 0016A0000035mJ8QAI          2</span>
@@ -381,16 +381,16 @@
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;    Id                 FirstName LastName                 </span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                    </span>
-<span class="co">#&gt;  1 0033s000012NeHwAAK TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  2 0033s000012NeLLAA0 TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  3 0033s000012NdjPAAS TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  4 0033s000012NdjQAAS TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  5 0033s000012Nd6FAAS Jenny     Williams                 </span>
-<span class="co">#&gt;  6 0033s000012Niv7AAC TestTest  Bulk 2.0-Contact-Create-1</span>
-<span class="co">#&gt;  7 0033s000012Niv8AAC TestTest  Bulk 2.0-Contact-Create-2</span>
-<span class="co">#&gt;  8 0033s000012NsnwAAC Test      Query-Vignette1          </span>
-<span class="co">#&gt;  9 0033s000012NsnxAAC Test      Query-Vignette2          </span>
-<span class="co">#&gt; 10 0033s000012NsnyAAC Test      Query-Vignette3</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012Nt56AAC Test      Contact-Create-2         </span>
+<span class="co">#&gt;  2 0033s000012Nt55AAC Test      Contact-Create-1         </span>
+<span class="co">#&gt;  3 0033s000012NeHwAAK TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  4 0033s000012NeLLAA0 TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt;  5 0033s000012NdjPAAS TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  6 0033s000012NdjQAAS TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt;  7 0033s000012Nd6FAAS Jenny     Williams                 </span>
+<span class="co">#&gt;  8 0033s000012Niv7AAC TestTest  Bulk 2.0-Contact-Create-1</span>
+<span class="co">#&gt;  9 0033s000012Niv8AAC TestTest  Bulk 2.0-Contact-Create-2</span>
+<span class="co">#&gt; 10 0033s000012NdARAA0 Jenny     Williams</span></pre></body></html></div>
 <p>As you can see above the <strong>salesforcer</strong> package will try to infer the object in the query if not explicitly provided. If it does not guess correctly, then please specify. Only in a recent release (v47.0, Winter 2019) was query functionality added to the Bulk 2.0 API. Now that this feature has been added, it appears that the Bulk 2.0 API is approximately <strong>2x</strong> faster for large queries instead of. However, please note that the format of the results are slightly different and you may want to experiment to see which you prefer.</p>
 <p><strong>Cleanup after performance tests</strong></p>
 <p>By keeping track of the account ids used in our tests, it is fairly easy to find and delete these test records from our Org to save space.</p>
@@ -405,23 +405,23 @@
 <span class="co">#&gt; # A tibble: 1,000 x 4</span>
 <span class="co">#&gt;    sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012NsnwAAC FALSE       0033s000012NsnwAAC &lt;NA&gt;     </span>
-<span class="co">#&gt;  2 0033s000012NsnxAAC FALSE       0033s000012NsnxAAC &lt;NA&gt;     </span>
-<span class="co">#&gt;  3 0033s000012NsnyAAC FALSE       0033s000012NsnyAAC &lt;NA&gt;     </span>
-<span class="co">#&gt;  4 0033s000012NsoEAAS FALSE       0033s000012NsoEAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  5 0033s000012NsoFAAS FALSE       0033s000012NsoFAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  6 0033s000012NsoGAAS FALSE       0033s000012NsoGAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  7 0033s000012NsoHAAS FALSE       0033s000012NsoHAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  8 0033s000012NsoIAAS FALSE       0033s000012NsoIAAS &lt;NA&gt;     </span>
-<span class="co">#&gt;  9 0033s000012NsoJAAS FALSE       0033s000012NsoJAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 10 0033s000012NsoKAAS FALSE       0033s000012NsoKAAS &lt;NA&gt;     </span>
+<span class="co">#&gt;  1 0033s000012NtBcAAK FALSE       0033s000012NtBcAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  2 0033s000012NtBdAAK FALSE       0033s000012NtBdAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  3 0033s000012NtBeAAK FALSE       0033s000012NtBeAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  4 0033s000012NtBfAAK FALSE       0033s000012NtBfAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  5 0033s000012NtBgAAK FALSE       0033s000012NtBgAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  6 0033s000012NtBhAAK FALSE       0033s000012NtBhAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  7 0033s000012NtBiAAK FALSE       0033s000012NtBiAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  8 0033s000012NtBjAAK FALSE       0033s000012NtBjAAK &lt;NA&gt;     </span>
+<span class="co">#&gt;  9 0033s000012NtBkAAK FALSE       0033s000012NtBkAAK &lt;NA&gt;     </span>
+<span class="co">#&gt; 10 0033s000012NtBlAAK FALSE       0033s000012NtBlAAK &lt;NA&gt;     </span>
 <span class="co">#&gt; # … with 990 more rows</span>
 <span class="co"># ... and finally delete the account</span>
 <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">new_account</span>$<span class="no">id</span>)
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s00000zFj8DAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0013s00000zFjCeAAK TRUE</span></pre></body></html></div>
 </div>
 <div id="relationship-queries" class="section level2">
 <h2 class="hasAnchor">
@@ -459,20 +459,20 @@
   FROM Contact
   WHERE Account.Id = null"</span>
 )
-<span class="co">#&gt; # A tibble: 35 x 2</span>
+<span class="co">#&gt; # A tibble: 45 x 2</span>
 <span class="co">#&gt;    Id                 FirstName</span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 0033s000012NeHwAAK TestTest </span>
-<span class="co">#&gt;  2 0033s000012NeLLAA0 TestTest </span>
-<span class="co">#&gt;  3 0033s000012NdjPAAS TestTest </span>
-<span class="co">#&gt;  4 0033s000012NdjQAAS TestTest </span>
-<span class="co">#&gt;  5 0033s000012Nd6FAAS Jenny    </span>
-<span class="co">#&gt;  6 0033s000012Niv7AAC TestTest </span>
-<span class="co">#&gt;  7 0033s000012Niv8AAC TestTest </span>
-<span class="co">#&gt;  8 0033s000012NdARAA0 Jenny    </span>
-<span class="co">#&gt;  9 0036A00000kHvVYQA0 John     </span>
-<span class="co">#&gt; 10 0033s000012NdjRAAS TestTest </span>
-<span class="co">#&gt; # … with 25 more rows</span></pre></body></html></div>
+<span class="co">#&gt;  1 0033s000012Nt56AAC Test     </span>
+<span class="co">#&gt;  2 0033s000012Nt55AAC Test     </span>
+<span class="co">#&gt;  3 0033s000012NeHwAAK TestTest </span>
+<span class="co">#&gt;  4 0033s000012NeLLAA0 TestTest </span>
+<span class="co">#&gt;  5 0033s000012NdjPAAS TestTest </span>
+<span class="co">#&gt;  6 0033s000012NdjQAAS TestTest </span>
+<span class="co">#&gt;  7 0033s000012Nd6FAAS Jenny    </span>
+<span class="co">#&gt;  8 0033s000012Niv7AAC TestTest </span>
+<span class="co">#&gt;  9 0033s000012Niv8AAC TestTest </span>
+<span class="co">#&gt; 10 0033s000012NdARAA0 Jenny    </span>
+<span class="co">#&gt; # … with 35 more rows</span></pre></body></html></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently. One aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships like so:</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>(
   <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, FirstName, Account.Owner.Id

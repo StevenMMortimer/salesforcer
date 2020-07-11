@@ -2,8 +2,8 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.bulkAction}
 \alias{rforcecom.bulkAction}
-\title{The \code{salesforcer} backwards compatible version of
-\code{\link[RForcecom]{rforcecom.bulkAction}}}
+\title{The \code{salesforcer} backwards compatible version of the RForcecom function
+\code{rforcecom.bulkAction}}
 \usage{
 rforcecom.bulkAction(
   session,
