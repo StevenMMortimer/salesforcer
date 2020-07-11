@@ -1,5 +1,8 @@
 #' Describe the Metadata in an Organization
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function returns details about the organization metadata
 #' 
 #' @importFrom XML newXMLNode addChildren

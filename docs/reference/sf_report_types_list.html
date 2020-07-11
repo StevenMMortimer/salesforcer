@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="List report types — sf_report_types_list" />
-<meta property="og:description" content="Return a list of report types." />
+<meta property="og:description" content="
+Return a list of report types." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Return a list of report types.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Return a list of report types.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_report_types_list</span>(<span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -189,21 +194,21 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
 JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of 
+    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of
 argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

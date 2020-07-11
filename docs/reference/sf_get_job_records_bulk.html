@@ -116,6 +116,9 @@ which has already been submitted completed (successfully or not)." />
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -197,42 +200,42 @@ which has already been submitted completed (successfully or not).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>job_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as 
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
 returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>record_types</th>
-      <td><p>character; one or more types of records to retrieve from 
+      <td><p>character; one or more types of records to retrieve from
 the results of running the specified job</p></td>
     </tr>
     <tr>
       <th>combine_record_types</th>
-      <td><p>logical; indicating for Bulk 2.0 jobs whether the 
-successfulResults, failedResults, and unprocessedRecords should be stacked together 
+      <td><p>logical; indicating for Bulk 2.0 jobs whether the
+successfulResults, failedResults, and unprocessedRecords should be stacked together
 using <code>bind_rows</code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>tbl_df</code> or <code>list</code> of <code>tbl_df</code>, formatted by Salesforce, 
+    <p>A <code>tbl_df</code> or <code>list</code> of <code>tbl_df</code>, formatted by Salesforce,
 with information containing the success or failure or certain rows in a submitted job</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>With Bulk 2.0 the order of records in the response is not guaranteed to 
+    <p>With Bulk 2.0 the order of records in the response is not guaranteed to
 match the ordering of records in the original job data.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

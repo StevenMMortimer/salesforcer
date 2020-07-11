@@ -11,23 +11,23 @@ sf_analytics_notifications_limits(
 )
 }
 \arguments{
-\item{source}{\code{character}; a vector of character to specify what type of 
+\item{source}{\code{character}; a vector of character to specify what type of
 analytics notification to return. Valid values are:
 \describe{
-  \item{lightningDashboardSubscribe}{Dashboard subscriptions}
-  \item{lightningReportSubscribe}{Report subscriptions}
-  \item{waveNotification}{Einstein Analytics notifications}   
+\item{lightningDashboardSubscribe}{Dashboard subscriptions}
+\item{lightningReportSubscribe}{Report subscriptions}
+\item{waveNotification}{Einstein Analytics notifications}
 }
 By default, all 3 sources will be returned in the results.}
 
-\item{record_id}{\code{character}; specify if wanting to return the notification 
-details for a single record. Valid values are either a unique report Id 
-(these reference Ids start with "00O") or an Einstein Analytics lens ID (these 
+\item{record_id}{\code{character}; specify if wanting to return the notification
+details for a single record. Valid values are either a unique report Id
+(these reference Ids start with "00O") or an Einstein Analytics lens ID (these
 reference Ids start with "0FK").}
 }
 \value{
 \code{list}
 }
 \description{
-Return limits of analytics notifications
+\lifecycle{experimental}
 }

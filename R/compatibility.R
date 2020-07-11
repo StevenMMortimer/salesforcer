@@ -20,7 +20,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#' salesforcer's backwards compatible version of rforcecom.login
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.login}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
 #' 
 #' @param username Your username for login to the Salesforce.com. In many cases, username is your E-mail address.
 #' @param password Your password for login to the Salesforce.com. Note: DO NOT FORGET your Security Token. (Ex.) If your password is "Pass1234" and your security token is "XYZXYZXYZXYZ", you should set "Pass1234XYZXYZXYZXYZ".
@@ -33,7 +37,7 @@
 #' @export
 rforcecom.login <- function(username, password, loginURL="https://login.salesforce.com/", apiVersion="35.0"){
   
-  .Deprecated("sf_auth")
+  deprecate_soft("0.1.0", "rforcecom.login()", "sf_auth()")  
   
   if(!is.null(loginURL)){
     options(salesforcer.login_url = loginURL)
@@ -56,62 +60,55 @@ rforcecom.login <- function(username, password, loginURL="https://login.salesfor
   return(unlist(session))
 }
 
-#' salesforcer's backwards compatible version of rforcecom.query
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.getServerTimestamp}}
 #' 
-#' @template session
-#' @template soqlQuery
-#' @param queryAll  logical; indicating if the query recordset should include 
-#' deleted and archived records (available only when querying Task and Event records)
-#' @return Result dataset.
-#' @export
-rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
-  
-  .Deprecated("sf_query")
- 
-  sf_query(soql=soqlQuery, queryall=queryAll)
-}
-
-#' salesforcer's backwards compatible version of rforcecom.bulkQuery
-#' 
-#' @template session
-#' @template soqlQuery
-#' @param object character; the name of one Salesforce objects that the 
-#' function is operating against (e.g. "Account", "Contact", "CustomObject__c")
-#' @param interval_seconds an integer defining the seconds between attempts to check for job completion
-#' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
-#' @template verbose
-#' @return A \code{data.frame} of the recordset returned by query
-#' @export
-rforcecom.bulkQuery <- function(session,
-                                soqlQuery,
-                                object,
-                                interval_seconds=5,
-                                max_attempts=100, 
-                                verbose=FALSE){
-  
-  .Deprecated("sf_query")
-  
-  sf_query(soql = soqlQuery, 
-           object_name = object,
-           api_type = "Bulk 1.0", 
-           interval_seconds = 5,
-           max_attempts = 100)
-}
-
-#' salesforcer's backwards compatible version of rforcecom.getServerTimestamp
+#' @description
+#' \lifecycle{soft-deprecated}
 #' 
 #' @template session
 #' @export
 rforcecom.getServerTimestamp <- function(session){
-  .Deprecated("sf_server_timestamp")
+  
+  deprecate_soft("0.1.0", "rforcecom.getServerTimestamp()", "sf_server_timestamp()")  
+  
   result <- sf_server_timestamp()
   # format like rforcecom.getServerTimestamp()
   result <- as.POSIXlt(result, tz="GMT")
   return(result)
 }
 
-#' salesforcer's backwards compatible version of rforcecom.create
-#'
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.getObjectDescription}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @importFrom purrr map_df
+#' @template session 
+#' @template objectName
+#' @return Object descriptions
+#' @note This function returns a data.frame with one row per field for an object.
+#' @export
+rforcecom.getObjectDescription <- function(session, objectName){
+  
+  deprecate_soft("0.1.0", "rforcecom.getObjectDescription()", "sf_describe_objects()")
+  
+  obj_dat <- sf_describe_objects(object_names = objectName, 
+                                 api_type="SOAP")[[1]]
+  
+  obj_fields <- map_df(obj_dat[names(obj_dat) == "fields"], 
+                       as.data.frame, 
+                       stringsAsFactors=FALSE)
+  return(obj_fields)
+}
+
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.create}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
 #' @importFrom dplyr select mutate
 #' @template session
 #' @template objectName
@@ -120,7 +117,7 @@ rforcecom.getServerTimestamp <- function(session){
 #' @export
 rforcecom.create <- function(session, objectName, fields){
   
-  .Deprecated("sf_create")
+  deprecate_soft("0.1.0", "rforcecom.create()", "sf_create()")
   
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
   created_records <- sf_create(input_data = fields, object_name = objectName)
@@ -132,80 +129,12 @@ rforcecom.create <- function(session, objectName, fields){
   return(result)
 }
 
-#' salesforcer's backwards compatible version of rforcecom.update
-#'
-#' @template session
-#' @template objectName
-#' @param id Record ID to update. (ex: "999x000000xxxxxZZZ")
-#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
-#' @return \code{NULL} if successful otherwise the function errors out
-#' @export
-rforcecom.update <- function(session, objectName, id, fields){
-  
-  .Deprecated("sf_update")
-
-  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
-  fields$id <- id
-  updated_records <- sf_update(fields, object_name = objectName)
-  # rforcecom.update returns NULL if successful??
-  return(NULL)
-}
-
-#' salesforcer's backwards compatible version of rforcecom.delete
-#'
-#' @template session
-#' @template objectName
-#' @param id Record ID to delete. (ex: "999x000000xxxxxZZZ")
-#' @return \code{NULL} if successful otherwise the function errors out
-#' @export
-rforcecom.delete <- function(session, objectName, id){
-  
-  .Deprecated("sf_delete")
-  
-  deleted_records <- sf_delete(id, object_name = objectName)
-  # rforcecom.delete returns NULL if successful??
-  return(NULL)
-}
-
-#' salesforcer's backwards compatible version of rforcecom.upsert
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.retrieve}}
 #' 
-#' @template session
-#' @template objectName
-#' @param externalIdField An external Key's field name. (ex: "AccountMaster__c")
-#' @param externalId An external Key's ID. (ex: "999x000000xxxxxZZZ")
-#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
-#' @return \code{NULL} if successful otherwise the function errors out
-#' @export
-rforcecom.upsert <- function(session, objectName, 
-                             externalIdField, externalId, 
-                             fields){
-  
-  .Deprecated("sf_upsert")
-
-  fields[externalIdField] <- externalId
-  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
-  upserted_records <- sf_upsert(input_data = fields, 
-                                object_name = objectName, 
-                                external_id_fieldname = externalIdField)
-  res <- as.data.frame(upserted_records, stringsAsFactors = FALSE)
-  return(res)
-}
-
-#' salesforcer's backwards compatible version of rforcecom.search
-#'
-#' @template session 
-#' @param queryString Query strings to search. (ex: "United", "Electoronics")
-#' @export
-rforcecom.search <- function(session, queryString){
-  .Deprecated("sf_search")
-  
-  queryString <- paste0("FIND {", queryString, "}", sep="")
-  resultset <- sf_search(search_string = queryString, is_sosl=TRUE)
-  return(resultset)
-}
-
-#' salesforcer's backwards compatible version of rforcecom.retrieve
-#'
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
 #' @template session 
 #' @template objectName
 #' @param fields A List of field names. (ex: c("Id", "Name", "Industry", 
@@ -225,7 +154,8 @@ rforcecom.retrieve <- function(session, objectName,
                                fields, limit=NULL, id=NULL,
                                offset=NULL, order=NULL,
                                inverse=NULL, nullsLast=NULL){
-  .Deprecated("sf_retrieve")
+  
+  deprecate_soft("0.1.0", "rforcecom.retrieve()", "sf_retrieve()")
   
   # Make SOQL
   fieldList <- paste(fields, collapse=", ")
@@ -264,29 +194,151 @@ rforcecom.retrieve <- function(session, objectName,
   return(resultSet)
 }
 
-#' salesforcer's backwards compatible version of rforcecom.getObjectDescription
-#'
-#' @importFrom purrr map_df
-#' @template session 
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.update}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @template session
 #' @template objectName
-#' @return Object descriptions
-#' @note This function returns a data.frame with one row per field for an object.
+#' @param id Record ID to update. (ex: "999x000000xxxxxZZZ")
+#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
+#' @return \code{NULL} if successful otherwise the function errors out
 #' @export
-rforcecom.getObjectDescription <- function(session, objectName){
+rforcecom.update <- function(session, objectName, id, fields){
   
-  .Deprecated("sf_describe_objects")
+  deprecate_soft("0.1.0", "rforcecom.update()", "sf_update()")
 
-  obj_dat <- sf_describe_objects(object_names = objectName, 
-                                 api_type="SOAP")[[1]]
-  
-  obj_fields <- map_df(obj_dat[names(obj_dat) == "fields"], 
-                       as.data.frame, 
-                       stringsAsFactors=FALSE)
-  return(obj_fields)
+  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
+  fields$id <- id
+  updated_records <- sf_update(fields, object_name = objectName)
+  # rforcecom.update returns NULL if successful??
+  return(NULL)
 }
 
-#' Run Bulk Action
-#'
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.delete}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @template session
+#' @template objectName
+#' @param id Record ID to delete. (ex: "999x000000xxxxxZZZ")
+#' @return \code{NULL} if successful otherwise the function errors out
+#' @export
+rforcecom.delete <- function(session, objectName, id){
+  
+  deprecate_soft("0.1.0", "rforcecom.delete()", "sf_delete()")
+  
+  invisible(sf_delete(id, object_name = objectName))
+  # rforcecom.delete returns NULL if successful??
+  return(NULL)
+}
+
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.upsert}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @template session
+#' @template objectName
+#' @param externalIdField An external Key's field name. (ex: "AccountMaster__c")
+#' @param externalId An external Key's ID. (ex: "999x000000xxxxxZZZ")
+#' @param fields Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )
+#' @return \code{NULL} if successful otherwise the function errors out
+#' @export
+rforcecom.upsert <- function(session, objectName, 
+                             externalIdField, externalId, 
+                             fields){
+  
+  deprecate_soft("0.1.0", "rforcecom.upsert()", "sf_upsert()")
+
+  fields[externalIdField] <- externalId
+  fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
+  upserted_records <- sf_upsert(input_data = fields, 
+                                object_name = objectName, 
+                                external_id_fieldname = externalIdField)
+  res <- as.data.frame(upserted_records, stringsAsFactors = FALSE)
+  return(res)
+}
+
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.search}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @template session 
+#' @param queryString Query strings to search. (ex: "United", "Electoronics")
+#' @export
+rforcecom.search <- function(session, queryString){
+  
+  deprecate_soft("0.1.0", "rforcecom.search()", "sf_search()")
+  
+  queryString <- paste0("FIND {", queryString, "}", sep="")
+  resultset <- sf_search(search_string = queryString, is_sosl=TRUE)
+  return(resultset)
+}
+
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.query}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @template session
+#' @template soqlQuery
+#' @param queryAll  logical; indicating if the query recordset should include 
+#' deleted and archived records (available only when querying Task and Event records)
+#' @return Result dataset.
+#' @export
+rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
+  
+  deprecate_soft("0.1.0", "rforcecom.query()", "sf_query()")  
+  
+  sf_query(soql=soqlQuery, queryall=queryAll)
+}
+
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.bulkQuery}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
+#' @template session
+#' @template soqlQuery
+#' @param object character; the name of one Salesforce objects that the 
+#' function is operating against (e.g. "Account", "Contact", "CustomObject__c")
+#' @param interval_seconds an integer defining the seconds between attempts to check for job completion
+#' @param max_attempts an integer defining then max number attempts to check for job completion before stopping
+#' @template verbose
+#' @return A \code{data.frame} of the recordset returned by query
+#' @export
+rforcecom.bulkQuery <- function(session,
+                                soqlQuery,
+                                object,
+                                interval_seconds=5,
+                                max_attempts=100, 
+                                verbose=FALSE){
+  
+  deprecate_soft("0.1.0", "rforcecom.bulkQuery()", "sf_query()")  
+  
+  sf_query(soql = soqlQuery, 
+           object_name = object,
+           api_type = "Bulk 1.0", 
+           interval_seconds = 5,
+           max_attempts = 100)
+}
+
+#' The \code{salesforcer} backwards compatible version of 
+#' \code{\link[RForcecom]{rforcecom.bulkAction}}
+#' 
+#' @description
+#' \lifecycle{soft-deprecated}
+#' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
@@ -319,7 +371,8 @@ rforcecom.bulkAction <- function(session,
                                  interval_seconds=5,
                                  max_attempts=100,
                                  verbose=FALSE){
-  .Deprecated("sf_bulk_operation")
+  
+  deprecate_soft("0.1.0", "rforcecom.bulkAction()", "sf_bulk_operation()")
   
   operation <- match.arg(operation)
   res <- sf_bulk_operation(input_data = data, 

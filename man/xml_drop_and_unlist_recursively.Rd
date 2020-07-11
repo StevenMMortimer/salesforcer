@@ -10,11 +10,11 @@ xml_drop_and_unlist_recursively(x)
 \item{x}{\code{list}; a list to be cleaned.}
 }
 \value{
-\code{list} containing without \code{type} and \code{Id} fields that 
+\code{list} containing without \code{type} and \code{Id} fields that
 are not requested as part of the query, but Salesforce provides.
 }
 \description{
-This function wraps the \code{\link{xml_drop_and_unlist}} function 
+This function wraps the \code{\link{xml_drop_and_unlist}} function
 to recursively flatten and remove record type attributes from relationship
 and nested queries.
 }

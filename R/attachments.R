@@ -1,5 +1,8 @@
 #' Download an Attachment
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' This function will allow you to download an attachment to disk based on the 
 #' attachment body, file name, and path.
 #' 
@@ -25,6 +28,9 @@ sf_download_attachment <- function(body, name, path = "."){
 }
 
 #' Create Attachments
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' This function will allow you to create attachments (and other blob data, such as 
 #' Documents) by supplying file paths (absolute or relative) to media that you 

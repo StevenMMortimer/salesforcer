@@ -13,61 +13,63 @@ sf_report_instance_results(
 )
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
-created analytics report instance (an asynchronous run). It will start with 
+\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a
+created analytics report instance (an asynchronous run). It will start with
 \code{"0LG"}.}
 
-\item{label}{\code{logical}; an indicator of whether the returned data should 
-be the label (i.e. formatted value) or the actual value. By default, the labels  
-are returned because these are what appear in the Salesforce dashboard and 
-more closely align with the column names. For example, "Account.Name" label 
-may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former 
+\item{label}{\code{logical}; an indicator of whether the returned data should
+be the label (i.e. formatted value) or the actual value. By default, the labels
+are returned because these are what appear in the Salesforce dashboard and
+more closely align with the column names. For example, "Account.Name" label
+may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former
 (label) more accurately reflects the "Account.Name".}
 
-\item{fact_map_key}{\code{character}; string providing an index into each 
-section of a fact map, from which you can access summary and detailed data. 
-The pattern for the fact map keys varies by report format so it is important 
-to know what the \code{reportFormat} property of the target report is. See the 
+\item{fact_map_key}{\code{character}; string providing an index into each
+section of a fact map, from which you can access summary and detailed data.
+The pattern for the fact map keys varies by report format so it is important
+to know what the \code{reportFormat} property of the target report is. See the
 note below for more details.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df}; the detail repot data. More specifically, the detailed 
+\code{tbl_df}; the detail repot data. More specifically, the detailed
 data from the "T!T" entry in the fact map.
 }
 \description{
-Retrieves results for an instance of a report run asynchronously with or without 
-filters. Depending on your asynchronous report run request, data can be at the 
+\lifecycle{experimental}
+
+Retrieves results for an instance of a report run asynchronously with or without
+filters. Depending on your asynchronous report run request, data can be at the
 summary level or include details.
 }
 \note{
-Below are the fact map key patterns for three report types: 
+Below are the fact map key patterns for three report types:
 \describe{
-  \item{TABULAR}{\code{T!T}: The grand total of a report. Both record data 
-  values and the grand total are represented by this key.}
-  \item{SUMMARY}{\code{<First level row grouping_second level row grouping_third 
+\item{TABULAR}{\code{T!T}: The grand total of a report. Both record data
+values and the grand total are represented by this key.}
+\item{SUMMARY}{\code{<First level row grouping_second level row grouping_third 
   level row grouping>!T}: T refers to the row grand total.}
-  \item{MATRIX}{\code{<First level row grouping_second level row grouping>!<First 
+\item{MATRIX}{\code{<First level row grouping_second level row grouping>!<First 
   level column grouping_second level column grouping>.}}
 }
 
-Each item in a row or column grouping is numbered starting with 0. Here are 
+Each item in a row or column grouping is numbered starting with 0. Here are
 some examples of fact map keys:
 
 \describe{
-  \item{0!T}{The first item in the first-level grouping.}
-  \item{1!T}{The second item in the first-level grouping.}
-  \item{0_0!T}{The first item in the first-level grouping and the first item 
-  in the second-level grouping.}
-  \item{0_1!T}{The first item in the first-level grouping and the second item 
-  in the second-level grouping.}   
+\item{0!T}{The first item in the first-level grouping.}
+\item{1!T}{The second item in the first-level grouping.}
+\item{0_0!T}{The first item in the first-level grouping and the first item
+in the second-level grouping.}
+\item{0_1!T}{The first item in the first-level grouping and the second item
+in the second-level grouping.}
 }
 }
 \examples{

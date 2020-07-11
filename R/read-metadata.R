@@ -1,5 +1,8 @@
 #' Read Object or Field Metadata from Salesforce
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function takes a request of named elements in Salesforce and 
 #' returns their metadata
 #'
@@ -71,6 +74,9 @@ sf_read_metadata <- function(metadata_type, object_names, verbose=FALSE){
 
 #' Describe Object Fields
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' This function takes the name of an object in Salesforce and returns a description 
 #' of the fields on that object by returning a tibble with one row per field.
 #' 
@@ -107,8 +113,8 @@ sf_describe_object_fields <- function(object_name){
 #' Collapse Elements in List with Same Name
 #' 
 #' This function looks for instances of elements in a list that have the same name 
-#' and then combine them all into a single comma separated character string (referenceTo) 
-#' or \code{tbl_df} (picklistValues).
+#' and then combine them all into a single comma separated character string 
+#' (referenceTo) or \code{tbl_df} (picklistValues).
 #' 
 #' @importFrom readr type_convert cols
 #' @importFrom dplyr as_tibble

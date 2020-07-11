@@ -234,7 +234,7 @@ see where the Bulk APIs outperform the REST API.
 qry_compare <- function(api_type){
   soql <- sprintf("SELECT Id, LastName, Account.Id, Account.Name, Owner.Id
                    FROM Contact
-                   WHERE AccountId = '%s'", 
+                   WHERE Account.Id = '%s'", 
                    new_account$id)
   sf_query(soql, api_type = api_type)
 }
@@ -295,21 +295,25 @@ and 2. parent-to-child nested queries) detailed in the sections below.
 The first type of The most common is Contact (child) to Account (parent).
 
 Instead you just need to prefix any fields from the related object by 
-concatenating the name of the object with the field name separated by a period.
+concatenating the name of the object with the field name separated by a period. 
+In the example below we are retrieving all Contact object records that have a 
+relationship to an Account.
 
 ```{r}
 # child-to-parent relationship (Account.Name on a Contact record)
 sf_query(
   "SELECT Id, FirstName, Account.Name
   FROM Contact
-  WHERE Account.Id = '%s'"
+  WHERE Account.Id != null"
 )
 ```
 
 Sometimes you may notice that the requested relationship fields do not appear in
 the query results. This is because the SOAP and REST APIs do not return any
 related object information if it does not exist on the record and there is no
-reliable way to extract and rebuild the empty columns based on the query string.
+reliable way to extract and rebuild the empty columns based on the query string. 
+In the example below, if there were Account information an additional column
+titled `"Account.Name"` would appear in the results. 
 
 ```{r}
 # child-to-parent relationship (Account.Name on a Contact record)
@@ -320,11 +324,10 @@ sf_query(
 )
 ```
 
-In the example above, if there were Account information an additional column
-titled `"Account.Name"` would appear in the results. Note, that the Bulk 1.0 and
-Bulk 2.0 APIs will return `"Account.Name"` as a column of all `NA` values for
-this query because they return results differently. One aspect to note is that 
-the Bulk 2.0 API does not support child-to-parent-grandparent relationships like so: 
+Note, that the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a
+column of all `NA` values for this query because they return results
+differently. One aspect to note is that the Bulk 2.0 API does not support
+child-to-parent-grandparent relationships like so:
 
 ```{r}
 try(

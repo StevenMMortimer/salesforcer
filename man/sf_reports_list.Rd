@@ -7,32 +7,34 @@
 sf_reports_list(recent = TRUE, as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{recent}{\code{logical}; an indicator of whether to return the 200 most 
-recently viewed reports or to invoke a query on the \code{Report} object to 
-return all reports in the Org. By default, this argument is set to \code{TRUE} 
-meaning that only the most recently viewed reports are returned because this 
-is the default behavior of the reports list endpoint in the Reports and 
+\item{recent}{\code{logical}; an indicator of whether to return the 200 most
+recently viewed reports or to invoke a query on the \code{Report} object to
+return all reports in the Org. By default, this argument is set to \code{TRUE}
+meaning that only the most recently viewed reports are returned because this
+is the default behavior of the reports list endpoint in the Reports and
 Dashboards REST API.}
 
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df} by default, or a \code{list} depending on the value of 
+\code{tbl_df} by default, or a \code{list} depending on the value of
 argument \code{as_tbl}
 }
 \description{
+\lifecycle{experimental}
+
 Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other
 fields, use a SOQL query on the Report object.
 }
 \note{
-This function will only return up to 200 of recently viewed reports. For 
+This function will only return up to 200 of recently viewed reports. For
 a COMPLETE list you must use \code{\link{sf_query}} on the report object.
 }
 \examples{

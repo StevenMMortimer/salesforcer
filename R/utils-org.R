@@ -1,5 +1,8 @@
 #' Return Current User Info
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Retrieves personal information for the user associated with the current session.
 #' 
 #' @importFrom httr content
@@ -64,6 +67,9 @@ sf_user_info <- function(api_type=c("SOAP", "Chatter"), verbose=FALSE){
 
 #' Set User Password
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Sets the specified user’s password to the specified value.
 #' 
 #' @param user_id character; the unique Salesforce Id assigned to the User
@@ -99,6 +105,9 @@ sf_set_password <- function(user_id, password, verbose=FALSE){
 }
 
 #' Reset User Password
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Changes a user’s password to a temporary, system-generated value.
 #' 
@@ -154,6 +163,9 @@ sf_reset_password <- function(user_id,
 
 #' Salesforce Server Timestamp
 #' 
+#' @description
+#' \lifecycle{stable}
+#' 
 #' Retrieves the current system timestamp from the API.
 #' 
 #' @importFrom httr headers 
@@ -177,6 +189,9 @@ sf_server_timestamp <- function(){
 
 #' List REST API Versions
 #' 
+#' @description
+#' \lifecycle{stable}
+#' 
 #' Lists summary information about each Salesforce version currently available, 
 #' including the version, label, and a link to each version\'s root
 #' 
@@ -197,6 +212,9 @@ sf_list_rest_api_versions <- function(){
 
 #' List the Resources for an API
 #' 
+#' @description
+#' \lifecycle{stable}
+#' 
 #' Lists available resources for the specified API version, including resource 
 #' name and URI.
 #' 
@@ -216,6 +234,9 @@ sf_list_resources <- function(){
 }
 
 #' List the Limits for an API
+#' 
+#' @description
+#' \lifecycle{stable}
 #' 
 #' Lists information about limits in your org.
 #' 
@@ -265,6 +286,9 @@ sf_list_api_limits <- function(){
 
 #' List Organization Objects and their Metadata
 #' 
+#' @description
+#' \lifecycle{stable}
+#' 
 #' Lists the available objects and their metadata for your organization’s data.
 #' 
 #' @importFrom httr content
@@ -283,6 +307,9 @@ sf_list_objects <- function(){
 }
 
 #' Find Duplicate Records
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Performs rule-based searches for duplicate records.
 #' 
@@ -380,6 +407,9 @@ sf_find_duplicates <- function(search_criteria,
 
 #' Find Duplicate Records By Id
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Performs rule-based searches for duplicate records.
 #' 
 #' @importFrom utils head
@@ -468,6 +498,9 @@ sf_find_duplicates_by_id <- function(sf_id,
 }
 
 #' Convert Leads
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.
 #' 
@@ -627,6 +660,9 @@ sf_convert_lead <- function(input_data,
 
 #' Merge Records
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function combines records of the same object type into one of the records, 
 #' known as the master record. The other records, known as the victim records, will
 #' be deleted. If a victim record has related records the master record the new 
@@ -738,6 +774,9 @@ sf_merge <- function(master_id,
 
 #' Get Deleted Records from a Timeframe
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Retrieves the list of individual records that have been deleted within the given 
 #' timespan for the specified object.
 #' 
@@ -806,6 +845,9 @@ sf_get_deleted <- function(object_name,
 }
 
 #' Get Updated Records from a Timeframe
+#' 
+#' @description
+#' \lifecycle{maturing}
 #' 
 #' Retrieves the list of individual records that have been inserted or updated 
 #' within the given timespan in the specified object.
@@ -877,6 +919,9 @@ sf_get_updated <- function(object_name,
 }
 
 #' Undelete Records
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Undeletes records from the Recycle Bin.
 #' 
@@ -969,7 +1014,10 @@ sf_undelete <- function(ids,
 }
 
 #' Empty Recycle Bin
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Delete records from the recycle bin immediately and permanently.
 #'
 #' @importFrom httr content

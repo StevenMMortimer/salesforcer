@@ -2,7 +2,8 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.bulkQuery}
 \alias{rforcecom.bulkQuery}
-\title{salesforcer's backwards compatible version of rforcecom.bulkQuery}
+\title{The \code{salesforcer} backwards compatible version of
+\code{\link[RForcecom]{rforcecom.bulkQuery}}}
 \usage{
 rforcecom.bulkQuery(
   session,
@@ -14,31 +15,31 @@ rforcecom.bulkQuery(
 )
 }
 \arguments{
-\item{session}{\code{list}; a list containing \code{"sessionID"}, 
-\code{"instanceURL"}, and \code{"apiVersion"} as returned by 
-\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all 
-backward compatible calls because the authorization credentials are stored 
-in an environment internal to the salesforcer package, so it is no longer 
+\item{session}{\code{list}; a list containing \code{"sessionID"},
+\code{"instanceURL"}, and \code{"apiVersion"} as returned by
+\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.}
 
-\item{soqlQuery}{\code{character}; a string defining a SOQL query 
+\item{soqlQuery}{\code{character}; a string defining a SOQL query
 (e.g. "SELECT Id, Name FROM Account").}
 
-\item{object}{character; the name of one Salesforce objects that the 
+\item{object}{character; the name of one Salesforce objects that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{interval_seconds}{an integer defining the seconds between attempts to check for job completion}
 
 \item{max_attempts}{an integer defining then max number attempts to check for job completion before stopping}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{data.frame} of the recordset returned by query
 }
 \description{
-salesforcer's backwards compatible version of rforcecom.bulkQuery
+\lifecycle{soft-deprecated}
 }

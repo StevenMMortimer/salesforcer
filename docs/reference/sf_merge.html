@@ -53,9 +53,10 @@
 
 
 <meta property="og:title" content="Merge Records — sf_merge" />
-<meta property="og:description" content="This function combines records of the same object type into one of the records, 
+<meta property="og:description" content="
+This function combines records of the same object type into one of the records,
 known as the master record. The other records, known as the victim records, will
-be deleted. If a victim record has related records the master record the new 
+be deleted. If a victim record has related records the master record the new
 parent of the related records." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -116,6 +117,9 @@ parent of the related records." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -182,9 +186,10 @@ parent of the related records." />
     </div>
 
     <div class="ref-description">
-    <p>This function combines records of the same object type into one of the records, 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function combines records of the same object type into one of the records,
 known as the master record. The other records, known as the victim records, will
-be deleted. If a victim record has related records the master record the new 
+be deleted. If a victim record has related records the master record the new
 parent of the related records.</p>
     </div>
 
@@ -204,38 +209,38 @@ parent of the related records.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>master_id</th>
-      <td><p>character; a Salesforce generated Id that identifies the master record, 
+      <td><p>character; a Salesforce generated Id that identifies the master record,
 which is the record to which the victim records will be merged into</p></td>
     </tr>
     <tr>
       <th>victim_ids</th>
-      <td><p>character; one or two Salesforce Ids of records to be merged into 
-the master record. Up to three records can be merged in a single request, including 
-the master record. This limit is the same as the limit enforced by the Salesforce user 
-interface. To merge more than 3 records, successively merge records by running 
+      <td><p>character; one or two Salesforce Ids of records to be merged into
+the master record. Up to three records can be merged in a single request, including
+the master record. This limit is the same as the limit enforced by the Salesforce user
+interface. To merge more than 3 records, successively merge records by running
 <code>sf_merge</code> repeatedly.</p></td>
     </tr>
     <tr>
       <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>master_fields</th>
-      <td><p><code>named vector</code>; a vector of field names and values to 
-supersede the master record values. Otherwise, the field values on the master record 
+      <td><p><code>named vector</code>; a vector of field names and values to
+supersede the master record values. Otherwise, the field values on the master record
 will prevail.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
@@ -244,9 +249,9 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

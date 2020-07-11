@@ -65,6 +65,9 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -185,7 +188,7 @@
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using<br><code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">"Account"</span>)
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
-<span class="co">#&gt; # A tibble: 68 x 5</span>
+<span class="co">#&gt; # A tibble: 69 x 5</span>
 <span class="co">#&gt;    name              label                   length soapType    type     </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt;  1 Id                Account ID              18     tns:ID      id       </span>
@@ -198,7 +201,7 @@
 <span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span>
 <span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span>
 <span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span>
-<span class="co">#&gt; # … with 58 more rows</span>
+<span class="co">#&gt; # … with 59 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span>

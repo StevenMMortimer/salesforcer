@@ -7,14 +7,14 @@
 catch_unknown_api(x, supported = c(character(0)))
 }
 \arguments{
-\item{x}{\code{character}; The value of the \code{api_type} argument provided 
+\item{x}{\code{character}; The value of the \code{api_type} argument provided
 by the user.}
 }
 \value{
 \code{simpleError}
 }
 \description{
-This function will alert the user that the supplied value to the argument 
+This function will alert the user that the supplied value to the argument
 \code{api_type} is not one of the valid options.
 }
 \note{

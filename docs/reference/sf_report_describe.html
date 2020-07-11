@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Describe a report — sf_report_describe" />
-<meta property="og:description" content="Retrieves report, report type, and related metadata for a tabular, summary, 
+<meta property="og:description" content="
+Retrieves report, report type, and related metadata for a tabular, summary,
 or matrix report." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ or matrix report." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ or matrix report." />
     </div>
 
     <div class="ref-description">
-    <p>Retrieves report, report type, and related metadata for a tabular, summary, 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Retrieves report, report type, and related metadata for a tabular, summary,
 or matrix report.</p>
     </div>
 
@@ -191,14 +196,14 @@ or matrix report.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -206,10 +211,10 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>list</code> containing up to 4 properties that describe the report:</p><dl'>
-  <dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and joined metadata.</p></dd>
-  <dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-  <dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-  <dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
+<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and joined metadata.</p></dd>
+<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
+<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
+<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
 
 </dl>
 

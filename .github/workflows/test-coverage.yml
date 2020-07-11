@@ -1,0 +1,67 @@
+on:
+  push:
+    branches: master
+  schedule:
+    # Execute monthly at 9AM UTC (5AM EDT (during daylight savings), otherwise 4AM)
+    - cron:  '0 9 1 * *'
+
+name: test-coverage
+
+jobs:
+  test-coverage:
+    runs-on: macOS-latest
+    #if: "github.event_name == 'schedule' || contains(github.event.head_commit.message, '[covr]')"
+    if: ${{ false }}
+    
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
+      SALESFORCER_PASSWORD: ${{ secrets.SALESFORCER_PASSWORD }}
+      SALESFORCER_SECURITY_TOKEN: ${{ secrets.SALESFORCER_SECURITY_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Reveal env vars
+        run: |
+          echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
+          echo HOME              = $HOME
+          echo GITHUB_ACTION     = $GITHUB_ACTION
+          echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
+          echo GITHUB_ACTOR      = $GITHUB_ACTOR
+          echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
+          echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
+          echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
+          echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
+          echo GITHUB_SHA        = $GITHUB_SHA
+          echo GITHUB_REF        = $GITHUB_REF
+
+      - uses: r-lib/actions/setup-r@master
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Query dependencies
+        run: |
+          # getting dev remotes for better behaviour re: installation order
+          install.packages("https://github.com/r-lib/remotes/archive/master.tar.gz", repos = NULL)
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: macOS-r-4.0-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: macOS-r-4.0-1-
+
+      - name: Install dependencies
+        run: |
+          # temporary hack until there's a macOS binary for ps
+          install.packages("ps", type = "source")
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("covr")
+        shell: Rscript {0}
+
+      - name: Test coverage
+        run: covr::codecov()
+        shell: Rscript {0}

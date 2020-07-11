@@ -9,6 +9,7 @@ sf_delete_metadata(
   object_names,
   control = list(...),
   ...,
+  all_or_none = deprecated(),
   verbose = FALSE
 )
 }
@@ -17,21 +18,23 @@ sf_delete_metadata(
 
 \item{object_names}{a character vector of names that we wish to read metadata for}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}}}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{data.frame} containing the creation result for each submitted metadata component
 }
 \description{
+\lifecycle{experimental}
+
 This function takes a request of named elements in Salesforce and deletes them.
 }
 \examples{
@@ -40,9 +43,6 @@ metadata_info <- sf_delete_metadata(metadata_type = 'CustomObject',
                                     object_names = c('Custom_Account25__c'))
 }
 }
-\references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
-}
 \seealso{
-\link{sf_list_metadata}
+\code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
 }

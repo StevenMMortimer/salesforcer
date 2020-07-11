@@ -1,5 +1,8 @@
 #' Perform SOSL Search
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Searches for records in your organization’s data.
 #' 
 #' @importFrom dplyr as_tibble tibble select any_of

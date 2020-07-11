@@ -14,86 +14,88 @@ sf_convert_lead(
 )
 }
 \arguments{
-\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
-\code{tbl_df}; data can be coerced into a \code{data.frame}. See the details 
-below on how format your input data to control things like whether an opportunity 
+\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
+\code{tbl_df}; data can be coerced into a \code{data.frame}. See the details
+below on how format your input data to control things like whether an opportunity
 will be created, an email will be sent to the new owner, and other control options.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}}}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} with details of the converted record
 }
 \description{
+\lifecycle{experimental}
+
 Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.
 }
 \details{
-When converting leads owned by a queue, the owner must be specified. 
-This is because accounts and contacts cannot be owned by a queue. Below is a 
-complete list of options to control the conversion process. Include a column 
-in your input data to specify an option for each record. For example, if you 
-want opportunities to not be created for each converted lead then add a column 
-in your input data called \code{doNotCreateOpportunity} and set its value to 
-\code{TRUE}. The default is \code{FALSE} which creates opportunities. The order 
-of columns in the input data does not matter, just that the names 
+When converting leads owned by a queue, the owner must be specified.
+This is because accounts and contacts cannot be owned by a queue. Below is a
+complete list of options to control the conversion process. Include a column
+in your input data to specify an option for each record. For example, if you
+want opportunities to not be created for each converted lead then add a column
+in your input data called \code{doNotCreateOpportunity} and set its value to
+\code{TRUE}. The default is \code{FALSE} which creates opportunities. The order
+of columns in the input data does not matter, just that the names
 match (case-insensitive).
 \describe{
- \item{leadId}{ID of the Lead to convert. Required.}
- \item{convertedStatus}{Valid LeadStatus value for a converted lead. Required.}
- \item{accountId}{ID of the Account into which the lead will be merged. Required 
- only when updating an existing account, including person accounts. If no 
- accountID is specified, then the API creates a new account.}
- \item{contactId}{D of the Contact into which the lead will be merged (this 
- contact must be associated with the specified accountId, and an accountId 
- must be specified). Required only when updating an existing contact. If no 
- contactID is specified, then the API creates a new contact that is implicitly 
- associated with the Account.}
- \item{ownerId}{Specifies the ID of the person to own any newly created account, 
- contact, and opportunity. If the client application does not specify this 
- value, then the owner of the new object will be the owner of the lead.}
- \item{opportunityId}{The ID of an existing opportunity to relate to the lead. 
- The opportunityId and opportunityName arguments are mutually exclusive. Specifying 
- a value for both results in an error. If doNotCreateOpportunity argument is 
- \code{TRUE}, then no Opportunity is created and this field must be left blank; 
- otherwise, an error is returned.}
- \item{doNotCreateOpportunity}{Specifies whether to create an Opportunity during 
- lead conversion (\code{FALSE}, the default) or not (\code{TRUE}). Set this flag 
- to \code{TRUE} only if you do not want to create an opportunity from the lead. 
- An opportunity is created by default.}
- \item{opportunityName}{Name of the opportunity to create. If no name is specified, 
- then this value defaults to the company name of the lead. The maximum length 
- of this field is 80 characters. The opportunityId and opportunityName arguments 
- are mutually exclusive. Specifying a value for both results in an error. If 
- doNotCreateOpportunity argument is \code{TRUE}, then no Opportunity is created and 
- this field must be left blank; otherwise, an error is returned.}
- \item{overwriteLeadSource}{Specifies whether to overwrite the LeadSource field 
- on the target Contact object with the contents of the LeadSource field in 
- the source Lead object (\code{TRUE}), or not (\code{FALSE}, the default). To 
- set this field to \code{TRUE}, the client application must specify a contactId 
- for the target contact.}
- \item{sendNotificationEmail}{Specifies whether to send a notification email 
- to the owner specified in the ownerId (\code{TRUE}) or not (\code{FALSE}, 
- the default).}
+\item{leadId}{ID of the Lead to convert. Required.}
+\item{convertedStatus}{Valid LeadStatus value for a converted lead. Required.}
+\item{accountId}{ID of the Account into which the lead will be merged. Required
+only when updating an existing account, including person accounts. If no
+accountID is specified, then the API creates a new account.}
+\item{contactId}{D of the Contact into which the lead will be merged (this
+contact must be associated with the specified accountId, and an accountId
+must be specified). Required only when updating an existing contact. If no
+contactID is specified, then the API creates a new contact that is implicitly
+associated with the Account.}
+\item{ownerId}{Specifies the ID of the person to own any newly created account,
+contact, and opportunity. If the client application does not specify this
+value, then the owner of the new object will be the owner of the lead.}
+\item{opportunityId}{The ID of an existing opportunity to relate to the lead.
+The opportunityId and opportunityName arguments are mutually exclusive. Specifying
+a value for both results in an error. If doNotCreateOpportunity argument is
+\code{TRUE}, then no Opportunity is created and this field must be left blank;
+otherwise, an error is returned.}
+\item{doNotCreateOpportunity}{Specifies whether to create an Opportunity during
+lead conversion (\code{FALSE}, the default) or not (\code{TRUE}). Set this flag
+to \code{TRUE} only if you do not want to create an opportunity from the lead.
+An opportunity is created by default.}
+\item{opportunityName}{Name of the opportunity to create. If no name is specified,
+then this value defaults to the company name of the lead. The maximum length
+of this field is 80 characters. The opportunityId and opportunityName arguments
+are mutually exclusive. Specifying a value for both results in an error. If
+doNotCreateOpportunity argument is \code{TRUE}, then no Opportunity is created and
+this field must be left blank; otherwise, an error is returned.}
+\item{overwriteLeadSource}{Specifies whether to overwrite the LeadSource field
+on the target Contact object with the contents of the LeadSource field in
+the source Lead object (\code{TRUE}), or not (\code{FALSE}, the default). To
+set this field to \code{TRUE}, the client application must specify a contactId
+for the target contact.}
+\item{sendNotificationEmail}{Specifies whether to send a notification email
+to the owner specified in the ownerId (\code{TRUE}) or not (\code{FALSE},
+the default).}
 }
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm}{Salesforce Documentation for convertLead}
 }

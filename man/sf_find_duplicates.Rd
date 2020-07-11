@@ -13,38 +13,40 @@ sf_find_duplicates(
 )
 }
 \arguments{
-\item{search_criteria}{\code{list}; a list of fields and their values that would 
+\item{search_criteria}{\code{list}; a list of fields and their values that would
 constitute a match. For example, list(FirstName="Marc", Company="Salesforce")}
 
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{include_record_details}{\code{logical}; get fields and values for records 
-detected as duplicates by setting this property to \code{TRUE}. Get only 
-record IDs for records detected as duplicates by setting this property to 
+\item{include_record_details}{\code{logical}; get fields and values for records
+detected as duplicates by setting this property to \code{TRUE}. Get only
+record IDs for records detected as duplicates by setting this property to
 \code{FALSE}.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records found to be duplicates by the match rules
 }
 \description{
+\lifecycle{experimental}
+
 Performs rule-based searches for duplicate records.
 }
 \note{
-You must have actived duplicate rules for the supplied object before running 
-this function. The \code{object_name} argument refers to using that object's duplicate 
+You must have actived duplicate rules for the supplied object before running
+this function. The \code{object_name} argument refers to using that object's duplicate
 rules on the search criteria to determine which records in other objects are duplicates.
 }
 \examples{

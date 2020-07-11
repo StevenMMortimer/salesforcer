@@ -7,17 +7,17 @@
 sf_rest_list(url, as_tbl = FALSE, records_root = NULL, verbose = FALSE)
 }
 \arguments{
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{records_root}{\code{character} or \code{integer}; an index or string that 
-identifies the element in the parsed list which contains the records returned 
-by the API call. By default, this argument is \code{NULL}, which means that 
+\item{records_root}{\code{character} or \code{integer}; an index or string that
+identifies the element in the parsed list which contains the records returned
+by the API call. By default, this argument is \code{NULL}, which means that
 each element in the list is an individual record.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \description{

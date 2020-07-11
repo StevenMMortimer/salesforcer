@@ -31,6 +31,9 @@
 
 #' Log in to Salesforce
 #' 
+#' @description
+#' \lifecycle{stable}
+#' 
 #' Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
 #' not require sharing passwords, but will require authorizing \code{salesforcer} 
 #' as a connected app to view and manage your organization. You will be directed to 

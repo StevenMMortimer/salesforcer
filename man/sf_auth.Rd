@@ -22,35 +22,37 @@ sf_auth(
 
 \item{password}{Salesforce password}
 
-\item{security_token}{Salesforce security token. Note: A new security token is 
+\item{security_token}{Salesforce security token. Note: A new security token is
 generated whenever your password is changed.}
 
-\item{login_url}{a custom login url; defaults to https://login.salesforce.com. If 
-needing to log into a sandbox or dev environment then provide its login URL (e.g. 
+\item{login_url}{a custom login url; defaults to https://login.salesforce.com. If
+needing to log into a sandbox or dev environment then provide its login URL (e.g.
 https://test.salesforce.com)}
 
 \item{token}{optional; an actual token object or the path to a valid token
 stored as an \code{.rds} file}
 
-\item{consumer_key, consumer_secret, callback_url}{the "Consumer Key","Consumer Secret", 
-and "Callback URL" when using a connected app; defaults to the \code{salesforcer} 
+\item{consumer_key, consumer_secret, callback_url}{the "Consumer Key","Consumer Secret",
+and "Callback URL" when using a connected app; defaults to the \code{salesforcer}
 connected apps' consumer key, secret, and callback url}
 
-\item{cache}{logical or character; TRUE means to cache using the default cache 
-file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use 
+\item{cache}{logical or character; TRUE means to cache using the default cache
+file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use
 the specified path as the cache file.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \description{
+\lifecycle{stable}
+
 Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
-not require sharing passwords, but will require authorizing \code{salesforcer} 
-as a connected app to view and manage your organization. You will be directed to 
-a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer} 
-permission to operate on your behalf. By default, these user credentials are 
+not require sharing passwords, but will require authorizing \code{salesforcer}
+as a connected app to view and manage your organization. You will be directed to
+a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer}
+permission to operate on your behalf. By default, these user credentials are
 cached in a file named \code{.httr-oauth-salesforcer} in the current working directory.
 }
 \examples{

@@ -7,15 +7,15 @@
 sf_dashboard_components_describe(dashboard_id, component_ids = c(character(0)))
 }
 \arguments{
-\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 
-\item{component_ids}{\code{character}; a vector of Unique Salesforce Ids of a 
+\item{component_ids}{\code{character}; a vector of Unique Salesforce Ids of a
 dashboard component.}
 }
 \value{
 \code{list}
 }
 \description{
-Describe dashboard components
+\lifecycle{experimental}
 }

@@ -7,14 +7,14 @@
 xml_extract_parent_and_child_result(x)
 }
 \arguments{
-\item{x}{\code{xml_node}; a \code{xml_node} from an xml2 parsed response 
+\item{x}{\code{xml_node}; a \code{xml_node} from an xml2 parsed response
 representing one individual parent query record.}
 }
 \description{
-This function accepts a node representing the result of an individual parent 
-recordset from a nested parent-child query where there are zero or more child 
-records to be joined to the parent. In this case the child and parent will be 
-bound together to return one complete \code{tbl_df} of the query result for 
+This function accepts a node representing the result of an individual parent
+recordset from a nested parent-child query where there are zero or more child
+records to be joined to the parent. In this case the child and parent will be
+bound together to return one complete \code{tbl_df} of the query result for
 that parent record.
 }
 \note{

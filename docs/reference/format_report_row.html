@@ -53,8 +53,8 @@
 
 
 <meta property="og:title" content="Format a single "rows" element from a report fact map — format_report_row" />
-<meta property="og:description" content="This function accepts a list representing a single row from a report and 
-selects either the value or label for the report columns to turn into a one 
+<meta property="og:description" content="This function accepts a list representing a single row from a report and
+selects either the value or label for the report columns to turn into a one
 row tbl_df that will usually be bound to the other rows in the report" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -115,6 +115,9 @@ row tbl_df that will usually be bound to the other rows in the report" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,8 +184,8 @@ row tbl_df that will usually be bound to the other rows in the report" />
     </div>
 
     <div class="ref-description">
-    <p>This function accepts a list representing a single row from a report and 
-selects either the value or label for the report columns to turn into a one 
+    <p>This function accepts a list representing a single row from a report and
+selects either the value or label for the report columns to turn into a one
 row <code>tbl_df</code> that will usually be bound to the other rows in the report</p>
     </div>
 
@@ -193,25 +196,25 @@ row <code>tbl_df</code> that will usually be bound to the other rows in the repo
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>list</code>; a single element from the <code>rows</code> element of a fact 
-map. When the data is in a tabular format, this element usually has the same 
-length as the number of columns with each element having a label and value 
+      <td><p><code>list</code>; a single element from the <code>rows</code> element of a fact
+map. When the data is in a tabular format, this element usually has the same
+length as the number of columns with each element having a label and value
 element.</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p><code>logical</code>; an indicator of whether the returned data should 
-be the label (i.e. formatted value) or the actual value. By default, the labels  
-are returned because these are what appear in the Salesforce dashboard and 
-more closely align with the column names. For example, "Account.Name" label 
-may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former 
+      <td><p><code>logical</code>; an indicator of whether the returned data should
+be the label (i.e. formatted value) or the actual value. By default, the labels
+are returned because these are what appear in the Salesforce dashboard and
+more closely align with the column names. For example, "Account.Name" label
+may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
 (label) more accurately reflects the "Account.Name".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code>; a single row data frame with the data for the row that 
+    <p><code>tbl_df</code>; a single row data frame with the data for the row that
 the supplied list represented in the report's fact map.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

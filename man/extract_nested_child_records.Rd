@@ -7,14 +7,14 @@
 extract_nested_child_records(x)
 }
 \arguments{
-\item{x}{\code{list}; a list parsed from an HTTP response and representing 
+\item{x}{\code{list}; a list parsed from an HTTP response and representing
 one individual parent query record.}
 }
 \value{
 \code{tbl_df}; a data frame with each row representing a child record.
 }
 \description{
-This function accepts a single record from a nested query and "unpacks" the 
+This function accepts a single record from a nested query and "unpacks" the
 "records" which represent the child records belonging to the parent.
 }
 \note{

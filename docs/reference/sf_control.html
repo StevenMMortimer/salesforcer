@@ -53,9 +53,9 @@
 
 
 <meta property="og:title" content="Auxiliary for Controlling Calls to Salesforce APIs — sf_control" />
-<meta property="og:description" content="Typically only used internally by functions when control parameters are passed 
-through via dots (...), but it can be called directly to control the behavior 
-of API calls. This function behaves exactly like glm.control 
+<meta property="og:description" content="Typically only used internally by functions when control parameters are passed
+through via dots (...), but it can be called directly to control the behavior
+of API calls. This function behaves exactly like glm.control
 for the glm function." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -116,6 +116,9 @@ for the glm function." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -182,9 +185,9 @@ for the glm function." />
     </div>
 
     <div class="ref-description">
-    <p>Typically only used internally by functions when control parameters are passed 
-through via dots (...), but it can be called directly to control the behavior 
-of API calls. This function behaves exactly like <code><a href='https://rdrr.io/r/stats/glm.control.html'>glm.control</a></code> 
+    <p>Typically only used internally by functions when control parameters are passed
+through via dots (...), but it can be called directly to control the behavior
+of API calls. This function behaves exactly like <code><a href='https://rdrr.io/r/stats/glm.control.html'>glm.control</a></code>
 for the <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code> function.</p>
     </div>
 
@@ -225,145 +228,145 @@ for the <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code> function
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>AllOrNoneHeader</th>
-      <td><p><code>list</code>; containing the <code>allOrNone</code> element with 
-a value of <code>TRUE</code> or <code>FALSE</code>. This control specifies whether a call rolls back all changes 
-unless all records are processed successfully. This control is available in 
-SOAP, REST, and Metadata APIs for the following functions: <code><a href='sf_create.html'>sf_create</a></code>, 
-<code><a href='sf_delete.html'>sf_delete</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>, <code><a href='sf_create_metadata.html'>sf_create_metadata</a></code>, 
-<code><a href='sf_delete_metadata.html'>sf_delete_metadata</a></code>, <code><a href='sf_update_metadata.html'>sf_update_metadata</a></code>, <code><a href='sf_upsert_metadata.html'>sf_upsert_metadata</a></code>. 
-For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>allOrNone</code> element with
+a value of <code>TRUE</code> or <code>FALSE</code>. This control specifies whether a call rolls back all changes
+unless all records are processed successfully. This control is available in
+SOAP, REST, and Metadata APIs for the following functions: <code><a href='sf_create.html'>sf_create</a></code>,
+<code><a href='sf_delete.html'>sf_delete</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>, <code><a href='sf_create_metadata.html'>sf_create_metadata</a></code>,
+<code><a href='sf_delete_metadata.html'>sf_delete_metadata</a></code>, <code><a href='sf_update_metadata.html'>sf_update_metadata</a></code>, <code><a href='sf_upsert_metadata.html'>sf_upsert_metadata</a></code>.
+For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_allornoneheader.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>AllowFieldTruncationHeader</th>
-      <td><p><code>list</code>; containing the <code>allowFieldTruncation</code> 
-element with a value of <code>TRUE</code> or <code>FALSE</code>. This control specifies the truncation behavior 
-for some field types in SOAP API version 15.0 and later for the following functions: 
-<code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For 
-more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>allowFieldTruncation</code>
+element with a value of <code>TRUE</code> or <code>FALSE</code>. This control specifies the truncation behavior
+for some field types in SOAP API version 15.0 and later for the following functions:
+<code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For
+more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_allowfieldtruncation.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>AssignmentRuleHeader</th>
-      <td><p><code>list</code>; containing the <code>useDefaultRule</code> 
-element with a value of <code>TRUE</code> or <code>FALSE</code> or the <code>assignmentRuleId</code> element. 
-This control specifies the assignment rule to use when creating or updating an 
-Account, Case, or Lead for the following functions: <code><a href='sf_create.html'>sf_create</a></code>, 
-<code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>useDefaultRule</code>
+element with a value of <code>TRUE</code> or <code>FALSE</code> or the <code>assignmentRuleId</code> element.
+This control specifies the assignment rule to use when creating or updating an
+Account, Case, or Lead for the following functions: <code><a href='sf_create.html'>sf_create</a></code>,
+<code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_assignmentruleheader.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>DisableFeedTrackingHeader</th>
-      <td><p><code>list</code>; containing the <code>disableFeedTracking</code> 
-element with a value of <code>TRUE</code> or <code>FALSE</code>. This control specifies whether 
-the changes made in the current call are tracked in feeds for SOAP API calls made 
-with the following functions: <code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_delete.html'>sf_delete</a></code>, 
-<code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>disableFeedTracking</code>
+element with a value of <code>TRUE</code> or <code>FALSE</code>. This control specifies whether
+the changes made in the current call are tracked in feeds for SOAP API calls made
+with the following functions: <code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_delete.html'>sf_delete</a></code>,
+<code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>DuplicateRuleHeader</th>
-      <td><p><code>list</code>; containing the <code>allowSave</code>, 
-<code>includeRecordDetails</code>, and <code>runAsCurrentUser</code> elements each with a 
-value of <code>TRUE</code> or <code>FALSE</code>. This control specifies how duplicate rules should be applied 
-when using the following functions: <code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, 
-<code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>allowSave</code>,
+<code>includeRecordDetails</code>, and <code>runAsCurrentUser</code> elements each with a
+value of <code>TRUE</code> or <code>FALSE</code>. This control specifies how duplicate rules should be applied
+when using the following functions: <code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_update.html'>sf_update</a></code>,
+<code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>EmailHeader</th>
-      <td><p><code>list</code>; containing the <code>triggerAutoResponseEmail</code>, 
-<code>triggerOtherEmail</code>, and <code>triggerUserEmail</code> elements each with a 
-value of <code>TRUE</code> or <code>FALSE</code>. This control determines if an email notification should be sent 
-when a request is processed by SOAP API calls made with the following functions: 
-<code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_delete.html'>sf_delete</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>, 
-<code><a href='sf_reset_password.html'>sf_reset_password</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>triggerAutoResponseEmail</code>,
+<code>triggerOtherEmail</code>, and <code>triggerUserEmail</code> elements each with a
+value of <code>TRUE</code> or <code>FALSE</code>. This control determines if an email notification should be sent
+when a request is processed by SOAP API calls made with the following functions:
+<code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_delete.html'>sf_delete</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>,
+<code><a href='sf_reset_password.html'>sf_reset_password</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_emailheader.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>LocaleOptions</th>
-      <td><p><code>list</code>; containing the <code>language</code> element. This control 
-specifies the language of the labels returned by the <code><a href='sf_describe_objects.html'>sf_describe_objects</a></code> 
-function using the SOAP API. The value must be a valid user locale (language and country), such as 
-<code>de_DE</code> or <code>en_GB</code>. For more information, read the Salesforce documentation 
-<a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_localeheader.htm'>here</a>. 
-The list of valid user locales is available 
+      <td><p><code>list</code>; containing the <code>language</code> element. This control
+specifies the language of the labels returned by the <code><a href='sf_describe_objects.html'>sf_describe_objects</a></code>
+function using the SOAP API. The value must be a valid user locale (language and country), such as
+<code>de_DE</code> or <code>en_GB</code>. For more information, read the Salesforce documentation
+<a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_localeheader.htm'>here</a>.
+The list of valid user locales is available
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_categorynodelocalization.htm#languagelocalekey_desc'>here</a>.</p></td>
     </tr>
     <tr>
       <th>MruHeader</th>
-      <td><p><code>list</code>; containing the <code>updateMru</code> element with a value 
-of <code>TRUE</code> or <code>FALSE</code>. This control indicates whether to update the list 
-of most recently used items (<code>TRUE</code>) or not (<code>FALSE</code>) in the Recent Items 
-section of the sidebar in the Salesforce user interface. This works for SOAP API calls 
-made with the following functions: <code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_update.html'>sf_update</a></code>, 
-<code><a href='sf_upsert.html'>sf_upsert</a></code>, <code><a href='sf_retrieve.html'>sf_retrieve</a></code>, <code><a href='sf_query.html'>sf_query</a></code>. For more 
-information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>updateMru</code> element with a value
+of <code>TRUE</code> or <code>FALSE</code>. This control indicates whether to update the list
+of most recently used items (<code>TRUE</code>) or not (<code>FALSE</code>) in the Recent Items
+section of the sidebar in the Salesforce user interface. This works for SOAP API calls
+made with the following functions: <code><a href='sf_create.html'>sf_create</a></code>, <code><a href='sf_update.html'>sf_update</a></code>,
+<code><a href='sf_upsert.html'>sf_upsert</a></code>, <code><a href='sf_retrieve.html'>sf_retrieve</a></code>, <code><a href='sf_query.html'>sf_query</a></code>. For more
+information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_mruheader.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>OwnerChangeOptions</th>
-      <td><p><code>list</code>; containing the <code>options</code> element. 
-This control specifies the details of ownership of attachments and notes when a 
-record’s owner is changed. This works for SOAP API calls made with the following functions: 
-<code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>options</code> element.
+This control specifies the details of ownership of attachments and notes when a
+record’s owner is changed. This works for SOAP API calls made with the following functions:
+<code><a href='sf_update.html'>sf_update</a></code>, <code><a href='sf_upsert.html'>sf_upsert</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_ownerchangeoptions.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>QueryOptions</th>
-      <td><p><code>list</code>; containing the <code>batchSize</code> element. 
-This control specifies the batch size for query results . This works for SOAP or 
-REST API calls made with the following functions: <code><a href='sf_query.html'>sf_query</a></code>, 
-<code><a href='sf_retrieve.html'>sf_retrieve</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>batchSize</code> element.
+This control specifies the batch size for query results . This works for SOAP or
+REST API calls made with the following functions: <code><a href='sf_query.html'>sf_query</a></code>,
+<code><a href='sf_retrieve.html'>sf_retrieve</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_queryoptions.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>UserTerritoryDeleteHeader</th>
-      <td><p><code>list</code>; containing the <code>transferToUserId</code> element. 
-This control specifies a user to whom open opportunities are assigned when the current 
-owner is removed from a territory. This works for the <code><a href='sf_delete.html'>sf_delete</a></code> function 
-using the SOAP API. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>transferToUserId</code> element.
+This control specifies a user to whom open opportunities are assigned when the current
+owner is removed from a territory. This works for the <code><a href='sf_delete.html'>sf_delete</a></code> function
+using the SOAP API. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_userterritorydeleteheader.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>BatchRetryHeader</th>
-      <td><p><code>list</code>; containing the <code>Sforce-Disable-Batch-Retry</code> element. 
-When you create a bulk job, the Batch Retry control lets you disable retries 
-for unfinished batches included in the job. This works for most operations run through 
-the Bulk 1.0 API (e.g. <code><a href='sf_create.html'>sf_create(., api_type = "Bulk 1.0")</a></code>) or creating 
-a Bulk 1.0 job with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>. For more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>Sforce-Disable-Batch-Retry</code> element.
+When you create a bulk job, the Batch Retry control lets you disable retries
+for unfinished batches included in the job. This works for most operations run through
+the Bulk 1.0 API (e.g. <code><a href='sf_create.html'>sf_create(., api_type = "Bulk 1.0")</a></code>) or creating
+a Bulk 1.0 job with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>. For more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_disable_batch_retry.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>LineEndingHeader</th>
-      <td><p><code>list</code>; containing the <code>Sforce-Line-Ending</code> element. 
-When you’re creating a bulk upload job, the Line Ending control lets you 
-specify whether line endings are read as line feeds (LFs) or as carriage returns 
-and line feeds (CRLFs) for fields of type Text Area and Text Area (Long). This 
-works for most operations run through the Bulk APIs or creating a Bulk 1.0 
-job with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>. For more information, read the 
-Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>Sforce-Line-Ending</code> element.
+When you’re creating a bulk upload job, the Line Ending control lets you
+specify whether line endings are read as line feeds (LFs) or as carriage returns
+and line feeds (CRLFs) for fields of type Text Area and Text Area (Long). This
+works for most operations run through the Bulk APIs or creating a Bulk 1.0
+job with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>. For more information, read the
+Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_line_ending.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>PKChunkingHeader</th>
-      <td><p><code>list</code>; containing the <code>Sforce-Enable-PKChunking</code> element. 
-Use the PK Chunking control to enable automatic primary key (PK) chunking 
-for a bulk query job. This works for queries run through the Bulk 1.0 API either via 
-<code><a href='sf_query.html'>sf_query(., api_type = "Bulk 1.0")</a></code>) or <code><a href='sf_run_bulk_query.html'>sf_query_bulk</a></code>. For 
-more information, read the Salesforce documentation 
+      <td><p><code>list</code>; containing the <code>Sforce-Enable-PKChunking</code> element.
+Use the PK Chunking control to enable automatic primary key (PK) chunking
+for a bulk query job. This works for queries run through the Bulk 1.0 API either via
+<code><a href='sf_query.html'>sf_query(., api_type = "Bulk 1.0")</a></code>) or <code><a href='sf_run_bulk_query.html'>sf_query_bulk</a></code>. For
+more information, read the Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_enable_pk_chunking.htm'>here</a>.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>operation</th>
-      <td><p><code>character</code>; a string defining the type of operation being 
-performed (e.g. "insert", "update", "upsert", "delete", "hardDelete", 
+      <td><p><code>character</code>; a string defining the type of operation being
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
 "query", "queryall").</p></td>
     </tr>
     </table>

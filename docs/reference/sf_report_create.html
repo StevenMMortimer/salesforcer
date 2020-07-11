@@ -53,10 +53,11 @@
 
 
 <meta property="og:title" content="Create a report — sf_report_create" />
-<meta property="og:description" content="Create a new report using a POST request. To create a report, you only have to 
-specify a name and report type to create a new report; all other metadata properties 
-are optional. It is recommended to use the metadata from existing reports pulled 
-using sf_report_describe as a guide on how to specify the properties 
+<meta property="og:description" content="
+Create a new report using a POST request. To create a report, you only have to
+specify a name and report type to create a new report; all other metadata properties
+are optional. It is recommended to use the metadata from existing reports pulled
+using sf_report_describe as a guide on how to specify the properties
 of a new report." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -117,6 +118,9 @@ of a new report." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -183,10 +187,11 @@ of a new report." />
     </div>
 
     <div class="ref-description">
-    <p>Create a new report using a POST request. To create a report, you only have to 
-specify a name and report type to create a new report; all other metadata properties 
-are optional. It is recommended to use the metadata from existing reports pulled 
-using <code><a href='sf_report_describe.html'>sf_report_describe</a></code> as a guide on how to specify the properties 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Create a new report using a POST request. To create a report, you only have to
+specify a name and report type to create a new report; all other metadata properties
+are optional. It is recommended to use the metadata from existing reports pulled
+using <code><a href='sf_report_describe.html'>sf_report_describe</a></code> as a guide on how to specify the properties
 of a new report.</p>
     </div>
 
@@ -206,38 +211,38 @@ of a new report.</p>
     </tr>
     <tr>
       <th>report_type</th>
-      <td><p><code>character</code>; a character representing the type of 
-report to retrieve the metadata information on.  A list of valid report types 
-that can be created using this function will be available in the 
-<code>reportTypes.type</code> column of results returned <a href='sf_report_types_list.html'>sf_report_types_list</a>. 
-(e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>, 
+      <td><p><code>character</code>; a character representing the type of
+report to retrieve the metadata information on.  A list of valid report types
+that can be created using this function will be available in the
+<code>reportTypes.type</code> column of results returned <a href='sf_report_types_list.html'>sf_report_types_list</a>.
+(e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>,
 etc.)</p></td>
     </tr>
     <tr>
       <th>report_metadata</th>
-      <td><p><code>list</code>; a list representing the properties to create 
-the report with. The names of the list must be one or more of the 3 accepted 
-metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>, 
+      <td><p><code>list</code>; a list representing the properties to create
+the report with. The names of the list must be one or more of the 3 accepted
+metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>,
 <code>reportExtendedMetadata</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> representing the newly cloned report with up to 4 properties 
+    <p><code>list</code> representing the newly cloned report with up to 4 properties
 that describe the report:</p><dl'>
-  <dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and 
-  joined metadata.</p></dd>
-  <dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-  <dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-  <dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
+<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and
+joined metadata.</p></dd>
+<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
+<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
+<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
 
 </dl>
 

@@ -7,27 +7,29 @@
 sf_dashboard_describe(dashboard_id, as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{list} or \code{tbl_df} depending on the value of argument \code{as_tbl}
 }
 \description{
-Returns metadata for the specified dashboard, including dashboard components, 
+\lifecycle{experimental}
+
+Returns metadata for the specified dashboard, including dashboard components,
 filters, layout, and the running user.
 }
 \seealso{
 \itemize{
-  \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_describe_resource.htm}{Salesforce Documentation}
-  \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_example_get_dashboard_metadata.htm#analytics_api_dashboard_example_get_dashboard_metadata}{Salesforce Example}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_describe_resource.htm}{Salesforce Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_example_get_dashboard_metadata.htm#analytics_api_dashboard_example_get_dashboard_metadata}{Salesforce Example}
 }
 }

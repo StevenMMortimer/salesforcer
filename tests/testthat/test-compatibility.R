@@ -3,6 +3,8 @@ context("RForcecom Compatibility")
 salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
 salesforcer_token <- readRDS("salesforcer_token.rds")
 
+setup(options(lifecycle_verbosity = "quiet"))
+
 test_that("testing rforcecom.login compatibility", {
 
   username <- salesforcer_test_settings$username
@@ -191,6 +193,8 @@ test_that("testing rforcecom.getObjectDescription compatibility", {
   # same names of the fields
   expect_equal(sort(as.character(result1$name)), sort(result2$name))
 })
+
+teardown(options(lifecycle_verbosity = NULL))
 
 # not exported?
 # test_that("testing rforcecom.bulkAction compatibility", {

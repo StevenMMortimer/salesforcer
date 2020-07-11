@@ -1,16 +1,19 @@
 #' Delete Object or Field Metadata in Salesforce
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function takes a request of named elements in Salesforce and deletes them.
 #'
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @importFrom XML newXMLNode xmlInternalTreeParse xmlChildren
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
 #' @template metadata_type
 #' @param object_names a character vector of names that we wish to read metadata for
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return A \code{data.frame} containing the creation result for each submitted metadata component
-#' @seealso \link{sf_list_metadata}
+#' @seealso \code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' metadata_info <- sf_delete_metadata(metadata_type = 'CustomObject', 
@@ -20,6 +23,7 @@
 sf_delete_metadata <- function(metadata_type, 
                                object_names,
                                control = list(...), ...,
+                               all_or_none = deprecated(),
                                verbose = FALSE){
     
   stopifnot(all(is.character(object_names)))
@@ -32,17 +36,19 @@ sf_delete_metadata <- function(metadata_type,
   which_operation <- "deleteMetadata"
   
   # determine how to pass along the control args 
-  all_args <- list(...)
   control_args <- return_matching_controls(control)
   control_args$api_type <- "Metadata"
   control_args$operation <- "delete"
-  if("all_or_none" %in% names(all_args)){
-    # warn then set it in the control list
-    warning(paste0("The `all_or_none` argument has been deprecated.\n", 
-                   "Please pass AllOrNoneHeader argument or use the `sf_control` function."), 
-            call. = FALSE)
-    control_args$AllOrNoneHeader = list(allOrNone = tolower(all_args$all_or_none))
+  
+  if(is_present(all_or_none)) {
+    deprecate_warn("0.1.3", 
+                   "sf_delete_metadata(all_or_none = )", 
+                   "sf_delete_metadata(AllOrNoneHeader = )", 
+                   details = paste0("You can pass the all or none header directly ", 
+                                    "as shown above or via the `control` argument."))
+    control_args$AllOrNoneHeader <- list(allOrNone = tolower(all_or_none))
   }
+  
   control <- do.call("sf_control", control_args)
   
   # define the operation

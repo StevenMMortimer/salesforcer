@@ -7,29 +7,31 @@
 sf_report_type_describe(report_type, verbose = FALSE)
 }
 \arguments{
-\item{report_type}{\code{character}; a character representing the type of 
-report to retrieve the metadata information on. A list of valid report types 
-that can be described using this function will be available in the 
-\code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
-(e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
+\item{report_type}{\code{character}; a character representing the type of
+report to retrieve the metadata information on. A list of valid report types
+that can be described using this function will be available in the
+\code{reportTypes.type} column of results returned \link{sf_report_types_list}.
+(e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory},
 etc.)}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list} containing up to 4 properties that describe the report: 
+\code{list} containing up to 4 properties that describe the report:
 \describe{
-  \item{attributes}{Report type along with the URL to retrieve common objects and 
-  joined metadata.}
-  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
-  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
-  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+\item{attributes}{Report type along with the URL to retrieve common objects and
+joined metadata.}
+\item{reportMetadata}{Unique identifiers for groupings and summaries.}
+\item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+\item{reportExtendedMetadata}{Additional information about summaries and groupings.}
 }
 }
 \description{
+\lifecycle{experimental}
+
 Return metadata about a report type.
 }
 \examples{

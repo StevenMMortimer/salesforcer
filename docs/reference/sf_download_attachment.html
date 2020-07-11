@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Download an Attachment — sf_download_attachment" />
-<meta property="og:description" content="This function will allow you to download an attachment to disk based on the 
+<meta property="og:description" content="
+This function will allow you to download an attachment to disk based on the
 attachment body, file name, and path." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ attachment body, file name, and path." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ attachment body, file name, and path." />
     </div>
 
     <div class="ref-description">
-    <p>This function will allow you to download an attachment to disk based on the 
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>This function will allow you to download an attachment to disk based on the
 attachment body, file name, and path.</p>
     </div>
 
@@ -191,7 +196,7 @@ attachment body, file name, and path.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>body</th>
-      <td><p>character; a URL path to the body of the attachment in Salesforce, 
+      <td><p>character; a URL path to the body of the attachment in Salesforce,
 typically retrieved via query on the Attachment object</p></td>
     </tr>
     <tr>
@@ -200,7 +205,7 @@ typically retrieved via query on the Attachment object</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character; a directory path where to create file, defaults to the 
+      <td><p>character; a directory path where to create file, defaults to the
 current directory.</p></td>
     </tr>
     </table>

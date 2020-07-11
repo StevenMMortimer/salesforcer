@@ -23,9 +23,10 @@
 <meta property="og:description" content="Functions connecting to the Salesforce Platform APIs (REST, SOAP, 
     Bulk 1.0, Bulk 2.0, Metadata, Reports and Dashboards) 
     &lt;https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview&gt;. 
-    Most all calls from these APIs are supported as they use CSV, XML or JSON data 
-    that can be parsed into R data structures. For more details please see the 
-    Salesforce API documentation and this package's website 
+    &quot;API&quot; is an acronym for &quot;application programming interface&quot;. Most all calls 
+    from these APIs are supported as they use CSV, XML or JSON data that can be 
+    parsed into R data structures. For more details please see the Salesforce 
+    API documentation and this package's website 
     &lt;https://stevenmmortimer.github.io/salesforcer/&gt; for more information, 
     documentation, and examples.">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
@@ -70,6 +71,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -250,8 +254,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012Nd3QAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012Nd3RAAS TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NsBqAAK TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NsBrAAK TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -269,8 +273,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012Nd3QAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012Nd3RAAS Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NsBqAAK Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NsBrAAK Test      Contact-Create-2</span></pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -286,8 +290,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012Nd3QAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012Nd3RAAS TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NsBqAAK TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NsBrAAK TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -303,8 +307,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012Nd3aAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012Nd3bAAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012NsC0AAK TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012NsC1AAK TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -319,8 +323,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012Nd3aAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012Nd3bAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012NsC0AAK Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NsC1AAK Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -328,8 +332,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012Nd3aAAC FALSE       0033s000012Nd3aAAC &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012Nd3bAAC FALSE       0033s000012Nd3bAAC &lt;NA&gt;</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NsC0AAK FALSE       0033s000012NsC0AAK &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012NsC1AAK FALSE       0033s000012NsC1AAK &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
@@ -375,7 +379,7 @@
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
-<span class="co">#&gt; # A tibble: 68 x 5</span>
+<span class="co">#&gt; # A tibble: 69 x 5</span>
 <span class="co">#&gt;    name              label                   length soapType    type     </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt;  1 Id                Account ID              18     tns:ID      id       </span>
@@ -388,7 +392,7 @@
 <span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span>
 <span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span>
 <span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span>
-<span class="co">#&gt; # … with 58 more rows</span>
+<span class="co">#&gt; # … with 59 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span>
@@ -461,6 +465,7 @@
 <div class="community">
 <h2>Community</h2>
 <ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
@@ -477,7 +482,8 @@
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status Badge"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
 <li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>

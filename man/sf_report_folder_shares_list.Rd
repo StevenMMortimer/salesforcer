@@ -7,12 +7,12 @@
 sf_report_folder_shares_list(report_folder_id)
 }
 \arguments{
-\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created
 analytics folder (it will start with "00l").}
 }
 \value{
 \code{list}
 }
 \description{
-List the shares in a report folder
+\lifecycle{experimental}
 }

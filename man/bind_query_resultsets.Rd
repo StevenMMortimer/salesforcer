@@ -9,18 +9,18 @@ bind_query_resultsets(resultset, next_records)
 \arguments{
 \item{resultset}{\code{tbl_df}; the first data frame to combine}
 
-\item{next_records}{\code{tbl_df}; the second data frame where any columns 
-matched by name have the same datatype as the data frame provided to the 
-`resultset` argument, otherwise, the call will fail with an error message.}
+\item{next_records}{\code{tbl_df}; the second data frame where any columns
+matched by name have the same datatype as the data frame provided to the
+\code{resultset} argument, otherwise, the call will fail with an error message.}
 }
 \value{
 \code{tbl_df} of the results combined with next records, if sucessful.
 }
 \description{
-This function accepts two \code{tbl_df} arguments that should represent the 
-data frames returned by two different paginated API requests. It will 
-throw an error if the data frames cannot be bound as-is because of mismatched 
-types and encourage the user to set other arguments in  \code{sf_query()} to 
+This function accepts two \code{tbl_df} arguments that should represent the
+data frames returned by two different paginated API requests. It will
+throw an error if the data frames cannot be bound as-is because of mismatched
+types and encourage the user to set other arguments in  \code{sf_query()} to
 work through the issues.
 }
 \note{

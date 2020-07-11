@@ -11,16 +11,18 @@ sf_read_metadata(metadata_type, object_names, verbose = FALSE)
 
 \item{object_names}{a character vector of names that we wish to read metadata for}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{list} containing a response for each requested object
 }
 \description{
-This function takes a request of named elements in Salesforce and 
+\lifecycle{experimental}
+
+This function takes a request of named elements in Salesforce and
 returns their metadata
 }
 \examples{

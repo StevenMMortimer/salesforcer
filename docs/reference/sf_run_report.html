@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Get a report's data in tabular format — sf_run_report" />
-<meta property="og:description" content="This function is a convenience wrapper for retrieving the data from a report.
+<meta property="og:description" content="
+This function is a convenience wrapper for retrieving the data from a report.
 By default, it executes an asynchronous report and waits for the detaile data
 summarized in a tabular format, before pulling them down and returning as a
 tbl_df." />
@@ -116,6 +117,9 @@ tbl_df." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -182,7 +186,8 @@ tbl_df." />
     </div>
 
     <div class="ref-description">
-    <p>This function is a convenience wrapper for retrieving the data from a report.
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function is a convenience wrapper for retrieving the data from a report.
 By default, it executes an asynchronous report and waits for the detaile data
 summarized in a tabular format, before pulling them down and returning as a
 <code>tbl_df</code>.</p>
@@ -207,60 +212,60 @@ summarized in a tabular format, before pulling them down and returning as a
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>report_filters</th>
-      <td><p><code>list</code>; A <code>list</code> of reportFilter specifications. 
-Each must be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 
-3) <code>value</code>. You can find out how certain field types can be filtered by 
+      <td><p><code>list</code>; A <code>list</code> of reportFilter specifications.
+Each must be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and
+3) <code>value</code>. You can find out how certain field types can be filtered by
 reviewing the results of <code><a href='sf_report_filter_operators_list.html'>sf_report_filter_operators_list</a></code>.</p></td>
     </tr>
     <tr>
       <th>report_boolean_logic</th>
-      <td><p><code>character</code>; a string of boolean logic to parse 
-custom field filters if more than one is specified. For example, if three filters 
+      <td><p><code>character</code>; a string of boolean logic to parse
+custom field filters if more than one is specified. For example, if three filters
 are specified, then they can be combined using the logic <code>"(1 OR 2) AND 3"</code>.</p></td>
     </tr>
     <tr>
       <th>sort_by</th>
-      <td><p><code>character</code>; the name of the column used to sort the results. 
+      <td><p><code>character</code>; the name of the column used to sort the results.
 Currently, you can sort on only one column at a time.</p></td>
     </tr>
     <tr>
       <th>top_n</th>
-      <td><p><code>integer</code>; an integer which sets a row limit filter to a report. 
-The results will be ordered as they appear in the report unless specified differently 
-via the <code>sort_by</code> and <code>decreasing</code> arguments. Note, it is sometimes 
-helpful to specify the <code>top_n</code> argument if a report contains many rows, but 
-you are only interested in a subset of them. Alternatively, you can limit the count 
+      <td><p><code>integer</code>; an integer which sets a row limit filter to a report.
+The results will be ordered as they appear in the report unless specified differently
+via the <code>sort_by</code> and <code>decreasing</code> arguments. Note, it is sometimes
+helpful to specify the <code>top_n</code> argument if a report contains many rows, but
+you are only interested in a subset of them. Alternatively, you can limit the count
 of returned rows via the <code>report_filters</code> argument.</p></td>
     </tr>
     <tr>
       <th>decreasing</th>
-      <td><p><code>logical</code>; a indicator of whether the results should be 
-ordered by increasing or decreasing values in <code>sort_by</code> column when selecting the 
-top N records. Note, this argument will be ignored if not specifying Top N. You can  
+      <td><p><code>logical</code>; a indicator of whether the results should be
+ordered by increasing or decreasing values in <code>sort_by</code> column when selecting the
+top N records. Note, this argument will be ignored if not specifying Top N. You can
 sort the records using <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code> after the results are returned.</p></td>
     </tr>
     <tr>
       <th>async</th>
-      <td><p><code>logical</code>; an indicator, by default set to <code>TRUE</code>, which 
+      <td><p><code>logical</code>; an indicator, by default set to <code>TRUE</code>, which
 executes the report asynchronously. If executed asynchronously, this function
-will return a list of attributes of the created report instance. The results 
-can be pulled down by providing the report id and instance id to 
-the function <code><a href='sf_report_instance_results.html'>sf_report_instance_results</a></code>. Refer to the details 
+will return a list of attributes of the created report instance. The results
+can be pulled down by providing the report id and instance id to
+the function <code><a href='sf_report_instance_results.html'>sf_report_instance_results</a></code>. Refer to the details
 of the documentation on why executing a report asynchronously is preferred.</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>
-      <td><p><code>integer</code>; defines the seconds between attempts to check 
+      <td><p><code>integer</code>; defines the seconds between attempts to check
 for job completion.</p></td>
     </tr>
     <tr>
       <th>max_attempts</th>
-      <td><p><code>integer</code>; defines then max number attempts to check for job 
+      <td><p><code>integer</code>; defines then max number attempts to check for job
 completion before stopping.</p></td>
     </tr>
     <tr>
@@ -272,9 +277,9 @@ async report has finished.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -284,8 +289,8 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is essentially a wrapper around <code><a href='sf_report_execute.html'>sf_report_execute</a></code>. 
-Please review or use that function and/or <code><a href='sf_report_query.html'>sf_report_query</a></code> if you 
+    <p>This function is essentially a wrapper around <code><a href='sf_report_execute.html'>sf_report_execute</a></code>.
+Please review or use that function and/or <code><a href='sf_report_query.html'>sf_report_query</a></code> if you
 want to have more control over how the report is run and what format should
 be returned. In this case we've forced the <code>reportFormat="TABULAR"</code>
 without total rows and given options to filter, and select the Top N as

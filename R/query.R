@@ -1,8 +1,12 @@
 #' Perform SOQL Query
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Executes a query against the specified object and returns data that matches 
 #' the specified criteria.
 #' 
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @template soql
 #' @template object_name
 #' @template queryall
@@ -41,6 +45,7 @@ sf_query <- function(soql,
                      guess_types = TRUE,
                      api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
                      control = list(...), ...,
+                     page_size = deprecated(),
                      next_records_url = NULL,
                      bind_using_character_cols = FALSE,
                      object_name_append = FALSE,
@@ -48,18 +53,17 @@ sf_query <- function(soql,
                      verbose = FALSE){
   
   api_type <- match.arg(api_type)
+  
   # determine how to pass along the control args 
-  all_args <- list(...)
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
   control_args$operation <- if(queryall) "queryall" else "query"
-  if("page_size" %in% names(all_args)){
-    # warn then set it in the control list
-    warning(paste0("The `page_size` argument has been deprecated.\n", 
-                   "Please pass QueryOptions=list(batchSize=200) argument or ",
-                   "use the `sf_control` function."), 
-            call. = FALSE)
-    control_args$QueryOptions = list(batchSize = as.integer(all_args$page_size))
+  
+  if(is_present(page_size)) {
+    deprecate_warn("0.1.3", "sf_query(page_size = )", "sf_query(QueryOptions = )", 
+                   details = paste0("You can pass the page/batch size directly ", 
+                                    "as shown above or via the `control` argument."))
+    control_args$QueryOptions <- list(batchSize = as.integer(page_size))
   }
   
   if(api_type == "REST"){

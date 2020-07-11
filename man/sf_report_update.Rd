@@ -7,33 +7,35 @@
 sf_report_update(report_id, report_metadata, verbose = FALSE)
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{report_metadata}{\code{list}; a list representing the properties to create 
-the report with. The names of the list must be one or more of the 3 accepted 
-metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
+\item{report_metadata}{\code{list}; a list representing the properties to create
+the report with. The names of the list must be one or more of the 3 accepted
+metadata properties: \code{reportMetadata}, \code{reportTypeMetadata},
 \code{reportExtendedMetadata}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list} representing the newly cloned report with up to 4 properties 
-that describe the report: 
+\code{list} representing the newly cloned report with up to 4 properties
+that describe the report:
 \describe{
-  \item{attributes}{Report type along with the URL to retrieve common objects and 
-  joined metadata.}
-  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
-  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
-  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+\item{attributes}{Report type along with the URL to retrieve common objects and
+joined metadata.}
+\item{reportMetadata}{Unique identifiers for groupings and summaries.}
+\item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+\item{reportExtendedMetadata}{Additional information about summaries and groupings.}
 }
 }
 \description{
-Save changes to a report by sending a PATCH request to the Report resource. 
-Note that saving a report deletes any running async report jobs because they 
+\lifecycle{experimental}
+
+Save changes to a report by sending a PATCH request to the Report resource.
+Note that saving a report deletes any running async report jobs because they
 might be obsolete based on the updates.
 }
 \examples{

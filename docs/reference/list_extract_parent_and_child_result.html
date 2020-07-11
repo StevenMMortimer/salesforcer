@@ -53,10 +53,10 @@
 
 
 <meta property="og:title" content="Extract tibble of a parent-child record from one JSON element — list_extract_parent_and_child_result" />
-<meta property="og:description" content="This function accepts a list representing the result of an individual parent 
-recordset from a nested parent-child query where there are zero or more child 
-records to be joined to the parent. In this case the child and parent will be 
-bound together to return one complete tbl_df of the query result for 
+<meta property="og:description" content="This function accepts a list representing the result of an individual parent
+recordset from a nested parent-child query where there are zero or more child
+records to be joined to the parent. In this case the child and parent will be
+bound together to return one complete tbl_df of the query result for
 that parent record." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -117,6 +117,9 @@ that parent record." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -183,10 +186,10 @@ that parent record." />
     </div>
 
     <div class="ref-description">
-    <p>This function accepts a list representing the result of an individual parent 
-recordset from a nested parent-child query where there are zero or more child 
-records to be joined to the parent. In this case the child and parent will be 
-bound together to return one complete <code>tbl_df</code> of the query result for 
+    <p>This function accepts a list representing the result of an individual parent
+recordset from a nested parent-child query where there are zero or more child
+records to be joined to the parent. In this case the child and parent will be
+bound together to return one complete <code>tbl_df</code> of the query result for
 that parent record.</p>
     </div>
 
@@ -197,15 +200,15 @@ that parent record.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>list</code>; list of records parsed from JSON representing one 
+      <td><p><code>list</code>; list of records parsed from JSON representing one
 individual parent query record.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code>; a data frame with each row representing a parent-child 
-record (i.e. at least one row per parent or more if cross joined with more 
+    <p><code>tbl_df</code>; a data frame with each row representing a parent-child
+record (i.e. at least one row per parent or more if cross joined with more
 than one child record).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

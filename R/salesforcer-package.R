@@ -8,10 +8,7 @@
 #' Additional material can be found in the 
 #' \href{https://github.com/reportmort/salesforcer}{README} on GitHub
 #'
-#' @docType package
-#' @name salesforcer
+#' @keywords internal
 #' @importFrom dplyr %>%
-NULL
-
-## quiets concerns of R CMD check re: the .'s that appear in pipelines
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
+#' @importFrom lifecycle deprecate_soft
+"_PACKAGE"

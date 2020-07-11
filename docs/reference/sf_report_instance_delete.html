@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Delete a report instance — sf_report_instance_delete" />
-<meta property="og:description" content="If the given report instance has a status of Success or Error, 
+<meta property="og:description" content="
+If the given report instance has a status of Success or Error,
 delete the report instance." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ delete the report instance." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ delete the report instance." />
     </div>
 
     <div class="ref-description">
-    <p>If the given report instance has a status of <code>Success</code> or <code>Error</code>, 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>If the given report instance has a status of <code>Success</code> or <code>Error</code>,
 delete the report instance.</p>
     </div>
 
@@ -191,27 +196,27 @@ delete the report instance.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>report_instance_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a 
-created analytics report instance (an asynchronous run). It will start with 
+      <td><p><code>character</code>; the Salesforce Id assigned to a
+created analytics report instance (an asynchronous run). It will start with
 <code>"0LG"</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>logical</code> indicating whether the report instance was deleted. This function 
+    <p><code>logical</code> indicating whether the report instance was deleted. This function
 will return <code>TRUE</code> if successful in deleting the report instance.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

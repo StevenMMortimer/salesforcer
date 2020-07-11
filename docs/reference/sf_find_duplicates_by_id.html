@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Find Duplicate Records By Id — sf_find_duplicates_by_id" />
-<meta property="og:description" content="Performs rule-based searches for duplicate records." />
+<meta property="og:description" content="
+Performs rule-based searches for duplicate records." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs rule-based searches for duplicate records.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Performs rule-based searches for duplicate records.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_find_duplicates_by_id</span>(
@@ -194,27 +199,30 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sf_id</th>
-      <td><p><code>character</code>; a Salesforce generated Id that uniquely 
+      <td><p><code>character</code>; a Salesforce generated Id that uniquely
 identifies a record.</p></td>
     </tr>
     <tr>
       <th>include_record_details</th>
-      <td><p><code>logical</code>; get fields and values for records 
-detected as duplicates by setting this property to <code>TRUE</code>. Get only 
-record IDs for records detected as duplicates by setting this property to 
+      <td><p><code>logical</code>; get fields and values for records
+detected as duplicates by setting this property to <code>TRUE</code>. Get only
+record IDs for records detected as duplicates by setting this property to
 <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
-<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -224,10 +232,10 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code> of records found to be duplicates by the match rules</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>You must have actived duplicate rules for the supplied object before running 
-this function. This function uses the duplicate rules for the object that has 
-the same type as the input record IDs. For example, if the record Id represents 
-an Account, this function uses the duplicate rules associated with the 
+    <p>You must have actived duplicate rules for the supplied object before running
+this function. This function uses the duplicate rules for the object that has
+the same type as the input record IDs. For example, if the record Id represents
+an Account, this function uses the duplicate rules associated with the
 Account object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

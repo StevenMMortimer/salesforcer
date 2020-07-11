@@ -1,5 +1,8 @@
 #' Make A Request to Retrieve the Metadata
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function makes a request to retrieve metadata 
 #' as a package XML files that can be modified and later
 #' deployed into an environment 
@@ -91,8 +94,10 @@ sf_retrieve_metadata <- function(retrieve_request,
   return(retrieve_status)
 }
 
-
 #' Check on Retrieve Calls and Get Contents If Available
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' This function returns details about an initiated retrieveMetadata requset
 #' and saves the results into a zip file

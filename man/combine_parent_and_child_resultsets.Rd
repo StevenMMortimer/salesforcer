@@ -7,15 +7,15 @@
 combine_parent_and_child_resultsets(parents_df, child_df_list)
 }
 \arguments{
-\item{parents_df}{\code{tbl_df}; a dataset with 1 row per parent record from 
+\item{parents_df}{\code{tbl_df}; a dataset with 1 row per parent record from
 the query recordset, that can be joined with its corresponding child records.}
 
-\item{child_df_list}{\code{list} of \code{tbl_df}; a list of child records that 
+\item{child_df_list}{\code{list} of \code{tbl_df}; a list of child records that
 is the same length as the number of rows in the parent_df.}
 }
 \description{
-This function accepts a \code{data.frame} with one row representing each 
-parent record returned by a query with a corresponding list element in the 
+This function accepts a \code{data.frame} with one row representing each
+parent record returned by a query with a corresponding list element in the
 list of child record results stored as \code{tbl_df} in a list.
 }
 \note{

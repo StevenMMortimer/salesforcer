@@ -2,6 +2,9 @@
 
 #' List reports
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Displays a list of up to 200 tabular, matrix, or summary reports that you
 #' recently viewed. To get a full list of reports by format, name, and other
 #' fields, use a SOQL query on the Report object.
@@ -60,6 +63,9 @@ sf_reports_list <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
 
 #' List report filter operators
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Use the Filter Operators API to get information about which filter operators are 
 #' available for reports and dashboards. The Filter Operators API is available in 
 #' API version 40.0 and later.
@@ -89,6 +95,9 @@ sf_report_filter_operators_list <- function(as_tbl=TRUE, verbose=FALSE){
 
 #' List report types
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Return a list of report types.
 #'
 #' @template as_tbl
@@ -114,6 +123,9 @@ sf_report_types_list <- function(as_tbl=TRUE, verbose=FALSE){
 }
   
 #' Describe a report type
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Return metadata about a report type.
 #'
@@ -152,6 +164,9 @@ sf_report_type_describe <- function(report_type, verbose=FALSE){
 
 #' Describe a report
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Retrieves report, report type, and related metadata for a tabular, summary, 
 #' or matrix report.
 #' 
@@ -189,7 +204,13 @@ sf_report_describe <- function(report_id, verbose=FALSE){
 }
 
 #' Copy a report
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
+#' Creates a copy of a custom, standard, or public report by sending a POST 
+#' request to the Report List resource.
+#' 
 #' @template report_id
 #' @param name \code{character}; a user-specified name for the newly cloned report. 
 #' If left \code{NULL}, then the new name will be the same name as the report being 
@@ -259,6 +280,9 @@ sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
 }
 
 #' Create a report
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Create a new report using a POST request. To create a report, you only have to 
 #' specify a name and report type to create a new report; all other metadata properties 
@@ -346,6 +370,9 @@ sf_report_create <- function(name=NULL,
 
 #' Update a report
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Save changes to a report by sending a PATCH request to the Report resource. 
 #' Note that saving a report deletes any running async report jobs because they 
 #' might be obsolete based on the updates.
@@ -406,7 +433,10 @@ sf_report_update <- function(report_id, report_metadata, verbose=FALSE){
 }
 
 #' Delete a report
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Delete a report by sending a DELETE request to the Report resource. Deleted 
 #' reports are moved to the Recycle Bin.
 #'
@@ -443,6 +473,9 @@ sf_report_delete <- function(report_id, verbose=FALSE){
 }
   
 #' Get a list of report fields
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' The Report Fields resource returns report fields available for specified reports. 
 #' Use the resource to determine the best fields for use in dashboard filters by 
@@ -496,6 +529,9 @@ sf_report_fields <- function(report_id,
 }
 
 #' Execute a report
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Get summary data with or without details by running a report synchronously or
 #' asynchronously through the API. When you run a report, the API returns data
@@ -641,6 +677,9 @@ sf_report_execute <- function(report_id,
 
 #' List report instances
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Returns a list of instances for a report that you requested to be run asynchronously. 
 #' Each item in the list is treated as a separate instance of the report run with 
 #' metadata in that snapshot of time.
@@ -688,6 +727,9 @@ sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
 
 #' Delete a report instance
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' If the given report instance has a status of \code{Success} or \code{Error}, 
 #' delete the report instance.
 #'
@@ -729,6 +771,9 @@ sf_report_instance_delete <- function(report_id,
 }
 
 #' Get report instance results
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Retrieves results for an instance of a report run asynchronously with or without 
 #' filters. Depending on your asynchronous report run request, data can be at the 
@@ -775,6 +820,9 @@ sf_report_instance_results <- function(report_id,
 }
 
 #' Get Report Data without Saving Changes to or Creating a Report
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Run a report without creating a new report or changing the existing one by making
 #' a POST request to the query resource. This allows you to get report data 
@@ -829,6 +877,9 @@ sf_report_query <- function(report_id,
 }
 
 #' Get a report's data in tabular format
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' This function is a convenience wrapper for retrieving the data from a report.
 #' By default, it executes an asynchronous report and waits for the detaile data

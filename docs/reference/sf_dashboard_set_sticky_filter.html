@@ -53,14 +53,15 @@
 
 
 <meta property="og:title" content="Set a sticky dashboard filter — sf_dashboard_set_sticky_filter" />
-<meta property="og:description" content="Set a default filter value which gets applied to a dashboard when you open
+<meta property="og:description" content="
+Set a default filter value which gets applied to a dashboard when you open
 it. The default filter value you specify only applies to you (other people
 won’t see it when they open the dashboard). If you change the filter value
 while viewing the dashboard, then the filter value you set in the user
 interface overwrites the value you set via the API. To set sticky filters for
 a dashboard, canUseStickyFilter must equal true.
-Saves any dashboard filters set in the request so that they’re also set the 
-next time you open the dashboard. NOTE: You can only set dashboard filters for 
+Saves any dashboard filters set in the request so that they’re also set the
+next time you open the dashboard. NOTE: You can only set dashboard filters for
 yourself, not for other users." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -121,6 +122,9 @@ yourself, not for other users." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -187,14 +191,15 @@ yourself, not for other users." />
     </div>
 
     <div class="ref-description">
-    <p>Set a default filter value which gets applied to a dashboard when you open
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Set a default filter value which gets applied to a dashboard when you open
 it. The default filter value you specify only applies to you (other people
 won’t see it when they open the dashboard). If you change the filter value
 while viewing the dashboard, then the filter value you set in the user
 interface overwrites the value you set via the API. To set sticky filters for
 a dashboard, <code>canUseStickyFilter</code> must equal true.
-Saves any dashboard filters set in the request so that they’re also set the 
-next time you open the dashboard. NOTE: You can only set dashboard filters for 
+Saves any dashboard filters set in the request so that they’re also set the
+next time you open the dashboard. NOTE: You can only set dashboard filters for
 yourself, not for other users.</p>
     </div>
 
@@ -208,14 +213,14 @@ yourself, not for other users.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dashboard_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 dashboard. It will start with <code>"01Z"</code>.</p></td>
     </tr>
     <tr>
       <th>dashboard_filters</th>
-      <td><p><code>character</code>; Dashboard results are always unfiltered, unless you 
-have specified filter parameters in your request. Use this argument to include 
-up to three optional filter Ids. You can obtain the list of defined filter Ids 
+      <td><p><code>character</code>; Dashboard results are always unfiltered, unless you
+have specified filter parameters in your request. Use this argument to include
+up to three optional filter Ids. You can obtain the list of defined filter Ids
 from the dashboard metadata using <a href='sf_dashboard_describe.html'>sf_dashboard_describe</a>.</p></td>
     </tr>
     </table>

@@ -1,7 +1,10 @@
 # https://resources.docs.salesforce.com/226/latest/en-us/sfdc/pdf/salesforce_analytics_rest_api.pdf
 
 #' List dashboards
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' Returns a list of recently used dashboards
 #'
 #' @template as_tbl
@@ -20,6 +23,9 @@ sf_dashboards_list <- function(as_tbl=TRUE, verbose=FALSE){
 }
 
 #' Describe a dashboard
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Returns metadata for the specified dashboard, including dashboard components, 
 #' filters, layout, and the running user.
@@ -42,6 +48,9 @@ sf_dashboard_describe <- function(dashboard_id, as_tbl=TRUE, verbose=FALSE){
 
 #' Describe dashboard components
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @param component_ids \code{character}; a vector of Unique Salesforce Ids of a 
 #' dashboard component.
@@ -61,7 +70,10 @@ sf_dashboard_components_describe <- function(dashboard_id,
 }
 
 #' Get the status of a dashboard
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @template running_user
 #' @template dashboard_filters
@@ -80,7 +92,10 @@ sf_dashboard_status <- function(dashboard_id,
 }
 
 #' List dashboard filter operators
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @return \code{list}
 #' @export
 sf_dashboard_filter_operators_list <- function(){
@@ -93,6 +108,9 @@ sf_dashboard_filter_operators_list <- function(){
 }
 
 #' Get an analysis of the filter options for a dashboard
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' @template dashboard_id
 #' @param filter_columns \code{list}; a list of fields from the source report 
@@ -116,6 +134,9 @@ sf_dashboard_filter_options_analysis <- function(dashboard_id,
 
 #' Get the results of an existing dashboard
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function allows for pulling specific data from a dashboard. There is a
 #' convenience function (\link{sf_get_dashboard_data}) to get the dashboard data
 #' in a tabular format returned as a \code{tbl_df}.
@@ -138,6 +159,9 @@ sf_dashboard_results <- function(dashboard_id,
 
 #' Get dashboard data in a tabular format
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @template running_user
 #' @template dashboard_filters
@@ -150,7 +174,10 @@ sf_get_dashboard_data <- function(dashboard_id,
 }
 
 #' Refresh an existing dashboard
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @template dashboard_filters
 #' @return \code{list}
@@ -168,7 +195,10 @@ sf_dashboard_refresh <- function(dashboard_id,
 }
 
 #' Copy a dashboard
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @template report_folder_id
 #' @return \code{list}
@@ -186,7 +216,10 @@ sf_dashboard_copy <- function(dashboard_id, report_folder_id){
 }
 
 #' Update a dashboard
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @template body
 #' @return \code{list}
@@ -206,6 +239,9 @@ sf_dashboard_update <- function(dashboard_id, body){
 }
 
 #' Set a sticky dashboard filter
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' Set a default filter value which gets applied to a dashboard when you open
 #' it. The default filter value you specify only applies to you (other people
@@ -239,7 +275,10 @@ sf_dashboard_set_sticky_filter <- function(dashboard_id,
 }
 
 #' Delete a dashboard
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template dashboard_id
 #' @return \code{logical}
 #' @export

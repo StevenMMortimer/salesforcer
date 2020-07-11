@@ -53,8 +53,8 @@
 
 
 <meta property="og:title" content="Format the detailed data from the "T!T" fact map in a tabular report — parse_report_detail_rows" />
-<meta property="og:description" content="This function accepts a list that is directly returned by the API and further 
-parses it to return a single tbl_df representing the detail rows and 
+<meta property="og:description" content="This function accepts a list that is directly returned by the API and further
+parses it to return a single tbl_df representing the detail rows and
 columns of the report without any filters, aggregates, or totals." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -115,6 +115,9 @@ columns of the report without any filters, aggregates, or totals." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,8 +184,8 @@ columns of the report without any filters, aggregates, or totals." />
     </div>
 
     <div class="ref-description">
-    <p>This function accepts a list that is directly returned by the API and further 
-parses it to return a single <code>tbl_df</code> representing the detail rows and 
+    <p>This function accepts a list that is directly returned by the API and further
+parses it to return a single <code>tbl_df</code> representing the detail rows and
 columns of the report without any filters, aggregates, or totals.</p>
     </div>
 
@@ -193,24 +196,24 @@ columns of the report without any filters, aggregates, or totals.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>content</th>
-      <td><p><code>list</code>; the list returned from the <code><a href='https://httr.r-lib.org/reference/content.html'>content</a></code> 
+      <td><p><code>list</code>; the list returned from the <code><a href='https://httr.r-lib.org/reference/content.html'>content</a></code>
 function that parses the JSON response to a <code>list</code>.</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p><code>logical</code>; an indicator of whether the returned data should 
-be the label (i.e. formatted value) or the actual value. By default, the labels  
-are returned because these are what appear in the Salesforce dashboard and 
-more closely align with the column names. For example, "Account.Name" label 
-may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former 
+      <td><p><code>logical</code>; an indicator of whether the returned data should
+be the label (i.e. formatted value) or the actual value. By default, the labels
+are returned because these are what appear in the Salesforce dashboard and
+more closely align with the column names. For example, "Account.Name" label
+may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
 (label) more accurately reflects the "Account.Name".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code>; a data frame representing the detail rows of a parsed 
-report result HTTP response where the rows represent each row in the report 
+    <p><code>tbl_df</code>; a data frame representing the detail rows of a parsed
+report result HTTP response where the rows represent each row in the report
 and the columns represent the detail columns.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

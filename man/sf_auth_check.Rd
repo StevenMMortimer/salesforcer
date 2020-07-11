@@ -7,20 +7,20 @@
 sf_auth_check(verbose = FALSE)
 }
 \arguments{
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-a \code{Token2.0} object (an S3 class provided by \code{httr}) or a 
-a character string of the sessionId element of the current authorized 
+a \code{Token2.0} object (an S3 class provided by \code{httr}) or a
+a character string of the sessionId element of the current authorized
 API session
 }
 \description{
-Before the user makes any calls requiring an authorized session, check if an 
-OAuth token or session is not already available, call \code{\link{sf_auth}} to 
-by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+Before the user makes any calls requiring an authorized session, check if an
+OAuth token or session is not already available, call \code{\link{sf_auth}} to
+by default initiate the OAuth 2.0 workflow that will load a token from cache or
 launch browser flow. Return the bare token. Use
 \code{access_token()} to reveal the actual access token, suitable for use
 with \code{curl}.

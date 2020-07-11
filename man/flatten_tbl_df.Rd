@@ -13,8 +13,8 @@ flatten_tbl_df(x)
 \code{tbl_df} parsed from the flattened list.
 }
 \description{
-This function is a convenience function to handle deeply nested records usually 
-returned by parsed JSON or XML that need to be converted into a data frame where 
+This function is a convenience function to handle deeply nested records usually
+returned by parsed JSON or XML that need to be converted into a data frame where
 each record represents a row in the data frame.
 }
 \note{

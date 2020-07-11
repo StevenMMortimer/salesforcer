@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Catch unknown API type — catch_unknown_api" />
-<meta property="og:description" content="This function will alert the user that the supplied value to the argument 
+<meta property="og:description" content="This function will alert the user that the supplied value to the argument
 api_type is not one of the valid options." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +114,9 @@ api_type is not one of the valid options." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,18 +183,18 @@ api_type is not one of the valid options." />
     </div>
 
     <div class="ref-description">
-    <p>This function will alert the user that the supplied value to the argument 
+    <p>This function will alert the user that the supplied value to the argument
 <code>api_type</code> is not one of the valid options.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>catch_unknown_api</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>catch_unknown_api</span>(<span class='no'>x</span>, <span class='kw'>supported</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>)))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>character</code>; The value of the <code>api_type</code> argument provided 
+      <td><p><code>character</code>; The value of the <code>api_type</code> argument provided
 by the user.</p></td>
     </tr>
     </table>

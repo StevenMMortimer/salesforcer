@@ -14,11 +14,14 @@ knitr::opts_chunk$set(
 
 # salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
 
+<!-- badges: start -->
 [![Build Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer)
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Monthly Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
+<!-- badges: end -->
 
 **salesforcer** is an R package that connects to Salesforce Platform APIs using 
 tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, 
@@ -198,7 +201,7 @@ updated_records <- sf_update(queried_records, object_name = "Contact")
 updated_records
 ```
 
-```{r, include=FALSE}
+```{r cleanup-records, include=FALSE}
 deleted_records <- sf_delete(updated_records$id)
 deleted_records
 ```
@@ -223,7 +226,7 @@ a good solution for creating, updating, or upserting records where you need to k
 track of the created Ids. The Bulk 2.0 API would be fine for deleting records where 
 you only need to know which Ids were successfully deleted.
 
-```{r}
+```{r bulk-example}
 # create contacts using the Bulk API
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),

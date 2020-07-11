@@ -13,7 +13,7 @@ drop_empty_recursively(x)
 \code{list} containing no empty elements.
 }
 \description{
-This function wraps the \code{\link[purrr:keep]{compact}} function to recursively 
+This function wraps the \code{\link[purrr:keep]{compact}} function to recursively
 remove elements from lists that contain no information.
 }
 \note{

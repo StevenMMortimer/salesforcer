@@ -13,8 +13,8 @@ set_null_elements_to_na(x)
 \code{list} containing \code{NA} in place of \code{NULL} element values.
 }
 \description{
-This function is a simple \code{\link[purrr:modify]{modify_if}} function 
-to replace zero-length elements (includes \code{NULL}) to \code{NA} in a 
+This function is a simple \code{\link[purrr:modify]{modify_if}} function
+to replace zero-length elements (includes \code{NULL}) to \code{NA} in a
 one-level list.
 }
 \note{

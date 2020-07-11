@@ -10,7 +10,9 @@ sf_list_rest_api_versions()
 \code{list}
 }
 \description{
-Lists summary information about each Salesforce version currently available, 
+\lifecycle{stable}
+
+Lists summary information about each Salesforce version currently available,
 including the version, label, and a link to each version\'s root
 }
 \examples{

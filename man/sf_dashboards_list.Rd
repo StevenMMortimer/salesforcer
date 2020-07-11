@@ -7,23 +7,25 @@
 sf_dashboards_list(as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{list} or \code{tbl_df} depending on the value of argument \code{as_tbl}
 }
 \description{
+\lifecycle{experimental}
+
 Returns a list of recently used dashboards
 }
 \seealso{
 \itemize{
-  \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Salesforce Documentation}
-  \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_list.htm#topic-title}{Salesforce Example}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_list_resource.htm#topic-title}{Salesforce Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_list.htm#topic-title}{Salesforce Example}
 }
 }

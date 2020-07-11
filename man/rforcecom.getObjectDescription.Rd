@@ -2,26 +2,27 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.getObjectDescription}
 \alias{rforcecom.getObjectDescription}
-\title{salesforcer's backwards compatible version of rforcecom.getObjectDescription}
+\title{The \code{salesforcer} backwards compatible version of
+\code{\link[RForcecom]{rforcecom.getObjectDescription}}}
 \usage{
 rforcecom.getObjectDescription(session, objectName)
 }
 \arguments{
-\item{session}{\code{list}; a list containing \code{"sessionID"}, 
-\code{"instanceURL"}, and \code{"apiVersion"} as returned by 
-\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all 
-backward compatible calls because the authorization credentials are stored 
-in an environment internal to the salesforcer package, so it is no longer 
+\item{session}{\code{list}; a list containing \code{"sessionID"},
+\code{"instanceURL"}, and \code{"apiVersion"} as returned by
+\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.}
 
-\item{objectName}{\code{character}; the name of the Salesforce object that the 
+\item{objectName}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 }
 \value{
 Object descriptions
 }
 \description{
-salesforcer's backwards compatible version of rforcecom.getObjectDescription
+\lifecycle{soft-deprecated}
 }
 \note{
 This function returns a data.frame with one row per field for an object.

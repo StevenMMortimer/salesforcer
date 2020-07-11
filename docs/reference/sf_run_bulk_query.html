@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Run bulk query — sf_run_bulk_query" />
-<meta property="og:description" content="This function is a convenience wrapper for submitting and retrieving 
+<meta property="og:description" content="
+This function is a convenience wrapper for submitting and retrieving
 query API jobs from the Bulk 1.0 and Bulk 2.0 APIs." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ query API jobs from the Bulk 1.0 and Bulk 2.0 APIs." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ query API jobs from the Bulk 1.0 and Bulk 2.0 APIs." />
     </div>
 
     <div class="ref-description">
-    <p>This function is a convenience wrapper for submitting and retrieving 
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>This function is a convenience wrapper for submitting and retrieving
 query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.</p>
     </div>
 
@@ -217,69 +222,72 @@ query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>soql</th>
-      <td><p><code>character</code>; a string defining a SOQL query 
+      <td><p><code>character</code>; a string defining a SOQL query
 (e.g. "SELECT Id, Name FROM Account").</p></td>
     </tr>
     <tr>
       <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>queryall</th>
-      <td><p><code>logical</code>; indicating if the query recordset should include records 
-that have been deleted because of a merge or delete. Setting this argument to 
-<code>TRUE</code> will also return information about archived Task and Event records. 
+      <td><p><code>logical</code>; indicating if the query recordset should include records
+that have been deleted because of a merge or delete. Setting this argument to
+<code>TRUE</code> will also return information about archived Task and Event records.
 It is available in API versions 29.0 and later.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
-<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>bind_using_character_cols</th>
-      <td><p><code>logical</code>; an indicator of whether to 
+      <td><p><code>logical</code>; an indicator of whether to
 cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
-does not fail because two paginated recordsets have differing datatypes for the 
-same column. Set this to <code>TRUE</code> rarely, typically only when having this 
-set to <code>FALSE</code> returns an error or you want all columns in the data to be 
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
 character.</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>
-      <td><p><code>integer</code>; defines the seconds between attempts to check 
+      <td><p><code>integer</code>; defines the seconds between attempts to check
 for job completion.</p></td>
     </tr>
     <tr>
       <th>max_attempts</th>
-      <td><p><code>integer</code>; defines then max number attempts to check for job 
+      <td><p><code>integer</code>; defines then max number attempts to check for job
 completion before stopping.</p></td>
     </tr>
     <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or 
-<code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code> to specify the <code>content_type</code>, 
+      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or
+<code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code> to specify the <code>content_type</code>,
 <code>concurrency_mode</code>, and/or <code>column_delimiter</code>.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

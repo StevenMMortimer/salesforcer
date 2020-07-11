@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Get an analysis of the filter options for a dashboard — sf_dashboard_filter_options_analysis" />
-<meta property="og:description" content="Get an analysis of the filter options for a dashboard" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +113,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +182,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Get an analysis of the filter options for a dashboard</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_dashboard_filter_options_analysis</span>(
@@ -193,18 +196,18 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dashboard_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 dashboard. It will start with <code>"01Z"</code>.</p></td>
     </tr>
     <tr>
       <th>filter_columns</th>
-      <td><p><code>list</code>; a list of fields from the source report 
-which you check filter values against. Each object in the array has these 
+      <td><p><code>list</code>; a list of fields from the source report
+which you check filter values against. Each object in the array has these
 properties:...</p></td>
     </tr>
     <tr>
       <th>options</th>
-      <td><p><code>list</code>; a list of objects describing a dashboard filter. 
+      <td><p><code>list</code>; a list of objects describing a dashboard filter.
 Each object has these properties:...</p></td>
     </tr>
     </table>

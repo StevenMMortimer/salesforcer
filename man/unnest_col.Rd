@@ -7,7 +7,7 @@
 unnest_col(df, col)
 }
 \arguments{
-\item{df}{\code{tbl_df}; a data frame with list column to be extracted into 
+\item{df}{\code{tbl_df}; a data frame with list column to be extracted into
 multiple individual columns.}
 
 \item{col}{\code{character}; the name of the column to unnest}
@@ -16,7 +16,7 @@ multiple individual columns.}
 \code{tbl_df} parsed from the flattened list.
 }
 \description{
-This function is a convenience function to handle a list column in a \code{tbl_df}. 
+This function is a convenience function to handle a list column in a \code{tbl_df}.
 The column is unnested wide while preserving the row count.
 }
 \note{

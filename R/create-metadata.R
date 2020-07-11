@@ -1,20 +1,24 @@
 #' Create Object or Field Metadata in Salesforce
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function takes a list of Metadata components and sends them 
 #' to Salesforce for creation
 #'
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @importFrom XML newXMLNode addChildren
 #' @importFrom readr type_convert cols
 #' @importFrom httr content 
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom purrr map_df
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
 #' @template metadata_type
 #' @template metadata
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
 #' @return A \code{tbl_df} containing the creation result for each submitted metadata component
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' # read the metadata of the existing Account object
@@ -72,6 +76,7 @@
 sf_create_metadata <- function(metadata_type, 
                                metadata,
                                control = list(...), ...,
+                               all_or_none = deprecated(),
                                verbose = FALSE){
   
   which_operation <- "createMetadata"
@@ -79,17 +84,19 @@ sf_create_metadata <- function(metadata_type,
   metadata <- metadata_type_validator(obj_type=metadata_type, obj_data=metadata)
   
   # determine how to pass along the control args 
-  all_args <- list(...)
   control_args <- return_matching_controls(control)
   control_args$api_type <- "Metadata"
   control_args$operation <- "insert"
-  if("all_or_none" %in% names(all_args)){
-    # warn then set it in the control list
-    warning(paste0("The `all_or_none` argument has been deprecated.\n", 
-                   "Please pass AllOrNoneHeader argument or use the `sf_control` function."), 
-            call. = FALSE)
-    control_args$AllOrNoneHeader = list(allOrNone = tolower(all_args$all_or_none))
+  
+  if(is_present(all_or_none)) {
+    deprecate_warn("0.1.3", 
+                   "sf_create_metadata(all_or_none = )", 
+                   "sf_create_metadata(AllOrNoneHeader = )", 
+                   details = paste0("You can pass the all or none header directly ", 
+                                    "as shown above or via the `control` argument."))
+    control_args$AllOrNoneHeader <- list(allOrNone = tolower(all_or_none))
   }
+  
   control <- do.call("sf_control", control_args)
 
   # define the operation

@@ -10,7 +10,9 @@ sf_list_resources()
 \code{list}
 }
 \description{
-Lists available resources for the specified API version, including resource 
+\lifecycle{stable}
+
+Lists available resources for the specified API version, including resource
 name and URI.
 }
 \examples{

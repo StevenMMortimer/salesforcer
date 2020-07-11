@@ -53,10 +53,10 @@
 
 
 <meta property="og:title" content="Bind the results of paginated queries — bind_query_resultsets" />
-<meta property="og:description" content="This function accepts two tbl_df arguments that should represent the 
-data frames returned by two different paginated API requests. It will 
-throw an error if the data frames cannot be bound as-is because of mismatched 
-types and encourage the user to set other arguments in  sf_query() to 
+<meta property="og:description" content="This function accepts two tbl_df arguments that should represent the
+data frames returned by two different paginated API requests. It will
+throw an error if the data frames cannot be bound as-is because of mismatched
+types and encourage the user to set other arguments in  sf_query() to
 work through the issues." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -117,6 +117,9 @@ work through the issues." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -183,10 +186,10 @@ work through the issues." />
     </div>
 
     <div class="ref-description">
-    <p>This function accepts two <code>tbl_df</code> arguments that should represent the 
-data frames returned by two different paginated API requests. It will 
-throw an error if the data frames cannot be bound as-is because of mismatched 
-types and encourage the user to set other arguments in  <code><a href='sf_query.html'>sf_query()</a></code> to 
+    <p>This function accepts two <code>tbl_df</code> arguments that should represent the
+data frames returned by two different paginated API requests. It will
+throw an error if the data frames cannot be bound as-is because of mismatched
+types and encourage the user to set other arguments in  <code><a href='sf_query.html'>sf_query()</a></code> to
 work through the issues.</p>
     </div>
 
@@ -201,9 +204,9 @@ work through the issues.</p>
     </tr>
     <tr>
       <th>next_records</th>
-      <td><p><code>tbl_df</code>; the second data frame where any columns 
-matched by name have the same datatype as the data frame provided to the 
-`resultset` argument, otherwise, the call will fail with an error message.</p></td>
+      <td><p><code>tbl_df</code>; the second data frame where any columns
+matched by name have the same datatype as the data frame provided to the
+<code>resultset</code> argument, otherwise, the call will fail with an error message.</p></td>
     </tr>
     </table>
 

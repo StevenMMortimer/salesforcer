@@ -10,6 +10,8 @@ sf_list_objects()
 \code{list}
 }
 \description{
+\lifecycle{stable}
+
 Lists the available objects and their metadata for your organization’s data.
 }
 \examples{

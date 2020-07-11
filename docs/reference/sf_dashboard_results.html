@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Get the results of an existing dashboard — sf_dashboard_results" />
-<meta property="og:description" content="This function allows for pulling specific data from a dashboard. There is a
+<meta property="og:description" content="
+This function allows for pulling specific data from a dashboard. There is a
 convenience function (sf_get_dashboard_data) to get the dashboard data
 in a tabular format returned as a tbl_df." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
@@ -115,6 +116,9 @@ in a tabular format returned as a tbl_df." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,7 +185,8 @@ in a tabular format returned as a tbl_df." />
     </div>
 
     <div class="ref-description">
-    <p>This function allows for pulling specific data from a dashboard. There is a
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function allows for pulling specific data from a dashboard. There is a
 convenience function (<a href='sf_get_dashboard_data.html'>sf_get_dashboard_data</a>) to get the dashboard data
 in a tabular format returned as a <code>tbl_df</code>.</p>
     </div>
@@ -197,21 +202,21 @@ in a tabular format returned as a <code>tbl_df</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dashboard_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 dashboard. It will start with <code>"01Z"</code>.</p></td>
     </tr>
     <tr>
       <th>running_user</th>
-      <td><p><code>character</code>; the Salesforce Id that should be assigned 
-as the runner of the job. This should be from a User record (i.e. the Id will 
-start with "005"). Note that this will throw an error if the User is not 
+      <td><p><code>character</code>; the Salesforce Id that should be assigned
+as the runner of the job. This should be from a User record (i.e. the Id will
+start with "005"). Note that this will throw an error if the User is not
 allowed to change the running User, or if the selected running User is invalid.</p></td>
     </tr>
     <tr>
       <th>dashboard_filters</th>
-      <td><p><code>character</code>; Dashboard results are always unfiltered, unless you 
-have specified filter parameters in your request. Use this argument to include 
-up to three optional filter Ids. You can obtain the list of defined filter Ids 
+      <td><p><code>character</code>; Dashboard results are always unfiltered, unless you
+have specified filter parameters in your request. Use this argument to include
+up to three optional filter Ids. You can obtain the list of defined filter Ids
 from the dashboard metadata using <a href='sf_dashboard_describe.html'>sf_dashboard_describe</a>.</p></td>
     </tr>
     </table>

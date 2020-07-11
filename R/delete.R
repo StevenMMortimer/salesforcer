@@ -1,7 +1,11 @@
 #' Delete Records
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Deletes one or more records from your organization’s data.
 #' 
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @importFrom httr content
 #' @importFrom readr type_convert cols
 #' @importFrom dplyr bind_rows as_tibble
@@ -39,21 +43,21 @@ sf_delete <- function(ids,
                       api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
                       guess_types = TRUE,
                       control = list(...), ...,
+                      all_or_none = deprecated(),
                       verbose = FALSE){
 
   api_type <- match.arg(api_type)
   
   # determine how to pass along the control args 
-  all_args <- list(...)
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
   control_args$operation <- "delete"
-  if("all_or_none" %in% names(all_args)){
-    # warn then set it in the control list
-    warning(paste0("The `all_or_none` argument has been deprecated.\n", 
-                   "Please pass AllOrNoneHeader argument or use the `sf_control` function."), 
-            call. = FALSE)
-    control_args$AllOrNoneHeader = list(allOrNone = tolower(all_args$all_or_none))
+  
+  if(is_present(all_or_none)) {
+    deprecate_warn("0.1.3", "sf_delete(all_or_none = )", "sf_delete(AllOrNoneHeader = )", 
+                   details = paste0("You can pass the all or none header directly ", 
+                                    "as shown above or via the `control` argument."))
+    control_args$AllOrNoneHeader <- list(allOrNone = tolower(all_or_none))
   }
   
   if(api_type == "SOAP"){

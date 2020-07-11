@@ -241,6 +241,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_reports_list_url.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_describe_url.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_objects_url.html</loc>
   </url>
   <url>
@@ -328,7 +331,7 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.upsert.html</loc>
   </url>
   <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer.html</loc>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer-package.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer_state.html</loc>
@@ -818,6 +821,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html</loc>

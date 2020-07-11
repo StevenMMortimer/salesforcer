@@ -7,12 +7,12 @@
 sf_report_folder_delete(report_folder_id)
 }
 \arguments{
-\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created
 analytics folder (it will start with "00l").}
 }
 \value{
 \code{logical}
 }
 \description{
-Delete a report folder
+\lifecycle{experimental}
 }

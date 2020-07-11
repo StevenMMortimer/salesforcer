@@ -116,6 +116,9 @@ which has already been submitted to Bulk API Job" />
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -196,25 +199,25 @@ which has already been submitted to Bulk API Job</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>job_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as 
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
 returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>batch_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted 
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted
 batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

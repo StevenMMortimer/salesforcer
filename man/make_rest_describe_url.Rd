@@ -7,7 +7,7 @@
 make_rest_describe_url(object_name)
 }
 \arguments{
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 }
 \description{

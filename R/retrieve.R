@@ -1,5 +1,8 @@
 #' Retrieve Records By Id
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Retrieves one or more new records to your organization’s data.
 #' 
 #' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 

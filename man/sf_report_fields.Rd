@@ -7,33 +7,35 @@
 sf_report_fields(report_id, intersect_with = c(character(0)), verbose = FALSE)
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
 \item{intersect_with}{\code{character} a vector of unique report IDs. This is
-helpful in determining the best fields for use in dashboard filters by seeing 
-which fields different source reports have in common. If this argument is left 
-empty, then the function returns a list of all possible report fields. 
+helpful in determining the best fields for use in dashboard filters by seeing
+which fields different source reports have in common. If this argument is left
+empty, then the function returns a list of all possible report fields.
 Otherwise, returns a list of fields that specified reports share.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{list} representing the 4 different field report properties:
 \describe{
-  \item{displayGroups}{Fields available when adding a filter.}
-  \item{equivalentFields}{Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.}
-  \item{equivalentFieldIndices}{Map of each field’s API name to the index of the field in the \code{equivalentFields} array.}
-  \item{mergedGroups}{Merged fields.}
+\item{displayGroups}{Fields available when adding a filter.}
+\item{equivalentFields}{Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.}
+\item{equivalentFieldIndices}{Map of each field’s API name to the index of the field in the \code{equivalentFields} array.}
+\item{mergedGroups}{Merged fields.}
 }
 }
 \description{
-The Report Fields resource returns report fields available for specified reports. 
-Use the resource to determine the best fields for use in dashboard filters by 
-seeing which fields different source reports have in common. Available in API 
+\lifecycle{experimental}
+
+The Report Fields resource returns report fields available for specified reports.
+Use the resource to determine the best fields for use in dashboard filters by
+seeing which fields different source reports have in common. Available in API
 version 40.0 and later.
 }
 \examples{

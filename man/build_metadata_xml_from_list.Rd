@@ -19,7 +19,7 @@ build_metadata_xml_from_list(
 
 \item{root_name}{character; the name of the root node if created}
 
-\item{ns}{named vector; a collection of character strings indicating the namespace 
+\item{ns}{named vector; a collection of character strings indicating the namespace
 definitions of the root node if created}
 
 \item{root}{\code{XMLNode}; a node to be used as the root}

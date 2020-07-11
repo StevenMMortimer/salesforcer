@@ -12,6 +12,7 @@ sf_query(
   api_type = c("REST", "SOAP", "Bulk 1.0", "Bulk 2.0"),
   control = list(...),
   ...,
+  page_size = deprecated(),
   next_records_url = NULL,
   bind_using_character_cols = FALSE,
   object_name_append = FALSE,
@@ -20,43 +21,43 @@ sf_query(
 )
 }
 \arguments{
-\item{soql}{\code{character}; a string defining a SOQL query 
+\item{soql}{\code{character}; a string defining a SOQL query
 (e.g. "SELECT Id, Name FROM Account").}
 
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{queryall}{\code{logical}; indicating if the query recordset should include records 
-that have been deleted because of a merge or delete. Setting this argument to 
-\code{TRUE} will also return information about archived Task and Event records. 
+\item{queryall}{\code{logical}; indicating if the query recordset should include records
+that have been deleted because of a merge or delete. Setting this argument to
+\code{TRUE} will also return information about archived Task and Event records.
 It is available in API versions 29.0 and later.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
-\item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
+\item{...}{arguments passed to \code{\link{sf_control}} or further downstream
 to \code{\link{sf_query_bulk}}.}
 
-\item{next_records_url}{\code{character} (leave as NULL); a string used internally 
+\item{next_records_url}{\code{character} (leave as NULL); a string used internally
 by the function to paginate through to more records until complete}
 
-\item{bind_using_character_cols}{\code{logical}; an indicator of whether to 
+\item{bind_using_character_cols}{\code{logical}; an indicator of whether to
 cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
-does not fail because two paginated recordsets have differing datatypes for the 
-same column. Set this to \code{TRUE} rarely, typically only when having this 
-set to \code{FALSE} returns an error or you want all columns in the data to be 
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to \code{TRUE} rarely, typically only when having this
+set to \code{FALSE} returns an error or you want all columns in the data to be
 character.}
 
 \item{object_name_append}{\code{logical}; whether to include the object type
@@ -65,29 +66,31 @@ character.}
 \item{object_name_as_col}{\code{logical}; whether to include the object type
 (e.g. Account or Contact) as a new column.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records
 }
 \description{
-Executes a query against the specified object and returns data that matches 
+\lifecycle{maturing}
+
+Executes a query against the specified object and returns data that matches
 the specified criteria.
 }
 \note{
 Bulk API query doesn't support the following SOQL:
 \itemize{
-   \item COUNT
-   \item ROLLUP
-   \item SUM
-   \item GROUP BY CUBE
-   \item OFFSET
-   \item Nested SOQL queries
-   \item Relationship fields
-   }
+\item COUNT
+\item ROLLUP
+\item SUM
+\item GROUP BY CUBE
+\item OFFSET
+\item Nested SOQL queries
+\item Relationship fields
+}
 Additionally, Bulk API can't access or query compound address or compound geolocation fields.
 }
 \examples{

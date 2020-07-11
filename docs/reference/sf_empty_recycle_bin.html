@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Empty Recycle Bin — sf_empty_recycle_bin" />
-<meta property="og:description" content="Delete records from the recycle bin immediately and permanently." />
+<meta property="og:description" content="
+Delete records from the recycle bin immediately and permanently." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Delete records from the recycle bin immediately and permanently.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Delete records from the recycle bin immediately and permanently.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_empty_recycle_bin</span>(<span class='no'>ids</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -189,21 +194,21 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ids</th>
-      <td><p><code>vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; if not a vector, there must be a column called Id (case-insensitive) 
+      <td><p><code>vector</code>, <code>matrix</code>, <code>data.frame</code>, or
+<code>tbl_df</code>; if not a vector, there must be a column called Id (case-insensitive)
 that can be passed in the request</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

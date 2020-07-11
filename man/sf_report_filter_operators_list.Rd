@@ -7,21 +7,23 @@
 sf_report_filter_operators_list(as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df} by default, or a \code{list} depending on the value of 
+\code{tbl_df} by default, or a \code{list} depending on the value of
 argument \code{as_tbl}
 }
 \description{
-Use the Filter Operators API to get information about which filter operators are 
-available for reports and dashboards. The Filter Operators API is available in 
+\lifecycle{experimental}
+
+Use the Filter Operators API to get information about which filter operators are
+available for reports and dashboards. The Filter Operators API is available in
 API version 40.0 and later.
 }
 \examples{

@@ -7,15 +7,15 @@
 sf_dashboard_copy(dashboard_id, report_folder_id)
 }
 \arguments{
-\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 
-\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created
 analytics folder (it will start with "00l").}
 }
 \value{
 \code{list}
 }
 \description{
-Copy a dashboard
+\lifecycle{experimental}
 }

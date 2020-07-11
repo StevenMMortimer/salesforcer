@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Retrieve the results of a completed bulk query — sf_query_result_bulk" />
-<meta property="og:description" content="This function returns the recordset of a bulk query which has already been 
+<meta property="og:description" content="This function returns the recordset of a bulk query which has already been
 submitted to the Bulk 1.0 or Bulk 2.0 API and has completed." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +114,9 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +183,7 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed." />
     </div>
 
     <div class="ref-description">
-    <p>This function returns the recordset of a bulk query which has already been 
+    <p>This function returns the recordset of a bulk query which has already been
 submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.</p>
     </div>
 
@@ -200,51 +203,54 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>job_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as 
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
 returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
-<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>batch_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted 
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted
 batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
     </tr>
     <tr>
       <th>result_id</th>
-      <td><p><code>character</code>; a string returned from 
-<a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to 
+      <td><p><code>character</code>; a string returned from
+<a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to
 get the recordset</p></td>
     </tr>
     <tr>
       <th>bind_using_character_cols</th>
-      <td><p><code>logical</code>; an indicator of whether to 
+      <td><p><code>logical</code>; an indicator of whether to
 cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
-does not fail because two paginated recordsets have differing datatypes for the 
-same column. Set this to <code>TRUE</code> rarely, typically only when having this 
-set to <code>FALSE</code> returns an error or you want all columns in the data to be 
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
 character.</p></td>
     </tr>
     <tr>
       <th>batch_size</th>
-      <td><p><code>integer</code>; the number of individual records to be included in a 
+      <td><p><code>integer</code>; the number of individual records to be included in a
 single batch uploaded to the Bulk APIs (1.0 or 2.0).</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

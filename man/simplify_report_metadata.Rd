@@ -7,16 +7,16 @@
 simplify_report_metadata(report_id, verbose = FALSE)
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list}; a list representing the \code{reportMetadata} property of 
+\code{list}; a list representing the \code{reportMetadata} property of
 the report id provided, but with adjustments made.
 }
 \description{

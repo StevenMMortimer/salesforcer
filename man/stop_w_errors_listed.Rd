@@ -7,11 +7,11 @@
 stop_w_errors_listed(main_text = NULL, errors = NULL)
 }
 \arguments{
-\item{main_text}{\code{character}; The text used to introduce the list of 
+\item{main_text}{\code{character}; The text used to introduce the list of
 errors, typically ending with a colon. For example: \code{"Please fix the 
 following issue(s) before proceeding:"}.}
 
-\item{errors}{\code{errors}; a vector of errors that will be formatted into 
+\item{errors}{\code{errors}; a vector of errors that will be formatted into
 a bulleted list for the user to review with each error listed on a new line.}
 }
 \value{

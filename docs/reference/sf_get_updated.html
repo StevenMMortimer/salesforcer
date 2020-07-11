@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Get Updated Records from a Timeframe — sf_get_updated" />
-<meta property="og:description" content="Retrieves the list of individual records that have been inserted or updated 
+<meta property="og:description" content="
+Retrieves the list of individual records that have been inserted or updated
 within the given timespan in the specified object." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ within the given timespan in the specified object." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ within the given timespan in the specified object." />
     </div>
 
     <div class="ref-description">
-    <p>Retrieves the list of individual records that have been inserted or updated 
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>Retrieves the list of individual records that have been inserted or updated
 within the given timespan in the specified object.</p>
     </div>
 
@@ -191,12 +196,12 @@ within the given timespan in the specified object.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>start</th>
-      <td><p><code>date</code> or <code>datetime</code>; starting datetime of the timespan 
+      <td><p><code>date</code> or <code>datetime</code>; starting datetime of the timespan
 for which to retrieve the data.</p></td>
     </tr>
     <tr>
@@ -206,9 +211,9 @@ which to retrieve the data.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

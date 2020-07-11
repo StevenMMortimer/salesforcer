@@ -10,5 +10,5 @@ sf_dashboard_filter_operators_list()
 \code{list}
 }
 \description{
-List dashboard filter operators
+\lifecycle{experimental}
 }

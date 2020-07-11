@@ -7,13 +7,13 @@
 sf_session_id(verbose = TRUE)
 }
 \arguments{
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-character; a string of the sessionId element of the current authorized 
+character; a string of the sessionId element of the current authorized
 API session; otherwise NULL
 }
 \description{

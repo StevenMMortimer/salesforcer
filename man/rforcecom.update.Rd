@@ -2,19 +2,20 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.update}
 \alias{rforcecom.update}
-\title{salesforcer's backwards compatible version of rforcecom.update}
+\title{The \code{salesforcer} backwards compatible version of
+\code{\link[RForcecom]{rforcecom.update}}}
 \usage{
 rforcecom.update(session, objectName, id, fields)
 }
 \arguments{
-\item{session}{\code{list}; a list containing \code{"sessionID"}, 
-\code{"instanceURL"}, and \code{"apiVersion"} as returned by 
-\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all 
-backward compatible calls because the authorization credentials are stored 
-in an environment internal to the salesforcer package, so it is no longer 
+\item{session}{\code{list}; a list containing \code{"sessionID"},
+\code{"instanceURL"}, and \code{"apiVersion"} as returned by
+\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.}
 
-\item{objectName}{\code{character}; the name of the Salesforce object that the 
+\item{objectName}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
 \item{id}{Record ID to update. (ex: "999x000000xxxxxZZZ")}
@@ -25,5 +26,5 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 \code{NULL} if successful otherwise the function errors out
 }
 \description{
-salesforcer's backwards compatible version of rforcecom.update
+\lifecycle{soft-deprecated}
 }

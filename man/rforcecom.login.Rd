@@ -2,7 +2,8 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.login}
 \alias{rforcecom.login}
-\title{salesforcer's backwards compatible version of rforcecom.login}
+\title{The \code{salesforcer} backwards compatible version of
+\code{\link[RForcecom]{rforcecom.login}}}
 \usage{
 rforcecom.login(
   username,
@@ -26,5 +27,5 @@ rforcecom.login(
 \item{apiVersion}{API Version.}
 }
 \description{
-salesforcer's backwards compatible version of rforcecom.login
+\lifecycle{soft-deprecated}
 }

@@ -19,8 +19,8 @@ drop_attributes(x, object_name_append = FALSE, object_name_as_col = FALSE)
 \code{list} containing no 'attributes' elements.
 }
 \description{
-This function removes elements from Salesforce data parsed to a list where 
-the object type and the record url persists because they were attributes on 
+This function removes elements from Salesforce data parsed to a list where
+the object type and the record url persists because they were attributes on
 the record and not part of the requested information.
 }
 \note{

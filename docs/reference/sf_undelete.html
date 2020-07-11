@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Undelete Records — sf_undelete" />
-<meta property="og:description" content="Undeletes records from the Recycle Bin." />
+<meta property="og:description" content="
+Undeletes records from the Recycle Bin." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Undeletes records from the Recycle Bin.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Undeletes records from the Recycle Bin.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_undelete</span>(
@@ -195,20 +200,20 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ids</th>
-      <td><p><code>vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; if not a vector, there must be a column called Id (case-insensitive) 
+      <td><p><code>vector</code>, <code>matrix</code>, <code>data.frame</code>, or
+<code>tbl_df</code>; if not a vector, there must be a column called Id (case-insensitive)
 that can be passed in the request</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
@@ -217,9 +222,9 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -229,8 +234,8 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code> of records with success indicator</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Because the SOAP and REST calls chunk data into batches of 200 records 
-the AllOrNoneHeader will only apply to the success or failure of every batch 
+    <p>Because the SOAP and REST calls chunk data into batches of 200 records
+the AllOrNoneHeader will only apply to the success or failure of every batch
 of records and not all records submitted to the function.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

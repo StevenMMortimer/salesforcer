@@ -7,12 +7,12 @@
 sf_analytics_notification_describe(notification_id)
 }
 \arguments{
-\item{notification_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{notification_id}{\code{character}; the Salesforce Id assigned to a created
 analytics notification. It will start with \code{"0Au"}.}
 }
 \value{
 \code{list}
 }
 \description{
-Describe an analytics notification
+\lifecycle{experimental}
 }

@@ -65,6 +65,9 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -174,8 +177,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NkooAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NkopAAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NsnuAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NsnvAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieve" class="section level3">
 <h3 class="hasAnchor">
@@ -185,11 +188,11 @@
                                  <span class="kw">fields</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"FirstName"</span>, <span class="st">"LastName"</span>),
                                  <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
 <span class="no">retrieved_records</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NkooAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NkopAAC Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   sObject Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 Contact 0033s000012NsnuAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 Contact 0033s000012NsnvAAC Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -208,8 +211,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NkooAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NkopAAC Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NsnuAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NsnvAAC Test      Contact-Create-2</span></pre></body></html></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -225,8 +228,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NkooAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NkopAAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NsnuAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NsnvAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="delete" class="section level3">
 <h3 class="hasAnchor">
@@ -237,8 +240,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NkooAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NkopAAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NsnuAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NsnvAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="upsert" class="section level3">
 <h3 class="hasAnchor">
@@ -265,9 +268,9 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   id                 success created</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NkotAAC TRUE    FALSE  </span>
-<span class="co">#&gt; 2 0033s000012NkouAAC TRUE    FALSE  </span>
-<span class="co">#&gt; 3 0033s000012NkoyAAC TRUE    TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NsnzAAC TRUE    FALSE  </span>
+<span class="co">#&gt; 2 0033s000012Nso0AAC TRUE    FALSE  </span>
+<span class="co">#&gt; 3 0033s000012Nso4AAC TRUE    TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level3">
 <h3 class="hasAnchor">

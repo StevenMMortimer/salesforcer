@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Describe Object Fields — sf_describe_object_fields" />
-<meta property="og:description" content="This function takes the name of an object in Salesforce and returns a description 
+<meta property="og:description" content="
+This function takes the name of an object in Salesforce and returns a description
 of the fields on that object by returning a tibble with one row per field." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ of the fields on that object by returning a tibble with one row per field." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ of the fields on that object by returning a tibble with one row per field." />
     </div>
 
     <div class="ref-description">
-    <p>This function takes the name of an object in Salesforce and returns a description 
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>This function takes the name of an object in Salesforce and returns a description
 of the fields on that object by returning a tibble with one row per field.</p>
     </div>
 
@@ -191,7 +196,7 @@ of the fields on that object by returning a tibble with one row per field.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     </table>
@@ -201,7 +206,7 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p
     <p>A <code>tbl_df</code> containing one row per field for the requested object.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The tibble only contains the fields that the user can view, as defined by 
+    <p>The tibble only contains the fields that the user can view, as defined by
 the user's field-level security settings.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

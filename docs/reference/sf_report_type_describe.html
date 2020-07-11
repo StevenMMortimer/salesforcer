@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Describe a report type — sf_report_type_describe" />
-<meta property="og:description" content="Return metadata about a report type." />
+<meta property="og:description" content="
+Return metadata about a report type." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Return metadata about a report type.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Return metadata about a report type.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_report_type_describe</span>(<span class='no'>report_type</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -189,18 +194,18 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_type</th>
-      <td><p><code>character</code>; a character representing the type of 
-report to retrieve the metadata information on. A list of valid report types 
-that can be described using this function will be available in the 
-<code>reportTypes.type</code> column of results returned <a href='sf_report_types_list.html'>sf_report_types_list</a>. 
-(e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>, 
+      <td><p><code>character</code>; a character representing the type of
+report to retrieve the metadata information on. A list of valid report types
+that can be described using this function will be available in the
+<code>reportTypes.type</code> column of results returned <a href='sf_report_types_list.html'>sf_report_types_list</a>.
+(e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>,
 etc.)</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -208,11 +213,11 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>list</code> containing up to 4 properties that describe the report:</p><dl'>
-  <dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and 
-  joined metadata.</p></dd>
-  <dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-  <dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-  <dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
+<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and
+joined metadata.</p></dd>
+<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
+<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
+<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
 
 </dl>
 

@@ -7,19 +7,21 @@
 sf_user_info(api_type = c("SOAP", "Chatter"), verbose = FALSE)
 }
 \arguments{
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{list}
 }
 \description{
+\lifecycle{maturing}
+
 Retrieves personal information for the user associated with the current session.
 }
 \examples{

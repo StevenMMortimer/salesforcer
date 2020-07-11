@@ -65,6 +65,9 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -175,7 +178,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012Nkp3AAC TRUE</span>
+<span class="co">#&gt; 1 0033s000012Nso9AAC TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="no">record3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
@@ -215,19 +218,24 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Account"</span>,
          <span class="kw">control</span> <span class="kw">=</span> <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(<span class="kw">QueryOptions</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">batchSize</span> <span class="kw">=</span> <span class="fl">200</span>)))
-<span class="co">#&gt; # A tibble: 10 x 2</span>
-<span class="co">#&gt;    Id                 Name                               </span>
-<span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;                              </span>
-<span class="co">#&gt;  1 0016A0000035mJEQAY GenePoint                          </span>
-<span class="co">#&gt;  2 0016A0000035mJCQAY United Oil &amp; Gas, UK               </span>
-<span class="co">#&gt;  3 0016A0000035mJDQAY United Oil &amp; Gas, Singapore        </span>
-<span class="co">#&gt;  4 0016A0000035mJ4QAI Edge Communications                </span>
-<span class="co">#&gt;  5 0016A0000035mJ5QAI Burlington Textiles Corp of America</span>
-<span class="co">#&gt;  6 0016A0000035mJ8QAI Grand Hotels &amp; Resorts Ltd         </span>
-<span class="co">#&gt;  7 0016A0000035mJAQAY Express Logistics and Transport    </span>
-<span class="co">#&gt;  8 0016A0000035mJBQAY University of Arizona              </span>
-<span class="co">#&gt;  9 0016A0000035mJ9QAI United Oil &amp; Gas Corp.             </span>
-<span class="co">#&gt; 10 0013s00000zFdZrAAK Test Account With Child Records</span></pre></body></html></div>
+<span class="co">#&gt; # A tibble: 15 x 2</span>
+<span class="co">#&gt;    Id                 Name                                </span>
+<span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;                               </span>
+<span class="co">#&gt;  1 0013s00000zFgA6AAK KEEP Test Account With Child Records</span>
+<span class="co">#&gt;  2 0013s00000zFdugAAC KEEP Test Account With Child Records</span>
+<span class="co">#&gt;  3 0013s00000zFiY5AAK Test Account For Performance Test   </span>
+<span class="co">#&gt;  4 0013s00000zFiXbAAK Test Account For Performance Test   </span>
+<span class="co">#&gt;  5 0013s00000zFiWsAAK Test Account For Performance Test   </span>
+<span class="co">#&gt;  6 0016A0000035mJEQAY GenePoint                           </span>
+<span class="co">#&gt;  7 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span>
+<span class="co">#&gt;  8 0016A0000035mJDQAY United Oil &amp; Gas, Singapore         </span>
+<span class="co">#&gt;  9 0016A0000035mJ4QAI Edge Communications                 </span>
+<span class="co">#&gt; 10 0016A0000035mJ5QAI Burlington Textiles Corp of America </span>
+<span class="co">#&gt; 11 0016A0000035mJ8QAI Grand Hotels &amp; Resorts Ltd          </span>
+<span class="co">#&gt; 12 0016A0000035mJAQAY Express Logistics and Transport     </span>
+<span class="co">#&gt; 13 0016A0000035mJBQAY University of Arizona               </span>
+<span class="co">#&gt; 14 0016A0000035mJ9QAI United Oil &amp; Gas Corp.              </span>
+<span class="co">#&gt; 15 0013s00000zFdZrAAK Test Account With Child Records</span></pre></body></html></div>
 </div>
 <div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level3">
 <h3 class="hasAnchor">

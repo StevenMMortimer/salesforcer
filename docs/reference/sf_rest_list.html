@@ -115,6 +115,9 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -189,21 +192,21 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
 JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>records_root</th>
-      <td><p><code>character</code> or <code>integer</code>; an index or string that 
-identifies the element in the parsed list which contains the records returned 
-by the API call. By default, this argument is <code>NULL</code>, which means that 
+      <td><p><code>character</code> or <code>integer</code>; an index or string that
+identifies the element in the parsed list which contains the records returned
+by the API call. By default, this argument is <code>NULL</code>, which means that
 each element in the list is an individual record.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

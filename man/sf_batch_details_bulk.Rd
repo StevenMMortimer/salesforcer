@@ -12,24 +12,24 @@ sf_batch_details_bulk(
 )
 }
 \arguments{
-\item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
+\item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as
 returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
-\item{batch_id}{\code{character}; the Salesforce Id assigned to a submitted 
+\item{batch_id}{\code{character}; the Salesforce Id assigned to a submitted
 batch as returned by \link{sf_create_batches_bulk}. It will start with \code{"751"}.}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-A \code{tbl_df}, formatted by Salesforce, with information containing 
-the success or failure or certain rows in a submitted batch, unless the operation 
+A \code{tbl_df}, formatted by Salesforce, with information containing
+the success or failure or certain rows in a submitted batch, unless the operation
 was query, then it is a data.frame containing the result_id for retrieving the recordset.
 }
 \description{

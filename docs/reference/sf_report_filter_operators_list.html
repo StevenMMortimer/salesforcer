@@ -53,8 +53,9 @@
 
 
 <meta property="og:title" content="List report filter operators — sf_report_filter_operators_list" />
-<meta property="og:description" content="Use the Filter Operators API to get information about which filter operators are 
-available for reports and dashboards. The Filter Operators API is available in 
+<meta property="og:description" content="
+Use the Filter Operators API to get information about which filter operators are
+available for reports and dashboards. The Filter Operators API is available in
 API version 40.0 and later." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -115,6 +116,9 @@ API version 40.0 and later." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,8 +185,9 @@ API version 40.0 and later." />
     </div>
 
     <div class="ref-description">
-    <p>Use the Filter Operators API to get information about which filter operators are 
-available for reports and dashboards. The Filter Operators API is available in 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Use the Filter Operators API to get information about which filter operators are
+available for reports and dashboards. The Filter Operators API is available in
 API version 40.0 and later.</p>
     </div>
 
@@ -193,21 +198,21 @@ API version 40.0 and later.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
 JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of 
+    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of
 argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

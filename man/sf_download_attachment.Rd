@@ -7,16 +7,18 @@
 sf_download_attachment(body, name, path = ".")
 }
 \arguments{
-\item{body}{character; a URL path to the body of the attachment in Salesforce, 
+\item{body}{character; a URL path to the body of the attachment in Salesforce,
 typically retrieved via query on the Attachment object}
 
 \item{name}{character; the name of the file you would like to save the content to}
 
-\item{path}{character; a directory path where to create file, defaults to the 
+\item{path}{character; a directory path where to create file, defaults to the
 current directory.}
 }
 \description{
-This function will allow you to download an attachment to disk based on the 
+\lifecycle{maturing}
+
+This function will allow you to download an attachment to disk based on the
 attachment body, file name, and path.
 }
 \examples{

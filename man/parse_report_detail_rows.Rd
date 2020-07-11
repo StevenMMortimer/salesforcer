@@ -7,24 +7,24 @@
 parse_report_detail_rows(content, label = TRUE, fact_map_key = "T!T")
 }
 \arguments{
-\item{content}{\code{list}; the list returned from the \code{\link[httr]{content}} 
+\item{content}{\code{list}; the list returned from the \code{\link[httr]{content}}
 function that parses the JSON response to a \code{list}.}
 
-\item{label}{\code{logical}; an indicator of whether the returned data should 
-be the label (i.e. formatted value) or the actual value. By default, the labels  
-are returned because these are what appear in the Salesforce dashboard and 
-more closely align with the column names. For example, "Account.Name" label 
-may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former 
+\item{label}{\code{logical}; an indicator of whether the returned data should
+be the label (i.e. formatted value) or the actual value. By default, the labels
+are returned because these are what appear in the Salesforce dashboard and
+more closely align with the column names. For example, "Account.Name" label
+may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former
 (label) more accurately reflects the "Account.Name".}
 }
 \value{
-\code{tbl_df}; a data frame representing the detail rows of a parsed 
-report result HTTP response where the rows represent each row in the report 
+\code{tbl_df}; a data frame representing the detail rows of a parsed
+report result HTTP response where the rows represent each row in the report
 and the columns represent the detail columns.
 }
 \description{
-This function accepts a list that is directly returned by the API and further 
-parses it to return a single \code{tbl_df} representing the detail rows and 
+This function accepts a list that is directly returned by the API and further
+parses it to return a single \code{tbl_df} representing the detail rows and
 columns of the report without any filters, aggregates, or totals.
 }
 \note{

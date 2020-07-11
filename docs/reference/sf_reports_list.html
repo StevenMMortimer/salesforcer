@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="List reports — sf_reports_list" />
-<meta property="og:description" content="Displays a list of up to 200 tabular, matrix, or summary reports that you
+<meta property="og:description" content="
+Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other
 fields, use a SOQL query on the Report object." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
@@ -115,6 +116,9 @@ fields, use a SOQL query on the Report object." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,7 +185,8 @@ fields, use a SOQL query on the Report object." />
     </div>
 
     <div class="ref-description">
-    <p>Displays a list of up to 200 tabular, matrix, or summary reports that you
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other
 fields, use a SOQL query on the Report object.</p>
     </div>
@@ -192,35 +197,35 @@ fields, use a SOQL query on the Report object.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>recent</th>
+      <td><p><code>logical</code>; an indicator of whether to return the 200 most
+recently viewed reports or to invoke a query on the <code>Report</code> object to
+return all reports in the Org. By default, this argument is set to <code>TRUE</code>
+meaning that only the most recently viewed reports are returned because this
+is the default behavior of the reports list endpoint in the Reports and
+Dashboards REST API.</p></td>
+    </tr>
+    <tr>
       <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
 JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
-    </tr>
-    <tr>
-      <th>recent;</th>
-      <td><p><code>logical</code>; an indicator of whether to return the 200 most 
-recently viewed reports or to invoke a query on the <code>Report</code> object to 
-return all reports in the Org. By default, this argument is set to <code>TRUE</code> 
-meaning that only the most recently viewed reports are returned because this 
-is the default behavior of the reports list endpoint in the Reports and 
-Dashboards REST API.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of 
+    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of
 argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function will only return up to 200 of recently viewed reports. For 
+    <p>This function will only return up to 200 of recently viewed reports. For
 a COMPLETE list you must use <code><a href='sf_query.html'>sf_query</a></code> on the report object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

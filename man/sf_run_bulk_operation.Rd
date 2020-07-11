@@ -36,54 +36,56 @@ sf_bulk_operation(
 )
 }
 \arguments{
-\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
+\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
 \code{tbl_df}; data can be coerced into .csv file for submitting as batch request}
 
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
 \item{operation}{character; string defining the type of operation being performed}
 
-\item{external_id_fieldname}{\code{character}; string identifying a custom field on the 
-object that has been set as an "External ID" field. This field is used to reference 
+\item{external_id_fieldname}{\code{character}; string identifying a custom field on the
+object that has been set as an "External ID" field. This field is used to reference
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{batch_size}{\code{integer}; the number of individual records to be included in a 
+\item{batch_size}{\code{integer}; the number of individual records to be included in a
 single batch uploaded to the Bulk APIs (1.0 or 2.0).}
 
-\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check 
+\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check
 for job completion.}
 
-\item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
+\item{max_attempts}{\code{integer}; defines then max number attempts to check for job
 completion before stopping.}
 
-\item{wait_for_results}{logical; indicating whether to wait for the operation to complete 
+\item{wait_for_results}{logical; indicating whether to wait for the operation to complete
 so that the batch results of individual records can be obtained}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
-\item{...}{other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
+\item{...}{other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}}
 to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_df} of the results of the bulk job
 }
 \description{
+\lifecycle{maturing}
+
 This function is a convenience wrapper for submitting bulk API jobs
 }
 \note{
-With Bulk 2.0 the order of records in the response is not guaranteed to 
+With Bulk 2.0 the order of records in the response is not guaranteed to
 match the ordering of records in the original job data.
 }
 \examples{

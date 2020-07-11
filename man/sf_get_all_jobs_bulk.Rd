@@ -12,22 +12,22 @@ sf_get_all_jobs_bulk(
 )
 }
 \arguments{
-\item{parameterized_search_list}{list; a list of parameters to be added as part 
-of the URL query string (i.e. after a question mark ("?") so that the result 
-only returns information about jobs that meet that specific criteria. For 
-more information, read the note below and/or the Salesforce documentation 
+\item{parameterized_search_list}{list; a list of parameters to be added as part
+of the URL query string (i.e. after a question mark ("?") so that the result
+only returns information about jobs that meet that specific criteria. For
+more information, read the note below and/or the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}{here}.}
 
-\item{next_records_url}{character (leave as NULL); a string used internally 
+\item{next_records_url}{character (leave as NULL); a string used internally
 by the function to paginate through to more records until complete}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
@@ -39,11 +39,11 @@ This function retrieves details about all Bulk jobs in the org.
 \note{
 parameterized_search_list elements that can be set to filter the results:
 \itemize{
-  \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
-  information about jobs where PK Chunking has been enabled.}
-  \item{jobType}{A character string to return jobs matching the specified type. 
-  Must be one of: "BigObjectIngest", "Classic", "V2QIngest". Classic corresponds 
-  to Bulk 1.0 API jobs and V2Ingest corresponds to the Bulk 2.0 API jobs.}
+\item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns
+information about jobs where PK Chunking has been enabled.}
+\item{jobType}{A character string to return jobs matching the specified type.
+Must be one of: "BigObjectIngest", "Classic", "V2QIngest". Classic corresponds
+to Bulk 1.0 API jobs and V2Ingest corresponds to the Bulk 2.0 API jobs.}
 }
 }
 \examples{

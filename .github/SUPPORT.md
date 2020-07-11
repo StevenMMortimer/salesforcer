@@ -14,11 +14,11 @@ if not faster.
 try to create the issue with code or example code showing exactly what you are trying 
 to execute. This means including the full SOQL, error messages, sceenshots, etc. 
 Sometimes, the issue may only be able to be debugged by the person filing the issue 
-because every Salesforce org is different. Please explain any customizations or 
+because every Salesforce Org is unique. Please explain any customizations or 
 hypotheses you may have that could even remotely be related to the issue.
 
 With those two things in mind, if you need to file an issue, please do so 
 [HERE](https://github.com/StevenMMortimer/salesforcer/issues). 
 
 Again, thank you for taking the time to contribute back to **salesforcer**. Your 
-efforts will undoubtedly help many more!
+efforts will undoubtedly help other users as well!

@@ -9,31 +9,34 @@ sf_upsert_metadata(
   metadata,
   control = list(...),
   ...,
+  all_or_none = deprecated(),
   verbose = FALSE
 )
 }
 \arguments{
 \item{metadata_type}{\code{character}; string on what type of metadata to create.}
 
-\item{metadata}{\code{list}; metadata components to be created formatted as 
+\item{metadata}{\code{list}; metadata components to be created formatted as
 XML before being sent via API.}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}}}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_df} containing the creation result for each submitted metadata component
 }
 \description{
-This function takes a list of Metadata components and sends them 
+\lifecycle{experimental}
+
+This function takes a list of Metadata components and sends them
 to Salesforce for creation or update if the object already exists
 }
 \note{
@@ -69,6 +72,6 @@ upserted_custom_object_result <- sf_upsert_metadata(metadata_type = 'CustomObjec
                                                     metadata = upsert_metadata)
 }
 }
-\references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
 }

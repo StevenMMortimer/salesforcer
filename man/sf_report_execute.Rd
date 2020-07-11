@@ -15,90 +15,92 @@ sf_report_execute(
 )
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{async}{\code{logical}; an indicator, by default set to \code{TRUE}, which 
+\item{async}{\code{logical}; an indicator, by default set to \code{TRUE}, which
 executes the report asynchronously. If executed asynchronously, this function
-will return a list of attributes of the created report instance. The results 
-can be pulled down by providing the report id and instance id to 
-the function \code{\link{sf_report_instance_results}}. Refer to the details 
+will return a list of attributes of the created report instance. The results
+can be pulled down by providing the report id and instance id to
+the function \code{\link{sf_report_instance_results}}. Refer to the details
 of the documentation on why executing a report asynchronously is preferred.}
 
-\item{include_details}{\code{logical}; an indicator applying to a synchronous 
+\item{include_details}{\code{logical}; an indicator applying to a synchronous
 indicating whether the run should return summary data with details.}
 
-\item{label}{\code{logical}; an indicator of whether the returned data should 
-be the label (i.e. formatted value) or the actual value. By default, the labels  
-are returned because these are what appear in the Salesforce dashboard and 
-more closely align with the column names. For example, "Account.Name" label 
-may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former 
+\item{label}{\code{logical}; an indicator of whether the returned data should
+be the label (i.e. formatted value) or the actual value. By default, the labels
+are returned because these are what appear in the Salesforce dashboard and
+more closely align with the column names. For example, "Account.Name" label
+may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former
 (label) more accurately reflects the "Account.Name".}
 
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{report_metadata}{\code{list}; a \code{list} with one element named 
-\code{"reportMetadata"} having additional list elements underneath. All possible 
-elements of \code{reportMetadata} are documented 
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE}, 
-but you will most commonly only need to specify the following 3 elements to 
-filter or query the results of an existing report:  
+\item{report_metadata}{\code{list}; a \code{list} with one element named
+\code{"reportMetadata"} having additional list elements underneath. All possible
+elements of \code{reportMetadata} are documented
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata}{HERE},
+but you will most commonly only need to specify the following 3 elements to
+filter or query the results of an existing report:
 \describe{
-  \item{reportFormat}{A \code{character} specifying the format of the report 
-  with possible values: \code{"TABULAR"}, \code{"SUMMARY"}, \code{"MATRIX"}, 
-  or \code{"MULTI_BLOCK"}.}
-  \item{reportBooleanFilter}{A \code{character} denoting how the individuals 
-  filters specified in \code{reportFilters} should be combined. For example, 
-  \code{"(1OR4)AND2AND3"}}.
-  \item{reportFilters}{A \code{list} of reportFilter specifications. Each must 
-  be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 3) \code{value}. 
-  You can find out how certain field types can be filtered by reviewing the results 
-  of \code{\link{sf_report_filter_operators_list}}.}
+\item{reportFormat}{A \code{character} specifying the format of the report
+with possible values: \code{"TABULAR"}, \code{"SUMMARY"}, \code{"MATRIX"},
+or \code{"MULTI_BLOCK"}.}
+\item{reportBooleanFilter}{A \code{character} denoting how the individuals
+filters specified in \code{reportFilters} should be combined. For example,
+\code{"(1OR4)AND2AND3"}}.
+\item{reportFilters}{A \code{list} of reportFilter specifications. Each must
+be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 3) \code{value}.
+You can find out how certain field types can be filtered by reviewing the results
+of \code{\link{sf_report_filter_operators_list}}.}
 }}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df} by default, but a \code{list} when \code{as_tbl=FALSE}, 
-which means that the content from the API is converted from JSON to a list 
+\code{tbl_df} by default, but a \code{list} when \code{as_tbl=FALSE},
+which means that the content from the API is converted from JSON to a list
 with no other post-processing.
 }
 \description{
+\lifecycle{experimental}
+
 Get summary data with or without details by running a report synchronously or
 asynchronously through the API. When you run a report, the API returns data
 for the same number of records that are available when the report is run in
 the Salesforce user interface. Include the \code{filters} argument in your
 request to get specific results on the fly by passing dynamic filters,
-groupings, and aggregates in the report metadata. Finally, you may want to 
+groupings, and aggregates in the report metadata. Finally, you may want to
 use \code{\link{sf_run_report}}.
 }
 \details{
-Run a report synchronously if you expect it to finish running quickly. 
-Otherwise, we recommend that you run reports through the API asynchronously 
+Run a report synchronously if you expect it to finish running quickly.
+Otherwise, we recommend that you run reports through the API asynchronously
 for these reasons:
 \itemize{
-  \item Long running reports have a lower risk of reaching the timeout limit 
-  when run asynchronously.
-  \item The 2-minute overall Salesforce API timeout limit doesn’t apply to 
-  asynchronous runs.
-  \item The Salesforce Reports and Dashboards REST API can handle a higher 
-  number of asynchronous run requests at a time.
-  \item Since the results of an asynchronously run report are stored for a 
-  24-hr rolling period, they’re available for recurring access.
+\item Long running reports have a lower risk of reaching the timeout limit
+when run asynchronously.
+\item The 2-minute overall Salesforce API timeout limit doesn’t apply to
+asynchronous runs.
+\item The Salesforce Reports and Dashboards REST API can handle a higher
+number of asynchronous run requests at a time.
+\item Since the results of an asynchronously run report are stored for a
+24-hr rolling period, they’re available for recurring access.
 }
 
-Before you filter a report, it helpful to check the following properties in the metadata 
-that tell you if a field can be filtered, the values and criteria you can filter 
-by, and filters that already exist in the report: 
+Before you filter a report, it helpful to check the following properties in the metadata
+that tell you if a field can be filtered, the values and criteria you can filter
+by, and filters that already exist in the report:
 \itemize{
-  \item filterable
-  \item filterValues
-  \item dataTypeFilterOperatorMap
-  \item reportFilters
+\item filterable
+\item filterValues
+\item dataTypeFilterOperatorMap
+\item reportFilters
 }
 }
 \examples{
@@ -137,10 +139,10 @@ fields <- sf_report_execute(this_report_id,
 }
 }
 \seealso{
-Please see the following resources for more information: 
+Please see the following resources for more information:
 \itemize{
-  \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
-  \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
-  \item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
+\item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
 }
 }

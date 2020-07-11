@@ -7,19 +7,19 @@
 list_extract_parent_and_child_result(x)
 }
 \arguments{
-\item{x}{\code{list}; list of records parsed from JSON representing one 
+\item{x}{\code{list}; list of records parsed from JSON representing one
 individual parent query record.}
 }
 \value{
-\code{tbl_df}; a data frame with each row representing a parent-child 
-record (i.e. at least one row per parent or more if cross joined with more 
+\code{tbl_df}; a data frame with each row representing a parent-child
+record (i.e. at least one row per parent or more if cross joined with more
 than one child record).
 }
 \description{
-This function accepts a list representing the result of an individual parent 
-recordset from a nested parent-child query where there are zero or more child 
-records to be joined to the parent. In this case the child and parent will be 
-bound together to return one complete \code{tbl_df} of the query result for 
+This function accepts a list representing the result of an individual parent
+recordset from a nested parent-child query where there are zero or more child
+records to be joined to the parent. In this case the child and parent will be
+bound together to return one complete \code{tbl_df} of the query result for
 that parent record.
 }
 \note{

@@ -7,19 +7,19 @@
 sf_auth_refresh(verbose = FALSE)
 }
 \arguments{
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-a \code{Token2.0} object (an S3 class provided by \code{httr}) or a 
-a character string of the sessionId element of the current authorized 
+a \code{Token2.0} object (an S3 class provided by \code{httr}) or a
+a character string of the sessionId element of the current authorized
 API session
 }
 \description{
-Force the current OAuth to refresh. This is only needed for times when you 
-load the token from outside the current working directory, it is expired, and 
+Force the current OAuth to refresh. This is only needed for times when you
+load the token from outside the current working directory, it is expired, and
 you're running in non-interactive mode.
 }
 \note{

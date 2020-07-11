@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Upsert Records — sf_upsert" />
-<meta property="og:description" content="Upserts one or more new records to your organization’s data." />
+<meta property="og:description" content="
+Upserts one or more new records to your organization’s data." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Upserts one or more new records to your organization’s data.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>Upserts one or more new records to your organization’s data.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_upsert</span>(
@@ -187,8 +192,10 @@
   <span class='no'>object_name</span>,
   <span class='no'>external_id_fieldname</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='no'>...</span>,
+  <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -197,42 +204,51 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
+      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or
 <code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
     </tr>
     <tr>
       <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>external_id_fieldname</th>
-      <td><p><code>character</code>; string identifying a custom field on the 
-object that has been set as an "External ID" field. This field is used to reference 
+      <td><p><code>character</code>; string identifying a custom field on the
+object that has been set as an "External ID" field. This field is used to reference
 objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
+    </tr>
+    <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream 
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream
 to <code><a href='sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

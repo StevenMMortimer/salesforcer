@@ -16,44 +16,46 @@ sf_merge(
 )
 }
 \arguments{
-\item{master_id}{character; a Salesforce generated Id that identifies the master record, 
+\item{master_id}{character; a Salesforce generated Id that identifies the master record,
 which is the record to which the victim records will be merged into}
 
-\item{victim_ids}{character; one or two Salesforce Ids of records to be merged into 
-the master record. Up to three records can be merged in a single request, including 
-the master record. This limit is the same as the limit enforced by the Salesforce user 
-interface. To merge more than 3 records, successively merge records by running 
+\item{victim_ids}{character; one or two Salesforce Ids of records to be merged into
+the master record. Up to three records can be merged in a single request, including
+the master record. This limit is the same as the limit enforced by the Salesforce user
+interface. To merge more than 3 records, successively merge records by running
 \code{\link{sf_merge}} repeatedly.}
 
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{master_fields}{\code{named vector}; a vector of field names and values to 
-supersede the master record values. Otherwise, the field values on the master record 
+\item{master_fields}{\code{named vector}; a vector of field names and values to
+supersede the master record values. Otherwise, the field values on the master record
 will prevail.}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
 \item{...}{arguments passed to \code{\link{sf_control}}}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records with success indicator
 }
 \description{
-This function combines records of the same object type into one of the records, 
+\lifecycle{experimental}
+
+This function combines records of the same object type into one of the records,
 known as the master record. The other records, known as the victim records, will
-be deleted. If a victim record has related records the master record the new 
+be deleted. If a victim record has related records the master record the new
 parent of the related records.
 }
 \examples{

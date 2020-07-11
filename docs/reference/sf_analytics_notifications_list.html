@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="List analytics notifications — sf_analytics_notifications_list" />
-<meta property="og:description" content="List analytics notifications" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +113,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +182,7 @@
     </div>
 
     <div class="ref-description">
-    <p>List analytics notifications</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_analytics_notifications_list</span>(
@@ -194,25 +197,25 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>source</th>
-      <td><p><code>character</code>; a vector of character to specify what type of 
+      <td><p><code>character</code>; a vector of character to specify what type of
 analytics notification to return. Valid values are:</p><dl'>
-  <dt>lightningDashboardSubscribe</dt><dd><p>Dashboard subscriptions</p></dd>
-  <dt>lightningReportSubscribe</dt><dd><p>Report subscriptions</p></dd>
-  <dt>waveNotification</dt><dd><p>Einstein Analytics notifications</p></dd>   
+<dt>lightningDashboardSubscribe</dt><dd><p>Dashboard subscriptions</p></dd>
+<dt>lightningReportSubscribe</dt><dd><p>Report subscriptions</p></dd>
+<dt>waveNotification</dt><dd><p>Einstein Analytics notifications</p></dd>
 
 </dl><p>By default, all 3 sources will be returned in the results.</p></td>
     </tr>
     <tr>
       <th>owner_id</th>
-      <td><p><code>character</code>; Allows users with Manage Analytics Notifications 
-permission to get notifications for another user with the specified Salesforce 
+      <td><p><code>character</code>; Allows users with Manage Analytics Notifications
+permission to get notifications for another user with the specified Salesforce
 Id representing the owner, which is a User record (i.e. the Id will start with "005").</p></td>
     </tr>
     <tr>
       <th>record_id</th>
-      <td><p><code>character</code>; specify if wanting to return the notification 
-details for a single record. Valid values are either a unique report Id 
-(these reference Ids start with "00O") or an Einstein Analytics lens ID (these 
+      <td><p><code>character</code>; specify if wanting to return the notification
+details for a single record. Valid values are either a unique report Id
+(these reference Ids start with "00O") or an Einstein Analytics lens ID (these
 reference Ids start with "0FK").</p></td>
     </tr>
     </table>

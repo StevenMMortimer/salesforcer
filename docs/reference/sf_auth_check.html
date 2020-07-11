@@ -53,9 +53,9 @@
 
 
 <meta property="og:title" content="Check that an Authorized Salesforce Session Exists — sf_auth_check" />
-<meta property="og:description" content="Before the user makes any calls requiring an authorized session, check if an 
-OAuth token or session is not already available, call sf_auth to 
-by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+<meta property="og:description" content="Before the user makes any calls requiring an authorized session, check if an
+OAuth token or session is not already available, call sf_auth to
+by default initiate the OAuth 2.0 workflow that will load a token from cache or
 launch browser flow. Return the bare token. Use
 access_token() to reveal the actual access token, suitable for use
 with curl." />
@@ -118,6 +118,9 @@ with curl." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -184,9 +187,9 @@ with curl." />
     </div>
 
     <div class="ref-description">
-    <p>Before the user makes any calls requiring an authorized session, check if an 
-OAuth token or session is not already available, call <code><a href='sf_auth.html'>sf_auth</a></code> to 
-by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+    <p>Before the user makes any calls requiring an authorized session, check if an
+OAuth token or session is not already available, call <code><a href='sf_auth.html'>sf_auth</a></code> to
+by default initiate the OAuth 2.0 workflow that will load a token from cache or
 launch browser flow. Return the bare token. Use
 <code>access_token()</code> to reveal the actual access token, suitable for use
 with <code>curl</code>.</p>
@@ -199,17 +202,17 @@ with <code>curl</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>Token2.0</code> object (an S3 class provided by <code>httr</code>) or a 
-a character string of the sessionId element of the current authorized 
+    <p>a <code>Token2.0</code> object (an S3 class provided by <code>httr</code>) or a
+a character string of the sessionId element of the current authorized
 API session</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

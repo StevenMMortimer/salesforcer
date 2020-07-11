@@ -17,5 +17,5 @@ user-friendly format.}
 \code{list}
 }
 \description{
-Create an analytics notification
+\lifecycle{experimental}
 }

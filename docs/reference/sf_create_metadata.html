@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Create Object or Field Metadata in Salesforce — sf_create_metadata" />
-<meta property="og:description" content="This function takes a list of Metadata components and sends them 
+<meta property="og:description" content="
+This function takes a list of Metadata components and sends them
 to Salesforce for creation" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ to Salesforce for creation" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ to Salesforce for creation" />
     </div>
 
     <div class="ref-description">
-    <p>This function takes a list of Metadata components and sends them 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function takes a list of Metadata components and sends them
 to Salesforce for creation</p>
     </div>
 
@@ -189,6 +194,7 @@ to Salesforce for creation</p>
   <span class='no'>metadata</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='no'>...</span>,
+  <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -201,13 +207,13 @@ to Salesforce for creation</p>
     </tr>
     <tr>
       <th>metadata</th>
-      <td><p><code>list</code>; metadata components to be created formatted as 
+      <td><p><code>list</code>; metadata components to be created formatted as
 XML before being sent via API.</p></td>
     </tr>
     <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
@@ -216,9 +222,9 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -226,9 +232,9 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>tbl_df</code> containing the creation result for each submitted metadata component</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/'>https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/</a></p>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/'>Salesforce Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

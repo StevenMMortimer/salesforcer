@@ -10,6 +10,8 @@ sf_server_timestamp()
 \code{POSIXct} formatted timestamp
 }
 \description{
+\lifecycle{stable}
+
 Retrieves the current system timestamp from the API.
 }
 \examples{

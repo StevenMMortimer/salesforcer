@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Make A Request to Retrieve the Metadata — sf_retrieve_metadata" />
-<meta property="og:description" content="This function makes a request to retrieve metadata 
+<meta property="og:description" content="
+This function makes a request to retrieve metadata
 as a package XML files that can be modified and later
 deployed into an environment" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
@@ -115,6 +116,9 @@ deployed into an environment" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,7 +185,8 @@ deployed into an environment" />
     </div>
 
     <div class="ref-description">
-    <p>This function makes a request to retrieve metadata 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function makes a request to retrieve metadata
 as a package XML files that can be modified and later
 deployed into an environment</p>
     </div>
@@ -204,25 +209,25 @@ should be returned</p></td>
     </tr>
     <tr>
       <th>filename</th>
-      <td><p>a file path to save the zip file in the event that it is downloaded. The 
-name must have a .zip extension. The default behavior will be to save in the current 
+      <td><p>a file path to save the zip file in the event that it is downloaded. The
+name must have a .zip extension. The default behavior will be to save in the current
 working directory as "package.zip"</p></td>
     </tr>
     <tr>
       <th>check_interval</th>
-      <td><p>numeric; specifying the seconds to wait between retrieve 
+      <td><p>numeric; specifying the seconds to wait between retrieve
 status requests to check if complete</p></td>
     </tr>
     <tr>
       <th>max_tries</th>
-      <td><p>numeric; specifying the maximum number of times to check 
+      <td><p>numeric; specifying the maximum number of times to check
 whether the retrieve package.zip is complete before the function times out</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -232,8 +237,8 @@ along with additional diagnostic information where available.</p></td>
     <p>A <code>list</code> of details from the created retrieve request</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>See the Salesforce documentation for the proper arguments to create a 
-retrieveRequest. Here is a link to that documentation: 
+    <p>See the Salesforce documentation for the proper arguments to create a
+retrieveRequest. Here is a link to that documentation:
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_retrieve_request.htm'>https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_retrieve_request.htm</a></p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

@@ -53,11 +53,12 @@
 
 
 <meta property="og:title" content="Log in to Salesforce — sf_auth" />
-<meta property="og:description" content="Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
-not require sharing passwords, but will require authorizing salesforcer 
-as a connected app to view and manage your organization. You will be directed to 
-a web browser, asked to sign in to your Salesforce account, and to grant salesforcer 
-permission to operate on your behalf. By default, these user credentials are 
+<meta property="og:description" content="
+Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
+not require sharing passwords, but will require authorizing salesforcer
+as a connected app to view and manage your organization. You will be directed to
+a web browser, asked to sign in to your Salesforce account, and to grant salesforcer
+permission to operate on your behalf. By default, these user credentials are
 cached in a file named .httr-oauth-salesforcer in the current working directory." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -118,6 +119,9 @@ cached in a file named .httr-oauth-salesforcer in the current working directory.
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -184,11 +188,12 @@ cached in a file named .httr-oauth-salesforcer in the current working directory.
     </div>
 
     <div class="ref-description">
-    <p>Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
-not require sharing passwords, but will require authorizing <code>salesforcer</code> 
-as a connected app to view and manage your organization. You will be directed to 
-a web browser, asked to sign in to your Salesforce account, and to grant <code>salesforcer</code> 
-permission to operate on your behalf. By default, these user credentials are 
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+<p>Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
+not require sharing passwords, but will require authorizing <code>salesforcer</code>
+as a connected app to view and manage your organization. You will be directed to
+a web browser, asked to sign in to your Salesforce account, and to grant <code>salesforcer</code>
+permission to operate on your behalf. By default, these user credentials are
 cached in a file named <code>.httr-oauth-salesforcer</code> in the current working directory.</p>
     </div>
 
@@ -218,13 +223,13 @@ cached in a file named <code>.httr-oauth-salesforcer</code> in the current worki
     </tr>
     <tr>
       <th>security_token</th>
-      <td><p>Salesforce security token. Note: A new security token is 
+      <td><p>Salesforce security token. Note: A new security token is
 generated whenever your password is changed.</p></td>
     </tr>
     <tr>
       <th>login_url</th>
-      <td><p>a custom login url; defaults to https://login.salesforce.com. If 
-needing to log into a sandbox or dev environment then provide its login URL (e.g. 
+      <td><p>a custom login url; defaults to https://login.salesforce.com. If
+needing to log into a sandbox or dev environment then provide its login URL (e.g.
 https://test.salesforce.com)</p></td>
     </tr>
     <tr>
@@ -234,21 +239,21 @@ stored as an <code>.rds</code> file</p></td>
     </tr>
     <tr>
       <th>consumer_key, consumer_secret, callback_url</th>
-      <td><p>the "Consumer Key","Consumer Secret", 
-and "Callback URL" when using a connected app; defaults to the <code>salesforcer</code> 
+      <td><p>the "Consumer Key","Consumer Secret",
+and "Callback URL" when using a connected app; defaults to the <code>salesforcer</code>
 connected apps' consumer key, secret, and callback url</p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>logical or character; TRUE means to cache using the default cache 
-file <code>.httr-oauth-salesforcer</code>, FALSE means don't cache. A string means use 
+      <td><p>logical or character; TRUE means to cache using the default cache
+file <code>.httr-oauth-salesforcer</code>, FALSE means don't cache. A string means use
 the specified path as the cache file.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

@@ -7,15 +7,17 @@
 sf_describe_metadata(verbose = FALSE)
 }
 \arguments{
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_df}
 }
 \description{
+\lifecycle{experimental}
+
 This function returns details about the organization metadata
 }
 \examples{

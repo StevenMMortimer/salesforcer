@@ -2,18 +2,19 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.getServerTimestamp}
 \alias{rforcecom.getServerTimestamp}
-\title{salesforcer's backwards compatible version of rforcecom.getServerTimestamp}
+\title{The \code{salesforcer} backwards compatible version of
+\code{\link[RForcecom]{rforcecom.getServerTimestamp}}}
 \usage{
 rforcecom.getServerTimestamp(session)
 }
 \arguments{
-\item{session}{\code{list}; a list containing \code{"sessionID"}, 
-\code{"instanceURL"}, and \code{"apiVersion"} as returned by 
-\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all 
-backward compatible calls because the authorization credentials are stored 
-in an environment internal to the salesforcer package, so it is no longer 
+\item{session}{\code{list}; a list containing \code{"sessionID"},
+\code{"instanceURL"}, and \code{"apiVersion"} as returned by
+\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.}
 }
 \description{
-salesforcer's backwards compatible version of rforcecom.getServerTimestamp
+\lifecycle{soft-deprecated}
 }

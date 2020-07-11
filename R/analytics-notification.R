@@ -1,7 +1,10 @@
 # https://resources.docs.salesforce.com/226/latest/en-us/sfdc/pdf/salesforce_analytics_rest_api.pdf
 
 #' List analytics notifications
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template source
 #' @template owner_id
 #' @template record_id
@@ -35,7 +38,10 @@ sf_analytics_notifications_list <- function(source=c("lightningDashboardSubscrib
 }
 
 #' Return limits of analytics notifications
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template source
 #' @template record_id
 #' @return \code{list}
@@ -67,7 +73,10 @@ sf_analytics_notifications_limits <- function(source=c("lightningDashboardSubscr
 }
 
 #' Create an analytics notification
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template body
 #' @return \code{list}
 #' @export
@@ -81,7 +90,10 @@ sf_analytics_notification_create <- function(body){
 }
 
 #' Describe an analytics notification
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template notification_id
 #' @return \code{list}
 #' @export
@@ -107,7 +119,10 @@ sf_analytics_notification_describe <- function(notification_id){
 }
 
 #' Update an analytics notification
-#'
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' @template notification_id
 #' @template body
 #' @return \code{list}
@@ -122,6 +137,9 @@ sf_analytics_notification_update <- function(notification_id, body){
 }
 
 #' Delete an analytics notification
+#' 
+#' @description
+#' \lifecycle{experimental}
 #' 
 #' @template notification_id
 #' @return \code{logical}

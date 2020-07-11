@@ -14,22 +14,24 @@ sf_retrieve_metadata_check_status(
 \arguments{
 \item{id}{character; string id returned from \link{sf_retrieve_metadata}}
 
-\item{include_zip}{logical; Set to false to check the status of the retrieval without 
+\item{include_zip}{logical; Set to false to check the status of the retrieval without
 attempting to retrieve the zip file. If omitted, this argument defaults to true.}
 
-\item{filename}{a file path to save the zip file in the event that it is downloaded. The 
-name must have a .zip extension. The default behavior will be to save in the current 
+\item{filename}{a file path to save the zip file in the event that it is downloaded. The
+name must have a .zip extension. The default behavior will be to save in the current
 working directory as package.zip}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{list} of the response
 }
 \description{
+\lifecycle{experimental}
+
 This function returns details about an initiated retrieveMetadata requset
 and saves the results into a zip file
 }

@@ -1,5 +1,8 @@
 #' SObject Basic Information
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Describes the individual metadata for the specified object.
 #' 
 #' @importFrom methods as

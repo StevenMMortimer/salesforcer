@@ -23,7 +23,7 @@ extract_records_from_xml_node(
 \code{tbl_df} parsed from the supplied node
 }
 \description{
-This function accepts an \code{xml_node} assuming it already represents one 
+This function accepts an \code{xml_node} assuming it already represents one
 record and formats that node into a single row \code{tbl_df}.
 }
 \note{

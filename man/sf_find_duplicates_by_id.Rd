@@ -12,37 +12,39 @@ sf_find_duplicates_by_id(
 )
 }
 \arguments{
-\item{sf_id}{\code{character}; a Salesforce generated Id that uniquely 
+\item{sf_id}{\code{character}; a Salesforce generated Id that uniquely
 identifies a record.}
 
-\item{include_record_details}{\code{logical}; get fields and values for records 
-detected as duplicates by setting this property to \code{TRUE}. Get only 
-record IDs for records detected as duplicates by setting this property to 
+\item{include_record_details}{\code{logical}; get fields and values for records
+detected as duplicates by setting this property to \code{TRUE}. Get only
+record IDs for records detected as duplicates by setting this property to
 \code{FALSE}.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} of records found to be duplicates by the match rules
 }
 \description{
+\lifecycle{experimental}
+
 Performs rule-based searches for duplicate records.
 }
 \note{
-You must have actived duplicate rules for the supplied object before running 
-this function. This function uses the duplicate rules for the object that has 
-the same type as the input record IDs. For example, if the record Id represents 
-an Account, this function uses the duplicate rules associated with the 
+You must have actived duplicate rules for the supplied object before running
+this function. This function uses the duplicate rules for the object that has
+the same type as the input record IDs. For example, if the record Id represents
+an Account, this function uses the duplicate rules associated with the
 Account object.
 }
 \examples{

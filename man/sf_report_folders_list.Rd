@@ -10,5 +10,5 @@ sf_report_folders_list()
 \code{list}
 }
 \description{
-List report folders
+\lifecycle{experimental}
 }

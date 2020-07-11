@@ -37,121 +37,121 @@ sf_control(
 )
 }
 \arguments{
-\item{AllOrNoneHeader}{\code{list}; containing the \code{allOrNone} element with 
-a value of \code{TRUE} or \code{FALSE}. This control specifies whether a call rolls back all changes 
-unless all records are processed successfully. This control is available in 
-SOAP, REST, and Metadata APIs for the following functions: \code{\link{sf_create}}, 
-\code{\link{sf_delete}}, \code{\link{sf_update}}, \code{\link{sf_upsert}}, \code{\link{sf_create_metadata}}, 
-\code{\link{sf_delete_metadata}}, \code{\link{sf_update_metadata}}, \code{\link{sf_upsert_metadata}}. 
-For more information, read the Salesforce documentation 
+\item{AllOrNoneHeader}{\code{list}; containing the \code{allOrNone} element with
+a value of \code{TRUE} or \code{FALSE}. This control specifies whether a call rolls back all changes
+unless all records are processed successfully. This control is available in
+SOAP, REST, and Metadata APIs for the following functions: \code{\link{sf_create}},
+\code{\link{sf_delete}}, \code{\link{sf_update}}, \code{\link{sf_upsert}}, \code{\link{sf_create_metadata}},
+\code{\link{sf_delete_metadata}}, \code{\link{sf_update_metadata}}, \code{\link{sf_upsert_metadata}}.
+For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_allornoneheader.htm}{here}.}
 
-\item{AllowFieldTruncationHeader}{\code{list}; containing the \code{allowFieldTruncation} 
-element with a value of \code{TRUE} or \code{FALSE}. This control specifies the truncation behavior 
-for some field types in SOAP API version 15.0 and later for the following functions: 
-\code{\link{sf_create}}, \code{\link{sf_update}}, \code{\link{sf_upsert}}. For 
-more information, read the Salesforce documentation 
+\item{AllowFieldTruncationHeader}{\code{list}; containing the \code{allowFieldTruncation}
+element with a value of \code{TRUE} or \code{FALSE}. This control specifies the truncation behavior
+for some field types in SOAP API version 15.0 and later for the following functions:
+\code{\link{sf_create}}, \code{\link{sf_update}}, \code{\link{sf_upsert}}. For
+more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_allowfieldtruncation.htm}{here}.}
 
-\item{AssignmentRuleHeader}{\code{list}; containing the \code{useDefaultRule} 
-element with a value of \code{TRUE} or \code{FALSE} or the \code{assignmentRuleId} element. 
-This control specifies the assignment rule to use when creating or updating an 
-Account, Case, or Lead for the following functions: \code{\link{sf_create}}, 
-\code{\link{sf_update}}, \code{\link{sf_upsert}}. For more information, read the Salesforce documentation 
+\item{AssignmentRuleHeader}{\code{list}; containing the \code{useDefaultRule}
+element with a value of \code{TRUE} or \code{FALSE} or the \code{assignmentRuleId} element.
+This control specifies the assignment rule to use when creating or updating an
+Account, Case, or Lead for the following functions: \code{\link{sf_create}},
+\code{\link{sf_update}}, \code{\link{sf_upsert}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_assignmentruleheader.htm}{here}.}
 
-\item{DisableFeedTrackingHeader}{\code{list}; containing the \code{disableFeedTracking} 
-element with a value of \code{TRUE} or \code{FALSE}. This control specifies whether 
-the changes made in the current call are tracked in feeds for SOAP API calls made 
-with the following functions: \code{\link{sf_create}}, \code{\link{sf_delete}}, 
-\code{\link{sf_update}}, \code{\link{sf_upsert}}. For more information, read the Salesforce documentation 
+\item{DisableFeedTrackingHeader}{\code{list}; containing the \code{disableFeedTracking}
+element with a value of \code{TRUE} or \code{FALSE}. This control specifies whether
+the changes made in the current call are tracked in feeds for SOAP API calls made
+with the following functions: \code{\link{sf_create}}, \code{\link{sf_delete}},
+\code{\link{sf_update}}, \code{\link{sf_upsert}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm}{here}.}
 
-\item{DuplicateRuleHeader}{\code{list}; containing the \code{allowSave}, 
-\code{includeRecordDetails}, and \code{runAsCurrentUser} elements each with a 
-value of \code{TRUE} or \code{FALSE}. This control specifies how duplicate rules should be applied 
-when using the following functions: \code{\link{sf_create}}, \code{\link{sf_update}}, 
-\code{\link{sf_upsert}}. For more information, read the Salesforce documentation 
+\item{DuplicateRuleHeader}{\code{list}; containing the \code{allowSave},
+\code{includeRecordDetails}, and \code{runAsCurrentUser} elements each with a
+value of \code{TRUE} or \code{FALSE}. This control specifies how duplicate rules should be applied
+when using the following functions: \code{\link{sf_create}}, \code{\link{sf_update}},
+\code{\link{sf_upsert}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm}{here}.}
 
-\item{EmailHeader}{\code{list}; containing the \code{triggerAutoResponseEmail}, 
-\code{triggerOtherEmail}, and \code{triggerUserEmail} elements each with a 
-value of \code{TRUE} or \code{FALSE}. This control determines if an email notification should be sent 
-when a request is processed by SOAP API calls made with the following functions: 
-\code{\link{sf_create}}, \code{\link{sf_delete}}, \code{\link{sf_update}}, \code{\link{sf_upsert}}, 
-\code{\link{sf_reset_password}}. For more information, read the Salesforce documentation 
+\item{EmailHeader}{\code{list}; containing the \code{triggerAutoResponseEmail},
+\code{triggerOtherEmail}, and \code{triggerUserEmail} elements each with a
+value of \code{TRUE} or \code{FALSE}. This control determines if an email notification should be sent
+when a request is processed by SOAP API calls made with the following functions:
+\code{\link{sf_create}}, \code{\link{sf_delete}}, \code{\link{sf_update}}, \code{\link{sf_upsert}},
+\code{\link{sf_reset_password}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_emailheader.htm}{here}.}
 
-\item{LocaleOptions}{\code{list}; containing the \code{language} element. This control 
-specifies the language of the labels returned by the \code{\link{sf_describe_objects}} 
-function using the SOAP API. The value must be a valid user locale (language and country), such as 
-\code{de_DE} or \code{en_GB}. For more information, read the Salesforce documentation 
-\href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_localeheader.htm}{here}. 
-The list of valid user locales is available 
+\item{LocaleOptions}{\code{list}; containing the \code{language} element. This control
+specifies the language of the labels returned by the \code{\link{sf_describe_objects}}
+function using the SOAP API. The value must be a valid user locale (language and country), such as
+\code{de_DE} or \code{en_GB}. For more information, read the Salesforce documentation
+\href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_localeheader.htm}{here}.
+The list of valid user locales is available
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_categorynodelocalization.htm#languagelocalekey_desc}{here}.}
 
-\item{MruHeader}{\code{list}; containing the \code{updateMru} element with a value 
-of \code{TRUE} or \code{FALSE}. This control indicates whether to update the list 
-of most recently used items (\code{TRUE}) or not (\code{FALSE}) in the Recent Items 
-section of the sidebar in the Salesforce user interface. This works for SOAP API calls 
-made with the following functions: \code{\link{sf_create}}, \code{\link{sf_update}}, 
-\code{\link{sf_upsert}}, \code{\link{sf_retrieve}}, \code{\link{sf_query}}. For more 
-information, read the Salesforce documentation 
+\item{MruHeader}{\code{list}; containing the \code{updateMru} element with a value
+of \code{TRUE} or \code{FALSE}. This control indicates whether to update the list
+of most recently used items (\code{TRUE}) or not (\code{FALSE}) in the Recent Items
+section of the sidebar in the Salesforce user interface. This works for SOAP API calls
+made with the following functions: \code{\link{sf_create}}, \code{\link{sf_update}},
+\code{\link{sf_upsert}}, \code{\link{sf_retrieve}}, \code{\link{sf_query}}. For more
+information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_mruheader.htm}{here}.}
 
-\item{OwnerChangeOptions}{\code{list}; containing the \code{options} element. 
-This control specifies the details of ownership of attachments and notes when a 
-record’s owner is changed. This works for SOAP API calls made with the following functions: 
-\code{\link{sf_update}}, \code{\link{sf_upsert}}. For more information, read the Salesforce documentation 
+\item{OwnerChangeOptions}{\code{list}; containing the \code{options} element.
+This control specifies the details of ownership of attachments and notes when a
+record’s owner is changed. This works for SOAP API calls made with the following functions:
+\code{\link{sf_update}}, \code{\link{sf_upsert}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_ownerchangeoptions.htm}{here}.}
 
-\item{QueryOptions}{\code{list}; containing the \code{batchSize} element. 
-This control specifies the batch size for query results . This works for SOAP or 
-REST API calls made with the following functions: \code{\link{sf_query}}, 
-\code{\link{sf_retrieve}}. For more information, read the Salesforce documentation 
+\item{QueryOptions}{\code{list}; containing the \code{batchSize} element.
+This control specifies the batch size for query results . This works for SOAP or
+REST API calls made with the following functions: \code{\link{sf_query}},
+\code{\link{sf_retrieve}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_queryoptions.htm}{here}.}
 
-\item{UserTerritoryDeleteHeader}{\code{list}; containing the \code{transferToUserId} element. 
-This control specifies a user to whom open opportunities are assigned when the current 
-owner is removed from a territory. This works for the \code{\link{sf_delete}} function 
-using the SOAP API. For more information, read the Salesforce documentation 
+\item{UserTerritoryDeleteHeader}{\code{list}; containing the \code{transferToUserId} element.
+This control specifies a user to whom open opportunities are assigned when the current
+owner is removed from a territory. This works for the \code{\link{sf_delete}} function
+using the SOAP API. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_userterritorydeleteheader.htm}{here}.}
 
-\item{BatchRetryHeader}{\code{list}; containing the \code{Sforce-Disable-Batch-Retry} element. 
-When you create a bulk job, the Batch Retry control lets you disable retries 
-for unfinished batches included in the job. This works for most operations run through 
-the Bulk 1.0 API (e.g. \code{sf_create(., api_type = "Bulk 1.0")}) or creating 
-a Bulk 1.0 job with \code{\link{sf_create_job_bulk}}. For more information, read the Salesforce documentation 
+\item{BatchRetryHeader}{\code{list}; containing the \code{Sforce-Disable-Batch-Retry} element.
+When you create a bulk job, the Batch Retry control lets you disable retries
+for unfinished batches included in the job. This works for most operations run through
+the Bulk 1.0 API (e.g. \code{sf_create(., api_type = "Bulk 1.0")}) or creating
+a Bulk 1.0 job with \code{\link{sf_create_job_bulk}}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_disable_batch_retry.htm}{here}.}
 
-\item{LineEndingHeader}{\code{list}; containing the \code{Sforce-Line-Ending} element. 
-When you’re creating a bulk upload job, the Line Ending control lets you 
-specify whether line endings are read as line feeds (LFs) or as carriage returns 
-and line feeds (CRLFs) for fields of type Text Area and Text Area (Long). This 
-works for most operations run through the Bulk APIs or creating a Bulk 1.0 
-job with \code{\link{sf_create_job_bulk}}. For more information, read the 
-Salesforce documentation 
+\item{LineEndingHeader}{\code{list}; containing the \code{Sforce-Line-Ending} element.
+When you’re creating a bulk upload job, the Line Ending control lets you
+specify whether line endings are read as line feeds (LFs) or as carriage returns
+and line feeds (CRLFs) for fields of type Text Area and Text Area (Long). This
+works for most operations run through the Bulk APIs or creating a Bulk 1.0
+job with \code{\link{sf_create_job_bulk}}. For more information, read the
+Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_line_ending.htm}{here}.}
 
-\item{PKChunkingHeader}{\code{list}; containing the \code{Sforce-Enable-PKChunking} element. 
-Use the PK Chunking control to enable automatic primary key (PK) chunking 
-for a bulk query job. This works for queries run through the Bulk 1.0 API either via 
-\code{sf_query(., api_type = "Bulk 1.0")}) or \code{\link{sf_query_bulk}}. For 
-more information, read the Salesforce documentation 
+\item{PKChunkingHeader}{\code{list}; containing the \code{Sforce-Enable-PKChunking} element.
+Use the PK Chunking control to enable automatic primary key (PK) chunking
+for a bulk query job. This works for queries run through the Bulk 1.0 API either via
+\code{sf_query(., api_type = "Bulk 1.0")}) or \code{\link{sf_query_bulk}}. For
+more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_enable_pk_chunking.htm}{here}.}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{operation}{\code{character}; a string defining the type of operation being 
-performed (e.g. "insert", "update", "upsert", "delete", "hardDelete", 
+\item{operation}{\code{character}; a string defining the type of operation being
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
 "query", "queryall").}
 }
 \description{
-Typically only used internally by functions when control parameters are passed 
-through via dots (...), but it can be called directly to control the behavior 
-of API calls. This function behaves exactly like \code{\link[stats]{glm.control}} 
+Typically only used internally by functions when control parameters are passed
+through via dots (...), but it can be called directly to control the behavior
+of API calls. This function behaves exactly like \code{\link[stats]{glm.control}}
 for the \code{\link[stats]{glm}} function.
 }
 \examples{

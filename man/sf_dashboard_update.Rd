@@ -7,7 +7,7 @@
 sf_dashboard_update(dashboard_id, body)
 }
 \arguments{
-\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 
 \item{body}{\code{list}; a list of data to be formatted as JSON before being
@@ -20,5 +20,5 @@ user-friendly format.}
 \code{list}
 }
 \description{
-Update a dashboard
+\lifecycle{experimental}
 }

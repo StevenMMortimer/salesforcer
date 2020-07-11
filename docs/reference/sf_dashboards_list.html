@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="List dashboards — sf_dashboards_list" />
-<meta property="og:description" content="Returns a list of recently used dashboards" />
+<meta property="og:description" content="
+Returns a list of recently used dashboards" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Returns a list of recently used dashboards</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Returns a list of recently used dashboards</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_dashboards_list</span>(<span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -189,14 +194,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
 JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

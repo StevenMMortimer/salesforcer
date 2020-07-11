@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Perform SOSL Search — sf_search" />
-<meta property="og:description" content="Searches for records in your organization’s data." />
+<meta property="og:description" content="
+Searches for records in your organization’s data." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,13 +183,14 @@
     </div>
 
     <div class="ref-description">
-    <p>Searches for records in your organization’s data.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>Searches for records in your organization’s data.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_search</span>(
   <span class='no'>search_string</span>,
   <span class='kw'>is_sosl</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   <span class='kw'>parameterized_search_options</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -197,8 +202,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>search_string</th>
-      <td><p>character; string to search using parameterized search 
-or SOSL. Note that is_sosl must be set to TRUE and the string valid in order 
+      <td><p>character; string to search using parameterized search
+or SOSL. Note that is_sosl must be set to TRUE and the string valid in order
 to perform a search using SOSL.</p></td>
     </tr>
     <tr>
@@ -207,31 +212,34 @@ to perform a search using SOSL.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
-<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>parameterized_search_options</th>
-      <td><p><code>list</code>; a list of parameters for 
+      <td><p><code>list</code>; a list of parameters for
 controlling the search if not using SOSL. If using SOSL this argument is ignored.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments to be used to form the parameterized search options argument 
+      <td><p>arguments to be used to form the parameterized search options argument
 if it is not supplied directly.</p></td>
     </tr>
     </table>
@@ -241,9 +249,9 @@ if it is not supplied directly.</p></td>
     <p><code>tibble</code></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The maximum number of returned rows in the SOSL query results is 2,000. 
-Please refer to the limits 
-<a href='https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm'>HERE</a> 
+    <p>The maximum number of returned rows in the SOSL query results is 2,000.
+Please refer to the limits
+<a href='https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm'>HERE</a>
 for more detail.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

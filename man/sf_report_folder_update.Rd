@@ -7,7 +7,7 @@
 sf_report_folder_update(report_folder_id, body)
 }
 \arguments{
-\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created
 analytics folder (it will start with "00l").}
 
 \item{body}{\code{list}; a list of data to be formatted as JSON before being
@@ -20,5 +20,5 @@ user-friendly format.}
 \code{list}
 }
 \description{
-Update a report folder
+\lifecycle{experimental}
 }

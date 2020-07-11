@@ -7,18 +7,20 @@
 sf_describe_object_fields(object_name)
 }
 \arguments{
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 }
 \value{
 A \code{tbl_df} containing one row per field for the requested object.
 }
 \description{
-This function takes the name of an object in Salesforce and returns a description 
+\lifecycle{maturing}
+
+This function takes the name of an object in Salesforce and returns a description
 of the fields on that object by returning a tibble with one row per field.
 }
 \note{
-The tibble only contains the fields that the user can view, as defined by 
+The tibble only contains the fields that the user can view, as defined by
 the user's field-level security settings.
 }
 \examples{

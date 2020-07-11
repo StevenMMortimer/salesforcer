@@ -1,5 +1,8 @@
 #' List All Objects of a Certain Metadata Type in Salesforce
 #' 
+#' @description
+#' \lifecycle{experimental}
+#' 
 #' This function takes a query of metadata types and returns a 
 #' summary of all objects in salesforce of the requested types
 #'

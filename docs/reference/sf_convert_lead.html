@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Convert Leads — sf_convert_lead" />
-<meta property="og:description" content="Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity." />
+<meta property="og:description" content="
+Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +114,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +183,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_convert_lead</span>(
@@ -196,27 +201,30 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code>. See the details 
-below on how format your input data to control things like whether an opportunity 
+      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or
+<code>tbl_df</code>; data can be coerced into a <code>data.frame</code>. See the details
+below on how format your input data to control things like whether an opportunity
 will be created, an email will be sent to the new owner, and other control options.</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code> 
-to try and cast the data returned in the query recordset. <code>TRUE</code> uses 
-<code>col_guess()</code> and <code>FALSE</code> returns all values as character strings.</p></td>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
@@ -225,9 +233,9 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -237,51 +245,51 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code> with details of the converted record</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>When converting leads owned by a queue, the owner must be specified. 
-This is because accounts and contacts cannot be owned by a queue. Below is a 
-complete list of options to control the conversion process. Include a column 
-in your input data to specify an option for each record. For example, if you 
-want opportunities to not be created for each converted lead then add a column 
-in your input data called <code>doNotCreateOpportunity</code> and set its value to 
-<code>TRUE</code>. The default is <code>FALSE</code> which creates opportunities. The order 
-of columns in the input data does not matter, just that the names 
+    <p>When converting leads owned by a queue, the owner must be specified.
+This is because accounts and contacts cannot be owned by a queue. Below is a
+complete list of options to control the conversion process. Include a column
+in your input data to specify an option for each record. For example, if you
+want opportunities to not be created for each converted lead then add a column
+in your input data called <code>doNotCreateOpportunity</code> and set its value to
+<code>TRUE</code>. The default is <code>FALSE</code> which creates opportunities. The order
+of columns in the input data does not matter, just that the names
 match (case-insensitive).</p><dl'>
- <dt>leadId</dt><dd><p>ID of the Lead to convert. Required.</p></dd>
- <dt>convertedStatus</dt><dd><p>Valid LeadStatus value for a converted lead. Required.</p></dd>
- <dt>accountId</dt><dd><p>ID of the Account into which the lead will be merged. Required 
- only when updating an existing account, including person accounts. If no 
- accountID is specified, then the API creates a new account.</p></dd>
- <dt>contactId</dt><dd><p>D of the Contact into which the lead will be merged (this 
- contact must be associated with the specified accountId, and an accountId 
- must be specified). Required only when updating an existing contact. If no 
- contactID is specified, then the API creates a new contact that is implicitly 
- associated with the Account.</p></dd>
- <dt>ownerId</dt><dd><p>Specifies the ID of the person to own any newly created account, 
- contact, and opportunity. If the client application does not specify this 
- value, then the owner of the new object will be the owner of the lead.</p></dd>
- <dt>opportunityId</dt><dd><p>The ID of an existing opportunity to relate to the lead. 
- The opportunityId and opportunityName arguments are mutually exclusive. Specifying 
- a value for both results in an error. If doNotCreateOpportunity argument is 
- <code>TRUE</code>, then no Opportunity is created and this field must be left blank; 
- otherwise, an error is returned.</p></dd>
- <dt>doNotCreateOpportunity</dt><dd><p>Specifies whether to create an Opportunity during 
- lead conversion (<code>FALSE</code>, the default) or not (<code>TRUE</code>). Set this flag 
- to <code>TRUE</code> only if you do not want to create an opportunity from the lead. 
- An opportunity is created by default.</p></dd>
- <dt>opportunityName</dt><dd><p>Name of the opportunity to create. If no name is specified, 
- then this value defaults to the company name of the lead. The maximum length 
- of this field is 80 characters. The opportunityId and opportunityName arguments 
- are mutually exclusive. Specifying a value for both results in an error. If 
- doNotCreateOpportunity argument is <code>TRUE</code>, then no Opportunity is created and 
- this field must be left blank; otherwise, an error is returned.</p></dd>
- <dt>overwriteLeadSource</dt><dd><p>Specifies whether to overwrite the LeadSource field 
- on the target Contact object with the contents of the LeadSource field in 
- the source Lead object (<code>TRUE</code>), or not (<code>FALSE</code>, the default). To 
- set this field to <code>TRUE</code>, the client application must specify a contactId 
- for the target contact.</p></dd>
- <dt>sendNotificationEmail</dt><dd><p>Specifies whether to send a notification email 
- to the owner specified in the ownerId (<code>TRUE</code>) or not (<code>FALSE</code>, 
- the default).</p></dd>
+<dt>leadId</dt><dd><p>ID of the Lead to convert. Required.</p></dd>
+<dt>convertedStatus</dt><dd><p>Valid LeadStatus value for a converted lead. Required.</p></dd>
+<dt>accountId</dt><dd><p>ID of the Account into which the lead will be merged. Required
+only when updating an existing account, including person accounts. If no
+accountID is specified, then the API creates a new account.</p></dd>
+<dt>contactId</dt><dd><p>D of the Contact into which the lead will be merged (this
+contact must be associated with the specified accountId, and an accountId
+must be specified). Required only when updating an existing contact. If no
+contactID is specified, then the API creates a new contact that is implicitly
+associated with the Account.</p></dd>
+<dt>ownerId</dt><dd><p>Specifies the ID of the person to own any newly created account,
+contact, and opportunity. If the client application does not specify this
+value, then the owner of the new object will be the owner of the lead.</p></dd>
+<dt>opportunityId</dt><dd><p>The ID of an existing opportunity to relate to the lead.
+The opportunityId and opportunityName arguments are mutually exclusive. Specifying
+a value for both results in an error. If doNotCreateOpportunity argument is
+<code>TRUE</code>, then no Opportunity is created and this field must be left blank;
+otherwise, an error is returned.</p></dd>
+<dt>doNotCreateOpportunity</dt><dd><p>Specifies whether to create an Opportunity during
+lead conversion (<code>FALSE</code>, the default) or not (<code>TRUE</code>). Set this flag
+to <code>TRUE</code> only if you do not want to create an opportunity from the lead.
+An opportunity is created by default.</p></dd>
+<dt>opportunityName</dt><dd><p>Name of the opportunity to create. If no name is specified,
+then this value defaults to the company name of the lead. The maximum length
+of this field is 80 characters. The opportunityId and opportunityName arguments
+are mutually exclusive. Specifying a value for both results in an error. If
+doNotCreateOpportunity argument is <code>TRUE</code>, then no Opportunity is created and
+this field must be left blank; otherwise, an error is returned.</p></dd>
+<dt>overwriteLeadSource</dt><dd><p>Specifies whether to overwrite the LeadSource field
+on the target Contact object with the contents of the LeadSource field in
+the source Lead object (<code>TRUE</code>), or not (<code>FALSE</code>, the default). To
+set this field to <code>TRUE</code>, the client application must specify a contactId
+for the target contact.</p></dd>
+<dt>sendNotificationEmail</dt><dd><p>Specifies whether to send a notification email
+to the owner specified in the ownerId (<code>TRUE</code>) or not (<code>FALSE</code>,
+the default).</p></dd>
 
 </dl><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm'>Salesforce Documentation for convertLead</a></p>
 

@@ -7,24 +7,26 @@
 sf_report_instance_delete(report_id, report_instance_id, verbose = FALSE)
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a 
-created analytics report instance (an asynchronous run). It will start with 
+\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a
+created analytics report instance (an asynchronous run). It will start with
 \code{"0LG"}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{logical} indicating whether the report instance was deleted. This function 
+\code{logical} indicating whether the report instance was deleted. This function
 will return \code{TRUE} if successful in deleting the report instance.
 }
 \description{
-If the given report instance has a status of \code{Success} or \code{Error}, 
+\lifecycle{experimental}
+
+If the given report instance has a status of \code{Success} or \code{Error},
 delete the report instance.
 }
 \examples{

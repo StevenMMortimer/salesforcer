@@ -15,38 +15,38 @@ sf_query_result_bulk_v2(
 )
 }
 \arguments{
-\item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as 
+\item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as
 returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{bind_using_character_cols}{\code{logical}; an indicator of whether to 
+\item{bind_using_character_cols}{\code{logical}; an indicator of whether to
 cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
-does not fail because two paginated recordsets have differing datatypes for the 
-same column. Set this to \code{TRUE} rarely, typically only when having this 
-set to \code{FALSE} returns an error or you want all columns in the data to be 
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to \code{TRUE} rarely, typically only when having this
+set to \code{FALSE} returns an error or you want all columns in the data to be
 character.}
 
-\item{batch_size}{\code{integer}; the number of individual records to be included in a 
+\item{batch_size}{\code{integer}; the number of individual records to be included in a
 single batch uploaded to the Bulk APIs (1.0 or 2.0).}
 
-\item{locator}{\code{character}; a string returned found in the API response 
-header of a prior iteration of \link{sf_query_result_bulk_v2} that is included 
-in the query string of the next call to paginate through all records returned 
+\item{locator}{\code{character}; a string returned found in the API response
+header of a prior iteration of \link{sf_query_result_bulk_v2} that is included
+in the query string of the next call to paginate through all records returned
 by the query.}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{

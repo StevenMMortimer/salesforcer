@@ -2,19 +2,20 @@
 % Please edit documentation in R/compatibility.R
 \name{rforcecom.create}
 \alias{rforcecom.create}
-\title{salesforcer's backwards compatible version of rforcecom.create}
+\title{The \code{salesforcer} backwards compatible version of
+\code{\link[RForcecom]{rforcecom.create}}}
 \usage{
 rforcecom.create(session, objectName, fields)
 }
 \arguments{
-\item{session}{\code{list}; a list containing \code{"sessionID"}, 
-\code{"instanceURL"}, and \code{"apiVersion"} as returned by 
-\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all 
-backward compatible calls because the authorization credentials are stored 
-in an environment internal to the salesforcer package, so it is no longer 
+\item{session}{\code{list}; a list containing \code{"sessionID"},
+\code{"instanceURL"}, and \code{"apiVersion"} as returned by
+\code{\link[RForcecom]{rforcecom.login}}. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.}
 
-\item{objectName}{\code{character}; the name of the Salesforce object that the 
+\item{objectName}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
 \item{fields}{Field names and values. (ex: Name="CompanyName", Phone="000-000-000" )}
@@ -23,5 +24,5 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 \code{data.frame} containing the id and success indicator of the record creation process
 }
 \description{
-salesforcer's backwards compatible version of rforcecom.create
+\lifecycle{soft-deprecated}
 }

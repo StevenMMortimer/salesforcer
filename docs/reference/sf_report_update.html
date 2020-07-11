@@ -53,8 +53,9 @@
 
 
 <meta property="og:title" content="Update a report — sf_report_update" />
-<meta property="og:description" content="Save changes to a report by sending a PATCH request to the Report resource. 
-Note that saving a report deletes any running async report jobs because they 
+<meta property="og:description" content="
+Save changes to a report by sending a PATCH request to the Report resource.
+Note that saving a report deletes any running async report jobs because they
 might be obsolete based on the updates." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -115,6 +116,9 @@ might be obsolete based on the updates." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,8 +185,9 @@ might be obsolete based on the updates." />
     </div>
 
     <div class="ref-description">
-    <p>Save changes to a report by sending a PATCH request to the Report resource. 
-Note that saving a report deletes any running async report jobs because they 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Save changes to a report by sending a PATCH request to the Report resource.
+Note that saving a report deletes any running async report jobs because they
 might be obsolete based on the updates.</p>
     </div>
 
@@ -193,34 +198,34 @@ might be obsolete based on the updates.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>report_metadata</th>
-      <td><p><code>list</code>; a list representing the properties to create 
-the report with. The names of the list must be one or more of the 3 accepted 
-metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>, 
+      <td><p><code>list</code>; a list representing the properties to create
+the report with. The names of the list must be one or more of the 3 accepted
+metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>,
 <code>reportExtendedMetadata</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> representing the newly cloned report with up to 4 properties 
+    <p><code>list</code> representing the newly cloned report with up to 4 properties
 that describe the report:</p><dl'>
-  <dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and 
-  joined metadata.</p></dd>
-  <dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-  <dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-  <dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
+<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and
+joined metadata.</p></dd>
+<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
+<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
+<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
 
 </dl>
 

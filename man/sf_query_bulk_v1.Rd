@@ -18,51 +18,51 @@ sf_query_bulk_v1(
 )
 }
 \arguments{
-\item{soql}{\code{character}; a string defining a SOQL query 
+\item{soql}{\code{character}; a string defining a SOQL query
 (e.g. "SELECT Id, Name FROM Account").}
 
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{queryall}{\code{logical}; indicating if the query recordset should include records 
-that have been deleted because of a merge or delete. Setting this argument to 
-\code{TRUE} will also return information about archived Task and Event records. 
+\item{queryall}{\code{logical}; indicating if the query recordset should include records
+that have been deleted because of a merge or delete. Setting this argument to
+\code{TRUE} will also return information about archived Task and Event records.
 It is available in API versions 29.0 and later.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check 
+\item{interval_seconds}{\code{integer}; defines the seconds between attempts to check
 for job completion.}
 
-\item{max_attempts}{\code{integer}; defines then max number attempts to check for job 
+\item{max_attempts}{\code{integer}; defines then max number attempts to check for job
 completion before stopping.}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
-\item{...}{other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
+\item{...}{other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}}
 to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_df} of the recordset returned by the query
 }
 \description{
-This function is a convenience wrapper for submitting and retrieving 
+This function is a convenience wrapper for submitting and retrieving
 query API jobs from the Bulk 1.0 API.
 }
 \examples{

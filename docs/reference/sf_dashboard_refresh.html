@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Refresh an existing dashboard — sf_dashboard_refresh" />
-<meta property="og:description" content="Refresh an existing dashboard" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -113,6 +113,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -179,7 +182,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Refresh an existing dashboard</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
     </div>
 
     <pre class="usage"><span class='fu'>sf_dashboard_refresh</span>(<span class='no'>dashboard_id</span>, <span class='kw'>dashboard_filters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>)))</pre>
@@ -189,14 +192,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dashboard_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 dashboard. It will start with <code>"01Z"</code>.</p></td>
     </tr>
     <tr>
       <th>dashboard_filters</th>
-      <td><p><code>character</code>; Dashboard results are always unfiltered, unless you 
-have specified filter parameters in your request. Use this argument to include 
-up to three optional filter Ids. You can obtain the list of defined filter Ids 
+      <td><p><code>character</code>; Dashboard results are always unfiltered, unless you
+have specified filter parameters in your request. Use this argument to include
+up to three optional filter Ids. You can obtain the list of defined filter Ids
 from the dashboard metadata using <a href='sf_dashboard_describe.html'>sf_dashboard_describe</a>.</p></td>
     </tr>
     </table>

@@ -7,19 +7,21 @@
 sf_report_types_list(as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df} by default, or a \code{list} depending on the value of 
+\code{tbl_df} by default, or a \code{list} depending on the value of
 argument \code{as_tbl}
 }
 \description{
+\lifecycle{experimental}
+
 Return a list of report types.
 }
 \examples{

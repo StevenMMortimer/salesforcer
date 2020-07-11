@@ -7,20 +7,22 @@
 sf_list_metadata(queries, verbose = FALSE)
 }
 \arguments{
-\item{queries}{a \code{list} of \code{list}s with each element consisting of 2 components: 1) 
-the metadata type being requested and 2) the folder associated with the type that required for types 
+\item{queries}{a \code{list} of \code{list}s with each element consisting of 2 components: 1)
+the metadata type being requested and 2) the folder associated with the type that required for types
 that use folders, such as Dashboard, Document, EmailTemplate, or Report.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{tbl_dfs} containing the queried metadata types
 }
 \description{
-This function takes a query of metadata types and returns a 
+\lifecycle{experimental}
+
+This function takes a query of metadata types and returns a
 summary of all objects in salesforce of the requested types
 }
 \note{

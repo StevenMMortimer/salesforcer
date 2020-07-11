@@ -53,8 +53,8 @@
 
 
 <meta property="og:title" content="Bind the records from nested parent-to-child queries — combine_parent_and_child_resultsets" />
-<meta property="og:description" content="This function accepts a data.frame with one row representing each 
-parent record returned by a query with a corresponding list element in the 
+<meta property="og:description" content="This function accepts a data.frame with one row representing each
+parent record returned by a query with a corresponding list element in the
 list of child record results stored as tbl_df in a list." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -115,6 +115,9 @@ list of child record results stored as tbl_df in a list." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,8 +184,8 @@ list of child record results stored as tbl_df in a list." />
     </div>
 
     <div class="ref-description">
-    <p>This function accepts a <code>data.frame</code> with one row representing each 
-parent record returned by a query with a corresponding list element in the 
+    <p>This function accepts a <code>data.frame</code> with one row representing each
+parent record returned by a query with a corresponding list element in the
 list of child record results stored as <code>tbl_df</code> in a list.</p>
     </div>
 
@@ -193,12 +196,12 @@ list of child record results stored as <code>tbl_df</code> in a list.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>parents_df</th>
-      <td><p><code>tbl_df</code>; a dataset with 1 row per parent record from 
+      <td><p><code>tbl_df</code>; a dataset with 1 row per parent record from
 the query recordset, that can be joined with its corresponding child records.</p></td>
     </tr>
     <tr>
       <th>child_df_list</th>
-      <td><p><code>list</code> of <code>tbl_df</code>; a list of child records that 
+      <td><p><code>list</code> of <code>tbl_df</code>; a list of child records that
 is the same length as the number of rows in the parent_df.</p></td>
     </tr>
     </table>

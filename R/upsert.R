@@ -1,7 +1,11 @@
 #' Upsert Records
 #' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' Upserts one or more new records to your organization’s data.
 #' 
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into a \code{data.frame}
 #' @template object_name
@@ -40,22 +44,23 @@ sf_upsert <- function(input_data,
                       api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
                       guess_types = TRUE,
                       control = list(...), ...,
+                      all_or_none = deprecated(),
                       verbose = FALSE){
   
   api_type <- match.arg(api_type)
   
   # determine how to pass along the control args 
-  all_args <- list(...)
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
   control_args$operation <- "upsert"
-  if("all_or_none" %in% names(all_args)){
-    # warn then set it in the control list
-    warning(paste0("The `all_or_none` argument has been deprecated.\n", 
-                   "Please pass AllOrNoneHeader argument or use the `sf_control` function."), 
-            call. = FALSE)
-    control_args$AllOrNoneHeader = list(allOrNone = tolower(all_args$all_or_none))
+  
+  if(is_present(all_or_none)) {
+    deprecate_warn("0.1.3", "sf_upsert(all_or_none = )", "sf_upsert(AllOrNoneHeader = )", 
+                   details = paste0("You can pass the all or none header directly ", 
+                                    "as shown above or via the `control` argument."))
+    control_args$AllOrNoneHeader <- list(allOrNone = tolower(all_or_none))
   }
+  
   if("AssignmentRuleHeader" %in% names(control_args)){
     if(!object_name %in% c("Account", "Case", "Lead")){
       stop("The AssignmentRuleHeader can only be used when creating, updating, or upserting an Account, Case, or Lead")

@@ -7,32 +7,35 @@
 sf_report_copy(report_id, name = NULL, verbose = FALSE)
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{name}{\code{character}; a user-specified name for the newly cloned report. 
-If left \code{NULL}, then the new name will be the same name as the report being 
-cloned appended with " = Copy" that is prefixed with a number if that name is 
+\item{name}{\code{character}; a user-specified name for the newly cloned report.
+If left \code{NULL}, then the new name will be the same name as the report being
+cloned appended with " = Copy" that is prefixed with a number if that name is
 not unique. It is highly recommended to provide a name, if possible.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list} representing the newly cloned report with up to 4 properties 
-that describe the report: 
+\code{list} representing the newly cloned report with up to 4 properties
+that describe the report:
 \describe{
-  \item{attributes}{Report type along with the URL to retrieve common objects and 
-  joined metadata.}
-  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
-  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
-  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+\item{attributes}{Report type along with the URL to retrieve common objects and
+joined metadata.}
+\item{reportMetadata}{Unique identifiers for groupings and summaries.}
+\item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+\item{reportExtendedMetadata}{Additional information about summaries and groupings.}
 }
 }
 \description{
-Copy a report
+\lifecycle{experimental}
+
+Creates a copy of a custom, standard, or public report by sending a POST
+request to the Report List resource.
 }
 \examples{
 \dontrun{

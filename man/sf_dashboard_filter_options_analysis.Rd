@@ -11,19 +11,19 @@ sf_dashboard_filter_options_analysis(
 )
 }
 \arguments{
-\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 
-\item{filter_columns}{\code{list}; a list of fields from the source report 
-which you check filter values against. Each object in the array has these 
+\item{filter_columns}{\code{list}; a list of fields from the source report
+which you check filter values against. Each object in the array has these
 properties:...}
 
-\item{options}{\code{list}; a list of objects describing a dashboard filter. 
+\item{options}{\code{list}; a list of objects describing a dashboard filter.
 Each object has these properties:...}
 }
 \value{
 \code{list}
 }
 \description{
-Get an analysis of the filter options for a dashboard
+\lifecycle{experimental}
 }

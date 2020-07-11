@@ -53,9 +53,10 @@
 
 
 <meta property="og:title" content="Create Attachments — sf_create_attachment" />
-<meta property="og:description" content="This function will allow you to create attachments (and other blob data, such as 
-Documents) by supplying file paths (absolute or relative) to media that you 
-would like to upload to Salesforce along with accompanying metadata, such as 
+<meta property="og:description" content="
+This function will allow you to create attachments (and other blob data, such as
+Documents) by supplying file paths (absolute or relative) to media that you
+would like to upload to Salesforce along with accompanying metadata, such as
 a Description, Keywords, ParentId, FolderId, etc." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -116,6 +117,9 @@ a Description, Keywords, ParentId, FolderId, etc." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -182,9 +186,10 @@ a Description, Keywords, ParentId, FolderId, etc." />
     </div>
 
     <div class="ref-description">
-    <p>This function will allow you to create attachments (and other blob data, such as 
-Documents) by supplying file paths (absolute or relative) to media that you 
-would like to upload to Salesforce along with accompanying metadata, such as 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function will allow you to create attachments (and other blob data, such as
+Documents) by supplying file paths (absolute or relative) to media that you
+would like to upload to Salesforce along with accompanying metadata, such as
 a Description, Keywords, ParentId, FolderId, etc.</p>
     </div>
 
@@ -202,40 +207,40 @@ a Description, Keywords, ParentId, FolderId, etc.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input_data</th>
-      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or 
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code>. The input must 
-contain a column entitled 'Body' with an absolute or relative file path 
-(unless creating a Document using a Url) along with other required fields depending 
-on the object. See the details below for the other required fields when creating 
+      <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or
+<code>tbl_df</code>; data can be coerced into a <code>data.frame</code>. The input must
+contain a column entitled 'Body' with an absolute or relative file path
+(unless creating a Document using a Url) along with other required fields depending
+on the object. See the details below for the other required fields when creating
 Attachments and Documents.</p></td>
     </tr>
     <tr>
       <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>, 
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when 
+      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
+<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
 making the request.</p></td>
     </tr>
     <tr>
       <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+      <td><p><code>list</code>; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream 
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream
 to <code><a href='sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -245,11 +250,11 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code> with details of the created records</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The length of any file name can’t exceed 512 bytes (per Bulk 1.0 API). 
-The SOAP API create call restricts these files to a maximum size of 25 MB. For a file 
-attached to a Solution, the limit is 1.5 MB. The maximum email attachment size is 3 MB. 
-You can only create or update documents to a maximum size of 5 MB. The REST API 
-allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB 
+    <p>The length of any file name can’t exceed 512 bytes (per Bulk 1.0 API).
+The SOAP API create call restricts these files to a maximum size of 25 MB. For a file
+attached to a Solution, the limit is 1.5 MB. The maximum email attachment size is 3 MB.
+You can only create or update documents to a maximum size of 5 MB. The REST API
+allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB
 of base64–encoded data.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

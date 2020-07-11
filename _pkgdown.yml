@@ -19,6 +19,8 @@ navbar:
       menu: 
       -  text: Getting Started
          href: articles/getting-started.html
+      -  text: Supported Queries
+         href: articles/supported-queries.html   
       -  text: Working with the Bulk APIs
          href: articles/working-with-the-bulk-apis.html
       -  text: Working with the Attachments
@@ -28,7 +30,7 @@ navbar:
       -  text: Passing Control Args
          href: articles/passing-control-args.html
       -  text: Transitioning from RForcecom
-         href: articles/transitioning-from-RForcecom.html
+         href: articles/transitioning-from-RForcecom.html         
     - text: Reference
       icon: fa-file-code-o
       href: reference/index.html
@@ -127,10 +129,10 @@ reference:
       - '`rforcecom.getServerTimestamp`'
       - '`rforcecom.getObjectDescription`'
       - '`rforcecom.create`'
-      - '`rforcecom.update`'
-      - '`rforcecom.upsert`'
-      - '`rforcecom.delete`'
       - '`rforcecom.retrieve`'
+      - '`rforcecom.update`'
+      - '`rforcecom.delete`'
+      - '`rforcecom.upsert`'
       - '`rforcecom.search`'
       - '`rforcecom.query`'
       - '`rforcecom.bulkQuery`'

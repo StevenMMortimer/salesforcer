@@ -2,6 +2,7 @@
 #' 
 #' This function initializes a Job in the Salesforce Bulk API
 #'
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @template operation
 #' @template object_name
 #' @template soql
@@ -57,24 +58,23 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
                                column_delimiter = c('COMMA', 'TAB', 'PIPE', 'SEMICOLON', 
                                                     'CARET', 'BACKQUOTE'), 
                                control = list(...), ...,
+                               line_ending = deprecated(),
                                verbose = FALSE){
 
   api_type <- match.arg(api_type)
   operation <- match.arg(operation)
   content_type <- match.arg(content_type)
   
-  # determine how to pass along the control args 
-  all_args <- list(...)
+  # determine how to pass along the control args
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
   control_args$operation <- operation
-  if("line_ending" %in% names(all_args)){
-    # warn then set it in the control list
-    warning(paste0("The `line_ending` argument has been deprecated.\n", 
-                   "Please pass LineEndingHeader argument or use the ",
-                   "`sf_control` function."), 
-            call. = FALSE)
-    control_args$LineEndingHeader = list(`Sforce-Line-Ending` = all_args$line_ending)
+  
+  if(is_present(line_ending)) {
+    deprecate_warn("0.1.3", "sf_create_job_bulk(line_ending = )", "sf_create_job_bulk(LineEndingHeader = )", 
+                   details = paste0("You can pass the line ending directly ", 
+                                    "as shown above or via the `control` argument."))
+    control_args$LineEndingHeader <- list(`Sforce-Line-Ending` = line_ending)
   }
   
   if(api_type == "Bulk 1.0"){
@@ -1263,7 +1263,10 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 }
 
 #' Run Bulk Operation
-#'
+#' 
+#' @description
+#' \lifecycle{maturing}
+#' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
@@ -1315,7 +1318,8 @@ sf_run_bulk_operation <- function(input_data,
   # this code is redundant because it exists in the sf_create, sf_update, etc. wrappers, 
   # but it is possible that some people are creating jobs with this function instead of the 
   # others, so make sure that we do it here as well. It should be a relatively small performance 
-  # hit given its a bulk operation
+  # hit given its a bulk operation 
+  
   # determine how to pass along the control args 
   all_args <- list(...)
   control_args <- return_matching_controls(control)

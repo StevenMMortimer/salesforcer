@@ -14,39 +14,41 @@ sf_report_create(
 \arguments{
 \item{name}{\code{character}; a user-specified name for the report.}
 
-\item{report_type}{\code{character}; a character representing the type of 
-report to retrieve the metadata information on.  A list of valid report types 
-that can be created using this function will be available in the 
-\code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
-(e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
+\item{report_type}{\code{character}; a character representing the type of
+report to retrieve the metadata information on.  A list of valid report types
+that can be created using this function will be available in the
+\code{reportTypes.type} column of results returned \link{sf_report_types_list}.
+(e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory},
 etc.)}
 
-\item{report_metadata}{\code{list}; a list representing the properties to create 
-the report with. The names of the list must be one or more of the 3 accepted 
-metadata properties: \code{reportMetadata}, \code{reportTypeMetadata}, 
+\item{report_metadata}{\code{list}; a list representing the properties to create
+the report with. The names of the list must be one or more of the 3 accepted
+metadata properties: \code{reportMetadata}, \code{reportTypeMetadata},
 \code{reportExtendedMetadata}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{list} representing the newly cloned report with up to 4 properties 
-that describe the report: 
+\code{list} representing the newly cloned report with up to 4 properties
+that describe the report:
 \describe{
-  \item{attributes}{Report type along with the URL to retrieve common objects and 
-  joined metadata.}
-  \item{reportMetadata}{Unique identifiers for groupings and summaries.}
-  \item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
-  \item{reportExtendedMetadata}{Additional information about summaries and groupings.}
+\item{attributes}{Report type along with the URL to retrieve common objects and
+joined metadata.}
+\item{reportMetadata}{Unique identifiers for groupings and summaries.}
+\item{reportTypeMetadata}{Fields in each section of a report type plus filter information for those fields.}
+\item{reportExtendedMetadata}{Additional information about summaries and groupings.}
 }
 }
 \description{
-Create a new report using a POST request. To create a report, you only have to 
-specify a name and report type to create a new report; all other metadata properties 
-are optional. It is recommended to use the metadata from existing reports pulled 
-using \code{\link{sf_report_describe}} as a guide on how to specify the properties 
+\lifecycle{experimental}
+
+Create a new report using a POST request. To create a report, you only have to
+specify a name and report type to create a new report; all other metadata properties
+are optional. It is recommended to use the metadata from existing reports pulled
+using \code{\link{sf_report_describe}} as a guide on how to specify the properties
 of a new report.
 }
 \examples{

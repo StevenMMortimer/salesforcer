@@ -20,13 +20,13 @@ drop_attributes_recursively(
 (e.g. Account or Contact) as a new column.}
 }
 \value{
-\code{list} containing no 'attributes' elements with the object information 
+\code{list} containing no 'attributes' elements with the object information
 in the column names or the values within an object entitled \code{'sObject'}.
 }
 \description{
-This function wraps the custom \code{drop_attributes} function that removes 
-elements from Salesforce data parsed to a list where the object type and the 
-record url persists because they were attributes on the record and not  
+This function wraps the custom \code{drop_attributes} function that removes
+elements from Salesforce data parsed to a list where the object type and the
+record url persists because they were attributes on the record and not
 part of the requested information.
 }
 \note{

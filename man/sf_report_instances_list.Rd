@@ -7,24 +7,26 @@
 sf_report_instances_list(report_id, as_tbl = TRUE, verbose = FALSE)
 }
 \arguments{
-\item{report_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
 analytics report. It will start with \code{"00O"}.}
 
-\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed 
+\item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df} by default, or a \code{list} depending on the value of 
+\code{tbl_df} by default, or a \code{list} depending on the value of
 argument \code{as_tbl}
 }
 \description{
-Returns a list of instances for a report that you requested to be run asynchronously. 
-Each item in the list is treated as a separate instance of the report run with 
+\lifecycle{experimental}
+
+Returns a list of instances for a report that you requested to be run asynchronously.
+Each item in the list is treated as a separate instance of the report run with
 metadata in that snapshot of time.
 }
 \examples{

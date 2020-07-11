@@ -13,7 +13,7 @@ set_null_elements_to_na_recursively(x)
 \code{list} containing \code{NA} in place of \code{NULL} element values.
 }
 \description{
-This function wraps a simple \code{\link[purrr:modify]{modify_if}} function 
+This function wraps a simple \code{\link[purrr:modify]{modify_if}} function
 to recursively set NULL elements in a list to NA.
 }
 \note{

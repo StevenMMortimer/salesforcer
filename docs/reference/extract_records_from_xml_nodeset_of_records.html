@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Pulls out a tibble of record info from a nodeset of "records" elements — extract_records_from_xml_nodeset_of_records" />
-<meta property="og:description" content="This function accepts an xml_nodeset and formats each record into 
+<meta property="og:description" content="This function accepts an xml_nodeset and formats each record into
 a single row of a tbl_df." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +114,9 @@ a single row of a tbl_df." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +183,7 @@ a single row of a tbl_df." />
     </div>
 
     <div class="ref-description">
-    <p>This function accepts an <code>xml_nodeset</code> and formats each record into 
+    <p>This function accepts an <code>xml_nodeset</code> and formats each record into
 a single row of a <code>tbl_df</code>.</p>
     </div>
 
@@ -196,14 +199,14 @@ a single row of a <code>tbl_df</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>xml_nodeset</code>; nodeset to have records extracted into a 
+      <td><p><code>xml_nodeset</code>; nodeset to have records extracted into a
 <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>object_name</th>
       <td><p><code>character</code>; a list of character strings to prefix
-each variable name in the event that we would like to tag the fields with 
-the name of the object that they came from and/or store the object type as a 
+each variable name in the event that we would like to tag the fields with
+the name of the object that they came from and/or store the object type as a
 separate column in the resultset.</p></td>
     </tr>
     <tr>

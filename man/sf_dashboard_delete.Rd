@@ -7,12 +7,12 @@
 sf_dashboard_delete(dashboard_id)
 }
 \arguments{
-\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 }
 \value{
 \code{logical}
 }
 \description{
-Delete a dashboard
+\lifecycle{experimental}
 }

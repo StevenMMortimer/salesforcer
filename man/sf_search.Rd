@@ -15,44 +15,46 @@ sf_search(
 )
 }
 \arguments{
-\item{search_string}{character; string to search using parameterized search 
-or SOSL. Note that is_sosl must be set to TRUE and the string valid in order 
+\item{search_string}{character; string to search using parameterized search
+or SOSL. Note that is_sosl must be set to TRUE and the string valid in order
 to perform a search using SOSL.}
 
 \item{is_sosl}{logical; indicating whether or not to try the string as SOSL}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()} 
-to try and cast the data returned in the recordset. If \code{TRUE} then 
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned 
-as character. This is helpful when \code{col_guess()} will mangle field values 
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df}, 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{parameterized_search_options}{\code{list}; a list of parameters for 
+\item{parameterized_search_options}{\code{list}; a list of parameters for
 controlling the search if not using SOSL. If using SOSL this argument is ignored.}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 
-\item{...}{arguments to be used to form the parameterized search options argument 
+\item{...}{arguments to be used to form the parameterized search options argument
 if it is not supplied directly.}
 }
 \value{
 \code{tibble}
 }
 \description{
+\lifecycle{maturing}
+
 Searches for records in your organization’s data.
 }
 \note{
-The maximum number of returned rows in the SOSL query results is 2,000. 
-Please refer to the limits 
-\href{https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm}{HERE} 
+The maximum number of returned rows in the SOSL query results is 2,000.
+Please refer to the limits
+\href{https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_soslsoql.htm}{HERE}
 for more detail.
 }
 \examples{

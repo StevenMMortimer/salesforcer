@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>salesforcer's backwards compatible version of rforcecom.create — rforcecom.create • salesforcer</title>
+<title>The <code>salesforcer</code> backwards compatible version of
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html'>rforcecom.create</a></code> — rforcecom.create • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +53,9 @@
 
 
 
-<meta property="og:title" content="salesforcer's backwards compatible version of rforcecom.create — rforcecom.create" />
-<meta property="og:description" content="salesforcer's backwards compatible version of rforcecom.create" />
+<meta property="og:title" content="The <code>salesforcer</code> backwards compatible version of
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html'>rforcecom.create</a></code> — rforcecom.create" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -115,6 +117,9 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -173,13 +178,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>salesforcer's backwards compatible version of rforcecom.create</h1>
+    <h1>The <code>salesforcer</code> backwards compatible version of
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html'>rforcecom.create</a></code></h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/compatibility.R'><code>R/compatibility.R</code></a></small>
     <div class="hidden name"><code>rforcecom.create.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>salesforcer's backwards compatible version of rforcecom.create</p>
+    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
     </div>
 
     <pre class="usage"><span class='fu'>rforcecom.create</span>(<span class='no'>session</span>, <span class='no'>objectName</span>, <span class='no'>fields</span>)</pre>
@@ -189,16 +195,16 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>session</th>
-      <td><p><code>list</code>; a list containing <code>"sessionID"</code>, 
-<code>"instanceURL"</code>, and <code>"apiVersion"</code> as returned by 
-<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>rforcecom.login</a></code>. This argument is ignored in all 
-backward compatible calls because the authorization credentials are stored 
-in an environment internal to the salesforcer package, so it is no longer 
+      <td><p><code>list</code>; a list containing <code>"sessionID"</code>,
+<code>"instanceURL"</code>, and <code>"apiVersion"</code> as returned by
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>rforcecom.login</a></code>. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.</p></td>
     </tr>
     <tr>
       <th>objectName</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the 
+      <td><p><code>character</code>; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>

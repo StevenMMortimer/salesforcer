@@ -16,32 +16,34 @@ sf_retrieve_metadata(
 \item{retrieve_request}{a \code{list} of parameters defining what XML file representations
 should be returned}
 
-\item{filename}{a file path to save the zip file in the event that it is downloaded. The 
-name must have a .zip extension. The default behavior will be to save in the current 
+\item{filename}{a file path to save the zip file in the event that it is downloaded. The
+name must have a .zip extension. The default behavior will be to save in the current
 working directory as "package.zip"}
 
-\item{check_interval}{numeric; specifying the seconds to wait between retrieve 
+\item{check_interval}{numeric; specifying the seconds to wait between retrieve
 status requests to check if complete}
 
-\item{max_tries}{numeric; specifying the maximum number of times to check 
+\item{max_tries}{numeric; specifying the maximum number of times to check
 whether the retrieve package.zip is complete before the function times out}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 A \code{list} of details from the created retrieve request
 }
 \description{
-This function makes a request to retrieve metadata 
+\lifecycle{experimental}
+
+This function makes a request to retrieve metadata
 as a package XML files that can be modified and later
 deployed into an environment
 }
 \note{
-See the Salesforce documentation for the proper arguments to create a 
-retrieveRequest. Here is a link to that documentation: 
+See the Salesforce documentation for the proper arguments to create a
+retrieveRequest. Here is a link to that documentation:
 \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_retrieve_request.htm}
 }
 \examples{

@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run Bulk Action — rforcecom.bulkAction • salesforcer</title>
+<title>The <code>salesforcer</code> backwards compatible version of
+<code>rforcecom.bulkAction</code> — rforcecom.bulkAction • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +53,10 @@
 
 
 
-<meta property="og:title" content="Run Bulk Action — rforcecom.bulkAction" />
-<meta property="og:description" content="This function is a convenience wrapper for submitting bulk API jobs" />
+<meta property="og:title" content="The <code>salesforcer</code> backwards compatible version of
+<code>rforcecom.bulkAction</code> — rforcecom.bulkAction" />
+<meta property="og:description" content="
+This function is a convenience wrapper for submitting bulk API jobs" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -115,6 +118,9 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
+    </li>
+    <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
@@ -173,13 +179,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run Bulk Action</h1>
+    <h1>The <code>salesforcer</code> backwards compatible version of
+<code>rforcecom.bulkAction</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/compatibility.R'><code>R/compatibility.R</code></a></small>
     <div class="hidden name"><code>rforcecom.bulkAction.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is a convenience wrapper for submitting bulk API jobs</p>
+    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+<p>This function is a convenience wrapper for submitting bulk API jobs</p>
     </div>
 
     <pre class="usage"><span class='fu'>rforcecom.bulkAction</span>(
@@ -216,8 +224,8 @@
     </tr>
     <tr>
       <th>external_id_fieldname</th>
-      <td><p><code>character</code>; string identifying a custom field on the 
-object that has been set as an "External ID" field. This field is used to reference 
+      <td><p><code>character</code>; string identifying a custom field on the
+object that has been set as an "External ID" field. This field is used to reference
 objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
     </tr>
     <tr>
@@ -239,9 +247,9 @@ The max value is 10000 in accordance with salesforce limits.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

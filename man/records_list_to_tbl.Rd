@@ -16,13 +16,13 @@ records_list_to_tbl(x, object_name_append = FALSE, object_name_as_col = FALSE)
 (e.g. Account or Contact) as a new column.}
 }
 \value{
-\code{tbl_df} a data frame with each row representing a single element 
+\code{tbl_df} a data frame with each row representing a single element
 from the "records" element of the list.
 }
 \description{
-This function accepts a list representing the parsed JSON recordset In this 
-case the records are not nested, but can have relationship fields. Each element 
-in the "records" element is bound to a single row after dropping the attributes 
+This function accepts a list representing the parsed JSON recordset In this
+case the records are not nested, but can have relationship fields. Each element
+in the "records" element is bound to a single row after dropping the attributes
 and then returned as one complete \code{tbl_df} of all records.
 }
 \note{

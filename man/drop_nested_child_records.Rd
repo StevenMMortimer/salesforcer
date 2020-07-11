@@ -7,15 +7,15 @@
 drop_nested_child_records(x)
 }
 \arguments{
-\item{x}{\code{list}; a list parsed from JSON and representing one individual 
+\item{x}{\code{list}; a list parsed from JSON and representing one individual
 parent query record.}
 }
 \value{
-\code{list}; a list without any elements that have nested child records 
+\code{list}; a list without any elements that have nested child records
 assuming they have already been extracted.
 }
 \description{
-This function accepts a single record from a nested query and removes the element 
+This function accepts a single record from a nested query and removes the element
 with nested "records" which represent the child records belonging to the parent.
 }
 \note{

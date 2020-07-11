@@ -53,9 +53,10 @@
 
 
 <meta property="og:title" content="Get a list of report fields — sf_report_fields" />
-<meta property="og:description" content="The Report Fields resource returns report fields available for specified reports. 
-Use the resource to determine the best fields for use in dashboard filters by 
-seeing which fields different source reports have in common. Available in API 
+<meta property="og:description" content="
+The Report Fields resource returns report fields available for specified reports.
+Use the resource to determine the best fields for use in dashboard filters by
+seeing which fields different source reports have in common. Available in API
 version 40.0 and later." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -116,6 +117,9 @@ version 40.0 and later." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -182,9 +186,10 @@ version 40.0 and later." />
     </div>
 
     <div class="ref-description">
-    <p>The Report Fields resource returns report fields available for specified reports. 
-Use the resource to determine the best fields for use in dashboard filters by 
-seeing which fields different source reports have in common. Available in API 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>The Report Fields resource returns report fields available for specified reports.
+Use the resource to determine the best fields for use in dashboard filters by
+seeing which fields different source reports have in common. Available in API
 version 40.0 and later.</p>
     </div>
 
@@ -195,22 +200,22 @@ version 40.0 and later.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>intersect_with</th>
       <td><p><code>character</code> a vector of unique report IDs. This is
-helpful in determining the best fields for use in dashboard filters by seeing 
-which fields different source reports have in common. If this argument is left 
-empty, then the function returns a list of all possible report fields. 
+helpful in determining the best fields for use in dashboard filters by seeing
+which fields different source reports have in common. If this argument is left
+empty, then the function returns a list of all possible report fields.
 Otherwise, returns a list of fields that specified reports share.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
@@ -218,10 +223,10 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>list</code> representing the 4 different field report properties:</p><dl'>
-  <dt>displayGroups</dt><dd><p>Fields available when adding a filter.</p></dd>
-  <dt>equivalentFields</dt><dd><p>Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.</p></dd>
-  <dt>equivalentFieldIndices</dt><dd><p>Map of each field’s API name to the index of the field in the <code>equivalentFields</code> array.</p></dd>
-  <dt>mergedGroups</dt><dd><p>Merged fields.</p></dd>
+<dt>displayGroups</dt><dd><p>Fields available when adding a filter.</p></dd>
+<dt>equivalentFields</dt><dd><p>Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.</p></dd>
+<dt>equivalentFieldIndices</dt><dd><p>Map of each field’s API name to the index of the field in the <code>equivalentFields</code> array.</p></dd>
+<dt>mergedGroups</dt><dd><p>Merged fields.</p></dd>
 
 </dl>
 

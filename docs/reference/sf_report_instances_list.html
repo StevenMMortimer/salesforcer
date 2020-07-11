@@ -53,8 +53,9 @@
 
 
 <meta property="og:title" content="List report instances — sf_report_instances_list" />
-<meta property="og:description" content="Returns a list of instances for a report that you requested to be run asynchronously. 
-Each item in the list is treated as a separate instance of the report run with 
+<meta property="og:description" content="
+Returns a list of instances for a report that you requested to be run asynchronously.
+Each item in the list is treated as a separate instance of the report run with
 metadata in that snapshot of time." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -115,6 +116,9 @@ metadata in that snapshot of time." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -181,8 +185,9 @@ metadata in that snapshot of time." />
     </div>
 
     <div class="ref-description">
-    <p>Returns a list of instances for a report that you requested to be run asynchronously. 
-Each item in the list is treated as a separate instance of the report run with 
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Returns a list of instances for a report that you requested to be run asynchronously.
+Each item in the list is treated as a separate instance of the report run with
 metadata in that snapshot of time.</p>
     </div>
 
@@ -193,26 +198,26 @@ metadata in that snapshot of time.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created 
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>as_tbl</th>
-      <td><p><code>logical</code>; an indicator of whether to convert the parsed 
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
 JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of 
+    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of
 argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

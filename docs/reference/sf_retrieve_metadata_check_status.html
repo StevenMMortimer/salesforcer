@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Check on Retrieve Calls and Get Contents If Available — sf_retrieve_metadata_check_status" />
-<meta property="og:description" content="This function returns details about an initiated retrieveMetadata requset
+<meta property="og:description" content="
+This function returns details about an initiated retrieveMetadata requset
 and saves the results into a zip file" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -114,6 +115,9 @@ and saves the results into a zip file" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
@@ -180,7 +184,8 @@ and saves the results into a zip file" />
     </div>
 
     <div class="ref-description">
-    <p>This function returns details about an initiated retrieveMetadata requset
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>This function returns details about an initiated retrieveMetadata requset
 and saves the results into a zip file</p>
     </div>
 
@@ -200,20 +205,20 @@ and saves the results into a zip file</p>
     </tr>
     <tr>
       <th>include_zip</th>
-      <td><p>logical; Set to false to check the status of the retrieval without 
+      <td><p>logical; Set to false to check the status of the retrieval without
 attempting to retrieve the zip file. If omitted, this argument defaults to true.</p></td>
     </tr>
     <tr>
       <th>filename</th>
-      <td><p>a file path to save the zip file in the event that it is downloaded. The 
-name must have a .zip extension. The default behavior will be to save in the current 
+      <td><p>a file path to save the zip file in the event that it is downloaded. The
+name must have a .zip extension. The default behavior will be to save in the current
 working directory as package.zip</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to <code>TRUE</code> the URL, header, and body will be printed for each request, 
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.</p></td>
     </tr>
     </table>

@@ -7,7 +7,7 @@
 sf_analytics_notification_update(notification_id, body)
 }
 \arguments{
-\item{notification_id}{\code{character}; the Salesforce Id assigned to a created 
+\item{notification_id}{\code{character}; the Salesforce Id assigned to a created
 analytics notification. It will start with \code{"0Au"}.}
 
 \item{body}{\code{list}; a list of data to be formatted as JSON before being
@@ -20,5 +20,5 @@ user-friendly format.}
 \code{list}
 }
 \description{
-Update an analytics notification
+\lifecycle{experimental}
 }

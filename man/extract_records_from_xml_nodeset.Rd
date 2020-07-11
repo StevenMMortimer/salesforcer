@@ -23,7 +23,7 @@ extract_records_from_xml_nodeset(
 \code{tbl_df} parsed from the supplied \code{xml_nodeset}
 }
 \description{
-This function accepts an \code{xml_nodeset} and searches for all './/records' 
+This function accepts an \code{xml_nodeset} and searches for all './/records'
 in the document to format into a single tidy \code{tbl_df}.
 }
 \note{

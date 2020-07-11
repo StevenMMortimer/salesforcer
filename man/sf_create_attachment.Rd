@@ -14,47 +14,49 @@ sf_create_attachment(
 )
 }
 \arguments{
-\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or 
-\code{tbl_df}; data can be coerced into a \code{data.frame}. The input must 
-contain a column entitled 'Body' with an absolute or relative file path 
-(unless creating a Document using a Url) along with other required fields depending 
-on the object. See the details below for the other required fields when creating 
+\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
+\code{tbl_df}; data can be coerced into a \code{data.frame}. The input must
+contain a column entitled 'Body' with an absolute or relative file path
+(unless creating a Document using a Url) along with other required fields depending
+on the object. See the details below for the other required fields when creating
 Attachments and Documents.}
 
-\item{object_name}{\code{character}; the name of the Salesforce object that the 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"}, 
-\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when 
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{control}{\code{list}; a list of parameters for controlling the behavior of 
-the API call being used. For more information of what parameters are available 
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
 
-\item{...}{arguments passed to \code{\link{sf_control}} or further downstream 
+\item{...}{arguments passed to \code{\link{sf_control}} or further downstream
 to \code{\link{sf_bulk_operation}}}
 
-\item{verbose}{\code{logical}; an indicator of whether to print additional 
-detail for each API call, which is useful for debugging. More specifically, when 
-set to \code{TRUE} the URL, header, and body will be printed for each request, 
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
 \code{tbl_df} with details of the created records
 }
 \description{
-This function will allow you to create attachments (and other blob data, such as 
-Documents) by supplying file paths (absolute or relative) to media that you 
-would like to upload to Salesforce along with accompanying metadata, such as 
+\lifecycle{experimental}
+
+This function will allow you to create attachments (and other blob data, such as
+Documents) by supplying file paths (absolute or relative) to media that you
+would like to upload to Salesforce along with accompanying metadata, such as
 a Description, Keywords, ParentId, FolderId, etc.
 }
 \note{
-The length of any file name can’t exceed 512 bytes (per Bulk 1.0 API). 
-The SOAP API create call restricts these files to a maximum size of 25 MB. For a file 
-attached to a Solution, the limit is 1.5 MB. The maximum email attachment size is 3 MB. 
-You can only create or update documents to a maximum size of 5 MB. The REST API 
-allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB 
+The length of any file name can’t exceed 512 bytes (per Bulk 1.0 API).
+The SOAP API create call restricts these files to a maximum size of 25 MB. For a file
+attached to a Solution, the limit is 1.5 MB. The maximum email attachment size is 3 MB.
+You can only create or update documents to a maximum size of 5 MB. The REST API
+allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB
 of base64–encoded data.
 }
 \examples{
