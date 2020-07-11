@@ -420,7 +420,8 @@ extract_nested_child_records <- function(x){
     drop_empty_recursively() %>%
     map_depth(2, flatten_tbl_df) %>% 
     pluck(1) %>% 
-    bind_rows()
+    bind_rows() %>% 
+    as_tibble()
   
   return(child_records)
 }
