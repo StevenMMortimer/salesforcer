@@ -3,7 +3,7 @@ context("Bulk 1.0")
 salesforcer_token <- readRDS("salesforcer_token.rds")
 sf_auth(token = salesforcer_token)
 
-common_report_id <- "00O3s000006tC3CEAU"
+common_report_id <- "00O3s000006tDLCEA2"
 common_report_instance <- sf_report_execute(common_report_id, async=TRUE)
 
 test_that("testing sf_reports_list()", {
@@ -15,8 +15,8 @@ test_that("testing sf_reports_list()", {
   reports_list <- sf_reports_list(as_tbl=FALSE)
   expect_is(reports_list, "list")
   
-  # complete=TRUE
-  reports_tbl <- sf_reports_list(complete=TRUE)
+  # recent=FALSE
+  reports_tbl <- sf_reports_list(recent=FALSE)
   expect_is(reports_tbl, "tbl_df")
   expect_true(common_report_id %in% reports_tbl$id) 
 })
@@ -48,7 +48,7 @@ test_that("testing sf_report_create()", {
 
 test_that("testing sf_report_copy()", {
   report_described <- sf_report_describe(common_report_id)
-  report_copy_described <- sf_report_describe(common_report_id)
+  report_copy_described <- sf_report_copy(common_report_id)
   expect_is(report_copy_described, "list")
   expect_named(report_copy_described, c("attributes", 
                                         "reportExtendedMetadata", 
@@ -66,14 +66,16 @@ test_that("testing sf_report_copy()", {
                     "showSubtotals",
                     "sortBy") %in% names(report_copy_described$reportMetadata)))  
   
-  # identical after removing the id
-  report_described$reportMetadata$id <- NULL
-  copy_id <- report_copy_described$reportMetadata$id
-  report_copy_described$reportMetadata$id <- NULL
-  expect_true(identical(report_described, report_copy_described))
+  # key elements are identical
+  
+  expect_equal(report_described$reportFormat, report_copy_described$reportFormat)
+  expect_equal(report_described$reportType$type, report_copy_described$reportType$type)
+  expect_equal(report_described$hasDetailRows, report_copy_described$hasDetailRows)
+  expect_equal(report_described$detailColumns, report_copy_described$detailColumns)
   
   # clean up the copy
-  expect_true(sf_report_delete(copy_id))
+  report_copy_id <- report_copy_described$reportMetadata$id
+  expect_true(sf_report_delete(report_copy_id))
 })
 
 test_that("testing sf_report_update()", {

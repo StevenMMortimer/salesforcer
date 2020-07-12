@@ -121,7 +121,7 @@ sf_delete_soap <- function(ids,
     message("Submitting data in ", max(batch_id)+1, " Batches")
   }
   message_flag <- unique(as.integer(quantile(0:max(batch_id), c(0.25,0.5,0.75,1))))
-  resultset <- NULL
+  resultset <- tibble()
   for(batch in seq(0, max(batch_id))){
     if(verbose){
       batch_msg_flg <- batch %in% message_flag

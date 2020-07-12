@@ -248,22 +248,18 @@ test_that(paste0("testing parent-to-child nested relationship query with both ",
   expect_is(soap_queried_records, "tbl_df")
   expect_gt(nrow(soap_queried_records), 0)
   expect_named(soap_queried_records, 
-               c("Name", 
-                 "Contact.LastName", 
+               c("Id",
                  "Contact.Owner.Id", 
-                 "Contact.test_number__c"))
-  expect_is(soap_queried_records$Contact.test_number__c, "numeric")
+                 "Owner.Id"))
   
   # REST API -------------------------------------------------------------------  
   rest_queried_records <- sf_query(nested_soql, object_name="Account", api_type="REST")
   expect_is(rest_queried_records, "tbl_df")
   expect_gt(nrow(rest_queried_records), 0)
   expect_named(rest_queried_records, 
-               c("Name", 
-                 "Contact.LastName", 
+               c("Id",
                  "Contact.Owner.Id", 
-                 "Contact.test_number__c"))
-  expect_is(rest_queried_records$Contact.test_number__c, "numeric")  
+                 "Owner.Id"))
 })
 
 test_that(paste0("testing parent-to-child nested relationship query with child ", 

@@ -51,7 +51,9 @@ Suggests:
     microbenchmark,
     ggplot2,
     RForcecom
-RdMacros: 
+VignetteBuilder:
+    knitr
+RdMacros:
     lifecycle
 ByteCompile: true
 Encoding: UTF-8

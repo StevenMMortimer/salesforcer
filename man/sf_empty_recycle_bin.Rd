@@ -51,9 +51,14 @@ hard_deleted <- sf_empty_recycle_bin(new_records$id[1])
 # confirm that the record really is gone (can't be deleted)
 undelete <- sf_undelete(new_records$id[1])
 # if you use queryall you still will find the record for ~24hrs
-#is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='\%s'",
-#                               new_records$id[1]),
-#                       queryall = TRUE)
+is_deleted <- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='\%s'", 
+                               new_records$id[1]), queryall = TRUE)
+                               
+# As of v48.0 (Spring 2020) you can query the Ids of all records in the Recycle 
+# Bin, which makes it easier to clear the entire bin because you can grab the 
+# Ids of the records first
+records_in_bin <- sf_query("SELECT Record FROM DeleteEvent")
+records_emptied_from_bin <- sf_delete(records_in_bin$Record)
 }
 }
 \references{
