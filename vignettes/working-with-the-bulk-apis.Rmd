@@ -1,7 +1,7 @@
 ---
 title: "Working with the Bulk APIs"
 author: "Steven M. Mortimer"
-date: "2020-06-07"
+date: "2020-07-12"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
   purl = NOT_CRAN,
   eval = NOT_CRAN
 )
+options(tibble.print_min = 5L, tibble.print_max = 5L)
 ```
 
 ## Using the Bulk API
@@ -30,14 +31,18 @@ First, load the **salesforcer** and **dplyr** packages and login, if needed.
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
-library(microbenchmark)
-token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
-suppressMessages(sf_auth(token = token_path, verbose = FALSE))
+
+username <- Sys.getenv("SALESFORCER_USERNAME")
+password <- Sys.getenv("SALESFORCER_PASSWORD")
+security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
+
+sf_auth(username = username,
+        password = password,
+        security_token = security_token)
 ```
 
 ```{r load-package, eval=FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
-library(microbenchmark)
 library(salesforcer)
 sf_auth()
 ```
@@ -125,102 +130,64 @@ operations or structures of SOQL:
  
 ## Using the Bulk 2.0 API
  
-The **salesforcer** package also implements the Bulk 2.0 API which has better 
-speed than the Bulk 1.0 API but sacrifices consistency in the ordering of the 
-result records since they are batched and processed asynchronously. In the example 
-below we first create 10 records in five batches of two records using both the 
-Bulk 1.0 API and then the Bulk 2.0 API. After looking at the results you can see 
-how the returned results are ordered when we process them using the Bulk 1.0 API 
-because after the data is split into batches each batch is processed synchronously 
-which preserves the order of the rows in the returned output. This is not necessarily 
-true of the Bulk 2.0 API which is the point (it's asynchronicity).
+Salesforce has more recently introduced the Bulk 2.0 API which is supposed to be 
+faster and have a more consistent JSON/REST based API than the Bulk 1.0 API. In 
+some cases I have noticed that the ordering of the result records will differ 
+from the order of the input data because the data is batched and processed asynchronously. 
+by Salesforce instead of R. However, The Bulk 2.0 API returns every single field
+that was included in the call so if you have an identifying key your dataset,
+then it should not be a problem to join on that key with your original data to
+bring in the newly assigned Salesforce Id that is generated when the record was 
+created in Salesforce. However, I have find it just seems wasteful to transfer 
+all of the field information back after the query and have not found a significant
+performance improvement between the Bulk 1.0 and Bulk 2.0. Finally, note that 
+the status field names ("Success", "Created", "Error") are different from the 
+Bulk 2.0 API.
 
-**Bulk 1.0**
-
-```{r, include=FALSE}
+```{r}
 n <- 10
 prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n),
                        test_number__c = 1:10,
                        My_External_Id__c=paste0(prefix, letters[1:n]))
-```
-```{r, eval=FALSE}
-n <- 10
-new_contacts <- tibble(FirstName = rep("Test", n),
-                       LastName = paste0("Contact-Create-", 1:n), 
-                       test_number__c = 1:10)
-```
-```{r, include=FALSE}
-new_contacts <- new_contacts %>% 
-  select(-My_External_Id__c)
 ```
 ```{r}
 created_records_v1 <- sf_create(new_contacts, 
                                 object_name = "Contact", 
-                                api_type = "Bulk 1.0", 
-                                batch_size = 1) # split into 10 batches of 1
+                                api_type = "Bulk 1.0")
 created_records_v1
 
-# same ordering of rows!
-cbind(created_records_v1, new_contacts)
-```
-
-The Bulk 2.0 API returns every single field that was included in the call so if you 
-have an identifying key your dataset, then it should not be a problem to join on that 
-key with your original data to bring in the newly assigned Salesforce Id that is 
-generated when the record is created in Salesforce. However, I have find it wasteful 
-to transfer all of the field information back after the query and have not found 
-a significant performance improvement between the Bulk 1.0 and Bulk 2.0. 
-
-**Bulk 2.0**
-
-```{r, include=FALSE}
-n <- 10
-prefix <- paste0("Bulk-", as.integer(runif(1,1,100000)), "-")
-new_contacts <- tibble(FirstName = rep("Test", n),
-                       LastName = paste0("Contact-Create-", 1:n),
-                       test_number__c = 1:10,
-                       My_External_Id__c=paste0(prefix, letters[1:n]))
-created_records_v2 <- sf_create(new_contacts, "Contact", api_type="Bulk 2.0")
-created_records_v2 <- created_records_v2 %>% 
-  select(-My_External_Id__c)
-```
-```{r, eval=FALSE}
 created_records_v2 <- sf_create(new_contacts, 
                                 object_name = "Contact", 
-                                api_type = "Bulk 2.0", 
-                                batch_size = 1)
-```
-
-The result in Bulk 2.0 API returns all fields so that you can still associate the 
-records if the ordering was changed during processing. However, in this simple 
-case the ordering is still preserved because the number of records processed in 
-this example was not enough to create separate batches to process asynchronously. 
-Finally, note that the field names are different from the Bulk 1.0 API, this is 
-the Salesforcer convention for the Bulk 2.0 API.
-
-```{r}
+                                api_type = "Bulk 2.0")
 created_records_v2
 ```
 
-For these above I typically prefer using the Bulk 1.0 API when creating or updating 
-records. That way I can be confident in that the order of the records returned 
-from the process matches the order of the original dataset I put into the process. 
-All of this does not matter when deleting records, so if you want minor performance 
-improvements then switch to the Bulk 2.0 when deleting or querying records.
+## Performance Benchmarks for Bulk Queries
 
-Here is an example performance benchmark between the Bulk 1.0 and Bulk 2.0 
-APIs for a small query. You'll notice that the Bulk 2.0 API is slightly faster. 
-In general, the Bulk 2.0 should be faster and the difference in performance 
-should grow as size of the queried records grows.
+Below is a simple performance benchmark between the Bulk 1.0 and Bulk 2.0 
+APIs for a small query. In general, the Bulk 2.0 should be faster. One potential 
+reason for the implementation in R to be faster is that the entire recordset is 
+parsed at once from a downloaded CSV of the results when using the Bulk 1.0 API. 
+The Bulk 2.0 retrieves the same data in large batches (typically 50,000 records 
+at a time). I would encourage users to experiment to see what works best in their 
+Salesforce Org.
 
 ```{r}
 soql <- "SELECT Id, Name FROM Contact"
 bulk1_query <- function(){sf_query(soql, "Contact", api_type="Bulk 1.0")}
-bulk2_query <- function(){sf_query(soql, api_type="Bulk 2.0")} # the Bulk 2.0 does not need the object name
+bulk2_query <- function(){sf_query(soql, api_type="Bulk 2.0")} # Bulk 2.0 doesn't need object name
 
-microbenchmark(bulk1_query, bulk2_query, times=10)
+res <- microbenchmark::microbenchmark(
+  bulk1_query(),
+  bulk2_query(), 
+  times=8
+)
+res
+
+ggplot2::autoplot(res) + 
+  ggplot2::scale_y_continuous(name="Time [seconds]", n.breaks=6)
 ```
 
 ```{r, include=FALSE}

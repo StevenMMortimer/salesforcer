@@ -189,19 +189,14 @@
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">"Account"</span>)
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
 <span class="co">#&gt; # A tibble: 69 x 5</span>
-<span class="co">#&gt;    name              label                   length soapType    type     </span>
-<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 Id                Account ID              18     tns:ID      id       </span>
-<span class="co">#&gt;  2 IsDeleted         Deleted                 0      xsd:boolean boolean  </span>
-<span class="co">#&gt;  3 MasterRecordId    Master Record ID        18     tns:ID      reference</span>
-<span class="co">#&gt;  4 Name              Account Name            255    xsd:string  string   </span>
-<span class="co">#&gt;  5 Type              Account Type            40     xsd:string  picklist </span>
-<span class="co">#&gt;  6 ParentId          Parent Account ID       18     tns:ID      reference</span>
-<span class="co">#&gt;  7 BillingStreet     Billing Street          255    xsd:string  textarea </span>
-<span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span>
-<span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span>
-<span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span>
-<span class="co">#&gt; # … with 59 more rows</span>
+<span class="co">#&gt;   name           label            length soapType    type     </span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
+<span class="co">#&gt; 1 Id             Account ID       18     tns:ID      id       </span>
+<span class="co">#&gt; 2 IsDeleted      Deleted          0      xsd:boolean boolean  </span>
+<span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
+<span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
+<span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
+<span class="co">#&gt; # … with 64 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span>
@@ -216,8 +211,7 @@
 <span class="co">#&gt; 3 TRUE   FALSE        Customer - Channel         Customer - Channel        </span>
 <span class="co">#&gt; 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller</span>
 <span class="co">#&gt; 5 TRUE   FALSE        Installation Partner       Installation Partner      </span>
-<span class="co">#&gt; 6 TRUE   FALSE        Technology Partner         Technology Partner        </span>
-<span class="co">#&gt; 7 TRUE   FALSE        Other                      Other</span></pre></body></html></div>
+<span class="co">#&gt; # … with 2 more rows</span></pre></body></html></div>
 <p>If you prefer to be more precise about collecting and formatting the field data you can work directly with the nested lists that the APIs return. In this example we look at the picklist values of fields on the Account object.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">describe_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_objects.html">sf_describe_objects</a></span>(<span class="kw">object_names</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
 
@@ -245,8 +239,7 @@
 <span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span>
 <span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span>
 <span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span>
-<span class="co">#&gt; 6 true   false        Technology Partner         Technology Partner        </span>
-<span class="co">#&gt; 7 true   false        Other                      Other</span></pre></body></html></div>
+<span class="co">#&gt; # … with 2 more rows</span></pre></body></html></div>
 <p>It is recommended that you try out the various metadata functions <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="../reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="../reference/sf_describe_metadata.html">sf_describe_metadata()</a></code>, and <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
 </div>
 <div id="modifying-metadata" class="section level2">

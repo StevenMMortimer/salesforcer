@@ -176,13 +176,13 @@
 <span class="no">result1</span> <span class="kw">&lt;-</span> <span class="kw pkg">RForcecom</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html">rforcecom.create</a></span>(<span class="no">session</span>, <span class="kw">objectName</span><span class="kw">=</span><span class="no">object</span>, <span class="no">fields</span>)
 <span class="no">result1</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012NzTkAAK    true</span>
+<span class="co">#&gt; 1 0033s000012Nzs6AAC    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="no">result2</span> <span class="kw">&lt;-</span> <span class="kw pkg">salesforcer</span><span class="kw ns">::</span><span class="fu"><a href="../reference/rforcecom.create.html">rforcecom.create</a></span>(<span class="no">session</span>, <span class="kw">objectName</span><span class="kw">=</span><span class="no">object</span>, <span class="no">fields</span>)
 <span class="no">result2</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012NzCaAAK    TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NzsBAAS    TRUE</span></pre></body></html></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
@@ -198,8 +198,8 @@
 }
 <span class="no">rforcecom_results</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012Nz9RAAS    true</span>
-<span class="co">#&gt; 2 0033s000012NzTpAAK    true</span>
+<span class="co">#&gt; 1 0033s000012NzsGAAS    true</span>
+<span class="co">#&gt; 2 0033s000012NzsLAAS    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 <span class="no">salesforcer_results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
@@ -207,8 +207,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzTuAAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NzTvAAK TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NzsQAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NzsRAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="query" class="section level2">
 <h2 class="hasAnchor">
@@ -264,19 +264,14 @@
 <span class="no">result3</span> <span class="kw">&lt;-</span> <span class="kw pkg">salesforcer</span><span class="kw ns">::</span><span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="no">result3</span>
 <span class="co">#&gt; # A tibble: 69 x 39</span>
-<span class="co">#&gt;    aggregatable aiPredictionFie… autoNumber byteLength calculated caseSensitive</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        </span>
-<span class="co">#&gt;  1 true         false            false      18         false      false        </span>
-<span class="co">#&gt;  2 false        false            false      0          false      false        </span>
-<span class="co">#&gt;  3 true         false            false      18         false      false        </span>
-<span class="co">#&gt;  4 true         false            false      765        false      false        </span>
-<span class="co">#&gt;  5 true         false            false      120        false      false        </span>
-<span class="co">#&gt;  6 true         false            false      18         false      false        </span>
-<span class="co">#&gt;  7 true         false            false      765        false      false        </span>
-<span class="co">#&gt;  8 true         false            false      120        false      false        </span>
-<span class="co">#&gt;  9 true         false            false      240        false      false        </span>
-<span class="co">#&gt; 10 true         false            false      60         false      false        </span>
-<span class="co">#&gt; # … with 59 more rows, and 33 more variables: compoundFieldName &lt;chr&gt;,</span>
+<span class="co">#&gt;   aggregatable aiPredictionFie… autoNumber byteLength calculated caseSensitive</span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 true         false            false      18         false      false        </span>
+<span class="co">#&gt; 2 false        false            false      0          false      false        </span>
+<span class="co">#&gt; 3 true         false            false      18         false      false        </span>
+<span class="co">#&gt; 4 true         false            false      765        false      false        </span>
+<span class="co">#&gt; 5 true         false            false      120        false      false        </span>
+<span class="co">#&gt; # … with 64 more rows, and 33 more variables: compoundFieldName &lt;chr&gt;,</span>
 <span class="co">#&gt; #   createable &lt;chr&gt;, custom &lt;chr&gt;, defaultedOnCreate &lt;chr&gt;,</span>
 <span class="co">#&gt; #   defaultValue &lt;list&gt;, deprecatedAndHidden &lt;chr&gt;, digits &lt;chr&gt;,</span>
 <span class="co">#&gt; #   externalId &lt;chr&gt;, extraTypeInfo &lt;chr&gt;, filterable &lt;chr&gt;, groupable &lt;chr&gt;,</span>

@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
   purl = NOT_CRAN,
   eval = NOT_CRAN
 )
+options(tibble.print_min = 5L, tibble.print_max = 5L)
 ```
 
 While writing the **salesforcer** package we were keenly aware that many folks 
@@ -41,11 +42,14 @@ each of the packages side-by-side and producing the same result.
 suppressWarnings(suppressMessages(library(dplyr)))
 suppressWarnings(suppressMessages(library(here)))
 library(salesforcer)
-options_path <- here::here("tests", "testthat", "salesforcer_test_settings.rds")
-salesforcer_test_settings <- readRDS(options_path)
-username <- salesforcer_test_settings$username
-password <- salesforcer_test_settings$password
-security_token <- salesforcer_test_settings$security_token
+
+username <- Sys.getenv("SALESFORCER_USERNAME")
+password <- Sys.getenv("SALESFORCER_PASSWORD")
+security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
+
+sf_auth(username = username,
+        password = password,
+        security_token = security_token)
 ```
 
 ```{r, warning=FALSE}
