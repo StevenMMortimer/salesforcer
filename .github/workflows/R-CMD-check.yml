@@ -11,7 +11,6 @@ on:
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-    if: ${{ false }}
     
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
@@ -20,9 +19,9 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest,   r: 'devel'}
-          - {os: macOS-latest,   r: '4.0'}
-          - {os: windows-latest, r: '4.0'}
-          - {os: ubuntu-16.04,   r: '4.0', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: macOS-latest,   r: 'release'}
+          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   r: '3.6', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
     env:

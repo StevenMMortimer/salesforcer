@@ -25,7 +25,7 @@ analytics report. It will start with \code{"00O"}.}
 \item{report_filters}{\code{list}; A \code{list} of reportFilter specifications.
 Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and
 3) \code{value}. You can find out how certain field types can be filtered by
-reviewing the results of \code{\link{sf_report_filter_operators_list}}.}
+reviewing the results of \code{\link{sf_list_report_filter_operators}}.}
 
 \item{report_boolean_logic}{\code{character}; a string of boolean logic to parse
 custom field filters if more than one is specified. For example, if three filters
@@ -50,7 +50,7 @@ sort the records using \code{\link[dplyr]{arrange}} after the results are return
 executes the report asynchronously. If executed asynchronously, this function
 will return a list of attributes of the created report instance. The results
 can be pulled down by providing the report id and instance id to
-the function \code{\link{sf_report_instance_results}}. Refer to the details
+the function \code{\link{sf_get_report_instance_results}}. Refer to the details
 of the documentation on why executing a report asynchronously is preferred.}
 
 \item{interval_seconds}{\code{integer}; defines the seconds between attempts to check
@@ -81,8 +81,8 @@ summarized in a tabular format, before pulling them down and returning as a
 \code{tbl_df}.
 }
 \details{
-This function is essentially a wrapper around \code{\link{sf_report_execute}}.
-Please review or use that function and/or \code{\link{sf_report_query}} if you
+This function is essentially a wrapper around \code{\link{sf_execute_report}}.
+Please review or use that function and/or \code{\link{sf_query_report}} if you
 want to have more control over how the report is run and what format should
 be returned. In this case we've forced the \code{reportFormat="TABULAR"}
 without total rows and given options to filter, and select the Top N as

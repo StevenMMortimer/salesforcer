@@ -119,7 +119,7 @@ parse_report_detail_rows <- function(content,
 #' @keywords internal
 #' @export
 simplify_report_metadata <- function(report_id, verbose=FALSE){
-  report_details <- sf_report_describe(report_id, verbose=verbose)
+  report_details <- sf_describe_report(report_id, verbose=verbose)
   report_metadata <- list(reportMetadata = report_details$reportMetadata)
   report_metadata$reportMetadata$aggregates <- I(character(0))
   report_metadata$reportMetadata$hasDetailRows <- TRUE

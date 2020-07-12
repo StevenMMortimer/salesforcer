@@ -212,7 +212,7 @@ sf_input_data_validation <- function(input_data, operation=''){
     }    
     if(any(!(names(input_data) %in% report_properties))){
       if("attributes" %in% names(input_data)){
-        # drop the attributes element which is returned as part of sf_report_describe
+        # drop the attributes element which is returned as part of sf_describe_report
         # so that users do not need to remove themselves if passing metadata from 
         # one function to the next
         input_data$attributes <- NULL
@@ -222,7 +222,7 @@ sf_input_data_validation <- function(input_data, operation=''){
                      paste0(report_properties, collapse=", ")), call. = FALSE)
       }
     }
-    # drop NULLs if they exist, which can occur if using straight from sf_report_describe
+    # drop NULLs if they exist, which can occur if using straight from sf_describe_report
     input_data <- drop_empty_recursively(input_data)    
   }
   
@@ -237,7 +237,7 @@ sf_input_data_validation <- function(input_data, operation=''){
       }
     }
     if("attributes" %in% names(input_data$reportMetadata)){
-      # drop the attributes element which is returned as part of sf_report_describe
+      # drop the attributes element which is returned as part of sf_describe_report
       # so that users do not need to remove themselves if passing metadata from 
       # one function to the next
       input_data$reportMetadata$attributes <- NULL
@@ -291,7 +291,7 @@ sf_input_data_validation <- function(input_data, operation=''){
         }
       }
     }
-    # drop NULLs if they exist, which can occur if using straight from sf_report_describe
+    # drop NULLs if they exist, which can occur if using straight from sf_describe_report
     input_data <- drop_empty_recursively(input_data)  
     
     # validate the report filters which are commonly passed

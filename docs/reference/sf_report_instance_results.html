@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get report instance results — sf_report_instance_results • salesforcer</title>
+<title>Get report instance results — sf_get_report_instance_results • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Get report instance results — sf_report_instance_results" />
+<meta property="og:title" content="Get report instance results — sf_get_report_instance_results" />
 <meta property="og:description" content="
 Retrieves results for an instance of a report run asynchronously with or without
 filters. Depending on your asynchronous report run request, data can be at the
@@ -191,7 +191,7 @@ filters. Depending on your asynchronous report run request, data can be at the
 summary level or include details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_instance_results</span>(
+    <pre class="usage"><span class='fu'>sf_get_report_instance_results</span>(
   <span class='no'>report_id</span>,
   <span class='no'>report_instance_id</span>,
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -276,15 +276,15 @@ in the second-level grouping.</p></dd>
 <span class='co'># execute a report asynchronously in your Org</span>
 <span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
 <span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_execute.html'>sf_report_execute</a></span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_execute.html'>sf_execute_report</a></span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 
 <span class='co'># check if that report has succeeded, ... </span>
-<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instances_list.html'>sf_report_instances_list</a></span>(<span class='no'>this_report_id</span>)
+<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instances_list.html'>sf_list_report_instances</a></span>(<span class='no'>this_report_id</span>)
 <span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
 
 <span class='co'># ... if so, then grab the results</span>
 <span class='kw'>if</span>(<span class='no'>instance_status</span> <span class='kw'>==</span> <span class='st'>"Success"</span>){
-  <span class='no'>report_data</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_instance_results</span>(<span class='kw'>report_id</span> <span class='kw'>=</span> <span class='no'>this_report_id</span>,
+  <span class='no'>report_data</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_report_instance_results</span>(<span class='kw'>report_id</span> <span class='kw'>=</span> <span class='no'>this_report_id</span>,
                                             <span class='kw'>report_instance_id</span> <span class='kw'>=</span> <span class='no'>results</span>$<span class='no'>id</span>)
 }
 }</div></pre>

@@ -14,5 +14,5 @@
 #'   \item{reportFilters}{A \code{list} of reportFilter specifications. Each must 
 #'   be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 3) \code{value}. 
 #'   You can find out how certain field types can be filtered by reviewing the results 
-#'   of \code{\link{sf_report_filter_operators_list}}.}
+#'   of \code{\link{sf_list_report_filter_operators}}.}
 #' }

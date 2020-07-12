@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Report Data without Saving Changes to or Creating a Report — sf_report_query • salesforcer</title>
+<title>Get Report Data without Saving Changes to or Creating a Report — sf_query_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Get Report Data without Saving Changes to or Creating a Report — sf_report_query" />
+<meta property="og:title" content="Get Report Data without Saving Changes to or Creating a Report — sf_query_report" />
 <meta property="og:description" content="
 Run a report without creating a new report or changing the existing one by making
 a POST request to the query resource. This allows you to get report data
@@ -191,7 +191,7 @@ a POST request to the query resource. This allows you to get report data
 without filling up your Org with unnecessary reports.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_query</span>(<span class='no'>report_id</span>, <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_query_report</span>(<span class='no'>report_id</span>, <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,7 +218,7 @@ filters specified in <code>reportFilters</code> should be combined. For example,
 <dt>reportFilters</dt><dd><p>A <code>list</code> of reportFilter specifications. Each must
 be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 3) <code>value</code>.
 You can find out how certain field types can be filtered by reviewing the results
-of <code><a href='sf_report_filter_operators_list.html'>sf_report_filter_operators_list</a></code>.</p></dd>
+of <code><a href='sf_report_filter_operators_list.html'>sf_list_report_filter_operators</a></code>.</p></dd>
 
 </dl></td>
     </tr>

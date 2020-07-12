@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List reports — sf_reports_list • salesforcer</title>
+<title>List reports — sf_list_reports • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="List reports — sf_reports_list" />
+<meta property="og:title" content="List reports — sf_list_reports" />
 <meta property="og:description" content="
 Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other
@@ -191,7 +191,7 @@ recently viewed. To get a full list of reports by format, name, and other
 fields, use a SOQL query on the Report object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_reports_list</span>(<span class='kw'>recent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_reports</span>(<span class='kw'>recent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,13 +234,13 @@ a COMPLETE list you must use <code><a href='sf_query.html'>sf_query</a></code> o
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># return up to 200 recently viewed reports</span>
-<span class='no'>reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_reports_list</span>()
+<span class='no'>reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_reports</span>()
 
 <span class='co'># return the results as a list</span>
-<span class='no'>reports_as_list</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_reports_list</span>(<span class='kw'>as_tbl</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>reports_as_list</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_reports</span>(<span class='kw'>as_tbl</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 
 <span class='co'># to return all possible reports, which is queried from the Report object</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_reports_list</span>(<span class='kw'>recent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_reports</span>(<span class='kw'>recent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -136,18 +136,23 @@
 
 
 <p><br><img src="reference/figures/salesforcer.png" width="120px" align="right"></p>
-<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements most actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
+<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
 <p>Package features include:</p>
 <ul>
 <li>OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
 <li>CRUD (Create, Retrieve, Update, Delete) methods for records using the SOAP, REST, and Bulk APIs</li>
 <li>Query records via the SOAP, REST, Bulk 1.0, and Bulk 2.0 APIs using <code><a href="reference/sf_query.html">sf_query()</a></code>
 </li>
+<li>Manage and execute reports and dashboards with:
+<ul>
+<li>
+<code><a href="reference/sf_reports_list.html">sf_list_reports()</a></code>, <code><a href="reference/sf_report_create.html">sf_create_report()</a></code>, <code><a href="reference/sf_run_report.html">sf_run_report()</a></code>, and more</li>
+</ul>
+</li>
 <li>Retrieve and modify metadata (Custom Objects, Fields, etc.) using the Metadata API with:
 <ul>
 <li>
-<code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code>, <code><a href="reference/sf_create_metadata.html">sf_create_metadata()</a></code>, <code><a href="reference/sf_update_metadata.html">sf_update_metadata()</a></code>
-</li>
+<code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code>, <code><a href="reference/sf_create_metadata.html">sf_create_metadata()</a></code>, `sf_update_metadata()`, and more</li>
 </ul>
 </li>
 <li>Utilize backwards compatible functions for the <strong>RForcecom</strong> package, such as:
@@ -159,7 +164,7 @@
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
 <li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>), merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
-<li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) in a timeframe</li>
+<li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) within a specific timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
 <div id="table-of-contents" class="section level2">
@@ -253,8 +258,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NuNAAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NuNBAA0 TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NzCFAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NzCGAA0 TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -272,8 +277,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NuNAAA0 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NuNBAA0 Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NzCFAA0 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NzCGAA0 Test      Contact-Create-2</span></pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -289,8 +294,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NuNAAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NuNBAA0 TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NzCFAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NzCGAA0 TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -306,8 +311,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012Nu5WAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012Nu5XAAS TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012NzCKAA0 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012NzCLAA0 TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -322,8 +327,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012Nu5WAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012Nu5XAAS Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012NzCKAA0 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NzCLAA0 Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -331,8 +336,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012Nu5WAAS FALSE       0033s000012Nu5WAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012Nu5XAAS FALSE       0033s000012Nu5XAAS &lt;NA&gt;</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NzCKAA0 FALSE       0033s000012NzCKAA0 &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012NzCLAA0 FALSE       0033s000012NzCLAA0 &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
@@ -415,9 +420,8 @@
 <a href="#future" class="anchor"></a>Future</h2>
 <p>Future APIs to support (roughly in priority order):</p>
 <ul>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm">Analytics External Data API</a></li>
 <li><a href="https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm">Connect (Chatter) REST API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm">Analytics External Data API</a></li>
 <li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm">Analytics REST API</a></li>
 <li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm">Tooling API</a></li>
 <li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm">Actions API</a></li>
@@ -479,10 +483,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/StevenMMortimer/salesforcer"><img src="https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/StevenMMortimer/salesforcer"><img src="https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status Badge"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://github.com/StevenMMortimer/salesforce/actions?workflow=R-CMD-check"><img src="https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: Maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
 <li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>

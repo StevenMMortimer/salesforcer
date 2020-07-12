@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update a report — sf_report_update • salesforcer</title>
+<title>Update a report — sf_update_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Update a report — sf_report_update" />
+<meta property="og:title" content="Update a report — sf_update_report" />
 <meta property="og:description" content="
 Save changes to a report by sending a PATCH request to the Report resource.
 Note that saving a report deletes any running async report jobs because they
@@ -191,7 +191,7 @@ Note that saving a report deletes any running async report jobs because they
 might be obsolete based on the updates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_update</span>(<span class='no'>report_id</span>, <span class='no'>report_metadata</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_update_report</span>(<span class='no'>report_id</span>, <span class='no'>report_metadata</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,18 +241,18 @@ joined metadata.</p></dd>
 <span class='co'># second, get the id of the report to update</span>
 <span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
 
-<span class='no'>my_updated_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_update</span>(<span class='no'>this_report_id</span>,
+<span class='no'>my_updated_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update_report</span>(<span class='no'>this_report_id</span>,
                                       <span class='kw'>report_metadata</span> <span class='kw'>=</span>
                                         <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>reportMetadata</span> <span class='kw'>=</span>
                                           <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Updated Report Name!"</span>)))
 
 <span class='co'># alternatively, pull down its metadata and update the name</span>
-<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_describe.html'>sf_report_describe</a></span>(<span class='no'>this_report_id</span>)
+<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_describe.html'>sf_describe_report</a></span>(<span class='no'>this_report_id</span>)
 <span class='no'>report_details</span>$<span class='no'>reportMetadata</span>$<span class='no'>name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>report_details</span>$<span class='no'>reportMetadata</span>$<span class='no'>name</span>,
                                              <span class='st'>" - UPDATED"</span>)
 
 <span class='co'># fourth, create the report by passing the metadata</span>
-<span class='no'>my_updated_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_update</span>(<span class='no'>this_report_id</span>,
+<span class='no'>my_updated_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update_report</span>(<span class='no'>this_report_id</span>,
                                       <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='no'>report_details</span>)
 }</div></pre>
   </div>

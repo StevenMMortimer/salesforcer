@@ -8,7 +8,6 @@ on:
 jobs:
   pkgdown:
     runs-on: macOS-latest
-    if: ${{ false }}
     
     steps:
       - uses: actions/checkout@v2

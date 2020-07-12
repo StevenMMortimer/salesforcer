@@ -1,14 +1,12 @@
 
 <!-- badges: start -->
 
-[![Build
-Status](https://travis-ci.org/StevenMMortimer/salesforcer.svg?branch=master)](https://travis-ci.org/StevenMMortimer/salesforcer)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/StevenMMortimer/salesforcer?branch=master&svg=true)](https://ci.appveyor.com/project/StevenMMortimer/salesforcer)
-[![CRAN Status
-Badge](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
+[![R Build
+Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforce/actions?workflow=R-CMD-check)
+[![CRAN
+Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
@@ -19,7 +17,7 @@ Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/ba
 <img src="man/figures/salesforcer.png" width="120px" align="right" />
 
 **salesforcer** is an R package that connects to Salesforce Platform
-APIs using tidy principles. The package implements most actions from the
+APIs using tidy principles. The package implements actions from the
 SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.
 
 Package features include:
@@ -30,10 +28,13 @@ Package features include:
     the SOAP, REST, and Bulk APIs
   - Query records via the SOAP, REST, Bulk 1.0, and Bulk 2.0 APIs using
     `sf_query()`
+  - Manage and execute reports and dashboards with:
+      - `sf_list_reports()`, `sf_create_report()`, `sf_run_report()`,
+        and more
   - Retrieve and modify metadata (Custom Objects, Fields, etc.) using
     the Metadata API with:
       - `sf_describe_objects()`, `sf_create_metadata()`,
-        `sf_update_metadata()`
+        \`sf\_update\_metadata()\`, and more
   - Utilize backwards compatible functions for the **RForcecom**
     package, such as:
       - `rforcecom.login()`, `rforcecom.getObjectDescription()`,
@@ -46,7 +47,8 @@ Package features include:
     converting leads (`sf_convert_lead()`)
   - Recover (`sf_undelete()`) or delete from the Recycle Bin
     (`sf_empty_recycle_bin()`) and list ids of records deleted
-    (`sf_get_deleted()`) or updated (`sf_get_updated()`) in a timeframe
+    (`sf_get_deleted()`) or updated (`sf_get_updated()`) within a
+    specific timeframe
   - Passing API call control parameters such as, “All or None”,
     “Duplicate Rule”, “Assignment Rule” execution and many more\!
 
@@ -163,8 +165,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NuNAAA0 TRUE   
-#> 2 0033s000012NuNBAA0 TRUE
+#> 1 0033s000012NzCFAA0 TRUE   
+#> 2 0033s000012NzCGAA0 TRUE
 ```
 
 ### Query
@@ -189,8 +191,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NuNAAA0 Test      Contact-Create-1
-#> 2 0033s000012NuNBAA0 Test      Contact-Create-2
+#> 1 0033s000012NzCFAA0 Test      Contact-Create-1
+#> 2 0033s000012NzCGAA0 Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -223,8 +225,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NuNAAA0 TRUE   
-#> 2 0033s000012NuNBAA0 TRUE
+#> 1 0033s000012NzCFAA0 TRUE   
+#> 2 0033s000012NzCGAA0 TRUE
 ```
 
 ### Bulk Operations
@@ -261,8 +263,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012Nu5WAAS TRUE    TRUE    NA   
-#> 2 0033s000012Nu5XAAS TRUE    TRUE    NA
+#> 1 0033s000012NzCKAA0 TRUE    TRUE    NA   
+#> 2 0033s000012NzCLAA0 TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -277,8 +279,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012Nu5WAAS Test      Contact-Create-1
-#> 2 0033s000012Nu5XAAS Test      Contact-Create-2
+#> 1 0033s000012NzCKAA0 Test      Contact-Create-1
+#> 2 0033s000012NzCLAA0 Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -286,8 +288,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created Id                 sf__Error
 #>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012Nu5WAAS FALSE       0033s000012Nu5WAAS <NA>     
-#> 2 0033s000012Nu5XAAS FALSE       0033s000012Nu5XAAS <NA>
+#> 1 0033s000012NzCKAA0 FALSE       0033s000012NzCKAA0 <NA>     
+#> 2 0033s000012NzCLAA0 FALSE       0033s000012NzCLAA0 <NA>
 ```
 
 ### Using the Metadata API
@@ -392,12 +394,10 @@ acct_fields %>%
 
 Future APIs to support (roughly in priority order):
 
-  - [Reports and Dashboards REST
-    API](https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm)
-  - [Analytics External Data
-    API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm)
   - [Connect (Chatter) REST
     API](https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm)
+  - [Analytics External Data
+    API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm)
   - [Analytics REST
     API](https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm)
   - [Tooling

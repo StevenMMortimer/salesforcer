@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Describe a report — sf_report_describe • salesforcer</title>
+<title>Describe a report — sf_describe_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Describe a report — sf_report_describe" />
+<meta property="og:title" content="Describe a report — sf_describe_report" />
 <meta property="og:description" content="
 Retrieves report, report type, and related metadata for a tabular, summary,
 or matrix report." />
@@ -189,7 +189,7 @@ or matrix report." />
 or matrix report.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_report_describe</span>(<span class='no'>report_id</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_describe_report</span>(<span class='no'>report_id</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,13 +235,13 @@ along with additional diagnostic information where available.</p></td>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># pull a list of up to 200 recent reports</span>
 <span class='co'># (for a full list you must use sf_query on the Report object)</span>
-<span class='no'>reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_reports_list.html'>sf_reports_list</a></span>()
+<span class='no'>reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_reports_list.html'>sf_list_reports</a></span>()
 
 <span class='co'># id for the first report</span>
 <span class='no'>reports</span><span class='kw'>[[</span><span class='fl'>1</span>,<span class='st'>"id"</span>]]
 
 <span class='co'># describe that report type</span>
-<span class='no'>described_report</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_type_describe.html'>sf_report_type_describe</a></span>(<span class='no'>unique_report_types</span><span class='kw'>[[</span><span class='fl'>1</span>,<span class='st'>"id"</span>]])
+<span class='no'>described_report</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_type_describe.html'>sf_describe_report_type</a></span>(<span class='no'>unique_report_types</span><span class='kw'>[[</span><span class='fl'>1</span>,<span class='st'>"id"</span>]])
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -26,16 +26,16 @@
 #' a COMPLETE list you must use \code{\link{sf_query}} on the report object.
 #' @examples \dontrun{
 #' # return up to 200 recently viewed reports
-#' reports <- sf_reports_list()
+#' reports <- sf_list_reports()
 #' 
 #' # return the results as a list
-#' reports_as_list <- sf_reports_list(as_tbl=FALSE)
+#' reports_as_list <- sf_list_reports(as_tbl=FALSE)
 #' 
 #' # to return all possible reports, which is queried from the Report object
-#' all_reports <- sf_reports_list(recent=FALSE)
+#' all_reports <- sf_list_reports(recent=FALSE)
 #' }
 #' @export
-sf_reports_list <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
+sf_list_reports <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
   if(recent){
     this_url <- make_reports_list_url()
     resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
@@ -78,14 +78,14 @@ sf_reports_list <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
 #' argument \code{as_tbl}
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example} 
 #' @examples \dontrun{
-#' report_filters <- sf_report_filter_operators_list()
+#' report_filters <- sf_list_report_filter_operators()
 #' unique_supported_fields <- report_filters %>% distinct(supported_field_type)
 #' 
 #' # operators to filter a picklist field
 #' picklist_field_operators <- report_filters %>% filter(supported_field_type == "picklist")
 #' }
 #' @export
-sf_report_filter_operators_list <- function(as_tbl=TRUE, verbose=FALSE){
+sf_list_report_filter_operators <- function(as_tbl=TRUE, verbose=FALSE){
   this_url <- make_report_filter_operators_list_url()
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   if(as_tbl){
@@ -108,14 +108,14 @@ sf_report_filter_operators_list <- function(as_tbl=TRUE, verbose=FALSE){
 #' argument \code{as_tbl}
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_list.htm}{Salesforce Documentation} 
 #' @examples \dontrun{
-#' report_types <- sf_report_types_list()
+#' report_types <- sf_list_report_types()
 #' unique_report_types <- report_types %>% select(reportTypes.type)
 #' 
 #' # return the results as a list
-#' reports_as_list <- sf_report_types_list(as_tbl=FALSE)
+#' reports_as_list <- sf_list_report_types(as_tbl=FALSE)
 #' }
 #' @export
-sf_report_types_list <- function(as_tbl=TRUE, verbose=FALSE){
+sf_list_report_types <- function(as_tbl=TRUE, verbose=FALSE){
   this_url <- make_report_types_list_url()
   resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
   if(as_tbl){
@@ -134,7 +134,7 @@ sf_report_types_list <- function(as_tbl=TRUE, verbose=FALSE){
 #' @param report_type \code{character}; a character representing the type of 
 #' report to retrieve the metadata information on. A list of valid report types 
 #' that can be described using this function will be available in the 
-#' \code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
+#' \code{reportTypes.type} column of results returned \link{sf_list_report_types}. 
 #' (e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
 #' etc.)
 #' @template verbose
@@ -148,17 +148,17 @@ sf_report_types_list <- function(as_tbl=TRUE, verbose=FALSE){
 #' }
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_reporttype.htm}{Salesforce Documentation}
 #' @examples \dontrun{
-#' reports <- sf_report_types_list()
+#' reports <- sf_list_report_types()
 #' unique_report_types <- reports %>% distinct(reportTypes.type)
 #' 
 #' # first unique report type
 #' unique_report_types[[1,1]]
 #' 
 #' # describe that report type
-#' described_report <- sf_report_type_describe(unique_report_types[[1,1]])
+#' described_report <- sf_describe_report_type(unique_report_types[[1,1]])
 #' }
 #' @export
-sf_report_type_describe <- function(report_type, verbose=FALSE){
+sf_describe_report_type <- function(report_type, verbose=FALSE){
   this_url <- make_report_type_describe_url(report_type)
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   return(resultset)  
@@ -190,16 +190,16 @@ sf_report_type_describe <- function(report_type, verbose=FALSE){
 #' @examples \dontrun{
 #' # pull a list of up to 200 recent reports
 #' # (for a full list you must use sf_query on the Report object)
-#' reports <- sf_reports_list()
+#' reports <- sf_list_reports()
 #' 
 #' # id for the first report
 #' reports[[1,"id"]]
 #' 
 #' # describe that report type
-#' described_report <- sf_report_type_describe(unique_report_types[[1,"id"]])
+#' described_report <- sf_describe_report_type(unique_report_types[[1,"id"]])
 #' }
 #' @export
-sf_report_describe <- function(report_id, verbose=FALSE){
+sf_describe_report <- function(report_id, verbose=FALSE){
   this_url <- make_report_describe_url(report_id)
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   return(resultset)
@@ -240,13 +240,13 @@ sf_report_describe <- function(report_id, verbose=FALSE){
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # not providing a name appends " - Copy" to the name of the report being cloned
-#' report_details <- sf_report_copy(this_report_id)
+#' report_details <- sf_copy_report(this_report_id)
 #' 
 #' # example of providing new name to the copied report
-#' report_details <- sf_report_copy(this_report_id, "My New Copy of Report ABC")
+#' report_details <- sf_copy_report(this_report_id, "My New Copy of Report ABC")
 #' }
 #' @export
-sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
+sf_copy_report <- function(report_id, name=NULL, verbose=FALSE){
   this_url <- make_report_copy_url(report_id)
   if(is.null(name)){
     existing_reports <- sf_query("SELECT Id, Name FROM Report")
@@ -289,14 +289,14 @@ sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
 #' Create a new report using a POST request. To create a report, you only have to 
 #' specify a name and report type to create a new report; all other metadata properties 
 #' are optional. It is recommended to use the metadata from existing reports pulled 
-#' using \code{\link{sf_report_describe}} as a guide on how to specify the properties 
+#' using \code{\link{sf_describe_report}} as a guide on how to specify the properties 
 #' of a new report. 
 #'
 #' @param name \code{character}; a user-specified name for the report.
 #' @param report_type \code{character}; a character representing the type of 
 #' report to retrieve the metadata information on.  A list of valid report types 
 #' that can be created using this function will be available in the 
-#' \code{reportTypes.type} column of results returned \link{sf_report_types_list}. 
+#' \code{reportTypes.type} column of results returned \link{sf_list_report_types}. 
 #' (e.g. \code{AccountList}, \code{AccountContactRole}, \code{OpportunityHistory}, 
 #' etc.)
 #' @param report_metadata \code{list}; a list representing the properties to create 
@@ -316,7 +316,7 @@ sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm}{Salesforce Documentation}
 #' @examples \dontrun{
 #' # creating a blank report using just the name and type
-#' my_new_report <- sf_report_create("Top Accounts Report", "AccountList")
+#' my_new_report <- sf_create_report("Top Accounts Report", "AccountList")
 #' 
 #' # creating a report with additional metadata by grabbing an existing report
 #' # and modifying it slightly (only the name in this case)
@@ -328,14 +328,14 @@ sf_report_copy <- function(report_id, name=NULL, verbose=FALSE){
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # third, pull down its metadata and update the name
-#' report_describe_list <- sf_report_describe(this_report_id)
+#' report_describe_list <- sf_describe_report(this_report_id)
 #' report_describe_list$reportMetadata$name <- "TEST API Report Creation"
 #' 
 #' # fourth, create the report by passing the metadata
-#' my_new_report <- sf_report_create(report_metadata=report_describe_list)
+#' my_new_report <- sf_create_report(report_metadata=report_describe_list)
 #' }
 #' @export
-sf_report_create <- function(name=NULL, 
+sf_create_report <- function(name=NULL, 
                              report_type=NULL, 
                              report_metadata=NULL, 
                              verbose=FALSE){
@@ -402,22 +402,22 @@ sf_report_create <- function(name=NULL,
 #' # second, get the id of the report to update
 #' this_report_id <- all_reports$Id[1]
 #' 
-#' my_updated_report <- sf_report_update(this_report_id,
+#' my_updated_report <- sf_update_report(this_report_id,
 #'                                       report_metadata =
 #'                                         list(reportMetadata =
 #'                                           list(name = "Updated Report Name!")))
 #' 
 #' # alternatively, pull down its metadata and update the name
-#' report_details <- sf_report_describe(this_report_id)
+#' report_details <- sf_describe_report(this_report_id)
 #' report_details$reportMetadata$name <- paste0(report_details$reportMetadata$name,
 #'                                              " - UPDATED")
 #' 
 #' # fourth, create the report by passing the metadata
-#' my_updated_report <- sf_report_update(this_report_id,
+#' my_updated_report <- sf_update_report(this_report_id,
 #'                                       report_metadata = report_details)
 #' }
 #' @export
-sf_report_update <- function(report_id, report_metadata, verbose=FALSE){
+sf_update_report <- function(report_id, report_metadata, verbose=FALSE){
   report_metadata <- sf_input_data_validation(report_metadata, 
                                               operation='create_report')
   this_url <- make_report_url(report_id)
@@ -455,10 +455,10 @@ sf_report_update <- function(report_id, report_metadata, verbose=FALSE){
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # third, delete that report using its Id
-#' success <- sf_report_delete(this_report_id)
+#' success <- sf_delete_report(this_report_id)
 #' }
 #' @export
-sf_report_delete <- function(report_id, verbose=FALSE){
+sf_delete_report <- function(report_id, verbose=FALSE){
   this_url <- make_report_url(report_id)
   httr_response <- rDELETE(url = this_url)
   if(verbose){
@@ -507,10 +507,10 @@ sf_report_delete <- function(report_id, verbose=FALSE){
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # third, pull that report and intersect its fields with up to three other reports
-#' fields <- sf_report_fields(this_report_id, intersect_with=head(all_reports[["Id"]],3))
+#' fields <- sf_list_report_fields(this_report_id, intersect_with=head(all_reports[["Id"]],3))
 #' }
 #' @export
-sf_report_fields <- function(report_id, 
+sf_list_report_fields <- function(report_id, 
                              intersect_with = c(character(0)),
                              verbose=FALSE){
   
@@ -593,35 +593,35 @@ sf_report_fields <- function(report_id,
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # then execute a synchronous report that will wait for the results
-#' results <- sf_report_execute(this_report_id)
+#' results <- sf_execute_report(this_report_id)
 #' 
 #' # alternatively, you can execute an async report and then grab its results when done
 #' #   - The benefit of an async report is that the results will be stored for up to
 #' #     24 hours for faster recall, if needed
-#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' results <- sf_execute_report(this_report_id, async=TRUE)
 #' 
 #' # check if completed and proceed if the status is "Success"
-#' instance_list <- sf_report_instances_list(report_id)
+#' instance_list <- sf_list_report_instances(report_id)
 #' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 #' if(instance_status == "Success"){
-#'   results <- sf_report_instance_results(report_id, results$id)
+#'   results <- sf_get_report_instance_results(report_id, results$id)
 #' }
 #' 
-#' # Note: For more complex execution use the report_metadata argument
+#' # Note: For more complex execution use the report_metadata argument.
 #' # This can be done by building the list from scratch based on Salesforce 
 #' # documentation (not recommended) or pulling down the existing reportMetadata 
 #' # property of the report and modifying the list slightly (recommended). 
 #' # In addition, for relatively simple changes, you can leverage the convenience 
 #' # function sf_report_wrapper() which makes it easier to retrieve report results
-#' report_details <- sf_report_describe(this_report_id)
+#' report_details <- sf_describe_report(this_report_id)
 #' report_metadata <- list(reportMetadata = report_details$reportMetadata)
 #' report_metadata$reportMetadata$showGrandTotal <- FALSE
 #' report_metadata$reportMetadata$showSubtotals <- FALSE
-#' fields <- sf_report_execute(this_report_id,
+#' fields <- sf_execute_report(this_report_id,
 #'                             report_metadata = report_metadata)
 #' }
 #' @export
-sf_report_execute <- function(report_id, 
+sf_execute_report <- function(report_id, 
                               async = FALSE, 
                               include_details = TRUE,
                               label = TRUE,
@@ -701,15 +701,15 @@ sf_report_execute <- function(report_id,
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # second, execute an async report
-#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' results <- sf_execute_report(this_report_id, async=TRUE)
 #' 
 #' # third, pull a list of async requests ("instances") usually meant for checking 
 #' # if a recently requested report has succeeded and the results can be retrieved
-#' instance_list <- sf_report_instances_list(this_report_id)
+#' instance_list <- sf_list_report_instances(this_report_id)
 #' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 #' }
 #' @export
-sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
+sf_list_report_instances <- function(report_id, as_tbl=TRUE, verbose=FALSE){
   this_url <- make_report_instances_list_url(report_id)
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   if(as_tbl){
@@ -747,14 +747,14 @@ sf_report_instances_list <- function(report_id, as_tbl=TRUE, verbose=FALSE){
 #' this_report_id <- all_reports$Id[1]
 #' 
 #' # second, ensure that report has been executed at least once asynchronously
-#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' results <- sf_execute_report(this_report_id, async=TRUE)
 #' 
 #' # check if that report has succeeded, if so (or if it errored), then delete
-#' instance_list <- sf_report_instances_list(this_report_id)
+#' instance_list <- sf_list_report_instances(this_report_id)
 #' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 #' }
 #' @export
-sf_report_instance_delete <- function(report_id, 
+sf_delete_report_instance <- function(report_id, 
                                       report_instance_id, 
                                       verbose=FALSE){
   this_url <- make_report_instance_url(report_id, report_instance_id)
@@ -794,24 +794,24 @@ sf_report_instance_delete <- function(report_id,
 #' # execute a report asynchronously in your Org
 #' all_reports <- sf_query("SELECT Id, Name FROM Report")
 #' this_report_id <- all_reports$Id[1]
-#' results <- sf_report_execute(this_report_id, async=TRUE)
+#' results <- sf_execute_report(this_report_id, async=TRUE)
 #' 
 #' # check if that report has succeeded, ... 
-#' instance_list <- sf_report_instances_list(this_report_id)
+#' instance_list <- sf_list_report_instances(this_report_id)
 #' instance_status <- instance_list[[which(instance_list$id == results$id), "status"]]
 #' 
 #' # ... if so, then grab the results
 #' if(instance_status == "Success"){
-#'   report_data <- sf_report_instance_results(report_id = this_report_id, 
+#'   report_data <- sf_get_report_instance_results(report_id = this_report_id, 
 #'                                             report_instance_id = results$id)
 #' }
 #' }
 #' @export
-sf_report_instance_results <- function(report_id, 
-                                       report_instance_id, 
-                                       label = TRUE,
-                                       fact_map_key = "T!T",
-                                       verbose = FALSE){
+sf_get_report_instance_results <- function(report_id, 
+                                           report_instance_id, 
+                                           label = TRUE,
+                                           fact_map_key = "T!T",
+                                           verbose = FALSE){
   
   this_url <- make_report_instance_url(report_id, report_instance_id)
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
@@ -846,7 +846,7 @@ sf_report_instance_results <- function(report_id,
 #' @return \code{tbl_df}
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example}{Salesforce Example}
 #' @export
-sf_report_query <- function(report_id,
+sf_query_report <- function(report_id,
                             report_metadata = NULL, 
                             verbose = FALSE){
   # currently not able to specify a complete request body
@@ -888,8 +888,8 @@ sf_report_query <- function(report_id,
 #' summarized in a tabular format, before pulling them down and returning as a
 #' \code{tbl_df}.
 #' 
-#' @details This function is essentially a wrapper around \code{\link{sf_report_execute}}. 
-#' Please review or use that function and/or \code{\link{sf_report_query}} if you 
+#' @details This function is essentially a wrapper around \code{\link{sf_execute_report}}. 
+#' Please review or use that function and/or \code{\link{sf_query_report}} if you 
 #' want to have more control over how the report is run and what format should
 #' be returned. In this case we've forced the \code{reportFormat="TABULAR"}
 #' without total rows and given options to filter, and select the Top N as
@@ -900,7 +900,7 @@ sf_report_query <- function(report_id,
 #' @param report_filters \code{list}; A \code{list} of reportFilter specifications. 
 #' Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 
 #' 3) \code{value}. You can find out how certain field types can be filtered by 
-#' reviewing the results of \code{\link{sf_report_filter_operators_list}}.
+#' reviewing the results of \code{\link{sf_list_report_filter_operators}}.
 #' @param report_boolean_logic \code{character}; a string of boolean logic to parse 
 #' custom field filters if more than one is specified. For example, if three filters 
 #' are specified, then they can be combined using the logic \code{"(1 OR 2) AND 3"}.
@@ -975,7 +975,7 @@ sf_run_report <- function(report_id,
                                                 direction = if(decreasing) "desc" else "asc")
   }
   
-  results <- sf_report_execute(report_id, 
+  results <- sf_execute_report(report_id, 
                                async = async, 
                                report_metadata = request_body, 
                                verbose = verbose)
@@ -993,7 +993,7 @@ sf_run_report <- function(report_id,
           }
         }
         Sys.sleep(interval_seconds)
-        instances_list <- sf_report_instances_list(report_id, verbose = verbose)
+        instances_list <- sf_list_report_instances(report_id, verbose = verbose)
         instance_status <- instances_list[[instances_list$id == results$id, "status"]]
         if(instance_status == "Error"){
           stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
@@ -1008,10 +1008,11 @@ sf_run_report <- function(report_id,
           }
         }
       }
-      results <- sf_report_instance_results(report_id, results$id, verbose = verbose)
+      results <- sf_get_report_instance_results(report_id, results$id, 
+                                                verbose = verbose)
     }
   }
-  # if not aysnc and waiting for results, then sf_report_execute() will return 
+  # if not aysnc and waiting for results, then sf_execute_report() will return 
   # the parsed dataset (if sync) or request details if async to check on the results 
   # without having the wrapper executing the wait. This is so users can leverage 
   # the simpler interface (i.e. providing function arguments) instead of researching 
