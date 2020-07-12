@@ -1,8 +1,5 @@
 context("Search")
 
-salesforcer_token <- readRDS("salesforcer_token.rds")
-sf_auth(token = salesforcer_token)
-
 test_that("testing SOSL", {
   my_sosl <- paste("FIND {(336)} in phone fields returning", 
                    "contact(id, firstname, lastname, test_number__c, testcustomcheckbox__c),",

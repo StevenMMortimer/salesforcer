@@ -1,8 +1,5 @@
 context("REST API")
 
-salesforcer_token <- readRDS("salesforcer_token.rds")
-sf_auth(token = salesforcer_token)
-
 test_that("testing REST API Functionality", {
   
   n <- 2

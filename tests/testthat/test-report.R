@@ -1,7 +1,4 @@
-context("Bulk 1.0")
-
-salesforcer_token <- readRDS("salesforcer_token.rds")
-sf_auth(token = salesforcer_token)
+context("Report")
 
 common_report_id <- "00O3s000006tDLCEA2"
 common_report_instance <- sf_execute_report(common_report_id, async=TRUE)

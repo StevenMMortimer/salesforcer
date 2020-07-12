@@ -1,11 +1,6 @@
-context("Authorization")
+context("OAuth 2.0 Authorization")
 
-test_that("testing missing auth", {
-  expect_false(token_available())
-  expect_null(sf_access_token())
-  expect_false(session_id_available())
-  expect_null(sf_session_id())
-})
+if (FALSE) skip("No token on GitHub Actions.")
 
 test_that("testing nonsense inputs", {
   expect_error(sf_auth(token = "wrong-path.rds"))
@@ -30,19 +25,6 @@ test_that("testing OAuth passing actual token", {
 test_that("testing custom token validation routine", {
   res <- sf_auth_check()
   expect_s3_class(res, "Token2.0")
-})
-
-test_that("testing basic auth", {
-  
-  username <- salesforcer_test_settings$username
-  password <- salesforcer_test_settings$password
-  security_token <- salesforcer_test_settings$security_token
-  
-  session <- sf_auth(username = username,
-                     password = password,
-                     security_token = security_token)
-  expect_is(session, "list")
-  expect_named(session, c("auth_method", "token", "session_id", "instance_url"))
 })
 
 test_that("testing token and session availability after basic auth", {

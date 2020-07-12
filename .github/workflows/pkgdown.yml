@@ -9,6 +9,12 @@ jobs:
   pkgdown:
     runs-on: macOS-latest
     
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
+      SALESFORCER_PASSWORD: ${{ secrets.SALESFORCER_PASSWORD }}
+      SALESFORCER_SECURITY_TOKEN: ${{ secrets.SALESFORCER_SECURITY_TOKEN }}     
+    
     steps:
       - uses: actions/checkout@v2
       

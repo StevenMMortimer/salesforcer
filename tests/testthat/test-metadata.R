@@ -1,8 +1,5 @@
 context("Metadata API")
 
-salesforcer_token <- readRDS("salesforcer_token.rds")
-sf_auth(token = salesforcer_token)
-
 # provide the details for creating an object
 rand_int <- as.integer(runif(1,1,100000))
 base_obj_name <- paste0("Custom_Account_", rand_int)

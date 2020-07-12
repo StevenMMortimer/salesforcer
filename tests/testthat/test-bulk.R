@@ -1,8 +1,5 @@
 context("Bulk 1.0")
 
-salesforcer_token <- readRDS("salesforcer_token.rds")
-sf_auth(token = salesforcer_token)
-
 test_that("testing Bulk 1.0 Functionality", {
   
   n <- 2

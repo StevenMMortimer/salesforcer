@@ -1,8 +1,5 @@
 context("Query")
 
-salesforcer_token <- readRDS("salesforcer_token.rds")
-sf_auth(token = salesforcer_token)
-
 object <- 'Contact'
 contact_fields_to_test <- c(
   'Id'  # id type
