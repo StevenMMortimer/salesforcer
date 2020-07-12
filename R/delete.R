@@ -76,11 +76,13 @@ sf_delete <- function(ids,
   } else if(api_type == "Bulk 1.0"){
     resultset <- sf_delete_bulk_v1(ids = ids, 
                                    object_name = object_name, 
+                                   guess_types = guess_types,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else if(api_type == "Bulk 2.0"){
     resultset <- sf_delete_bulk_v2(ids = ids, 
-                                   object_name = object_name, 
+                                   object_name = object_name,
+                                   guess_types = guess_types,
                                    control = control_args, 
                                    verbose = verbose, ...)
   } else {
@@ -231,12 +233,14 @@ sf_delete_rest <- function(ids,
 #' @keywords internal
 sf_delete_bulk_v1 <- function(ids, 
                               object_name,
+                              guess_types = TRUE,
                               control, ...,
                               verbose = FALSE){
   ids <- sf_input_data_validation(ids, operation = 'delete')
   control <- do.call("sf_control", control)
   resultset <- sf_bulk_operation(input_data = ids, 
                                  object_name = object_name,
+                                 guess_types = guess_types,
                                  operation = "delete",
                                  api_type = "Bulk 1.0",
                                  control = control, ...,
@@ -250,12 +254,14 @@ sf_delete_bulk_v1 <- function(ids,
 #' @keywords internal
 sf_delete_bulk_v2 <- function(ids, 
                               object_name,
+                              guess_types = TRUE,
                               control, ...,
                               verbose = FALSE){
   ids <- sf_input_data_validation(ids, operation = 'delete')  
   control <- do.call("sf_control", control)
   resultset <- sf_bulk_operation(input_data = ids, 
                                  object_name = object_name, 
+                                 guess_types = guess_types,
                                  operation = "delete", 
                                  api_type = "Bulk 2.0",
                                  control = control, ...,

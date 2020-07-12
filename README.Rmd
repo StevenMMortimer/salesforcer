@@ -10,6 +10,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-")
+options(tibble.print_min = 5L, tibble.print_max = 5L)
 ```
 
 # salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
@@ -81,8 +82,9 @@ example on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
 
 ## Vignettes
 
-The README below outlines the basic package functionality. Review the vignettes 
-for more detailed examples on usage.
+The README below outlines the basic package functionality. For more information 
+please feel free to browse the `pkgdown` site at https://StevenMMortimer.github.io/salesforcer, 
+which contains the following vignettes:
 
   * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   * [Supported Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)

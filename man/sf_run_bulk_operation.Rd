@@ -10,6 +10,7 @@ sf_run_bulk_operation(
   object_name,
   operation = c("insert", "delete", "upsert", "update", "hardDelete"),
   external_id_fieldname = NULL,
+  guess_types = TRUE,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
   batch_size = NULL,
   interval_seconds = 3,
@@ -25,6 +26,7 @@ sf_bulk_operation(
   object_name,
   operation = c("insert", "delete", "upsert", "update", "hardDelete"),
   external_id_fieldname = NULL,
+  guess_types = TRUE,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
   batch_size = NULL,
   interval_seconds = 3,
@@ -47,6 +49,13 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 \item{external_id_fieldname}{\code{character}; string identifying a custom field on the
 object that has been set as an "External ID" field. This field is used to reference
 objects during upserts to determine if the record already exists in Salesforce or not.}
+
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
+like numeric looking values that must be preserved as strings ("48.0").}
 
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
@@ -99,6 +108,6 @@ inserts <- sf_bulk_operation(input_data = new_contacts,
                              operation = "insert")
 }
 }
-\references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\seealso{
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}{Salesforce Documentation}
 }

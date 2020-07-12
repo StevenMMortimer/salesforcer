@@ -165,8 +165,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NzCFAA0 TRUE   
-#> 2 0033s000012NzCGAA0 TRUE
+#> 1 0033s000012O1jzAAC TRUE   
+#> 2 0033s000012O1k0AAC TRUE
 ```
 
 ### Query
@@ -191,8 +191,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NzCFAA0 Test      Contact-Create-1
-#> 2 0033s000012NzCGAA0 Test      Contact-Create-2
+#> 1 0033s000012O1jzAAC Test      Contact-Create-1
+#> 2 0033s000012O1k0AAC Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -225,8 +225,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NzCFAA0 TRUE   
-#> 2 0033s000012NzCGAA0 TRUE
+#> 1 0033s000012O1jzAAC TRUE   
+#> 2 0033s000012O1k0AAC TRUE
 ```
 
 ### Bulk Operations
@@ -263,8 +263,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012NzCKAA0 TRUE    TRUE    NA   
-#> 2 0033s000012NzCLAA0 TRUE    TRUE    NA
+#> 1 0033s000012O1k4AAC TRUE    TRUE    NA   
+#> 2 0033s000012O1k5AAC TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -279,17 +279,17 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NzCKAA0 Test      Contact-Create-1
-#> 2 0033s000012NzCLAA0 Test      Contact-Create-2
+#> 1 0033s000012O1k4AAC Test      Contact-Create-1
+#> 2 0033s000012O1k5AAC Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
 deleted_records
 #> # A tibble: 2 x 4
-#>   sf__Id             sf__Created Id                 sf__Error
-#>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012NzCKAA0 FALSE       0033s000012NzCKAA0 <NA>     
-#> 2 0033s000012NzCLAA0 FALSE       0033s000012NzCLAA0 <NA>
+#>   Id                 sf__Id             sf__Created sf__Error
+#>   <chr>              <chr>              <lgl>       <lgl>    
+#> 1 0033s000012O1k4AAC 0033s000012O1k4AAC FALSE       NA       
+#> 2 0033s000012O1k5AAC 0033s000012O1k5AAC FALSE       NA
 ```
 
 ### Using the Metadata API
@@ -359,19 +359,14 @@ each field on the Account object:
 acct_fields <- sf_describe_object_fields('Account')
 acct_fields %>% select(name, label, length, soapType, type)
 #> # A tibble: 69 x 5
-#>    name              label                   length soapType    type     
-#>    <chr>             <chr>                   <chr>  <chr>       <chr>    
-#>  1 Id                Account ID              18     tns:ID      id       
-#>  2 IsDeleted         Deleted                 0      xsd:boolean boolean  
-#>  3 MasterRecordId    Master Record ID        18     tns:ID      reference
-#>  4 Name              Account Name            255    xsd:string  string   
-#>  5 Type              Account Type            40     xsd:string  picklist 
-#>  6 ParentId          Parent Account ID       18     tns:ID      reference
-#>  7 BillingStreet     Billing Street          255    xsd:string  textarea 
-#>  8 BillingCity       Billing City            40     xsd:string  string   
-#>  9 BillingState      Billing State/Province  80     xsd:string  string   
-#> 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   
-#> # … with 59 more rows
+#>   name           label            length soapType    type     
+#>   <chr>          <chr>            <chr>  <chr>       <chr>    
+#> 1 Id             Account ID       18     tns:ID      id       
+#> 2 IsDeleted      Deleted          0      xsd:boolean boolean  
+#> 3 MasterRecordId Master Record ID 18     tns:ID      reference
+#> 4 Name           Account Name     255    xsd:string  string   
+#> 5 Type           Account Type     40     xsd:string  picklist 
+#> # … with 64 more rows
 
 # show the picklist selection options for the Account Type field
 acct_fields %>% 
@@ -386,8 +381,7 @@ acct_fields %>%
 #> 3 TRUE   FALSE        Customer - Channel         Customer - Channel        
 #> 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller
 #> 5 TRUE   FALSE        Installation Partner       Installation Partner      
-#> 6 TRUE   FALSE        Technology Partner         Technology Partner        
-#> 7 TRUE   FALSE        Other                      Other
+#> # … with 2 more rows
 ```
 
 ## Future

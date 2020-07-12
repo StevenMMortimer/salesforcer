@@ -124,7 +124,7 @@ if(instance_status == "Success"){
   results <- sf_get_report_instance_results(report_id, results$id)
 }
 
-# Note: For more complex execution use the report_metadata argument
+# Note: For more complex execution use the report_metadata argument.
 # This can be done by building the list from scratch based on Salesforce 
 # documentation (not recommended) or pulling down the existing reportMetadata 
 # property of the report and modifying the list slightly (recommended). 

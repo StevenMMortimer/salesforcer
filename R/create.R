@@ -81,12 +81,14 @@ sf_create <- function(input_data,
   } else if(api_type == "Bulk 1.0"){
     resultset <- sf_create_bulk_v1(input_data, 
                                    object_name = object_name, 
-                                   control = control_args, 
+                                   control = control_args,
+                                   guess_types = guess_types,
                                    verbose = verbose, ...)
   } else if(api_type == "Bulk 2.0"){
     resultset <- sf_create_bulk_v2(input_data, 
                                    object_name = object_name, 
                                    control = control_args, 
+                                   guess_types = guess_types,
                                    verbose = verbose, ...)
   } else {
     catch_unknown_api(api_type)
@@ -252,12 +254,14 @@ sf_create_rest <- function(input_data,
 #' @keywords internal
 sf_create_bulk_v1 <- function(input_data, 
                               object_name,
+                              guess_types = TRUE,
                               control, ...,
                               verbose = FALSE){
   input_data <- sf_input_data_validation(operation = "create", input_data)
   control <- do.call("sf_control", control)
   resultset <- sf_bulk_operation(input_data = input_data, 
                                  object_name = object_name, 
+                                 guess_types = guess_types,
                                  operation = "insert", 
                                  api_type = "Bulk 1.0",
                                  control = control, ...,
@@ -265,13 +269,13 @@ sf_create_bulk_v1 <- function(input_data,
   return(resultset)
 }
 
-
 #' Create Records using Bulk 2.0 API
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 sf_create_bulk_v2 <- function(input_data, 
                               object_name,
+                              guess_types = TRUE,
                               control, ...,
                               verbose = FALSE){
   # The order of records in the response is not guaranteed to match the ordering of
@@ -280,6 +284,7 @@ sf_create_bulk_v2 <- function(input_data,
   control <- do.call("sf_control", control)
   resultset <- sf_bulk_operation(input_data = input_data, 
                                  object_name = object_name, 
+                                 guess_types = guess_types,
                                  operation = "insert", 
                                  api_type = "Bulk 2.0",
                                  control = control, ...,

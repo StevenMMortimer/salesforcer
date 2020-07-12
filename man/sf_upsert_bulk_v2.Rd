@@ -8,6 +8,7 @@ sf_upsert_bulk_v2(
   input_data,
   object_name,
   external_id_fieldname,
+  guess_types = TRUE,
   control,
   ...,
   verbose = FALSE

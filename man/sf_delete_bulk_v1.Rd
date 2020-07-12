@@ -4,7 +4,14 @@
 \alias{sf_delete_bulk_v1}
 \title{Delete records using Bulk 1.0 API}
 \usage{
-sf_delete_bulk_v1(ids, object_name, control, ..., verbose = FALSE)
+sf_delete_bulk_v1(
+  ids,
+  object_name,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Delete records using Bulk 1.0 API

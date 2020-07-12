@@ -1270,11 +1270,13 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
+#' @importFrom dplyr is.tbl
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into CSV file for submitting as batch request
 #' @template object_name
 #' @param operation character; string defining the type of operation being performed
 #' @template external_id_fieldname
+#' @template guess_types
 #' @template api_type
 #' @template batch_size
 #' @template interval_seconds
@@ -1288,7 +1290,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @return A \code{tbl_df} of the results of the bulk job
 #' @note With Bulk 2.0 the order of records in the response is not guaranteed to 
 #' match the ordering of records in the original job data.
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' n <- 20
@@ -1305,6 +1307,7 @@ sf_run_bulk_operation <- function(input_data,
                               operation = c("insert", "delete", "upsert", 
                                             "update", "hardDelete"),
                               external_id_fieldname = NULL,
+                              guess_types = TRUE,
                               api_type = c("Bulk 1.0", "Bulk 2.0"),
                               batch_size = NULL,
                               interval_seconds = 3,
@@ -1316,13 +1319,12 @@ sf_run_bulk_operation <- function(input_data,
   stopifnot(!missing(operation))
   api_type <- match.arg(api_type)
   
-  # this code is redundant because it exists in the sf_create, sf_update, etc. wrappers, 
-  # but it is possible that some people are creating jobs with this function instead of the 
-  # others, so make sure that we do it here as well. It should be a relatively small performance 
-  # hit given its a bulk operation 
+  # this code is redundant because it exists in the sf_create, sf_update, etc.
+  # wrappers, but it is possible that some people are creating jobs with this
+  # function instead of the others, so make sure that we do it here as well. It
+  # should be a relatively small performance hit given its a bulk operation
   
-  # determine how to pass along the control args 
-  all_args <- list(...)
+  # determine how to pass along the control args
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
   control_args$operation <- operation
@@ -1333,6 +1335,7 @@ sf_run_bulk_operation <- function(input_data,
                                  api_type = api_type,
                                  control = control_args, ...,
                                  verbose = verbose)
+  
   batches_info <- sf_create_batches_bulk(job_id = job_info$id, 
                                          input_data,
                                          batch_size = batch_size,
@@ -1389,6 +1392,13 @@ sf_run_bulk_operation <- function(input_data,
   } else {
     res <- job_info # at least return the job info if not waiting for records
   }
+  
+  if(is.tbl(res)){
+    res <- res %>% 
+      sf_reorder_cols() %>% 
+      sf_guess_cols(guess_types)
+  }
+  
   return(res)
 }
 

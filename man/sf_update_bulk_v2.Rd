@@ -4,7 +4,14 @@
 \alias{sf_update_bulk_v2}
 \title{Update Records using Bulk 2.0 API}
 \usage{
-sf_update_bulk_v2(input_data, object_name, control, ..., verbose = FALSE)
+sf_update_bulk_v2(
+  input_data,
+  object_name,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Update Records using Bulk 2.0 API

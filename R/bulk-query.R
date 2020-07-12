@@ -126,7 +126,7 @@ sf_query_result_bulk <- function(job_id,
 #' @importFrom readr col_guess col_character
 #' @importFrom httr content
 #' @importFrom XML xmlToList
-#' @importFrom dplyr as_tibble tibble select any_of matches everything
+#' @importFrom dplyr is.tbl as_tibble tibble select any_of matches everything
 #' @template job_id
 #' @template guess_types
 #' @template batch_id
@@ -187,6 +187,12 @@ sf_query_result_bulk_v1 <- function(job_id,
     message(sprintf("Unhandled content-type: %s", content_type))
     res <- content(httr_response, as="parsed", encoding="UTF-8")
   }
+
+  if(is.tbl(res)){
+    res <- res %>% 
+      sf_reorder_cols() %>% 
+      sf_guess_cols(guess_types)
+  }
   
   return(res)
 }
@@ -200,7 +206,7 @@ sf_query_result_bulk_v1 <- function(job_id,
 #' 
 #' @importFrom readr col_guess col_character type_convert
 #' @importFrom httr content parse_url build_url
-#' @importFrom dplyr select any_of contains
+#' @importFrom dplyr is.tbl select any_of contains
 #' @template job_id
 #' @template guess_types
 #' @template bind_using_character_cols
@@ -229,7 +235,7 @@ sf_query_result_bulk_v1 <- function(job_id,
 sf_query_result_bulk_v2 <- function(job_id, 
                                     guess_types = TRUE,
                                     bind_using_character_cols = FALSE,
-                                    batch_size = 10000,
+                                    batch_size = 50000,
                                     locator = NULL,
                                     api_type = c("Bulk 2.0"), 
                                     verbose = FALSE){  
@@ -274,21 +280,12 @@ sf_query_result_bulk_v2 <- function(job_id,
     resultset <- bind_query_resultsets(resultset, next_records)
   }
   
-  # handle the final iteration
-  if((is.null(locator) || locator == "null") & (nrow(resultset) > 0)){
+  if(is.tbl(resultset)){
     resultset <- resultset %>% 
-      # sort column names ...
-      select(sort(names(.))) %>% 
-      # ... then move Id and columns without dot up since those with are related
-      select(any_of(unique(c("Id", "id", 
-                             names(.)[which(!grepl("\\.", names(.)))]))), 
-             contains("."))
-    # cast the types if requested
-    if (guess_types){  
-      resultset <- resultset %>% 
-        type_convert(col_types = cols(.default = col_guess()))
-    }    
+      sf_reorder_cols() %>% 
+      sf_guess_cols(guess_types)
   }
+
   return(resultset)  
 }
 
@@ -464,6 +461,7 @@ sf_query_bulk_v2 <- function(soql,
   control_args$api_type <- api_type
   this_operation <- if(queryall) "queryall" else "query"
   control_args$operation <- this_operation
+  
   # save out the query batch size control because for the Bulk 2.0 API 
   # it is not a header argument, it's actually a query parameter and, 
   # thus, needs to be passed in differently

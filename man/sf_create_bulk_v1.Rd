@@ -4,7 +4,14 @@
 \alias{sf_create_bulk_v1}
 \title{Create Records using Bulk 1.0 API}
 \usage{
-sf_create_bulk_v1(input_data, object_name, control, ..., verbose = FALSE)
+sf_create_bulk_v1(
+  input_data,
+  object_name,
+  guess_types = TRUE,
+  control,
+  ...,
+  verbose = FALSE
+)
 }
 \description{
 Create Records using Bulk 1.0 API

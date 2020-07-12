@@ -606,11 +606,10 @@ sf_reorder_cols <- function(df){
     # ... then move Id and columns without dot up since those with are related 
     select(any_of(unique(c("sObject", 
                            "Id", "id", "sf__Id",
-                           "Success", "success", "sf__Success",
-                           "Created", "created", "sf__Created",
+                           "Success",  "sf__Success", "success",
+                           "Created", "sf__Created", "created", 
+                           "Error", "sf__Error", "error", "errors",
                            "errors.statusCode", "errors.fields", "errors.message",
-                           "sf__Error",
-                           names(.)[which(grepl("^errors\\.|^sf__Error", names(.)))],
                            names(.)[which(!grepl("\\.", names(.)))]))), 
              contains("."))
 }

@@ -4,7 +4,11 @@
 \alias{sf_list_report_fields}
 \title{Get a list of report fields}
 \usage{
-sf_list_report_fields(report_id, intersect_with = c(character(0)), verbose = FALSE)
+sf_list_report_fields(
+  report_id,
+  intersect_with = c(character(0)),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{report_id}{\code{character}; the Salesforce Id assigned to a created
