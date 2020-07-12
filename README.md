@@ -86,16 +86,18 @@ vignettes for more detailed examples on usage.
 
   - [Getting
     Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
+  - [Supported
+    Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
   - [Working with the Bulk
     APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
   - [Working with
     Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   - [Working with
     Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
-  - [Transitioning from
-    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
   - [Passing Control
     Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
+  - [Transitioning from
+    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
 
 ## Usage
 
@@ -112,7 +114,7 @@ shared or embedded within scripts. User credentials will be stored in
 locally cached file entitled “.httr-oauth-salesforcer” in the current
 working directory. Also, note that if you use OAuth 2.0 authentication
 then the package will automatically refresh it so you will not have to
-call `sf_auth()` during each sesssion if you have a cached
+call `sf_auth()` during each session if you have a cached
 “.httr-oauth-salesforcer” file in the working directory. The cache
 file is named that way to not conflict with the “.httr-oauth” files
 created by other packages.
@@ -160,8 +162,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NsBMAA0 TRUE   
-#> 2 0033s000012NsBNAA0 TRUE
+#> 1 0033s000012NuN0AAK TRUE   
+#> 2 0033s000012NuN1AAK TRUE
 ```
 
 ### Query
@@ -186,8 +188,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NsBMAA0 Test      Contact-Create-1
-#> 2 0033s000012NsBNAA0 Test      Contact-Create-2
+#> 1 0033s000012NuN0AAK Test      Contact-Create-1
+#> 2 0033s000012NuN1AAK Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -220,8 +222,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NsBMAA0 TRUE   
-#> 2 0033s000012NsBNAA0 TRUE
+#> 1 0033s000012NuN0AAK TRUE   
+#> 2 0033s000012NuN1AAK TRUE
 ```
 
 ### Bulk Operations
@@ -258,8 +260,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012NsBWAA0 TRUE    TRUE    NA   
-#> 2 0033s000012NsBXAA0 TRUE    TRUE    NA
+#> 1 0033s000012NuN5AAK TRUE    TRUE    NA   
+#> 2 0033s000012NuN6AAK TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -274,8 +276,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NsBWAA0 Test      Contact-Create-1
-#> 2 0033s000012NsBXAA0 Test      Contact-Create-2
+#> 1 0033s000012NuN5AAK Test      Contact-Create-1
+#> 2 0033s000012NuN6AAK Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -283,8 +285,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created Id                 sf__Error
 #>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012NsBWAA0 FALSE       0033s000012NsBWAA0 <NA>     
-#> 2 0033s000012NsBXAA0 FALSE       0033s000012NsBXAA0 <NA>
+#> 1 0033s000012NuN5AAK FALSE       0033s000012NuN5AAK <NA>     
+#> 2 0033s000012NuN6AAK FALSE       0033s000012NuN6AAK <NA>
 ```
 
 ### Using the Metadata API

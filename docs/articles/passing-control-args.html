@@ -71,7 +71,7 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -139,9 +139,9 @@
     
     
 <p>If you’re inserting records from R you may want to turn off the assignment rules or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of the <strong>salesforcer</strong> package many functions have a <code>control</code> argument that will allow you to fine tune the behavior of calls to the Salesforce APIs. This vignette will introduce the different options you can control and how to pass them into the <strong>salesforcer</strong> functions you’re already familiar with.</p>
-<div id="the-new-control-argument" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-new-control-argument" class="anchor"></a>The new control argument</h3>
+<div id="the-new-control-argument" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-new-control-argument" class="anchor"></a>The new control argument</h2>
 <p>This new feature can be seen in the <code>sf_create</code> (and many other functions) as <code>control=list(...)</code>. The dots mean that you can pass any number of controls directly into the function. For example, the following code will create a record, but prevent its creation from showing up in the Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">new_contact</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="st">"Jenny"</span>,
                  <span class="kw">LastName</span> <span class="kw">=</span> <span class="st">"Williams"</span>,
@@ -157,10 +157,10 @@
 <p>You will notice that the argument <code>DisableFeedTrackingHeader</code> can be included right into the function without any documentation existing for it in the <code>sf_create</code> function. This is because the dots (<code>...</code>) allow you to pass over a dozen different control parameters and that documentation would be tedious to create and maintain over multiple functions in the package. However, you will notice in the documentation entry for the <code>control</code> argument there is a link to a function called <code>sf_control</code> which you can use to directly to pass into <code>control</code> or simply to review its documentation of all the possible control parameters and their defaults. This is where you can review the various control options in more detail before trying to set them.</p>
 <p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity.</p>
 </div>
-<div id="an-example-using-the-duplicateruleheader" class="section level3">
-<h3 class="hasAnchor">
+<div id="an-example-using-the-duplicateruleheader" class="section level2">
+<h2 class="hasAnchor">
 <a href="#an-example-using-the-duplicateruleheader" class="anchor"></a>An example using the <code>DuplicateRuleHeader</code>
-</h3>
+</h2>
 <p>The <code>DuplicateRuleHeader</code> that controls whether the duplicate rules are followed when inserting records from the API, has three fields:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>allowSave</code> - For a duplicate rule, when the Alert option is enabled, bypass alerts and save duplicate records by setting this property to true. Prevent duplicate records from being saved by setting this property to false.</p></li>
@@ -178,7 +178,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NtBXAA0 TRUE</span>
+<span class="co">#&gt; 1 0033s000012Nw5GAAS TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="no">record3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
@@ -211,9 +211,9 @@
 <span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;               &lt;chr&gt;                                             </span>
 <span class="co">#&gt; 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.</span></pre></body></html></div>
 </div>
-<div id="creating-the-control-argument-with-sf_control" class="section level3">
-<h3 class="hasAnchor">
-<a href="#creating-the-control-argument-with-sf_control" class="anchor"></a>Creating the control argument with sf_control</h3>
+<div id="creating-the-control-argument-with-sf_control" class="section level2">
+<h2 class="hasAnchor">
+<a href="#creating-the-control-argument-with-sf_control" class="anchor"></a>Creating the control argument with sf_control</h2>
 <p>If this type of control structure is new to you, take a look at the documentation for the <code>glm</code> and <code>glm.control</code> functions. The way these two functions behave is exactly how functions like <code>sf_create</code> and <code>sf_control</code> work with each other. As demonstrated above you can pass any number of arbitrary controls into the function and they are all gathered up into the control by <code>control = list(...)</code>. However, you can specify the control directly like this:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Account"</span>,
@@ -237,14 +237,14 @@
 <span class="co">#&gt; 14 0016A0000035mJ9QAI United Oil &amp; Gas Corp.              </span>
 <span class="co">#&gt; 15 0013s00000zFdZrAAK Test Account With Child Records</span></pre></body></html></div>
 </div>
-<div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level3">
-<h3 class="hasAnchor">
-<a href="#backwards-compatibility-for-all_or_none-and-other-named-arguments" class="anchor"></a>Backwards compatibility for all_or_none and other named arguments</h3>
+<div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#backwards-compatibility-for-all_or_none-and-other-named-arguments" class="anchor"></a>Backwards compatibility for all_or_none and other named arguments</h2>
 <p>You may already be taking advantage of the <code>all_or_none</code> or <code>line_ending</code> arguments which are control arguments that were explicity included in functions. These argument essentially hard coded values to pass the <code>AllOrNoneHeader</code> and <code>LineEndingHeader</code> control parameters. Starting with the 0.1.3 release it is no longer necessary and preferable not to have an argument like <code>all_or_none</code> listed explicity as an argument since it can be provided in the <code>control</code> argument. Note: the <code>all_or_none</code> argument and other explicit control arguments will still be available in <strong>salesforcer 0.1.3</strong> but will provide a deprecated warning. They will be removed in the next CRAN release of the package so it will be important to update your code now if you are explicitly passing these arguments and see a deprecation warning.</p>
 </div>
-<div id="reference-links" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reference-links" class="anchor"></a>Reference Links</h3>
+<div id="reference-links" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reference-links" class="anchor"></a>Reference Links</h2>
 <p>Below is a list of links that go directly to the control arguments (a.k.a headers) for the different APIs. I highly recommend reading this documentation before setting a control parameter in R so you know exactly what the behavior will be and how to specify it in R. You may notice that some controls are not included in the R package. Some may be added in the future if requested and some will not be added given the scope of the package. One final note is that some arguments in the REST API, like the “All or None” behavior is not a header, but a parameter in the API call. For this reason you will not see it listed in the REST API Headers section, but it is set in this R package using the <code>AllOrNoneHeader</code> argument in <code>sf_control</code> just to provide consistency between the SOAP and REST APIs. It would be confusing to have two arguments named differently, one for each API, but to do the exact same thing from R. For this reason, many of the control arguments match exactly as they are listed in the SOAP API, but can be used across other APIs even if not exactly written that way in the Salesforce documentation referenced below.</p>
 <ul>
 <li>
@@ -279,7 +279,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

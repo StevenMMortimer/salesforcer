@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-### Attachments in Salesforce
+## Attachments in Salesforce
 
 Almost all records in Salesforce support attachments. Attachments are just blob data 
 storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id 
@@ -48,7 +48,7 @@ sf_auth()
 The Attachment data, for example, the attachment's Id, ParentId, Name, Body, ModifiedDate, 
 and other attributes are stored in the Attachment object, a Standard Object in Salesforce.
 
-### Creating (Uploading) Attachments
+## Creating (Uploading) Attachments
 
 Below we will cover 2 different methods of creating attachments: 
 
@@ -96,7 +96,7 @@ result <- sf_create_attachment(attachment_details)
 result
 ```
 
-### Downloading Attachments
+## Downloading Attachments
 
 After uploading attachments to Salesforce you can download them by first querying 
 the metadata in the Attachment object. This metadata provides the Id for the blob 
@@ -178,7 +178,7 @@ for (pid in unique(queried_attachments$ParentId)){
 sf_delete(result$Id) #... and records in Salesforce
 ```
 
-### Extending to Documents and Other Blob Data
+## Extending to Documents and Other Blob Data
 
 The commands for working with Attachments also work for uploading documents and 
 other blob data as well. Documents are just like Attachments in Salesforce except 
@@ -222,7 +222,7 @@ result
 sf_delete(result$id)
 ```
 
-### Reference Links
+## Reference Links
 
 Below is a list of links to existing Salesforce documentation that provide more 
 detail into how Attachments, Documents, and other blob data are handled via their 

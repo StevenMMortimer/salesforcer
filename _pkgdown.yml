@@ -23,7 +23,7 @@ navbar:
          href: articles/supported-queries.html   
       -  text: Working with the Bulk APIs
          href: articles/working-with-the-bulk-apis.html
-      -  text: Working with the Attachments
+      -  text: Working with Attachments
          href: articles/working-with-attachments.html
       -  text: Working with Metadata
          href: articles/working-with-metadata.html         

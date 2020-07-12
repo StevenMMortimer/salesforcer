@@ -132,7 +132,8 @@ test_that("testing sf_report_types_list()", {
                                    "reportTypes.isHistorical", 
                                    "reportTypes.label", 
                                    "reportTypes.supportsJoinedFormat", 
-                                   "reportTypes.type"))
+                                   "reportTypes.type", 
+                                   "reportTypes.description"))
   # as_tbl = FALSE
   report_types_list <- sf_report_types_list(as_tbl = FALSE)
   expect_is(report_types_list, "list")

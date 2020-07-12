@@ -85,11 +85,12 @@ The README below outlines the basic package functionality. Review the vignettes 
 more detailed examples on usage.
 
   * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
+  * [Supported Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
   * [Working with the Bulk APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
-  * [Working with Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)  
+  * [Working with Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   * [Working with Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
-  * [Transitioning from RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
   * [Passing Control Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
+  * [Transitioning from RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
 
 ## Usage
 
@@ -104,7 +105,7 @@ It is recommended to use OAuth 2.0 so that passwords do not have to be shared or
 embedded within scripts. User credentials will be stored in locally cached file 
 entitled ".httr-oauth-salesforcer" in the current working directory. Also, note that 
 if you use OAuth 2.0 authentication then the package will automatically refresh 
-it so you will not have to call `sf_auth()` during each sesssion if you have a 
+it so you will not have to call `sf_auth()` during each session if you have a 
 cached ".httr-oauth-salesforcer" file in the working directory. The cache file is named 
 that way to not conflict with the ".httr-oauth" files created by other packages. 
 

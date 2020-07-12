@@ -122,7 +122,7 @@ Converts Leads each into an Account, Contact, as well as (optionally) an Opportu
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -256,18 +256,18 @@ of columns in the input data does not matter, just that the names
 match (case-insensitive).</p><dl'>
 <dt>leadId</dt><dd><p>ID of the Lead to convert. Required.</p></dd>
 <dt>convertedStatus</dt><dd><p>Valid LeadStatus value for a converted lead. Required.</p></dd>
-<dt>accountId</dt><dd><p>ID of the Account into which the lead will be merged. Required
+<dt>accountId</dt><dd><p>Id of the Account into which the lead will be merged. Required
 only when updating an existing account, including person accounts. If no
-accountID is specified, then the API creates a new account.</p></dd>
-<dt>contactId</dt><dd><p>D of the Contact into which the lead will be merged (this
+accountId is specified, then the API creates a new account.</p></dd>
+<dt>contactId</dt><dd><p>Id of the Contact into which the lead will be merged (this
 contact must be associated with the specified accountId, and an accountId
 must be specified). Required only when updating an existing contact. If no
-contactID is specified, then the API creates a new contact that is implicitly
+contactId is specified, then the API creates a new contact that is implicitly
 associated with the Account.</p></dd>
-<dt>ownerId</dt><dd><p>Specifies the ID of the person to own any newly created account,
+<dt>ownerId</dt><dd><p>Specifies the Id of the person to own any newly created account,
 contact, and opportunity. If the client application does not specify this
 value, then the owner of the new object will be the owner of the lead.</p></dd>
-<dt>opportunityId</dt><dd><p>The ID of an existing opportunity to relate to the lead.
+<dt>opportunityId</dt><dd><p>The Id of an existing opportunity to relate to the lead.
 The opportunityId and opportunityName arguments are mutually exclusive. Specifying
 a value for both results in an error. If doNotCreateOpportunity argument is
 <code>TRUE</code>, then no Opportunity is created and this field must be left blank;
@@ -291,7 +291,7 @@ for the target contact.</p></dd>
 to the owner specified in the ownerId (<code>TRUE</code>) or not (<code>FALSE</code>,
 the default).</p></dd>
 
-</dl><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm'>Salesforce Documentation for convertLead</a></p>
+</dl><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm'>Salesforce Documentation</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

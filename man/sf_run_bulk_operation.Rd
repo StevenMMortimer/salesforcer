@@ -37,7 +37,7 @@ sf_bulk_operation(
 }
 \arguments{
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
-\code{tbl_df}; data can be coerced into .csv file for submitting as batch request}
+\code{tbl_df}; data can be coerced into CSV file for submitting as batch request}
 
 \item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}

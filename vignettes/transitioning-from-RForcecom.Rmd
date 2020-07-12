@@ -30,7 +30,7 @@ the functionality of many **RForcecom** functions so that you will only need to 
 out `library(RForcecom)` for `library(salesforcer)` and still have your production 
 tested scripts perform as usual.
 
-### Authentication
+## Authentication
 
 **salesforcer** supports OAuth 2.0 authentication which is preferred, but for 
 backward compatibility provides the username-password authentication routine 
@@ -75,7 +75,7 @@ a new sessionId and then we are stuck with version 35.0 (the default from
 RForcecom::rforcecom.login). Some functions in **salesforcer** implement API calls 
 that are only available after version 35.0.
 
-### CRUD Operations
+## CRUD Operations
 
 "CRUD" operations (Create, Retrieve, Update, Delete) in the **RForcecom** package 
 only operate on one record at a time. One benefit to using the **salesforcer** package 
@@ -119,7 +119,7 @@ salesforcer_results <- sf_create(new_contacts, object_name="Contact")
 salesforcer_results
 ```
 
-### Query
+## Query
 
 **salesforcer** also has better printing and type-casting when returning query result
 thanks to features of the readr package.
@@ -140,7 +140,7 @@ salesforcer_results <- sf_query(this_soql)
 salesforcer_results
 ```
 
-### Describe
+## Describe
 
 The **RForcecom** package has the function `rforcecom.getObjectDescription()` which returns 
 a `data.frame` with one row per field on an object. The same function in **salesforcer** 

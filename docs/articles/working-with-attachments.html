@@ -71,7 +71,7 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -138,9 +138,9 @@
 
     
     
-<div id="attachments-in-salesforce" class="section level3">
-<h3 class="hasAnchor">
-<a href="#attachments-in-salesforce" class="anchor"></a>Attachments in Salesforce</h3>
+<div id="attachments-in-salesforce" class="section level2">
+<h2 class="hasAnchor">
+<a href="#attachments-in-salesforce" class="anchor"></a>Attachments in Salesforce</h2>
 <p>Almost all records in Salesforce support attachments. Attachments are just blob data storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id of the record that the attachment belongs to. To get started creating and updating attachments, first, load the <strong>salesforcer</strong> and <strong>dplyr</strong> packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">here</span>)
@@ -148,9 +148,9 @@
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>The Attachment data, for example, the attachment’s Id, ParentId, Name, Body, ModifiedDate, and other attributes are stored in the Attachment object, a Standard Object in Salesforce.</p>
 </div>
-<div id="creating-uploading-attachments" class="section level3">
-<h3 class="hasAnchor">
-<a href="#creating-uploading-attachments" class="anchor"></a>Creating (Uploading) Attachments</h3>
+<div id="creating-uploading-attachments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#creating-uploading-attachments" class="anchor"></a>Creating (Uploading) Attachments</h2>
 <p>Below we will cover 2 different methods of creating attachments:</p>
 <ol style="list-style-type: decimal">
 <li>Uploading local files as Attachments one at a time using the SOAP and REST API (most common usage)</li>
@@ -185,16 +185,16 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000ZIkTcEAL TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000ZIkThEAL TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000ZIkTmEAL TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000ZIkTrEAL TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000ZIkTwEAL TRUE   </span>
-<span class="co">#&gt; 6 00P3s00000ZIkU1EAL TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 00P3s00000ZInyZEAT TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000ZInyeEAD TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000ZInyjEAD TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000ZInyoEAD TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000ZInytEAD TRUE   </span>
+<span class="co">#&gt; 6 00P3s00000ZInxmEAD TRUE</span></pre></body></html></div>
 </div>
-<div id="downloading-attachments" class="section level3">
-<h3 class="hasAnchor">
-<a href="#downloading-attachments" class="anchor"></a>Downloading Attachments</h3>
+<div id="downloading-attachments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#downloading-attachments" class="anchor"></a>Downloading Attachments</h2>
 <p>After uploading attachments to Salesforce you can download them by first querying the metadata in the Attachment object. This metadata provides the Id for the blob data attachment for download. A convenience function, <code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code>, has been created to download attachments quickly. The example below shows how to query the metadata of attachments belonging to particular ParentId.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># pull down all attachments associated with a particular record</span>
 <span class="no">queried_attachments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, Body, Name, ParentId
@@ -205,12 +205,12 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 1 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
 <span class="co">#&gt; 2 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 3 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 4 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 5 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 6 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span></pre></body></html></div>
+<span class="co">#&gt; 3 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 4 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 5 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 6 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span></pre></body></html></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
 <ol style="list-style-type: decimal">
 <li>Create a new column (e.g. <code>unique_name</code>) that is the concatenation of the Attachment Id and the Attachment’s name which is guaranteed to be unique.</li>
@@ -237,17 +237,17 @@
                           <span class="no">queried_attachments</span>$<span class="no">Name</span>,
                           <span class="no">queried_attachments</span>$<span class="no">Path</span>)
 <span class="no">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIkThEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZInyZEAT/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIkTmEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZInyjEAD/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIkTcEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZInyeEAD/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIkTrEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZInytEAD/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIkU1EAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZInyoEAD/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIkTwEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZInxmEAD/Body </span>
 <span class="co">#&gt;                                                             TRUE</span></pre></body></html></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
 <p>The SOAP and REST APIs are good for working with a few attachements at a time. However, the Bulk API can be envoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload In the example above we downloaded the 3 attachments each belonging to 2 different parent records. Assuming that I have a directory on my computer</p>
@@ -260,16 +260,16 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000ZIkU6EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000ZIkU7EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000ZIkU8EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000ZIkU9EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000ZIkUAEA1 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 6 00P3s00000ZIkUBEA1 TRUE    TRUE    NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 00P3s00000ZInyyEAD TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000ZInyzEAD TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000ZInz0EAD TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000ZInz1EAD TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000ZInz2EAD TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 6 00P3s00000ZInz3EAD TRUE    TRUE    NA</span></pre></body></html></div>
 </div>
-<div id="extending-to-documents-and-other-blob-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extending-to-documents-and-other-blob-data" class="anchor"></a>Extending to Documents and Other Blob Data</h3>
+<div id="extending-to-documents-and-other-blob-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#extending-to-documents-and-other-blob-data" class="anchor"></a>Extending to Documents and Other Blob Data</h2>
 <p>The commands for working with Attachments also work for uploading documents and other blob data as well. Documents are just like Attachments in Salesforce except instead of having an associated ParentId they have an associated FolderId where the blob will be associated with upon creation. Here is a brief example of uploading a PDF (“Document”) to a Folder</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># the function supports inserting all types of blob content, just update the </span>
 <span class="co"># object_name argument to add the PDF as a Document instead of an Attachment</span>
@@ -285,7 +285,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gYTDAA2 TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0153s000001gYUuAAM TRUE</span></pre></body></html></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">cheatsheet_url</span> <span class="kw">&lt;-</span> <span class="st">"https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"</span>
 <span class="no">document_details</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 2"</span>,
@@ -298,11 +298,11 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gYTIAA2 TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0153s000001gYUzAAM TRUE</span></pre></body></html></div>
 </div>
-<div id="reference-links" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reference-links" class="anchor"></a>Reference Links</h3>
+<div id="reference-links" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reference-links" class="anchor"></a>Reference Links</h2>
 <p>Below is a list of links to existing Salesforce documentation that provide more detail into how Attachments, Documents, and other blob data are handled via their APIs. As with many functions in <strong>salesforcer</strong>, we have tried to tranlate these functions exactly as they are described in the Salesforce documentation so that they are flexible enough to handle most all cases that the APIs were intended to support.</p>
 <ul>
 <li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
@@ -315,7 +315,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

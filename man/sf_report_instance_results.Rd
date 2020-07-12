@@ -39,7 +39,7 @@ set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-\code{tbl_df}; the detail repot data. More specifically, the detailed
+\code{tbl_df}; the detail report data. More specifically, the detailed
 data from the "T!T" entry in the fact map.
 }
 \description{

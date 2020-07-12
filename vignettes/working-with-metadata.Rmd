@@ -29,7 +29,7 @@ for users to create, read, update and delete their entire Salesforce environment
 objects to page layouts and more. This makes it very easy to programmatically setup 
 and teardown the Salesforce environment.
 
-### Retrieving Object Metadata
+## Retrieving Object Metadata
 
 One common use case for the Metadata API is retrieving information about an object 
 (fields, permissions, etc.). First, load the **salesforcer**, **dplyr**, and **purrr** 
@@ -108,7 +108,7 @@ It is recommended that you try out the various metadata functions `sf_read_metad
 `sf_list_metadata()`, `sf_describe_metadata()`, and `sf_describe_objects()` in order 
 to see which information best suits your use case.
 
-### Modifying Metadata
+## Modifying Metadata
 
 Where the Metadata API really shines is when it comes to CRUD operations on metadata. 
 In this example we will create an object, add fields to it, then delete that object.

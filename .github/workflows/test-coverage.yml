@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      
       - name: Reveal env vars
         run: |
           echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
@@ -35,11 +35,11 @@ jobs:
           echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
-
+          
       - uses: r-lib/actions/setup-r@master
-
+      
       - uses: r-lib/actions/setup-pandoc@master
-
+      
       - name: Query dependencies
         run: |
           # getting dev remotes for better behaviour re: installation order
@@ -51,8 +51,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.0-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.0-1-
+          key: macOS-r-4.0-2-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: macOS-r-4.0-2-
 
       - name: Install dependencies
         run: |

@@ -120,7 +120,7 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -186,18 +186,21 @@
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
 <ul>
-<li><p>Added support for the Reports and Dashboards REST API …</p></li>
-<li><p>Added support for Bulk 2.0 queries that was added in Salesforce version 47.0. This is now the default API when using <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code>.</p></li>
-<li><p>Standardized names of functions that submit long running jobs to Salesforce. These functions all start with <code>sf_run_*</code>. For example, <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code>, <code><a href="../reference/sf_run_bulk_operation.html">sf_run_bulk_operation()</a></code>, sf_run_report()`.</p></li>
-<li><p>Added support for logging in with a proxy without having to use OAuth 2.0 as the authentication method. When proxy support was first implemented in 0.1.4, it only supported proxy connections when logging in via OAuth 2.0. Now, this untested version of support for basic authentication has been implemented. This means that proxy users should be able to login using just a username, password, and security token if their organization has not implemented OAuth 2.0 or if they do not want to use OAuth 2.0 while logging in via this package.</p></li>
+<li><p>Add experimental support for the Reports and Dashboards REST API.</p></li>
+<li><p>Add support for Bulk 2.0 queries that was added in Salesforce version 47.0. This is now the default API when using <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code>.</p></li>
+<li><p>Standardize the column order and format of query and CRUD operations that prioritizes the object type and Ids over other fields and finaly relationship fields.</p></li>
+<li><p>Standardize names of functions that submit long running jobs to Salesforce. These functions all start with <code>sf_run_*</code>. For example, <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code>, <code><a href="../reference/sf_run_bulk_operation.html">sf_run_bulk_operation()</a></code>, sf_run_report()`.</p></li>
+<li><p>Add support for logging in with a proxy without having to use OAuth 2.0 as the authentication method. When proxy support was first implemented in 0.1.4, it only supported proxy connections when logging in via OAuth 2.0. Now, this untested version of support for basic authentication has been implemented. This means that proxy users should be able to login using just a username, password, and security token if their organization has not implemented OAuth 2.0 or if they do not want to use OAuth 2.0 while logging in via this package.</p></li>
+<li><p>Add lifecycle badges to signal maturity of different package aspects.</p></li>
+<li><p>Add vignette that outlines the supported queries and enhanced query test coverage in its own test script.</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
-<li>Fix bug in and SOAP API where the creation of a record that fails duplicate rules will return the duplicate match results as well and cause the entire function call to fail because it cannot parse the results. Now only the status code and message are returned and the function will execute successfully even if the record has not been created due to the rule. mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</li>
-<li>Fix bugs in REST and SOAP API queries to prevent infinite looping and mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</li>
+<li><p>Fix bug in and SOAP API where the creation of a record that fails duplicate rules will return the duplicate match results as well and cause the entire function call to fail because it cannot parse the results. Now only the status code and message are returned and the function will execute successfully even if the record has not been created due to the rule. mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</p></li>
+<li><p>Fix bugs in REST and SOAP API queries to prevent infinite looping and mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</p></li>
 </ul>
 <hr>
 </div>
@@ -210,28 +213,26 @@
 <h3 class="hasAnchor">
 <a href="#features-1" class="anchor"></a>Features</h3>
 <ul>
-<li>Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/53'>#53</a>)</li>
-<li>Upgraded to Salesforce version 48.0 (Spring ’20) from version 46.0 (Summer ’19)</li>
-<li>Add support for connections through a proxy by setting in package options (<a href='https://github.com/StevenMMortimer/salesforcer/issues/32'>#32</a>)</li>
-<li>CRUD operations now atomatically cast date and datetime (Date, POSIXct, POSIXlt, POSIXt) formats into an accepted string format recognized by Salesforce (<code>YYYY-MM-DDThh:mm:ss.sssZ</code>)</li>
-<li>Add <code>batch_size</code> argument to support specifying custom batch sizes for Bulk jobs</li>
-<li>Add <code><a href="../reference/sf_convert_lead.html">sf_convert_lead()</a></code> which takes leads and will associate them to the corresponding Accounts, Contacts, and Opportunities as directed in the input along with many other options to send an email to the new owner, block the opportunity creation, and more.<br>
-</li>
-<li>Add <code><a href="../reference/sf_create_attachment.html">sf_create_attachment()</a></code> along with a vignette that better describes how to interact with attachments and other blob data.<br>
-</li>
-<li>Add Attachment and Metadata vignettes along with updating the Bulk vignette.</li>
+<li><p>Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/53'>#53</a>)</p></li>
+<li><p>Upgrade to Salesforce version 48.0 (Spring ’20) from version 46.0 (Summer ’19)</p></li>
+<li><p>Add support for connections through a proxy by setting in package options (<a href='https://github.com/StevenMMortimer/salesforcer/issues/32'>#32</a>)</p></li>
+<li><p>CRUD operations now atomatically cast date and datetime (Date, POSIXct, POSIXlt, POSIXt) formats into an accepted string format recognized by Salesforce (<code>YYYY-MM-DDThh:mm:ss.sssZ</code>).</p></li>
+<li><p>Add <code>batch_size</code> argument to support specifying custom batch sizes for Bulk jobs</p></li>
+<li><p>Add <code><a href="../reference/sf_convert_lead.html">sf_convert_lead()</a></code> which takes leads and will associate them to the corresponding Accounts, Contacts, and Opportunities as directed in the input along with many other options to send an email to the new owner, block the opportunity creation, and more.</p></li>
+<li><p>Add <code><a href="../reference/sf_create_attachment.html">sf_create_attachment()</a></code> along with a vignette that better describes how to interact with attachments and other blob data.</p></li>
+<li><p>Add Attachment and Metadata vignettes along with updated Bulk vignette.</p></li>
 </ul>
 </div>
 <div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h3>
 <ul>
-<li>Fix issue where REST query was not correctly passing and honoring the batch size control argument to paginate results</li>
-<li>Fix issue in results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> that was previously passed into the function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
-<li>Fix issue where the results of Bulk 1.0 query batches where returning fewer rows than expected because of using <code>content(..., as="text")</code> which truncated the results instead of using <code>content(..., type="text/csv")</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</li>
-<li>Fix issue where the details of an object’s picklist contains NULLs (e.g. the <code>validFor</code> entry of a picklist value is NULL) so now it is replaced with NA and then can be bound together into a data.frame (<a href='https://github.com/StevenMMortimer/salesforcer/issues/27'>#27</a>)</li>
-<li>Fix issue where NA values in create, update, and upsert operations where setting the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in a record will set the field to blank across all APIs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/29'>#29</a>)</li>
-<li>Fix issue where supplying all NA values in the Id field for certain operations would result in a cryptic error message (<code>"BAD_REQUEST: Unsupported Tooling Sobject    Type"</code>); the affected operations are: delete, undelete, emptyRecycleBin, retrieve, update, and findDuplicatesByIds</li>
+<li><p>Fix issue where REST query was not correctly passing and honoring the batch size control argument to paginate results</p></li>
+<li><p>Fix issue in results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> that was previously passed into the function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</p></li>
+<li><p>Fix issue where the results of Bulk 1.0 query batches where returning fewer rows than expected because of using <code>content(..., as="text")</code> which truncated the results instead of using <code>content(..., type="text/csv")</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</p></li>
+<li><p>Fix issue where the details of an object’s picklist contains NULLs (e.g. the <code>validFor</code> entry of a picklist value is NULL) so now it is replaced with NA and then can be bound together into a data.frame (<a href='https://github.com/StevenMMortimer/salesforcer/issues/27'>#27</a>)</p></li>
+<li><p>Fix issue where NA values in create, update, and upsert operations where setting the fields to blank in Bulk APIs, but not the SOAP or REST APIs. Now NA values in a record will set the field to blank across all APIs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/29'>#29</a>)</p></li>
+<li><p>Fix issue where supplying all NA values in the Id field for certain operations would result in a cryptic error message (<code>"BAD_REQUEST: Unsupported   Tooling Sobject Type"</code>); the affected operations are: delete, undelete, emptyRecycleBin, retrieve, update, and findDuplicatesByIds</p></li>
 </ul>
 <hr>
 </div>
@@ -244,33 +245,31 @@
 <h3 class="hasAnchor">
 <a href="#features-2" class="anchor"></a>Features</h3>
 <ul>
-<li>Upgraded to version 46.0 (Summer ’19) from version 45.0 (Spring ’19)</li>
-<li>Add <strong>RForcecom</strong> backward compatibile version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>
-</li>
-<li>Add <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> which is a tidyier version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>
-</li>
-<li>Allow users to control whether query results are kept as all character or the types are guessed (<a href='https://github.com/StevenMMortimer/salesforcer/issues/12'>#12</a>)</li>
-<li>Add <code><a href="../reference/sf_get_all_jobs_bulk.html">sf_get_all_jobs_bulk()</a></code> so that users can see retrieve details for all bulk jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</li>
-<li>Add new utility functions <code><a href="../reference/sf_set_password.html">sf_set_password()</a></code> and <code><a href="../reference/sf_reset_password.html">sf_reset_password()</a></code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/11'>#11</a>)</li>
-<li>Add two new functions to check for duplicates (<code><a href="../reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="../reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>)</li>
-<li>Add new function to download attachments to disk (<code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/20'>#20</a>)</li>
-<li>The <code>object_name</code> argument, required for bulk queries, will be inferred if left blank, making it no longer a required argument</li>
-<li>Almost all functions in the package now have a <code>control</code> argument and dots (<code>...</code>) which allows for more than a dozen different control parameters listed in <code><a href="../reference/sf_control.html">sf_control()</a></code> to be fed into existing function calls to tweak the default behavior. For example, if you would like to override duplicate rules then you can adjust the <code>DuplicateRuleHeader</code>. If you would like to have certain assignment rule run on newly created records, then pass in the <code>AssignmentRuleHeader</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/5'>#5</a>)</li>
-<li>Add new function <code><a href="../reference/sf_undelete.html">sf_undelete()</a></code> which will take records out of the Recycle Bin</li>
-<li>Add new function <code><a href="../reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code> which will remove records permanently from the Recycle Bin</li>
-<li>Add new function <code><a href="../reference/sf_merge.html">sf_merge()</a></code> which combines up to 3 records of the same type into 1 record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/22'>#22</a>)</li>
+<li><p>Upgrade to version 46.0 (Summer ’19) from version 45.0 (Spring ’19)</p></li>
+<li><p>Add <strong>RForcecom</strong> backward compatible version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code></p></li>
+<li><p>Add <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> which is a tidyier version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code></p></li>
+<li><p>Allow users to control whether query results are kept as all character or the types are guessed (<a href='https://github.com/StevenMMortimer/salesforcer/issues/12'>#12</a>)</p></li>
+<li><p>Add <code><a href="../reference/sf_get_all_jobs_bulk.html">sf_get_all_jobs_bulk()</a></code> so that users can see retrieve details for all bulk jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</p></li>
+<li><p>Add new utility functions <code><a href="../reference/sf_set_password.html">sf_set_password()</a></code> and <code><a href="../reference/sf_reset_password.html">sf_reset_password()</a></code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/11'>#11</a>)</p></li>
+<li><p>Add two new functions to check for duplicates (<code><a href="../reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="../reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>)</p></li>
+<li><p>Add new function to download attachments to disk (<code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code>) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/20'>#20</a>)</p></li>
+<li><p>Add functionality to infer the <code>object_name</code> argument, required for bulk queries, if left blank.</p></li>
+<li><p>Add <code>control</code> argument to most all package functions and dots (<code>...</code>) which allows for more than a dozen different control parameters listed in <code><a href="../reference/sf_control.html">sf_control()</a></code> to be fed into existing function calls to tweak the default behavior. For example, if you would like to override duplicate rules then you can adjust the <code>DuplicateRuleHeader</code>. If you would like to have certain assignment rule run on newly created records, then pass in the <code>AssignmentRuleHeader</code> (<a href='https://github.com/StevenMMortimer/salesforcer/issues/4'>#4</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/5'>#5</a>)</p></li>
+<li><p>Add new function <code><a href="../reference/sf_undelete.html">sf_undelete()</a></code> which will take records out of the Recycle Bin</p></li>
+<li><p>Add new function <code><a href="../reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code> which will remove records permanently from the Recycle Bin</p></li>
+<li><p>Add new function <code><a href="../reference/sf_merge.html">sf_merge()</a></code> which combines up to 3 records of the same type into 1 record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/22'>#22</a>)</p></li>
 </ul>
 </div>
 <div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes-2" class="anchor"></a>Bug Fixes</h3>
 <ul>
-<li>Fix bug where Username/Password authenticated sessions where not working with api_type = “Bulk 1.0”</li>
-<li>Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</li>
-<li>Fix bug that had only production environment logins possible because of hard coding (<a href='https://github.com/weckstm'>@weckstm</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/18'>#18</a>)</li>
-<li>Make <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> more robust against nested list elements and also return picklists as tibbles (<a href='https://github.com/StevenMMortimer/salesforcer/issues/16'>#16</a>)</li>
-<li>Fix bug where four of the bulk operation options (<code>content_type</code>, <code>concurrency_mode</code>, <code>line_ending</code>, and <code>column_delimiter</code>) where not being passed down from the top level generic functions like <code><a href="../reference/sf_create.html">sf_create()</a></code>, <code><a href="../reference/sf_update.html">sf_update()</a></code>, etc. However, <code>line_ending</code> has now been moved into the <code>sf_control</code> function so it is no longer explicitly listed for bulk operations as an argument. (<a href='https://github.com/mitch-niche'>@mitch-niche</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/23'>#23</a>)</li>
-<li>Ensure that for SOAP, REST, and Bulk 2.0 APIs the verbose argument prints out the XML or JSON along with the URL of the call so it can be replicated via cURL or some other programming language (<a href='https://github.com/StevenMMortimer/salesforcer/issues/8'>#8</a>)</li>
+<li><p>Fix bug where Username/Password authenticated sessions where not working with api_type = “Bulk 1.0”</p></li>
+<li><p>Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</p></li>
+<li><p>Fix bug that had only production environment logins possible because of hard coding (<a href='https://github.com/weckstm'>@weckstm</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/18'>#18</a>)</p></li>
+<li><p>Enhance <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> to be robust against nested list elements and also return picklist labels and their values as a tibble (<a href='https://github.com/StevenMMortimer/salesforcer/issues/16'>#16</a>)</p></li>
+<li><p>Fix bug where four of the bulk operation options (<code>content_type</code>, <code>concurrency_mode</code>, <code>line_ending</code>, and <code>column_delimiter</code>) where not being passed down from the top level generic functions like <code><a href="../reference/sf_create.html">sf_create()</a></code>, <code><a href="../reference/sf_update.html">sf_update()</a></code>, etc. However, <code>line_ending</code> has now been moved into the <code>sf_control</code> function so it is no longer explicitly listed for bulk operations as an argument. (<a href='https://github.com/mitch-niche'>@mitch-niche</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/23'>#23</a>)</p></li>
+<li><p>Ensure that for SOAP, REST, and Bulk 2.0 APIs the verbose argument prints out the XML or JSON along with the URL of the call so it can be replicated via cURL or some other programming language (<a href='https://github.com/StevenMMortimer/salesforcer/issues/8'>#8</a>)</p></li>
 </ul>
 <hr>
 </div>
@@ -283,9 +282,9 @@
 <h3 class="hasAnchor">
 <a href="#features-3" class="anchor"></a>Features</h3>
 <ul>
-<li>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</li>
-<li>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</li>
-<li>Created internal functions that explicity call each API for an operation. For example, <code><a href="../reference/sf_create.html">sf_create()</a></code> routes into <code><a href="../reference/sf_create_soap.html">sf_create_soap()</a></code>, <code><a href="../reference/sf_create_rest.html">sf_create_rest()</a></code>, and <code><a href="../reference/sf_run_bulk_operation.html">sf_bulk_operation()</a></code>.</li>
+<li><p>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</p></li>
+<li><p>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</p></li>
+<li><p>Create internal functions that explicitly call each API for an operation. For example, <code><a href="../reference/sf_create.html">sf_create()</a></code> routes into <code><a href="../reference/sf_create_soap.html">sf_create_soap()</a></code>, <code><a href="../reference/sf_create_rest.html">sf_create_rest()</a></code>, and <code><a href="../reference/sf_run_bulk_operation.html">sf_bulk_operation()</a></code>.</p></li>
 </ul>
 <hr>
 </div>
@@ -298,10 +297,11 @@
 <h3 class="hasAnchor">
 <a href="#features-4" class="anchor"></a>Features</h3>
 <ul>
-<li>Add <code><a href="../reference/sf_search.html">sf_search()</a></code> with REST and SOAP API support for SOSL and free text search</li>
-<li>Add <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> with REST and SOAP API to return object metadata</li>
-<li>Add REST API support for upsert (<code><a href="../reference/sf_upsert.html">sf_upsert()</a></code>)</li>
-<li>Add SOAP API support for the following operations:
+<li><p>Add <code><a href="../reference/sf_search.html">sf_search()</a></code> with REST and SOAP API support for SOSL and free text search</p></li>
+<li><p>Add <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> with REST and SOAP API to return object metadata</p></li>
+<li><p>Add REST API support for upsert (<code><a href="../reference/sf_upsert.html">sf_upsert()</a></code>)</p></li>
+<li>
+<p>Add SOAP API support for the following operations:</p>
 <ul>
 <li><code><a href="../reference/sf_create.html">sf_create()</a></code></li>
 <li><code><a href="../reference/sf_update.html">sf_update()</a></code></li>
@@ -309,7 +309,8 @@
 <li><code><a href="../reference/sf_retrieve.html">sf_retrieve()</a></code></li>
 </ul>
 </li>
-<li>Add Metadata API support for the following operations:
+<li>
+<p>Add Metadata API support for the following operations:</p>
 <ul>
 <li><code><a href="../reference/sf_create_metadata.html">sf_create_metadata()</a></code></li>
 <li><code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code></li>
@@ -323,15 +324,15 @@
 <li><code>sf_deploy_metdata()</code></li>
 </ul>
 </li>
-<li>Make the default file name for a cached token <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names</li>
+<li><p>Update the default file name for a cached token to <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names.</p></li>
 </ul>
 </div>
 <div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes-3" class="anchor"></a>Bug Fixes</h3>
 <ul>
-<li><p><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET</p></li>
-<li><p><code>sf_token()</code> ignoring basic auth’ed sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="../reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (<a href='https://github.com/StevenMMortimer/salesforcer/issues/1'>#1</a>).</p></li>
+<li><p><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET.</p></li>
+<li><p><code>sf_token()</code> ignoring basic authorized sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="../reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (<a href='https://github.com/StevenMMortimer/salesforcer/issues/1'>#1</a>).</p></li>
 </ul>
 <hr>
 </div>
@@ -344,9 +345,10 @@
 <h3 class="hasAnchor">
 <a href="#features-5" class="anchor"></a>Features</h3>
 <ul>
-<li>OAuth 2.0 and Basic authentication methods (<code><a href="../reference/sf_auth.html">sf_auth()</a></code>)</li>
-<li>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</li>
-<li>CRUD operations (Create, Retrieve, Update, Delete) for REST and Bulk APIs:
+<li><p>OAuth 2.0 and Basic authentication methods (<code><a href="../reference/sf_auth.html">sf_auth()</a></code>)</p></li>
+<li><p>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</p></li>
+<li>
+<p>CRUD operations (Create, Retrieve, Update, Delete) for REST and Bulk APIs:</p>
 <ul>
 <li><code><a href="../reference/sf_create.html">sf_create()</a></code></li>
 <li><code><a href="../reference/sf_retrieve.html">sf_retrieve()</a></code></li>
@@ -355,7 +357,8 @@
 <li><code><a href="../reference/sf_delete.html">sf_delete()</a></code></li>
 </ul>
 </li>
-<li>Backwards compatibile versions of <strong>RForcecom</strong> package functions:
+<li>
+<p>Backwards compatible versions of <strong>RForcecom</strong> package functions:</p>
 <ul>
 <li><code><a href="../reference/rforcecom.login.html">rforcecom.login()</a></code></li>
 <li><code><a href="../reference/rforcecom.getServerTimestamp.html">rforcecom.getServerTimestamp()</a></code></li>
@@ -367,7 +370,8 @@
 <li><code><a href="../reference/rforcecom.delete.html">rforcecom.delete()</a></code></li>
 </ul>
 </li>
-<li>Basic utility calls:
+<li>
+<p>Basic utility calls:</p>
 <ul>
 <li><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code></li>
 <li><code><a href="../reference/sf_server_timestamp.html">sf_server_timestamp()</a></code></li>

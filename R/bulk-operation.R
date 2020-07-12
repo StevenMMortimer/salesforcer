@@ -673,7 +673,7 @@ sf_delete_job_bulk <- function(job_id,
 #' @importFrom httr upload_file
 #' @template job_id
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
-#' \code{tbl_df}; data can be coerced into .csv file for submitting as batch request
+#' \code{tbl_df}; data can be coerced into CSV file for submitting as batch request
 #' @template batch_size
 #' @template api_type
 #' @template verbose
@@ -1271,7 +1271,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
-#' \code{tbl_df}; data can be coerced into .csv file for submitting as batch request
+#' \code{tbl_df}; data can be coerced into CSV file for submitting as batch request
 #' @template object_name
 #' @param operation character; string defining the type of operation being performed
 #' @template external_id_fieldname

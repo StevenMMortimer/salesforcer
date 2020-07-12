@@ -32,7 +32,7 @@ A \code{list} of the response
 \description{
 \lifecycle{experimental}
 
-This function returns details about an initiated retrieveMetadata requset
+This function returns details about an initiated retrieveMetadata request
 and saves the results into a zip file
 }
 \note{

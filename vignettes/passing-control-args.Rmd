@@ -30,7 +30,7 @@ you to fine tune the behavior of calls to the Salesforce APIs. This vignette wil
 introduce the different options you can control and how to pass them into the **salesforcer** 
 functions you're already familiar with.
 
-### The new control argument
+## The new control argument
 
 This new feature can be seen in the `sf_create` (and many other functions) as 
 `control=list(...)`. The dots mean that you can pass any number of controls directly 
@@ -71,7 +71,7 @@ because they are passed as a named header of the HTTP request and then the heade
 and values are provided for that header. Second, some headers have multiple fields and values 
 so a list is the only way to provide multiple named fields and values under a single header entity. 
 
-### An example using the `DuplicateRuleHeader`
+## An example using the `DuplicateRuleHeader`
 
 The `DuplicateRuleHeader` that controls whether the duplicate rules are 
 followed when inserting records from the API, has three fields: 
@@ -146,7 +146,7 @@ record4
 deleted_records <- sf_delete(c(record1$id, record2$id))
 ```
 
-### Creating the control argument with sf_control
+## Creating the control argument with sf_control
 
 If this type of control structure is new to you, take a look at the documentation for 
 the `glm` and `glm.control` functions. The way these two functions behave is exactly how 
@@ -161,7 +161,7 @@ sf_query("SELECT Id, Name FROM Account LIMIT 1000",
          control = sf_control(QueryOptions = list(batchSize = 200)))
 ```
 
-### Backwards compatibility for all_or_none and other named arguments
+## Backwards compatibility for all_or_none and other named arguments
 
 You may already be taking advantage of the `all_or_none` or `line_ending` arguments 
 which are control arguments that were explicity included in functions. These argument 
@@ -174,7 +174,7 @@ but will provide a deprecated warning. They will be removed in the next CRAN rel
 of the package so it will be important to update your code now if you are explicitly 
 passing these arguments and see a deprecation warning.
   
-### Reference Links
+## Reference Links
 
 Below is a list of links that go directly to the control arguments (a.k.a headers) 
 for the different APIs. I highly recommend reading this documentation before setting 

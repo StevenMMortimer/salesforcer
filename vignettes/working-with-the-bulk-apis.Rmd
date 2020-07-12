@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-### Using the Bulk API
+## Using the Bulk API
 
 First, load the **salesforcer** and **dplyr** packages and login, if needed. 
 
@@ -73,7 +73,7 @@ bulk_created_records <- sf_create(new_contacts2, object_name="Contact", api_type
 bulk_created_records
 ```
 
-### A Complete Bulk API Workflow
+## A Complete Bulk API Workflow
 
 To show a more lengthy example of using the Bulk 1.0 API, below is a workflow of 
 that creates 2 records, queries them, and deletes them. This is just an example. 
@@ -108,7 +108,7 @@ deleted_records <- sf_delete(queried_records$Id, object_name=object, api_type="B
 deleted_records
 ```
 
-### Query Limitations
+## Query Limitations
 
 There is one limitation to Bulk queries is that it does not support the following 
 operations or structures of SOQL: 
@@ -123,7 +123,7 @@ operations or structures of SOQL:
  - Compound address fields
  - Compound geolocation fields
  
-### Using the Bulk 2.0 API
+## Using the Bulk 2.0 API
  
 The **salesforcer** package also implements the Bulk 2.0 API which has better 
 speed than the Bulk 1.0 API but sacrifices consistency in the ordering of the 

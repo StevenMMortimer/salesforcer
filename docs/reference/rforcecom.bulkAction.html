@@ -124,7 +124,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -208,7 +208,12 @@ This function is a convenience wrapper for submitting bulk API jobs" />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>session</th>
-      <td><p>a named character vector defining parameters of the api connection as returned by <a href='rforcecom.login.html'>rforcecom.login</a></p></td>
+      <td><p><code>list</code>; a list containing <code>"sessionID"</code>,
+<code>"instanceURL"</code>, and <code>"apiVersion"</code> as returned by
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>rforcecom.login</a></code>. This argument is ignored in all
+backward compatible calls because the authorization credentials are stored
+in an environment internal to the salesforcer package, so it is no longer
+necessary to pass the session in each function call.</p></td>
     </tr>
     <tr>
       <th>operation</th>
@@ -216,7 +221,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
     </tr>
     <tr>
       <th>data</th>
-      <td><p>a matrix or data.frame that can be coerced into .csv file for submitting as batch request</p></td>
+      <td><p>a matrix or data.frame that can be coerced into a CSV file for submitting as batch request</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -230,12 +235,12 @@ objects during upserts to determine if the record already exists in Salesforce o
     </tr>
     <tr>
       <th>multiBatch</th>
-      <td><p>a boolean value defining whether or not submit data in batches to the api</p></td>
+      <td><p>a boolean value defining whether or not submit data in batches to the API</p></td>
     </tr>
     <tr>
       <th>batchSize</th>
       <td><p>an integer value defining the number of records to submit if multiBatch is true.
-The max value is 10000 in accordance with salesforce limits.</p></td>
+The max value is 10,000 in accordance with Salesforce limits.</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>
@@ -264,7 +269,10 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># update Account object</span>
-<span class='no'>updates</span> <span class='kw'>&lt;-</span> <span class='fu'>rforcecom.bulkAction</span>(<span class='no'>session</span>, <span class='kw'>operation</span><span class='kw'>=</span><span class='st'>'update'</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>my_data</span>, <span class='kw'>object</span><span class='kw'>=</span><span class='st'>'Account'</span>)
+<span class='no'>updates</span> <span class='kw'>&lt;-</span> <span class='fu'>rforcecom.bulkAction</span>(<span class='no'>session</span>,
+                                <span class='kw'>operation</span> <span class='kw'>=</span> <span class='st'>'update'</span>,
+                                <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>my_data</span>,
+                                <span class='kw'>object</span> <span class='kw'>=</span> <span class='st'>'Account'</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

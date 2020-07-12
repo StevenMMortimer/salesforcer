@@ -79,7 +79,7 @@
       <a href="articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="articles/working-with-metadata.html">Working with Metadata</a>
@@ -201,13 +201,12 @@
 <p>The README below outlines the basic package functionality. Review the vignettes for more detailed examples on usage.</p>
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html">Supported Queries</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a></li>
-<li>
-<a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a><br>
-</li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 </ul>
 </div>
 <div id="usage" class="section level2">
@@ -221,7 +220,7 @@
 <li>OAuth 2.0</li>
 <li>Basic Username-Password</li>
 </ol>
-<p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory. Also, note that if you use OAuth 2.0 authentication then the package will automatically refresh it so you will not have to call <code><a href="reference/sf_auth.html">sf_auth()</a></code> during each sesssion if you have a cached “.httr-oauth-salesforcer” file in the working directory. The cache file is named that way to not conflict with the “.httr-oauth” files created by other packages.</p>
+<p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory. Also, note that if you use OAuth 2.0 authentication then the package will automatically refresh it so you will not have to call <code><a href="reference/sf_auth.html">sf_auth()</a></code> during each session if you have a cached “.httr-oauth-salesforcer” file in the working directory. The cache file is named that way to not conflict with the “.httr-oauth” files created by other packages.</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
 
@@ -254,8 +253,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NsBqAAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NsBrAAK TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NuNAAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NuNBAA0 TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -273,8 +272,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NsBqAAK Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NsBrAAK Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NuNAAA0 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012NuNBAA0 Test      Contact-Create-2</span></pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -290,8 +289,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NsBqAAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NsBrAAK TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000012NuNAAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NuNBAA0 TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -307,8 +306,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012NsC0AAK TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012NsC1AAK TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012Nu5WAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012Nu5XAAS TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -323,8 +322,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NsC0AAK Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NsC1AAK Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012Nu5WAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012Nu5XAAS Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -332,8 +331,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012NsC0AAK FALSE       0033s000012NsC0AAK &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012NsC1AAK FALSE       0033s000012NsC1AAK &lt;NA&gt;</span></pre></div>
+<span class="co">#&gt; 1 0033s000012Nu5WAAS FALSE       0033s000012Nu5WAAS &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012Nu5XAAS FALSE       0033s000012Nu5XAAS &lt;NA&gt;</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">

@@ -71,7 +71,7 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -139,9 +139,9 @@
     
     
 <p>While writing the <strong>salesforcer</strong> package we were keenly aware that many folks are already using the <strong>RForcecom</strong> package to connect to Salesforce. In order to foster adoption and switching between the packages <strong>salesforcer</strong> replicates the functionality of many <strong>RForcecom</strong> functions so that you will only need to swap out <code><a href="https://rdrr.io/pkg/RForcecom/man">library(RForcecom)</a></code> for <code><a href="https://rdrr.io/pkg/salesforcer/man">library(salesforcer)</a></code> and still have your production tested scripts perform as usual.</p>
-<div id="authentication" class="section level3">
-<h3 class="hasAnchor">
-<a href="#authentication" class="anchor"></a>Authentication</h3>
+<div id="authentication" class="section level2">
+<h2 class="hasAnchor">
+<a href="#authentication" class="anchor"></a>Authentication</h2>
 <p><strong>salesforcer</strong> supports OAuth 2.0 authentication which is preferred, but for backward compatibility provides the username-password authentication routine implemented by <strong>RForcecom</strong>. Here is an example running the function from each of the packages side-by-side and producing the same result.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># the RForcecom way</span>
 <span class="no">session1</span> <span class="kw">&lt;-</span> <span class="kw pkg">RForcecom</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html">rforcecom.login</a></span>(<span class="no">username</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">password</span>, <span class="no">security_token</span>),
@@ -165,9 +165,9 @@
 <span class="co">#&gt;                          "48.0"</span></pre></body></html></div>
 <p>Note that we must set the API version here because calls to session will not create a new sessionId and then we are stuck with version 35.0 (the default from RForcecom::rforcecom.login). Some functions in <strong>salesforcer</strong> implement API calls that are only available after version 35.0.</p>
 </div>
-<div id="crud-operations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#crud-operations" class="anchor"></a>CRUD Operations</h3>
+<div id="crud-operations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#crud-operations" class="anchor"></a>CRUD Operations</h2>
 <p>“CRUD” operations (Create, Retrieve, Update, Delete) in the <strong>RForcecom</strong> package only operate on one record at a time. One benefit to using the <strong>salesforcer</strong> package is that these operations will accept a named vector (one record) or an entire <code>data.frame</code> or <code>tbl_df</code> of records to churn through. However, rest assured that the replicated functions behave exactly the same way if you are hesitant to making the switch.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">object</span> <span class="kw">&lt;-</span> <span class="st">"Contact"</span>
 <span class="no">fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FirstName</span><span class="kw">=</span><span class="st">"Test"</span>, <span class="kw">LastName</span><span class="kw">=</span><span class="st">"Contact-Create-Compatibility"</span>)
@@ -176,13 +176,13 @@
 <span class="no">result1</span> <span class="kw">&lt;-</span> <span class="kw pkg">RForcecom</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html">rforcecom.create</a></span>(<span class="no">session</span>, <span class="kw">objectName</span><span class="kw">=</span><span class="no">object</span>, <span class="no">fields</span>)
 <span class="no">result1</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012Nt4cAAC    true</span>
+<span class="co">#&gt; 1 0033s000012NwMCAA0    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="no">result2</span> <span class="kw">&lt;-</span> <span class="kw pkg">salesforcer</span><span class="kw ns">::</span><span class="fu"><a href="../reference/rforcecom.create.html">rforcecom.create</a></span>(<span class="no">session</span>, <span class="kw">objectName</span><span class="kw">=</span><span class="no">object</span>, <span class="no">fields</span>)
 <span class="no">result2</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012NtRpAAK    TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NwMHAA0    TRUE</span></pre></body></html></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
@@ -198,8 +198,8 @@
 }
 <span class="no">rforcecom_results</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012NtRuAAK    true</span>
-<span class="co">#&gt; 2 0033s000012NtRzAAK    true</span>
+<span class="co">#&gt; 1 0033s000012NwMMAA0    true</span>
+<span class="co">#&gt; 2 0033s000012NwMRAA0    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 <span class="no">salesforcer_results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="st">"Contact"</span>)
@@ -207,12 +207,12 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NtS4AAK TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NtS5AAK TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NwMWAA0 TRUE   </span>
+<span class="co">#&gt; 2 0033s000012NwMXAA0 TRUE</span></pre></body></html></div>
 </div>
-<div id="query" class="section level3">
-<h3 class="hasAnchor">
-<a href="#query" class="anchor"></a>Query</h3>
+<div id="query" class="section level2">
+<h2 class="hasAnchor">
+<a href="#query" class="anchor"></a>Query</h2>
 <p><strong>salesforcer</strong> also has better printing and type-casting when returning query result thanks to features of the readr package.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">this_soql</span> <span class="kw">&lt;-</span> <span class="st">"SELECT Id, Email FROM Contact LIMIT 5"</span>
 
@@ -220,11 +220,11 @@
 <span class="no">result1</span> <span class="kw">&lt;-</span> <span class="kw pkg">RForcecom</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.query.html">rforcecom.query</a></span>(<span class="no">session</span>, <span class="kw">soqlQuery</span> <span class="kw">=</span> <span class="no">this_soql</span>)
 <span class="no">result1</span>
 <span class="co">#&gt;                   Id</span>
-<span class="co">#&gt; 1 0033s000012Nt56AAC</span>
-<span class="co">#&gt; 2 0033s000012Nt55AAC</span>
-<span class="co">#&gt; 3 0033s000012NeHwAAK</span>
-<span class="co">#&gt; 4 0033s000012NeLLAA0</span>
-<span class="co">#&gt; 5 0033s000012NdjPAAS</span>
+<span class="co">#&gt; 1 0033s000012NuRHAA0</span>
+<span class="co">#&gt; 2 0033s000012NwMRAA0</span>
+<span class="co">#&gt; 3 0033s000012Nu5YAAS</span>
+<span class="co">#&gt; 4 0033s000012NuiXAAS</span>
+<span class="co">#&gt; 5 0033s000012Nt56AAC</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="no">result2</span> <span class="kw">&lt;-</span> <span class="kw pkg">salesforcer</span><span class="kw ns">::</span><span class="fu"><a href="../reference/rforcecom.query.html">rforcecom.query</a></span>(<span class="no">session</span>, <span class="kw">soqlQuery</span> <span class="kw">=</span> <span class="no">this_soql</span>)
@@ -232,11 +232,11 @@
 <span class="co">#&gt; # A tibble: 5 x 1</span>
 <span class="co">#&gt;   Id                </span>
 <span class="co">#&gt;   &lt;chr&gt;             </span>
-<span class="co">#&gt; 1 0033s000012Nt56AAC</span>
-<span class="co">#&gt; 2 0033s000012Nt55AAC</span>
-<span class="co">#&gt; 3 0033s000012NeHwAAK</span>
-<span class="co">#&gt; 4 0033s000012NeLLAA0</span>
-<span class="co">#&gt; 5 0033s000012NdjPAAS</span>
+<span class="co">#&gt; 1 0033s000012NuRHAA0</span>
+<span class="co">#&gt; 2 0033s000012NwMRAA0</span>
+<span class="co">#&gt; 3 0033s000012Nu5YAAS</span>
+<span class="co">#&gt; 4 0033s000012NuiXAAS</span>
+<span class="co">#&gt; 5 0033s000012Nt56AAC</span>
 
 <span class="co"># the better way in salesforcer to query</span>
 <span class="no">salesforcer_results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">this_soql</span>)
@@ -244,15 +244,15 @@
 <span class="co">#&gt; # A tibble: 5 x 1</span>
 <span class="co">#&gt;   Id                </span>
 <span class="co">#&gt;   &lt;chr&gt;             </span>
-<span class="co">#&gt; 1 0033s000012Nt56AAC</span>
-<span class="co">#&gt; 2 0033s000012Nt55AAC</span>
-<span class="co">#&gt; 3 0033s000012NeHwAAK</span>
-<span class="co">#&gt; 4 0033s000012NeLLAA0</span>
-<span class="co">#&gt; 5 0033s000012NdjPAAS</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NuRHAA0</span>
+<span class="co">#&gt; 2 0033s000012NwMRAA0</span>
+<span class="co">#&gt; 3 0033s000012Nu5YAAS</span>
+<span class="co">#&gt; 4 0033s000012NuiXAAS</span>
+<span class="co">#&gt; 5 0033s000012Nt56AAC</span></pre></body></html></div>
 </div>
-<div id="describe" class="section level3">
-<h3 class="hasAnchor">
-<a href="#describe" class="anchor"></a>Describe</h3>
+<div id="describe" class="section level2">
+<h2 class="hasAnchor">
+<a href="#describe" class="anchor"></a>Describe</h2>
 <p>The <strong>RForcecom</strong> package has the function <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code> which returns a <code>data.frame</code> with one row per field on an object. The same function in <strong>salesforcer</strong> is named <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> and also has better printing and datatype casting by using tibbles.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># the RForcecom way</span>
 <span class="no">result1</span> <span class="kw">&lt;-</span> <span class="kw pkg">RForcecom</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription</a></span>(<span class="no">session</span>, <span class="kw">objectName</span><span class="kw">=</span><span class="st">'Account'</span>)
@@ -292,7 +292,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

@@ -62,18 +62,18 @@ match (case-insensitive).
 \describe{
 \item{leadId}{ID of the Lead to convert. Required.}
 \item{convertedStatus}{Valid LeadStatus value for a converted lead. Required.}
-\item{accountId}{ID of the Account into which the lead will be merged. Required
+\item{accountId}{Id of the Account into which the lead will be merged. Required
 only when updating an existing account, including person accounts. If no
-accountID is specified, then the API creates a new account.}
-\item{contactId}{D of the Contact into which the lead will be merged (this
+accountId is specified, then the API creates a new account.}
+\item{contactId}{Id of the Contact into which the lead will be merged (this
 contact must be associated with the specified accountId, and an accountId
 must be specified). Required only when updating an existing contact. If no
-contactID is specified, then the API creates a new contact that is implicitly
+contactId is specified, then the API creates a new contact that is implicitly
 associated with the Account.}
-\item{ownerId}{Specifies the ID of the person to own any newly created account,
+\item{ownerId}{Specifies the Id of the person to own any newly created account,
 contact, and opportunity. If the client application does not specify this
 value, then the owner of the new object will be the owner of the lead.}
-\item{opportunityId}{The ID of an existing opportunity to relate to the lead.
+\item{opportunityId}{The Id of an existing opportunity to relate to the lead.
 The opportunityId and opportunityName arguments are mutually exclusive. Specifying
 a value for both results in an error. If doNotCreateOpportunity argument is
 \code{TRUE}, then no Opportunity is created and this field must be left blank;
@@ -97,7 +97,7 @@ for the target contact.}
 to the owner specified in the ownerId (\code{TRUE}) or not (\code{FALSE},
 the default).}
 }
-\href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm}{Salesforce Documentation for convertLead}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm}{Salesforce Documentation}
 }
 \examples{
 \dontrun{

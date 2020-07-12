@@ -122,7 +122,7 @@ Delete records from the recycle bin immediately and permanently." />
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -243,9 +243,14 @@ along with additional diagnostic information where available.</p></td>
 <span class='co'># confirm that the record really is gone (can't be deleted)</span>
 <span class='no'>undelete</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_undelete.html'>sf_undelete</a></span>(<span class='no'>new_records</span>$<span class='no'>id</span>[<span class='fl'>1</span>])
 <span class='co'># if you use queryall you still will find the record for ~24hrs</span>
-<span class='co'>#is_deleted &lt;- sf_query(sprintf("SELECT Id, IsDeleted FROM Contact WHERE Id='%s'",</span>
-<span class='co'>#                               new_records$id[1]),</span>
-<span class='co'>#                       queryall = TRUE)</span>
+<span class='no'>is_deleted</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
+                               <span class='no'>new_records</span>$<span class='no'>id</span>[<span class='fl'>1</span>]), <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># As of v48.0 (Spring 2020) you can query the Ids of all records in the Recycle </span>
+<span class='co'># Bin, which makes it easier to clear the entire bin because you can grab the </span>
+<span class='co'># Ids of the records first</span>
+<span class='no'>records_in_bin</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Record FROM DeleteEvent"</span>)
+<span class='no'>records_emptied_from_bin</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_delete.html'>sf_delete</a></span>(<span class='no'>records_in_bin</span>$<span class='no'>Record</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

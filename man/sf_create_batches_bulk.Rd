@@ -17,7 +17,7 @@ sf_create_batches_bulk(
 returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
 \item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
-\code{tbl_df}; data can be coerced into .csv file for submitting as batch request}
+\code{tbl_df}; data can be coerced into CSV file for submitting as batch request}
 
 \item{batch_size}{\code{integer}; the number of individual records to be included in a
 single batch uploaded to the Bulk APIs (1.0 or 2.0).}

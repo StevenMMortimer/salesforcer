@@ -787,7 +787,7 @@ sf_report_instance_delete <- function(report_id,
 #' @template label
 #' @template fact_map_key
 #' @template verbose
-#' @return \code{tbl_df}; the detail repot data. More specifically, the detailed 
+#' @return \code{tbl_df}; the detail report data. More specifically, the detailed 
 #' data from the "T!T" entry in the fact map.
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm}{Factmap Documentation}
 #' @examples \dontrun{

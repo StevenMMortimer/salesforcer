@@ -99,7 +99,7 @@ sf_retrieve_metadata <- function(retrieve_request,
 #' @description
 #' \lifecycle{experimental}
 #' 
-#' This function returns details about an initiated retrieveMetadata requset
+#' This function returns details about an initiated retrieveMetadata request
 #' and saves the results into a zip file
 #' 
 #' @importFrom jsonlite base64_dec

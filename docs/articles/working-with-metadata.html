@@ -71,7 +71,7 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
-      <a href="../articles/working-with-attachments.html">Working with the Attachments</a>
+      <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
       <a href="../articles/working-with-metadata.html">Working with Metadata</a>
@@ -139,9 +139,9 @@
     
     
 <p>Salesforce is a very flexible platform in that it provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm">Metadata API</a> for users to create, read, update and delete their entire Salesforce environment from objects to page layouts and more. This makes it very easy to programmatically setup and teardown the Salesforce environment.</p>
-<div id="retrieving-object-metadata" class="section level3">
-<h3 class="hasAnchor">
-<a href="#retrieving-object-metadata" class="anchor"></a>Retrieving Object Metadata</h3>
+<div id="retrieving-object-metadata" class="section level2">
+<h2 class="hasAnchor">
+<a href="#retrieving-object-metadata" class="anchor"></a>Retrieving Object Metadata</h2>
 <p>One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). First, load the <strong>salesforcer</strong>, <strong>dplyr</strong>, and <strong>purrr</strong> packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)))
@@ -249,9 +249,9 @@
 <span class="co">#&gt; 7 true   false        Other                      Other</span></pre></body></html></div>
 <p>It is recommended that you try out the various metadata functions <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="../reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="../reference/sf_describe_metadata.html">sf_describe_metadata()</a></code>, and <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
 </div>
-<div id="modifying-metadata" class="section level3">
-<h3 class="hasAnchor">
-<a href="#modifying-metadata" class="anchor"></a>Modifying Metadata</h3>
+<div id="modifying-metadata" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modifying-metadata" class="anchor"></a>Modifying Metadata</h2>
 <p>Where the Metadata API really shines is when it comes to CRUD operations on metadata. In this example we will create an object, add fields to it, then delete that object.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># create an object</span>
 <span class="no">base_obj_name</span> <span class="kw">&lt;-</span> <span class="st">"Custom_Account1"</span>
@@ -307,7 +307,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

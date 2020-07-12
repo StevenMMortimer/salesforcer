@@ -87,16 +87,18 @@ vignettes for more detailed examples on usage.
 
   - [Getting
     Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
+  - [Supported
+    Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
   - [Working with the Bulk
     APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
   - [Working with
-    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)  
+    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   - [Working with
     Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
-  - [Transitioning from
-    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
   - [Passing Control
     Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
+  - [Transitioning from
+    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
 
 ## Usage
 
@@ -113,7 +115,7 @@ shared or embedded within scripts. User credentials will be stored in
 locally cached file entitled “.httr-oauth-salesforcer” in the current
 working directory. Also, note that if you use OAuth 2.0 authentication
 then the package will automatically refresh it so you will not have to
-call `sf_auth()` during each sesssion if you have a cached
+call `sf_auth()` during each session if you have a cached
 “.httr-oauth-salesforcer” file in the working directory. The cache
 file is named that way to not conflict with the “.httr-oauth” files
 created by other packages.
@@ -161,8 +163,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NsBqAAK TRUE   
-#> 2 0033s000012NsBrAAK TRUE
+#> 1 0033s000012NuNAAA0 TRUE   
+#> 2 0033s000012NuNBAA0 TRUE
 ```
 
 ### Query
@@ -187,8 +189,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NsBqAAK Test      Contact-Create-1
-#> 2 0033s000012NsBrAAK Test      Contact-Create-2
+#> 1 0033s000012NuNAAA0 Test      Contact-Create-1
+#> 2 0033s000012NuNBAA0 Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -221,8 +223,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012NsBqAAK TRUE   
-#> 2 0033s000012NsBrAAK TRUE
+#> 1 0033s000012NuNAAA0 TRUE   
+#> 2 0033s000012NuNBAA0 TRUE
 ```
 
 ### Bulk Operations
@@ -259,8 +261,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012NsC0AAK TRUE    TRUE    NA   
-#> 2 0033s000012NsC1AAK TRUE    TRUE    NA
+#> 1 0033s000012Nu5WAAS TRUE    TRUE    NA   
+#> 2 0033s000012Nu5XAAS TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -275,8 +277,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012NsC0AAK Test      Contact-Create-1
-#> 2 0033s000012NsC1AAK Test      Contact-Create-2
+#> 1 0033s000012Nu5WAAS Test      Contact-Create-1
+#> 2 0033s000012Nu5XAAS Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -284,8 +286,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   sf__Id             sf__Created Id                 sf__Error
 #>   <chr>              <lgl>       <chr>              <chr>    
-#> 1 0033s000012NsC0AAK FALSE       0033s000012NsC0AAK <NA>     
-#> 2 0033s000012NsC1AAK FALSE       0033s000012NsC1AAK <NA>
+#> 1 0033s000012Nu5WAAS FALSE       0033s000012Nu5WAAS <NA>     
+#> 2 0033s000012Nu5XAAS FALSE       0033s000012Nu5XAAS <NA>
 ```
 
 ### Using the Metadata API
