@@ -1,10 +1,10 @@
 context("Basic Authorization")
 
-test_that("testing missing auth", {
+test_that("testing auth status", {
   expect_false(token_available())
   expect_null(sf_access_token())
-  expect_false(session_id_available())
-  expect_null(sf_session_id())
+  expect_true(session_id_available())
+  expect_is(sf_session_id(), "character")
 })
 
 test_that("testing basic auth", {

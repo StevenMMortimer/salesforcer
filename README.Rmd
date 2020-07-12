@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
 
 <!-- badges: start -->
-[![R Build Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforce/actions?workflow=R-CMD-check)
+[![R Build Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check)
 [![CRAN Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle: Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Monthly Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)

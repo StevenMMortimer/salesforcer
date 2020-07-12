@@ -341,14 +341,16 @@ token_available <- function(verbose = TRUE) {
   if (is.null(.state$token)) {
     if (verbose) {
       if (file.exists(".httr-oauth-salesforcer")) {
-        message("A '.httr-oauth-salesforcer' file exists in current working ",
-                "directory.\nWhen/if needed, the credentials cached in ",
-                "'.httr-oauth-salesforcer' will be used for this session.\nOr run sf_auth() ",
-                "for explicit authentication and authorization.")
+        message(paste0("A '.httr-oauth-salesforcer' file exists in current ", 
+                       "working directory.\n\nWhen needed, the credentials ", 
+                       "cached in '.httr-oauth-salesforcer' can be used for ", 
+                       "this session.\n\nAlternatively, you can run sf_auth() ", 
+                       "for explicit authentication and authorization."))
       } else {
-        message("No '.httr-oauth-salesforcer' file exists in current working directory.\n",
-                "When/if needed, salesforcer will initiate authentication ",
-                "and authorization.\nOr run sf_auth() to trigger this explicitly.")
+        message(paste0("No '.httr-oauth-salesforcer' file exists in current ", 
+                       "working directory.\n\nWhen needed, salesforcer will ", 
+                       "initiate authentication and authorization.\n\nAlternatively, ",
+                       "you can run sf_auth() to trigger this explicitly."))
       }
     }
     return(FALSE)

@@ -1,6 +1,13 @@
 context("OAuth 2.0 Authorization")
 
-if (FALSE) skip("No token on GitHub Actions.")
+skip("No token on GitHub Actions.")
+
+test_that("testing auth status", {
+  expect_false(token_available())
+  expect_null(sf_access_token())
+  expect_false(session_id_available())
+  expect_null(sf_session_id())
+})
 
 test_that("testing nonsense inputs", {
   expect_error(sf_auth(token = "wrong-path.rds"))

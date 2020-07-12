@@ -1,33 +1,19 @@
-name: R-CMD-check
+name: dev-R-CMD-check
 
 on:
   push:
     branches:
-      - master
+      - dev
   pull_request:
     branches:
-      - master
+      - dev
       
 jobs:
-  R-CMD-check:
-    runs-on: ${{ matrix.config.os }}
+  dev-R-CMD-check:
+    runs-on:  macOS-latest
     
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        config:
-          - {os: macOS-latest,   r: 'devel'}
-          - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
       SALESFORCER_PASSWORD: ${{ secrets.SALESFORCER_PASSWORD }}
@@ -38,7 +24,7 @@ jobs:
       
       - uses: r-lib/actions/setup-r@master
         with:
-          r-version: ${{ matrix.config.r }}
+          r-version: 'release'
           
       - uses: r-lib/actions/setup-pandoc@master
       
@@ -50,23 +36,11 @@ jobs:
         shell: Rscript {0}
         
       - name: Cache R packages
-        if: runner.os != 'Windows'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-3-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-3-
-          
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-          
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
+          key: macOS-r-4.0-2-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: macOS-r-4.0-2-
           
       - name: Install dependencies
         run: |
@@ -98,5 +72,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@master
         with:
-          name: ${{ runner.os }}-r-${{ matrix.config.r }}-results
+          name: macOS-latest-r-release-results
           path: check

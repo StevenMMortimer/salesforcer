@@ -2,7 +2,7 @@
 <!-- badges: start -->
 
 [![R Build
-Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforce/actions?workflow=R-CMD-check)
+Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle:
@@ -34,7 +34,7 @@ Package features include:
   - Retrieve and modify metadata (Custom Objects, Fields, etc.) using
     the Metadata API with:
       - `sf_describe_objects()`, `sf_create_metadata()`,
-        \`sf\_update\_metadata()\`, and more
+        `sf_update_metadata()`, and more
   - Utilize backwards compatible functions for the **RForcecom**
     package, such as:
       - `rforcecom.login()`, `rforcecom.getObjectDescription()`,
