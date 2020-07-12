@@ -6,7 +6,7 @@ on:
   schedule:
     # Execute monthly at 9AM UTC (5AM EDT (during daylight savings), otherwise 4AM)
     - cron:  '0 9 1 * *'
-
+    
 jobs:
   test-coverage:
     runs-on: macOS-latest

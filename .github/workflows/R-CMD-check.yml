@@ -7,12 +7,12 @@ on:
   pull_request:
     branches:
       - master
-
+      
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
     if: ${{ false }}
-
+    
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
