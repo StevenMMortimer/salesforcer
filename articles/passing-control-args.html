@@ -181,7 +181,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzveAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000012O0F7AAK TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="kw">record3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contact</span>,
@@ -225,15 +225,15 @@
 <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          object_name = <span class="st">"Account"</span>,
          control = <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(QueryOptions = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(batchSize = <span class="fl">200</span>)))
-<span class="co">#&gt; # A tibble: 15 x 2</span>
+<span class="co">#&gt; # A tibble: 16 x 2</span>
 <span class="co">#&gt;   Id                 Name                                </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                               </span>
 <span class="co">#&gt; 1 0013s00000zFgA6AAK KEEP Test Account With Child Records</span>
 <span class="co">#&gt; 2 0013s00000zFdugAAC KEEP Test Account With Child Records</span>
 <span class="co">#&gt; 3 0013s00000zFiY5AAK Test Account For Performance Test   </span>
 <span class="co">#&gt; 4 0013s00000zFiXbAAK Test Account For Performance Test   </span>
-<span class="co">#&gt; 5 0013s00000zFiWsAAK Test Account For Performance Test   </span>
-<span class="co">#&gt; # … with 10 more rows</span>
+<span class="co">#&gt; 5 0013s00000zFkuZAAS Test Account For Performance Test   </span>
+<span class="co">#&gt; # … with 11 more rows</span>
 </pre></div>
 </div>
 <div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level2">

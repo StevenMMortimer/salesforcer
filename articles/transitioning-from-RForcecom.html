@@ -179,13 +179,13 @@
 <span class="kw">result1</span> <span class="op">&lt;-</span> <span class="kw">RForcecom</span>::<span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html">rforcecom.create</a></span>(<span class="kw">session</span>, objectName=<span class="kw">object</span>, <span class="kw">fields</span>)
 <span class="kw">result1</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012NzB8AAK    true</span>
+<span class="co">#&gt; 1 0033s000012O0EXAA0    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="kw">result2</span> <span class="op">&lt;-</span> <span class="kw">salesforcer</span>::<span class="fu"><a href="../reference/rforcecom.create.html">rforcecom.create</a></span>(<span class="kw">session</span>, objectName=<span class="kw">object</span>, <span class="kw">fields</span>)
 <span class="kw">result2</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012O0D9AAK    TRUE</span>
+<span class="co">#&gt; 1 0033s000012O14rAAC    TRUE</span>
 </pre></div>
 <p>Here is an example showing the reduction in code of using <strong>salesforcer</strong> if you would like to create multiple records.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
@@ -203,8 +203,8 @@
 }
 <span class="kw">rforcecom_results</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000012O0DEAA0    true</span>
-<span class="co">#&gt; 2 0033s000012O0DJAA0    true</span>
+<span class="co">#&gt; 1 0033s000012O14wAAC    true</span>
+<span class="co">#&gt; 2 0033s000012O151AAC    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 <span class="kw">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>, object_name=<span class="st">"Contact"</span>)
@@ -212,8 +212,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012O0DOAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012O0DPAA0 TRUE</span>
+<span class="co">#&gt; 1 0033s000012O156AAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012O157AAC TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level2">

@@ -268,9 +268,9 @@
 )
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;         expr       min        lq      mean    median       uq       max neval</span>
-<span class="co">#&gt;  qry("REST")  3.514953  3.548185  3.556212  3.558838  3.57650  3.582585     5</span>
-<span class="co">#&gt;  qry("SOAP") 18.579883 18.593971 18.690436 18.627963 18.68267 18.967691     5</span>
+<span class="co">#&gt;         expr      min        lq     mean    median       uq      max neval</span>
+<span class="co">#&gt;  qry("REST")  3.93052  3.936189 17.37845  4.353978 10.67936 63.99217     5</span>
+<span class="co">#&gt;  qry("SOAP") 21.07372 21.155491 23.75114 21.187094 25.86749 29.47191     5</span>
 
 <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(name=<span class="st">"Time [seconds]"</span>, n.breaks=<span class="fl">6</span>)
@@ -296,7 +296,7 @@
   )
 )
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.4 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.2 seconds...</span>
 <span class="co">#&gt; Error in catch_errors(httr_response) : </span>
 <span class="co">#&gt;   API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
@@ -312,8 +312,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.8 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.2 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.8 seconds...</span>
 <span class="co">#&gt; Error in catch_errors(httr_response) : </span>
 <span class="co">#&gt;   API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
@@ -403,11 +403,11 @@
 <span class="co">#&gt; # A tibble: 1,000 x 4</span>
 <span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012NzwMAAS FALSE       0033s000012NzwMAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012NzwNAAS FALSE       0033s000012NzwNAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 3 0033s000012NzwOAAS FALSE       0033s000012NzwOAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 4 0033s000012NzwPAAS FALSE       0033s000012NzwPAAS &lt;NA&gt;     </span>
-<span class="co">#&gt; 5 0033s000012NzwQAAS FALSE       0033s000012NzwQAAS &lt;NA&gt;     </span>
+<span class="co">#&gt; 1 0033s000012O0p5AAC FALSE       0033s000012O0p5AAC &lt;NA&gt;     </span>
+<span class="co">#&gt; 2 0033s000012O0p6AAC FALSE       0033s000012O0p6AAC &lt;NA&gt;     </span>
+<span class="co">#&gt; 3 0033s000012O0p7AAC FALSE       0033s000012O0p7AAC &lt;NA&gt;     </span>
+<span class="co">#&gt; 4 0033s000012O0p8AAC FALSE       0033s000012O0p8AAC &lt;NA&gt;     </span>
+<span class="co">#&gt; 5 0033s000012O0p9AAC FALSE       0033s000012O0p9AAC &lt;NA&gt;     </span>
 <span class="co">#&gt; # … with 995 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -415,7 +415,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s00000zFksnAAC TRUE</span>
+<span class="co">#&gt; 1 0013s00000zFkujAAC TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -455,7 +455,7 @@
   FROM Contact
   WHERE Account.Id = null"
 )
-<span class="co">#&gt; # A tibble: 213 x 2</span>
+<span class="co">#&gt; # A tibble: 231 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000012NuRHAA0 Test     </span>
@@ -463,7 +463,7 @@
 <span class="co">#&gt; 3 0033s000012NxsxAAC Test     </span>
 <span class="co">#&gt; 4 0033s000012NyCnAAK Test     </span>
 <span class="co">#&gt; 5 0033s000012NyCoAAK Test     </span>
-<span class="co">#&gt; # … with 208 more rows</span>
+<span class="co">#&gt; # … with 226 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
