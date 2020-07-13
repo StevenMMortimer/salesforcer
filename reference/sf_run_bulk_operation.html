@@ -192,6 +192,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
   <span class='kw'>object_name</span>,
   operation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>),
   external_id_fieldname = <span class='kw'>NULL</span>,
+  guess_types = <span class='fl'>TRUE</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   batch_size = <span class='kw'>NULL</span>,
   interval_seconds = <span class='fl'>3</span>,
@@ -207,6 +208,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
   <span class='kw'>object_name</span>,
   operation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>),
   external_id_fieldname = <span class='kw'>NULL</span>,
+  guess_types = <span class='fl'>TRUE</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   batch_size = <span class='kw'>NULL</span>,
   interval_seconds = <span class='fl'>3</span>,
@@ -239,6 +241,15 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p
       <td><p><code>character</code>; string identifying a custom field on the
 object that has been set as an "External ID" field. This field is used to reference
 objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>api_type</th>
@@ -293,9 +304,9 @@ along with additional diagnostic information where available.</p></td>
 
     <p>With Bulk 2.0 the order of records in the response is not guaranteed to
 match the ordering of records in the original job data.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/</a></p>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>Salesforce Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Bulk API Job — sf_create_job_bulk • salesforcer</title>
+<title>Get Report Data without Saving Changes to or Creating a Report — sf_query_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,11 @@
 
 
 
-<meta property="og:title" content="Create Bulk API Job — sf_create_job_bulk" />
-<meta property="og:description" content="This function initializes a Job in the Salesforce Bulk API" />
+<meta property="og:title" content="Get Report Data without Saving Changes to or Creating a Report — sf_query_report" />
+<meta property="og:description" content="
+Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data
+without filling up your Org with unnecessary reports." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -176,101 +179,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Bulk API Job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/bulk-operation.R'><code>R/bulk-operation.R</code></a></small>
-    <div class="hidden name"><code>sf_create_job_bulk.Rd</code></div>
+    <h1>Get Report Data without Saving Changes to or Creating a Report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
+    <div class="hidden name"><code>sf_query_report.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function initializes a Job in the Salesforce Bulk API</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data
+without filling up your Org with unnecessary reports.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(
-  operation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>, <span class='st'>"query"</span>,
-    <span class='st'>"queryall"</span>),
-  <span class='kw'>object_name</span>,
-  soql = <span class='kw'>NULL</span>,
-  external_id_fieldname = <span class='kw'>NULL</span>,
-  api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  content_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CSV"</span>, <span class='st'>"ZIP_CSV"</span>, <span class='st'>"ZIP_XML"</span>, <span class='st'>"ZIP_JSON"</span>),
-  concurrency_mode = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Parallel"</span>, <span class='st'>"Serial"</span>),
-  column_delimiter = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"COMMA"</span>, <span class='st'>"TAB"</span>, <span class='st'>"PIPE"</span>, <span class='st'>"SEMICOLON"</span>, <span class='st'>"CARET"</span>, <span class='st'>"BACKQUOTE"</span>),
-  control = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>...</span>),
-  <span class='kw'>...</span>,
-  line_ending = <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
-  verbose = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_report.html'>sf_query_report</a></span>(<span class='kw'>report_id</span>, report_metadata = <span class='kw'>NULL</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>operation</th>
-      <td><p><code>character</code>; a string defining the type of operation being
-performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
-"query", "queryall").</p></td>
+      <th>report_id</th>
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
+analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
-      <th>object_name</th>
-      <td><p><code>character</code>; the name of the Salesforce object that the
-function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
-    </tr>
-    <tr>
-      <th>soql</th>
-      <td><p><code>character</code>; a string defining a SOQL query
-(e.g. "SELECT Id, Name FROM Account").</p></td>
-    </tr>
-    <tr>
-      <th>external_id_fieldname</th>
-      <td><p><code>character</code>; string identifying a custom field on the
-object that has been set as an "External ID" field. This field is used to reference
-objects during upserts to determine if the record already exists in Salesforce or not.</p></td>
-    </tr>
-    <tr>
-      <th>api_type</th>
-      <td><p><code>character</code>; one of <code>"REST"</code>, <code>"SOAP"</code>,
-<code>"Bulk 1.0"</code>, or <code>"Bulk 2.0"</code> indicating which API to use when
-making the request.</p></td>
-    </tr>
-    <tr>
-      <th>content_type</th>
-      <td><p>character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to
-indicate the type of data being passed to the Bulk APIs. For the Bulk 2.0 API the only
-valid value (and the default) is 'CSV'.</p></td>
-    </tr>
-    <tr>
-      <th>concurrency_mode</th>
-      <td><p>character; either "Parallel" or "Serial" that specifies
-whether batches should be completed sequentially or in parallel. Use "Serial"
-only if lock contentions persist with in "Parallel" mode. Note: this argument is
-only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.</p></td>
-    </tr>
-    <tr>
-      <th>column_delimiter</th>
-      <td><p>character; indicating the column delimiter used for CSV job data.
-The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE",
-"SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also,
-note that this argument is only used in the Bulk 2.0 API and will be ignored
-in calls using the Bulk 1.0 API.</p></td>
-    </tr>
-    <tr>
-      <th>control</th>
-      <td><p><code>list</code>; a list of parameters for controlling the behavior of
-the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
-    </tr>
-    <tr>
-      <th>line_ending</th>
-      <td><p><code>character</code>; indicating the The line ending used for
-CSV job data, marking the end of a data row. The default is NULL and determined
-by the operating system using "CRLF" for Windows machines and "LF" for Unix
-machines. NOTE: As of <code>readr v1.3.1</code> all CSV files end with the line
-feed character ("\n") regardless of the operating system. So it is usually
-best to not specify this argument.</p></td>
+      <th>report_metadata</th>
+      <td><p><code>list</code>; a <code>list</code> with one element named
+<code>"reportMetadata"</code> having additional list elements underneath. All possible
+elements of <code>reportMetadata</code> are documented
+<a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>,
+but you will most commonly only need to specify the following 3 elements to
+filter or query the results of an existing report:</p><dl>
+<dt>reportFormat</dt><dd><p>A <code>character</code> specifying the format of the report
+with possible values: <code>"TABULAR"</code>, <code>"SUMMARY"</code>, <code>"MATRIX"</code>,
+or <code>"MULTI_BLOCK"</code>.</p></dd>
+<dt>reportBooleanFilter</dt><dd><p>A <code>character</code> denoting how the individuals
+filters specified in <code>reportFilters</code> should be combined. For example,
+<code>"(1OR4)AND2AND3"</code></p></dd>.
+<dt>reportFilters</dt><dd><p>A <code>list</code> of reportFilter specifications. Each must
+be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 3) <code>value</code>.
+You can find out how certain field types can be filtered by reviewing the results
+of <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_filter_operators.html'>sf_list_report_filter_operators</a></code>.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -283,32 +233,22 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>tbl_df</code> parameters defining the created job, including id</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <p><code>tbl_df</code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/'>https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/</a></p>
+    <p>Note that you can query a report's data simply by providing its <code>Id</code>.
+However, the data will only be the detailed data from the tabular format
+with no totals or other metadata. If you would like more control, for example,
+filtering the results or grouping them in specific ways, then you will need
+to specify a list to the <code>report_metadata</code> argument. The <code>report_metadata</code>
+argument requires specific knowledge on the structure the <code>reportMetadata</code>
+property of a report. For more information, please review the Salesforce documentation
+in detail <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>.
+Additional references are provided in the <code>"See Also"</code> section.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># insert into Account</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'insert'</span>, object_name=<span class='st'>'Account'</span>)
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example'>Salesforce Example</a></p></div>
 
-<span class='co'># delete from Account</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'delete'</span>, object_name=<span class='st'>'Account'</span>)
-
-<span class='co'># update into Account</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'update'</span>, object_name=<span class='st'>'Account'</span>)
-
-<span class='co'># upsert into Account</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'upsert'</span>,
-                               externalIdFieldName=<span class='st'>'My_External_Id__c'</span>,
-                               object_name=<span class='st'>'Account'</span>)
-<span class='co'># insert attachments</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'insert'</span>, object_name=<span class='st'>'Attachment'</span>)
-
-<span class='co'># query leads</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'query'</span>, object_name=<span class='st'>'Lead'</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

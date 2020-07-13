@@ -265,8 +265,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzCFAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NzCGAA0 TRUE</span>
+<span class="co">#&gt; 1 0033s000012O1jzAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012O1k0AAC TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level3">
@@ -291,8 +291,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NzCFAA0 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NzCGAA0 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012O1jzAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012O1k0AAC Test      Contact-Create-2</span>
 </pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
@@ -310,8 +310,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzCFAA0 TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NzCGAA0 TRUE</span>
+<span class="co">#&gt; 1 0033s000012O1jzAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012O1k0AAC TRUE</span>
 </pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
@@ -329,8 +329,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012NzCKAA0 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012NzCLAA0 TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012O1k4AAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012O1k5AAC TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -349,17 +349,17 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NzCKAA0 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NzCLAA0 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012O1k4AAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012O1k5AAC Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type = <span class="st">"Bulk 2.0"</span>)
 <span class="kw">deleted_records</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   sf__Id             sf__Created Id                 sf__Error</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;       &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012NzCKAA0 FALSE       0033s000012NzCKAA0 &lt;NA&gt;     </span>
-<span class="co">#&gt; 2 0033s000012NzCLAA0 FALSE       0033s000012NzCLAA0 &lt;NA&gt;</span>
+<span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
+<span class="co">#&gt; 1 0033s000012O1k4AAC 0033s000012O1k4AAC FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000012O1k5AAC 0033s000012O1k5AAC FALSE       NA</span>
 </pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
@@ -410,19 +410,14 @@
 <span class="kw">acct_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, <span class="kw">label</span>, <span class="kw">length</span>, <span class="kw">soapType</span>, <span class="kw">type</span>)
 <span class="co">#&gt; # A tibble: 69 x 5</span>
-<span class="co">#&gt;    name              label                   length soapType    type     </span>
-<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 Id                Account ID              18     tns:ID      id       </span>
-<span class="co">#&gt;  2 IsDeleted         Deleted                 0      xsd:boolean boolean  </span>
-<span class="co">#&gt;  3 MasterRecordId    Master Record ID        18     tns:ID      reference</span>
-<span class="co">#&gt;  4 Name              Account Name            255    xsd:string  string   </span>
-<span class="co">#&gt;  5 Type              Account Type            40     xsd:string  picklist </span>
-<span class="co">#&gt;  6 ParentId          Parent Account ID       18     tns:ID      reference</span>
-<span class="co">#&gt;  7 BillingStreet     Billing Street          255    xsd:string  textarea </span>
-<span class="co">#&gt;  8 BillingCity       Billing City            40     xsd:string  string   </span>
-<span class="co">#&gt;  9 BillingState      Billing State/Province  80     xsd:string  string   </span>
-<span class="co">#&gt; 10 BillingPostalCode Billing Zip/Postal Code 20     xsd:string  string   </span>
-<span class="co">#&gt; # … with 59 more rows</span>
+<span class="co">#&gt;   name           label            length soapType    type     </span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
+<span class="co">#&gt; 1 Id             Account ID       18     tns:ID      id       </span>
+<span class="co">#&gt; 2 IsDeleted      Deleted          0      xsd:boolean boolean  </span>
+<span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
+<span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
+<span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
+<span class="co">#&gt; # … with 64 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> 
@@ -437,8 +432,7 @@
 <span class="co">#&gt; 3 TRUE   FALSE        Customer - Channel         Customer - Channel        </span>
 <span class="co">#&gt; 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller</span>
 <span class="co">#&gt; 5 TRUE   FALSE        Installation Partner       Installation Partner      </span>
-<span class="co">#&gt; 6 TRUE   FALSE        Technology Partner         Technology Partner        </span>
-<span class="co">#&gt; 7 TRUE   FALSE        Other                      Other</span>
+<span class="co">#&gt; # … with 2 more rows</span>
 </pre></div>
 </div>
 </div>

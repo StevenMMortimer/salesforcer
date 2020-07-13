@@ -149,34 +149,35 @@
 </pre></div>
 <p>For really large inserts, updates, deletes, upserts, and queries you can just add <code>api_type = "Bulk 1.0"</code> to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. The change you have to make from using the REST API to the Bulk 1.0 API as simple as adding <code>api_type="Bulk 1.0"</code> to your function arguments. First, let’s build a <code>tbl_df</code> with two new records to be created.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
 <span class="kw">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Bulk-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">100000</span>)), <span class="st">"-"</span>)
-<span class="kw">new_contacts1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
-                        LastName = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>),
-                        My_External_Id__c=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">prefix</span>, <span class="kw">letters</span>[<span class="fl">1</span><span class="op">:</span><span class="kw">n</span>]))
-<span class="kw">new_contacts2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
-                        LastName = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>),
-                        My_External_Id__c=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">prefix</span>, <span class="kw">letters</span>[<span class="fl">1</span><span class="op">:</span><span class="kw">n</span>]))
+<span class="kw">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
+                       LastName = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>),
+                       My_External_Id__c=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">prefix</span>, <span class="kw">letters</span>[<span class="fl">1</span><span class="op">:</span><span class="kw">n</span>]))
 </pre></div>
 <p>There are some differences in the way the REST API returns response information vs.  the Bulk 1.0 API. However, the changes in Salesforce are exactly the same for these two calls.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># REST</span>
-<span class="kw">rest_created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts1</span>, object_name=<span class="st">"Contact"</span>, api_type=<span class="st">"REST"</span>)
+<span class="kw">rest_created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,], 
+                                  object_name=<span class="st">"Contact"</span>, 
+                                  api_type=<span class="st">"REST"</span>)
 <span class="kw">rest_created_records</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012O15GAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012O15HAAS TRUE</span>
+<span class="co">#&gt; 1 0033s000012O3h2AAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000012O3h3AAC TRUE</span>
 
 <span class="co"># Bulk</span>
-<span class="kw">bulk_created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts2</span>, object_name=<span class="st">"Contact"</span>, api_type=<span class="st">"Bulk 1.0"</span>)
+<span class="kw">bulk_created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>[<span class="fl">3</span><span class="op">:</span><span class="fl">4</span>,], 
+                                  object_name=<span class="st">"Contact"</span>, 
+                                  api_type=<span class="st">"Bulk 1.0"</span>)
 <span class="kw">bulk_created_records</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   Id    Success Created Error                                                   </span>
-<span class="co">#&gt;   &lt;lgl&gt; &lt;lgl&gt;   &lt;lgl&gt;   &lt;chr&gt;                                                   </span>
-<span class="co">#&gt; 1 NA    FALSE   FALSE   DUPLICATE_VALUE:duplicate value found: My_External_Id__…</span>
-<span class="co">#&gt; 2 NA    FALSE   FALSE   DUPLICATE_VALUE:duplicate value found: My_External_Id__…</span>
+<span class="co">#&gt;   Id                 Success Created Error</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 0033s000012O3h7AAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012O3h8AAC TRUE    TRUE    NA</span>
 </pre></div>
 </div>
 <div id="a-complete-bulk-api-workflow" class="section level2">
@@ -190,8 +191,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012O15VAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012O15WAAS TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000012O3hHAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012O3hIAAS TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -210,8 +211,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012O15VAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012O15WAAS Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000012O3hHAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000012O3hIAAS Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, object_name=<span class="kw">object</span>, api_type=<span class="st">"Bulk 1.0"</span>)
@@ -219,8 +220,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012O15VAAS TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000012O15WAAS TRUE    FALSE   NA</span>
+<span class="co">#&gt; 1 0033s000012O3hHAAS TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s000012O3hIAAS TRUE    FALSE   NA</span>
 </pre></div>
 </div>
 <div id="query-limitations" class="section level2">
@@ -244,48 +245,47 @@
 <a href="#using-the-bulk-2-0-api" class="anchor"></a>Using the Bulk 2.0 API</h2>
 <p>Salesforce has more recently introduced the Bulk 2.0 API which is supposed to be faster and have a more consistent JSON/REST based API than the Bulk 1.0 API. In some cases I have noticed that the ordering of the result records will differ from the order of the input data because the data is batched and processed asynchronously. by Salesforce instead of R. However, The Bulk 2.0 API returns every single field that was included in the call so if you have an identifying key your dataset, then it should not be a problem to join on that key with your original data to bring in the newly assigned Salesforce Id that is generated when the record was created in Salesforce. However, I have find it just seems wasteful to transfer all of the field information back after the query and have not found a significant performance improvement between the Bulk 1.0 and Bulk 2.0. Finally, note that the status field names (“Success”, “Created”, “Error”) are different from the Bulk 2.0 API.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">20</span>
 <span class="kw">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Bulk-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">100000</span>)), <span class="st">"-"</span>)
 <span class="kw">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
                        LastName = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>),
-                       test_number__c = <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,
+                       test_number__c = <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>,
                        My_External_Id__c=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">prefix</span>, <span class="kw">letters</span>[<span class="fl">1</span><span class="op">:</span><span class="kw">n</span>]))
-</pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">created_records_v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>, 
+
+<span class="kw">created_records_v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,], 
                                 object_name = <span class="st">"Contact"</span>, 
                                 api_type = <span class="st">"Bulk 1.0"</span>)
 <span class="kw">created_records_v1</span>
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012O15aAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012O15bAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 0033s000012O15cAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 0033s000012O15dAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 0033s000012O15eAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 0033s000012O3hRAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000012O3hSAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 0033s000012O3hTAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 0033s000012O3hUAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 0033s000012O3hVAAS TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
-<span class="kw">created_records_v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>, 
+<span class="kw">created_records_v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>[<span class="fl">11</span><span class="op">:</span><span class="fl">20</span>,],
                                 object_name = <span class="st">"Contact"</span>, 
                                 api_type = <span class="st">"Bulk 2.0"</span>)
 <span class="kw">created_records_v2</span>
 <span class="co">#&gt; # A tibble: 10 x 7</span>
-<span class="co">#&gt;   sf__Id sf__Created FirstName LastName My_External_Id_… test_number__c</span>
-<span class="co">#&gt;   &lt;lgl&gt;  &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;                     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 NA     &lt;NA&gt;        Test      Contact… Bulk-45863-a                  1</span>
-<span class="co">#&gt; 2 NA     &lt;NA&gt;        Test      Contact… Bulk-45863-b                  2</span>
-<span class="co">#&gt; 3 NA     &lt;NA&gt;        Test      Contact… Bulk-45863-c                  3</span>
-<span class="co">#&gt; 4 NA     &lt;NA&gt;        Test      Contact… Bulk-45863-d                  4</span>
-<span class="co">#&gt; 5 NA     &lt;NA&gt;        Test      Contact… Bulk-45863-e                  5</span>
-<span class="co">#&gt; # … with 5 more rows, and 1 more variable: sf__Error &lt;chr&gt;</span>
+<span class="co">#&gt;   sf__Id sf__Created sf__Error FirstName LastName My_External_Id_…</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;lgl&gt;       &lt;lgl&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-61432-k    </span>
+<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-61432-l    </span>
+<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-61432-m    </span>
+<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-61432-n    </span>
+<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-61432-o    </span>
+<span class="co">#&gt; # … with 5 more rows, and 1 more variable: test_number__c &lt;dbl&gt;</span>
 </pre></div>
 </div>
 <div id="performance-benchmarks-for-bulk-queries" class="section level2">
 <h2 class="hasAnchor">
 <a href="#performance-benchmarks-for-bulk-queries" class="anchor"></a>Performance Benchmarks for Bulk Queries</h2>
 <p>Below is a simple performance benchmark between the Bulk 1.0 and Bulk 2.0 APIs for a small query. In general, the Bulk 2.0 should be faster. One potential reason for the implementation in R to be faster is that the entire recordset is parsed at once from a downloaded CSV of the results when using the Bulk 1.0 API. The Bulk 2.0 retrieves the same data in large batches (typically 50,000 records at a time). I would encourage users to experiment to see what works best in their Salesforce Org.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="kw">soql</span> <span class="op">&lt;-</span> <span class="st">"SELECT Id, Name FROM Contact"</span>
 <span class="kw">bulk1_query</span> <span class="op">&lt;-</span> <span class="fu">function</span>(){<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="kw">soql</span>, <span class="st">"Contact"</span>, api_type=<span class="st">"Bulk 1.0"</span>)}
 <span class="kw">bulk2_query</span> <span class="op">&lt;-</span> <span class="fu">function</span>(){<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="kw">soql</span>, api_type=<span class="st">"Bulk 2.0"</span>)} <span class="co"># Bulk 2.0 doesn't need object name</span>
@@ -298,16 +298,13 @@
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
-<span class="co">#&gt;  bulk1_query() 11.64169 11.67191 11.87323 11.83865 11.94314 12.43676     8</span>
-<span class="co">#&gt;  bulk2_query() 10.74845 10.77946 10.86280 10.86611 10.91704 11.02872     8</span>
+<span class="co">#&gt;  bulk1_query() 11.61195 11.76482 11.82441 11.81014 11.89142 12.05061     8</span>
+<span class="co">#&gt;  bulk2_query() 10.70114 10.78762 10.84338 10.85274 10.87755 11.01013     8</span>
 
 <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(name=<span class="st">"Time [seconds]"</span>, n.breaks=<span class="fl">6</span>)
-<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span>
-<span class="co">#&gt; Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="co">#&gt; replace the existing scale.</span>
 </pre></div>
-<p><img src="working-with-the-bulk-apis_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="working-with-the-bulk-apis_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
   </div>
 

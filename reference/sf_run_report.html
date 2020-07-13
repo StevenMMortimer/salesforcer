@@ -220,7 +220,7 @@ analytics report. It will start with <code>"00O"</code>.</p></td>
       <td><p><code>list</code>; A <code>list</code> of reportFilter specifications.
 Each must be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and
 3) <code>value</code>. You can find out how certain field types can be filtered by
-reviewing the results of <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_report_filter_operators_list.html'>sf_list_report_filter_operators</a></code>.</p></td>
+reviewing the results of <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_filter_operators.html'>sf_list_report_filter_operators</a></code>.</p></td>
     </tr>
     <tr>
       <th>report_boolean_logic</th>
@@ -255,7 +255,7 @@ sort the records using <code><a href='https://dplyr.tidyverse.org/reference/arra
 executes the report asynchronously. If executed asynchronously, this function
 will return a list of attributes of the created report instance. The results
 can be pulled down by providing the report id and instance id to
-the function <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_report_instance_results.html'>sf_get_report_instance_results</a></code>. Refer to the details
+the function <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_get_report_instance_results.html'>sf_get_report_instance_results</a></code>. Refer to the details
 of the documentation on why executing a report asynchronously is preferred.</p></td>
     </tr>
     <tr>
@@ -289,8 +289,8 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is essentially a wrapper around <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_report_execute.html'>sf_execute_report</a></code>.
-Please review or use that function and/or <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_report_query.html'>sf_query_report</a></code> if you
+    <p>This function is essentially a wrapper around <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_execute_report.html'>sf_execute_report</a></code>.
+Please review or use that function and/or <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_report.html'>sf_query_report</a></code> if you
 want to have more control over how the report is run and what format should
 be returned. In this case we've forced the <code>reportFormat="TABULAR"</code>
 without total rows and given options to filter, and select the Top N as

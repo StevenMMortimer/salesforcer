@@ -188,11 +188,11 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000ZIoJDEA1 TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000ZIoJIEA1 TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000ZIoJNEA1 TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000ZIoJSEA1 TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000ZIoJXEA1 TRUE   </span>
+<span class="co">#&gt; 1 00P3s00000ZIoUZEA1 TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000ZIoUeEAL TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000ZIoUjEAL TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000ZIoUoEAL TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000ZIoUtEAL TRUE   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -213,9 +213,9 @@
 <span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
 <span class="co">#&gt; 1 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 2 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 3 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 4 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 2 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 3 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 4 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
 <span class="co">#&gt; 5 00P3s00000ZI… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
@@ -246,17 +246,17 @@
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Name</span>, 
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Path</span>)
 <span class="kw">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoJNEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoUjEAL/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoJDEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoUeEAL/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoJIEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoUZEA1/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoJAEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoUoEAL/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoJXEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoUtEAL/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoJSEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZIoUyEAL/Body </span>
 <span class="co">#&gt;                                                             TRUE</span>
 </pre></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
@@ -273,11 +273,11 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000ZIoJcEAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000ZIoJdEAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000ZIoJeEAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000ZIoJfEAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000ZIoJgEAL TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 00P3s00000ZIoV3EAL TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000ZIoV4EAL TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000ZIoV5EAL TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000ZIoV6EAL TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000ZIoV7EAL TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -300,7 +300,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gYX5AAM TRUE</span>
+<span class="co">#&gt; 1 0153s000001gYYSAA2 TRUE</span>
 </pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
@@ -315,7 +315,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gYXAAA2 TRUE</span>
+<span class="co">#&gt; 1 0153s000001gYYXAA2 TRUE</span>
 </pre></div>
 </div>
 <div id="reference-links" class="section level2">
