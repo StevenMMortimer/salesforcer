@@ -128,9 +128,11 @@ a Bulk 1.0 job with \code{\link{sf_create_job_bulk}}. For more information, read
 When you’re creating a bulk upload job, the Line Ending control lets you
 specify whether line endings are read as line feeds (LFs) or as carriage returns
 and line feeds (CRLFs) for fields of type Text Area and Text Area (Long). This
-works for most operations run through the Bulk APIs or creating a Bulk 1.0
-job with \code{\link{sf_create_job_bulk}}. For more information, read the
-Salesforce documentation
+works for most operations run through the Bulk APIs and/or creating a Bulk
+job from scratch with \code{\link{sf_create_job_bulk}}. However, note that
+as of \code{readr v1.3.1} all CSV files end with the line feed character
+("\\n") regardless of the operating system. So it is usually best to not specify
+this argument. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_line_ending.htm}{here}.}
 
 \item{PKChunkingHeader}{\code{list}; containing the \code{Sforce-Enable-PKChunking} element.

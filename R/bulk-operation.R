@@ -256,7 +256,12 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete",
     line_ending <- control$LineEndingHeader$`Sforce-Line-Ending`
   } else {
     if(get_os() == 'windows'){
-      line_ending <- "CRLF"
+      # line_ending <- "CRLF"
+      # readr::write_csv always uses LF as of 1.3.1, but in the next version 
+      # will allow users to to specify CRLF, which we will do automatically if 
+      # get_os() == 'windows'
+      # https://github.com/tidyverse/readr/issues/857
+      line_ending <- "LF"
     } else {
       line_ending <- "LF"
     }
