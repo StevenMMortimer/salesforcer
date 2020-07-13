@@ -124,8 +124,9 @@ test_that("testing Bulk 2.0 Functionality", {
   # sf_create ------------------------------------------------------------------  
   created_records <- sf_create(new_contacts, object_name=object, api_type="Bulk 2.0")
   expect_is(created_records, "tbl_df")
-  expect_named(created_records, c("sf__Id", "sf__Created", "FirstName", "LastName", 
-                                  "My_External_Id__c", "test_number__c", "sf__Error"))  
+  expect_named(created_records, c("sf__Id", "sf__Created", "sf__Error", 
+                                  "FirstName", "LastName", "My_External_Id__c", 
+                                  "test_number__c"))  
   expect_equal(nrow(created_records), n)
   expect_true(all(is.na(created_records$sf__Error)))
   expect_true(all(created_records$sf__Created))
@@ -165,8 +166,9 @@ test_that("testing Bulk 2.0 Functionality", {
   # sf_update ------------------------------------------------------------------
   updated_records <- sf_update(queried_records, object_name=object, api_type="Bulk 2.0")
   expect_is(updated_records, "tbl_df")
-  expect_named(updated_records, c("sf__Id", "sf__Created", "FirstName", "Id", "LastName", 
-                                  "My_External_Id__c", "test_number__c", "sf__Error"))  
+  expect_named(updated_records, c("Id", "sf__Id", "sf__Created", "sf__Error", 
+                                  "FirstName", "LastName", "My_External_Id__c", 
+                                  "test_number__c"))  
   expect_equal(nrow(updated_records), nrow(queried_records))
   expect_true(all(is.na(updated_records$sf__Error)))
   expect_true(all(!updated_records$sf__Created))
@@ -183,11 +185,9 @@ test_that("testing Bulk 2.0 Functionality", {
                                 external_id_fieldname = "My_External_Id__c", 
                                 api_type = "Bulk 2.0")
   expect_is(upserted_records, "tbl_df")
-  expect_named(upserted_records, c("sf__Id", "sf__Created", 
-                                   "FirstName", "LastName", 
-                                   "My_External_Id__c", 
-                                   "test_number__c", 
-                                   "sf__Error"))  
+  expect_named(upserted_records, c("sf__Id", "sf__Created", "sf__Error", 
+                                   "FirstName", "LastName", "My_External_Id__c", 
+                                   "test_number__c")) 
   expect_equal(nrow(upserted_records), nrow(upserted_contacts))
   expect_true(all(is.na(upserted_records$sf__Error)))
   expect_equal(upserted_records$sf__Created, c(FALSE, FALSE, TRUE))  
@@ -200,11 +200,11 @@ test_that("testing Bulk 2.0 Functionality", {
   attachment_records_csv <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
   expect_is(attachment_records_csv, "tbl_df")
   expect_equal(names(attachment_records_csv), c("Id", "Success", "Created", "Error"))
-  expect_equal(nrow(attachment_records_csv), 1) 
+  expect_equal(nrow(attachment_records_csv), 1)
   
   attachment_records_json <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_JSON")
   expect_is(attachment_records_json, "tbl_df")
-  expect_equal(names(attachment_records_json), c("success", "created", "id", "errors"))
+  expect_equal(names(attachment_records_json), c("id", "success", "created"))
   expect_equal(nrow(attachment_records_json), 1)
   
   attachment_records_xml <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_XML")
@@ -225,7 +225,7 @@ test_that("testing Bulk 2.0 Functionality", {
   ids_to_delete <- unique(c(upserted_records$sf__Id, queried_records$Id)) 
   deleted_records <- sf_delete(ids_to_delete, object_name=object, api_type = "Bulk 2.0")
   expect_is(deleted_records, "tbl_df")
-  expect_named(deleted_records, c("sf__Id", "sf__Created", "Id", "sf__Error"))
+  expect_named(deleted_records, c("Id", "sf__Id", "sf__Created", "sf__Error"))
   expect_equal(nrow(deleted_records), length(ids_to_delete))
   expect_true(all(is.na(deleted_records$sf__Error)))
   expect_true(all(!deleted_records$sf__Created))

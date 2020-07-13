@@ -25,13 +25,9 @@ test_that("testing rforcecom.login compatibility", {
 username <- Sys.getenv("SALESFORCER_USERNAME")
 password <- Sys.getenv("SALESFORCER_PASSWORD")
 security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
-session <- RForcecom::rforcecom.login(username=username, 
-                                      password=paste0(password, security_token), 
+session <- RForcecom::rforcecom.login(username = username, 
+                                      password = paste0(password, security_token), 
                                       apiVersion = getOption("salesforcer.api_version"))
-
-sf_auth(username = username,
-        password = password,
-        security_token = security_token)
 
 test_that("testing rforcecom.query compatibility", {
   
@@ -71,8 +67,8 @@ test_that("testing rforcecom.create compatibility", {
   expect_equal(nrow(result1), nrow(result2))
   
   # clean up
-  delete_result1 <- sf_delete(ids=c(as.character(result1[['id']]), 
-                                    as.character(result2[['id']])), 
+  delete_result1 <- sf_delete(ids=c(as.character(result1$id), 
+                                    as.character(result2$id)), 
                               object_name = object)
 })
 
