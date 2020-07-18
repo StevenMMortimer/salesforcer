@@ -119,9 +119,10 @@ sf_create_attachment <- function(input_data,
                                               control = control_args, 
                                               verbose = verbose, ...)
   } else if(api_type == "Bulk 2.0"){
-    stop("Binary Attachments are not supported in Bulk 2.0 API. Use 'REST, 'SOAP', or 'Bulk 1.0' APIs instead.")
+    stop(paste0("Binary Attachments are not supported in Bulk 2.0 API. Use ", 
+                "'REST, 'SOAP', or 'Bulk 1.0' APIs instead."), call. = FALSE)
   } else {
-    stop("Unknown API type.")
+    catch_unknown_api(api_type, c("SOAP", "REST", "Bulk 1.0"))
   }
   return(resultset)
 }

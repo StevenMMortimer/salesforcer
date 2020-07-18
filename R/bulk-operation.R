@@ -352,7 +352,7 @@ sf_get_job_bulk <- function(job_id,
     response_parsed <- content(httr_response, encoding="UTF-8")
     job_info <- as_tibble(response_parsed)
   } else {
-    stop("Unknown API type.")
+    catch_unknown_api(api_type, c("Bulk 1.0", "Bulk 2.0"))
   }
   return(job_info)
 }
@@ -723,7 +723,7 @@ sf_create_batches_bulk <- function(job_id,
                                                  batch_size = batch_size,
                                                  verbose = verbose)
   } else { 
-    stop("Unknown API type.")
+    catch_unknown_api(api_type, c("Bulk 1.0", "Bulk 2.0"))
   }
   return(created_batches)
 }
@@ -1143,9 +1143,12 @@ sf_batch_details_bulk <- function(job_id, batch_id,
     message(sprintf("Unhandled content-type: %s", content_type))
     res <- content(httr_response, as="parsed", encoding="UTF-8")
   }
+  
   res <- res %>%
     as_tibble() %>%
-    type_convert(col_types = cols())
+    sf_reorder_cols() %>% 
+    sf_guess_cols(TRUE)
+  
   return(res)
 }
 
@@ -1193,8 +1196,8 @@ sf_get_job_records_bulk <- function(job_id,
                                                 record_types = record_types, 
                                                 combine_record_types = combine_record_types, 
                                                 verbose = verbose)
-  } else { 
-    stop("Unknown API type.")
+  } else {
+    catch_unknown_api(api_type, c("Bulk 1.0", "Bulk 2.0"))
   }
   return(batch_records)
 }
@@ -1383,7 +1386,7 @@ sf_run_bulk_operation <- function(input_data,
           z <- z + 1
         }        
       } else { 
-        stop("Unknown API type")
+        catch_unknown_api(api_type, c("Bulk 1.0", "Bulk 2.0"))
       }
     }
     if (!status_complete) {
