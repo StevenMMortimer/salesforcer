@@ -155,8 +155,10 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
     request_headers <- c(request_headers, c("Sforce-Line-Ending" = control$LineEndingHeader[[1]]))
   }
   if("PKChunkingHeader" %in% names(control)){
-    if(is.logical(control$PKChunkingHeader[[1]])){
-      request_headers <- c(request_headers, c("Sforce-Enable-PKChunking" = control$PKChunkingHeader[[1]]))  
+    if(is.logical(control$PKChunkingHeader[[1]]) | 
+       tolower(control$PKChunkingHeader[[1]]) %in% c("true", "false")){
+      request_headers <- c(request_headers, 
+                           c("Sforce-Enable-PKChunking" = toupper(control$PKChunkingHeader[[1]])))  
     } else {
       l <- control$PKChunkingHeader
       value <- paste0(paste(names(l), unlist(l), sep="="), collapse = "; ")
