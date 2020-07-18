@@ -84,8 +84,10 @@ minimal reproducible example on
 
 ## Vignettes
 
-The README below outlines the basic package functionality. Review the
-vignettes for more detailed examples on usage.
+The README below outlines the basic package functionality. For more
+information please feel free to browse the `pkgdown` site at
+<https://StevenMMortimer.github.io/salesforcer> which contains the
+following vignettes:
 
   - [Getting
     Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
@@ -123,7 +125,7 @@ file is named that way to not conflict with the “.httr-oauth” files
 created by other packages.
 
 ``` r
-suppressWarnings(suppressMessages(library(dplyr)))
+library(dplyr, warn.conflicts = FALSE)
 library(salesforcer)
 
 # Using OAuth 2.0 authentication
@@ -165,8 +167,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012O1jzAAC TRUE   
-#> 2 0033s000012O1k0AAC TRUE
+#> 1 0033s000013XrqwAAC TRUE   
+#> 2 0033s000013XrqxAAC TRUE
 ```
 
 ### Query
@@ -191,8 +193,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012O1jzAAC Test      Contact-Create-1
-#> 2 0033s000012O1k0AAC Test      Contact-Create-2
+#> 1 0033s000013XrqwAAC Test      Contact-Create-1
+#> 2 0033s000013XrqxAAC Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -225,8 +227,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000012O1jzAAC TRUE   
-#> 2 0033s000012O1k0AAC TRUE
+#> 1 0033s000013XrqwAAC TRUE   
+#> 2 0033s000013XrqxAAC TRUE
 ```
 
 ### Bulk Operations
@@ -263,8 +265,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000012O1k4AAC TRUE    TRUE    NA   
-#> 2 0033s000012O1k5AAC TRUE    TRUE    NA
+#> 1 0033s000013Xrr6AAC TRUE    TRUE    NA   
+#> 2 0033s000013Xrr7AAC TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -279,8 +281,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000012O1k4AAC Test      Contact-Create-1
-#> 2 0033s000012O1k5AAC Test      Contact-Create-2
+#> 1 0033s000013Xrr6AAC Test      Contact-Create-1
+#> 2 0033s000013Xrr7AAC Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -288,8 +290,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s000012O1k4AAC 0033s000012O1k4AAC FALSE       NA       
-#> 2 0033s000012O1k5AAC 0033s000012O1k5AAC FALSE       NA
+#> 1 0033s000013Xrr6AAC 0033s000013Xrr6AAC FALSE       NA       
+#> 2 0033s000013Xrr7AAC 0033s000013Xrr7AAC FALSE       NA
 ```
 
 ### Using the Metadata API
