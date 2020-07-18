@@ -6,9 +6,9 @@
 \usage{
 sf_query_result_bulk(
   job_id,
-  guess_types = TRUE,
   batch_id = NULL,
   result_id = NULL,
+  guess_types = TRUE,
   bind_using_character_cols = FALSE,
   batch_size = 50000,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
@@ -19,19 +19,19 @@ sf_query_result_bulk(
 \item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as
 returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
-\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
-to try and cast the data returned in the recordset. If \code{TRUE} then
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
-as character. This is helpful when \code{col_guess()} will mangle field values
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
-like numeric looking values that must be preserved as strings ("48.0").}
-
 \item{batch_id}{\code{character}; the Salesforce Id assigned to a submitted
 batch as returned by \link{sf_create_batches_bulk}. It will start with \code{"751"}.}
 
 \item{result_id}{\code{character}; a string returned from
 \link{sf_batch_details_bulk} when a query has completed and specifies how to
 get the recordset}
+
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
+like numeric looking values that must be preserved as strings ("48.0").}
 
 \item{bind_using_character_cols}{\code{logical}; an indicator of whether to
 cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
