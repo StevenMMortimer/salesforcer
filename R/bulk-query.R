@@ -65,11 +65,11 @@ sf_submit_query_bulk <- function(job_id,
 #' submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.
 #' 
 #' @template job_id
-#' @template guess_types
 #' @template batch_id
 #' @param result_id \code{character}; a string returned from 
 #' \link{sf_batch_details_bulk} when a query has completed and specifies how to 
 #' get the recordset
+#' @template guess_types
 #' @template bind_using_character_cols
 #' @template batch_size
 #' @template api_type
@@ -89,10 +89,10 @@ sf_submit_query_bulk <- function(job_id,
 #' sf_close_job_bulk(job_info$id)
 #' }
 #' @export
-sf_query_result_bulk <- function(job_id, 
-                                 guess_types = TRUE,
+sf_query_result_bulk <- function(job_id,
                                  batch_id = NULL, 
                                  result_id = NULL,
+                                 guess_types = TRUE,
                                  bind_using_character_cols = FALSE,
                                  batch_size = 50000,
                                  api_type = c("Bulk 1.0", "Bulk 2.0"), 
@@ -107,10 +107,11 @@ sf_query_result_bulk <- function(job_id,
                                          api_type = api_type,
                                          verbose = verbose)      
   } else {
-    resultset <- sf_query_result_bulk_v1(job_id=job_id, 
-                                         guess_types = guess_types,
+    resultset <- sf_query_result_bulk_v1(job_id = job_id, 
                                          batch_id = batch_id, 
                                          result_id = result_id,
+                                         guess_types = guess_types,
+                                         bind_using_character_cols = bind_using_character_cols,
                                          api_type = api_type,
                                          verbose = verbose)    
   }
@@ -128,11 +129,12 @@ sf_query_result_bulk <- function(job_id,
 #' @importFrom XML xmlToList
 #' @importFrom dplyr is.tbl as_tibble tibble select any_of matches everything
 #' @template job_id
-#' @template guess_types
 #' @template batch_id
 #' @param result_id \code{character}; a string returned from 
 #' \link{sf_batch_details_bulk} when a query has completed and specifies how to 
 #' get the recordset
+#' @template guess_types
+#' @template bind_using_character_cols
 #' @template api_type
 #' @template verbose
 #' @return \code{tbl_df}, formatted by Salesforce, containing query results
@@ -151,9 +153,10 @@ sf_query_result_bulk <- function(job_id,
 #' }
 #' @export
 sf_query_result_bulk_v1 <- function(job_id, 
-                                    guess_types = TRUE,
                                     batch_id = NULL, 
-                                    result_id = NULL,
+                                    result_id = NULL,                                    
+                                    guess_types = TRUE,
+                                    bind_using_character_cols = FALSE,
                                     api_type = c("Bulk 1.0"), 
                                     verbose = FALSE){
   api_type <- match.arg(api_type)
@@ -169,32 +172,28 @@ sf_query_result_bulk_v1 <- function(job_id,
   
   content_type <- httr_response$headers$`content-type`
   if (grepl('xml', content_type)) {
-    res <- as_tibble(xmlToList(response_text))
+    resultset <- as_tibble(xmlToList(response_text))
   } else if(grepl('text/csv', content_type)) {
     if(response_text == "Records not found for this query"){
-      res <- tibble()
+      resultset <- tibble()
     } else {
-      cols_default <- if(guess_types) col_guess() else col_character()
-      res <- content(httr_response, as="parsed", encoding="UTF-8", 
-                    col_types = cols(.default=cols_default))
-      res <- res %>% 
-        # sort column names ...
-        select(sort(names(.))) %>% 
-        # ... then move columns without dot up since those with are related
-        select(any_of(c("Id", "id")), -matches("\\."), everything())      
+      cols_default <- if(bind_using_character_cols | 
+                         !guess_types) col_character() else col_guess()
+      resultset <- content(httr_response, as="parsed", encoding="UTF-8", 
+                           col_types = cols(.default=cols_default))
     }
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
-    res <- content(httr_response, as="parsed", encoding="UTF-8")
+    resultset <- content(httr_response, as="parsed", encoding="UTF-8")
   }
 
-  if(is.tbl(res)){
-    res <- res %>% 
+  if(is.tbl(resultset)){
+    resultset <- resultset %>% 
       sf_reorder_cols() %>% 
       sf_guess_cols(guess_types)
   }
   
-  return(res)
+  return(resultset)
 }
 
 
@@ -259,7 +258,8 @@ sf_query_result_bulk_v2 <- function(job_id,
   
   content_type <- httr_response$headers$`content-type`
   if(grepl('text/csv', content_type)) {
-    cols_default <- if(bind_using_character_cols) col_character() else col_guess()
+    cols_default <- if(bind_using_character_cols | 
+                       !guess_types) col_character() else col_guess()
     resultset <- content(httr_response, as="parsed", encoding="UTF-8", 
                          col_types = cols(.default=cols_default))
   } else {
@@ -285,7 +285,7 @@ sf_query_result_bulk_v2 <- function(job_id,
       sf_reorder_cols() %>% 
       sf_guess_cols(guess_types)
   }
-
+  
   return(resultset)  
 }
 
@@ -298,6 +298,7 @@ sf_query_result_bulk_v2 <- function(job_id,
 #' @template object_name
 #' @template queryall
 #' @template guess_types
+#' @template bind_using_character_cols
 #' @template interval_seconds
 #' @template max_attempts
 #' @template control
@@ -322,8 +323,9 @@ sf_query_bulk_v1 <- function(soql,
                              object_name = NULL,
                              queryall = FALSE,
                              guess_types = TRUE,
-                             interval_seconds = 5,
-                             max_attempts = 100, 
+                             bind_using_character_cols = FALSE,
+                             interval_seconds = 3,
+                             max_attempts = 200, 
                              control = list(...), ...,
                              api_type = "Bulk 1.0",
                              verbose = FALSE){
@@ -372,6 +374,22 @@ sf_query_bulk_v1 <- function(soql,
       stop(batch_query_status$stateMessage)
     } else if(batch_query_status$state == "Completed"){
       status_complete <- TRUE
+    } else if(batch_query_status$state == "NotProcessed") {
+      # this means it was a successfully submitted PKChunked query, now check
+      # for the child batches of this job (i.e. all others related to the job
+      # that are not the initial batch query info record)
+      # check that all batches have been completed before declaring the job done
+      job_batches <- sf_job_batches_bulk(batch_query_status$jobId,
+                                         api_type = api_type, 
+                                         verbose = verbose)
+      # remove the initial batch
+      batch_query_info <- job_batches %>% 
+        # ignore record ids that could not be matched
+        filter(across(any_of("state"), ~(.x != 'NotProcessed')))
+      
+      if(all(batch_query_info$state == "Completed")){
+        status_complete <- TRUE
+      }
     } else {
       # continue checking the status until done or max attempts
       z <- z + 1
@@ -380,23 +398,36 @@ sf_query_bulk_v1 <- function(soql,
   if (!status_complete) {
     message("The query took too long to complete. Aborting job now.")
     message("Consider increasing the `max_attempts` and/or `interval_seconds` arguments.")
-    res <- sf_abort_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
+    resultset <- sf_abort_job_bulk(job_info$id, api_type=api_type, verbose=verbose)
   } else {
-    batch_query_details <- sf_batch_details_bulk(job_id = batch_query_info$jobId,
-                                                 batch_id = batch_query_info$id, 
-                                                 api_type = api_type, 
-                                                 verbose = verbose)
-    res <- sf_query_result_bulk(job_id = batch_query_info$jobId,
-                                batch_id = batch_query_info$id,
-                                result_id = batch_query_details$result,
-                                guess_types = guess_types,
-                                api_type = api_type,
-                                verbose = verbose)
+    resultset <- list()
+    for(i in 1:nrow(batch_query_info)){
+      batch_query_details <- sf_batch_details_bulk(job_id = batch_query_info$jobId[i],
+                                                   batch_id = batch_query_info$id[i], 
+                                                   api_type = api_type, 
+                                                   verbose = verbose)
+      resultset[[i]] <- sf_query_result_bulk(job_id = batch_query_info$jobId[i],
+                                             batch_id = batch_query_info$id[i],
+                                             result_id = batch_query_details$result,
+                                             guess_types = guess_types,
+                                             bind_using_character_cols = bind_using_character_cols,
+                                             api_type = api_type,
+                                             verbose = verbose)
+    }
+    resultset <- bind_rows(resultset)
     close_job_info <- sf_close_job_bulk(job_info$id, 
                                         api_type = api_type, 
                                         verbose = verbose)
   }
-  return(res)
+  # needed in case the result was PKChunked which returns the records in multiple 
+  # batches that we must bind
+  if(is.tbl(resultset)){
+    resultset <- resultset %>% 
+      sf_reorder_cols() %>% 
+      sf_guess_cols(guess_types)
+  }
+  
+  return(resultset)
 }
 
 #' Run Bulk 2.0 query 
@@ -434,8 +465,8 @@ sf_query_bulk_v2 <- function(soql,
                              queryall = FALSE,
                              guess_types = TRUE,
                              bind_using_character_cols = FALSE,
-                             interval_seconds = 5,
-                             max_attempts = 100, 
+                             interval_seconds = 3,
+                             max_attempts = 200, 
                              control = list(...), ...,
                              api_type = "Bulk 2.0",
                              verbose = FALSE){
