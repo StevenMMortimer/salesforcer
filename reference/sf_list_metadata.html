@@ -189,7 +189,7 @@ summary of all objects in salesforce of the requested types" />
 summary of all objects in salesforce of the requested types</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_metadata.html'>sf_list_metadata</a></span>(<span class='kw'>queries</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_metadata</span>(<span class='kw'>queries</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,7 +225,7 @@ along with additional diagnostic information where available.</p></td>
 <span class='kw'>my_queries</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(type=<span class='st'>'CustomObject'</span>),
                    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(folder=<span class='st'>'unfiled$public'</span>,
                         type=<span class='st'>'EmailTemplate'</span>))
-<span class='kw'>metadata_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_metadata.html'>sf_list_metadata</a></span>(queries=<span class='kw'>my_queries</span>)
+<span class='kw'>metadata_info</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_metadata</span>(queries=<span class='kw'>my_queries</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

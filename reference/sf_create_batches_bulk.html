@@ -187,7 +187,7 @@ an already existing Bulk API Job by chunking into temp files" />
 an already existing Bulk API Job by chunking into temp files</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_batches_bulk.html'>sf_create_batches_bulk</a></span>(
+    <pre class="usage"><span class='fu'>sf_create_batches_bulk</span>(
   <span class='kw'>job_id</span>,
   <span class='kw'>input_data</span>,
   batch_size = <span class='kw'>NULL</span>,
@@ -201,7 +201,7 @@ an already existing Bulk API Job by chunking into temp files</p>
     <tr>
       <th>job_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
-returned by <a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
+returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>input_data</th>
@@ -242,19 +242,19 @@ along with additional diagnostic information where available.</p></td>
 <span class='co'># inserting 2 records</span>
 <span class='kw'>my_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(Name=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'New Record 1'</span>, <span class='st'>'New Record 2'</span>),
                   My_External_Id__c=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'11111'</span>,<span class='st'>'22222'</span>))
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'insert'</span>,
+<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'insert'</span>,
                                object=<span class='st'>'Account'</span>)
-<span class='kw'>batches_ind</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_batches_bulk.html'>sf_create_batches_bulk</a></span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>,
+<span class='kw'>batches_ind</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_batches_bulk</span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>,
                                       input_data = <span class='kw'>my_data</span>)
 <span class='co'># upserting 3 records</span>
 <span class='kw'>my_data2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(My_External_Id__c=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'11111'</span>,<span class='st'>'22222'</span>, <span class='st'>'99999'</span>), 
                   Name=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Updated_Name1'</span>, <span class='st'>'Updated_Name2'</span>, <span class='st'>'Upserted_Record'</span>)) 
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'upsert'</span>,
+<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation=<span class='st'>'upsert'</span>,
                                externalIdFieldName=<span class='st'>'My_External_Id__c'</span>,
                                object=<span class='st'>'Account'</span>)
-<span class='kw'>batches_ind</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_batches_bulk.html'>sf_create_batches_bulk</a></span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>,
+<span class='kw'>batches_ind</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_batches_bulk</span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>,
                                       input_data = <span class='kw'>my_data2</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_get_job_bulk.html'>sf_get_job_bulk</a></span>(<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)                                     
+<span class='fu'><a href='sf_get_job_bulk.html'>sf_get_job_bulk</a></span>(<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)                                     
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

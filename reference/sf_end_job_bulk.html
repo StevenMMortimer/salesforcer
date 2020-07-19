@@ -185,7 +185,7 @@
     <p>End Bulk API Job</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_end_job_bulk.html'>sf_end_job_bulk</a></span>(
+    <pre class="usage"><span class='fu'>sf_end_job_bulk</span>(
   <span class='kw'>job_id</span>,
   end_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Closed"</span>, <span class='st'>"UploadComplete"</span>, <span class='st'>"Aborted"</span>),
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
@@ -198,7 +198,7 @@
     <tr>
       <th>job_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
-returned by <a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
+returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>end_type</th>

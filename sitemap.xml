@@ -43,6 +43,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/combine_parent_and_child_resultsets.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/compact2.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_attributes.html</loc>
   </url>
   <url>
@@ -256,6 +259,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_verbose_httr_message.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/map_sf_type_to_r_type.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/merge_null_to_na.html</loc>
   </url>
   <url>
@@ -383,6 +389,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_batch_status_bulk.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_build_cols_spec.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_close_job_bulk.html</loc>
@@ -833,6 +842,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html</loc>

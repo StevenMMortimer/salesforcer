@@ -193,7 +193,7 @@ be deleted. If a victim record has related records the master record the new
 parent of the related records.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_merge.html'>sf_merge</a></span>(
+    <pre class="usage"><span class='fu'>sf_merge</span>(
   <span class='kw'>master_id</span>,
   <span class='kw'>victim_ids</span>,
   <span class='kw'>object_name</span>,
@@ -218,7 +218,7 @@ which is the record to which the victim records will be merged into</p></td>
 the master record. Up to three records can be merged in a single request, including
 the master record. This limit is the same as the limit enforced by the Salesforce user
 interface. To merge more than 3 records, successively merge records by running
-<code><a href='https://rdrr.io/pkg/salesforcer/man/sf_merge.html'>sf_merge</a></code> repeatedly.</p></td>
+<code>sf_merge</code> repeatedly.</p></td>
     </tr>
     <tr>
       <th>object_name</th>
@@ -241,11 +241,11 @@ making the request.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -266,17 +266,17 @@ along with additional diagnostic information where available.</p></td>
 <span class='kw'>new_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(FirstName = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='kw'>n</span>),
                        LastName = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='kw'>n</span>),
                        Description = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Description"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='kw'>n</span>))
-<span class='kw'>new_recs1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create.html'>sf_create</a></span>(<span class='kw'>new_contacts</span>, object_name = <span class='st'>"Contact"</span>)
+<span class='kw'>new_recs1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='kw'>new_contacts</span>, object_name = <span class='st'>"Contact"</span>)
 
 <span class='co'># merge the second and third into the first record, but set the</span>
 <span class='co'># description field equal to the description of the second. All other fields</span>
 <span class='co'># will from the first record or, if blank, from the other records</span>
-<span class='kw'>merge_res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_merge.html'>sf_merge</a></span>(master_id = <span class='kw'>new_recs1</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>],
+<span class='kw'>merge_res</span> <span class='op'>&lt;-</span> <span class='fu'>sf_merge</span>(master_id = <span class='kw'>new_recs1</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>],
                       victim_ids = <span class='kw'>new_recs1</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>],
                       object_name = <span class='st'>"Contact"</span>,
                       master_fields = <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='st'>"Description"</span> = <span class='kw'>new_contacts</span><span class='op'>$</span><span class='kw'>Description</span>[<span class='fl'>2</span>]))
 <span class='co'># check the second and third records now have the same Master Record Id as the first</span>
-<span class='kw'>merge_check</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, MasterRecordId, Description 
+<span class='kw'>merge_check</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, MasterRecordId, Description 
                                  FROM Contact WHERE Id IN ('%s')"</span>iption 
                                  FROM Contact WHERE Id IN ('%s')", 
                                  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='kw'>new_recs1</span><span class='op'>$</span><span class='kw'>id</span>, collapse=<span class='st'>"','"</span>)), 

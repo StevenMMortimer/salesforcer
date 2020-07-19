@@ -187,11 +187,11 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed." />
 submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_result_bulk.html'>sf_query_result_bulk</a></span>(
+    <pre class="usage"><span class='fu'>sf_query_result_bulk</span>(
   <span class='kw'>job_id</span>,
-  guess_types = <span class='fl'>TRUE</span>,
   batch_id = <span class='kw'>NULL</span>,
   result_id = <span class='kw'>NULL</span>,
+  guess_types = <span class='fl'>TRUE</span>,
   bind_using_character_cols = <span class='fl'>FALSE</span>,
   batch_size = <span class='fl'>50000</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
@@ -204,7 +204,18 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.</p>
     <tr>
       <th>job_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
-returned by <a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
+returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>batch_id</th>
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted
+batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>result_id</th>
+      <td><p><code>character</code>; a string returned from
+<a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to
+get the recordset</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
@@ -214,17 +225,6 @@ to try and cast the data returned in the recordset. If <code>TRUE</code> then
 as character. This is helpful when <code>col_guess()</code> will mangle field values
 in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
 like numeric looking values that must be preserved as strings ("48.0").</p></td>
-    </tr>
-    <tr>
-      <th>batch_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted
-batch as returned by <a href='https://rdrr.io/pkg/salesforcer/man/sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>result_id</th>
-      <td><p><code>character</code>; a string returned from
-<a href='https://rdrr.io/pkg/salesforcer/man/sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to
-get the recordset</p></td>
     </tr>
     <tr>
       <th>bind_using_character_cols</th>
@@ -265,14 +265,14 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>my_query</span> <span class='op'>&lt;-</span> <span class='st'>"SELECT Id, Name FROM Account LIMIT 1000"</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation = <span class='st'>'query'</span>, object = <span class='st'>'Account'</span>)
-<span class='kw'>query_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_submit_query_bulk.html'>sf_submit_query_bulk</a></span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>, soql = <span class='kw'>my_query</span>)
-<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_batch_details_bulk.html'>sf_batch_details_bulk</a></span>(job_id = <span class='kw'>query_info</span><span class='op'>$</span><span class='kw'>jobId</span>,
+<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation = <span class='st'>'query'</span>, object = <span class='st'>'Account'</span>)
+<span class='kw'>query_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_submit_query_bulk.html'>sf_submit_query_bulk</a></span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>, soql = <span class='kw'>my_query</span>)
+<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a></span>(job_id = <span class='kw'>query_info</span><span class='op'>$</span><span class='kw'>jobId</span>,
                                 batch_id = <span class='kw'>query_info</span><span class='op'>$</span><span class='kw'>id</span>)
-<span class='kw'>recordset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_result_bulk.html'>sf_query_result_bulk</a></span>(job_id = <span class='kw'>query_info</span><span class='op'>$</span><span class='kw'>jobId</span>,
+<span class='kw'>recordset</span> <span class='op'>&lt;-</span> <span class='fu'>sf_query_result_bulk</span>(job_id = <span class='kw'>query_info</span><span class='op'>$</span><span class='kw'>jobId</span>,
                                   batch_id = <span class='kw'>query_info</span><span class='op'>$</span><span class='kw'>id</span>,
                                   result_id = <span class='kw'>result</span><span class='op'>$</span><span class='kw'>result</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_close_job_bulk.html'>sf_close_job_bulk</a></span>(<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)
+<span class='fu'><a href='sf_close_job_bulk.html'>sf_close_job_bulk</a></span>(<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

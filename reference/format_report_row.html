@@ -189,7 +189,12 @@ selects either the value or label for the report columns to turn into a one
 row <code>tbl_df</code> that will usually be bound to the other rows in the report</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/format_report_row.html'>format_report_row</a></span>(<span class='kw'>x</span>, label = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>format_report_row</span>(
+  <span class='kw'>x</span>,
+  labels = <span class='fl'>TRUE</span>,
+  guess_types = <span class='fl'>TRUE</span>,
+  bind_using_character_cols = <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,13 +207,31 @@ length as the number of columns with each element having a label and value
 element.</p></td>
     </tr>
     <tr>
-      <th>label</th>
+      <th>labels</th>
       <td><p><code>logical</code>; an indicator of whether the returned data should
 be the label (i.e. formatted value) or the actual value. By default, the labels
 are returned because these are what appear in the Salesforce dashboard and
 more closely align with the column names. For example, "Account.Name" label
 may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
 (label) more accurately reflects the "Account.Name".</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
+    </tr>
+    <tr>
+      <th>bind_using_character_cols</th>
+      <td><p><code>logical</code>; an indicator of whether to
+cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
+character.</p></td>
     </tr>
     </table>
 

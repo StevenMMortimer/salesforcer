@@ -187,7 +187,7 @@ Return a list of report types." />
 <p>Return a list of report types.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_types.html'>sf_list_report_types</a></span>(as_tbl = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_report_types</span>(as_tbl = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,11 +216,11 @@ argument <code>as_tbl</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>report_types</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_types.html'>sf_list_report_types</a></span>()
+<span class='kw'>report_types</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_report_types</span>()
 <span class='kw'>unique_report_types</span> <span class='op'>&lt;-</span> <span class='kw'>report_types</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='kw'>reportTypes.type</span>)
 
 <span class='co'># return the results as a list</span>
-<span class='kw'>reports_as_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_types.html'>sf_list_report_types</a></span>(as_tbl=<span class='fl'>FALSE</span>)
+<span class='kw'>reports_as_list</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_report_types</span>(as_tbl=<span class='fl'>FALSE</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

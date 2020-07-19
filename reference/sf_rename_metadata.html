@@ -189,7 +189,7 @@ metadata element in Salesforce and applies the new name" />
 metadata element in Salesforce and applies the new name</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_rename_metadata.html'>sf_rename_metadata</a></span>(<span class='kw'>metadata_type</span>, <span class='kw'>old_fullname</span>, <span class='kw'>new_fullname</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_rename_metadata</span>(<span class='kw'>metadata_type</span>, <span class='kw'>old_fullname</span>, <span class='kw'>new_fullname</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,7 +226,7 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>renamed_custom_object</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_rename_metadata.html'>sf_rename_metadata</a></span>(metadata_type = <span class='st'>'CustomObject'</span>, 
+<span class='kw'>renamed_custom_object</span> <span class='op'>&lt;-</span> <span class='fu'>sf_rename_metadata</span>(metadata_type = <span class='st'>'CustomObject'</span>, 
                                             old_fullname = <span class='st'>'Custom_Account32__c'</span>, 
                                             new_fullname = <span class='st'>'Custom_Account99__c'</span>)
 }</div></pre>

@@ -136,7 +136,7 @@
 
 
 <p><br><img src="reference/figures/salesforcer.png" width="120px" align="right"></p>
-<p><strong>salesforcer</strong> is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
+<p>{salesforcer} is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
 <p>Package features include:</p>
 <ul>
 <li>OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
@@ -205,7 +205,7 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p>The README below outlines the basic package functionality. Review the vignettes for more detailed examples on usage.</p>
+<p>The README below outlines the basic package functionality. For more information please feel free to browse the <code>pkgdown</code> site at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a> which contains the following vignettes:</p>
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html">Supported Queries</a></li>
@@ -222,14 +222,14 @@
 <div id="authenticate" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authenticate" class="anchor"></a>Authenticate</h3>
-<p>First, load the <strong>salesforcer</strong> package and login. There are two ways to authenticate:</p>
+<p>First, load the {salesforcer} package and login. There are two ways to authenticate:</p>
 <ol>
 <li>OAuth 2.0</li>
 <li>Basic Username-Password</li>
 </ol>
 <p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory. Also, note that if you use OAuth 2.0 authentication then the package will automatically refresh it so you will not have to call <code><a href="reference/sf_auth.html">sf_auth()</a></code> during each session if you have a cached “.httr-oauth-salesforcer” file in the working directory. The cache file is named that way to not conflict with the “.httr-oauth” files created by other packages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)))
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts = <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span>)
 
 <span class="co"># Using OAuth 2.0 authentication</span>
@@ -265,8 +265,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012O1jzAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012O1k0AAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013XrqwAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XrqxAAC TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level3">
@@ -291,8 +291,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012O1jzAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012O1k0AAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013XrqwAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013XrqxAAC Test      Contact-Create-2</span>
 </pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
@@ -310,14 +310,14 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012O1jzAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000012O1k0AAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013XrqwAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XrqxAAC TRUE</span>
 </pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bulk-operations" class="anchor"></a>Bulk Operations</h3>
-<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in <strong>salesforcer</strong> you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
+<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in {salesforcer} you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
 <p>The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in bulk is usually quicker than running thousands of individuals calls when your data is large. <strong>Note:</strong> the Bulk 2.0 API does <strong>NOT</strong> guarantee the order of the data submitted is preserved in the output. This means that you must join on other data columns to match up the Ids that are returned in the output with the data you submitted. For this reason, Bulk 2.0 may not be a good solution for creating, updating, or upserting records where you need to keep track of the created Ids. The Bulk 2.0 API would be fine for deleting records where you only need to know which Ids were successfully deleted.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="co"># create contacts using the Bulk API</span>
@@ -329,8 +329,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000012O1k4AAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000012O1k5AAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000013Xrr6AAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013Xrr7AAC TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -349,8 +349,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012O1k4AAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012O1k5AAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013Xrr6AAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013Xrr7AAC Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type = <span class="st">"Bulk 2.0"</span>)
@@ -358,8 +358,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000012O1k4AAC 0033s000012O1k4AAC FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000012O1k5AAC 0033s000012O1k5AAC FALSE       NA</span>
+<span class="co">#&gt; 1 0033s000013Xrr6AAC 0033s000013Xrr6AAC FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013Xrr7AAC 0033s000013Xrr7AAC FALSE       NA</span>
 </pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">

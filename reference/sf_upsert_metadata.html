@@ -189,7 +189,7 @@ to Salesforce for creation or update if the object already exists" />
 to Salesforce for creation or update if the object already exists</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_upsert_metadata.html'>sf_upsert_metadata</a></span>(
+    <pre class="usage"><span class='fu'>sf_upsert_metadata</span>(
   <span class='kw'>metadata_type</span>,
   <span class='kw'>metadata</span>,
   control = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>...</span>),
@@ -214,11 +214,11 @@ XML before being sent via API.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>all_or_none</th>
@@ -260,7 +260,7 @@ when an existing Salesforce element matches the metadata type and fullName.</p>
 <span class='kw'>custom_object</span><span class='op'>$</span><span class='kw'>sharingModel</span> <span class='op'>&lt;-</span> <span class='st'>'ReadWrite'</span>
 <span class='kw'>custom_object</span><span class='op'>$</span><span class='kw'>enableActivities</span> <span class='op'>&lt;-</span> <span class='st'>'true'</span>
 <span class='kw'>custom_object</span><span class='op'>$</span><span class='kw'>description</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='kw'>base_obj_name</span>, <span class='st'>" created by the Metadata API"</span>)
-<span class='kw'>custom_object_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_metadata.html'>sf_create_metadata</a></span>(metadata_type = <span class='st'>'CustomObject'</span>,
+<span class='kw'>custom_object_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_metadata.html'>sf_create_metadata</a></span>(metadata_type = <span class='st'>'CustomObject'</span>,
                                            metadata = <span class='kw'>custom_object</span>)
 <span class='co'># now update the object that was created</span>
 <span class='kw'>upsert_metadata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>custom_object</span>, <span class='kw'>custom_object</span>)
@@ -270,7 +270,7 @@ when an existing Salesforce element matches the metadata type and fullName.</p>
 <span class='kw'>upsert_metadata</span>[[<span class='fl'>2</span>]]<span class='op'>$</span><span class='kw'>fullName</span> <span class='op'>&lt;-</span> <span class='st'>'Custom_Account2__c'</span>
 <span class='kw'>upsert_metadata</span>[[<span class='fl'>2</span>]]<span class='op'>$</span><span class='kw'>label</span> <span class='op'>&lt;-</span> <span class='st'>'New Label Custom_Account2'</span>
 <span class='kw'>upsert_metadata</span>[[<span class='fl'>2</span>]]<span class='op'>$</span><span class='kw'>pluralLabel</span> <span class='op'>&lt;-</span> <span class='st'>'Custom_Account2s_new'</span>
-<span class='kw'>upserted_custom_object_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_upsert_metadata.html'>sf_upsert_metadata</a></span>(metadata_type = <span class='st'>'CustomObject'</span>,
+<span class='kw'>upserted_custom_object_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_upsert_metadata</span>(metadata_type = <span class='st'>'CustomObject'</span>,
                                                     metadata = <span class='kw'>upsert_metadata</span>)
 }</div></pre>
   </div>

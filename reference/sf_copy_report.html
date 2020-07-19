@@ -189,7 +189,7 @@ request to the Report List resource." />
 request to the Report List resource.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_copy_report.html'>sf_copy_report</a></span>(<span class='kw'>report_id</span>, name = <span class='kw'>NULL</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_copy_report</span>(<span class='kw'>report_id</span>, name = <span class='kw'>NULL</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -237,16 +237,16 @@ joined metadata.</p></dd>
 <span class='kw'>most_recent_reports</span> <span class='op'>&lt;-</span> <span class='fu'>sf_report_list</span>()
 
 <span class='co'># all possible reports in your Org</span>
-<span class='kw'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
+<span class='kw'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
 
 <span class='co'># id of the report to copy</span>
 <span class='kw'>this_report_id</span> <span class='op'>&lt;-</span> <span class='kw'>all_reports</span><span class='op'>$</span><span class='kw'>Id</span>[<span class='fl'>1</span>]
 
 <span class='co'># not providing a name appends " - Copy" to the name of the report being cloned</span>
-<span class='kw'>report_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_copy_report.html'>sf_copy_report</a></span>(<span class='kw'>this_report_id</span>)
+<span class='kw'>report_details</span> <span class='op'>&lt;-</span> <span class='fu'>sf_copy_report</span>(<span class='kw'>this_report_id</span>)
 
 <span class='co'># example of providing new name to the copied report</span>
-<span class='kw'>report_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_copy_report.html'>sf_copy_report</a></span>(<span class='kw'>this_report_id</span>, <span class='st'>"My New Copy of Report ABC"</span>)
+<span class='kw'>report_details</span> <span class='op'>&lt;-</span> <span class='fu'>sf_copy_report</span>(<span class='kw'>this_report_id</span>, <span class='st'>"My New Copy of Report ABC"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

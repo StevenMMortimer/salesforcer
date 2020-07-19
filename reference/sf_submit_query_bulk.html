@@ -187,7 +187,7 @@ an already existing Bulk API Job of operation &quot;query&quot;" />
 an already existing Bulk API Job of operation "query"</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_submit_query_bulk.html'>sf_submit_query_bulk</a></span>(<span class='kw'>job_id</span>, <span class='kw'>soql</span>, api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>), verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_submit_query_bulk</span>(<span class='kw'>job_id</span>, <span class='kw'>soql</span>, api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>), verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,7 +195,7 @@ an already existing Bulk API Job of operation "query"</p>
     <tr>
       <th>job_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
-returned by <a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
+returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>soql</th>
@@ -238,8 +238,8 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>my_query</span> <span class='op'>&lt;-</span> <span class='st'>"SELECT Id, Name FROM Account LIMIT 1000"</span>
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation = <span class='st'>'query'</span>, object = <span class='st'>'Account'</span>)
-<span class='kw'>query_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_submit_query_bulk.html'>sf_submit_query_bulk</a></span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>, soql = <span class='kw'>my_query</span>)
+<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(operation = <span class='st'>'query'</span>, object = <span class='st'>'Account'</span>)
+<span class='kw'>query_info</span> <span class='op'>&lt;-</span> <span class='fu'>sf_submit_query_bulk</span>(job_id = <span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>, soql = <span class='kw'>my_query</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -188,14 +188,14 @@ with curl." />
 
     <div class="ref-description">
     <p>Before the user makes any calls requiring an authorized session, check if an
-OAuth token or session is not already available, call <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_auth.html'>sf_auth</a></code> to
+OAuth token or session is not already available, call <code><a href='sf_auth.html'>sf_auth</a></code> to
 by default initiate the OAuth 2.0 workflow that will load a token from cache or
 launch browser flow. Return the bare token. Use
 <code>access_token()</code> to reveal the actual access token, suitable for use
 with <code>curl</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_auth_check.html'>sf_auth_check</a></span>(verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_auth_check</span>(verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

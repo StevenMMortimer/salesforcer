@@ -187,7 +187,7 @@ Delete records from the recycle bin immediately and permanently." />
 <p>Delete records from the recycle bin immediately and permanently.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_empty_recycle_bin.html'>sf_empty_recycle_bin</a></span>(<span class='kw'>ids</span>, api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>), verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_empty_recycle_bin</span>(<span class='kw'>ids</span>, api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>), verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,25 +232,25 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>new_contact</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(FirstName = <span class='st'>"Test"</span>, LastName = <span class='st'>"Contact"</span>)
-<span class='kw'>new_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create.html'>sf_create</a></span>(<span class='kw'>new_contact</span>, object_name = <span class='st'>"Contact"</span>)
-<span class='kw'>delete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete.html'>sf_delete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>],
+<span class='kw'>new_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='kw'>new_contact</span>, object_name = <span class='st'>"Contact"</span>)
+<span class='kw'>delete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_delete.html'>sf_delete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>],
                     AllOrNoneHeader = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(allOrNone = <span class='fl'>TRUE</span>))
-<span class='kw'>is_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
+<span class='kw'>is_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
                        <span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>]),
                        queryall = <span class='fl'>TRUE</span>)
-<span class='kw'>hard_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_empty_recycle_bin.html'>sf_empty_recycle_bin</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>])
+<span class='kw'>hard_deleted</span> <span class='op'>&lt;-</span> <span class='fu'>sf_empty_recycle_bin</span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>])
 
 <span class='co'># confirm that the record really is gone (can't be deleted)</span>
-<span class='kw'>undelete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_undelete.html'>sf_undelete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>])
+<span class='kw'>undelete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_undelete.html'>sf_undelete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>])
 <span class='co'># if you use queryall you still will find the record for ~24hrs</span>
-<span class='kw'>is_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>, 
+<span class='kw'>is_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>, 
                                <span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>]), queryall = <span class='fl'>TRUE</span>)
                                
 <span class='co'># As of v48.0 (Spring 2020) you can query the Ids of all records in the Recycle </span>
 <span class='co'># Bin, which makes it easier to clear the entire bin because you can grab the </span>
 <span class='co'># Ids of the records first</span>
-<span class='kw'>records_in_bin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Record FROM DeleteEvent"</span>)
-<span class='kw'>records_emptied_from_bin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete.html'>sf_delete</a></span>(<span class='kw'>records_in_bin</span><span class='op'>$</span><span class='kw'>Record</span>)
+<span class='kw'>records_in_bin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Record FROM DeleteEvent"</span>)
+<span class='kw'>records_emptied_from_bin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_delete.html'>sf_delete</a></span>(<span class='kw'>records_in_bin</span><span class='op'>$</span><span class='kw'>Record</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

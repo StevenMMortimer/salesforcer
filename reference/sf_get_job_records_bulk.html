@@ -187,7 +187,7 @@ which has already been submitted completed (successfully or not)." />
 which has already been submitted completed (successfully or not).</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_get_job_records_bulk.html'>sf_get_job_records_bulk</a></span>(
+    <pre class="usage"><span class='fu'>sf_get_job_records_bulk</span>(
   <span class='kw'>job_id</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
   record_types = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"successfulResults"</span>, <span class='st'>"failedResults"</span>, <span class='st'>"unprocessedRecords"</span>),
@@ -201,7 +201,7 @@ which has already been submitted completed (successfully or not).</p>
     <tr>
       <th>job_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted job as
-returned by <a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
+returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
       <th>api_type</th>
@@ -243,13 +243,13 @@ match the ordering of records in the original job data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(<span class='st'>'insert'</span>, <span class='st'>'Account'</span>)
+<span class='kw'>job_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></span>(<span class='st'>'insert'</span>, <span class='st'>'Account'</span>)
 <span class='kw'>input_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(Name=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Test Account 1"</span>, <span class='st'>"Test Account 2"</span>))
-<span class='kw'>batches_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_batches_bulk.html'>sf_create_batches_bulk</a></span>(<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>, <span class='kw'>input_data</span>)
+<span class='kw'>batches_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a></span>(<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>, <span class='kw'>input_data</span>)
 <span class='co'># pause a few seconds for operation to finish. Wait longer if job is not complete.</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span>(<span class='fl'>3</span>)
 <span class='co'># check status using - sf_get_job_bulk(job_info$id)</span>
-<span class='kw'>job_record_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_get_job_records_bulk.html'>sf_get_job_records_bulk</a></span>(job_id=<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)
+<span class='kw'>job_record_details</span> <span class='op'>&lt;-</span> <span class='fu'>sf_get_job_records_bulk</span>(job_id=<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

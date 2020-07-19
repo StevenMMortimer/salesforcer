@@ -187,7 +187,7 @@ Converts Leads each into an Account, Contact, as well as (optionally) an Opportu
 <p>Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_convert_lead.html'>sf_convert_lead</a></span>(
+    <pre class="usage"><span class='fu'>sf_convert_lead</span>(
   <span class='kw'>input_data</span>,
   guess_types = <span class='fl'>TRUE</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>),
@@ -225,11 +225,11 @@ making the request.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -298,16 +298,16 @@ the default).</p></dd>
 <span class='co'># create a new lead at Grand Hotels &amp; Resorts Ltd</span>
 <span class='kw'>new_lead</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(FirstName = <span class='st'>"Test"</span>, LastName = <span class='st'>"Prospect"</span>,
                    Company = <span class='st'>"Grand Hotels &amp; Resorts Ltd"</span>)
-<span class='kw'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create.html'>sf_create</a></span>(<span class='kw'>new_lead</span>, <span class='st'>"Lead"</span>)
+<span class='kw'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='kw'>new_lead</span>, <span class='st'>"Lead"</span>)
 
 <span class='co'># find the Id of matching account to link to</span>
-<span class='kw'>acct_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id from Account WHERE name = 'Grand Hotels &amp; Resorts Ltd' LIMIT 1"</span>)
+<span class='kw'>acct_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id from Account WHERE name = 'Grand Hotels &amp; Resorts Ltd' LIMIT 1"</span>)
 
 <span class='co'># create the row(s) for the leads to convert</span>
 <span class='kw'>to_convert</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(leadId = <span class='kw'>rec</span><span class='op'>$</span><span class='kw'>id</span>, 
                      convertedStatus = <span class='st'>"Closed - Converted"</span>, 
                      accountId = <span class='kw'>acct_id</span><span class='op'>$</span><span class='kw'>Id</span>)
-<span class='kw'>converted_lead</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_convert_lead.html'>sf_convert_lead</a></span>(<span class='kw'>to_convert</span>)
+<span class='kw'>converted_lead</span> <span class='op'>&lt;-</span> <span class='fu'>sf_convert_lead</span>(<span class='kw'>to_convert</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

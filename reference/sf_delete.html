@@ -187,7 +187,7 @@ Deletes one or more records from your organization’s data." />
 <p>Deletes one or more records from your organization’s data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete.html'>sf_delete</a></span>(
+    <pre class="usage"><span class='fu'>sf_delete</span>(
   <span class='kw'>ids</span>,
   object_name = <span class='kw'>NULL</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
@@ -231,12 +231,12 @@ like numeric looking values that must be preserved as strings ("48.0").</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code> or further downstream
-to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream
+to <code><a href='sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
     </tr>
     <tr>
       <th>all_or_none</th>
@@ -266,11 +266,11 @@ of records and not all records submitted to the function.</p>
 <span class='kw'>n</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>
 <span class='kw'>new_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(FirstName = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='kw'>n</span>),
                        LastName = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='kw'>n</span>))
-<span class='kw'>new_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create.html'>sf_create</a></span>(<span class='kw'>new_contacts</span>, object_name=<span class='st'>"Contact"</span>)
-<span class='kw'>deleted_first</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete.html'>sf_delete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>], object_name = <span class='st'>"Contact"</span>)  
+<span class='kw'>new_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='kw'>new_contacts</span>, object_name=<span class='st'>"Contact"</span>)
+<span class='kw'>deleted_first</span> <span class='op'>&lt;-</span> <span class='fu'>sf_delete</span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>], object_name = <span class='st'>"Contact"</span>)  
 
 <span class='co'># add the control to do an "All or None" deletion of the remaining records</span>
-<span class='kw'>deleted_rest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete.html'>sf_delete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>], object_name = <span class='st'>"Contact"</span>, 
+<span class='kw'>deleted_rest</span> <span class='op'>&lt;-</span> <span class='fu'>sf_delete</span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>], object_name = <span class='st'>"Contact"</span>, 
                           AllOrNoneHeader = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(allOrNone = <span class='fl'>TRUE</span>))
 }</div></pre>
   </div>

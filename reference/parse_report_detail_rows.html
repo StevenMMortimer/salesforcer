@@ -189,7 +189,13 @@ parses it to return a single <code>tbl_df</code> representing the detail rows an
 columns of the report without any filters, aggregates, or totals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/parse_report_detail_rows.html'>parse_report_detail_rows</a></span>(<span class='kw'>content</span>, label = <span class='fl'>TRUE</span>, fact_map_key = <span class='st'>"T!T"</span>)</pre>
+    <pre class="usage"><span class='fu'>parse_report_detail_rows</span>(
+  <span class='kw'>content</span>,
+  fact_map_key = <span class='st'>"T!T"</span>,
+  labels = <span class='fl'>TRUE</span>,
+  guess_types = <span class='fl'>TRUE</span>,
+  bind_using_character_cols = <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,13 +206,39 @@ columns of the report without any filters, aggregates, or totals.</p>
 function that parses the JSON response to a <code>list</code>.</p></td>
     </tr>
     <tr>
-      <th>label</th>
+      <th>fact_map_key</th>
+      <td><p><code>character</code>; string providing an index into each
+section of a fact map, from which you can access summary and detailed data.
+The pattern for the fact map keys varies by report format so it is important
+to know what the <code>reportFormat</code> property of the target report is. See the
+note below for more details.</p></td>
+    </tr>
+    <tr>
+      <th>labels</th>
       <td><p><code>logical</code>; an indicator of whether the returned data should
 be the label (i.e. formatted value) or the actual value. By default, the labels
 are returned because these are what appear in the Salesforce dashboard and
 more closely align with the column names. For example, "Account.Name" label
 may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
 (label) more accurately reflects the "Account.Name".</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
+    </tr>
+    <tr>
+      <th>bind_using_character_cols</th>
+      <td><p><code>logical</code>; an indicator of whether to
+cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
+character.</p></td>
     </tr>
     </table>
 
@@ -217,7 +249,29 @@ report result HTTP response where the rows represent each row in the report
 and the columns represent the detail columns.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function is meant to be used internally. Only use when debugging.</p>
+    <p>Below are the fact map key patterns for three report types:</p><dl>
+<dt>TABULAR</dt><dd><p><code>T!T</code>: The grand total of a report. Both record data
+values and the grand total are represented by this key.</p></dd>
+<dt>SUMMARY</dt><dd><p><code>&lt;First level row grouping_second level row grouping_third 
+  level row grouping&gt;!T</code>: T refers to the row grand total.</p></dd>
+<dt>MATRIX</dt><dd><p><code>&lt;First level row grouping_second level row grouping&gt;!&lt;First 
+  level column grouping_second level column grouping&gt;.</code></p></dd>
+
+</dl>
+
+<p>Each item in a row or column grouping is numbered starting with 0. Here are
+some examples of fact map keys:</p>
+<dl>
+<dt>0!T</dt><dd><p>The first item in the first-level grouping.</p></dd>
+<dt>1!T</dt><dd><p>The second item in the first-level grouping.</p></dd>
+<dt>0_0!T</dt><dd><p>The first item in the first-level grouping and the first item
+in the second-level grouping.</p></dd>
+<dt>0_1!T</dt><dd><p>The first item in the first-level grouping and the second item
+in the second-level grouping.</p></dd>
+
+</dl>
+
+<p>This function is meant to be used internally. Only use when debugging.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

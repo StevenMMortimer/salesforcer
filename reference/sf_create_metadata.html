@@ -189,7 +189,7 @@ to Salesforce for creation" />
 to Salesforce for creation</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_metadata.html'>sf_create_metadata</a></span>(
+    <pre class="usage"><span class='fu'>sf_create_metadata</span>(
   <span class='kw'>metadata_type</span>,
   <span class='kw'>metadata</span>,
   control = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>...</span>),
@@ -214,11 +214,11 @@ XML before being sent via API.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>all_or_none</th>
@@ -245,7 +245,7 @@ along with additional diagnostic information where available.</p></td>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># read the metadata of the existing Account object</span>
 <span class='co'># we will use this object as a template to create a custom version</span>
-<span class='kw'>metadata_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_read_metadata.html'>sf_read_metadata</a></span>(metadata_type=<span class='st'>'CustomObject'</span>,
+<span class='kw'>metadata_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_read_metadata.html'>sf_read_metadata</a></span>(metadata_type=<span class='st'>'CustomObject'</span>,
                                   object_names=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Account'</span>))
 <span class='kw'>custom_metadata</span> <span class='op'>&lt;-</span> <span class='kw'>metadata_info</span>[[<span class='fl'>1</span>]]
 <span class='co'># remove default actionOverrides, this cannot be set during creation</span>
@@ -271,7 +271,7 @@ along with additional diagnostic information where available.</p></td>
 <span class='kw'>custom_metadata</span><span class='op'>$</span><span class='kw'>deploymentStatus</span> <span class='op'>&lt;-</span> <span class='st'>'Deployed'</span>
 <span class='co'># make a description to identify this easily in the UI setup tab</span>
 <span class='kw'>custom_metadata</span><span class='op'>$</span><span class='kw'>description</span> <span class='op'>&lt;-</span> <span class='st'>'created by the Metadata API'</span>
-<span class='kw'>new_custom_object</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_metadata.html'>sf_create_metadata</a></span>(metadata_type = <span class='st'>'CustomObject'</span>,
+<span class='kw'>new_custom_object</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_metadata</span>(metadata_type = <span class='st'>'CustomObject'</span>,
                                         metadata = <span class='kw'>custom_metadata</span>, 
                                         verbose = <span class='fl'>TRUE</span>)
 
@@ -291,7 +291,7 @@ along with additional diagnostic information where available.</p></td>
                             label=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Test Field1'</span>, <span class='st'>'Test Field2'</span>),
                             length=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>44</span>,<span class='fl'>45</span>),
                             type=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Text'</span>, <span class='st'>'Text'</span>))
-<span class='kw'>new_custom_fields</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_metadata.html'>sf_create_metadata</a></span>(metadata_type = <span class='st'>'CustomField'</span>, 
+<span class='kw'>new_custom_fields</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_metadata</span>(metadata_type = <span class='st'>'CustomField'</span>, 
                                         metadata = <span class='kw'>custom_fields</span>)
 }</div></pre>
   </div>

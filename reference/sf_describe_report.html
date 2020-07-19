@@ -189,7 +189,7 @@ or matrix report." />
 or matrix report.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_describe_report.html'>sf_describe_report</a></span>(<span class='kw'>report_id</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_describe_report</span>(<span class='kw'>report_id</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,13 +235,13 @@ along with additional diagnostic information where available.</p></td>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># pull a list of up to 200 recent reports</span>
 <span class='co'># (for a full list you must use sf_query on the Report object)</span>
-<span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_reports.html'>sf_list_reports</a></span>()
+<span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_list_reports.html'>sf_list_reports</a></span>()
 
 <span class='co'># id for the first report</span>
 <span class='kw'>reports</span>[[<span class='fl'>1</span>,<span class='st'>"id"</span>]]
 
 <span class='co'># describe that report type</span>
-<span class='kw'>described_report</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_describe_report_type.html'>sf_describe_report_type</a></span>(<span class='kw'>unique_report_types</span>[[<span class='fl'>1</span>,<span class='st'>"id"</span>]])
+<span class='kw'>described_report</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_describe_report_type.html'>sf_describe_report_type</a></span>(<span class='kw'>unique_report_types</span>[[<span class='fl'>1</span>,<span class='st'>"id"</span>]])
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -187,7 +187,7 @@ Return metadata about a report type." />
 <p>Return metadata about a report type.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_describe_report_type.html'>sf_describe_report_type</a></span>(<span class='kw'>report_type</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_describe_report_type</span>(<span class='kw'>report_type</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,7 +197,7 @@ Return metadata about a report type." />
       <td><p><code>character</code>; a character representing the type of
 report to retrieve the metadata information on. A list of valid report types
 that can be described using this function will be available in the
-<code>reportTypes.type</code> column of results returned <a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_types.html'>sf_list_report_types</a>.
+<code>reportTypes.type</code> column of results returned <a href='sf_list_report_types.html'>sf_list_report_types</a>.
 (e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>,
 etc.)</p></td>
     </tr>
@@ -227,14 +227,14 @@ joined metadata.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_types.html'>sf_list_report_types</a></span>()
+<span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_list_report_types.html'>sf_list_report_types</a></span>()
 <span class='kw'>unique_report_types</span> <span class='op'>&lt;-</span> <span class='kw'>reports</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span>(<span class='kw'>reportTypes.type</span>)
 
 <span class='co'># first unique report type</span>
 <span class='kw'>unique_report_types</span>[[<span class='fl'>1</span>,<span class='fl'>1</span>]]
 
 <span class='co'># describe that report type</span>
-<span class='kw'>described_report</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_describe_report_type.html'>sf_describe_report_type</a></span>(<span class='kw'>unique_report_types</span>[[<span class='fl'>1</span>,<span class='fl'>1</span>]])
+<span class='kw'>described_report</span> <span class='op'>&lt;-</span> <span class='fu'>sf_describe_report_type</span>(<span class='kw'>unique_report_types</span>[[<span class='fl'>1</span>,<span class='fl'>1</span>]])
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

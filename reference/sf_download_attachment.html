@@ -189,7 +189,7 @@ attachment body, file name, and path." />
 attachment body, file name, and path.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_download_attachment.html'>sf_download_attachment</a></span>(<span class='kw'>body</span>, <span class='kw'>name</span>, path = <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_download_attachment</span>(<span class='kw'>body</span>, <span class='kw'>name</span>, path = <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,7 +213,7 @@ current directory.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>queried_attachments</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Body, Name 
+<span class='kw'>queried_attachments</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Body, Name 
                                  FROM Attachment 
                                  WHERE ParentId = '0016A0000035mJ5'"</span>
                                  FROM Attachment 

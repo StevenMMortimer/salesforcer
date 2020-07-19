@@ -187,7 +187,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
 <p>This function is a convenience wrapper for submitting bulk API jobs</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_run_bulk_operation.html'>sf_run_bulk_operation</a></span>(
+    <pre class="usage"><span class='fu'>sf_run_bulk_operation</span>(
   <span class='kw'>input_data</span>,
   <span class='kw'>object_name</span>,
   operation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>),
@@ -203,7 +203,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
   verbose = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_run_bulk_operation.html'>sf_bulk_operation</a></span>(
+<span class='fu'>sf_bulk_operation</span>(
   <span class='kw'>input_data</span>,
   <span class='kw'>object_name</span>,
   operation = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"insert"</span>, <span class='st'>"delete"</span>, <span class='st'>"upsert"</span>, <span class='st'>"update"</span>, <span class='st'>"hardDelete"</span>),
@@ -281,11 +281,11 @@ so that the batch results of individual records can be obtained</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code> or <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></code>
+      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>
 to specify the <code>content_type</code>, <code>concurrency_mode</code>, and/or <code>column_delimiter</code>.</p></td>
     </tr>
     <tr>
@@ -314,7 +314,7 @@ match the ordering of records in the original job data.</p>
 <span class='kw'>new_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(FirstName = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='kw'>n</span>), 
                        LastName = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='kw'>n</span>))
 <span class='co'># insert new records into the Contact object</span>
-<span class='kw'>inserts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_run_bulk_operation.html'>sf_bulk_operation</a></span>(input_data = <span class='kw'>new_contacts</span>, 
+<span class='kw'>inserts</span> <span class='op'>&lt;-</span> <span class='fu'>sf_bulk_operation</span>(input_data = <span class='kw'>new_contacts</span>, 
                              object_name = <span class='st'>"Contact"</span>, 
                              operation = <span class='st'>"insert"</span>)
 }</div></pre>

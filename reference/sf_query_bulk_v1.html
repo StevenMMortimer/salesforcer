@@ -187,13 +187,14 @@ query API jobs from the Bulk 1.0 API." />
 query API jobs from the Bulk 1.0 API.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_bulk_v1.html'>sf_query_bulk_v1</a></span>(
+    <pre class="usage"><span class='fu'>sf_query_bulk_v1</span>(
   <span class='kw'>soql</span>,
   object_name = <span class='kw'>NULL</span>,
   queryall = <span class='fl'>FALSE</span>,
   guess_types = <span class='fl'>TRUE</span>,
-  interval_seconds = <span class='fl'>5</span>,
-  max_attempts = <span class='fl'>100</span>,
+  bind_using_character_cols = <span class='fl'>FALSE</span>,
+  interval_seconds = <span class='fl'>3</span>,
+  max_attempts = <span class='fl'>200</span>,
   control = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>...</span>),
   <span class='kw'>...</span>,
   api_type = <span class='st'>"Bulk 1.0"</span>,
@@ -230,6 +231,15 @@ in Salesforce that you'd like to preserve during translation into a <code>tbl_df
 like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
+      <th>bind_using_character_cols</th>
+      <td><p><code>logical</code>; an indicator of whether to
+cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
+character.</p></td>
+    </tr>
+    <tr>
       <th>interval_seconds</th>
       <td><p><code>integer</code>; defines the seconds between attempts to check
 for job completion.</p></td>
@@ -243,11 +253,11 @@ completion before stopping.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code> or <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_job_bulk.html'>sf_create_job_bulk</a></code>
+      <td><p>other arguments passed on to <code><a href='sf_control.html'>sf_control</a></code> or <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>
 to specify the <code>content_type</code>, <code>concurrency_mode</code>, and/or <code>column_delimiter</code>.</p></td>
     </tr>
     <tr>
@@ -275,10 +285,10 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># select all Ids from Account object (up to 1000)</span>
-<span class='kw'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_bulk_v1.html'>sf_query_bulk_v1</a></span>(soql = <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>, 
+<span class='kw'>ids</span> <span class='op'>&lt;-</span> <span class='fu'>sf_query_bulk_v1</span>(soql = <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>, 
                         object_name = <span class='st'>'Account'</span>)
 <span class='co'># alternatively you can specify as </span>
-<span class='kw'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(soql = <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>, 
+<span class='kw'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(soql = <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>, 
                 object_name = <span class='st'>'Account'</span>, 
                 api_type=<span class='st'>"Bulk 1.0"</span>)
 }</div></pre>

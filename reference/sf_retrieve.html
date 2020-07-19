@@ -187,7 +187,7 @@ Retrieves one or more new records to your organization’s data." />
 <p>Retrieves one or more new records to your organization’s data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_retrieve.html'>sf_retrieve</a></span>(
+    <pre class="usage"><span class='fu'>sf_retrieve</span>(
   <span class='kw'>ids</span>,
   <span class='kw'>fields</span>,
   <span class='kw'>object_name</span>,
@@ -236,11 +236,11 @@ like numeric looking values that must be preserved as strings ("48.0").</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -260,8 +260,8 @@ along with additional diagnostic information where available.</p></td>
 <span class='kw'>n</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>
 <span class='kw'>new_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(FirstName = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='kw'>n</span>),
                        LastName = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='kw'>n</span>))
-<span class='kw'>new_contacts_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create.html'>sf_create</a></span>(<span class='kw'>new_contacts</span>, object_name=<span class='st'>"Contact"</span>)
-<span class='kw'>retrieved_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_retrieve.html'>sf_retrieve</a></span>(ids=<span class='kw'>new_contacts_result</span><span class='op'>$</span><span class='kw'>id</span>,
+<span class='kw'>new_contacts_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='kw'>new_contacts</span>, object_name=<span class='st'>"Contact"</span>)
+<span class='kw'>retrieved_records</span> <span class='op'>&lt;-</span> <span class='fu'>sf_retrieve</span>(ids=<span class='kw'>new_contacts_result</span><span class='op'>$</span><span class='kw'>id</span>,
                                  fields=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"LastName"</span>),
                                  object_name=<span class='st'>"Contact"</span>)
 }</div></pre>

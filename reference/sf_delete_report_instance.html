@@ -189,7 +189,7 @@ delete the report instance." />
 delete the report instance.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete_report_instance.html'>sf_delete_report_instance</a></span>(<span class='kw'>report_id</span>, <span class='kw'>report_instance_id</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_delete_report_instance</span>(<span class='kw'>report_id</span>, <span class='kw'>report_instance_id</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,14 +225,14 @@ will return <code>TRUE</code> if successful in deleting the report instance.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># first, get the Id of a report in your Org</span>
-<span class='kw'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
+<span class='kw'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
 <span class='kw'>this_report_id</span> <span class='op'>&lt;-</span> <span class='kw'>all_reports</span><span class='op'>$</span><span class='kw'>Id</span>[<span class='fl'>1</span>]
 
 <span class='co'># second, ensure that report has been executed at least once asynchronously</span>
-<span class='kw'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_execute_report.html'>sf_execute_report</a></span>(<span class='kw'>this_report_id</span>, async=<span class='fl'>TRUE</span>)
+<span class='kw'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_execute_report.html'>sf_execute_report</a></span>(<span class='kw'>this_report_id</span>, async=<span class='fl'>TRUE</span>)
 
 <span class='co'># check if that report has succeeded, if so (or if it errored), then delete</span>
-<span class='kw'>instance_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_instances.html'>sf_list_report_instances</a></span>(<span class='kw'>this_report_id</span>)
+<span class='kw'>instance_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_list_report_instances.html'>sf_list_report_instances</a></span>(<span class='kw'>this_report_id</span>)
 <span class='kw'>instance_status</span> <span class='op'>&lt;-</span> <span class='kw'>instance_list</span>[[<span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='kw'>instance_list</span><span class='op'>$</span><span class='kw'>id</span> <span class='op'>==</span> <span class='kw'>results</span><span class='op'>$</span><span class='kw'>id</span>), <span class='st'>"status"</span>]]
 }</div></pre>
   </div>

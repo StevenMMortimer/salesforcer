@@ -187,7 +187,7 @@ Undeletes records from the Recycle Bin." />
 <p>Undeletes records from the Recycle Bin.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_undelete.html'>sf_undelete</a></span>(
+    <pre class="usage"><span class='fu'>sf_undelete</span>(
   <span class='kw'>ids</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>),
   control = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>...</span>),
@@ -214,11 +214,11 @@ making the request.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -244,14 +244,14 @@ of records and not all records submitted to the function.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>new_contact</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(FirstName = <span class='st'>"Test"</span>, LastName = <span class='st'>"Contact"</span>)
-<span class='kw'>new_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create.html'>sf_create</a></span>(<span class='kw'>new_contact</span>, object_name = <span class='st'>"Contact"</span>)
-<span class='kw'>delete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_delete.html'>sf_delete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>],
+<span class='kw'>new_records</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='kw'>new_contact</span>, object_name = <span class='st'>"Contact"</span>)
+<span class='kw'>delete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_delete.html'>sf_delete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>],
                     AllOrNoneHeader = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(allOrNone = <span class='fl'>TRUE</span>))
-<span class='kw'>is_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
+<span class='kw'>is_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
                        <span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>]), 
                        queryall = <span class='fl'>TRUE</span>)
-<span class='kw'>undelete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_undelete.html'>sf_undelete</a></span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>])
-<span class='kw'>is_not_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
+<span class='kw'>undelete</span> <span class='op'>&lt;-</span> <span class='fu'>sf_undelete</span>(<span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>])
+<span class='kw'>is_not_deleted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, IsDeleted FROM Contact WHERE Id='%s'"</span>,
                            <span class='kw'>new_records</span><span class='op'>$</span><span class='kw'>id</span>[<span class='fl'>1</span>]))
 }</div></pre>
   </div>

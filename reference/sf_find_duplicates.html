@@ -187,7 +187,7 @@ Performs rule-based searches for duplicate records." />
 <p>Performs rule-based searches for duplicate records.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_find_duplicates.html'>sf_find_duplicates</a></span>(
+    <pre class="usage"><span class='fu'>sf_find_duplicates</span>(
   <span class='kw'>search_criteria</span>,
   <span class='kw'>object_name</span>,
   include_record_details = <span class='fl'>FALSE</span>,
@@ -246,12 +246,12 @@ rules on the search criteria to determine which records in other objects are dup
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># use the duplicate rules associated with the Lead object on the search </span>
 <span class='co'># criteria (email) in order to find duplicates</span>
-<span class='kw'>found_dupes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_find_duplicates.html'>sf_find_duplicates</a></span>(search_criteria =
+<span class='kw'>found_dupes</span> <span class='op'>&lt;-</span> <span class='fu'>sf_find_duplicates</span>(search_criteria =
                                     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(Email=<span class='st'>"bond_john@grandhotels.com"</span>),
                                   object_name = <span class='st'>"Lead"</span>)
                                   
 <span class='co'># now look for duplicates on email using the Contact object's rules</span>
-<span class='kw'>found_dupes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_find_duplicates.html'>sf_find_duplicates</a></span>(search_criteria = 
+<span class='kw'>found_dupes</span> <span class='op'>&lt;-</span> <span class='fu'>sf_find_duplicates</span>(search_criteria = 
                                     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(Email=<span class='st'>"bond_john@grandhotels.com"</span>),
                                   object_name = <span class='st'>"Contact"</span>)
 }</div></pre>

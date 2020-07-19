@@ -187,7 +187,7 @@ Searches for records in your organization’s data." />
 <p>Searches for records in your organization’s data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_search.html'>sf_search</a></span>(
+    <pre class="usage"><span class='fu'>sf_search</span>(
   <span class='kw'>search_string</span>,
   is_sosl = <span class='fl'>FALSE</span>,
   guess_types = <span class='fl'>TRUE</span>,
@@ -261,10 +261,10 @@ for more detail.</p>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># free text search</span>
 <span class='kw'>area_code_search_string</span> <span class='op'>&lt;-</span> <span class='st'>"(336)"</span>
-<span class='kw'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_search.html'>sf_search</a></span>(<span class='kw'>area_code_search_string</span>)
+<span class='kw'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='kw'>area_code_search_string</span>)
 
 <span class='co'># free text search with parameters</span>
-<span class='kw'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_search.html'>sf_search</a></span>(<span class='kw'>area_code_search_string</span>,
+<span class='kw'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='kw'>area_code_search_string</span>,
                            fields_scope = <span class='st'>"PHONE"</span>,
                            objects = <span class='st'>"Lead"</span>,
                            fields = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id"</span>, <span class='st'>"phone"</span>, <span class='st'>"firstname"</span>, <span class='st'>"lastname"</span>))
@@ -273,7 +273,7 @@ for more detail.</p>
 <span class='kw'>my_sosl_search</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"FIND {(336)} in phone fields returning"</span>,
                         <span class='st'>"contact(id, phone, firstname, lastname),"</span>,
                         <span class='st'>"lead(id, phone, firstname, lastname)"</span>)
-<span class='kw'>sosl_search_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_search.html'>sf_search</a></span>(<span class='kw'>my_sosl_search</span>, is_sosl=<span class='fl'>TRUE</span>)
+<span class='kw'>sosl_search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='kw'>my_sosl_search</span>, is_sosl=<span class='fl'>TRUE</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

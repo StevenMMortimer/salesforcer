@@ -193,7 +193,7 @@ would like to upload to Salesforce along with accompanying metadata, such as
 a Description, Keywords, ParentId, FolderId, etc.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_attachment.html'>sf_create_attachment</a></span>(
+    <pre class="usage"><span class='fu'>sf_create_attachment</span>(
   <span class='kw'>input_data</span>,
   object_name = <span class='st'>"Attachment"</span>,
   api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
@@ -229,12 +229,12 @@ making the request.</p></td>
       <th>control</th>
       <td><p><code>list</code>; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
-look at the documentation for <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code>.</p></td>
+look at the documentation for <code><a href='sf_control.html'>sf_control</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_control.html'>sf_control</a></code> or further downstream
-to <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
+      <td><p>arguments passed to <code><a href='sf_control.html'>sf_control</a></code> or further downstream
+to <code><a href='sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -270,7 +270,7 @@ of base64–encoded data.</p>
 <span class='kw'>parent_record_id</span> <span class='op'>&lt;-</span> <span class='st'>"0033s00000zLbgs"</span>
 <span class='kw'>attachment_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(Body = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>file_path1</span>, <span class='kw'>file_path2</span>), 
                              ParentId = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>parent_record_id</span>, <span class='fl'>2</span>))
-<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_attachment.html'>sf_create_attachment</a></span>(<span class='kw'>attachment_details</span>)
+<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='kw'>attachment_details</span>)
 
 <span class='co'># the function supports inserting all blob content, just update the </span>
 <span class='co'># object_name argument to add the PDF as a Document instead of an Attachment</span>
@@ -279,12 +279,12 @@ of base64–encoded data.</p>
                            Body = <span class='kw'>file_path1</span>,
                            FolderId = <span class='st'>"00l6A000001EgIwQAK"</span>,
                            Keywords = <span class='st'>"example,test,document"</span>)
-<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_attachment.html'>sf_create_attachment</a></span>(<span class='kw'>document_details</span>, object_name = <span class='st'>"Document"</span>)
+<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='kw'>document_details</span>, object_name = <span class='st'>"Document"</span>)
 
 <span class='co'># the Bulk API can be envoked using api_type="Bulk 1.0" which will automatically </span>
 <span class='co'># take a data.frame of Attachment info and create a ZIP file with CSV manifest </span>
 <span class='co'># that is required for that API</span>
-<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_create_attachment.html'>sf_create_attachment</a></span>(<span class='kw'>attachment_details</span>, api_type=<span class='st'>"Bulk 1.0"</span>)
+<span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='kw'>attachment_details</span>, api_type=<span class='st'>"Bulk 1.0"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

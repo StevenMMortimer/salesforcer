@@ -141,7 +141,7 @@
 <div id="attachments-in-salesforce" class="section level2">
 <h2 class="hasAnchor">
 <a href="#attachments-in-salesforce" class="anchor"></a>Attachments in Salesforce</h2>
-<p>Almost all records in Salesforce support attachments. Attachments are just blob data storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id of the record that the attachment belongs to. To get started creating and updating attachments, first, load the <strong>salesforcer</strong> and <strong>dplyr</strong> packages and login, if needed.</p>
+<p>Almost all records in Salesforce support attachments. Attachments are just blob data storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id of the record that the attachment belongs to. To get started creating and updating attachments, first, load the {salesforcer} and <strong>dplyr</strong> packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/krlmlr/here">here</a></span>)
@@ -188,11 +188,11 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000ZJ3IeEAL TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000ZJ2umEAD TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000ZJ3IjEAL TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000ZJ3IoEAL TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000ZJ3HdEAL TRUE   </span>
+<span class="co">#&gt; 1 00P3s00000ZKPbNEAX TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000ZKPbSEAX TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000ZKPbXEAX TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000ZKPbcEAH TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000ZKPbhEAH TRUE   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -209,15 +209,15 @@
                                          WHERE ParentId IN ('%s', '%s')", 
                                          <span class="kw">parent_record_id1</span>, <span class="kw">parent_record_id2</span>))
 <span class="kw">queried_attachments</span>
-<span class="co">#&gt; # A tibble: 12 x 4</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 00P3s00000ZJ… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 2 00P3s00000ZJ… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 3 00P3s00000ZJ… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 4 00P3s00000ZJ… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 5 00P3s00000ZJ… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; # … with 7 more rows</span>
+<span class="co">#&gt; 1 00P3s00000ZK… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 2 00P3s00000ZK… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 3 00P3s00000ZK… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 4 00P3s00000ZK… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 5 00P3s00000ZK… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
 <ol style="list-style-type: decimal">
@@ -246,29 +246,17 @@
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Name</span>, 
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Path</span>)
 <span class="kw">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IeEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZKPbXEAX/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ2umEAD/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZKPbNEAX/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IjEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZKPbSEAX/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ2pVEAT/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZKPbcEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IYEA1/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZKPbmEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IZEA1/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IcEAL/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3HdEAL/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3ItEAL/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IoEAL/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IaEAL/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZJ3IbEAL/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZKPbhEAH/Body </span>
 <span class="co">#&gt;                                                             TRUE</span>
 </pre></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
@@ -282,15 +270,15 @@
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="kw">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="kw">attachment_details</span>, api_type=<span class="st">"Bulk 1.0"</span>)
 <span class="kw">result</span>
-<span class="co">#&gt; # A tibble: 12 x 4</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000ZJ3IyEAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000ZJ3IzEAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000ZJ3J0EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000ZJ3J1EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000ZJ3J2EAL TRUE    TRUE    NA   </span>
-<span class="co">#&gt; # … with 7 more rows</span>
+<span class="co">#&gt; 1 00P3s00000ZKPbrEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000ZKPbsEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000ZKPbtEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000ZKPbuEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000ZKPbvEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
 <div id="extending-to-documents-and-other-blob-data" class="section level2">
@@ -312,7 +300,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gYa4AAE TRUE</span>
+<span class="co">#&gt; 1 0153s000001gYhyAAE TRUE</span>
 </pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
@@ -327,13 +315,13 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gYa9AAE TRUE</span>
+<span class="co">#&gt; 1 0153s000001gYi3AAE TRUE</span>
 </pre></div>
 </div>
 <div id="reference-links" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference-links" class="anchor"></a>Reference Links</h2>
-<p>Below is a list of links to existing Salesforce documentation that provide more detail into how Attachments, Documents, and other blob data are handled via their APIs. As with many functions in <strong>salesforcer</strong>, we have tried to tranlate these functions exactly as they are described in the Salesforce documentation so that they are flexible enough to handle most all cases that the APIs were intended to support.</p>
+<p>Below is a list of links to existing Salesforce documentation that provide more detail into how Attachments, Documents, and other blob data are handled via their APIs. As with many functions in {salesforcer}, we have tried to tranlate these functions exactly as they are described in the Salesforce documentation so that they are flexible enough to handle most all cases that the APIs were intended to support.</p>
 <ul>
 <li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
 <li><p><strong>Document Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p></li>

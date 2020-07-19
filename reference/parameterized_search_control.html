@@ -187,7 +187,7 @@ when not using SOSL" />
 when not using SOSL</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/parameterized_search_control.html'>parameterized_search_control</a></span>(
+    <pre class="usage"><span class='fu'>parameterized_search_control</span>(
   objects = <span class='kw'>NULL</span>,
   fields_scope = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ALL"</span>, <span class='st'>"NAME"</span>, <span class='st'>"EMAIL"</span>, <span class='st'>"PHONE"</span>, <span class='st'>"SIDEBAR"</span>),
   fields = <span class='kw'>NULL</span>,
@@ -238,7 +238,7 @@ enabled for a user’s search.</p></td>
 <span class='co'># free text search only on Contact record Phone fields</span>
 <span class='co'># this will improve the performance of the search</span>
 <span class='kw'>my_phone_search</span> <span class='op'>&lt;-</span> <span class='st'>"(336)"</span>
-<span class='kw'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_search.html'>sf_search</a></span>(<span class='kw'>my_phone_search</span>,
+<span class='kw'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_search.html'>sf_search</a></span>(<span class='kw'>my_phone_search</span>,
                            objects = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Contact"</span>, <span class='st'>"Lead"</span>),
                            fields_scope = <span class='st'>"PHONE"</span>,
                            fields = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Id"</span>, <span class='st'>"FirstName"</span>, <span class='st'>"LastName"</span>))

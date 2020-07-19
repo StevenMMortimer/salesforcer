@@ -189,7 +189,7 @@ and saves the results into a zip file" />
 and saves the results into a zip file</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_retrieve_metadata_check_status.html'>sf_retrieve_metadata_check_status</a></span>(
+    <pre class="usage"><span class='fu'>sf_retrieve_metadata_check_status</span>(
   <span class='kw'>id</span>,
   include_zip = <span class='fl'>TRUE</span>,
   filename = <span class='st'>"package.zip"</span>,
@@ -201,7 +201,7 @@ and saves the results into a zip file</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>id</th>
-      <td><p>character; string id returned from <a href='https://rdrr.io/pkg/salesforcer/man/sf_retrieve_metadata.html'>sf_retrieve_metadata</a></p></td>
+      <td><p>character; string id returned from <a href='sf_retrieve_metadata.html'>sf_retrieve_metadata</a></p></td>
     </tr>
     <tr>
       <th>include_zip</th>
@@ -236,10 +236,10 @@ along with additional diagnostic information where available.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='kw'>retrieve_request</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(unpackaged=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(types=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(members=<span class='st'>'*'</span>, name=<span class='st'>'CustomObject'</span>)))
-<span class='kw'>retrieve_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_retrieve_metadata.html'>sf_retrieve_metadata</a></span>(<span class='kw'>retrieve_request</span>)
+<span class='kw'>retrieve_info</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_retrieve_metadata.html'>sf_retrieve_metadata</a></span>(<span class='kw'>retrieve_request</span>)
 
 <span class='co'># check on status, this will automatically download the contents to package.zip when ready</span>
-<span class='kw'>retrieve_status</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_retrieve_metadata_check_status.html'>sf_retrieve_metadata_check_status</a></span>(<span class='kw'>retrieve_info</span><span class='op'>$</span><span class='kw'>id</span>)
+<span class='kw'>retrieve_status</span> <span class='op'>&lt;-</span> <span class='fu'>sf_retrieve_metadata_check_status</span>(<span class='kw'>retrieve_info</span><span class='op'>$</span><span class='kw'>id</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

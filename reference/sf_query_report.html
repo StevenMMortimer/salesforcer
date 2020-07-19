@@ -191,7 +191,7 @@ a POST request to the query resource. This allows you to get report data
 without filling up your Org with unnecessary reports.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/sf_query_report.html'>sf_query_report</a></span>(<span class='kw'>report_id</span>, report_metadata = <span class='kw'>NULL</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_query_report</span>(<span class='kw'>report_id</span>, report_metadata = <span class='kw'>NULL</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,7 +218,7 @@ filters specified in <code>reportFilters</code> should be combined. For example,
 <dt>reportFilters</dt><dd><p>A <code>list</code> of reportFilter specifications. Each must
 be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 3) <code>value</code>.
 You can find out how certain field types can be filtered by reviewing the results
-of <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_list_report_filter_operators.html'>sf_list_report_filter_operators</a></code>.</p></dd>
+of <code><a href='sf_list_report_filter_operators.html'>sf_list_report_filter_operators</a></code>.</p></dd>
 
 </dl></td>
     </tr>

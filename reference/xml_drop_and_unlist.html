@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Drop <code>type</code> and <code>Id</code> attributes on XML queried records and unlist — xml_drop_and_unlist • salesforcer</title>
+<title>Drop type and Id attributes on XML queried records and unlist — xml_drop_and_unlist • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Drop <code>type</code> and <code>Id</code> attributes on XML queried records and unlist — xml_drop_and_unlist" />
+<meta property="og:title" content="Drop type and Id attributes on XML queried records and unlist — xml_drop_and_unlist" />
 <meta property="og:description" content="This function will detect if there are metadata fields returned by the SOAP
 API XML from sf_query and remove them as well as unlisting (not recursively)
 to unnest the record's values. Only tested on two-level child-to-parent relationships.
@@ -187,13 +187,13 @@ Account (parent) as well (SOQL = &quot;SELECT Name, Account.Name FROM Contact&qu
 
     <div class="ref-description">
     <p>This function will detect if there are metadata fields returned by the SOAP
-API XML from <code><a href='https://rdrr.io/pkg/salesforcer/man/sf_query.html'>sf_query</a></code> and remove them as well as unlisting (not recursively)
+API XML from <code><a href='sf_query.html'>sf_query</a></code> and remove them as well as unlisting (not recursively)
 to unnest the record's values. Only tested on two-level child-to-parent relationships.
 For example, for every Contact (child) record return attributes from the
 Account (parent) as well (SOQL = "SELECT Name, Account.Name FROM Contact")</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/salesforcer/man/xml_drop_and_unlist.html'>xml_drop_and_unlist</a></span>(<span class='kw'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>xml_drop_and_unlist</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
