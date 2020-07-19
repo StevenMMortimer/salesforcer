@@ -189,9 +189,9 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.</p>
 
     <pre class="usage"><span class='fu'>sf_query_result_bulk</span>(
   <span class='no'>job_id</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>batch_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>result_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
@@ -207,15 +207,6 @@ submitted to the Bulk 1.0 or Bulk 2.0 API and has completed.</p>
 returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
-      <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
-to try and cast the data returned in the recordset. If <code>TRUE</code> then
-<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
-as character. This is helpful when <code>col_guess()</code> will mangle field values
-in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
-like numeric looking values that must be preserved as strings ("48.0").</p></td>
-    </tr>
-    <tr>
       <th>batch_id</th>
       <td><p><code>character</code>; the Salesforce Id assigned to a submitted
 batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
@@ -225,6 +216,15 @@ batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bul
       <td><p><code>character</code>; a string returned from
 <a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to
 get the recordset</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
       <th>bind_using_character_cols</th>

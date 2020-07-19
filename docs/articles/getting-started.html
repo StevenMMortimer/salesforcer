@@ -123,7 +123,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="getting-started_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started</h1>
@@ -182,8 +182,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzbPAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NzbQAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013XtlGAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XtlHAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="retrieving-records" class="section level2">
 <h2 class="hasAnchor">
@@ -196,8 +196,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sObject Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 Contact 0033s000012NzbPAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 Contact 0033s000012NzbQAAS Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 Contact 0033s000013XtlGAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 Contact 0033s000013XtlHAAS Test      Contact-Create-2</span></pre></body></html></div>
 </div>
 <div id="querying-records" class="section level2">
 <h2 class="hasAnchor">
@@ -216,8 +216,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000012NzbPAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000012NzbQAAS Test      Contact-Create-2</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013XtlGAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013XtlHAAS Test      Contact-Create-2</span></pre></body></html></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="updating-records" class="section level2">
@@ -233,8 +233,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzbPAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NzbQAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013XtlGAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XtlHAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="deleting-records" class="section level2">
 <h2 class="hasAnchor">
@@ -245,8 +245,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzbPAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000012NzbQAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013XtlGAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XtlHAAS TRUE</span></pre></body></html></div>
 </div>
 <div id="upserting-records" class="section level2">
 <h2 class="hasAnchor">
@@ -273,14 +273,14 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   id                 success created</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzbUAAS TRUE    FALSE  </span>
-<span class="co">#&gt; 2 0033s000012NzbVAAS TRUE    FALSE  </span>
-<span class="co">#&gt; 3 0033s000012NzbZAAS TRUE    TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013XtklAAC TRUE    FALSE  </span>
+<span class="co">#&gt; 2 0033s000013XtlLAAS TRUE    FALSE  </span>
+<span class="co">#&gt; 3 0033s000013XtgHAAS TRUE    TRUE</span></pre></body></html></div>
 </div>
 <div id="check-out-the-tests" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-out-the-tests" class="anchor"></a>Check out the Tests</h2>
-<p>The <strong>salesforcer</strong> package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions.</p>
+<p>The {salesforcer} package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions.</p>
 </div>
   </div>
 

@@ -8,9 +8,9 @@ sf_run_report(
   report_id,
   report_filters = NULL,
   report_boolean_logic = NULL,
-  sort_by = NULL,
-  top_n = NULL,
+  sort_by = character(0),
   decreasing = FALSE,
+  top_n = NULL,
   async = TRUE,
   interval_seconds = 3,
   max_attempts = 200,
@@ -31,8 +31,12 @@ reviewing the results of \code{\link{sf_list_report_filter_operators}}.}
 custom field filters if more than one is specified. For example, if three filters
 are specified, then they can be combined using the logic \code{"(1 OR 2) AND 3"}.}
 
-\item{sort_by}{\code{character}; the name of the column used to sort the results.
-Currently, you can sort on only one column at a time.}
+\item{sort_by}{\code{character}; the name of the column(s) used to sort the results.}
+
+\item{decreasing}{\code{logical}; a indicator of whether the results should be
+ordered by increasing or decreasing values in \code{sort_by} column when selecting the
+top N records. Note, this argument will be ignored if not specifying Top N. You can
+sort the records using \code{\link[dplyr]{arrange}} after the results are returned.}
 
 \item{top_n}{\code{integer}; an integer which sets a row limit filter to a report.
 The results will be ordered as they appear in the report unless specified differently
@@ -40,11 +44,6 @@ via the \code{sort_by} and \code{decreasing} arguments. Note, it is sometimes
 helpful to specify the \code{top_n} argument if a report contains many rows, but
 you are only interested in a subset of them. Alternatively, you can limit the count
 of returned rows via the \code{report_filters} argument.}
-
-\item{decreasing}{\code{logical}; a indicator of whether the results should be
-ordered by increasing or decreasing values in \code{sort_by} column when selecting the
-top N records. Note, this argument will be ignored if not specifying Top N. You can
-sort the records using \code{\link[dplyr]{arrange}} after the results are returned.}
 
 \item{async}{\code{logical}; an indicator, by default set to \code{TRUE}, which
 executes the report asynchronously. If executed asynchronously, this function
@@ -88,4 +87,46 @@ be returned. In this case we've forced the \code{reportFormat="TABULAR"}
 without total rows and given options to filter, and select the Top N as
 function arguments rather than forcing the user to create an entire list of
 \code{reportMetadata}.
+}
+\examples{
+\dontrun{
+# find a report in your org and run it
+all_reports <- sf_query("SELECT Id, Name FROM Report")
+this_report_id <- all_reports$Id[1]
+results <- sf_run_report(this_report_id)
+
+# apply your own filters to that same report
+# set up some filters, if needed
+# filter records that was created before this month
+filter1 <- list(column = "CREATED_DATE",
+                operator = "lessThan", 
+                value = "THIS_MONTH")
+
+# filter records where the account billing address city is not empty
+filter2 <-  list(column = "ACCOUNT.ADDRESS1_CITY",
+                 operator = "notEqual", 
+                 value = "")
+
+# combine filter1 and filter2 using 'AND' so that records must meet both filters
+results_using_AND <- sf_run_report(my_report_id, 
+                                   report_boolean_logic = "1 AND 2",
+                                   report_filters = list(filter1, filter2))
+
+# combine filter1 and filter2 using 'OR' which means that records must meet one 
+# of the filters but also throw in a row limit based on a specific sort order
+results_using_OR <- sf_run_report(my_report_id, 
+                                  report_boolean_logic = "1 OR 2",
+                                  report_filters = list(filter1, filter2), 
+                                  sort_by = "Contact.test_number__c", 
+                                  decreasing = TRUE, 
+                                  top_n = 5)
+}
+}
+\seealso{
+Please see the following resources for more information:
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
+\item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
+}
 }

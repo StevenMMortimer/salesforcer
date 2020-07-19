@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Copy a report — sf_copy_report • salesforcer</title>
+<title>Produce spec to convert Salesforce data types to R data types — sf_build_cols_spec • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,9 @@
 
 
 
-<meta property="og:title" content="Copy a report — sf_copy_report" />
-<meta property="og:description" content="
-Creates a copy of a custom, standard, or public report by sending a POST
-request to the Report List resource." />
+<meta property="og:title" content="Produce spec to convert Salesforce data types to R data types — sf_build_cols_spec" />
+<meta property="og:description" content="This function accepts a vector of Salesforce data types and maps them into
+a single string that can be passed to the col_types argument." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -178,76 +177,34 @@ request to the Report List resource." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Copy a report</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_report_copy.Rd</code></div>
+    <h1>Produce spec to convert Salesforce data types to R data types</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
+    <div class="hidden name"><code>sf_build_cols_spec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Creates a copy of a custom, standard, or public report by sending a POST
-request to the Report List resource.</p>
+    <p>This function accepts a vector of Salesforce data types and maps them into
+a single string that can be passed to the <code>col_types</code> argument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_copy_report</span>(<span class='no'>report_id</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_build_cols_spec</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created
-analytics report. It will start with <code>"00O"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p><code>character</code>; a user-specified name for the newly cloned report.
-If left <code>NULL</code>, then the new name will be the same name as the report being
-cloned appended with " = Copy" that is prefixed with a number if that name is
-not unique. It is highly recommended to provide a name, if possible.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p><code>logical</code>; an indicator of whether to print additional
-detail for each API call, which is useful for debugging. More specifically, when
-set to <code>TRUE</code> the URL, header, and body will be printed for each request,
-along with additional diagnostic information where available.</p></td>
+      <th>x</th>
+      <td><p><code>character</code>; the Salesforce data types to map</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> representing the newly cloned report with up to 4 properties
-that describe the report:</p><dl'>
-<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and
-joined metadata.</p></dd>
-<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
+    <p><code>character</code> the analogous R data types.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-</dl>
+    <p>This function is meant to be used internally. Only use when debugging.</p>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_report.htm'>Salesforce Documentation</a></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># only the 200 most recently viewed reports</span>
-<span class='no'>most_recent_reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_list</span>()
-
-<span class='co'># all possible reports in your Org</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
-
-<span class='co'># id of the report to copy</span>
-<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
-
-<span class='co'># not providing a name appends " - Copy" to the name of the report being cloned</span>
-<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_copy_report</span>(<span class='no'>this_report_id</span>)
-
-<span class='co'># example of providing new name to the copied report</span>
-<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_copy_report</span>(<span class='no'>this_report_id</span>, <span class='st'>"My New Copy of Report ABC"</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

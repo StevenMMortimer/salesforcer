@@ -192,8 +192,9 @@ query API jobs from the Bulk 1.0 API.</p>
   <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
   <span class='no'>...</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"Bulk 1.0"</span>,
@@ -228,6 +229,15 @@ to try and cast the data returned in the recordset. If <code>TRUE</code> then
 as character. This is helpful when <code>col_guess()</code> will mangle field values
 in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
 like numeric looking values that must be preserved as strings ("48.0").</p></td>
+    </tr>
+    <tr>
+      <th>bind_using_character_cols</th>
+      <td><p><code>logical</code>; an indicator of whether to
+cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
+character.</p></td>
     </tr>
     <tr>
       <th>interval_seconds</th>

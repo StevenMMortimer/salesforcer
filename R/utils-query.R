@@ -51,6 +51,27 @@ unnest_col <- function(df, col){
     ))
 }
 
+#' Remove all zero-length elements from list ignoring AsIs elements
+#' 
+#' This function wraps the \code{\link[purrr:keep]{compact}} function to recursively 
+#' remove elements from lists that have zero length, but spares the elements wrapped 
+#' in \code{\link[base:AsIs]{I}} which mean something specific when passing as JSON.
+#' 
+#' @importFrom purrr as_mapper discard
+#' @importFrom rlang is_empty
+#' @param .x \code{list} or \code{vector}
+#' @param .p \code{function}; predicate function that identifies elements to discard
+#' @return \code{list} containing no empty elements, but does leave anything that 
+#' has been wrapped in \code{I()} making the class \code{AsIs} which signals 
+#' to \code{\link[jsonlite]{toJSON}} not to drop the value, but to set as null.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+compact2 <- function(.x, .p = identity) {
+  .f <- as_mapper(.p)
+  discard(.x, function(x) is_empty(.f(x)) & class(x) != "AsIs")
+}
+
 #' Remove all NULL or zero-length elements from list
 #' 
 #' This function wraps the \code{\link[purrr:keep]{compact}} function to recursively 
@@ -65,7 +86,7 @@ unnest_col <- function(df, col){
 drop_empty_recursively <- function(x) {
   x %>% 
     map_if(is.list, drop_empty_recursively) %>% 
-    compact()
+    compact2()
 }
 
 #' Set all NULL or zero-length elements from list to NA
@@ -606,10 +627,11 @@ sf_reorder_cols <- function(df){
     # ... then move Id and columns without dot up since those with are related 
     select(any_of(unique(c("sObject", 
                            "Id", "id", "sf__Id",
-                           "Success",  "sf__Success", "success",
-                           "Created", "sf__Created", "created", 
-                           "Error", "sf__Error", "error", "errors",
-                           "errors.statusCode", "errors.fields", "errors.message",
+                           "Success", "success", "sf__Success",
+                           "Created", "created", "sf__Created",
+                           "Error", "error", "errors",
+                           "errors.statusCode", "errors.fields", "errors.message", 
+                           "sf__Error",
                            names(.)[which(!grepl("\\.", names(.)))]))), 
              contains("."))
 }
@@ -618,16 +640,103 @@ sf_reorder_cols <- function(df){
 #' 
 #' This function accepts a \code{tbl_df} with columns rearranged.
 #' 
+#' @importFrom dplyr mutate across
 #' @importFrom readr type_convert cols col_guess
 #' @param df \code{tbl_df}; the data frame to rearrange columns in
 #' @return \code{tbl_df} the formatted data frame
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-sf_guess_cols <- function(df, guess_types=TRUE){
+sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
   if(guess_types){
-    df <- df %>% 
-      type_convert(col_types = cols(.default = col_guess()))
+    if(is.null(dataType) || is.na(dataType) || (length(dataType)== 0)){
+      df <- df %>% 
+        type_convert(col_types = cols(.default = col_guess()))      
+    } else {
+      col_spec <- sf_build_cols_spec(dataType)
+      # if numeric but contains Salesforce "-" then preemptively change to NA
+      if(grepl('i|n', col_spec)){
+        numeric_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] %in% c("i", "n"))
+        df <- df %>% 
+          mutate(across(all_of(numeric_col_idx), ~ifelse(.x == "-", NA_character_, .x)))
+      }
+      df <- df %>% 
+        type_convert(col_types = col_spec)      
+    }
   }
   return(df)
+}
+
+#' Produce spec to convert Salesforce data types to R data types
+#' 
+#' This function accepts a vector of Salesforce data types and maps them into 
+#' a single string that can be passed to the \code{col_types} argument.
+#' 
+#' @param x \code{character}; the Salesforce data types to map
+#' @return \code{character} the analogous R data types.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_build_cols_spec <- function(x){
+  x %>% 
+    sapply(map_sf_type_to_r_type, USE.NAMES = FALSE) %>% 
+    paste0(collapse="")
+}
+
+#' Map Salesforce data types to R data types
+#' 
+#' This function is a simple one-to-many map of unique Salesforce data types to 
+#' a specific data type in R.
+#' 
+#' @param x \code{character}; the Salesforce data type.
+#' @return \code{character} the R data type.
+#' @seealso \itemize{
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/primitive_data_types.htm}{Primitive Data Types}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/field_types.htm}{Other Field Types}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/compound_fields.htm}{Compound Fields}
+#' }
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+map_sf_type_to_r_type <- function(x){
+  switch(tolower(x), 
+        "accuracy" = "c",
+        "address" = "c",
+        "anytype" = "c",
+        "base64" = "c",
+        "boolean" = "l",
+        "byte" = "c",
+        "calculated" = "c",
+        "city" = "c",
+        "combobox" = "c",
+        "country" = "c",
+        "countrycode" = "c",
+        "currency" = "c",
+        "datacategorygroupreference" = "c",
+        "date" = "D",
+        "datetime" = "T",
+        "double" = "n",
+        "email" = "c",
+        "encryptedstring" = "c",
+        "html" = "c",
+        "id" = "c",
+        "int" = "i",
+        "junctionidlist" = "c",
+        "latitude" = "n",
+        "location" = "c",
+        "longitude" = "n",
+        "masterrecord" = "c",
+        "multipicklist" = "c",
+        "percent" = "c",
+        "phone" = "c",
+        "picklist" = "c",
+        "postalcode" = "c",
+        "reference" = "c",
+        "state" = "c",
+        "statecode" = "c",
+        "street" = "c",
+        "string" = "c",
+        "textarea" = "c",
+        "time" = "t",
+        "url" = "c")
 }

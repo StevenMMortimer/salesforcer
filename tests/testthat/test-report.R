@@ -14,6 +14,9 @@ key_report_metadata_fields <- c("aggregates",
 
 common_report_id <- "00O3s000006tDLCEA2"
 
+report_col_names <- c("Contact ID", "First Name", "test number", "Contact Owner", 
+                      "Account ID", "Account Name", "Billing City", "Account Owner")
+
 test_that("testing sf_list_reports()", {
   # as_tbl=TRUE
   reports_tbl <- sf_list_reports()
@@ -215,62 +218,158 @@ test_that("testing sf_list_report_filter_operators()", {
   expect_is(filter_ops_list, "list")
 })
 
-test_that("testing sf_execute_report()", {
-  # # sync
-  # common_report_instance <- sf_execute_report(common_report_id)
-  # 
-  # # sync, with values instead of labels
-  # common_report_instance <- sf_execute_report(common_report_id)
-  # 
-  # # async
-  # common_report_instance <- sf_execute_report(common_report_id, async=TRUE)
+test_that("testing sf_execute_report() synchronously", {
+  # sync
+  common_report_df <- sf_execute_report(common_report_id)
+  expect_is(common_report_df, "tbl_df")
+  expect_named(common_report_df, report_col_names)
+  expect_is(common_report_df$`test number`, "numeric")
+
+  # sync, with values instead of labels
+  common_report_df <- sf_execute_report(common_report_id, labels = FALSE)
+  expect_is(common_report_df, "tbl_df")
+  expect_equal(common_report_df$`Contact ID`, common_report_df$`First Name`)
+  expect_equal(common_report_df$`Account ID`, common_report_df$`Account Name`)
+  
+  # sync, without guessing types
+  common_report_df <- sf_execute_report(common_report_id, 
+                                        guess_types = FALSE)
+  expect_is(common_report_df, "tbl_df")
+  expect_true(all(sapply(common_report_df, class) == "character"))
+  
+  # sync, with complete metadata element
+  report_details <- sf_describe_report(common_report_id)
+  report_details$reportMetadata$reportFilters[[2]]$operator <- "equals"
+  common_report_df <- sf_execute_report(common_report_id, 
+                                        report_metadata = report_details$reportMetadata)
+  expect_is(common_report_df, "tbl_df")
+  expect_equal(nrow(common_report_df), 1)
+  expect_named(common_report_df, report_col_names)
+  expect_is(common_report_df$`test number`, "numeric")    
+  
+  # report that is requesting to sort by too many fields at once
+  report_details <- sf_describe_report(common_report_id)
+  report_details$reportMetadata$sortBy <- list(list(sortColumn = 'Contact.test_number__c', 
+                                                    sortOrder = "Asc"), 
+                                               list(sortColumn = 'ACCOUNT.ADDRESS1_CITY', 
+                                                    sortOrder = "Desc"))
+  expect_error(
+    sf_execute_report(common_report_id, 
+                      async = FALSE, 
+                      report_metadata =  report_details$reportMetadata), 
+    "BAD_REQUEST: A report can only be sorted by one column."
+  )
 })
 
-test_that("testing sf_get_report_instance_results()", {
-  # 
-  # this_report_instance <- sf_execute_report(common_report_id, async=TRUE)
-  # 
-  # # wait for the report to complete ...
-  # status_complete <- FALSE
-  # z <- 1
-  # Sys.sleep(interval_seconds)
-  # while (z < max_attempts & !status_complete){
-  #   if (verbose){
-  #     if(z %% 5 == 0){
-  #       message(paste0("Attempt to retrieve records #", z))
-  #     }
-  #   }
-  #   Sys.sleep(interval_seconds)
-  #   instances_list <- sf_list_report_instances(report_id, verbose = verbose)
-  #   instance_status <- instances_list[[instances_list$id == results$id, "status"]]
-  #   if(instance_status == "Error"){
-  #     stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
-  #                  report_id, results$id), 
-  #          call.=FALSE)
-  #   } else {
-  #     if(instance_status == "Success"){
-  #       status_complete <- TRUE
-  #     } else {
-  #       # continue checking the status until success or max attempts
-  #       z <- z + 1
-  #     }
-  #   }
-  # }
-  # results <- sf_get_report_instance_results(report_id, results$id)
-  # 
-  # # test with a Fact Map other than "T!T"
-  # expect_error(
-  #   sf_get_report_instance_results(report_id, 
-  #                                  results$id)
-  #                                  fact_map_key = ""
-  # )
-})
-
-test_that("testing sf_query_report()", {
+test_that("testing sf_execute_report() asynchronously", {
   
+  # async
+  common_report_instance <- sf_execute_report(common_report_id, async=TRUE)
+  expect_is(common_report_instance, "tbl_df")
+  expect_named(common_report_instance, c("id", "ownerId", "status", 
+                                         "requestDate", "completionDate", 
+                                         "hasDetailRows", "queryable", "url"))
   
+  # wait for the report to complete ...
+  status_complete <- FALSE
+  z <- 1
+  interval_seconds <- 3
+  max_attempts <- 200
+  Sys.sleep(interval_seconds)
+  while (z < max_attempts & !status_complete){
+    if (verbose){
+      if(z %% 5 == 0){
+        message(paste0("Attempt to retrieve records #", z))
+      }
+    }
+    Sys.sleep(interval_seconds)
+    instances_list <- sf_list_report_instances(common_report_id)
+    instance_status <- instances_list[[which(instances_list$id == common_report_instance$id), "status"]]
+    if(instance_status == "Error"){
+      stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).",
+                   common_report_id, common_report_instance$id),
+           call.=FALSE)
+    } else {
+      if(instance_status == "Success"){
+        status_complete <- TRUE
+      } else {
+        # continue checking the status until success or max attempts
+        z <- z + 1
+      }
+    }
+  }
+  results <- sf_get_report_instance_results(common_report_id, common_report_instance$id)
+  expect_is(results, "tbl_df")
+  expect_named(results, report_col_names)
+  expect_is(results$`test number`, "numeric")
+  
+  # test with a Fact Map other than "T!T"
+  expect_error(
+    sf_get_report_instance_results(common_report_id,
+                                   common_report_instance$id,
+                                   fact_map_key = ""), 
+    "Fact map key is not 'T!T'"
+  )
 })
 
 test_that("testing sf_run_report()", {
   
+  # simple sync report 
+  results <- sf_run_report(common_report_id, async=FALSE)
+  expect_is(results, "tbl_df")
+  expect_named(results, report_col_names)
+  expect_is(results$`test number`, "numeric")  
+  
+  # simple async report 
+  results <- sf_run_report(common_report_id)
+  expect_is(results, "tbl_df")
+  expect_named(results, report_col_names)
+  expect_is(results$`test number`, "numeric")  
+  
+  # filtered report
+  filter1 <- list(column = "CREATED_DATE",
+                  operator = "lessThan",
+                  value = "THIS_MONTH")
+  filter2 <-  list(column = "ACCOUNT.ADDRESS1_CITY",
+                   operator = "equals",
+                   value = "")
+  filtered_results <- sf_run_report(common_report_id, 
+                                    report_boolean_logic = "1 AND 2",
+                                    report_filters = list(filter1, filter2))
+  expect_is(filtered_results, "tbl_df")
+  expect_equal(nrow(filtered_results), 1)
+  expect_named(filtered_results, report_col_names)
+  expect_is(filtered_results$`test number`, "numeric")    
+  
+  # sorted by the top test number
+  results <- sf_run_report(common_report_id, 
+                           async = FALSE, 
+                           sort_by = 'Contact.test_number__c', 
+                           decreasing = TRUE,
+                           top_n = 3)
+  expect_is(results, "tbl_df")
+  expect_equal(nrow(results), 3)
+  expect_named(results, report_col_names)
+  expect_equal(results$`test number`, c(99, 23, NA))
+  
+  # limited to the first result
+  results <- sf_run_report(common_report_id, 
+                           async = FALSE,
+                           top_n = 1)
+  expect_is(results, "tbl_df")
+  expect_equal(nrow(results), 1)
+  expect_named(results, report_col_names)
+  expect_is(results$`test number`, "numeric")
+  
+  # trying to sort by more than 1 field
+  expect_error(
+    sf_run_report(common_report_id, 
+                  async = FALSE, 
+                  sort_by = c("Contact.test_number__c", "ACCOUNT.ADDRESS1_CITY")),
+    "Currently, Salesforce will only allow a report to be sorted by, at most, one column."
+  )  
+})
+
+test_that("testing sf_query_report()", {
+  skip("Not implemented yet.")
 })

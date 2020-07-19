@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Describe a report type — sf_describe_report_type • salesforcer</title>
+<title>Delete a report — sf_delete_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,10 @@
 
 
 
-<meta property="og:title" content="Describe a report type — sf_describe_report_type" />
+<meta property="og:title" content="Delete a report — sf_delete_report" />
 <meta property="og:description" content="
-Return metadata about a report type." />
+Delete a report by sending a DELETE request to the Report resource. Deleted
+reports are moved to the Recycle Bin." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -177,29 +178,26 @@ Return metadata about a report type." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Describe a report type</h1>
+    <h1>Delete a report</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_report_type_describe.Rd</code></div>
+    <div class="hidden name"><code>sf_delete_report.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Return metadata about a report type.</p>
+<p>Delete a report by sending a DELETE request to the Report resource. Deleted
+reports are moved to the Recycle Bin.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_describe_report_type</span>(<span class='no'>report_type</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_delete_report</span>(<span class='no'>report_id</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>report_type</th>
-      <td><p><code>character</code>; a character representing the type of
-report to retrieve the metadata information on. A list of valid report types
-that can be described using this function will be available in the
-<code>reportTypes.type</code> column of results returned <a href='sf_report_types_list.html'>sf_list_report_types</a>.
-(e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>,
-etc.)</p></td>
+      <th>report_id</th>
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
+analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -212,29 +210,22 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> containing up to 4 properties that describe the report:</p><dl'>
-<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and
-joined metadata.</p></dd>
-<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
-
-</dl>
-
+    <p><code>logical</code> indicating whether the report was deleted. This function
+will return <code>TRUE</code> if successful in deleting the report.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_reporttype.htm'>Salesforce Documentation</a></p></div>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_delete_report.htm#example_delete_report'>Salesforce Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_types_list.html'>sf_list_report_types</a></span>()
-<span class='no'>unique_report_types</span> <span class='kw'>&lt;-</span> <span class='no'>reports</span> <span class='kw'>%&gt;%</span> <span class='fu'>distinct</span>(<span class='no'>reportTypes.type</span>)
+<span class='co'># first, grab all possible reports in your Org</span>
+<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
 
-<span class='co'># first unique report type</span>
-<span class='no'>unique_report_types</span><span class='kw'>[[</span><span class='fl'>1</span>,<span class='fl'>1</span>]]
+<span class='co'># second, get the id of the report to delete</span>
+<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
 
-<span class='co'># describe that report type</span>
-<span class='no'>described_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_describe_report_type</span>(<span class='no'>unique_report_types</span><span class='kw'>[[</span><span class='fl'>1</span>,<span class='fl'>1</span>]])
+<span class='co'># third, delete that report using its Id</span>
+<span class='no'>success</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_delete_report</span>(<span class='no'>this_report_id</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

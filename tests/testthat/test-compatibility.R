@@ -53,7 +53,6 @@ test_that("testing rforcecom.bulkQuery compatibility", {
 })
 
 test_that("testing rforcecom.create compatibility", {
-
   object <- "Contact"
   fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
   
@@ -67,9 +66,8 @@ test_that("testing rforcecom.create compatibility", {
   expect_equal(nrow(result1), nrow(result2))
   
   # clean up
-  delete_result1 <- sf_delete(ids=c(as.character(result1$id), 
-                                    as.character(result2$id)), 
-                              object_name = object)
+  delete_result <- sf_delete(ids=c(result1$id, result2$id), object)
+  expect_true(all(delete_result$success))   
 })
 
 test_that("testing rforcecom.delete compatibility", {
@@ -77,11 +75,11 @@ test_that("testing rforcecom.delete compatibility", {
   object <- "Contact"
   new_contact <- c(FirstName="Test", LastName="Contact-Delete-Compatibility")
   
-  result1 <- sf_create(new_contact, "Contact")
-  result1 <- RForcecom::rforcecom.delete(session, objectName=object, id=result1$id)
+  create1 <- sf_create(new_contact, "Contact")
+  result1 <- RForcecom::rforcecom.delete(session, objectName=object, id=create1$id)
   
-  result2 <- sf_create(new_contact, "Contact")
-  result2 <- salesforcer::rforcecom.delete(session, objectName=object, id=result2$id)
+  create2 <- sf_create(new_contact, "Contact")
+  result2 <- salesforcer::rforcecom.delete(session, objectName=object, id=create2$id)
   
   expect_null(result1)
   expect_equal(result1, result2)
@@ -93,22 +91,24 @@ test_that("testing rforcecom.update compatibility", {
   new_contact <- c(FirstName="Test", LastName="Contact-Update-Compatibility")
   fields <- c(FirstName="Test", LastName="Contact-Update-Compatibility2")
   
-  create_result1 <- sf_create(new_contact, "Contact")
-  result1 <- RForcecom::rforcecom.update(session, objectName=object, id=create_result1$id, fields)
+  create1 <- sf_create(new_contact, "Contact")
+  result1 <- RForcecom::rforcecom.update(session, 
+                                         objectName = object, 
+                                         id = create1$id, 
+                                         fields)
   
-  create_result2 <- sf_create(new_contact, "Contact")
+  create2 <- sf_create(new_contact, "Contact")
   result2 <- salesforcer::rforcecom.update(session, 
-                                           objectName=object, 
-                                           id=create_result2$id, 
+                                           objectName = object, 
+                                           id = create2$id, 
                                            fields)
   
   expect_null(result1)
   expect_equal(result1, result2)
   
   # clean up
-  delete_result2 <- sf_delete(ids=c(create_result1[["id"]], 
-                                    create_result2[["id"]]), 
-                              object_name = object)
+  delete_result <- sf_delete(ids=c(create1$id, create2$id), object)
+  expect_true(all(delete_result$success))  
 })
 
 test_that("testing rforcecom.upsert compatibility", {
@@ -119,7 +119,7 @@ test_that("testing rforcecom.upsert compatibility", {
   new_contact <- c(FirstName="Test", 
                    LastName="Contact-Upsert-Compatibility", 
                    My_External_Id__c = this_external_id1)
-  create_result1 <- sf_create(input_data = new_contact, object_name = "Contact")
+  create1 <- sf_create(input_data = new_contact, object_name = "Contact")
   fields <- c(FirstName="Test", 
               LastName="Contact-Upsert-Compatibility2")
 
@@ -133,7 +133,7 @@ test_that("testing rforcecom.upsert compatibility", {
   new_contact <- c(FirstName = "Test", 
                    LastName = "Contact-Upsert-Compatibility", 
                    My_External_Id__c = this_external_id2)
-  create_result2 <- sf_create(new_contact, "Contact")
+  create2 <- sf_create(new_contact, "Contact")
   fields <- c(FirstName="Test", 
               LastName="Contact-Upsert-Compatibility2")
 
@@ -148,7 +148,8 @@ test_that("testing rforcecom.upsert compatibility", {
   expect_equal(sort(names(result1)), sort(names(result2)))
   expect_equal(nrow(result1), nrow(result2))
   # clean up
-  delete_result1 <- sf_delete(ids=c(create_result1$id, create_result2$id), object)
+  delete_result <- sf_delete(ids=c(create1$id, create2$id), object)
+  expect_true(all(delete_result$success))
 })
 
 test_that("testing rforcecom.getServerTimestamp compatibility", {

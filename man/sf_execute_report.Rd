@@ -8,7 +8,9 @@ sf_execute_report(
   report_id,
   async = FALSE,
   include_details = TRUE,
-  label = TRUE,
+  labels = TRUE,
+  guess_types = TRUE,
+  bind_using_character_cols = FALSE,
   as_tbl = TRUE,
   report_metadata = NULL,
   verbose = FALSE
@@ -28,12 +30,26 @@ of the documentation on why executing a report asynchronously is preferred.}
 \item{include_details}{\code{logical}; an indicator applying to a synchronous
 indicating whether the run should return summary data with details.}
 
-\item{label}{\code{logical}; an indicator of whether the returned data should
+\item{labels}{\code{logical}; an indicator of whether the returned data should
 be the label (i.e. formatted value) or the actual value. By default, the labels
 are returned because these are what appear in the Salesforce dashboard and
 more closely align with the column names. For example, "Account.Name" label
 may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former
 (label) more accurately reflects the "Account.Name".}
+
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
+like numeric looking values that must be preserved as strings ("48.0").}
+
+\item{bind_using_character_cols}{\code{logical}; an indicator of whether to
+cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to \code{TRUE} rarely, typically only when having this
+set to \code{FALSE} returns an error or you want all columns in the data to be
+character.}
 
 \item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}

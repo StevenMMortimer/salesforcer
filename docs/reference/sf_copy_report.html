@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a report — sf_create_report • salesforcer</title>
+<title>Copy a report — sf_copy_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,13 +52,10 @@
 
 
 
-<meta property="og:title" content="Create a report — sf_create_report" />
+<meta property="og:title" content="Copy a report — sf_copy_report" />
 <meta property="og:description" content="
-Create a new report using a POST request. To create a report, you only have to
-specify a name and report type to create a new report; all other metadata properties
-are optional. It is recommended to use the metadata from existing reports pulled
-using sf_describe_report as a guide on how to specify the properties
-of a new report." />
+Creates a copy of a custom, standard, or public report by sending a POST
+request to the Report List resource." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -181,49 +178,33 @@ of a new report." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a report</h1>
+    <h1>Copy a report</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_report_create.Rd</code></div>
+    <div class="hidden name"><code>sf_copy_report.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Create a new report using a POST request. To create a report, you only have to
-specify a name and report type to create a new report; all other metadata properties
-are optional. It is recommended to use the metadata from existing reports pulled
-using <code><a href='sf_report_describe.html'>sf_describe_report</a></code> as a guide on how to specify the properties
-of a new report.</p>
+<p>Creates a copy of a custom, standard, or public report by sending a POST
+request to the Report List resource.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_create_report</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>report_type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_copy_report</span>(<span class='no'>report_id</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>report_id</th>
+      <td><p><code>character</code>; the Salesforce Id assigned to a created
+analytics report. It will start with <code>"00O"</code>.</p></td>
+    </tr>
+    <tr>
       <th>name</th>
-      <td><p><code>character</code>; a user-specified name for the report.</p></td>
-    </tr>
-    <tr>
-      <th>report_type</th>
-      <td><p><code>character</code>; a character representing the type of
-report to retrieve the metadata information on.  A list of valid report types
-that can be created using this function will be available in the
-<code>reportTypes.type</code> column of results returned <a href='sf_report_types_list.html'>sf_list_report_types</a>.
-(e.g. <code>AccountList</code>, <code>AccountContactRole</code>, <code>OpportunityHistory</code>,
-etc.)</p></td>
-    </tr>
-    <tr>
-      <th>report_metadata</th>
-      <td><p><code>list</code>; a list representing the properties to create
-the report with. The names of the list must be one or more of the 3 accepted
-metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>,
-<code>reportExtendedMetadata</code>.</p></td>
+      <td><p><code>character</code>; a user-specified name for the newly cloned report.
+If left <code>NULL</code>, then the new name will be the same name as the report being
+cloned appended with " = Copy" that is prefixed with a number if that name is
+not unique. It is highly recommended to provide a name, if possible.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -248,28 +229,24 @@ joined metadata.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm'>Salesforce Documentation</a></p></div>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_report.htm'>Salesforce Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># creating a blank report using just the name and type</span>
-<span class='no'>my_new_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_report</span>(<span class='st'>"Top Accounts Report"</span>, <span class='st'>"AccountList"</span>)
+<span class='co'># only the 200 most recently viewed reports</span>
+<span class='no'>most_recent_reports</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_report_list</span>()
 
-<span class='co'># creating a report with additional metadata by grabbing an existing report</span>
-<span class='co'># and modifying it slightly (only the name in this case)</span>
-
-<span class='co'># first, grab all possible reports in your Org</span>
+<span class='co'># all possible reports in your Org</span>
 <span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
 
-<span class='co'># second, get the id of the report to copy</span>
+<span class='co'># id of the report to copy</span>
 <span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
 
-<span class='co'># third, pull down its metadata and update the name</span>
-<span class='no'>report_describe_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_describe.html'>sf_describe_report</a></span>(<span class='no'>this_report_id</span>)
-<span class='no'>report_describe_list</span>$<span class='no'>reportMetadata</span>$<span class='no'>name</span> <span class='kw'>&lt;-</span> <span class='st'>"TEST API Report Creation"</span>
+<span class='co'># not providing a name appends " - Copy" to the name of the report being cloned</span>
+<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_copy_report</span>(<span class='no'>this_report_id</span>)
 
-<span class='co'># fourth, create the report by passing the metadata</span>
-<span class='no'>my_new_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_report</span>(<span class='kw'>report_metadata</span><span class='kw'>=</span><span class='no'>report_describe_list</span>)
+<span class='co'># example of providing new name to the copied report</span>
+<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_copy_report</span>(<span class='no'>this_report_id</span>, <span class='st'>"My New Copy of Report ABC"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

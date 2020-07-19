@@ -1,6 +1,6 @@
-# Getting help with **salesforcer**
+# Getting help with {salesforcer}
 
-First off, thank you for choosing to use **salesforcer**. Before filing an issue 
+First off, thank you for choosing to use {salesforcer}. Before filing an issue 
 in the GitHub repository, I would strongly recommend two things: 
 
 1. First, if you have a general question, consider searching and posting it 
@@ -20,5 +20,5 @@ hypotheses you may have that could even remotely be related to the issue.
 With those two things in mind, if you need to file an issue, please do so 
 [HERE](https://github.com/StevenMMortimer/salesforcer/issues). 
 
-Again, thank you for taking the time to contribute back to **salesforcer**. Your 
+Again, thank you for taking the time to contribute back to {salesforcer}. Your 
 efforts will undoubtedly help other users as well!

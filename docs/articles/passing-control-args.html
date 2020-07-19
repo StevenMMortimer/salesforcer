@@ -123,7 +123,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="passing-control-args_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Passing Control Args</h1>
@@ -138,7 +138,7 @@
 
     
     
-<p>If you’re inserting records from R you may want to turn off the assignment rules or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of the <strong>salesforcer</strong> package many functions have a <code>control</code> argument that will allow you to fine tune the behavior of calls to the Salesforce APIs. This vignette will introduce the different options you can control and how to pass them into the <strong>salesforcer</strong> functions you’re already familiar with.</p>
+<p>If you’re inserting records from R you may want to turn off the assignment rules or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of the {salesforcer} package many functions have a <code>control</code> argument that will allow you to fine tune the behavior of calls to the Salesforce APIs. This vignette will introduce the different options you can control and how to pass them into the {salesforcer} functions you’re already familiar with.</p>
 <div id="the-new-control-argument" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-new-control-argument" class="anchor"></a>The new control argument</h2>
@@ -178,7 +178,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000012NzbeAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013XtlQAAS TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="no">record3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contact</span>,
@@ -218,15 +218,15 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Account"</span>,
          <span class="kw">control</span> <span class="kw">=</span> <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(<span class="kw">QueryOptions</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">batchSize</span> <span class="kw">=</span> <span class="fl">200</span>)))
-<span class="co">#&gt; # A tibble: 15 x 2</span>
+<span class="co">#&gt; # A tibble: 11 x 2</span>
 <span class="co">#&gt;   Id                 Name                                </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                               </span>
 <span class="co">#&gt; 1 0013s00000zFgA6AAK KEEP Test Account With Child Records</span>
 <span class="co">#&gt; 2 0013s00000zFdugAAC KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 3 0013s00000zFiY5AAK Test Account For Performance Test   </span>
-<span class="co">#&gt; 4 0013s00000zFiXbAAK Test Account For Performance Test   </span>
-<span class="co">#&gt; 5 0013s00000zFiWsAAK Test Account For Performance Test   </span>
-<span class="co">#&gt; # … with 10 more rows</span></pre></body></html></div>
+<span class="co">#&gt; 3 0016A0000035mJEQAY GenePoint                           </span>
+<span class="co">#&gt; 4 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span>
+<span class="co">#&gt; 5 0016A0000035mJDQAY United Oil &amp; Gas, Singapore         </span>
+<span class="co">#&gt; # … with 6 more rows</span></pre></body></html></div>
 </div>
 <div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level2">
 <h2 class="hasAnchor">

@@ -185,7 +185,7 @@ use sf_run_report." />
     <div class="page-header">
     <h1>Execute a report</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_report_execute.Rd</code></div>
+    <div class="hidden name"><code>sf_execute_report.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -203,7 +203,9 @@ use <code><a href='sf_run_report.html'>sf_run_report</a></code>.</p>
   <span class='no'>report_id</span>,
   <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>include_details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
@@ -223,7 +225,7 @@ analytics report. It will start with <code>"00O"</code>.</p></td>
 executes the report asynchronously. If executed asynchronously, this function
 will return a list of attributes of the created report instance. The results
 can be pulled down by providing the report id and instance id to
-the function <code><a href='sf_report_instance_results.html'>sf_get_report_instance_results</a></code>. Refer to the details
+the function <code><a href='sf_get_report_instance_results.html'>sf_get_report_instance_results</a></code>. Refer to the details
 of the documentation on why executing a report asynchronously is preferred.</p></td>
     </tr>
     <tr>
@@ -232,13 +234,31 @@ of the documentation on why executing a report asynchronously is preferred.</p><
 indicating whether the run should return summary data with details.</p></td>
     </tr>
     <tr>
-      <th>label</th>
+      <th>labels</th>
       <td><p><code>logical</code>; an indicator of whether the returned data should
 be the label (i.e. formatted value) or the actual value. By default, the labels
 are returned because these are what appear in the Salesforce dashboard and
 more closely align with the column names. For example, "Account.Name" label
 may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
 (label) more accurately reflects the "Account.Name".</p></td>
+    </tr>
+    <tr>
+      <th>guess_types</th>
+      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
+to try and cast the data returned in the recordset. If <code>TRUE</code> then
+<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
+as character. This is helpful when <code>col_guess()</code> will mangle field values
+in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
+like numeric looking values that must be preserved as strings ("48.0").</p></td>
+    </tr>
+    <tr>
+      <th>bind_using_character_cols</th>
+      <td><p><code>logical</code>; an indicator of whether to
+cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to <code>TRUE</code> rarely, typically only when having this
+set to <code>FALSE</code> returns an error or you want all columns in the data to be
+character.</p></td>
     </tr>
     <tr>
       <th>as_tbl</th>
@@ -262,7 +282,7 @@ filters specified in <code>reportFilters</code> should be combined. For example,
 <dt>reportFilters</dt><dd><p>A <code>list</code> of reportFilter specifications. Each must
 be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 3) <code>value</code>.
 You can find out how certain field types can be filtered by reviewing the results
-of <code><a href='sf_report_filter_operators_list.html'>sf_list_report_filter_operators</a></code>.</p></dd>
+of <code><a href='sf_list_report_filter_operators.html'>sf_list_report_filter_operators</a></code>.</p></dd>
 
 </dl></td>
     </tr>
@@ -328,19 +348,19 @@ by, and filters that already exist in the report:</p><ul>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_execute_report</span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 
 <span class='co'># check if completed and proceed if the status is "Success"</span>
-<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instances_list.html'>sf_list_report_instances</a></span>(<span class='no'>report_id</span>)
+<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_list_report_instances.html'>sf_list_report_instances</a></span>(<span class='no'>report_id</span>)
 <span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
 <span class='kw'>if</span>(<span class='no'>instance_status</span> <span class='kw'>==</span> <span class='st'>"Success"</span>){
-  <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instance_results.html'>sf_get_report_instance_results</a></span>(<span class='no'>report_id</span>, <span class='no'>results</span>$<span class='no'>id</span>)
+  <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_get_report_instance_results.html'>sf_get_report_instance_results</a></span>(<span class='no'>report_id</span>, <span class='no'>results</span>$<span class='no'>id</span>)
 }
 
-<span class='co'># Note: For more complex execution use the report_metadata argument</span>
+<span class='co'># Note: For more complex execution use the report_metadata argument.</span>
 <span class='co'># This can be done by building the list from scratch based on Salesforce </span>
 <span class='co'># documentation (not recommended) or pulling down the existing reportMetadata </span>
 <span class='co'># property of the report and modifying the list slightly (recommended). </span>
 <span class='co'># In addition, for relatively simple changes, you can leverage the convenience </span>
 <span class='co'># function sf_report_wrapper() which makes it easier to retrieve report results</span>
-<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_describe.html'>sf_describe_report</a></span>(<span class='no'>this_report_id</span>)
+<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_describe_report.html'>sf_describe_report</a></span>(<span class='no'>this_report_id</span>)
 <span class='no'>report_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>reportMetadata</span> <span class='kw'>=</span> <span class='no'>report_details</span>$<span class='no'>reportMetadata</span>)
 <span class='no'>report_metadata</span>$<span class='no'>reportMetadata</span>$<span class='no'>showGrandTotal</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
 <span class='no'>report_metadata</span>$<span class='no'>reportMetadata</span>$<span class='no'>showSubtotals</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>

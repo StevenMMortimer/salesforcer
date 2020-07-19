@@ -110,13 +110,25 @@ catch_errors <- function(x){
     }
     if(status_code(x) < 500){
       if(!is.null(response_parsed$exceptionCode)){
-        stop(sprintf("%s: %s", response_parsed$exceptionCode, response_parsed$exceptionMessage))
+        stop(sprintf("%s: %s", 
+                     response_parsed$exceptionCode, 
+                     response_parsed$exceptionMessage), 
+             call. = FALSE)
       } else if(!is.null(response_parsed$error$exceptionCode)){
-        stop(sprintf("%s: %s", response_parsed$error$exceptionCode, response_parsed$error$exceptionMessage))
+        stop(sprintf("%s: %s", 
+                     response_parsed$error$exceptionCode, 
+                     response_parsed$error$exceptionMessage), 
+             call. = FALSE)
       } else if(!is.null(response_parsed[[1]]$Error$errorCode[[1]])){
-        stop(sprintf("%s: %s", response_parsed[[1]]$Error$errorCode[[1]], response_parsed[[1]]$Error$message[[1]]))
+        stop(sprintf("%s: %s", 
+                     response_parsed[[1]]$Error$errorCode[[1]], 
+                     response_parsed[[1]]$Error$message[[1]]), 
+             call. = FALSE)
       }  else {
-        stop(sprintf("%s: %s", response_parsed[[1]]$errorCode, response_parsed[[1]]$message))  
+        stop(sprintf("%s: %s", 
+                     response_parsed[[1]]$errorCode, 
+                     response_parsed[[1]]$message), 
+             call. = FALSE)
       }
     } else {
       error_message <- response_parsed$Envelope$Body$Fault

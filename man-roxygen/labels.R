@@ -1,4 +1,4 @@
-#' @param label \code{logical}; an indicator of whether the returned data should 
+#' @param labels \code{logical}; an indicator of whether the returned data should 
 #' be the label (i.e. formatted value) or the actual value. By default, the labels  
 #' are returned because these are what appear in the Salesforce dashboard and 
 #' more closely align with the column names. For example, "Account.Name" label 
