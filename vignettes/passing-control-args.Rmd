@@ -26,9 +26,9 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 
 If you're inserting records from R you may want to turn off the assignment rules 
 or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of 
-the **salesforcer** package many functions have a `control` argument that will allow 
+the {salesforcer} package many functions have a `control` argument that will allow 
 you to fine tune the behavior of calls to the Salesforce APIs. This vignette will 
-introduce the different options you can control and how to pass them into the **salesforcer** 
+introduce the different options you can control and how to pass them into the {salesforcer} 
 functions you're already familiar with.
 
 ## The new control argument

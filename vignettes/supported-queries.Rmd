@@ -27,7 +27,7 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 ## Overview
 
 The following vignette outlines the different types of queries that have been 
-documented and tested. These are the "supported" query types that the **salesforcer** 
+documented and tested. These are the "supported" query types that the {salesforcer} 
 package currently handles. If you run into an issue, please submit the issue 
 [HERE](https://github.com/StevenMMortimer/salesforcer/issues/new?assignees=StevenMMortimer&labels=&template=query-issue-template.md&title=) 
 in the GitHub repository so that we can fix or add your query type to this list. 
@@ -57,7 +57,7 @@ resources:
 
 ## Authentication
 
-First, load the **salesforcer** package and login. There are two ways to authenticate: 
+First, load the {salesforcer} package and login. There are two ways to authenticate: 
 1) OAuth 2.0 (SSO) and 2) Basic Username-Password. It is recommended to use OAuth 
 2.0 so that passwords do not have to be embedded in scripts or environment variables. 
 By default, OAuth 2.0 stores the user's credentials in a locally cached file 
@@ -240,8 +240,8 @@ nested_query_recs
 
 aggregate_query_recs <- nested_query_recs %>% 
   group_by(Id) %>%
-  summarize(contacts_n = sum(!is.na(Contact.Id)), 
-            .groups = 'drop')
+  summarize(.groups = 'drop', 
+            contacts_n = sum(!is.na(Contact.Id)))
 aggregate_query_recs
 ```
   
@@ -278,13 +278,9 @@ will manage and execute the query.
 queried_records <- sf_query(soql, api_type = "Bulk 1.0")
 ```
 
-As you can see above the **salesforcer** package will try to infer the object in 
+As you can see above the {salesforcer} package will try to infer the object in 
 the query if not explicitly provided. If it does not guess correctly, then please 
-specify. Only in a recent release (v47.0, Winter 2019) was query functionality 
-added to the Bulk 2.0 API. Now that this feature has been added, it appears that 
-the Bulk 2.0 API is approximately **2x** faster for large queries instead of. 
-However, please note that the format of the results are slightly different 
-and you may want to experiment to see which you prefer.
+specify.
 
 **Cleanup after performance tests**
 
@@ -397,7 +393,7 @@ sf_query(
 
 ## Troubleshooting
 
-If you are having an issue with a query please submit in the **salesforcer** GitHub 
+If you are having an issue with a query please submit in the {salesforcer} GitHub 
 repository at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, queries are tough to debug because every Salesforce 
 Org is unique. Custom objects or relationships created in your Salesforce Org may 
 be different or even impossible to test in another Org. When filing your issue please 
@@ -428,7 +424,7 @@ are a few suggestions:
   4 each year). These tests are an excellent source of examples that may be 
   helpful in troubleshooting your own query.
   
-  5. Roll up your sleeves and dive into the source code for the **salesforcer** 
+  5. Roll up your sleeves and dive into the source code for the {salesforcer} 
   package. The main scripts to review are:  
   
       - <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/R/query.R">https://github.com/StevenMMortimer/salesforcer/blob/master/R/query.R</a>

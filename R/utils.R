@@ -227,13 +227,15 @@ sf_input_data_validation <- function(input_data, operation=''){
   }
   
   if(operation %in% c("filter_report")){
-    if(all(!(names(input_data) == "reportMetadata"))){
-      if(length(input_data) != 1){
-        # if the list has not been wrapped in reportMetadata, then do that
-        input_data <- list(reportMetadata=input_data)
+    if(!(all(names(input_data) == "reportMetadata"))){
+      if(length(input_data) %in% c(3, 4) & "reportMetadata" %in% names(input_data)){
+        input_data <- list(reportMetadata = input_data$reportMetadata)
+      } else if(length(input_data) != 1){
+        # assume that the list has not been wrapped in reportMetadata
+        input_data <- list(reportMetadata = input_data)
       } else {
         stop(paste0("You must format the report metadata as a list of length 1 ", 
-                    "and that element named 'reportMetadata'.", call.=FALSE))
+                    "and that element named 'reportMetadata'.", call. = FALSE))
       }
     }
     if("attributes" %in% names(input_data$reportMetadata)){
@@ -250,7 +252,8 @@ sf_input_data_validation <- function(input_data, operation=''){
                                     'customDetailFormula', 
                                     'customSummaryFormula', 
                                     'currency', 
-                                    'dashboardSetting', 
+                                    'dashboardSetting',
+                                    'description',
                                     'detailColumns', 
                                     'developerName', 
                                     'division', 
@@ -291,15 +294,34 @@ sf_input_data_validation <- function(input_data, operation=''){
         }
       }
     }
-    # drop NULLs if they exist, which can occur if using straight from sf_describe_report
+    
+    # TODO: Watch and see if this creates errors (currently ignoring anything in 
+    # the list that is of the class AsIs regardless of its length) 
+    # # drop NULLs if they exist, which can occur if using straight from sf_describe_report
     input_data <- drop_empty_recursively(input_data)  
     
     # validate the report filters which are commonly passed
     if("reportFilters" %in% names(input_data$reportMetadata)){
       for(i in 1:length(input_data$reportMetadata$reportFilters)){
         input_data$reportMetadata$reportFilters[[i]] <- metadata_type_validator(
-          obj_type = "ReportFilterItem", obj_data = input_data$reportMetadata$reportFilters[[i]]
-        )
+          obj_type = "ReportFilterItem", 
+          obj_data = input_data$reportMetadata$reportFilters[[i]]
+        )[[1]]
+      }
+    }
+    
+    # handle specific cases that are known to cause issues. For example, the 
+    # standardDateFilter element cannot have endDate and startDate missing in its spec
+    if("standardDateFilter" %in% names(input_data$reportMetadata)){
+      if(length(input_data$reportMetadata$standardDateFilter) != 4){
+        input_data$reportMetadata$standardDateFilter <- NULL
+      } else {
+        if((is.na(input_data$reportMetadata$standardDateFilter$startDate) || 
+           (length(input_data$reportMetadata$standardDateFilter$startDate) == 0)) || 
+           (is.na(input_data$reportMetadata$standardDateFilter$endDate) || 
+            (length(input_data$reportMetadata$standardDateFilter$endDate) == 0))){
+          input_data$reportMetadata$standardDateFilter <- NULL  
+        }
       }
     }
   }
@@ -450,7 +472,7 @@ stop_w_errors_listed <- function(main_text=NULL, errors=NULL){
   if(!is.null(errors)){
     if(is.null(main_text)){
       if(length(errors) == 0){
-        stop()
+        stop(call.=FALSE)
       } else {
         main_text <- sprintf("Please fix the following issue%s before proceeding:", 
                              if(length(errors) > 1) 's' else '')
@@ -647,5 +669,15 @@ sf_format_time.numeric <- function(x){
 
 #' @export
 sf_format_time.logical <- function(x){ 
+  x
+}
+
+#' @export
+sf_format_time.NULL <- function(x){ 
+  x
+}
+
+#' @export
+sf_format_time.AsIs <- function(x){ 
   x
 }

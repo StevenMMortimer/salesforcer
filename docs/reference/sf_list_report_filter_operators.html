@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get report instance results — sf_get_report_instance_results • salesforcer</title>
+<title>List report filter operators — sf_list_report_filter_operators • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,11 +52,11 @@
 
 
 
-<meta property="og:title" content="Get report instance results — sf_get_report_instance_results" />
+<meta property="og:title" content="List report filter operators — sf_list_report_filter_operators" />
 <meta property="og:description" content="
-Retrieves results for an instance of a report run asynchronously with or without
-filters. Depending on your asynchronous report run request, data can be at the
-summary level or include details." />
+Use the Filter Operators API to get information about which filter operators are
+available for reports and dashboards. The Filter Operators API is available in
+API version 40.0 and later." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -179,56 +179,27 @@ summary level or include details." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get report instance results</h1>
+    <h1>List report filter operators</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_report_instance_results.Rd</code></div>
+    <div class="hidden name"><code>sf_list_report_filter_operators.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Retrieves results for an instance of a report run asynchronously with or without
-filters. Depending on your asynchronous report run request, data can be at the
-summary level or include details.</p>
+<p>Use the Filter Operators API to get information about which filter operators are
+available for reports and dashboards. The Filter Operators API is available in
+API version 40.0 and later.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_get_report_instance_results</span>(
-  <span class='no'>report_id</span>,
-  <span class='no'>report_instance_id</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fact_map_key</span> <span class='kw'>=</span> <span class='st'>"T!T"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_list_report_filter_operators</span>(<span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>report_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a created
-analytics report. It will start with <code>"00O"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>report_instance_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a
-created analytics report instance (an asynchronous run). It will start with
-<code>"0LG"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>label</th>
-      <td><p><code>logical</code>; an indicator of whether the returned data should
-be the label (i.e. formatted value) or the actual value. By default, the labels
-are returned because these are what appear in the Salesforce dashboard and
-more closely align with the column names. For example, "Account.Name" label
-may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
-(label) more accurately reflects the "Account.Name".</p></td>
-    </tr>
-    <tr>
-      <th>fact_map_key</th>
-      <td><p><code>character</code>; string providing an index into each
-section of a fact map, from which you can access summary and detailed data.
-The pattern for the fact map keys varies by report format so it is important
-to know what the <code>reportFormat</code> property of the target report is. See the
-note below for more details.</p></td>
+      <th>as_tbl</th>
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
+JSON into a <code>tbl_df</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -241,52 +212,19 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code>; the detail report data. More specifically, the detailed
-data from the "T!T" entry in the fact map.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Below are the fact map key patterns for three report types:</p><dl'>
-<dt>TABULAR</dt><dd><p><code>T!T</code>: The grand total of a report. Both record data
-values and the grand total are represented by this key.</p></dd>
-<dt>SUMMARY</dt><dd><p><code>&lt;First level row grouping_second level row grouping_third 
-  level row grouping&gt;!T</code>: T refers to the row grand total.</p></dd>
-<dt>MATRIX</dt><dd><p><code>&lt;First level row grouping_second level row grouping&gt;!&lt;First 
-  level column grouping_second level column grouping&gt;.</code></p></dd>
-
-</dl>
-
-<p>Each item in a row or column grouping is numbered starting with 0. Here are
-some examples of fact map keys:</p>
-<dl'>
-<dt>0!T</dt><dd><p>The first item in the first-level grouping.</p></dd>
-<dt>1!T</dt><dd><p>The second item in the first-level grouping.</p></dd>
-<dt>0_0!T</dt><dd><p>The first item in the first-level grouping and the first item
-in the second-level grouping.</p></dd>
-<dt>0_1!T</dt><dd><p>The first item in the first-level grouping and the second item
-in the second-level grouping.</p></dd>
-
-</dl>
-
+    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of
+argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults'>Salesforce Example</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm'>Factmap Documentation</a></p></div>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm'>Salesforce Example</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># execute a report asynchronously in your Org</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
-<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_execute.html'>sf_execute_report</a></span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='no'>report_filters</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_filter_operators</span>()
+<span class='no'>unique_supported_fields</span> <span class='kw'>&lt;-</span> <span class='no'>report_filters</span> <span class='kw'>%&gt;%</span> <span class='fu'>distinct</span>(<span class='no'>supported_field_type</span>)
 
-<span class='co'># check if that report has succeeded, ... </span>
-<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_report_instances_list.html'>sf_list_report_instances</a></span>(<span class='no'>this_report_id</span>)
-<span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
-
-<span class='co'># ... if so, then grab the results</span>
-<span class='kw'>if</span>(<span class='no'>instance_status</span> <span class='kw'>==</span> <span class='st'>"Success"</span>){
-  <span class='no'>report_data</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_report_instance_results</span>(<span class='kw'>report_id</span> <span class='kw'>=</span> <span class='no'>this_report_id</span>,
-                                            <span class='kw'>report_instance_id</span> <span class='kw'>=</span> <span class='no'>results</span>$<span class='no'>id</span>)
-}
+<span class='co'># operators to filter a picklist field</span>
+<span class='no'>picklist_field_operators</span> <span class='kw'>&lt;-</span> <span class='no'>report_filters</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>supported_field_type</span> <span class='kw'>==</span> <span class='st'>"picklist"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

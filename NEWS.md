@@ -4,45 +4,70 @@
 
   * Add experimental support for the Reports and Dashboards REST API.
   
-  * Add support for Bulk 2.0 queries that was added in Salesforce version 47.0. 
-  This is now the default API when using `sf_run_bulk_query()`.
+  * Add support for Bulk 2.0 queries that was added in Salesforce version 47.0
+  (Winter '20). **CAUTION: The Bulk 2.0 API is now the default API when using
+  `sf_query_bulk()` or `sf_run_bulk_query()`**. Please test prior to upgrading
+  in a production environment where you are running bulk queries.
   
   * Standardize the column order and format of query and CRUD operations that 
   prioritizes the object type and Ids over other fields and finaly relationship 
-  fields.
+  fields. **CAUTION: This will switch up the order of the columns returned by 
+  your existing code**. Please test prior to upgrading in a production environment 
+  where column ordering is a breaking change. For example we prioritize the following 
+  fields in queries alphabetically within this prioritization waterfall: 
+
+    1. The `sObject` field first (indicates the record's object if multiple objects returned in the results)  
+    2. The Id field second (`Id`, `id`, `sf__Id`)  
+    3. Salesforce record success status (`Success`, `success`, `sf_Success`)  
+    4. Salesforce record created status (`Created`, `created`, `sf__Created`)  
+    5. Salesforce record error(s) status (`Error`, `error`, `errors`, 
+  `errors.statusCode`, `errors.fields`, `errors.message`, `sf__Error`)  
+    6. All other fields from the target object (e.g. `Name`, `Phone`, etc.)  
+    7. Relationship fields (fields from a parent or child of the target). For example, 
+    anything typically containing a dot like `Account.Id`, `Owner.Name`, etc.  
   
-  * Standardize names of functions that submit long running jobs to Salesforce. 
-  These functions all start with `sf_run_*`. For example, `sf_run_bulk_query()`, 
-  `sf_run_bulk_operation()`, sf_run_report()`.
+  * Standardize the names of functions that submit long running jobs to Salesforce. 
+  These functions now all start with `sf_run_*`. However, the original names have 
+  been aliased to the new names so this version will acknowledge the old function 
+  names without deprecation warning.For example, the new names are: 
   
-  * Add support for logging in with a proxy without having to use OAuth 2.0 as 
-  the authentication method. When proxy support was first implemented in 0.1.4, 
-  it only supported proxy connections when logging in via OAuth 2.0. Now, this 
-  untested version of support for basic authentication has been implemented. This 
-  means that proxy users should be able to login using just a username, password, 
-  and security token if their organization has not implemented OAuth 2.0 or if 
-  they do not want to use OAuth 2.0 while logging in via this package.
+    * `sf_query_bulk()` ==> `sf_run_bulk_query()`  
+    * `sf_bulk_operation()` ==> `sf_run_bulk_operation()`  
+    * `sf_run_report()`  
+    
+  * Add support for logging in with a proxy without having to use OAuth 2.0 as
+  the authentication method. When proxy support was first implemented in
+  {salesforcer} 0.1.4, it only supported proxy connections when logging in via
+  OAuth 2.0. Now, this untested version of proxy support for basic
+  authentication has been implemented. This means that proxy users should be
+  able to login using just a username, password, and security token if their
+  organization has not implemented OAuth 2.0 or if they do not want to use OAuth
+  2.0 while logging in via this package.
   
   * Add lifecycle badges to signal maturity of different package aspects.
   
-  * Add vignette that outlines the supported queries and enhanced query test 
-  coverage in its own test script.
+  * Add two vignettes, one that outlines the query types supported by the package 
+  and another that outlines the new report functionality that was introduced in 
+  this release.
+  
+  * Add enhanced query test coverage in its own test script.
   
 ### Bug Fixes
 
-  * Fix bug in enabling PKChunking in Bulk 1.0 queries. Users can now specify using 
-  `TRUE/FALSE` or details like `chunkSize` that imply `TRUE`. The results are then 
-  parsed appropriately by waiting for all individual batches to finish (#46)
-  
-  * Fix bug in and SOAP API where the creation of a record that fails duplicate
-  rules will return the duplicate match results as well and cause the entire
-  function call to fail because it cannot parse the results. Now only the status
-  code and message are returned and the function will execute successfully even
-  if the record has not been created due to the rule. mangling results of
-  parent-child nested queries (#35, #38)
+  * Fix bug that prevented enabling PKChunking in Bulk 1.0 queries. Users can
+  now specify using `TRUE/FALSE` or details like `chunkSize` that imply `TRUE`.
+  The results are then parsed appropriately by waiting for all individual
+  batches to finish. (#46)
   
   * Fix bugs in REST and SOAP API queries to prevent infinite looping and
-  mangling results of parent-child nested queries (#35, #38, #54)
+  mangling results of relationship queries, specifically parent-to-child 
+  nested queries. (#19, #35, #38, #54)
+  
+  * Fix bug in REST and SOAP APIs where the creation of a record that fails
+  duplicate rules will return the duplicate match results as well and cause the
+  entire function call to fail because it cannot parse the results. Now only the
+  status code and message are returned and the function will execute
+  successfully even if the record has not been created due to the rule.
 
 ---
 

@@ -4,7 +4,12 @@
 \alias{format_report_row}
 \title{Format a single "rows" element from a report fact map}
 \usage{
-format_report_row(x, label = TRUE)
+format_report_row(
+  x,
+  labels = TRUE,
+  guess_types = TRUE,
+  bind_using_character_cols = FALSE
+)
 }
 \arguments{
 \item{x}{\code{list}; a single element from the \code{rows} element of a fact
@@ -12,12 +17,26 @@ map. When the data is in a tabular format, this element usually has the same
 length as the number of columns with each element having a label and value
 element.}
 
-\item{label}{\code{logical}; an indicator of whether the returned data should
+\item{labels}{\code{logical}; an indicator of whether the returned data should
 be the label (i.e. formatted value) or the actual value. By default, the labels
 are returned because these are what appear in the Salesforce dashboard and
 more closely align with the column names. For example, "Account.Name" label
 may be \code{"Account B"} and the value \code{0016A0000035mJEQAY}. The former
 (label) more accurately reflects the "Account.Name".}
+
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
+like numeric looking values that must be preserved as strings ("48.0").}
+
+\item{bind_using_character_cols}{\code{logical}; an indicator of whether to
+cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to \code{TRUE} rarely, typically only when having this
+set to \code{FALSE} returns an error or you want all columns in the data to be
+character.}
 }
 \value{
 \code{tbl_df}; a single row data frame with the data for the row that
