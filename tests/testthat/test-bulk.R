@@ -196,20 +196,23 @@ test_that("testing Bulk 2.0 Functionality", {
   attachment_details <- tibble(Name = c("logo.png"),
                                Body = system.file("extdata", "logo.png", package="salesforcer"),
                                ContentType = c("image/png"),
-                               ParentId = upserted_records$sf__Id[1]) #"0016A0000035mJ5")
+                               ParentId = upserted_records$sf__Id[1]) #"0016A0000035mJ5"
   attachment_records_csv <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
   expect_is(attachment_records_csv, "tbl_df")
   expect_equal(names(attachment_records_csv), c("Id", "Success", "Created", "Error"))
+  expect_true(attachment_records_json$success)
   expect_equal(nrow(attachment_records_csv), 1)
   
   attachment_records_json <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_JSON")
   expect_is(attachment_records_json, "tbl_df")
-  expect_equal(names(attachment_records_json), c("id", "success", "created"))
+  expect_equal(names(attachment_records_json), c("id", "success", "created", "errors"))
+  expect_true(attachment_records_json$success)
   expect_equal(nrow(attachment_records_json), 1)
   
   attachment_records_xml <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_XML")
   expect_is(attachment_records_xml, "tbl_df")
   expect_equal(names(attachment_records_xml), c("id", "success", "created"))
+  expect_true(attachment_records_xml$success)
   expect_equal(nrow(attachment_records_xml), 1)
   
   # clean up by deleting attachments

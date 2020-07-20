@@ -277,11 +277,6 @@ test_that("testing sf_execute_report() asynchronously", {
   max_attempts <- 200
   Sys.sleep(interval_seconds)
   while (z < max_attempts & !status_complete){
-    if (verbose){
-      if(z %% 5 == 0){
-        message(paste0("Attempt to retrieve records #", z))
-      }
-    }
     Sys.sleep(interval_seconds)
     instances_list <- sf_list_report_instances(common_report_id)
     instance_status <- instances_list[[which(instances_list$id == common_report_instance$id), "status"]]
