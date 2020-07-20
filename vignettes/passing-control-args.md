@@ -13,16 +13,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo = FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
-)
-options(tibble.print_min = 5L, tibble.print_max = 5L)
-```
+
 
 If you're inserting records from R you may want to turn off the assignment rules 
 or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of 
@@ -38,19 +29,10 @@ This new feature can be seen in the `sf_create` (and many other functions) as
 into the function. For example, the following code will create a record, but prevent 
 its creation from showing up in the Chatter feeds by setting the `DisableFeedTrackingHeader`. 
 
-```{r auth, include = FALSE}
-library(salesforcer)
 
-username <- Sys.getenv("SALESFORCER_USERNAME")
-password <- Sys.getenv("SALESFORCER_PASSWORD")
-security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
 
-sf_auth(username = username,
-        password = password,
-        security_token = security_token)
-```
 
-```{r sample-create}
+```r
 new_contact <- c(FirstName = "Jenny", 
                  LastName = "Williams", 
                  Email = "jennyw@gmail.com")
@@ -58,6 +40,10 @@ record1 <- sf_create(new_contact,
                      object_name = "Contact",
                      DisableFeedTrackingHeader = list(disableFeedTracking = TRUE))
 record1
+#> # A tibble: 1 x 3
+#>   success errors.statusCode   errors.message                                    
+#>   <lgl>   <chr>               <chr>                                             
+#> 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.
 ```
 
 You will notice that the argument `DisableFeedTrackingHeader` can be included right into 
@@ -100,7 +86,8 @@ followed when inserting records from the API, has three fields:
 Specifying these arguments requires a `list` structure in R, which may seem redundant 
 in some cases, but is necessary to follow in order to build the API request correctly. 
  
-```{r sample-create-w-duplicate}
+
+```r
 # override the duplicate rules ...
 record2 <- sf_create(new_contact,
                      object_name = "Contact",
@@ -108,6 +95,10 @@ record2 <- sf_create(new_contact,
                                                 includeRecordDetails = FALSE, 
                                                 runAsCurrentUser = TRUE))
 record2
+#> # A tibble: 1 x 2
+#>   id                 success
+#>   <chr>              <lgl>  
+#> 1 0033s000013Y2ryAAC TRUE
 
 # ... or succumb to the duplicate rules
 record3 <- sf_create(new_contact,
@@ -116,6 +107,10 @@ record3 <- sf_create(new_contact,
                                                 includeRecordDetails = FALSE, 
                                                 runAsCurrentUser = TRUE))
 record3
+#> # A tibble: 1 x 3
+#>   success errors.statusCode   errors.message                                    
+#>   <lgl>   <chr>               <chr>                                             
+#> 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.
 ```
 
 Per the description above, note that setting `allowSave=TRUE` will not override 
@@ -139,19 +134,24 @@ note of two things:
  2. In this example, you cannot bypass the duplicate rule alert to create the 
  record if using the REST API like you can with the SOAP API. 
 
-```{r sample-create-w-warning}
+
+```r
 record4 <- sf_create(new_contact,
                      object_name = "Contact",
                      DuplicateRuleHeader = list(allowSave = FALSE, 
                                                 includeRecordDetails = FALSE, 
                                                 runAsCurrentUser = TRUE),
                      api_type = "REST")
+#> Warning: Ignoring the following controls which are not used in the REST API:
+#> DuplicateRuleHeader
 record4
+#> # A tibble: 1 x 3
+#>   success errors.statusCode   errors.message                                    
+#>   <lgl>   <chr>               <chr>                                             
+#> 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.
 ```
 
-```{r, include = FALSE}
-deleted_records <- sf_delete(c(record1$id, record2$id))
-```
+
 
 ## Creating the control argument with sf_control
 
@@ -162,10 +162,20 @@ you can pass any number of arbitrary controls into the function and they are all
 gathered up into the control by `control = list(...)`. However, you can specify the 
 control directly like this: 
 
-```{r sample-query}
+
+```r
 sf_query("SELECT Id, Name FROM Account LIMIT 1000",
          object_name = "Account",
          control = sf_control(QueryOptions = list(batchSize = 200)))
+#> # A tibble: 11 x 2
+#>   Id                 Name                                
+#>   <chr>              <chr>                               
+#> 1 0013s00000zFgA6AAK KEEP Test Account With Child Records
+#> 2 0013s00000zFdugAAC KEEP Test Account With Child Records
+#> 3 0016A0000035mJEQAY GenePoint                           
+#> 4 0016A0000035mJCQAY United Oil & Gas, UK                
+#> 5 0016A0000035mJDQAY United Oil & Gas, Singapore         
+#> # … with 6 more rows
 ```
 
 ## Backwards compatibility for all_or_none and other named arguments
@@ -176,7 +186,7 @@ essentially hard coded values to pass the `AllOrNoneHeader` and `LineEndingHeade
 control parameters. Starting with the 0.1.3 release it is no longer necessary and 
 preferable not to have an argument like `all_or_none` listed explicity as an argument 
 since it can be provided in the `control` argument. Note: the `all_or_none` argument 
-and other explicit control arguments will still be available in {salesforcer} 0.1.3
+and other explicit control arguments will still be available in **salesforcer 0.1.3** 
 but will provide a deprecated warning. They will be removed in the next CRAN release 
 of the package so it will be important to update your code now if you are explicitly 
 passing these arguments and see a deprecation warning.

@@ -15,9 +15,9 @@ Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cr
 Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 <!-- badges: end -->
 
-{salesforcer} is an R package that connects to Salesforce Platform
-APIs using tidy principles. The package implements actions from the
-SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.
+{salesforcer} is an R package that connects to Salesforce Platform APIs
+using tidy principles. The package implements actions from the SOAP,
+REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.
 
 Package features include:
 
@@ -34,13 +34,13 @@ Package features include:
     the Metadata API with:
       - `sf_describe_objects()`, `sf_create_metadata()`,
         `sf_update_metadata()`, and more
-  - Utilize backwards compatible functions for the **RForcecom**
-    package, such as:
+  - Utilize backwards compatible functions for the {RForcecom} package,
+    such as:
       - `rforcecom.login()`, `rforcecom.getObjectDescription()`,
         `rforcecom.query()`, `rforcecom.create()`
   - Basic utility calls (`sf_user_info()`, `sf_server_timestamp()`,
     `sf_list_objects()`)
-  - Functions to assist with master data managment (MDM) or data
+  - Functions to assist with master data management (MDM) or data
     integrity of records by finding duplicates (`sf_find_duplicates()`,
     `sf_find_duplicates_by_id()`), merging records (`sf_merge()`), and
     converting leads (`sf_convert_lead()`)
@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.1.4)
+# install the current CRAN version (0.2.0)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -166,8 +166,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000013XrlsAAC TRUE   
-#> 2 0033s000013XrltAAC TRUE
+#> 1 0033s000013Y6h7AAC TRUE   
+#> 2 0033s000013Y6h8AAC TRUE
 ```
 
 ### Query
@@ -192,8 +192,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000013XrlsAAC Test      Contact-Create-1
-#> 2 0033s000013XrltAAC Test      Contact-Create-2
+#> 1 0033s000013Y6h7AAC Test      Contact-Create-1
+#> 2 0033s000013Y6h8AAC Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -226,8 +226,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000013XrlsAAC TRUE   
-#> 2 0033s000013XrltAAC TRUE
+#> 1 0033s000013Y6h7AAC TRUE   
+#> 2 0033s000013Y6h8AAC TRUE
 ```
 
 ### Bulk Operations
@@ -264,8 +264,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000013XrqrAAC TRUE    TRUE    NA   
-#> 2 0033s000013XrqsAAC TRUE    TRUE    NA
+#> 1 0033s000013Y6hCAAS TRUE    TRUE    NA   
+#> 2 0033s000013Y6hDAAS TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -280,8 +280,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000013XrqrAAC Test      Contact-Create-1
-#> 2 0033s000013XrqsAAC Test      Contact-Create-2
+#> 1 0033s000013Y6hCAAS Test      Contact-Create-1
+#> 2 0033s000013Y6hDAAS Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -289,8 +289,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s000013XrqrAAC 0033s000013XrqrAAC FALSE       NA       
-#> 2 0033s000013XrqsAAC 0033s000013XrqsAAC FALSE       NA
+#> 1 0033s000013Y6hCAAS 0033s000013Y6hCAAS FALSE       NA       
+#> 2 0033s000013Y6hDAAS 0033s000013Y6hDAAS FALSE       NA
 ```
 
 ### Using the Metadata API
@@ -409,16 +409,16 @@ Future APIs to support (roughly in priority order):
 
 This application uses other open source software components. The
 authentication components are mostly verbatim copies of the routines
-established in the **googlesheets** package
+established in the {googlesheets} package
 (<https://github.com/jennybc/googlesheets>). Methods are inspired by the
-**RForcecom** package (<https://github.com/hiratake55/RForcecom>). We
+{RForcecom} package (<https://github.com/hiratake55/RForcecom>). We
 acknowledge and are grateful to these developers for their contributions
 to open source.
 
 ## More Information
 
 Salesforce provides client libraries and examples in many programming
-langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a
+languages (Java, Python, Ruby, and PhP) but unfortunately R is not a
 supported language. However, most all operations supported by the
 Salesforce APIs are available via this package. This package makes
 requests best formatted to match what the APIs require as input. This

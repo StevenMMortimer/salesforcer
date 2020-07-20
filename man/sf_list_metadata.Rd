@@ -26,7 +26,7 @@ This function takes a query of metadata types and returns a
 summary of all objects in salesforce of the requested types
 }
 \note{
-Only 3 queries can be specifed at one time, so the list length must not exceed 3.
+Only 3 queries can be specified at one time, so the list length must not exceed 3.
 }
 \examples{
 \dontrun{

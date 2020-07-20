@@ -87,7 +87,7 @@ results
 ```
 
 Note that the `sf_run_report()` function will, by default, run the report
-asynchronously. This means that a report instance will be requsted and then the
+asynchronously. This means that a report instance will be requested and then the
 function will wait to retrieve the results. The advantage to using an
 asynchronous report is that the results of such a report are stored for 24 hours
 and can be retrieved again, saving CPU resources, if needed. A more in-depth

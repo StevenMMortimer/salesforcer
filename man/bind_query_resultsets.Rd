@@ -14,7 +14,7 @@ matched by name have the same datatype as the data frame provided to the
 \code{resultset} argument, otherwise, the call will fail with an error message.}
 }
 \value{
-\code{tbl_df} of the results combined with next records, if sucessful.
+\code{tbl_df} of the results combined with next records, if successful.
 }
 \description{
 This function accepts two \code{tbl_df} arguments that should represent the

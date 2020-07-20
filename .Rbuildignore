@@ -9,11 +9,8 @@
 ^CONDUCT\.md$
 ^SECURITY\.md$
 ^cran-comments\.md$
-^\.travis\.yml$
 ^codecov\.yml$
-^appveyor\.yml$
 ^_pkgdown\.yml$
-^tic\.R$
 ^\.github$
 ^doc$
 ^Meta$
