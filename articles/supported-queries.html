@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -268,9 +268,9 @@
 )
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;         expr      min       lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST")  4.01842  4.28149  4.282546  4.346559  4.366993  4.399266     5</span>
-<span class="co">#&gt;  qry("SOAP") 22.39927 22.59823 22.936686 22.631815 22.863690 24.190422     5</span>
+<span class="co">#&gt;         expr       min        lq     mean    median        uq       max neval</span>
+<span class="co">#&gt;  qry("REST")  3.507843  3.510102  3.53190  3.515351  3.537137  3.589064     5</span>
+<span class="co">#&gt;  qry("SOAP") 18.568612 18.624099 18.65701 18.671926 18.692878 18.727553     5</span>
 
 <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(name=<span class="st">"Time [seconds]"</span>, n.breaks=<span class="fl">6</span>)
@@ -295,8 +295,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 2.7 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.6 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.2 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -311,8 +311,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.4 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.9 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
@@ -353,7 +353,7 @@
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
-<span class="co">#&gt; 3 0013s000010x4mZAAQ       1000</span>
+<span class="co">#&gt; 3 0013s000010x4xhAAA       1000</span>
 <span class="co">#&gt; 4 0016A0000035mJ4QAI          2</span>
 <span class="co">#&gt; 5 0016A0000035mJ5QAI          1</span>
 <span class="co">#&gt; # … with 7 more rows</span>
@@ -401,11 +401,11 @@
 <span class="co">#&gt; # A tibble: 1,000 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013Xy54AAC 0033s000013Xy54AAC FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013Xy75AAC 0033s000013Xy75AAC FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000013Xy76AAC 0033s000013Xy76AAC FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000013Xy77AAC 0033s000013Xy77AAC FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000013Xy78AAC 0033s000013Xy78AAC FALSE       NA       </span>
+<span class="co">#&gt; 1 0033s000013XzxpAAC 0033s000013XzxpAAC FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013XzxqAAC 0033s000013XzxqAAC FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000013XzxrAAC 0033s000013XzxrAAC FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000013XzxsAAC 0033s000013XzxsAAC FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000013XzxtAAC 0033s000013XzxtAAC FALSE       NA       </span>
 <span class="co">#&gt; # … with 995 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -413,7 +413,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000010x4mZAAQ TRUE</span>
+<span class="co">#&gt; 1 0013s000010x4xhAAA TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -453,7 +453,7 @@
   FROM Contact
   WHERE Account.Id = null"
 )
-<span class="co">#&gt; # A tibble: 183 x 2</span>
+<span class="co">#&gt; # A tibble: 281 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000012Nd6FAAS Jenny    </span>
@@ -461,7 +461,7 @@
 <span class="co">#&gt; 3 0036A00000kHvVYQA0 John     </span>
 <span class="co">#&gt; 4 0033s000012NdFhAAK Jenny    </span>
 <span class="co">#&gt; 5 0033s000012Nd6UAAS Jenny    </span>
-<span class="co">#&gt; # … with 178 more rows</span>
+<span class="co">#&gt; # … with 276 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>

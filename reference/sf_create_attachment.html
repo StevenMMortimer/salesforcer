@@ -100,7 +100,7 @@ a Description, Keywords, ParentId, FolderId, etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -281,7 +281,7 @@ of base64–encoded data.</p>
                            Keywords = <span class='st'>"example,test,document"</span>)
 <span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='kw'>document_details</span>, object_name = <span class='st'>"Document"</span>)
 
-<span class='co'># the Bulk API can be envoked using api_type="Bulk 1.0" which will automatically </span>
+<span class='co'># the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically </span>
 <span class='co'># take a data.frame of Attachment info and create a ZIP file with CSV manifest </span>
 <span class='co'># that is required for that API</span>
 <span class='kw'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='kw'>attachment_details</span>, api_type=<span class='st'>"Bulk 1.0"</span>)
