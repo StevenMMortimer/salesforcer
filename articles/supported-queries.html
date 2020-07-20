@@ -71,6 +71,9 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
+      <a href="../articles/working-with-reports.html">Working with Reports</a>
+    </li>
+    <li>
       <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
@@ -223,7 +226,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># create a new account </span>
 <span class="co"># (if replicating, you may or may not have an external id field in your Org)</span>
-<span class="kw">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"AcctPerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99</span>)))
+<span class="kw">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"APerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99999</span>)))
 <span class="kw">new_account</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(
     Name = <span class="st">"Test Account For Performance Test"</span>, 
@@ -238,11 +241,11 @@
 <span class="co"># create and associate a thousand new contacts with that account</span>
 <span class="co"># (again, you may or may not have an external id field in your Org)</span>
 <span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
-<span class="kw">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"PerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">9999</span>)), <span class="st">"-"</span>)
+<span class="kw">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"CPerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99999</span>)), <span class="st">"-"</span>)
 <span class="kw">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
                        LastName = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Query-Vignette"</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>), 
                        test_number__c = <span class="fl">999.9</span>,
-                       AccountId = <span class="kw">new_account</span><span class="op">$</span><span class="kw">id</span>,
+                       AccountId = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw">new_account</span><span class="op">$</span><span class="kw">id</span>, <span class="kw">n</span>),
                        My_External_Id__c=<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">prefix</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>))
 <span class="kw">new_contacts_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>, <span class="st">"Contact"</span>, api_type = <span class="st">"Bulk 2.0"</span>)
 </pre></div>
@@ -267,13 +270,15 @@
   times = <span class="fl">5</span>
 )
 <span class="kw">res</span>
-<span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;         expr       min        lq     mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST")  3.507843  3.510102  3.53190  3.515351  3.537137  3.589064     5</span>
-<span class="co">#&gt;  qry("SOAP") 18.568612 18.624099 18.65701 18.671926 18.692878 18.727553     5</span>
+<span class="co">#&gt; Unit: milliseconds</span>
+<span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
+<span class="co">#&gt;  qry("REST")  391.5559  397.6893  402.4062  405.8118  406.4645  410.5094     5</span>
+<span class="co">#&gt;  qry("SOAP") 1775.6347 1782.1746 1799.8701 1805.1355 1812.7204 1823.6852     5</span>
 
-<span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
-  <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(name=<span class="st">"Time [seconds]"</span>, n.breaks=<span class="fl">6</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(
+  <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
+    <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(name=<span class="st">"Time [seconds]"</span>, n.breaks=<span class="fl">6</span>)
+)
 </pre></div>
 <p><img src="supported-queries_files/figure-html/run-performance-test-1.png" width="700"></p>
 <p>As seen in the limited test above, the REST API can be anywhere from <strong>4-6x</strong> faster than the SOAP API for a query on 1,000 contact records associated with a single Account. Breaking up the number of records returned into smaller batches by setting <code>QueryOptions = list(batchSize = 200)</code> typically does not affect this result very much but it also depends on the number of fields in the query. For the REST API the default is 2,000 records per batch with a minimum of 200 and maximum of 2,000. For the SOAP API the default is 500 records per batch. For both APIs it is important to note that there is no guarantee that the requested batch size is the actual batch size. Changes are made as necessary to maximize performance. For example, the SOAP API states “batch size will be no more than 200 if the SOQL statement selects two or more custom fields of type long text”. The REST API mentions that the limit imposed by Salesforce’s app servers is around 20,000 characters which can cause batches to be smaller. In short, it’s generally okay to use the default batch sizes since Salesforce may optimize over your specified batch size anyways.</p>
@@ -295,7 +300,7 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.6 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.8 seconds...</span>
 <span class="co">#&gt; Request failed [400]. Retrying in 1.2 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
@@ -312,7 +317,7 @@
   )
 )
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.9 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.2 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
@@ -333,7 +338,7 @@
                      `Contact.FirstName` = <span class="kw">FirstName</span>), 
             by = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Id"</span> = <span class="st">"Account.Id"</span>))
 <span class="kw">nested_query_recs</span>
-<span class="co">#&gt; # A tibble: 1,316 x 4</span>
+<span class="co">#&gt; # A tibble: 514 x 4</span>
 <span class="co">#&gt;   Id              Name                         Contact.Id       Contact.FirstNa…</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt;            &lt;chr&gt;           </span>
 <span class="co">#&gt; 1 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzw… KEEP            </span>
@@ -341,22 +346,22 @@
 <span class="co">#&gt; 3 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzy… KEEP            </span>
 <span class="co">#&gt; 4 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzz… KEEP            </span>
 <span class="co">#&gt; 5 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nl00… KEEP            </span>
-<span class="co">#&gt; # … with 1,311 more rows</span>
+<span class="co">#&gt; # … with 509 more rows</span>
 
 <span class="kw">aggregate_query_recs</span> <span class="op">&lt;-</span> <span class="kw">nested_query_recs</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Id</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(.groups = <span class="st">'drop'</span>, 
             contacts_n = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">Contact.Id</span>)))
 <span class="kw">aggregate_query_recs</span>
-<span class="co">#&gt; # A tibble: 12 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;   Id                 contacts_n</span>
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
-<span class="co">#&gt; 3 0013s000010x4xhAAA       1000</span>
-<span class="co">#&gt; 4 0016A0000035mJ4QAI          2</span>
-<span class="co">#&gt; 5 0016A0000035mJ5QAI          1</span>
-<span class="co">#&gt; # … with 7 more rows</span>
+<span class="co">#&gt; 3 0013s000010x6GcAAI         99</span>
+<span class="co">#&gt; 4 0013s000010x7x3AAA         99</span>
+<span class="co">#&gt; 5 0016A0000035mJ4QAI          2</span>
+<span class="co">#&gt; # … with 8 more rows</span>
 </pre></div>
 <p>The second reason to not use the Bulk APIs is that there is a performance overhead associated with every bulk (asynchronous) job that involves checking the status of the job until it succeeds or fails before retrieving the results.</p>
 <p>The example below is provided so that you can take this code as an example to run your own performance test of queries that return 10K, 100K, 1M+ records to see where the Bulk APIs outperform the REST API.</p>
@@ -398,22 +403,22 @@
           <span class="kw">new_account</span><span class="op">$</span><span class="kw">id</span>)
 )
 <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw">contacts_to_delete</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type=<span class="st">"Bulk 2.0"</span>)
-<span class="co">#&gt; # A tibble: 1,000 x 4</span>
+<span class="co">#&gt; # A tibble: 99 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013XzxpAAC 0033s000013XzxpAAC FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013XzxqAAC 0033s000013XzxqAAC FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000013XzxrAAC 0033s000013XzxrAAC FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000013XzxsAAC 0033s000013XzxsAAC FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000013XzxtAAC 0033s000013XzxtAAC FALSE       NA       </span>
-<span class="co">#&gt; # … with 995 more rows</span>
+<span class="co">#&gt; 1 0033s000013Y6lXAAS 0033s000013Y6lXAAS FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013Y6lYAAS 0033s000013Y6lYAAS FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000013Y6lZAAS 0033s000013Y6lZAAS FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000013Y6laAAC 0033s000013Y6laAAC FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000013Y6lbAAC 0033s000013Y6lbAAC FALSE       NA       </span>
+<span class="co">#&gt; # … with 94 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
 <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw">new_account</span><span class="op">$</span><span class="kw">id</span>)
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000010x4xhAAA TRUE</span>
+<span class="co">#&gt; 1 0013s000010x7x3AAA TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -433,15 +438,15 @@
   FROM Contact
   WHERE Account.Id != null"
 )
-<span class="co">#&gt; # A tibble: 315 x 3</span>
-<span class="co">#&gt;   Id                 FirstName Account.Name                   </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                          </span>
-<span class="co">#&gt; 1 0036A000002C6MWQA0 Rose      Edge Communications            </span>
-<span class="co">#&gt; 2 0036A000002C6MXQA0 Sean      Edge Communications            </span>
-<span class="co">#&gt; 3 0036A000002C6MfQAK Babara    Express Logistics and Transport</span>
-<span class="co">#&gt; 4 0036A000002C6MgQAK Josh      Express Logistics and Transport</span>
-<span class="co">#&gt; 5 0036A000002C6MhQAK Jane      University of Arizona          </span>
-<span class="co">#&gt; # … with 310 more rows</span>
+<span class="co">#&gt; # A tibble: 414 x 3</span>
+<span class="co">#&gt;   Id                 FirstName Account.Name                        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                               </span>
+<span class="co">#&gt; 1 0033s000012Nl0rAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 2 0033s000012Nl0sAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 3 0033s000012Nl0tAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 4 0033s000012Nl0uAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 5 0033s000012Nl0vAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; # … with 409 more rows</span>
 </pre></div>
 <p>Sometimes you may notice that the requested relationship fields do not appear in the query results. This is because the SOAP and REST APIs do not return any related object information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. In the example below, if there were Account information an additional column titled <code>"Account.Name"</code> would appear in the results.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
@@ -453,7 +458,7 @@
   FROM Contact
   WHERE Account.Id = null"
 )
-<span class="co">#&gt; # A tibble: 281 x 2</span>
+<span class="co">#&gt; # A tibble: 366 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000012Nd6FAAS Jenny    </span>
@@ -461,7 +466,7 @@
 <span class="co">#&gt; 3 0036A00000kHvVYQA0 John     </span>
 <span class="co">#&gt; 4 0033s000012NdFhAAK Jenny    </span>
 <span class="co">#&gt; 5 0033s000012Nd6UAAS Jenny    </span>
-<span class="co">#&gt; # … with 276 more rows</span>
+<span class="co">#&gt; # … with 361 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
@@ -488,7 +493,7 @@
     (SELECT Id, FirstName FROM Contacts)
   FROM Account"
 )
-<span class="co">#&gt; # A tibble: 316 x 4</span>
+<span class="co">#&gt; # A tibble: 415 x 4</span>
 <span class="co">#&gt;   Id              Name                         Contact.FirstName Contact.Id     </span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt;             &lt;chr&gt;          </span>
 <span class="co">#&gt; 1 0013s00000zFgA… KEEP Test Account With Chil… &lt;NA&gt;              &lt;NA&gt;           </span>
@@ -496,7 +501,7 @@
 <span class="co">#&gt; 3 0013s00000zFdu… KEEP Test Account With Chil… KEEP              0033s000012Nkz…</span>
 <span class="co">#&gt; 4 0013s00000zFdu… KEEP Test Account With Chil… KEEP              0033s000012Nkz…</span>
 <span class="co">#&gt; 5 0013s00000zFdu… KEEP Test Account With Chil… KEEP              0033s000012Nkz…</span>
-<span class="co">#&gt; # … with 311 more rows</span>
+<span class="co">#&gt; # … with 410 more rows</span>
 </pre></div>
 <p>At first glance this query may appear the same as a lookup query on the Contact object that includes the account id and name. However, the small difference is that every Account is included, regardless of whether or not they have a Contact. This can be helpful when you want to ensure a query contains all of the parent records and their child records, if they exist. Also, note that the plural object name is used inside the nested query (“Contacts” instead of “Contact”).</p>
 <p>Finally, a parent-to-child nested query can also contain a child-to-parent lookup relationship within it. Below is an example where the Owner Id on the Contact is included so you can know who is responsible for the Contacts under each Account.</p>
@@ -508,7 +513,7 @@
     (SELECT Id, FirstName, Owner.Id FROM Contacts)
    FROM Account"
 )
-<span class="co">#&gt; # A tibble: 316 x 5</span>
+<span class="co">#&gt; # A tibble: 415 x 5</span>
 <span class="co">#&gt;   Name              Contact.FirstName Contact.Id    Contact.Owner.Id Owner.Id   </span>
 <span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;      </span>
 <span class="co">#&gt; 1 KEEP Test Accoun… &lt;NA&gt;              &lt;NA&gt;          &lt;NA&gt;             0056A00000…</span>
@@ -516,7 +521,7 @@
 <span class="co">#&gt; 3 KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
 <span class="co">#&gt; 4 KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
 <span class="co">#&gt; 5 KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
-<span class="co">#&gt; # … with 311 more rows</span>
+<span class="co">#&gt; # … with 410 more rows</span>
 </pre></div>
 </div>
 </div>

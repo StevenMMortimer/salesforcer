@@ -71,6 +71,9 @@
       <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
+      <a href="../articles/working-with-reports.html">Working with Reports</a>
+    </li>
+    <li>
       <a href="../articles/working-with-attachments.html">Working with Attachments</a>
     </li>
     <li>
@@ -181,7 +184,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013XzwtAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013Y6kjAAC TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="kw">record3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contact</span>,
@@ -225,7 +228,7 @@
 <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          object_name = <span class="st">"Account"</span>,
          control = <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(QueryOptions = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(batchSize = <span class="fl">200</span>)))
-<span class="co">#&gt; # A tibble: 11 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;   Id                 Name                                </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                               </span>
 <span class="co">#&gt; 1 0013s00000zFgA6AAK KEEP Test Account With Child Records</span>
@@ -233,13 +236,13 @@
 <span class="co">#&gt; 3 0016A0000035mJEQAY GenePoint                           </span>
 <span class="co">#&gt; 4 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span>
 <span class="co">#&gt; 5 0016A0000035mJDQAY United Oil &amp; Gas, Singapore         </span>
-<span class="co">#&gt; # … with 6 more rows</span>
+<span class="co">#&gt; # … with 8 more rows</span>
 </pre></div>
 </div>
 <div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#backwards-compatibility-for-all_or_none-and-other-named-arguments" class="anchor"></a>Backwards compatibility for all_or_none and other named arguments</h2>
-<p>You may already be taking advantage of the <code>all_or_none</code> or <code>line_ending</code> arguments which are control arguments that were explicity included in functions. These argument essentially hard coded values to pass the <code>AllOrNoneHeader</code> and <code>LineEndingHeader</code> control parameters. Starting with the 0.1.3 release it is no longer necessary and preferable not to have an argument like <code>all_or_none</code> listed explicity as an argument since it can be provided in the <code>control</code> argument. Note: the <code>all_or_none</code> argument and other explicit control arguments will still be available in <strong>salesforcer 0.1.3</strong> but will provide a deprecated warning. They will be removed in the next CRAN release of the package so it will be important to update your code now if you are explicitly passing these arguments and see a deprecation warning.</p>
+<p>You may already be taking advantage of the <code>all_or_none</code> or <code>line_ending</code> arguments which are control arguments that were explicity included in functions. These argument essentially hard coded values to pass the <code>AllOrNoneHeader</code> and <code>LineEndingHeader</code> control parameters. Starting with the 0.1.3 release it is no longer necessary and preferable not to have an argument like <code>all_or_none</code> listed explicity as an argument since it can be provided in the <code>control</code> argument. Note: the <code>all_or_none</code> argument and other explicit control arguments will still be available in {salesforcer} 0.1.3 but will provide a deprecated warning. They will be removed in the next CRAN release of the package so it will be important to update your code now if you are explicitly passing these arguments and see a deprecation warning.</p>
 </div>
 <div id="reference-links" class="section level2">
 <h2 class="hasAnchor">
