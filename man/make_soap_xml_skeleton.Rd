@@ -19,7 +19,7 @@ Create XML in preparate for sending to the SOAP API
 This function is meant to be used internally. Only use when debugging.
 Any of the following SOAP headers are allowed:
 \itemize{
-\item AllorNoneHeader
+\item AllOrNoneHeader
 \item AllowFieldTruncationHeader
 \item AssignmentRuleHeader
 \item CallOptions
