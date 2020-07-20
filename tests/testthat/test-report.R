@@ -350,6 +350,8 @@ test_that("testing sf_run_report()", {
   # limited to the first result
   results <- sf_run_report(common_report_id, 
                            async = FALSE,
+                           sort_by = 'Contact.test_number__c',
+                           decreasing = TRUE,
                            top_n = 1)
   expect_is(results, "tbl_df")
   expect_equal(nrow(results), 1)
@@ -360,9 +362,9 @@ test_that("testing sf_run_report()", {
   expect_error(
     sf_run_report(common_report_id, 
                   async = FALSE, 
-                  sort_by = c("Contact.test_number__c", "ACCOUNT.ADDRESS1_CITY")),
-    ", Salesforce will only allow a report to be sorted by, at most, one column."
-  )  
+                  top_n = 1),
+    "A report must be sorted by one column when requesting a Top N number of rows."
+  )
     
   # trying to sort by more than 1 field
   expect_error(
