@@ -348,14 +348,14 @@ return_matching_controls <- function(args){
 
 
 # REST Translations
-#  AllorNoneHeader =  (allOrNone, currently in our batched data process)
+#  AllOrNoneHeader =  (allOrNone, currently in our batched data process)
 #  AssignmentRuleHeader = Sforce-Auto-Assign
 #  DuplicateRuleHeader = NONE!
 #  QueryOptions = Sforce-Query-Options
 
 # Bulk 1.0 Translations
 #  AssignmentRuleHeader = assignmentRuleId (in the job info) (only if id?)
-#  AllorNoneHeader? = Unknown if SOAP works for Bulk 1.0 as well
+#  AllOrNoneHeader? = Unknown if SOAP works for Bulk 1.0 as well
 #  DuplicateRuleHeader? = Unknown if SOAP works for Bulk 1.0 as well
 
 # Bulk 2.0 Translations (does not use any headers)

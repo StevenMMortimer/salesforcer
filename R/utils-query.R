@@ -649,7 +649,7 @@ sf_reorder_cols <- function(df){
 #' @export
 sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
   if(guess_types){
-    if(is.null(dataType) || is.na(dataType) || (length(dataType)== 0)){
+    if(is.null(dataType) || any(is.na(dataType)) || (length(dataType)== 0)){
       df <- df %>% 
         type_convert(col_types = cols(.default = col_guess()))      
     } else {

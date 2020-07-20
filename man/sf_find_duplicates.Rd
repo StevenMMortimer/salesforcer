@@ -45,7 +45,7 @@ along with additional diagnostic information where available.}
 Performs rule-based searches for duplicate records.
 }
 \note{
-You must have actived duplicate rules for the supplied object before running
+You must have active duplicate rules for the supplied object before running
 this function. The \code{object_name} argument refers to using that object's duplicate
 rules on the search criteria to determine which records in other objects are duplicates.
 }

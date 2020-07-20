@@ -41,7 +41,7 @@ along with additional diagnostic information where available.}
 Performs rule-based searches for duplicate records.
 }
 \note{
-You must have actived duplicate rules for the supplied object before running
+You must have active duplicate rules for the supplied object before running
 this function. This function uses the duplicate rules for the object that has
 the same type as the input record IDs. For example, if the record Id represents
 an Account, this function uses the duplicate rules associated with the
