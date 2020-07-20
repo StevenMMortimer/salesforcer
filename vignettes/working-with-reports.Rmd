@@ -77,11 +77,11 @@ your Org. Note the report Id in the URL bar.
 
 ![](./working-with-reports/report-screenshot.png)
 
-The report Id above (`"00O3s000006tDLC"`) is the only information needed to pull 
+The report Id above (`"00O3s000006tE7zEAE"`) is the only information needed to pull 
 those same results from an R session, like so: 
 
 ```{r simple-report}
-my_report_id <- "00O3s000006tDLC"
+my_report_id <- "00O3s000006tE7zEAE"
 results <- sf_run_report(my_report_id)
 results
 ```
@@ -197,25 +197,27 @@ all_reports <- sf_query("SELECT Id, Name FROM Report")
 # second, get the id of the report to update
 this_report_id <- all_reports$Id[1]
 
+new_report <- sf_copy_report(this_report_id)
+
 # third, update the report (2 ways shown)
-my_updated_report <- sf_update_report(this_report_id,
+my_updated_report <- sf_update_report(new_report$reportMetadata$id,
                                       report_metadata =
                                         list(reportMetadata =
                                           list(name = "Updated Name!")))
 my_updated_report$reportMetadata$name
 
 # alternatively, pull down its metadata and update the name
-report_details <- sf_describe_report(this_report_id)
+report_details <- sf_describe_report(new_report$reportMetadata$id)
 report_details$reportMetadata$name <- paste0(report_details$reportMetadata$name,
                                              " - UPDATED AGAIN!")
 
 # update the report by passing the metadata
-my_updated_report <- sf_update_report(this_report_id,
+my_updated_report <- sf_update_report(new_report$reportMetadata$id,
                                       report_metadata = report_details)
 my_updated_report$reportMetadata$name
 
 # fourth, delete that report using its Id
-success <- sf_delete_report(this_report_id)
+success <- sf_delete_report(new_report$reportMetadata$id)
 success
 ```
 

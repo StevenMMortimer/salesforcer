@@ -985,20 +985,25 @@ sf_run_report <- function(report_id,
       request_body$reportMetadata$sortBy <- sort_list_spec
     }
   } else {
-    request_body$reportMetadata$sortBy <- NA
+    # if there is no sortBy, then set it to NA, if there is, then leave it alone 
+    # beause it is required when Top N is specified and the user might just want 
+    # to use the existing sort order in the report
+    if(is.null(input_data$reportMetadata$sortBy) || 
+        is.na(input_data$reportMetadata$sortBy) || 
+        length(input_data$reportMetadata$sortBy) == 0){
+      request_body$reportMetadata$sortBy <- NA
+    }
   }
   if(!is.null(top_n)){
     if(is.na(request_body$reportMetadata$sortBy)){
-      # in the event that the data is not sorted, still allow the user to request a Top N 
-      # number of rows so they are not forced to sort if they're just trying to 
-      # get a peak at the top rows.
-      request_body$reportMetadata$topRows <- list(rowLimit = top_n, direction = "Asc")
-      # stop(paste0("A report must be sorted by one column when requesting a ", 
-      #             "Top N number of rows."), call. = FALSE)
+      stop(paste0("A report must be sorted by one column when requesting a ", 
+                  "Top N number of rows."), call. = FALSE)
     } else if(length(request_body$reportMetadata$sortBy) > 1){
       stop(paste0("A report can only be sorted by one column when requesting a ", 
                   "Top N number of rows."), call. = FALSE)
     } else{
+      # the direction is always 'Asc' because Salesforce doesn't accept 'Desc'. It 
+      # relies on the 'sortOrder' element within the 'sortBy' element
       request_body$reportMetadata$topRows <- list(rowLimit = top_n, direction = "Asc")
     }
   }

@@ -12,7 +12,7 @@ key_report_metadata_fields <- c("aggregates",
                                 "showSubtotals",
                                 "sortBy")
 
-common_report_id <- "00O3s000006tDLCEA2"
+common_report_id <- "00O3s000006tE7zEAE"
 
 report_col_names <- c("Contact ID", "First Name", "test number", "Contact Owner", 
                       "Account ID", "Account Name", "Billing City", "Account Owner")
@@ -355,7 +355,15 @@ test_that("testing sf_run_report()", {
   expect_equal(nrow(results), 1)
   expect_named(results, report_col_names)
   expect_is(results$`test number`, "numeric")
-  
+
+  # trying to take top N without having a sortby argument
+  expect_error(
+    sf_run_report(common_report_id, 
+                  async = FALSE, 
+                  sort_by = c("Contact.test_number__c", "ACCOUNT.ADDRESS1_CITY")),
+    ", Salesforce will only allow a report to be sorted by, at most, one column."
+  )  
+    
   # trying to sort by more than 1 field
   expect_error(
     sf_run_report(common_report_id, 

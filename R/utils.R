@@ -297,7 +297,7 @@ sf_input_data_validation <- function(input_data, operation=''){
     
     # TODO: Watch and see if this creates errors (currently ignoring anything in 
     # the list that is of the class AsIs regardless of its length) 
-    # # drop NULLs if they exist, which can occur if using straight from sf_describe_report
+    # drop NULLs if they exist, which can occur if using straight from sf_describe_report
     input_data <- drop_empty_recursively(input_data)  
     
     # validate the report filters which are commonly passed
@@ -323,6 +323,15 @@ sf_input_data_validation <- function(input_data, operation=''){
           input_data$reportMetadata$standardDateFilter <- NULL  
         }
       }
+    }
+    
+    if(("topRows" %in% names(input_data$reportMetadata)) && 
+       (is.null(input_data$reportMetadata$sortBy) || 
+        is.na(input_data$reportMetadata$sortBy) || 
+        length(input_data$reportMetadata$sortBy) == 0)){
+      warning(paste0("In order for the row limit to be applied to the results ", 
+                     "the report metadata must contain a 'sortBy' element to ", 
+                     "determine which top rows are returned."), call. = FALSE)
     }
   }
   
