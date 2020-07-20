@@ -172,19 +172,19 @@
 <a href="#running-a-report-in-your-org" class="anchor"></a>Running a Report in your Org</h2>
 <p>In Salesforce there is a dedicated page to displaying the list of reports in your Org. It typically follows the pattern: <code>https://na1.salesforce.com/00O/o</code> (replace <code>na1</code> with your server instance). When you click on a report in the GUI you should see the results. Below is a screenshot of how a report may look in your Org. Note the report Id in the URL bar.</p>
 <p><img src="working-with-reports/report-screenshot.png"></p>
-<p>The report Id above (<code>"00O3s000006tDLC"</code>) is the only information needed to pull those same results from an R session, like so:</p>
+<p>The report Id above (<code>"00O3s000006tE7zEAE"</code>) is the only information needed to pull those same results from an R session, like so:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">my_report_id</span> <span class="op">&lt;-</span> <span class="st">"00O3s000006tDLC"</span>
+<span class="kw">my_report_id</span> <span class="op">&lt;-</span> <span class="st">"00O3s000006tE7zEAE"</span>
 <span class="kw">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_run_report.html">sf_run_report</a></span>(<span class="kw">my_report_id</span>)
 <span class="kw">results</span>
 <span class="co">#&gt; # A tibble: 14 x 8</span>
 <span class="co">#&gt;   `Contact ID` `First Name` `test number` `Contact Owner` `Account ID`</span>
 <span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;       </span>
-<span class="co">#&gt; 1 0036A000002… Rose                    NA Steven Mortimer 0016A000003…</span>
-<span class="co">#&gt; 2 0036A000002… Sean                    NA Steven Mortimer 0016A000003…</span>
-<span class="co">#&gt; 3 0036A000002… Jack                    99 Steven Mortimer 0016A000003…</span>
-<span class="co">#&gt; 4 0036A000002… Tim                     NA Steven Mortimer 0016A000003…</span>
-<span class="co">#&gt; 5 0036A000002… John                    23 Steven Mortimer 0016A000003…</span>
+<span class="co">#&gt; 1 0036A000002… Edna                    NA Steven Mortimer 0016A000003…</span>
+<span class="co">#&gt; 2 0036A000002… Liz                     NA Steven Mortimer 0016A000003…</span>
+<span class="co">#&gt; 3 0036A000002… Tom                     NA Steven Mortimer 0016A000003…</span>
+<span class="co">#&gt; 4 0036A000002… Sean                    NA Steven Mortimer 0016A000003…</span>
+<span class="co">#&gt; 5 0036A000002… Rose                    NA Steven Mortimer 0016A000003…</span>
 <span class="co">#&gt; # … with 9 more rows, and 3 more variables: `Account Name` &lt;chr&gt;, `Billing</span>
 <span class="co">#&gt; #   City` &lt;chr&gt;, `Account Owner` &lt;chr&gt;</span>
 </pre></div>
@@ -259,10 +259,10 @@
 <span class="co">#&gt; [1] TRUE</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[1]]$operator</span>
-<span class="co">#&gt; [1] "lessOrEqual"</span>
+<span class="co">#&gt; [1] "lessThan"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[1]]$value</span>
-<span class="co">#&gt; [1] "2019-06-18T04:00:00Z"</span>
+<span class="co">#&gt; [1] "2019-07-19T04:00:00Z"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
@@ -300,66 +300,10 @@
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="co"># report fields</span>
 <span class="kw">report_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_report_fields.html">sf_list_report_fields</a></span>(<span class="kw">my_report_id</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">report_fields</span><span class="op">$</span><span class="kw">equivalentFieldIndices</span>)
-<span class="co">#&gt;   [1] "CONTACT_CREATED_ALIAS"         "Contact.My_External_Id__c"    </span>
-<span class="co">#&gt;   [3] "IS_EMAIL_BOUNCED"              "REPORTS_TO"                   </span>
-<span class="co">#&gt;   [5] "ADDRESS2_ZIP"                  "LAST_ACTIVITY"                </span>
-<span class="co">#&gt;   [7] "Account.NumberofLocations__c"  "ACCOUNT.ADDRESS2_STATE"       </span>
-<span class="co">#&gt;   [9] "Contact.testcustomcheckbox__c" "TYPE"                         </span>
-<span class="co">#&gt;  [11] "Contact.test_number__c"        "ACCOUNT.CREATED_DATE"         </span>
-<span class="co">#&gt;  [13] "ACCOUNT.ADDRESS1_CITY"         "Account.Record_Number__c"     </span>
-<span class="co">#&gt;  [15] "DEPARTMENT"                    "LEAD_SOURCE"                  </span>
-<span class="co">#&gt;  [17] "LAST_UPDATE"                   "CLEAN_STATUS"                 </span>
-<span class="co">#&gt;  [19] "EMPLOYEES"                     "RATING"                       </span>
-<span class="co">#&gt;  [21] "PHONE6"                        "PHONE5"                       </span>
-<span class="co">#&gt;  [23] "PHONE4"                        "PHONE3"                       </span>
-<span class="co">#&gt;  [25] "PHONE2"                        "PHONE1"                       </span>
-<span class="co">#&gt;  [27] "OWNER_ROLE"                    "ACCOUNT.ADDRESS2_LINE1"       </span>
-<span class="co">#&gt;  [29] "ACCOUNT.ADDRESS2_LINE2"        "ADDRESS1_CITY"                </span>
-<span class="co">#&gt;  [31] "ACCOUNT.ADDRESS2_LINE3"        "ACCOUNT.ADDRESS1_STATE"       </span>
-<span class="co">#&gt;  [33] "LAST_NAME"                     "EMAIL_BOUNCED_DATE"           </span>
-<span class="co">#&gt;  [35] "ADDRESS1_STREET"               "URL"                          </span>
-<span class="co">#&gt;  [37] "ADDRESS2_STREET"               "ADDRESS2_CITY"                </span>
-<span class="co">#&gt;  [39] "DESCRIPTION"                   "EMAIL_BOUNCED_REASON"         </span>
-<span class="co">#&gt;  [41] "JIGSAW_KEY"                    "Account.SLA__c"               </span>
-<span class="co">#&gt;  [43] "SALES"                         "CONTACT_LAST_UPDATE_BY"       </span>
-<span class="co">#&gt;  [45] "Account.My_External_Id__c"     "ACCOUNT.LAST_ACTIVITY"        </span>
-<span class="co">#&gt;  [47] "SITE"                          "YEAR_STARTED"                 </span>
-<span class="co">#&gt;  [49] "CLEAN_STATUS_A"                "ACCOUNT.PHONE2"               </span>
-<span class="co">#&gt;  [51] "ACCOUNT.PHONE1"                "TICKER"                       </span>
-<span class="co">#&gt;  [53] "ACCOUNT.ADDRESS2_ZIP"          "OWNERSHIP"                    </span>
-<span class="co">#&gt;  [55] "NAICS_DESC"                    "ADDRESS1_ZIP"                 </span>
-<span class="co">#&gt;  [57] "ADDRESS1_COUNTRY"              "JIGSAW_KEY_A"                 </span>
-<span class="co">#&gt;  [59] "CREATED_DATE"                  "ACCOUNT_ID"                   </span>
-<span class="co">#&gt;  [61] "ALIAS"                         "ADDRESS2_STATE"               </span>
-<span class="co">#&gt;  [63] "ASSISTANT_NAME"                "EMAIL"                        </span>
-<span class="co">#&gt;  [65] "NAICS_CODE"                    "Account.SLASerialNumber__c"   </span>
-<span class="co">#&gt;  [67] "Account.UpsellOpportunity__c"  "SALUTATION"                   </span>
-<span class="co">#&gt;  [69] "Account.CustomerPriority__c"   "ACCOUNT_NUMBER"               </span>
-<span class="co">#&gt;  [71] "CONTACT_ALIAS"                 "PARENT.NAME"                  </span>
-<span class="co">#&gt;  [73] "SIC"                           "ACCOUNT.ADDRESS1_LINE3"       </span>
-<span class="co">#&gt;  [75] "ACCOUNT.ADDRESS1_LINE1"        "ACCOUNT.ADDRESS2_COUNTRY"     </span>
-<span class="co">#&gt;  [77] "Account.SLAExpirationDate__c"  "PARENT_ID"                    </span>
-<span class="co">#&gt;  [79] "ACCOUNT.ADDRESS1_LINE2"        "ACCOUNT.DESCRIPTION"          </span>
-<span class="co">#&gt;  [81] "DBA_NAME"                      "CONTACT_LAST_UPDATE_BY_ALIAS" </span>
-<span class="co">#&gt;  [83] "SIC_DESC"                      "ACCOUNT.ADDRESS1_STREET"      </span>
-<span class="co">#&gt;  [85] "OWNER_ROLE_DISPLAY"            "OWNER_FULL_NAME"              </span>
-<span class="co">#&gt;  [87] "Account.Active__c"             "CONTACT_OWNER"                </span>
-<span class="co">#&gt;  [89] "LAST_SIT_REQUEST"              "BIRTHDATE"                    </span>
-<span class="co">#&gt;  [91] "DUNS_NUMBER"                   "FIRST_NAME"                   </span>
-<span class="co">#&gt;  [93] "Account.MessageIntent3__c"     "ADDRESS2_COUNTRY"             </span>
-<span class="co">#&gt;  [95] "ACCOUNT.LAST_UPDATE"           "ADDRESS1_LINE1"               </span>
-<span class="co">#&gt;  [97] "DNB_COMPANY"                   "Contact.Level__c"             </span>
-<span class="co">#&gt;  [99] "ACCOUNT_SOURCE"                "ADDRESS1_LINE3"               </span>
-<span class="co">#&gt; [101] "ADDRESS1_LINE2"                "ACCOUNT_OWNER_ROLE_DISPLAY"   </span>
-<span class="co">#&gt; [103] "ACCOUNT.ADDRESS1_COUNTRY"      "Contact.Languages__c"         </span>
-<span class="co">#&gt; [105] "ACCOUNT.ADDRESS1_ZIP"          "LAST_SIT_UPDATE"              </span>
-<span class="co">#&gt; [107] "INDUSTRY"                      "ACCOUNT_OWNER_ROLE"           </span>
-<span class="co">#&gt; [109] "ADDRESS2_LINE2"                "ADDRESS2_LINE1"               </span>
-<span class="co">#&gt; [111] "ADDRESS2_LINE3"                "CONTACT_CREATED"              </span>
-<span class="co">#&gt; [113] "ACCOUNT.ADDRESS2_CITY"         "ACCOUNT.NAME"                 </span>
-<span class="co">#&gt; [115] "ACCOUNT.ADDRESS2_STREET"       "TITLE"                        </span>
-<span class="co">#&gt; [117] "CONTACT_ID"                    "ADDRESS1_STATE"</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">report_fields</span><span class="op">$</span><span class="kw">equivalentFieldIndices</span>))
+<span class="co">#&gt; [1] "CONTACT_CREATED_ALIAS"     "Contact.My_External_Id__c"</span>
+<span class="co">#&gt; [3] "IS_EMAIL_BOUNCED"          "REPORTS_TO"               </span>
+<span class="co">#&gt; [5] "ADDRESS2_ZIP"              "LAST_ACTIVITY"</span>
 
 <span class="kw">report_filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_report_filter_operators.html">sf_list_report_filter_operators</a></span>()
 <span class="kw">unique_supported_fields</span> <span class="op">&lt;-</span> <span class="kw">report_filters</span> <span class="op">%&gt;%</span> 
@@ -391,8 +335,11 @@
 <span class="co"># second, get the id of the report to update</span>
 <span class="kw">this_report_id</span> <span class="op">&lt;-</span> <span class="kw">all_reports</span><span class="op">$</span><span class="kw">Id</span>[<span class="fl">1</span>]
 
+<span class="kw">new_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_copy_report.html">sf_copy_report</a></span>(<span class="kw">this_report_id</span>)
+<span class="co">#&gt; Naming the new report: 'KEEP - Accounts and Contacts - Copy'</span>
+
 <span class="co"># third, update the report (2 ways shown)</span>
-<span class="kw">my_updated_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_update_report.html">sf_update_report</a></span>(<span class="kw">this_report_id</span>,
+<span class="kw">my_updated_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_update_report.html">sf_update_report</a></span>(<span class="kw">new_report</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">id</span>,
                                       report_metadata =
                                         <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(reportMetadata =
                                           <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(name = <span class="st">"Updated Name!"</span>)))
@@ -400,18 +347,18 @@
 <span class="co">#&gt; [1] "Updated Name!"</span>
 
 <span class="co"># alternatively, pull down its metadata and update the name</span>
-<span class="kw">report_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_report.html">sf_describe_report</a></span>(<span class="kw">this_report_id</span>)
+<span class="kw">report_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_report.html">sf_describe_report</a></span>(<span class="kw">new_report</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">id</span>)
 <span class="kw">report_details</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">report_details</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">name</span>,
                                              <span class="st">" - UPDATED AGAIN!"</span>)
 
 <span class="co"># update the report by passing the metadata</span>
-<span class="kw">my_updated_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_update_report.html">sf_update_report</a></span>(<span class="kw">this_report_id</span>,
+<span class="kw">my_updated_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_update_report.html">sf_update_report</a></span>(<span class="kw">new_report</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">id</span>,
                                       report_metadata = <span class="kw">report_details</span>)
 <span class="kw">my_updated_report</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">name</span>
 <span class="co">#&gt; [1] "Updated Name! - UPDATED AGAIN!"</span>
 
 <span class="co"># fourth, delete that report using its Id</span>
-<span class="kw">success</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_delete_report.html">sf_delete_report</a></span>(<span class="kw">this_report_id</span>)
+<span class="kw">success</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_delete_report.html">sf_delete_report</a></span>(<span class="kw">new_report</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">id</span>)
 <span class="kw">success</span>
 <span class="co">#&gt; [1] TRUE</span>
 </pre></div>
