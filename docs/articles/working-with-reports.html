@@ -170,8 +170,8 @@
 <a href="#running-a-report-in-your-org" class="anchor"></a>Running a Report in your Org</h2>
 <p>In Salesforce there is a dedicated page to displaying the list of reports in your Org. It typically follows the pattern: <code>https://na1.salesforce.com/00O/o</code> (replace <code>na1</code> with your server instance). When you click on a report in the GUI you should see the results. Below is a screenshot of how a report may look in your Org. Note the report Id in the URL bar.</p>
 <p><img src="working-with-reports/report-screenshot.png"></p>
-<p>The report Id above (<code>"00O3s000006tDLC"</code>) is the only information needed to pull those same results from an R session, like so:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">my_report_id</span> <span class="kw">&lt;-</span> <span class="st">"00O3s000006tDLC"</span>
+<p>The report Id above (<code>"00O3s000006tE7zEAE"</code>) is the only information needed to pull those same results from an R session, like so:</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">my_report_id</span> <span class="kw">&lt;-</span> <span class="st">"00O3s000006tE7zEAE"</span>
 <span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_run_report.html">sf_run_report</a></span>(<span class="no">my_report_id</span>)
 <span class="no">results</span>
 <span class="co">#&gt; # A tibble: 14 x 8</span>
