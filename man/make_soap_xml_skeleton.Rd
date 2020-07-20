@@ -13,7 +13,7 @@ make_soap_xml_skeleton(soap_headers = list(), metadata_ns = FALSE)
 a XML document
 }
 \description{
-Create XML in preparate for sending to the SOAP API
+Create XML in preparation for sending to the SOAP API
 }
 \note{
 This function is meant to be used internally. Only use when debugging.

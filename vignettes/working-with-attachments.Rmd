@@ -233,7 +233,7 @@ sf_delete(result$id)
 
 Below is a list of links to existing Salesforce documentation that provide more 
 detail into how Attachments, Documents, and other blob data are handled via their 
-APIs. As with many functions in {salesforcer}, we have tried to tranlate these 
+APIs. As with many functions in {salesforcer}, we have tried to translate these 
 functions exactly as they are described in the Salesforce documentation so that 
 they are flexible enough to handle most all cases that the APIs were intended to 
 support.

@@ -13,16 +13,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo = FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
-)
-options(tibble.print_min = 5L, tibble.print_max = 5L)
-```
+
 
 ## Authentication
 
@@ -32,20 +23,10 @@ passwords do not have to be shared/embedded within scripts. User credentials wil
 be stored in locally cached file entitled ".httr-oauth-salesforcer" in the current working 
 directory.
 
-```{r auth, include = FALSE}
-suppressWarnings(suppressMessages(library(dplyr)))
-library(salesforcer)
 
-username <- Sys.getenv("SALESFORCER_USERNAME")
-password <- Sys.getenv("SALESFORCER_PASSWORD")
-security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
 
-sf_auth(username = username,
-        password = password,
-        security_token = security_token)
-```
 
-```{r load-package, eval=FALSE}
+```r
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 sf_auth()
@@ -60,7 +41,8 @@ package. By using the package client, you will *NOT* be giving access to Salesfo
 to anyone, the package is just the medium for you to connect to your own data. 
 If you wanted more control you would specify those options like so: 
 
-```{r other-params1, eval=FALSE}
+
+```r
 options(salesforcer.consumer_key = "012345678901-99thisisatest99connected33app22key")
 options(salesforcer.consumer_secret = "Th1s1sMyConsumerS3cr3t")
 
@@ -73,7 +55,8 @@ If you are required to connect to Salesforce via proxy you are able to specify
 all of those parameters as options, as well. For each call via **httr** these 
 proxy settings will be passed along with the Salesforce authentication.
 
-```{r other-params2, eval=FALSE}
+
+```r
 options(salesforcer.proxy_url = "64.251.21.73") # IP or a named domain
 options(salesforcer.proxy_port = 8080)
 options(salesforcer.proxy_username = "user")
@@ -86,13 +69,16 @@ sf_auth()
 After logging in with `sf_auth()`, you can check your connectivity by looking at 
 the information returned about the current user. It should be information about you!
 
-```{r}
+
+```r
 # pull down information of person logged in
 # it's a simple easy call to get started 
 # and confirm a connection to the APIs
 user_info <- sf_user_info()
 sprintf("Organization Id: %s", user_info$organizationId)
+#> [1] "Organization Id: 00D6A0000003dN3UAI"
 sprintf("User Id: %s", user_info$userId)
+#> [1] "User Id: 0056A000000MPRjQAO"
 ```
 
 ## Creating records
@@ -100,12 +86,18 @@ sprintf("User Id: %s", user_info$userId)
 Salesforce has objects and those objects contain records. One default object is the 
 "Contact" object. This example shows how to create two records in the Contact object.
 
-```{r}
+
+```r
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 created_records <- sf_create(new_contacts, "Contact")
 created_records
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <lgl>  
+#> 1 0033s000013Y2reAAC TRUE   
+#> 2 0033s000013Y2rfAAC TRUE
 ```
 
 ## Retrieving records
@@ -114,11 +106,17 @@ Retrieve pulls down a specific set of records and fields. It's very similar to
 running a query, but doesn't use SOQL. Here is an example where we retrieve the 
 data we just created.
 
-```{r}
+
+```r
 retrieved_records <- sf_retrieve(ids=created_records$id, 
                                  fields=c("FirstName", "LastName"), 
                                  object_name="Contact")
 retrieved_records
+#> # A tibble: 2 x 4
+#>   sObject Id                 FirstName LastName        
+#>   <chr>   <chr>              <chr>     <chr>           
+#> 1 Contact 0033s000013Y2reAAC Test      Contact-Create-1
+#> 2 Contact 0033s000013Y2rfAAC Test      Contact-Create-2
 ```
 
 ## Querying records
@@ -130,7 +128,8 @@ Opportunities, even Attachments! Below is an example where we grab the data we
 just created including Account object information for which the Contact record
 is associated with.
 
-```{r query-records}
+
+```r
 my_soql <- sprintf("SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -141,6 +140,11 @@ my_soql <- sprintf("SELECT Id,
 
 queried_records <- sf_query(my_soql)
 queried_records
+#> # A tibble: 2 x 3
+#>   Id                 FirstName LastName        
+#>   <chr>              <chr>     <chr>           
+#> 1 0033s000013Y2reAAC Test      Contact-Create-1
+#> 2 0033s000013Y2rfAAC Test      Contact-Create-2
 ```
 
 You'll notice that the `"Account.Name"` column does not appear in the results. This is 
@@ -161,13 +165,19 @@ update dataset called "Id" and the information will be matched. Here is an examp
 where we update each of the records we created earlier with a new first name 
 called "TestTest".
 
-```{r update-records}
+
+```r
 # Update some of those records
 queried_records <- queried_records %>%
   mutate(FirstName = "TestTest")
 
 updated_records <- sf_update(queried_records, object_name="Contact")
 updated_records
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <lgl>  
+#> 1 0033s000013Y2reAAC TRUE   
+#> 2 0033s000013Y2rfAAC TRUE
 ```
 
 ## Deleting records
@@ -176,9 +186,15 @@ You can also delete records in Salesforce. The method implements a "soft" delete
 meaning that the deleted records go to the Recycle Bin which can be emptied or 
 queried against later in the event that the record needed.
 
-```{r}
+
+```r
 deleted_records <- sf_delete(updated_records$id)
 deleted_records
+#> # A tibble: 2 x 2
+#>   id                 success
+#>   <chr>              <lgl>  
+#> 1 0033s000013Y2reAAC TRUE   
+#> 2 0033s000013Y2rfAAC TRUE
 ```
 
 ## Upserting records
@@ -191,7 +207,8 @@ then upsert 3, where 2 are matched and updated and one is created. **NOTE**: You
 will need to create a custom field on the target object and ensure it is labeled as 
 an "External Id" field. Read more at: <a target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.
 
-```{r}
+
+```r
 n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n), 
@@ -210,15 +227,19 @@ upserted_records <- sf_upsert(input_data=upserted_contacts,
                               object_name="Contact", 
                               external_id_fieldname="My_External_Id__c")
 upserted_records
+#> # A tibble: 3 x 3
+#>   id                 success created
+#>   <chr>              <lgl>   <lgl>  
+#> 1 0033s000013Y2roAAC TRUE    FALSE  
+#> 2 0033s000013Y2rpAAC TRUE    FALSE  
+#> 3 0033s000013Y2rtAAC TRUE    TRUE
 ```
 
-```{r, include = FALSE}
-deleted_records <- sf_delete(upserted_records$id, object_name = "Contact")
-```
+
 
 ## Check out the Tests
 
 The {salesforcer} package has quite a bit of unit test coverage to track any
 changes made between newly released versions of the Salesforce API (typically 4
 each year). These tests are an excellent source of examples because they cover
-most all cases of utilizing the package functions. You can access them here: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/<a>
+most all cases of utilizing the package functions.
