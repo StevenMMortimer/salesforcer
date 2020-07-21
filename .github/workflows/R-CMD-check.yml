@@ -67,7 +67,6 @@ jobs:
           sudo apt-get install -y zlib1g-dev
           sudo apt-get install -y libc6-dev          
           sudo apt-get build-dep r-cran-xml
-          Rscript -e "install.packages('XML')"
           
       - name: Install system dependencies
         if: runner.os == 'Linux'
