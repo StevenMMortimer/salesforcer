@@ -21,7 +21,7 @@ jobs:
       matrix:
         config:
           - {os: ubuntu-16.04,   r: '3.6', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          
+
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
@@ -59,7 +59,6 @@ jobs:
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9 
           sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list
           echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
           sudo apt-get update
