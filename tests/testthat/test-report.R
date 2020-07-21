@@ -142,6 +142,24 @@ test_that("testing sf_list_report_instances()", {
     "FORBIDDEN: You don’t have sufficient privileges to perform this operation."
   )  
   
+  # wait for the report instance to complete ...
+  status_complete <- FALSE
+  z <- 1
+  interval_seconds <- 3
+  max_attempts <- 200
+  Sys.sleep(interval_seconds)
+  while (z < max_attempts & !status_complete){
+    Sys.sleep(interval_seconds)
+    instances_list <- sf_list_report_instances(common_report_id)
+    instance_status <- instances_list[[which(instances_list$id == this_report_instance$id), "status"]]
+    if(instance_status %in% c("Success", "Error")){
+      status_complete <- TRUE
+    } else {
+      # continue checking the status until success or max attempts
+      z <- z + 1
+    }
+  }
+  
   # clean up the report instance
   expect_true(sf_delete_report_instance(common_report_id, 
                                         this_report_instance$id))
@@ -150,6 +168,24 @@ test_that("testing sf_list_report_instances()", {
 test_that("testing sf_delete_report_instance()", {
   
   this_report_instance <- sf_execute_report(common_report_id, async=TRUE)
+  
+  # wait for the report instance to complete ...
+  status_complete <- FALSE
+  z <- 1
+  interval_seconds <- 3
+  max_attempts <- 200
+  Sys.sleep(interval_seconds)
+  while (z < max_attempts & !status_complete){
+    Sys.sleep(interval_seconds)
+    instances_list <- sf_list_report_instances(common_report_id)
+    instance_status <- instances_list[[which(instances_list$id == this_report_instance$id), "status"]]
+    if(instance_status %in% c("Success", "Error")){
+      status_complete <- TRUE
+    } else {
+      # continue checking the status until success or max attempts
+      z <- z + 1
+    }
+  }
   
   result <- sf_delete_report_instance(common_report_id, 
                                       this_report_instance$id)
