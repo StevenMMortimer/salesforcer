@@ -191,12 +191,12 @@
 <span class="co">#&gt; # … with 9 more rows, and 3 more variables: `Account Name` &lt;chr&gt;, `Billing</span>
 <span class="co">#&gt; #   City` &lt;chr&gt;, `Account Owner` &lt;chr&gt;</span>
 </pre></div>
-<p>Note that the <code><a href="../reference/sf_run_report.html">sf_run_report()</a></code> function will, by default, run the report asynchronously. This means that a report instance will be requested and then the function will wait to retrieve the results. The advantage to using an asynchronous report is that the results of such a report are stored for 24 hours and can be retrieved again, saving CPU resources, if needed. A more in-depth discussion on synchronous vs. asynchronous reports is available here <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm</a>. However, for reports with a relatively small number of records a synchronous report may be faster without having to do the round trip of creating then querying a report instance.</p>
+<p>Note that the <code><a href="../reference/sf_run_report.html">sf_run_report()</a></code> function will, by default, run the report asynchronously. This means that a report instance will be requested and then the function will wait to retrieve the results. The advantage to using an asynchronous report is that the results of such a report are stored for 24 hours and can be retrieved again saving CPU resources, if needed. A more in-depth discussion on synchronous vs. asynchronous reports is available here <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm</a>. However, for reports with a relatively small number of records a synchronous report may be faster without having to do the round trip of creating then querying a report instance.</p>
 </div>
 <div id="filtering-a-report-on-the-fly" class="section level2">
 <h2 class="hasAnchor">
 <a href="#filtering-a-report-on-the-fly" class="anchor"></a>Filtering a Report on the Fly</h2>
-<p>The neat thing about using the API is that you can retrieve the results of a report with different filters applied. This allows you to obtain the results exactly the results needed without having to create separate copies of the same report. It takes some basic understanding of how report operators need to be supplied to the API, but it is not too difficult. Below is an example that only includes records created prior to last year.</p>
+<p>The neat thing about using the API is that you can retrieve the results of a report with different filters applied. This allows you to obtain exactly the results needed without having to create separate copies of the same report. It takes some basic understanding of how report operators need to be supplied to the API, but it is not too difficult. Below is an example that only includes contact records created prior to this month and belong to an Account with a non-NULL Billing City.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># filter records that was created before this month</span>
 <span class="kw">filter1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(column = <span class="st">"CREATED_DATE"</span>,
@@ -223,7 +223,9 @@
 <span class="co">#&gt; 5 0036A000002… John                    23 Steven Mortimer 0016A000003…</span>
 <span class="co">#&gt; # … with 9 more rows, and 3 more variables: `Account Name` &lt;chr&gt;, `Billing</span>
 <span class="co">#&gt; #   City` &lt;chr&gt;, `Account Owner` &lt;chr&gt;</span>
-
+</pre></div>
+<p>This second example shows how to return only the Top N number of records and combine the filter using the logical “OR” instead of “AND”.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># combine filter1 and filter2 using 'OR' which means that records must meet one </span>
 <span class="co"># of the filters but also throw in a row limit based on a specific sort order</span>
 <span class="kw">results_using_OR</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_run_report.html">sf_run_report</a></span>(<span class="kw">my_report_id</span>, 
@@ -244,9 +246,9 @@
 <span class="co">#&gt; # … with 3 more variables: `Account Name` &lt;chr&gt;, `Billing City` &lt;chr&gt;, `Account</span>
 <span class="co">#&gt; #   Owner` &lt;chr&gt;</span>
 </pre></div>
-<p>I was able to determine some of the potential ways to filter by first reviewing the <code>reportFilters</code> element in the report’s metadata and then reviewing the list of report filter operators.</p>
+<p>I was able to determine some of the potential ways to filter by first reviewing the <code>reportFilters</code> element in the existing report metadata and also reviewing the list of report filter operators.</p>
 <p>First, you can always take the report filter specification from the report metadata and tailor it to your needs. Below is an example showing how to get that metadata for our report. You can select specific elements to better understand the structure of the report.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw">report_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_report.html">sf_describe_report</a></span>(<span class="kw">my_report_id</span>)
 <span class="kw">report_details</span><span class="op">$</span><span class="kw">reportMetadata</span><span class="op">$</span><span class="kw">reportType</span><span class="op">$</span><span class="kw">type</span>
 <span class="co">#&gt; [1] "ContactList"</span>
@@ -285,7 +287,7 @@
 <span class="co">#&gt; [1] ""</span>
 </pre></div>
 <p>Second, Salesforce has a few API endpoints that tell you the fields on the report or the report type, more generally, and all the ways you can declare a filter on a particular field type and. The <code>reportTypeMetadata</code> element returned on the report description also has detailed information on how to filter the report. For example, it already contains the start and end dates that would be applied when using the “LAST_MONTH” filter value on a date field.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="kw">report_details</span><span class="op">$</span><span class="kw">reportTypeMetadata</span><span class="op">$</span><span class="kw">standardDateFilterDurationGroups</span>[[<span class="fl">6</span>]]<span class="op">$</span><span class="kw">standardDateFilterDurations</span>[[<span class="fl">1</span>]]
 <span class="co">#&gt; $endDate</span>
 <span class="co">#&gt; [1] "2020-06-30"</span>
@@ -299,8 +301,8 @@
 <span class="co">#&gt; $value</span>
 <span class="co">#&gt; [1] "LAST_MONTH"</span>
 </pre></div>
-<p>Digging into the metadata of the report will allow you to better understand what filters you can set when filtering on the fly. In the example below you should notice that the field names on the report do not match the names of the fields on the object, so please review carefully the fields on the report. For example, the <code>CREATED_DATE</code> report field is based on the <code>CreatedDate</code> object field.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<p>Digging into the metadata of the report will allow you to better understand what filters you can set when filtering on the fly. In the example below you should notice that the field names on the report do not match the names of the typical API field names for the object, so please review carefully the fields on the report. For example, the <code>CREATED_DATE</code> report field is based on the <code>CreatedDate</code> object field.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="co"># report fields</span>
 <span class="kw">report_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_report_fields.html">sf_list_report_fields</a></span>(<span class="kw">my_report_id</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">report_fields</span><span class="op">$</span><span class="kw">equivalentFieldIndices</span>))
@@ -310,28 +312,52 @@
 
 <span class="kw">report_filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_report_filter_operators.html">sf_list_report_filter_operators</a></span>()
 <span class="kw">unique_supported_fields</span> <span class="op">&lt;-</span> <span class="kw">report_filters</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(<span class="kw">supported_field_type</span>)
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(<span class="kw">supported_field_type</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>()
 <span class="kw">unique_supported_fields</span>
-<span class="co">#&gt; # A tibble: 22 x 1</span>
-<span class="co">#&gt;   supported_field_type</span>
-<span class="co">#&gt;   &lt;chr&gt;               </span>
-<span class="co">#&gt; 1 date                </span>
-<span class="co">#&gt; 2 address             </span>
-<span class="co">#&gt; 3 string              </span>
-<span class="co">#&gt; 4 double              </span>
-<span class="co">#&gt; 5 picklist            </span>
-<span class="co">#&gt; # … with 17 more rows</span>
+<span class="co">#&gt;        supported_field_type1        supported_field_type2 </span>
+<span class="co">#&gt;                       "date"                    "address" </span>
+<span class="co">#&gt;        supported_field_type3        supported_field_type4 </span>
+<span class="co">#&gt;                     "string"                     "double" </span>
+<span class="co">#&gt;        supported_field_type5        supported_field_type6 </span>
+<span class="co">#&gt;                   "picklist"                   "textarea" </span>
+<span class="co">#&gt;        supported_field_type7        supported_field_type8 </span>
+<span class="co">#&gt;            "encryptedstring"                    "percent" </span>
+<span class="co">#&gt;        supported_field_type9       supported_field_type10 </span>
+<span class="co">#&gt;                        "int"                        "url" </span>
+<span class="co">#&gt;       supported_field_type11       supported_field_type12 </span>
+<span class="co">#&gt;                  "reference"                   "datetime" </span>
+<span class="co">#&gt;       supported_field_type13       supported_field_type14 </span>
+<span class="co">#&gt;                    "boolean"                      "phone" </span>
+<span class="co">#&gt;       supported_field_type15       supported_field_type16 </span>
+<span class="co">#&gt; "datacategorygroupreference"                   "currency" </span>
+<span class="co">#&gt;       supported_field_type17       supported_field_type18 </span>
+<span class="co">#&gt;                   "location"                       "html" </span>
+<span class="co">#&gt;       supported_field_type19       supported_field_type20 </span>
+<span class="co">#&gt;                         "id"                       "time" </span>
+<span class="co">#&gt;       supported_field_type21       supported_field_type22 </span>
+<span class="co">#&gt;                      "email"              "multipicklist"</span>
 
 <span class="co"># operators to filter a picklist field</span>
 <span class="kw">picklist_field_operators</span> <span class="op">&lt;-</span> <span class="kw">report_filters</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">supported_field_type</span> <span class="op">==</span> <span class="st">"picklist"</span>)
+<span class="kw">picklist_field_operators</span>
+<span class="co">#&gt; # A tibble: 9 x 3</span>
+<span class="co">#&gt;   supported_field_type label         name       </span>
+<span class="co">#&gt;   &lt;chr&gt;                &lt;chr&gt;         &lt;chr&gt;      </span>
+<span class="co">#&gt; 1 picklist             equals        equals     </span>
+<span class="co">#&gt; 2 picklist             not equal to  notEqual   </span>
+<span class="co">#&gt; 3 picklist             less than     lessThan   </span>
+<span class="co">#&gt; 4 picklist             greater than  greaterThan</span>
+<span class="co">#&gt; 5 picklist             less or equal lessOrEqual</span>
+<span class="co">#&gt; # … with 4 more rows</span>
 </pre></div>
 </div>
 <div id="managing-your-reports" class="section level2">
 <h2 class="hasAnchor">
 <a href="#managing-your-reports" class="anchor"></a>Managing your Reports</h2>
 <p>The API also allows you to perform many admin functions like creating, copying, updating, or deleting reports and report instances. Take advantage of these functions as needed to keep your Org’s report list well-maintained. Below is a simple flow of creating, updating, and deleting a single report, but the amount you’re able to customize is completely up to you. The {salesforcer} package should support any operation that the Reports and Dashboards REST API supports.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="co"># first, grab all possible reports in your Org</span>
 <span class="kw">all_reports</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Report"</span>)
 
