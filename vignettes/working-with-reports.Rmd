@@ -169,7 +169,7 @@ the `CREATED_DATE` report field is based on the `CreatedDate` object field.
 ```{r report-filter-operators}
 # report fields
 report_fields <- sf_list_report_fields(my_report_id)
-head(names(report_fields$equivalentFieldIndices))
+names(report_fields$equivalentFieldIndices)
 
 report_filters <- sf_list_report_filter_operators()
 unique_supported_fields <- report_filters %>% 

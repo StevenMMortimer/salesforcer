@@ -988,9 +988,9 @@ sf_run_report <- function(report_id,
     # if there is no sortBy, then set it to NA, if there is, then leave it alone 
     # beause it is required when Top N is specified and the user might just want 
     # to use the existing sort order in the report
-    if(is.null(request_body$reportMetadata$sortBy) || 
-        is.na(request_body$reportMetadata$sortBy) || 
-        length(request_body$reportMetadata$sortBy) == 0){
+    if(is.null(input_data$reportMetadata$sortBy) || 
+        is.na(input_data$reportMetadata$sortBy) || 
+        length(input_data$reportMetadata$sortBy) == 0){
       request_body$reportMetadata$sortBy <- NA
     }
   }
