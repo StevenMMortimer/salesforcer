@@ -29,7 +29,7 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 Almost all records in Salesforce support attachments. Attachments are just blob data 
 storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id 
 of the record that the attachment belongs to. To get started creating and updating 
-attachments, first, load the {salesforcer} and **dplyr** packages and login, if needed.
+attachments, first, load the {salesforcer} and {dplyr} packages and login, if needed.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
