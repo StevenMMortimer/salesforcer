@@ -9,9 +9,8 @@ sf_query_bulk_v1(
   object_name = NULL,
   queryall = FALSE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
-  interval_seconds = 3,
-  max_attempts = 200,
+  interval_seconds = 5,
+  max_attempts = 100,
   control = list(...),
   ...,
   api_type = "Bulk 1.0",
@@ -36,13 +35,6 @@ to try and cast the data returned in the recordset. If \code{TRUE} then
 as character. This is helpful when \code{col_guess()} will mangle field values
 in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
 like numeric looking values that must be preserved as strings ("48.0").}
-
-\item{bind_using_character_cols}{\code{logical}; an indicator of whether to
-cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
-does not fail because two paginated recordsets have differing datatypes for the
-same column. Set this to \code{TRUE} rarely, typically only when having this
-set to \code{FALSE} returns an error or you want all columns in the data to be
-character.}
 
 \item{interval_seconds}{\code{integer}; defines the seconds between attempts to check
 for job completion.}
