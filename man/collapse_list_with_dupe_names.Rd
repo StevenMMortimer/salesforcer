@@ -23,7 +23,7 @@ the user's field-level security settings.
 }
 \examples{
 \dontrun{
-obj_dat <- sf_describe_objects(object_names = object_name, api_type = "SOAP")[[1]]
+obj_dat <- sf_describe_objects(object_names = "Contact", api_type = "SOAP")[[1]]
 obj_fields_list <- obj_dat[names(obj_dat) == "fields"] \%>\% 
   map(collapse_list_with_dupe_names)
 }
