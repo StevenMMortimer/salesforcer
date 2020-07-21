@@ -80,10 +80,8 @@ sf_read_metadata <- function(metadata_type, object_names, verbose=FALSE){
 #' This function takes the name of an object in Salesforce and returns a description 
 #' of the fields on that object by returning a tibble with one row per field.
 #' 
-#' @importFrom readr type_convert cols
-#' @importFrom dplyr as_tibble 
-#' @importFrom purrr modify_if
-#' @importFrom data.table rbindlist
+#' @importFrom dplyr bind_rows select
+#' @importFrom purrr map modify_at
 #' @template object_name
 #' @note The tibble only contains the fields that the user can view, as defined by 
 #' the user's field-level security settings.
@@ -101,12 +99,37 @@ sf_describe_object_fields <- function(object_name){
   obj_fields_dat <- obj_dat[names(obj_dat) == "fields"] %>% 
     # explicitly combine duplicated names because many tidyverse functions break whenever that occurs
     map(collapse_list_with_dupe_names) %>% 
-    map(~modify_if(., ~(length(.x) > 1 | is.list(.x)), list)) %>%
-    rbindlist(use.names=TRUE, fill=TRUE, idcol=NULL) %>%
-    as_tibble()
+    map(set_null_elements_to_na)
   
-  # sort the columns by name as the API would return prior to the combining process above
-  obj_fields_dat <- obj_fields_dat[,sort(names(obj_fields_dat))]
+  # check if all values are the same class (excluding NA)
+  obj_fields_dat_classes <- obj_fields_dat %>% 
+    map(~map(.x, class)) %>% 
+    bind_rows()
+  
+  classes_summary <- obj_fields_dat_classes %>% map_lgl(~length(unique(na.omit(.x))) > 1)
+  if(any(classes_summary)){
+    cols_to_fix <- names(classes_summary)[which(classes_summary)]
+    obj_fields_dat <- obj_fields_dat %>% 
+      map(~modify_at(.x, cols_to_fix, list))
+  }
+  
+  # check if all values are of length 1, if not then cast as list if not already a list
+  obj_fields_dat_lengths <- obj_fields_dat %>% 
+    map(~map(.x, length)) %>% 
+    bind_rows()
+  
+  lengths_summary <- obj_fields_dat_lengths %>% map_lgl(~any(.x > 1, na.rm=TRUE))
+  if(any(lengths_summary)){
+    cols_to_fix <- names(lengths_summary)[which(lengths_summary)]
+    obj_fields_dat <- obj_fields_dat %>% 
+      map(~modify_at(.x, cols_to_fix, list))
+  }  
+  
+  obj_fields_dat <- obj_fields_dat %>% 
+    bind_rows() %>% 
+    # sort column names as the API would return prior to the combining process above
+    select(sort(names(.)))
+  
   return(obj_fields_dat)
 }
 
@@ -116,16 +139,15 @@ sf_describe_object_fields <- function(object_name){
 #' and then combine them all into a single comma separated character string 
 #' (referenceTo) or \code{tbl_df} (picklistValues).
 #' 
-#' @importFrom readr type_convert cols
-#' @importFrom dplyr as_tibble
+#' @importFrom purrr map
+#' @importFrom dplyr bind_rows
 #' @importFrom utils head tail
-#' @importFrom data.table rbindlist
 #' @param x list; a list, typically returned from the API that we would parse through
 #' @note The tibble only contains the fields that the user can view, as defined by 
 #' the user's field-level security settings.
 #' @return A \code{list} containing one row per field for the requested object.
 #' @examples \dontrun{
-#' obj_dat <- sf_describe_objects(object_names = object_name, api_type = "SOAP")[[1]]
+#' obj_dat <- sf_describe_objects(object_names = "Contact", api_type = "SOAP")[[1]]
 #' obj_fields_list <- obj_dat[names(obj_dat) == "fields"] %>% 
 #'   map(collapse_list_with_dupe_names)
 #' }
@@ -140,13 +162,10 @@ collapse_list_with_dupe_names <- function(x){
       if(all(sapply(obj_field_dupes, length) == 1)){
         collapsed <- list(unname(unlist(obj_field_dupes)))
       } else {
-        suppressWarnings(
-          collapsed <- obj_field_dupes %>%
-            rbindlist(use.names=TRUE, fill=TRUE, idcol=NULL) %>%
-            as_tibble() %>%
-            type_convert(col_types = cols()) %>%
-            list()
-        )
+        collapsed <- obj_field_dupes %>% 
+          map(set_null_elements_to_na) %>% 
+          bind_rows() %>%
+          list()
       }
       # replace into first
       x[head(target_idx, 1)] <- collapsed
