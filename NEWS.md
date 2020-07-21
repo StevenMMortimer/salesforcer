@@ -1,3 +1,15 @@
+## salesforcer 0.2.0.9999
+
+### Features
+
+  * None yet!
+
+### Bug fixes
+
+  * None yet!
+
+---
+
 ## salesforcer 0.2.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0)
 
 ### Features
