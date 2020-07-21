@@ -90,7 +90,7 @@ Note that the `sf_run_report()` function will, by default, run the report
 asynchronously. This means that a report instance will be requested and then the
 function will wait to retrieve the results. The advantage to using an
 asynchronous report is that the results of such a report are stored for 24 hours
-and can be retrieved again saving CPU resources, if needed. A more in-depth
+and can be retrieved again, saving CPU resources, if needed. A more in-depth
 discussion on synchronous vs. asynchronous reports is available here <a
 target="_blank"
 href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm</a>. However, for reports 
@@ -100,14 +100,13 @@ having to do the round trip of creating then querying a report instance.
 ## Filtering a Report on the Fly
 
 The neat thing about using the API is that you can retrieve the results of a
-report with different filters applied. This allows you to obtain exactly the 
-results needed without having to create separate copies of the same
+report with different filters applied. This allows you to obtain the results
+exactly the results needed without having to create separate copies of the same
 report. It takes some basic understanding of how report operators need to be 
 supplied to the API, but it is not too difficult. Below is an example that only 
-includes contact records created prior to this month and belong to an Account 
-with a non-NULL Billing City.
+includes records created prior to last year.
 
-```{r filtered-report1}
+```{r filtered-report}
 # filter records that was created before this month
 filter1 <- list(column = "CREATED_DATE",
                         operator = "lessThan", 
@@ -123,12 +122,7 @@ results_using_AND <- sf_run_report(my_report_id,
                                    report_boolean_logic = "1 AND 2",
                                    report_filters = list(filter1, filter2))
 results_using_AND
-```
 
-This second example shows how to return only the Top N number of records and 
-combine the filter using the logical "OR" instead of "AND".
-
-```{r filtered-report2}
 # combine filter1 and filter2 using 'OR' which means that records must meet one 
 # of the filters but also throw in a row limit based on a specific sort order
 results_using_OR <- sf_run_report(my_report_id, 
@@ -141,8 +135,8 @@ results_using_OR
 ```
 
 I was able to determine some of the potential ways to filter by first reviewing 
-the `reportFilters` element in the existing report metadata and also reviewing 
-the list of report filter operators. 
+the `reportFilters` element in the report's metadata and then reviewing the 
+list of report filter operators. 
 
 First, you can always take the report filter specification from the report
 metadata and tailor it to your needs. Below is an example showing how to get
@@ -168,10 +162,9 @@ report_details$reportTypeMetadata$standardDateFilterDurationGroups[[6]]$standard
 
 Digging into the metadata of the report will allow you to better understand what
 filters you can set when filtering on the fly. In the example below you should
-notice that the field names on the report do not match the names of the typical 
-API field names for the object, so please review carefully the fields on the 
-report. For example, the `CREATED_DATE` report field is based on the 
-`CreatedDate` object field.
+notice that the field names on the report do not match the names of the fields
+on the object, so please review carefully the fields on the report. For example, 
+the `CREATED_DATE` report field is based on the `CreatedDate` object field.
 
 ```{r report-filter-operators}
 # report fields
@@ -180,14 +173,12 @@ head(names(report_fields$equivalentFieldIndices))
 
 report_filters <- sf_list_report_filter_operators()
 unique_supported_fields <- report_filters %>% 
-  distinct(supported_field_type) %>% 
-  unlist()
+  distinct(supported_field_type)
 unique_supported_fields
 
 # operators to filter a picklist field
 picklist_field_operators <- report_filters %>% 
   filter(supported_field_type == "picklist")
-picklist_field_operators
 ```
 
 ## Managing your Reports
