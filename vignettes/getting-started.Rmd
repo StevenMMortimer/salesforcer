@@ -221,4 +221,4 @@ deleted_records <- sf_delete(upserted_records$id, object_name = "Contact")
 The {salesforcer} package has quite a bit of unit test coverage to track any
 changes made between newly released versions of the Salesforce API (typically 4
 each year). These tests are an excellent source of examples because they cover
-most all cases of utilizing the package functions. You can access them here: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/<a>
+most all cases of utilizing the package functions.

@@ -74,7 +74,7 @@ xml_nodeset_to_df <- function(this_node){
 
 #' Make SOAP XML Request Skeleton
 #' 
-#' Create XML in preparation for sending to the SOAP API
+#' Create XML in preparate for sending to the SOAP API
 #' 
 #' @importFrom XML newXMLNode xmlValue<-
 #' @param soap_headers \code{list}; any number of SOAP headers

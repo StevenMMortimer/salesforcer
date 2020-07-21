@@ -20,19 +20,17 @@ navbar:
       -  text: Getting Started
          href: articles/getting-started.html
       -  text: Supported Queries
-         href: articles/supported-queries.html
+         href: articles/supported-queries.html   
       -  text: Working with the Bulk APIs
          href: articles/working-with-the-bulk-apis.html
-      -  text: Working with Reports
-         href: articles/working-with-reports.html
       -  text: Working with Attachments
          href: articles/working-with-attachments.html
       -  text: Working with Metadata
-         href: articles/working-with-metadata.html
+         href: articles/working-with-metadata.html         
       -  text: Passing Control Args
          href: articles/passing-control-args.html
       -  text: Transitioning from RForcecom
-         href: articles/transitioning-from-RForcecom.html
+         href: articles/transitioning-from-RForcecom.html         
     - text: Reference
       icon: fa-file-code-o
       href: reference/index.html

@@ -940,6 +940,7 @@ KWD
 KYD
 KZT
 LAK
+langauges
 LargeTextArea
 lastFour
 LASTMONTH
@@ -1049,6 +1050,7 @@ ManageableState
 ManagedTopic
 ManagedTopics
 ManagerAndSubordinatesInternal
+managment
 MappingOperation
 MarketingActionSettings
 MarketingResourceType
@@ -1338,6 +1340,7 @@ PostBinding
 POSTs
 PostTemplate
 PPSX
+preparate
 PREV
 PREVCUR
 PREVCURFY
@@ -1518,7 +1521,9 @@ ReputationPointsRule
 ReputationPointsRules
 RequestFeedback
 Requeue
+requiedField
 requiredField
+requsted
 resultset
 ResumeFlow
 retrieveMetadata
@@ -1665,6 +1670,7 @@ SortOrder
 sosl
 SOSL
 SpecialCharacters
+specifed
 SpecifiedUser
 SpInitiated
 SpokeId
@@ -1703,6 +1709,7 @@ Sublative
 SubscriberControlled
 SubtabComponents
 successfulResults
+sucessful
 SummaryLayout
 SummaryLayoutItem
 SummaryLayoutStyle
@@ -1732,6 +1739,7 @@ TestTest
 TextArea
 TextOnly
 TextPost
+th
 THB
 ThirtyDays
 ThirtyMinutes
@@ -1745,6 +1753,7 @@ thunderResponse
 tibble
 tibbles
 Tidelift
+tidyier
 tidyverse
 TIF
 timeframe
@@ -1770,6 +1779,7 @@ TouchMobileSettings
 TPE
 TrackedChange
 trailhead
+tranlate
 TransactionSecurityAction
 TransactionSecurityEventName
 TransactionSecurityFlow

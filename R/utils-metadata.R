@@ -3880,7 +3880,7 @@
 #'      \item{SORT_ORDER_MISSING - Errors with this extended error code have the following properties:
 #' fieldName}
 #'      \item{SPECIFIC_FIELD_VALUE_MAKES_OTHER_FIELD_REQUIRED - Errors with this extended error code have the following properties:
-#' fieldName, fieldType, requiredField}
+#' fieldName, fieldType, requiedField}
 #'      \item{START_ELEMENT_MISSING - Errors with this extended error code have the following properties:}
 #'      \item{SUBFLOW_DESKTOP_DESIGNER_FLOWS_NOT_SUPPORTED - Errors with this extended error code have the following properties: flowName}
 #'      \item{SUBFLOW_INPUT_ELEMENT_INCOMPATIBLE_DATATYPES - Errors with this extended error code have the following properties:

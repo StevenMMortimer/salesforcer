@@ -20,9 +20,7 @@ jobs:
       max-parallel: 1
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04,   r: '3.6', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -56,11 +54,27 @@ jobs:
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-3-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-3-
           
+      - name: Install XML dependency for R 3.6 release
+        if: matrix.config.os == 'ubuntu-16.04' && matrix.config.r == '3.6'
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9 
+          sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list
+          echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
+          sudo apt-get update
+          sudo apt-get install -y libxml2-dev
+          sudo apt-get install -y zlib1g-dev
+          sudo apt-get install -y libc6-dev          
+          sudo apt-get build-dep r-cran-xml
+          Rscript -e "install.packages('XML', repos = 'http://www.omegahat.net/R')"
+          
       - name: Install system dependencies
         if: runner.os == 'Linux'
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
+          sudo apt install build-essential
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"

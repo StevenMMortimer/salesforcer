@@ -2,10 +2,6 @@
 
 ### Features
 
-  * **CAUTION: This release only has automated test coverage on R 4.0.0 or greater. 
-  Users should still be able to install and run using R (>= 3.6.0); however, it 
-  is recommended to upgrade to R 4.0.0 or greater.**
-  
   * Add experimental support for the Reports and Dashboards REST API.
   
   * Add support for Bulk 2.0 queries that was added in Salesforce version 47.0
@@ -55,7 +51,6 @@
   this release.
   
   * Add enhanced query test coverage in its own test script.
-  
   
 ### Bug Fixes
 
@@ -140,7 +135,7 @@
   * Add **RForcecom** backward compatible version of
   `rforcecom.getObjectDescription()`
   
-  * Add `sf_describe_object_fields()` which is a tidier version of
+  * Add `sf_describe_object_fields()` which is a tidyier version of
   `rforcecom.getObjectDescription()`
   
   * Allow users to control whether query results are kept as all character or

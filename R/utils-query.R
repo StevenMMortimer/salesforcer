@@ -577,7 +577,7 @@ records_list_to_tbl <- function(x,
 #' @param next_records \code{tbl_df}; the second data frame where any columns 
 #' matched by name have the same datatype as the data frame provided to the 
 #' `resultset` argument, otherwise, the call will fail with an error message.
-#' @return \code{tbl_df} of the results combined with next records, if successful.
+#' @return \code{tbl_df} of the results combined with next records, if sucessful.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

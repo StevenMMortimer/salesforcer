@@ -9,6 +9,7 @@ jobs:
   pkgdown:
   
     runs-on: macOS-latest
+    if: {{ false }}
     
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
