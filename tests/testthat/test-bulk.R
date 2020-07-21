@@ -200,7 +200,7 @@ test_that("testing Bulk 2.0 Functionality", {
   attachment_records_csv <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
   expect_is(attachment_records_csv, "tbl_df")
   expect_equal(names(attachment_records_csv), c("Id", "Success", "Created", "Error"))
-  expect_true(attachment_records_csv$Success)
+  expect_true(attachment_records_json$success)
   expect_equal(nrow(attachment_records_csv), 1)
   
   attachment_records_json <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_JSON")
