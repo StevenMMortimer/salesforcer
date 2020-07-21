@@ -10,9 +10,7 @@ on:
       
 jobs:
   R-CMD-check:
-  
     runs-on: ${{ matrix.config.os }}
-    if: matrix.config.os == 'ubuntu-16.04' && matrix.config.r == '3.6'
     
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
@@ -64,19 +62,13 @@ jobs:
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
-          sudo apt-get update
-          sudo apt-get install -y libxml2-dev
-          sudo apt-get install -y zlib1g-dev
-          sudo apt-get install -y libc6-dev          
-          sudo apt-get build-dep r-cran-xml
+          sudo apt-get install libxml2-dev
           
       - name: Install system dependencies
         if: runner.os == 'Linux'
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          sudo apt install build-essential
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
