@@ -117,7 +117,7 @@
       <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
-      <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
+      <a href="../articles/working-with-bulk-apis.html">Working with Bulk APIs</a>
     </li>
     <li>
       <a href="../articles/working-with-reports.html">Working with Reports</a>
@@ -226,6 +226,7 @@
 <li><p>Add lifecycle badges to signal maturity of different package aspects.</p></li>
 <li><p>Add two vignettes, one that outlines the query types supported by the package and another that outlines the new report functionality that was introduced in this release.</p></li>
 <li><p>Add enhanced query test coverage in its own test script.</p></li>
+<li><p>Remove dependency on {data.table} which does not have a build for R-devel. This should only affect <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code>.</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">

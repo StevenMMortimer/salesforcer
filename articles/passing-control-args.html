@@ -68,7 +68,7 @@
       <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
-      <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
+      <a href="../articles/working-with-bulk-apis.html">Working with Bulk APIs</a>
     </li>
     <li>
       <a href="../articles/working-with-reports.html">Working with Reports</a>
@@ -184,7 +184,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013Y7szAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013YA5vAAG TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="kw">record3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contact</span>,
@@ -228,7 +228,7 @@
 <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          object_name = <span class="st">"Account"</span>,
          control = <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(QueryOptions = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(batchSize = <span class="fl">200</span>)))
-<span class="co">#&gt; # A tibble: 13 x 2</span>
+<span class="co">#&gt; # A tibble: 14 x 2</span>
 <span class="co">#&gt;   Id                 Name                                </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                               </span>
 <span class="co">#&gt; 1 0013s00000zFgA6AAK KEEP Test Account With Child Records</span>
@@ -236,7 +236,7 @@
 <span class="co">#&gt; 3 0016A0000035mJEQAY GenePoint                           </span>
 <span class="co">#&gt; 4 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span>
 <span class="co">#&gt; 5 0016A0000035mJDQAY United Oil &amp; Gas, Singapore         </span>
-<span class="co">#&gt; # … with 8 more rows</span>
+<span class="co">#&gt; # … with 9 more rows</span>
 </pre></div>
 </div>
 <div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level2">

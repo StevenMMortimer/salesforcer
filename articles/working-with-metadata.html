@@ -68,7 +68,7 @@
       <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
-      <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
+      <a href="../articles/working-with-bulk-apis.html">Working with Bulk APIs</a>
     </li>
     <li>
       <a href="../articles/working-with-reports.html">Working with Reports</a>
@@ -145,7 +145,7 @@
 <div id="retrieving-object-metadata" class="section level2">
 <h2 class="hasAnchor">
 <a href="#retrieving-object-metadata" class="anchor"></a>Retrieving Object Metadata</h2>
-<p>One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). First, load the {salesforcer}, <strong>dplyr</strong>, and <strong>purrr</strong> packages and login, if needed.</p>
+<p>One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). First, load the {salesforcer}, {dplyr}, and {purrr} packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://purrr.tidyverse.org">purrr</a></span>)))
@@ -213,12 +213,12 @@
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; # A tibble: 7 x 4</span>
 <span class="co">#&gt;   active defaultValue label                      value                     </span>
-<span class="co">#&gt;   &lt;lgl&gt;  &lt;lgl&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
-<span class="co">#&gt; 1 TRUE   FALSE        Prospect                   Prospect                  </span>
-<span class="co">#&gt; 2 TRUE   FALSE        Customer - Direct          Customer - Direct         </span>
-<span class="co">#&gt; 3 TRUE   FALSE        Customer - Channel         Customer - Channel        </span>
-<span class="co">#&gt; 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller</span>
-<span class="co">#&gt; 5 TRUE   FALSE        Installation Partner       Installation Partner      </span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
+<span class="co">#&gt; 1 true   false        Prospect                   Prospect                  </span>
+<span class="co">#&gt; 2 true   false        Customer - Direct          Customer - Direct         </span>
+<span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span>
+<span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span>
+<span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span>
 <span class="co">#&gt; # … with 2 more rows</span>
 </pre></div>
 <p>If you prefer to be more precise about collecting and formatting the field data you can work directly with the nested lists that the APIs return. In this example we look at the picklist values of fields on the Account object.</p>
