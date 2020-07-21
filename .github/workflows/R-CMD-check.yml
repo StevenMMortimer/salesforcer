@@ -59,7 +59,6 @@ jobs:
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list
           echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
           sudo apt-get update
           sudo apt-get install -y libxml2-dev
