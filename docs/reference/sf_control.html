@@ -343,11 +343,9 @@ a Bulk 1.0 job with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</
 When you’re creating a bulk upload job, the Line Ending control lets you
 specify whether line endings are read as line feeds (LFs) or as carriage returns
 and line feeds (CRLFs) for fields of type Text Area and Text Area (Long). This
-works for most operations run through the Bulk APIs and/or creating a Bulk
-job from scratch with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>. However, note that
-as of <code>readr v1.3.1</code> all CSV files end with the line feed character
-("\n") regardless of the operating system. So it is usually best to not specify
-this argument. For more information, read the Salesforce documentation
+works for most operations run through the Bulk APIs or creating a Bulk 1.0
+job with <code><a href='sf_create_job_bulk.html'>sf_create_job_bulk</a></code>. For more information, read the
+Salesforce documentation
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers_line_ending.htm'>here</a>.</p></td>
     </tr>
     <tr>

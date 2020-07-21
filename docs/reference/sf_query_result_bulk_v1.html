@@ -189,10 +189,9 @@ which has already been submitted to Bulk API Job and has Completed state</p>
 
     <pre class="usage"><span class='fu'>sf_query_result_bulk_v1</span>(
   <span class='no'>job_id</span>,
+  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>batch_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>result_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>),
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
@@ -206,17 +205,6 @@ which has already been submitted to Bulk API Job and has Completed state</p>
 returned by <a href='sf_create_job_bulk.html'>sf_create_job_bulk</a>. It will start with <code>"750"</code>.</p></td>
     </tr>
     <tr>
-      <th>batch_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a submitted
-batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>result_id</th>
-      <td><p><code>character</code>; a string returned from
-<a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to
-get the recordset</p></td>
-    </tr>
-    <tr>
       <th>guess_types</th>
       <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
 to try and cast the data returned in the recordset. If <code>TRUE</code> then
@@ -226,13 +214,15 @@ in Salesforce that you'd like to preserve during translation into a <code>tbl_df
 like numeric looking values that must be preserved as strings ("48.0").</p></td>
     </tr>
     <tr>
-      <th>bind_using_character_cols</th>
-      <td><p><code>logical</code>; an indicator of whether to
-cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
-does not fail because two paginated recordsets have differing datatypes for the
-same column. Set this to <code>TRUE</code> rarely, typically only when having this
-set to <code>FALSE</code> returns an error or you want all columns in the data to be
-character.</p></td>
+      <th>batch_id</th>
+      <td><p><code>character</code>; the Salesforce Id assigned to a submitted
+batch as returned by <a href='sf_create_batches_bulk.html'>sf_create_batches_bulk</a>. It will start with <code>"751"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>result_id</th>
+      <td><p><code>character</code>; a string returned from
+<a href='sf_batch_details_bulk.html'>sf_batch_details_bulk</a> when a query has completed and specifies how to
+get the recordset</p></td>
     </tr>
     <tr>
       <th>api_type</th>

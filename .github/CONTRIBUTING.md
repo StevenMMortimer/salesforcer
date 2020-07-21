@@ -1,7 +1,7 @@
-# Contributing to {salesforcer}
+# Contributing to **salesforcer**
 
 First off, thank you for considering giving back to the community and contributing 
-to {salesforcer}. This outlines how to propose changes.
+to **salesforcer**. This outlines how to propose changes.
 
 ## Fixing typos
 
@@ -62,6 +62,6 @@ a unit test, if needed).
 
 ## Code of Conduct
 
-Please note that the {salesforcer} project is released with a [Contributor Code
+Please note that the **salesforcer** project is released with a [Contributor Code
 of Conduct](CODE_OF_CONDUCT.md). By contributing to this project you agree to
 abide by its terms.

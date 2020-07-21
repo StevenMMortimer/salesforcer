@@ -412,7 +412,7 @@ sf_create_report <- function(name=NULL,
 #' report_details$reportMetadata$name <- paste0(report_details$reportMetadata$name,
 #'                                              " - UPDATED")
 #' 
-#' # fourth, update the report by passing the metadata
+#' # fourth, create the report by passing the metadata
 #' my_updated_report <- sf_update_report(this_report_id,
 #'                                       report_metadata = report_details)
 #' }
@@ -574,9 +574,7 @@ sf_list_report_fields <- function(report_id,
 #' @template report_id
 #' @template async
 #' @template include_details
-#' @template labels
-#' @template guess_types
-#' @template bind_using_character_cols
+#' @template label
 #' @template as_tbl
 #' @template report_metadata
 #' @template verbose
@@ -626,9 +624,7 @@ sf_list_report_fields <- function(report_id,
 sf_execute_report <- function(report_id, 
                               async = FALSE, 
                               include_details = TRUE,
-                              labels = TRUE,
-                              guess_types = TRUE, 
-                              bind_using_character_cols = FALSE,
+                              label = TRUE,
                               as_tbl = TRUE,
                               report_metadata = NULL,
                               verbose = FALSE){
@@ -675,12 +671,7 @@ sf_execute_report <- function(report_id,
                everything())
     } else {
       # parse the same way you would the report instance results
-      response_parsed <- response_parsed %>% 
-        parse_report_detail_rows(
-          labels = labels,
-          guess_types = guess_types,
-          bind_using_character_cols = bind_using_character_cols
-        )
+      response_parsed <- parse_report_detail_rows(response_parsed, label = label)
     }
   }
   return(response_parsed)
@@ -793,9 +784,7 @@ sf_delete_report_instance <- function(report_id,
 #' @importFrom purrr map_df pluck set_names map_chr
 #' @template report_id
 #' @template report_instance_id
-#' @template labels
-#' @template guess_types
-#' @template bind_using_character_cols
+#' @template label
 #' @template fact_map_key
 #' @template verbose
 #' @return \code{tbl_df}; the detail report data. More specifically, the detailed 
@@ -820,232 +809,16 @@ sf_delete_report_instance <- function(report_id,
 #' @export
 sf_get_report_instance_results <- function(report_id, 
                                            report_instance_id, 
-                                           labels = TRUE,
-                                           guess_types = TRUE, 
-                                           bind_using_character_cols = FALSE,
+                                           label = TRUE,
                                            fact_map_key = "T!T",
                                            verbose = FALSE){
   
   this_url <- make_report_instance_url(report_id, report_instance_id)
-  resultset <- sf_rest_list(url = this_url, as_tbl = FALSE, verbose = verbose)
-  resultset <- resultset %>% 
-    parse_report_detail_rows(
-      fact_map_key = fact_map_key,
-      labels = labels,
-      guess_types = guess_types,
-      bind_using_character_cols = bind_using_character_cols
-    )
+  resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
+  resultset <- parse_report_detail_rows(resultset, 
+                                        label = label,
+                                        fact_map_key = fact_map_key)
   return(resultset)
-}
-
-#' Get a report's data in tabular format
-#' 
-#' @description
-#' \lifecycle{experimental}
-#' 
-#' This function is a convenience wrapper for retrieving the data from a report.
-#' By default, it executes an asynchronous report and waits for the detaile data
-#' summarized in a tabular format, before pulling them down and returning as a
-#' \code{tbl_df}.
-#' 
-#' @details This function is essentially a wrapper around \code{\link{sf_execute_report}}. 
-#' Please review or use that function and/or \code{\link{sf_query_report}} if you 
-#' want to have more control over how the report is run and what format should
-#' be returned. In this case we've forced the \code{reportFormat="TABULAR"}
-#' without total rows and given options to filter, and select the Top N as
-#' function arguments rather than forcing the user to create an entire list of
-#' \code{reportMetadata}.
-#' 
-#' @template report_id
-#' @param report_filters \code{list}; A \code{list} of reportFilter specifications. 
-#' Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 
-#' 3) \code{value}. You can find out how certain field types can be filtered by 
-#' reviewing the results of \code{\link{sf_list_report_filter_operators}}.
-#' @param report_boolean_logic \code{character}; a string of boolean logic to parse 
-#' custom field filters if more than one is specified. For example, if three filters 
-#' are specified, then they can be combined using the logic \code{"(1 OR 2) AND 3"}.
-#' @param sort_by \code{character}; the name of the column(s) used to sort the results. 
-#' @param decreasing \code{logical}; the indicator(s) of whether each column in the 
-#' \code{sort_by} argument should be ordered by increasing or decreasing values. If 
-#' the length is shorter than the length of the sort_by argument then the elements 
-#' will be recycled.
-#' @param top_n \code{integer}; an integer which sets a row limit filter to a report. 
-#' The results will be ordered as they appear in the report unless specified differently 
-#' via the \code{sort_by} and \code{decreasing} arguments. Note, it is sometimes 
-#' helpful to specify the \code{top_n} argument if a report contains many rows, but 
-#' you are only interested in a subset of them. Alternatively, you can limit the count 
-#' of returned rows via the \code{report_filters} argument.
-#' @param decreasing \code{logical}; a indicator of whether the results should be 
-#' ordered by increasing or decreasing values in \code{sort_by} column when selecting the 
-#' top N records. Note, this argument will be ignored if not specifying Top N. You can  
-#' sort the records using \code{\link[dplyr]{arrange}} after the results are returned.
-#' @template async
-#' @template interval_seconds
-#' @template max_attempts
-#' @param wait_for_results \code{logical}; indicating whether to wait for the
-#' report finish running so that data can be obtained. Otherwise, return the
-#' report instance details which can be used to retrieve the results when the
-#' async report has finished.
-#' @template verbose
-#' @return \code{tbl_df}
-#' @seealso Please see the following resources for more information: 
-#' \itemize{
-#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
-#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
-#'   \item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
-#' }
-#' @examples \dontrun{
-#' # find a report in your org and run it
-#' all_reports <- sf_query("SELECT Id, Name FROM Report")
-#' this_report_id <- all_reports$Id[1]
-#' results <- sf_run_report(this_report_id)
-#' 
-#' # apply your own filters to that same report
-#' # set up some filters, if needed
-#' # filter records that was created before this month
-#' filter1 <- list(column = "CREATED_DATE",
-#'                 operator = "lessThan", 
-#'                 value = "THIS_MONTH")
-#' 
-#' # filter records where the account billing address city is not empty
-#' filter2 <-  list(column = "ACCOUNT.ADDRESS1_CITY",
-#'                  operator = "notEqual", 
-#'                  value = "")
-#' 
-#' # combine filter1 and filter2 using 'AND' so that records must meet both filters
-#' results_using_AND <- sf_run_report(my_report_id, 
-#'                                    report_boolean_logic = "1 AND 2",
-#'                                    report_filters = list(filter1, filter2))
-#' 
-#' # combine filter1 and filter2 using 'OR' which means that records must meet one 
-#' # of the filters but also throw in a row limit based on a specific sort order
-#' results_using_OR <- sf_run_report(my_report_id, 
-#'                                   report_boolean_logic = "1 OR 2",
-#'                                   report_filters = list(filter1, filter2), 
-#'                                   sort_by = "Contact.test_number__c", 
-#'                                   decreasing = TRUE, 
-#'                                   top_n = 5)
-#' }
-#' @export
-sf_run_report <- function(report_id,
-                          report_filters = NULL,
-                          report_boolean_logic = NULL,
-                          sort_by = character(0),
-                          decreasing = FALSE,
-                          top_n = NULL,
-                          async = TRUE,
-                          interval_seconds = 3,
-                          max_attempts = 200,
-                          wait_for_results = TRUE,
-                          verbose = FALSE){
-  
-  # build out the body of the request based on the inputted arguments by starting 
-  # with a simplified version and then adding to it based on the user inputted arguments
-  request_body <- simplify_report_metadata(report_id, verbose = verbose)
-  
-  if(!is.null(report_filters)){
-    stopifnot(is.list(report_filters))
-    for(i in 1:length(report_filters)){
-      report_filters[[i]] <- metadata_type_validator(obj_type = "ReportFilterItem", 
-                                                     obj_data = report_filters[[i]])[[1]]
-    }
-    if(is.null(report_boolean_logic)){
-      if(length(report_filters) > 1){
-        report_boolean_logic <- paste((1:length(report_filters)), collapse=" AND ")
-        message(sprintf(paste0("The argument `report_boolean_logic` was left NULL. ", 
-                               "Assuming the report filters should be combined using 'AND' ", 
-                               "like so: %s"), report_boolean_logic))
-      } else {
-        report_boolean_logic <- NA
-      }
-    } else {
-      stopifnot(is.character(report_boolean_logic))
-    }
-  } else {
-    # value must be null when filter logic is not specified
-    report_boolean_logic <- NA
-  }
-  
-  request_body$reportMetadata$reportBooleanFilter <- report_boolean_logic
-  request_body$reportMetadata$reportFilters <- report_filters
-  
-  if(length(sort_by) > 0 & !(all(is.na(sort_by)))){
-    if(length(sort_by) > 1){
-      stop(paste0("Currently, Salesforce will only allow a report to be sorted ", 
-                  "by, at most, one column."), call. = FALSE)
-    } else {
-      if(length(decreasing) < length(sort_by)){
-        decreasing <- rep_len(decreasing, length.out = length(sort_by))  
-      }
-      sort_list_spec <- list()
-      for(i in 1:length(sort_by)){
-        sort_list_spec[[i]] <- list(sortColumn = sort_by[i], 
-                                    sortOrder = if(decreasing[i]) "Desc" else "Asc")
-      }
-      request_body$reportMetadata$sortBy <- sort_list_spec
-    }
-  } else {
-    request_body$reportMetadata$sortBy <- NA
-  }
-  if(!is.null(top_n)){
-    if(is.na(request_body$reportMetadata$sortBy)){
-      # in the event that the data is not sorted, still allow the user to request a Top N 
-      # number of rows so they are not forced to sort if they're just trying to 
-      # get a peak at the top rows.
-      request_body$reportMetadata$topRows <- list(rowLimit = top_n, direction = "Asc")
-      # stop(paste0("A report must be sorted by one column when requesting a ", 
-      #             "Top N number of rows."), call. = FALSE)
-    } else if(length(request_body$reportMetadata$sortBy) > 1){
-      stop(paste0("A report can only be sorted by one column when requesting a ", 
-                  "Top N number of rows."), call. = FALSE)
-    } else{
-      request_body$reportMetadata$topRows <- list(rowLimit = top_n, direction = "Asc")
-    }
-  }
-  
-  results <- sf_execute_report(report_id, 
-                               async = async, 
-                               report_metadata = request_body, 
-                               verbose = verbose)
-  
-  # request the report results (still wait if async is specified)
-  if(async){
-    if(wait_for_results){
-      status_complete <- FALSE
-      z <- 1
-      Sys.sleep(interval_seconds)
-      while (z < max_attempts & !status_complete){
-        if (verbose){
-          if(z %% 5 == 0){
-            message(paste0("Attempt to retrieve records #", z))
-          }
-        }
-        Sys.sleep(interval_seconds)
-        instances_list <- sf_list_report_instances(report_id, verbose = verbose)
-        instance_status <- instances_list[[which(instances_list$id == results$id), "status"]]
-        if(instance_status == "Error"){
-          stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
-                       report_id, results$id), 
-               call.=FALSE)
-        } else {
-          if(instance_status == "Success"){
-            status_complete <- TRUE
-          } else {
-            # continue checking the status until success or max attempts
-            z <- z + 1
-          }
-        }
-      }
-      results <- sf_get_report_instance_results(report_id, results$id, 
-                                                verbose = verbose)
-    }
-  }
-  # if not aysnc and waiting for results, then sf_execute_report() will return 
-  # the parsed dataset (if sync) or request details if async to check on the results 
-  # without having the wrapper executing the wait. This is so users can leverage 
-  # the simpler interface (i.e. providing function arguments) instead of researching 
-  # the Salesforce documentation and building the reportMetadata property from scratch
-  return(results)
 }
 
 #' Get Report Data without Saving Changes to or Creating a Report
@@ -1076,31 +849,173 @@ sf_run_report <- function(report_id,
 sf_query_report <- function(report_id,
                             report_metadata = NULL, 
                             verbose = FALSE){
-  
+  # currently not able to specify a complete request body
   .NotYetImplemented()
   
-  # if(!is.null(report_metadata)){
-  #   report_metadata <- sf_input_data_validation(report_metadata,
-  #                                               operation = "filter_report")
-  # } else {
-  #   # copy existing report metadata and then set options to something simpler, 
-  #   # meaning no filters, no aggregates, no totals or subtotals, and at the 
-  #   # detail level in tablular format
-  #   report_metadata <- simplify_report_metadata(report_id, verbose = verbose)
-  # }
-  # 
-  # this_url <- make_report_query_url()
-  # httr_response <- rPOST(url = this_url,
-  #                        body = report_metadata,
-  #                        encode = "json")
-  # if(verbose){
-  #   make_verbose_httr_message(httr_response$request$method,
-  #                             httr_response$request$url,
-  #                             httr_response$request$headers, 
-  #                             report_metadata)
-  # }
-  # catch_errors(httr_response)
-  # response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
-  # resultset <- parse_report_detail_rows(response_parsed)
-  # return(resultset)
+  if(!is.null(report_metadata)){
+    report_metadata <- sf_input_data_validation(report_metadata,
+                                                operation = "filter_report")
+  } else {
+    # copy existing report metadata and then set options to something simpler, 
+    # meaning no filters, no aggregates, no totals or subtotals, and at the 
+    # detail level in tablular format
+    report_metadata <- simplify_report_metadata(report_id, verbose = verbose)
+  }
+  
+  this_url <- make_report_query_url()
+  httr_response <- rPOST(url = this_url,
+                         body = report_metadata,
+                         encode = "json")
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method,
+                              httr_response$request$url,
+                              httr_response$request$headers, 
+                              report_metadata)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  resultset <- parse_report_detail_rows(response_parsed)
+  return(resultset)
+}
+
+#' Get a report's data in tabular format
+#' 
+#' @description
+#' \lifecycle{experimental}
+#' 
+#' This function is a convenience wrapper for retrieving the data from a report.
+#' By default, it executes an asynchronous report and waits for the detaile data
+#' summarized in a tabular format, before pulling them down and returning as a
+#' \code{tbl_df}.
+#' 
+#' @details This function is essentially a wrapper around \code{\link{sf_execute_report}}. 
+#' Please review or use that function and/or \code{\link{sf_query_report}} if you 
+#' want to have more control over how the report is run and what format should
+#' be returned. In this case we've forced the \code{reportFormat="TABULAR"}
+#' without total rows and given options to filter, and select the Top N as
+#' function arguments rather than forcing the user to create an entire list of
+#' \code{reportMetadata}.
+#' 
+#' @template report_id
+#' @param report_filters \code{list}; A \code{list} of reportFilter specifications. 
+#' Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 
+#' 3) \code{value}. You can find out how certain field types can be filtered by 
+#' reviewing the results of \code{\link{sf_list_report_filter_operators}}.
+#' @param report_boolean_logic \code{character}; a string of boolean logic to parse 
+#' custom field filters if more than one is specified. For example, if three filters 
+#' are specified, then they can be combined using the logic \code{"(1 OR 2) AND 3"}.
+#' @param sort_by \code{character}; the name of the column used to sort the results. 
+#' Currently, you can sort on only one column at a time.
+#' @param top_n \code{integer}; an integer which sets a row limit filter to a report. 
+#' The results will be ordered as they appear in the report unless specified differently 
+#' via the \code{sort_by} and \code{decreasing} arguments. Note, it is sometimes 
+#' helpful to specify the \code{top_n} argument if a report contains many rows, but 
+#' you are only interested in a subset of them. Alternatively, you can limit the count 
+#' of returned rows via the \code{report_filters} argument.
+#' @param decreasing \code{logical}; a indicator of whether the results should be 
+#' ordered by increasing or decreasing values in \code{sort_by} column when selecting the 
+#' top N records. Note, this argument will be ignored if not specifying Top N. You can  
+#' sort the records using \code{\link[dplyr]{arrange}} after the results are returned.
+#' @template async
+#' @template interval_seconds
+#' @template max_attempts
+#' @param wait_for_results \code{logical}; indicating whether to wait for the
+#' report finish running so that data can be obtained. Otherwise, return the
+#' report instance details which can be used to retrieve the results when the
+#' async report has finished.
+#' @template verbose
+#' @return \code{tbl_df}
+#' @export
+sf_run_report <- function(report_id,
+                          report_filters = NULL,
+                          report_boolean_logic = NULL,
+                          sort_by = NULL,
+                          top_n = NULL,
+                          decreasing = FALSE,
+                          async = TRUE,
+                          interval_seconds = 3,
+                          max_attempts = 200,
+                          wait_for_results = TRUE,
+                          verbose = FALSE){
+  
+  # build out the body of the request based on the inputted arguments by starting 
+  # with a simplified version and then adding to it based on the user inputted arguments
+  request_body <- simplify_report_metadata(report_id, verbose = verbose)
+  
+  if(!is.null(report_filters)){
+    stopifnot(is.list(report_filters))
+    for(i in 1:length(report_filters)){
+      report_filters[[i]] <- metadata_type_validator(obj_type = "ReportFilterItem", 
+                                                     obj_data = report_filters[[i]])
+    }
+    if(is.null(report_boolean_logic)){
+      report_boolean_logic <- paste((1:length(report_filters)), collapse=" AND ")
+      message(sprintf(paste0("The argument `report_boolean_logic` was left NULL. ", 
+                             "Assuming the report filters should be combined using 'AND' ", 
+                             "like so: %s"), report_boolean_logic))
+    } else {
+      stopifnot(is.character(report_boolean_logic))
+    }
+  } else {
+    # value must be null when filter logic is not specified
+    report_boolean_logic <- NA
+  }
+  
+  request_body$reportMetadata$reportBooleanFilter <- report_boolean_logic
+  request_body$reportMetadata$reportFilters <- report_filters
+  
+  if(!is.null(sort_by)){
+    if(length(sort_by) > 1){
+      stop("You may only sort by one column at a time.", call.=FALSE)
+    }
+    request_body$reportMetadata$sortBy <- I(sort_by)
+  }
+  if(!is.null(top_n)){
+    request_body$reportMetadata$topRows <- list(rowLimit = top_n, 
+                                                direction = if(decreasing) "desc" else "asc")
+  }
+  
+  results <- sf_execute_report(report_id, 
+                               async = async, 
+                               report_metadata = request_body, 
+                               verbose = verbose)
+  
+  # request the report results (still wait if async is specified)
+  if(async){
+    if(wait_for_results){
+      status_complete <- FALSE
+      z <- 1
+      Sys.sleep(interval_seconds)
+      while (z < max_attempts & !status_complete){
+        if (verbose){
+          if(z %% 5 == 0){
+            message(paste0("Attempt to retrieve records #", z))
+          }
+        }
+        Sys.sleep(interval_seconds)
+        instances_list <- sf_list_report_instances(report_id, verbose = verbose)
+        instance_status <- instances_list[[instances_list$id == results$id, "status"]]
+        if(instance_status == "Error"){
+          stop(sprintf("Report run failed (Report Id: %s; Instance Id: %s).", 
+                       report_id, results$id), 
+               call.=FALSE)
+        } else {
+          if(instance_status == "Success"){
+            status_complete <- TRUE
+          } else {
+            # continue checking the status until success or max attempts
+            z <- z + 1
+          }
+        }
+      }
+      results <- sf_get_report_instance_results(report_id, results$id, 
+                                                verbose = verbose)
+    }
+  }
+  # if not aysnc and waiting for results, then sf_execute_report() will return 
+  # the parsed dataset (if sync) or request details if async to check on the results 
+  # without having the wrapper executing the wait. This is so users can leverage 
+  # the simpler interface (i.e. providing function arguments) instead of researching 
+  # the Salesforce documentation and building the reportMetadata property from scratch
+  return(results)
 }

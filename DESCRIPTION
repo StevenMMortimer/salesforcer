@@ -1,7 +1,7 @@
 Package: salesforcer
 Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
 Version: 0.1.4.999
-Date: 2020-07-19
+Date: 2020-07-12
 Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP, 
     Bulk 1.0, Bulk 2.0, Metadata, Reports and Dashboards) 
     <https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview>. 
@@ -33,7 +33,6 @@ Imports:
     data.table (>= 1.12.8),
     jsonlite (>= 1.6.1),
     purrr (>= 0.3.4),
-    rlang (>= 0.4.6),
     rlist (>= 0.4.6.1),
     lubridate (>= 1.7.8),
     tibble (>= 3.0.3),

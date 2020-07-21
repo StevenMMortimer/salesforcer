@@ -80,6 +80,7 @@ reference:
       - '`sf_copy_report`'
       - '`sf_update_report`'
       - '`sf_execute_report`'
+      - '`sf_query_report`'
       - '`sf_delete_report`'
       - '`sf_list_report_instances`'
       - '`sf_get_report_instance_results`'

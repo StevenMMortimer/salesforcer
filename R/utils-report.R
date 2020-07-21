@@ -11,34 +11,22 @@
 #' map. When the data is in a tabular format, this element usually has the same 
 #' length as the number of columns with each element having a label and value 
 #' element.
-#' @template labels
-#' @template guess_types
-#' @template bind_using_character_cols
+#' @template label
 #' @return \code{tbl_df}; a single row data frame with the data for the row that 
 #' the supplied list represented in the report's fact map.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-format_report_row <- function(x, 
-                              labels = TRUE, 
-                              guess_types = TRUE, 
-                              bind_using_character_cols = FALSE){
+format_report_row <- function(x, label = TRUE){
   stopifnot(is.list(x), names(x) == "dataCells")
-  element_name <- if(labels) "label" else "value"
+  element_name <- if(label) "label" else "value"
   x$dataCells %>% 
     map(~pluck(.x, element_name)) %>% 
-    modify_if(~(length(.x) == 0), .f=function(x){return(NA)}) %>% 
-    {
-      if(!guess_types | bind_using_character_cols){
-        map(., as.character)
-      } else {
-        .
-      }
-    } %>% 
     as_tibble(.name_repair = 
                 ~vec_as_names(names = paste0("v", seq_len(length(.))), 
                               repair = "unique", quiet = TRUE))
 }
+
 
 #' Format the detailed data from the "T!T" fact map in a tabular report
 #' 
@@ -51,21 +39,16 @@ format_report_row <- function(x,
 #' @importFrom vctrs vec_as_names
 #' @param content \code{list}; the list returned from the \code{\link[httr]{content}} 
 #' function that parses the JSON response to a \code{list}.
-#' @template fact_map_key
-#' @template labels
-#' @template guess_types
-#' @template bind_using_character_cols
+#' @template label
 #' @return \code{tbl_df}; a data frame representing the detail rows of a parsed 
 #' report result HTTP response where the rows represent each row in the report 
 #' and the columns represent the detail columns.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-parse_report_detail_rows <- function(content,
-                                     fact_map_key = "T!T",
-                                     labels = TRUE, 
-                                     guess_types = TRUE, 
-                                     bind_using_character_cols = FALSE){
+parse_report_detail_rows <- function(content, 
+                                     label = TRUE, 
+                                     fact_map_key = "T!T"){
   
   # create a boolean that will be set whenever an offending issue is identified 
   # that can be used to stop the function execution only after all of the checks 
@@ -88,13 +71,13 @@ parse_report_detail_rows <- function(content,
   }
   
   if(fact_map_key != "T!T"){
-    message(paste0("The `fact_map_key` argument must be 'T!T'. Currently it is the only ", 
+    warning(paste0("The `fact_map_key` argument must be 'T!T'. Currently it is the only ", 
                    "format that is supported as this feature is still under active ",
                    "development. In the future we will support fact map key patterns ",
                    "for 'Summary' and 'Matrix' reports as described in the Salesforce ", 
                    "documentation at ", 
                    "https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/", 
-                   "api_analytics/sforce_analytics_rest_api_factmap_example.htm"))
+                   "api_analytics/sforce_analytics_rest_api_factmap_example.htm"), call.=FALSE)
     stops_triggered <- c(stops_triggered, "Fact map key is not 'T!T'")
   }
   
@@ -109,30 +92,14 @@ parse_report_detail_rows <- function(content,
   }
   
   result_colnames <- content$reportExtendedMetadata$detailColumnInfo %>% 
-    map_chr(pluck, "label") %>% 
+    map_chr(pluck, "entityColumnName") %>% 
     unname()
   
-  if(length(content$factMap$`T!T`$rows) == 0){
-    resultset <- result_colnames %>% 
-      map_dfc(setNames, object = list(character()))
-  } else {
-    resultset <- content$factMap$`T!T`$rows %>% 
-      drop_empty_recursively() %>% 
-      map_df(format_report_row, 
-             labels = labels, 
-             guess_types = guess_types,
-             bind_using_character_cols = bind_using_character_cols) %>% 
-      set_names(nm = result_colnames)
-  }
-  
-  if(guess_types){
-    result_datatypes <- content$reportExtendedMetadata$detailColumnInfo %>% 
-      map_chr(pluck, "dataType") %>% 
-      unname()
-    resultset <- resultset %>% 
-      sf_guess_cols(dataType = result_datatypes)
-  }
-  
+  resultset <- content$factMap$`T!T`$rows %>% 
+    drop_empty_recursively() %>% 
+    map_df(format_report_row, label = label) %>% 
+    set_names(nm = result_colnames)
+
   return(resultset)  
 }
 
@@ -153,17 +120,7 @@ parse_report_detail_rows <- function(content,
 #' @export
 simplify_report_metadata <- function(report_id, verbose=FALSE){
   report_details <- sf_describe_report(report_id, verbose=verbose)
-  # replace all empty lists with NA which will be translated to null
-  report_metadata <- lapply(report_details$reportMetadata, 
-                            function(x){ 
-                              if(!is.null(x) && 
-                                 ((is.list(x)) & (length(x) == 0))){
-                                return(NA)
-                              } else {
-                                return(x)
-                              }
-                            })
-  report_metadata <- list(reportMetadata = report_metadata)  
+  report_metadata <- list(reportMetadata = report_details$reportMetadata)
   report_metadata$reportMetadata$aggregates <- I(character(0))
   report_metadata$reportMetadata$hasDetailRows <- TRUE
   report_metadata$reportMetadata$reportBooleanFilter <- NA

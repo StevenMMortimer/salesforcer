@@ -26,7 +26,7 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 
 ## Using the Bulk API
 
-First, load the {salesforcer} and **dplyr** packages and login, if needed. 
+First, load the **salesforcer** and **dplyr** packages and login, if needed. 
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Map Salesforce data types to R data types — map_sf_type_to_r_type • salesforcer</title>
+<title>List report types — sf_list_report_types • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,9 @@
 
 
 
-<meta property="og:title" content="Map Salesforce data types to R data types — map_sf_type_to_r_type" />
-<meta property="og:description" content="This function is a simple one-to-many map of unique Salesforce data types to
-a specific data type in R." />
+<meta property="og:title" content="List report types — sf_list_report_types" />
+<meta property="og:description" content="
+Return a list of report types." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -177,43 +177,51 @@ a specific data type in R." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Map Salesforce data types to R data types</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
-    <div class="hidden name"><code>map_sf_type_to_r_type.Rd</code></div>
+    <h1>List report types</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
+    <div class="hidden name"><code>sf_report_types_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is a simple one-to-many map of unique Salesforce data types to
-a specific data type in R.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>Return a list of report types.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>map_sf_type_to_r_type</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_report_types</span>(<span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p><code>character</code>; the Salesforce data type.</p></td>
+      <th>as_tbl</th>
+      <td><p><code>logical</code>; an indicator of whether to convert the parsed
+JSON into a <code>tbl_df</code>.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p><code>logical</code>; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to <code>TRUE</code> the URL, header, and body will be printed for each request,
+along with additional diagnostic information where available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>character</code> the R data type.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This function is meant to be used internally. Only use when debugging.</p>
+    <p><code>tbl_df</code> by default, or a <code>list</code> depending on the value of
+argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/primitive_data_types.htm'>Primitive Data Types</a></p></li>
-<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/field_types.htm'>Other Field Types</a></p></li>
-<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/compound_fields.htm'>Compound Fields</a></p></li>
-</ul>
-</div>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_reporttypes_reference_list.htm'>Salesforce Documentation</a></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>report_types</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_types</span>()
+<span class='no'>unique_report_types</span> <span class='kw'>&lt;-</span> <span class='no'>report_types</span> <span class='kw'>%&gt;%</span> <span class='fu'>select</span>(<span class='no'>reportTypes.type</span>)
+
+<span class='co'># return the results as a list</span>
+<span class='no'>reports_as_list</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_types</span>(<span class='kw'>as_tbl</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

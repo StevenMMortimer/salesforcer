@@ -11,11 +11,11 @@ test_that("testing sf_user_info()", {
 })
 
 test_that("testing sf_set_password()", {
-  skip("Not testing password set right now.")
+  # nothing right now
 })
 
 test_that("testing sf_reset_password()", {
-  skip("Not testing password reset right now.")
+  # nothing right now
 })
 
 test_that("testing sf_server_timestamp()", {
@@ -96,9 +96,8 @@ test_that("testing sf_convert_lead()", {
                                  "accountId", 
                                  "contactId", 
                                  "leadId"))
-  # delete the lead and contact
-  invisible(sf_delete(converted_lead$leadId))
-  invisible(sf_delete(converted_lead$contactId))
+  # delete the lead
+  invisible(sf_delete(rec$id))
 })
 
 test_that("testing sf_merge()", {
@@ -116,12 +115,7 @@ test_that("testing sf_merge()", {
   expect_equal(nrow(merge_res), 1)
   
   # check the second and third records now have the same Master Record Id as the first
-  merge_check <- sf_query(sprintf("SELECT 
-                                     Id, 
-                                     MasterRecordId, 
-                                     Description 
-                                  FROM Contact 
-                                  WHERE Id IN ('%s')", 
+  merge_check <- sf_query(sprintf("SELECT Id, MasterRecordId, Description FROM Contact WHERE Id IN ('%s')", 
                                   paste0(new_recs1$id, collapse="','")), queryall = TRUE)
   expect_equal(merge_check$MasterRecordId, c(NA, new_recs1$id[1], new_recs1$id[1]))
   expect_equal(merge_check$Description, c("Description2", "Description2", "Description3"))

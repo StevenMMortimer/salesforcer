@@ -4,7 +4,7 @@
 \alias{sf_guess_cols}
 \title{Reorder resultset columns to prioritize \code{sObject} and \code{Id}}
 \usage{
-sf_guess_cols(df, guess_types = TRUE, dataType = NULL)
+sf_guess_cols(df, guess_types = TRUE)
 }
 \arguments{
 \item{df}{\code{tbl_df}; the data frame to rearrange columns in}

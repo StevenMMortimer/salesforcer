@@ -15,7 +15,7 @@ Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cr
 Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master)
 <!-- badges: end -->
 
-{salesforcer} is an R package that connects to Salesforce Platform
+**salesforcer** is an R package that connects to Salesforce Platform
 APIs using tidy principles. The package implements actions from the
 SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.
 
@@ -107,7 +107,7 @@ following vignettes:
 
 ### Authenticate
 
-First, load the {salesforcer} package and login. There are two ways to
+First, load the **salesforcer** package and login. There are two ways to
 authenticate:
 
 1.  OAuth 2.0
@@ -237,7 +237,7 @@ queries) Salesforce provides the
 [Bulk 1.0](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm)
 and
 [Bulk 2.0](https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm)
-APIs. In order to use the Bulk APIs in {salesforcer} you can just add
+APIs. In order to use the Bulk APIs in **salesforcer** you can just add
 `api_type = "Bulk 1.0"` or `api_type = "Bulk 2.0"` to your functions and
 the operation will be executed using the Bulk APIs. It’s that simple.
 

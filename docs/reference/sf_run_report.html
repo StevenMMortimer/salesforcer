@@ -197,9 +197,9 @@ summarized in a tabular format, before pulling them down and returning as a
   <span class='no'>report_id</span>,
   <span class='kw'>report_filters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>report_boolean_logic</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>),
-  <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>top_n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>,
@@ -220,7 +220,7 @@ analytics report. It will start with <code>"00O"</code>.</p></td>
       <td><p><code>list</code>; A <code>list</code> of reportFilter specifications.
 Each must be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and
 3) <code>value</code>. You can find out how certain field types can be filtered by
-reviewing the results of <code><a href='sf_list_report_filter_operators.html'>sf_list_report_filter_operators</a></code>.</p></td>
+reviewing the results of <code><a href='sf_report_filter_operators_list.html'>sf_list_report_filter_operators</a></code>.</p></td>
     </tr>
     <tr>
       <th>report_boolean_logic</th>
@@ -230,14 +230,8 @@ are specified, then they can be combined using the logic <code>"(1 OR 2) AND 3"<
     </tr>
     <tr>
       <th>sort_by</th>
-      <td><p><code>character</code>; the name of the column(s) used to sort the results.</p></td>
-    </tr>
-    <tr>
-      <th>decreasing</th>
-      <td><p><code>logical</code>; a indicator of whether the results should be
-ordered by increasing or decreasing values in <code>sort_by</code> column when selecting the
-top N records. Note, this argument will be ignored if not specifying Top N. You can
-sort the records using <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code> after the results are returned.</p></td>
+      <td><p><code>character</code>; the name of the column used to sort the results.
+Currently, you can sort on only one column at a time.</p></td>
     </tr>
     <tr>
       <th>top_n</th>
@@ -249,12 +243,19 @@ you are only interested in a subset of them. Alternatively, you can limit the co
 of returned rows via the <code>report_filters</code> argument.</p></td>
     </tr>
     <tr>
+      <th>decreasing</th>
+      <td><p><code>logical</code>; a indicator of whether the results should be
+ordered by increasing or decreasing values in <code>sort_by</code> column when selecting the
+top N records. Note, this argument will be ignored if not specifying Top N. You can
+sort the records using <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code> after the results are returned.</p></td>
+    </tr>
+    <tr>
       <th>async</th>
       <td><p><code>logical</code>; an indicator, by default set to <code>TRUE</code>, which
 executes the report asynchronously. If executed asynchronously, this function
 will return a list of attributes of the created report instance. The results
 can be pulled down by providing the report id and instance id to
-the function <code><a href='sf_get_report_instance_results.html'>sf_get_report_instance_results</a></code>. Refer to the details
+the function <code><a href='sf_report_instance_results.html'>sf_get_report_instance_results</a></code>. Refer to the details
 of the documentation on why executing a report asynchronously is preferred.</p></td>
     </tr>
     <tr>
@@ -288,55 +289,14 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is essentially a wrapper around <code><a href='sf_execute_report.html'>sf_execute_report</a></code>.
-Please review or use that function and/or <code><a href='sf_query_report.html'>sf_query_report</a></code> if you
+    <p>This function is essentially a wrapper around <code><a href='sf_report_execute.html'>sf_execute_report</a></code>.
+Please review or use that function and/or <code><a href='sf_report_query.html'>sf_query_report</a></code> if you
 want to have more control over how the report is run and what format should
 be returned. In this case we've forced the <code>reportFormat="TABULAR"</code>
 without total rows and given options to filter, and select the Top N as
 function arguments rather than forcing the user to create an entire list of
 <code>reportMetadata</code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Please see the following resources for more information:</p><ul>
-<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm'>Sync</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute'>Example - Sync</a></p></li>
-<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm'>Async</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances'>Example - Async</a></p></li>
-<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource'>Filtering Results</a></p></li>
-</ul>
-</div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># find a report in your org and run it</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
-<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_run_report</span>(<span class='no'>this_report_id</span>)
-
-<span class='co'># apply your own filters to that same report</span>
-<span class='co'># set up some filters, if needed</span>
-<span class='co'># filter records that was created before this month</span>
-<span class='no'>filter1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>column</span> <span class='kw'>=</span> <span class='st'>"CREATED_DATE"</span>,
-                <span class='kw'>operator</span> <span class='kw'>=</span> <span class='st'>"lessThan"</span>,
-                <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"THIS_MONTH"</span>)
-
-<span class='co'># filter records where the account billing address city is not empty</span>
-<span class='no'>filter2</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>column</span> <span class='kw'>=</span> <span class='st'>"ACCOUNT.ADDRESS1_CITY"</span>,
-                 <span class='kw'>operator</span> <span class='kw'>=</span> <span class='st'>"notEqual"</span>,
-                 <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>""</span>)
-
-<span class='co'># combine filter1 and filter2 using 'AND' so that records must meet both filters</span>
-<span class='no'>results_using_AND</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_run_report</span>(<span class='no'>my_report_id</span>,
-                                   <span class='kw'>report_boolean_logic</span> <span class='kw'>=</span> <span class='st'>"1 AND 2"</span>,
-                                   <span class='kw'>report_filters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>filter1</span>, <span class='no'>filter2</span>))
-
-<span class='co'># combine filter1 and filter2 using 'OR' which means that records must meet one </span>
-<span class='co'># of the filters but also throw in a row limit based on a specific sort order</span>
-<span class='no'>results_using_OR</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_run_report</span>(<span class='no'>my_report_id</span>,
-                                  <span class='kw'>report_boolean_logic</span> <span class='kw'>=</span> <span class='st'>"1 OR 2"</span>,
-                                  <span class='kw'>report_filters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>filter1</span>, <span class='no'>filter2</span>),
-                                  <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='st'>"Contact.test_number__c"</span>,
-                                  <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                                  <span class='kw'>top_n</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

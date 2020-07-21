@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update a report — sf_update_report • salesforcer</title>
+<title>Get Report Data without Saving Changes to or Creating a Report — sf_query_report • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,11 +52,11 @@
 
 
 
-<meta property="og:title" content="Update a report — sf_update_report" />
+<meta property="og:title" content="Get Report Data without Saving Changes to or Creating a Report — sf_query_report" />
 <meta property="og:description" content="
-Save changes to a report by sending a PATCH request to the Report resource.
-Note that saving a report deletes any running async report jobs because they
-might be obsolete based on the updates." />
+Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data
+without filling up your Org with unnecessary reports." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -179,19 +179,19 @@ might be obsolete based on the updates." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update a report</h1>
+    <h1>Get Report Data without Saving Changes to or Creating a Report</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_update_report.Rd</code></div>
+    <div class="hidden name"><code>sf_report_query.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Save changes to a report by sending a PATCH request to the Report resource.
-Note that saving a report deletes any running async report jobs because they
-might be obsolete based on the updates.</p>
+<p>Run a report without creating a new report or changing the existing one by making
+a POST request to the query resource. This allows you to get report data
+without filling up your Org with unnecessary reports.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_update_report</span>(<span class='no'>report_id</span>, <span class='no'>report_metadata</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_query_report</span>(<span class='no'>report_id</span>, <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,10 +203,24 @@ analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
       <th>report_metadata</th>
-      <td><p><code>list</code>; a list representing the properties to create
-the report with. The names of the list must be one or more of the 3 accepted
-metadata properties: <code>reportMetadata</code>, <code>reportTypeMetadata</code>,
-<code>reportExtendedMetadata</code>.</p></td>
+      <td><p><code>list</code>; a <code>list</code> with one element named
+<code>"reportMetadata"</code> having additional list elements underneath. All possible
+elements of <code>reportMetadata</code> are documented
+<a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>,
+but you will most commonly only need to specify the following 3 elements to
+filter or query the results of an existing report:</p><dl'>
+<dt>reportFormat</dt><dd><p>A <code>character</code> specifying the format of the report
+with possible values: <code>"TABULAR"</code>, <code>"SUMMARY"</code>, <code>"MATRIX"</code>,
+or <code>"MULTI_BLOCK"</code>.</p></dd>
+<dt>reportBooleanFilter</dt><dd><p>A <code>character</code> denoting how the individuals
+filters specified in <code>reportFilters</code> should be combined. For example,
+<code>"(1OR4)AND2AND3"</code></p></dd>.
+<dt>reportFilters</dt><dd><p>A <code>list</code> of reportFilter specifications. Each must
+be a list with 3 elements: 1) <code>column</code>, 2) <code>operator</code>, and 3) <code>value</code>.
+You can find out how certain field types can be filtered by reviewing the results
+of <code><a href='sf_report_filter_operators_list.html'>sf_list_report_filter_operators</a></code>.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -219,42 +233,22 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> representing the newly cloned report with up to 4 properties
-that describe the report:</p><dl'>
-<dt>attributes</dt><dd><p>Report type along with the URL to retrieve common objects and
-joined metadata.</p></dd>
-<dt>reportMetadata</dt><dd><p>Unique identifiers for groupings and summaries.</p></dd>
-<dt>reportTypeMetadata</dt><dd><p>Fields in each section of a report type plus filter information for those fields.</p></dd>
-<dt>reportExtendedMetadata</dt><dd><p>Additional information about summaries and groupings.</p></dd>
+    <p><code>tbl_df</code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-</dl>
-
+    <p>Note that you can query a report's data simply by providing its <code>Id</code>.
+However, the data will only be the detailed data from the tabular format
+with no totals or other metadata. If you would like more control, for example,
+filtering the results or grouping them in specific ways, then you will need
+to specify a list to the <code>report_metadata</code> argument. The <code>report_metadata</code>
+argument requires specific knowledge on the structure the <code>reportMetadata</code>
+property of a report. For more information, please review the Salesforce documentation
+in detail <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>.
+Additional references are provided in the <code>"See Also"</code> section.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_save_report.htm#example_save_report'>Salesforce Documentation</a></p></div>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_report_query_example.htm#sforce_analytics_rest_api_report_query_example'>Salesforce Example</a></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># first, grab all possible reports in your Org</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
-
-<span class='co'># second, get the id of the report to update</span>
-<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
-
-<span class='no'>my_updated_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update_report</span>(<span class='no'>this_report_id</span>,
-                                      <span class='kw'>report_metadata</span> <span class='kw'>=</span>
-                                        <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>reportMetadata</span> <span class='kw'>=</span>
-                                          <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Updated Report Name!"</span>)))
-
-<span class='co'># alternatively, pull down its metadata and update the name</span>
-<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_describe_report.html'>sf_describe_report</a></span>(<span class='no'>this_report_id</span>)
-<span class='no'>report_details</span>$<span class='no'>reportMetadata</span>$<span class='no'>name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>report_details</span>$<span class='no'>reportMetadata</span>$<span class='no'>name</span>,
-                                             <span class='st'>" - UPDATED"</span>)
-
-<span class='co'># fourth, update the report by passing the metadata</span>
-<span class='no'>my_updated_report</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_update_report</span>(<span class='no'>this_report_id</span>,
-                                      <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='no'>report_details</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

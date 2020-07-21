@@ -56,7 +56,7 @@ report_details <- sf_describe_report(this_report_id)
 report_details$reportMetadata$name <- paste0(report_details$reportMetadata$name,
                                              " - UPDATED")
 
-# fourth, update the report by passing the metadata
+# fourth, create the report by passing the metadata
 my_updated_report <- sf_update_report(this_report_id,
                                       report_metadata = report_details)
 }

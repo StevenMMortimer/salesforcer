@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get report instance results — sf_get_report_instance_results • salesforcer</title>
+<title>Get a list of report fields — sf_list_report_fields • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,11 +52,12 @@
 
 
 
-<meta property="og:title" content="Get report instance results — sf_get_report_instance_results" />
+<meta property="og:title" content="Get a list of report fields — sf_list_report_fields" />
 <meta property="og:description" content="
-Retrieves results for an instance of a report run asynchronously with or without
-filters. Depending on your asynchronous report run request, data can be at the
-summary level or include details." />
+The Report Fields resource returns report fields available for specified reports.
+Use the resource to determine the best fields for use in dashboard filters by
+seeing which fields different source reports have in common. Available in API
+version 40.0 and later." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -179,27 +180,20 @@ summary level or include details." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get report instance results</h1>
+    <h1>Get a list of report fields</h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R'><code>R/analytics-report.R</code></a></small>
-    <div class="hidden name"><code>sf_get_report_instance_results.Rd</code></div>
+    <div class="hidden name"><code>sf_report_fields.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Retrieves results for an instance of a report run asynchronously with or without
-filters. Depending on your asynchronous report run request, data can be at the
-summary level or include details.</p>
+<p>The Report Fields resource returns report fields available for specified reports.
+Use the resource to determine the best fields for use in dashboard filters by
+seeing which fields different source reports have in common. Available in API
+version 40.0 and later.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_get_report_instance_results</span>(
-  <span class='no'>report_id</span>,
-  <span class='no'>report_instance_id</span>,
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>fact_map_key</span> <span class='kw'>=</span> <span class='st'>"T!T"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_list_report_fields</span>(<span class='no'>report_id</span>, <span class='kw'>intersect_with</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>)), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,45 +204,12 @@ summary level or include details.</p>
 analytics report. It will start with <code>"00O"</code>.</p></td>
     </tr>
     <tr>
-      <th>report_instance_id</th>
-      <td><p><code>character</code>; the Salesforce Id assigned to a
-created analytics report instance (an asynchronous run). It will start with
-<code>"0LG"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>labels</th>
-      <td><p><code>logical</code>; an indicator of whether the returned data should
-be the label (i.e. formatted value) or the actual value. By default, the labels
-are returned because these are what appear in the Salesforce dashboard and
-more closely align with the column names. For example, "Account.Name" label
-may be <code>"Account B"</code> and the value <code>0016A0000035mJEQAY</code>. The former
-(label) more accurately reflects the "Account.Name".</p></td>
-    </tr>
-    <tr>
-      <th>guess_types</th>
-      <td><p><code>logical</code>; indicating whether or not to use <code>col_guess()</code>
-to try and cast the data returned in the recordset. If <code>TRUE</code> then
-<code>col_guess()</code> is used, if <code>FALSE</code> then all fields will be returned
-as character. This is helpful when <code>col_guess()</code> will mangle field values
-in Salesforce that you'd like to preserve during translation into a <code>tbl_df</code>,
-like numeric looking values that must be preserved as strings ("48.0").</p></td>
-    </tr>
-    <tr>
-      <th>bind_using_character_cols</th>
-      <td><p><code>logical</code>; an indicator of whether to
-cast the data to all character columns to ensure that <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></code>
-does not fail because two paginated recordsets have differing datatypes for the
-same column. Set this to <code>TRUE</code> rarely, typically only when having this
-set to <code>FALSE</code> returns an error or you want all columns in the data to be
-character.</p></td>
-    </tr>
-    <tr>
-      <th>fact_map_key</th>
-      <td><p><code>character</code>; string providing an index into each
-section of a fact map, from which you can access summary and detailed data.
-The pattern for the fact map keys varies by report format so it is important
-to know what the <code>reportFormat</code> property of the target report is. See the
-note below for more details.</p></td>
+      <th>intersect_with</th>
+      <td><p><code>character</code> a vector of unique report IDs. This is
+helpful in determining the best fields for use in dashboard filters by seeing
+which fields different source reports have in common. If this argument is left
+empty, then the function returns a list of all possible report fields.
+Otherwise, returns a list of fields that specified reports share.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -261,52 +222,28 @@ along with additional diagnostic information where available.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_df</code>; the detail report data. More specifically, the detailed
-data from the "T!T" entry in the fact map.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Below are the fact map key patterns for three report types:</p><dl'>
-<dt>TABULAR</dt><dd><p><code>T!T</code>: The grand total of a report. Both record data
-values and the grand total are represented by this key.</p></dd>
-<dt>SUMMARY</dt><dd><p><code>&lt;First level row grouping_second level row grouping_third 
-  level row grouping&gt;!T</code>: T refers to the row grand total.</p></dd>
-<dt>MATRIX</dt><dd><p><code>&lt;First level row grouping_second level row grouping&gt;!&lt;First 
-  level column grouping_second level column grouping&gt;.</code></p></dd>
-
-</dl>
-
-<p>Each item in a row or column grouping is numbered starting with 0. Here are
-some examples of fact map keys:</p>
-<dl'>
-<dt>0!T</dt><dd><p>The first item in the first-level grouping.</p></dd>
-<dt>1!T</dt><dd><p>The second item in the first-level grouping.</p></dd>
-<dt>0_0!T</dt><dd><p>The first item in the first-level grouping and the first item
-in the second-level grouping.</p></dd>
-<dt>0_1!T</dt><dd><p>The first item in the first-level grouping and the second item
-in the second-level grouping.</p></dd>
+    <p><code>list</code> representing the 4 different field report properties:</p><dl'>
+<dt>displayGroups</dt><dd><p>Fields available when adding a filter.</p></dd>
+<dt>equivalentFields</dt><dd><p>Fields available for each specified report. Each object in this array is a list of common fields categorized by report type.</p></dd>
+<dt>equivalentFieldIndices</dt><dd><p>Map of each field’s API name to the index of the field in the <code>equivalentFields</code> array.</p></dd>
+<dt>mergedGroups</dt><dd><p>Merged fields.</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults'>Salesforce Example</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm'>Factmap Documentation</a></p></div>
+    <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_fields.htm'>Salesforce Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># execute a report asynchronously in your Org</span>
+<span class='co'># first, grab all possible reports in your Org</span>
 <span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
+
+<span class='co'># second, get the id of the report to check fields on</span>
 <span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_execute_report.html'>sf_execute_report</a></span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 
-<span class='co'># check if that report has succeeded, ... </span>
-<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_list_report_instances.html'>sf_list_report_instances</a></span>(<span class='no'>this_report_id</span>)
-<span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
-
-<span class='co'># ... if so, then grab the results</span>
-<span class='kw'>if</span>(<span class='no'>instance_status</span> <span class='kw'>==</span> <span class='st'>"Success"</span>){
-  <span class='no'>report_data</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_get_report_instance_results</span>(<span class='kw'>report_id</span> <span class='kw'>=</span> <span class='no'>this_report_id</span>,
-                                            <span class='kw'>report_instance_id</span> <span class='kw'>=</span> <span class='no'>results</span>$<span class='no'>id</span>)
-}
+<span class='co'># third, pull that report and intersect its fields with up to three other reports</span>
+<span class='no'>fields</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_fields</span>(<span class='no'>this_report_id</span>, <span class='kw'>intersect_with</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>all_reports</span><span class='kw'>[[</span><span class='st'>"Id"</span>]],<span class='fl'>3</span>))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
