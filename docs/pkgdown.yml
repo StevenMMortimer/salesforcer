@@ -7,10 +7,10 @@ articles:
   supported-queries: supported-queries.html
   transitioning-from-RForcecom: transitioning-from-RForcecom.html
   working-with-attachments: working-with-attachments.html
+  working-with-bulk-apis: working-with-bulk-apis.html
   working-with-metadata: working-with-metadata.html
   working-with-reports: working-with-reports.html
-  working-with-the-bulk-apis: working-with-the-bulk-apis.html
-last_built: 2020-07-19T22:13Z
+last_built: 2020-07-21T18:55Z
 urls:
   reference: https://stevenmmortimer.github.io/salesforcer/reference
   article: https://stevenmmortimer.github.io/salesforcer/articles
