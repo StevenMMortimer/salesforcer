@@ -88,8 +88,7 @@ which contains the following vignettes:
 
   * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   * [Supported Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
-  * [Working with Bulk APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
-  * [Working with Reports](https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html)
+  * [Working with the Bulk APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
   * [Working with Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   * [Working with Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
   * [Passing Control Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)

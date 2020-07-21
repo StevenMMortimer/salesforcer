@@ -1,5 +1,5 @@
 ---
-title: "Working with Bulk APIs"
+title: "Working with the Bulk APIs"
 author: "Steven M. Mortimer"
 date: "2020-07-12"
 output:
@@ -8,7 +8,7 @@ output:
     toc_depth: 4
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{Working with Bulk APIs}
+  %\VignetteIndexEntry{Working with the Bulk APIs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,7 +26,7 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 
 ## Using the Bulk API
 
-First, load the {salesforcer} and {dplyr} packages and login, if needed. 
+First, load the {salesforcer} and **dplyr** packages and login, if needed. 
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
@@ -186,10 +186,8 @@ res <- microbenchmark::microbenchmark(
 )
 res
 
-suppressWarnings(suppressMessages(
-  ggplot2::autoplot(res) + 
-    ggplot2::scale_y_continuous(name="Time [seconds]", n.breaks=6)
-))
+ggplot2::autoplot(res) + 
+  ggplot2::scale_y_continuous(name="Time [seconds]", n.breaks=6)
 ```
 
 ```{r, include=FALSE}

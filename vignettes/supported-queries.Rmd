@@ -160,10 +160,10 @@ res <- microbenchmark::microbenchmark(
 )
 res
 
-suppressWarnings(suppressMessages(
+suppressWarnings(
   ggplot2::autoplot(res) + 
     ggplot2::scale_y_continuous(name="Time [seconds]", n.breaks=6)
-))
+)
 ```
 
 As seen in the limited test above, the REST API can be anywhere from **4-6x** 

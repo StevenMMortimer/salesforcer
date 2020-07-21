@@ -92,10 +92,8 @@ following vignettes:
     Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   - [Supported
     Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
-  - [Working with Bulk
-    APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
-  - [Working with
-    Reports](https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html)
+  - [Working with the Bulk
+    APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html)
   - [Working with
     Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
   - [Working with
@@ -168,8 +166,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000013Y9dsAAC TRUE   
-#> 2 0033s000013Y9dtAAC TRUE
+#> 1 0033s000013Y6h7AAC TRUE   
+#> 2 0033s000013Y6h8AAC TRUE
 ```
 
 ### Query
@@ -194,8 +192,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000013Y9dsAAC Test      Contact-Create-1
-#> 2 0033s000013Y9dtAAC Test      Contact-Create-2
+#> 1 0033s000013Y6h7AAC Test      Contact-Create-1
+#> 2 0033s000013Y6h8AAC Test      Contact-Create-2
 ```
 
 You’ll notice that the `"Account.Name"` column does not appear in the
@@ -228,8 +226,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000013Y9dsAAC TRUE   
-#> 2 0033s000013Y9dtAAC TRUE
+#> 1 0033s000013Y6h7AAC TRUE   
+#> 2 0033s000013Y6h8AAC TRUE
 ```
 
 ### Bulk Operations
@@ -266,8 +264,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000013Y9dwAAC TRUE    TRUE    NA   
-#> 2 0033s000013Y9dxAAC TRUE    TRUE    NA
+#> 1 0033s000013Y6hCAAS TRUE    TRUE    NA   
+#> 2 0033s000013Y6hDAAS TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -282,8 +280,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000013Y9dwAAC Test      Contact-Create-1
-#> 2 0033s000013Y9dxAAC Test      Contact-Create-2
+#> 1 0033s000013Y6hCAAS Test      Contact-Create-1
+#> 2 0033s000013Y6hDAAS Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -291,8 +289,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s000013Y9dwAAC 0033s000013Y9dwAAC FALSE       NA       
-#> 2 0033s000013Y9dxAAC 0033s000013Y9dxAAC FALSE       NA
+#> 1 0033s000013Y6hCAAS 0033s000013Y6hCAAS FALSE       NA       
+#> 2 0033s000013Y6hDAAS 0033s000013Y6hDAAS FALSE       NA
 ```
 
 ### Using the Metadata API
@@ -375,12 +373,12 @@ acct_fields %>%
 #> [[1]]
 #> # A tibble: 7 x 4
 #>   active defaultValue label                      value                     
-#>   <chr>  <chr>        <chr>                      <chr>                     
-#> 1 true   false        Prospect                   Prospect                  
-#> 2 true   false        Customer - Direct          Customer - Direct         
-#> 3 true   false        Customer - Channel         Customer - Channel        
-#> 4 true   false        Channel Partner / Reseller Channel Partner / Reseller
-#> 5 true   false        Installation Partner       Installation Partner      
+#>   <lgl>  <lgl>        <chr>                      <chr>                     
+#> 1 TRUE   FALSE        Prospect                   Prospect                  
+#> 2 TRUE   FALSE        Customer - Direct          Customer - Direct         
+#> 3 TRUE   FALSE        Customer - Channel         Customer - Channel        
+#> 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller
+#> 5 TRUE   FALSE        Installation Partner       Installation Partner      
 #> # … with 2 more rows
 ```
 

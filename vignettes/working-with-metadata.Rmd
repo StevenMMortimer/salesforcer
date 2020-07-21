@@ -33,7 +33,7 @@ and teardown the Salesforce environment.
 ## Retrieving Object Metadata
 
 One common use case for the Metadata API is retrieving information about an object 
-(fields, permissions, etc.). First, load the {salesforcer}, {dplyr}, and {purrr} 
+(fields, permissions, etc.). First, load the {salesforcer}, **dplyr**, and **purrr** 
 packages and login, if needed.
 
 ```{r auth, include = FALSE}
