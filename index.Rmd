@@ -83,9 +83,8 @@ example on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
 
 ## Vignettes
 
-The README below outlines the basic package functionality. For more information 
-please feel free to browse the `pkgdown` site at https://StevenMMortimer.github.io/salesforcer 
-which contains the following vignettes:
+The README below outlines the basic package functionality. Review the vignettes for 
+more detailed examples on usage.
 
   * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
   * [Supported Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
@@ -115,16 +114,12 @@ that way to not conflict with the ".httr-oauth" files created by other packages.
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
-username <- Sys.getenv("SALESFORCER_USERNAME")
-password <- Sys.getenv("SALESFORCER_PASSWORD")
-security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
-sf_auth(username = username,
-        password = password,
-        security_token = security_token)
+token_path <- here::here("tests", "testthat", "salesforcer_token.rds")
+suppressMessages(sf_auth(token = token_path, verbose = FALSE))
 ```
 
 ```{r, eval=FALSE}
-library(dplyr, warn.conflicts = FALSE)
+suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 
 # Using OAuth 2.0 authentication

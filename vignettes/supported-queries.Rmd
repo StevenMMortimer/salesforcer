@@ -33,11 +33,11 @@ package currently handles. If you run into an issue, please submit the issue
 in the GitHub repository so that we can fix or add your query type to this list. 
 Thank you!
   
-**Note**: Salesforce's proprietary form of SQL called SOQL (Salesforce Object
-Query Language) is a powerful tool that allows you to return the fields of
-records in almost any object in Salesforce. This includes standard objects like
-Accounts, Contacts, and Tasks along with any custom objects and custom fields
-created in your Org. You are encouraged to use Bulk APIs when:
+**Note**: Salesforce's proprietary form of SQL called SOQL (Salesforce Object 
+Query Language) is a powerful tool that allows you to return the fields of records 
+in almost any object in Salesforce (e.g. standard objects like Accounts, Contacts, 
+and Tasks, along with any custom objects and custom fields created in your Org. 
+You are encouraged to use Bulk APIs when: 
 
   - You anticipate returning 10,000 records or more
   - Your query does not involve a parent-to-child nested relationship query
@@ -79,7 +79,7 @@ sf_auth(username = username,
 ```
 
 ```{r load-package, eval=FALSE}
-library(dplyr, warn.conflicts = FALSE)
+suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
 sf_auth()
 ```
