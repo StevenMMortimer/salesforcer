@@ -56,9 +56,6 @@
   
   * Add enhanced query test coverage in its own test script.
   
-  * Remove dependency on {data.table} which does not have a build for R-devel. This 
-  should only affect `sf_read_metadata()`.
-  
   
 ### Bug Fixes
 
