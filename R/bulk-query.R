@@ -294,7 +294,6 @@ sf_query_result_bulk_v2 <- function(job_id,
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 API.
 #'
-#' @importFrom dplyr filter across any_of bind_rows is.tbl
 #' @template soql
 #' @template object_name
 #' @template queryall

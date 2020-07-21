@@ -54,12 +54,12 @@ sf_retrieve <- function(ids,
                                   guess_types = guess_types,
                                   control = control_args, ...,
                                   verbose = verbose) 
-  } else if(api_type %in% c("Bulk 1.0", "Bulk 2.0")){
-    stop(paste0("The retrieve method is not supported in the Bulk 1.0 or Bulk 2.0 ", 
-                "APIs. For retrieving a large number of records use SOQL (queries) ", 
-                "instead."), call. = FALSE)
+  } else if(api_type == "Bulk 1.0"){
+    stop("Retrieve is not supported in the Bulk APIs. For retrieving a large number of records use SOQL (queries) instead.")
+  } else if(api_type == "Bulk 2.0"){
+    stop("Retrieve is not supported in the Bulk APIs. For retrieving a large number of records use SOQL (queries) instead.")
   } else {
-    catch_unknown_api(api_type, c("SOAP", "REST"))
+    stop("Unknown API type.")
   }
   return(resultset)
 }

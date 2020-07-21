@@ -199,9 +199,8 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
 <ul>
-<li><p>Fix bug in enabling PKChunking in Bulk 1.0 queries. Users can now specify using <code>TRUE/FALSE</code> or details like <code>chunkSize</code> that imply <code>TRUE</code>. The results are then parsed appropriately by waiting for all individual batches to finish (<a href='https://github.com/StevenMMortimer/salesforcer/issues/46'>#46</a>)</p></li>
 <li><p>Fix bug in and SOAP API where the creation of a record that fails duplicate rules will return the duplicate match results as well and cause the entire function call to fail because it cannot parse the results. Now only the status code and message are returned and the function will execute successfully even if the record has not been created due to the rule. mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</p></li>
-<li><p>Fix bugs in REST and SOAP API queries to prevent infinite looping and mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</p></li>
+<li><p>Fix bugs in REST and SOAP API queries to prevent infinite looping and mangling results of parent-child nested queries (<a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>)</p></li>
 </ul>
 <hr>
 </div>

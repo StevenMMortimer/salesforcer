@@ -30,10 +30,6 @@
   
 ### Bug Fixes
 
-  * Fix bug in enabling PKChunking in Bulk 1.0 queries. Users can now specify using 
-  `TRUE/FALSE` or details like `chunkSize` that imply `TRUE`. The results are then 
-  parsed appropriately by waiting for all individual batches to finish (#46)
-  
   * Fix bug in and SOAP API where the creation of a record that fails duplicate
   rules will return the duplicate match results as well and cause the entire
   function call to fail because it cannot parse the results. Now only the status
@@ -42,7 +38,7 @@
   parent-child nested queries (#35, #38)
   
   * Fix bugs in REST and SOAP API queries to prevent infinite looping and
-  mangling results of parent-child nested queries (#35, #38, #54)
+  mangling results of parent-child nested queries (#35, #38)
 
 ---
 
