@@ -39,7 +39,9 @@ salesforcer.tar
 # Mac files
 .DS_Store
 
+# Folders created by vignette builds
+doc/
+Meta/
+
 # Files created by tests
 package.zip
-doc
-Meta

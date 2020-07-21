@@ -98,7 +98,7 @@ and then combine them all into a single comma separated character string
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -120,7 +120,10 @@ and then combine them all into a single comma separated character string
       <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
-      <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
+      <a href="../articles/working-with-bulk-apis.html">Working with Bulk APIs</a>
+    </li>
+    <li>
+      <a href="../articles/working-with-reports.html">Working with Reports</a>
     </li>
     <li>
       <a href="../articles/working-with-attachments.html">Working with Attachments</a>
@@ -210,7 +213,7 @@ the user's field-level security settings.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>obj_dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_describe_objects.html'>sf_describe_objects</a></span>(<span class='kw'>object_names</span> <span class='kw'>=</span> <span class='no'>object_name</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"SOAP"</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
+<span class='no'>obj_dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_describe_objects.html'>sf_describe_objects</a></span>(<span class='kw'>object_names</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>, <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"SOAP"</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
 <span class='no'>obj_fields_list</span> <span class='kw'>&lt;-</span> <span class='no'>obj_dat</span>[<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>obj_dat</span>) <span class='kw'>==</span> <span class='st'>"fields"</span>] <span class='kw'>%&gt;%</span>
   <span class='fu'>map</span>(<span class='no'>collapse_list_with_dupe_names</span>)
 }</div></pre>

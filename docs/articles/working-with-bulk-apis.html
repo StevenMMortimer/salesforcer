@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Working with the Bulk APIs • salesforcer</title>
+<title>Working with Bulk APIs • salesforcer</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Working with the Bulk APIs">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Working with Bulk APIs">
 <meta property="og:description" content="salesforcer">
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -68,7 +68,10 @@
       <a href="../articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
-      <a href="../articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
+      <a href="../articles/working-with-bulk-apis.html">Working with Bulk APIs</a>
+    </li>
+    <li>
+      <a href="../articles/working-with-reports.html">Working with Reports</a>
     </li>
     <li>
       <a href="../articles/working-with-attachments.html">Working with Attachments</a>
@@ -123,16 +126,16 @@
 
       
 
-      </header><script src="working-with-the-bulk-apis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="working-with-bulk-apis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Working with the Bulk APIs</h1>
+      <h1 data-toc-skip>Working with Bulk APIs</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
             <h4 class="date">2020-07-12</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-the-bulk-apis.Rmd"><code>vignettes/working-with-the-bulk-apis.Rmd</code></a></small>
-      <div class="hidden name"><code>working-with-the-bulk-apis.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-bulk-apis.Rmd"><code>vignettes/working-with-bulk-apis.Rmd</code></a></small>
+      <div class="hidden name"><code>working-with-bulk-apis.Rmd</code></div>
 
     </div>
 
@@ -141,7 +144,7 @@
 <div id="using-the-bulk-api" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h2>
-<p>First, load the {salesforcer} and <strong>dplyr</strong> packages and login, if needed.</p>
+<p>First, load the {salesforcer} and {dplyr} packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
@@ -160,8 +163,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013Xu3ZAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000013Xu3aAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013YBUaAAO TRUE   </span>
+<span class="co">#&gt; 2 0033s000013YBUbAAO TRUE</span>
 
 <span class="co"># Bulk</span>
 <span class="no">bulk_created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>[<span class="fl">3</span>:<span class="fl">4</span>,],
@@ -171,8 +174,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013Xu3eAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013Xu3fAAC TRUE    TRUE    NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013YBUuAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013YBUvAAO TRUE    TRUE    NA</span></pre></body></html></div>
 </div>
 <div id="a-complete-bulk-api-workflow" class="section level2">
 <h2 class="hasAnchor">
@@ -184,8 +187,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013Xu3jAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013Xu3kAAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000013YBUwAAO TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013YBUxAAO TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -200,8 +203,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013Xu3jAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013Xu3kAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013YBUwAAO Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013YBUxAAO Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="no">object</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -209,8 +212,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013Xu3jAAC TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000013Xu3kAAC TRUE    FALSE   NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000013YBUwAAO TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s000013YBUxAAO TRUE    FALSE   NA</span></pre></body></html></div>
 </div>
 <div id="query-limitations" class="section level2">
 <h2 class="hasAnchor">
@@ -246,11 +249,11 @@
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013Xu3oAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013Xu3pAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 0033s000013Xu3qAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 0033s000013Xu3rAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 0033s000013Xu3sAAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 0033s000013YBVEAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013YBVFAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 0033s000013YBVGAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 0033s000013YBVHAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 0033s000013YBVIAA4 TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="no">created_records_v2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>[<span class="fl">11</span>:<span class="fl">20</span>,],
@@ -260,11 +263,11 @@
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;   sf__Id sf__Created sf__Error FirstName LastName My_External_Id_…</span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;lgl&gt;       &lt;lgl&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-10636-k    </span>
-<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-10636-l    </span>
-<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-10636-m    </span>
-<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-10636-n    </span>
-<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-10636-o    </span>
+<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-46000-k    </span>
+<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-46000-l    </span>
+<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-46000-m    </span>
+<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-46000-n    </span>
+<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-46000-o    </span>
 <span class="co">#&gt; # … with 5 more rows, and 1 more variable: test_number__c &lt;dbl&gt;</span></pre></body></html></div>
 </div>
 <div id="performance-benchmarks-for-bulk-queries" class="section level2">
@@ -283,12 +286,14 @@
 <span class="no">res</span>
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;           expr      min       lq     mean   median       uq       max neval</span>
-<span class="co">#&gt;  bulk1_query() 8.162052 8.191732 8.329376 8.277441 8.472694  8.589221     8</span>
-<span class="co">#&gt;  bulk2_query() 6.913157 7.004034 8.042651 7.136795 7.564528 14.017335     8</span>
+<span class="co">#&gt;  bulk1_query() 8.195603 8.398375 8.729189 8.581101 9.044724  9.589512     8</span>
+<span class="co">#&gt;  bulk2_query() 6.879304 6.943748 8.640519 7.046924 8.683199 16.897109     8</span>
 
-<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">res</span>) +
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="kw">name</span><span class="kw">=</span><span class="st">"Time [seconds]"</span>, <span class="kw">n.breaks</span><span class="kw">=</span><span class="fl">6</span>)</pre></body></html></div>
-<p><img src="working-with-the-bulk-apis_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
+  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">res</span>) +
+    <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="kw">name</span><span class="kw">=</span><span class="st">"Time [seconds]"</span>, <span class="kw">n.breaks</span><span class="kw">=</span><span class="fl">6</span>)
+))</pre></body></html></div>
+<p><img src="working-with-bulk-apis_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
   </div>
 

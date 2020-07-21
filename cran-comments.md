@@ -2,15 +2,21 @@
 
 ## Test environments
 
-* local mac OS install, R 4.0.2
+* local mac OS install, R-release 4.0.2
 * ubuntu 16.04 (on github actions), R-release, R 4.0.2
 * mac OS 10.15.5 (on github actions) R-release, R 4.0.2
 * Microsoft Windows Server 2019 10.0.17763 (on github actions) R-release, R 4.0.2
-* win-builder (devel)
+* win-builder (R-devel)
 
 ## R CMD check results
 
-0 ERRORs | 0 WARNINGs | 0 NOTEs
+0 errors v | 0 warnings v | 1 note x
+
+\* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Steven M. Mortimer <***>’
+
+Package has help file(s) containing install/render-stage \\Sexpr{} expressions 
+but no prebuilt PDF manual.
 
 ----
 
