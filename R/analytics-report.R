@@ -844,7 +844,7 @@ sf_get_report_instance_results <- function(report_id,
 #' \lifecycle{experimental}
 #' 
 #' This function is a convenience wrapper for retrieving the data from a report.
-#' By default, it executes an asynchronous report and waits for the detailed data
+#' By default, it executes an asynchronous report and waits for the detaile data
 #' summarized in a tabular format, before pulling them down and returning as a
 #' \code{tbl_df}.
 #' 

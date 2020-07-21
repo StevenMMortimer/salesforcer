@@ -1,4 +1,4 @@
-## salesforcer 0.2.0
+## salesforcer 0.1.4.999
 
 ### Features
 
@@ -82,7 +82,7 @@
   
   * Add support for connections through a proxy by setting in package options (#32)
   
-  * CRUD operations now automatically cast date and datetime (Date, POSIXct,
+  * CRUD operations now atomatically cast date and datetime (Date, POSIXct,
   POSIXlt, POSIXt) formats into an accepted string format recognized by
   Salesforce (`YYYY-MM-DDThh:mm:ss.sssZ`).
   

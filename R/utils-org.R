@@ -326,7 +326,7 @@ sf_list_objects <- function(){
 #' @template guess_types
 #' @template verbose
 #' @return \code{tbl_df} of records found to be duplicates by the match rules
-#' @note You must have active duplicate rules for the supplied object before running 
+#' @note You must have actived duplicate rules for the supplied object before running 
 #' this function. The \code{object_name} argument refers to using that object's duplicate 
 #' rules on the search criteria to determine which records in other objects are duplicates.
 #' @examples
@@ -423,7 +423,7 @@ sf_find_duplicates <- function(search_criteria,
 #' @template guess_types
 #' @template verbose
 #' @return \code{tbl_df} of records found to be duplicates by the match rules
-#' @note You must have active duplicate rules for the supplied object before running 
+#' @note You must have actived duplicate rules for the supplied object before running 
 #' this function. This function uses the duplicate rules for the object that has 
 #' the same type as the input record IDs. For example, if the record Id represents 
 #' an Account, this function uses the duplicate rules associated with the 

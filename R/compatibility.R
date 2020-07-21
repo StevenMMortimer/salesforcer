@@ -142,7 +142,7 @@ rforcecom.create <- function(session, objectName, fields){
 #' @param limit Number of the records to retrieve. (ex: 5)
 #' @param id Record ID to retrieve. (ex: "999x000000xxxxxZZZ")
 #' @param offset Specifies the starting row offset. (ex: "100")
-#' @param order A list for controlling the order of query results. 
+#' @param order A list for controling the order of query results. 
 #' (ex: "c("Industry","Name")")
 #' @param inverse If it is TRUE, the results are ordered in descending order. 
 #' This parameter works when order parameter has been set. (Default: FALSE)

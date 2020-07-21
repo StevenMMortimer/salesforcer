@@ -37,7 +37,7 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
 \item{offset}{Specifies the starting row offset. (ex: "100")}
 
-\item{order}{A list for controlling the order of query results.
+\item{order}{A list for controling the order of query results.
 (ex: "c("Industry","Name")")}
 
 \item{inverse}{If it is TRUE, the results are ordered in descending order.

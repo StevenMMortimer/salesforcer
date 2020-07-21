@@ -83,7 +83,7 @@ xml_nodeset_to_df <- function(this_node){
 #' @note This function is meant to be used internally. Only use when debugging.
 #' Any of the following SOAP headers are allowed:
 #' \itemize{
-#'    \item AllOrNoneHeader
+#'    \item AllorNoneHeader
 #'    \item AllowFieldTruncationHeader
 #'    \item AssignmentRuleHeader
 #'    \item CallOptions

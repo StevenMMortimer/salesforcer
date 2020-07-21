@@ -281,7 +281,7 @@ of base64–encoded data.</p>
                            <span class='kw'>Keywords</span> <span class='kw'>=</span> <span class='st'>"example,test,document"</span>)
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='no'>document_details</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Document"</span>)
 
-<span class='co'># the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically </span>
+<span class='co'># the Bulk API can be envoked using api_type="Bulk 1.0" which will automatically </span>
 <span class='co'># take a data.frame of Attachment info and create a ZIP file with CSV manifest </span>
 <span class='co'># that is required for that API</span>
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='no'>attachment_details</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk 1.0"</span>)

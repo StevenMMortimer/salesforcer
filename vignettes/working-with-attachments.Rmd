@@ -162,8 +162,8 @@ sf_delete(queried_attachments$Id)
 
 **Uploading large batches using the Bulk API**
 
-The SOAP and REST APIs are good for working with a few attachments at a time. 
-However, the Bulk API can be invoked using api_type="Bulk 1.0" to automatically take a 
+The SOAP and REST APIs are good for working with a few attachements at a time. 
+However, the Bulk API can be envoked using api_type="Bulk 1.0" to automatically take a 
 `data.frame` or `tbl_df` of Attachment field data and create a ZIP file with CSV manifest 
 that is required by that API to upload In the example above we downloaded the 3 attachments 
 each belonging to 2 different parent records. Assuming that I have a directory on my computer

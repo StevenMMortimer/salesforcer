@@ -46,7 +46,6 @@ format_report_row <- function(x,
 #' parses it to return a single \code{tbl_df} representing the detail rows and 
 #' columns of the report without any filters, aggregates, or totals.
 #' 
-#' @importFrom stats setNames
 #' @importFrom purrr map pluck
 #' @importFrom dplyr as_tibble
 #' @importFrom vctrs vec_as_names

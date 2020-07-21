@@ -78,7 +78,7 @@ sf_download_attachment <- function(body, name, path = "."){
 #'                            Keywords = "example,test,document")
 #' result <- sf_create_attachment(document_details, object_name = "Document")
 #' 
-#' # the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically 
+#' # the Bulk API can be envoked using api_type="Bulk 1.0" which will automatically 
 #' # take a data.frame of Attachment info and create a ZIP file with CSV manifest 
 #' # that is required for that API
 #' result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
