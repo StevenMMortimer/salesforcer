@@ -841,12 +841,12 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html</loc>
   </url>
   <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html</loc>
-  </url>
-  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html</loc>
   </url>
 </urlset>

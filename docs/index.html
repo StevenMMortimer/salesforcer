@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.999</span>
       </span>
     </div>
 
@@ -76,10 +76,7 @@
       <a href="articles/supported-queries.html">Supported Queries</a>
     </li>
     <li>
-      <a href="articles/working-with-bulk-apis.html">Working with Bulk APIs</a>
-    </li>
-    <li>
-      <a href="articles/working-with-reports.html">Working with Reports</a>
+      <a href="articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a>
     </li>
     <li>
       <a href="articles/working-with-attachments.html">Working with Attachments</a>
@@ -158,7 +155,7 @@
 <code><a href="reference/sf_describe_objects.html">sf_describe_objects()</a></code>, <code><a href="reference/sf_create_metadata.html">sf_create_metadata()</a></code>, <code><a href="reference/sf_update_metadata.html">sf_update_metadata()</a></code>, and more</li>
 </ul>
 </li>
-<li>Utilize backwards compatible functions for the {RForcecom} package, such as:
+<li>Utilize backwards compatible functions for the <strong>RForcecom</strong> package, such as:
 <ul>
 <li>
 <code><a href="reference/rforcecom.login.html">rforcecom.login()</a></code>, <code><a href="reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code>, <code><a href="reference/rforcecom.query.html">rforcecom.query()</a></code>, <code><a href="reference/rforcecom.create.html">rforcecom.create()</a></code>
@@ -166,7 +163,7 @@
 </ul>
 </li>
 <li>Basic utility calls (<code><a href="reference/sf_user_info.html">sf_user_info()</a></code>, <code><a href="reference/sf_server_timestamp.html">sf_server_timestamp()</a></code>, <code><a href="reference/sf_list_objects.html">sf_list_objects()</a></code>)</li>
-<li>Functions to assist with master data management (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>), merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
+<li>Functions to assist with master data managment (MDM) or data integrity of records by finding duplicates (<code><a href="reference/sf_find_duplicates.html">sf_find_duplicates()</a></code>, <code><a href="reference/sf_find_duplicates_by_id.html">sf_find_duplicates_by_id()</a></code>), merging records (<code><a href="reference/sf_merge.html">sf_merge()</a></code>), and converting leads (<code><a href="reference/sf_convert_lead.html">sf_convert_lead()</a></code>)</li>
 <li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) within a specific timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
@@ -195,7 +192,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.2.0)</span>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install the current CRAN version (0.1.4)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
 <span class="co"># or get the development version on GitHub</span>
@@ -210,8 +207,7 @@
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html">Supported Queries</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html">Working with Bulk APIs</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html">Working with Reports</a></li>
+<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-the-bulk-apis.html">Working with the Bulk APIs</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
@@ -262,8 +258,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013Y9dcAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000013Y9ddAAC TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000013XrqwAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XrqxAAC TRUE</span></pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
@@ -281,8 +277,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013Y9dcAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013Y9ddAAC Test      Contact-Create-2</span></pre></div>
+<span class="co">#&gt; 1 0033s000013XrqwAAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013XrqxAAC Test      Contact-Create-2</span></pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
@@ -298,8 +294,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013Y9dcAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000013Y9ddAAC TRUE</span></pre></div>
+<span class="co">#&gt; 1 0033s000013XrqwAAC TRUE   </span>
+<span class="co">#&gt; 2 0033s000013XrqxAAC TRUE</span></pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
@@ -315,8 +311,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013Y9dhAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013Y9diAAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000013Xrr6AAC TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013Xrr7AAC TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -331,8 +327,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013Y9dhAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013Y9diAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013Xrr6AAC Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013Xrr7AAC Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
@@ -340,8 +336,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013Y9dhAAC 0033s000013Y9dhAAC FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013Y9diAAC 0033s000013Y9diAAC FALSE       NA</span></pre></div>
+<span class="co">#&gt; 1 0033s000013Xrr6AAC 0033s000013Xrr6AAC FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013Xrr7AAC 0033s000013Xrr7AAC FALSE       NA</span></pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
@@ -404,12 +400,12 @@
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; # A tibble: 7 x 4</span>
 <span class="co">#&gt;   active defaultValue label                      value                     </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
-<span class="co">#&gt; 1 true   false        Prospect                   Prospect                  </span>
-<span class="co">#&gt; 2 true   false        Customer - Direct          Customer - Direct         </span>
-<span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span>
-<span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span>
-<span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span>
+<span class="co">#&gt;   &lt;lgl&gt;  &lt;lgl&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
+<span class="co">#&gt; 1 TRUE   FALSE        Prospect                   Prospect                  </span>
+<span class="co">#&gt; 2 TRUE   FALSE        Customer - Direct          Customer - Direct         </span>
+<span class="co">#&gt; 3 TRUE   FALSE        Customer - Channel         Customer - Channel        </span>
+<span class="co">#&gt; 4 TRUE   FALSE        Channel Partner / Reseller Channel Partner / Reseller</span>
+<span class="co">#&gt; 5 TRUE   FALSE        Installation Partner       Installation Partner      </span>
 <span class="co">#&gt; # … with 2 more rows</span></pre></div>
 </div>
 </div>
@@ -432,12 +428,12 @@
 <div id="credits" class="section level2">
 <h2 class="hasAnchor">
 <a href="#credits" class="anchor"></a>Credits</h2>
-<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the {googlesheets} package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the {RForcecom} package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
+<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the <strong>googlesheets</strong> package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the <strong>RForcecom</strong> package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more-information" class="anchor"></a>More Information</h2>
-<p>Salesforce provides client libraries and examples in many programming languages (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a> as they are explained better there.</p>
+<p>Salesforce provides client libraries and examples in many programming langauges (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a> as they are explained better there.</p>
 <p><a href="https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&amp;utm_medium=referral&amp;utm_campaign=readme">Get supported salesforcer with the Tidelift Subscription</a></p>
 <p><a href="#">Top</a></p>
 </div>
