@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -168,8 +168,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013YDmoAAG TRUE   </span>
-<span class="co">#&gt; 2 0033s000013YDmpAAG TRUE</span>
+<span class="co">#&gt; 1 0033s000013YGpHAAW TRUE   </span>
+<span class="co">#&gt; 2 0033s000013YGpIAAW TRUE</span>
 
 <span class="co"># Bulk</span>
 <span class="kw">bulk_created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>[<span class="fl">3</span><span class="op">:</span><span class="fl">4</span>,], 
@@ -179,8 +179,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YDmtAAG TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013YDmuAAG TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000013YGpMAAW TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013YGpNAAW TRUE    TRUE    NA</span>
 </pre></div>
 </div>
 <div id="a-complete-bulk-api-workflow" class="section level2">
@@ -194,8 +194,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YDmyAAG TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013YDmzAAG TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000013YGirAAG TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013YGisAAG TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -214,8 +214,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013YDmyAAG Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013YDmzAAG Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013YGirAAG Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013YGisAAG Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, object_name=<span class="kw">object</span>, api_type=<span class="st">"Bulk 1.0"</span>)
@@ -223,8 +223,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YDmyAAG TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000013YDmzAAG TRUE    FALSE   NA</span>
+<span class="co">#&gt; 1 0033s000013YGirAAG TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s000013YGisAAG TRUE    FALSE   NA</span>
 </pre></div>
 </div>
 <div id="query-limitations" class="section level2">
@@ -262,11 +262,11 @@
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YDn8AAG TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013YDn9AAG TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 0033s000013YDnAAAW TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 0033s000013YDnBAAW TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 0033s000013YDnCAAW TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 0033s000013YGplAAG TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013YGpmAAG TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 0033s000013YGpnAAG TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 0033s000013YGpoAAG TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 0033s000013YGppAAG TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="kw">created_records_v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>[<span class="fl">11</span><span class="op">:</span><span class="fl">20</span>,],
@@ -276,11 +276,11 @@
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;   sf__Id sf__Created sf__Error FirstName LastName My_External_Id_…</span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;lgl&gt;       &lt;lgl&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-61006-k    </span>
-<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-61006-l    </span>
-<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-61006-m    </span>
-<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-61006-n    </span>
-<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-61006-o    </span>
+<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-91355-k    </span>
+<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-91355-l    </span>
+<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-91355-m    </span>
+<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-91355-n    </span>
+<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-91355-o    </span>
 <span class="co">#&gt; # … with 5 more rows, and 1 more variable: test_number__c &lt;dbl&gt;</span>
 </pre></div>
 </div>
@@ -301,8 +301,8 @@
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
-<span class="co">#&gt;  bulk1_query() 7.492908 7.730135 7.801868 7.794443 7.847427 8.178028     8</span>
-<span class="co">#&gt;  bulk2_query() 6.704465 6.725136 6.980006 6.949916 7.159914 7.465654     8</span>
+<span class="co">#&gt;  bulk1_query() 7.901864 7.985348 8.102823 8.082143 8.235975 8.313785     8</span>
+<span class="co">#&gt;  bulk2_query() 6.937750 6.955106 7.057836 7.011680 7.039105 7.513160     8</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
