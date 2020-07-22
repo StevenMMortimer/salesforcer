@@ -1,12 +1,15 @@
-## salesforcer 0.2.0.9999
+## salesforcer 0.2.0.9001
 
 ### Features
 
-  * None yet!
+  * Add support for the `defaultLimit` argument in `sf_search()` to be able to 
+  restrict the number of records from each individual object when searching across 
+  one or more objects.
 
 ### Bug fixes
 
-  * None yet!
+  * Fix bug in `sf_search()` that was passing `"true"/"false"` instead of actual 
+  boolean value for the `spellCorrection` parameter in the POST body.
 
 ---
 
