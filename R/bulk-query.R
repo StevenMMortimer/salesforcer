@@ -550,7 +550,7 @@ sf_query_bulk_v2 <- function(soql,
 #' Run bulk query 
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.

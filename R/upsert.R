@@ -1,7 +1,7 @@
 #' Upsert Records
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' Upserts one or more new records to your organization’s data.
 #' 

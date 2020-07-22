@@ -23,7 +23,7 @@ along with additional diagnostic information where available.}
 argument \code{as_tbl}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Returns a list of instances for a report that you requested to be run asynchronously.
 Each item in the list is treated as a separate instance of the report run with

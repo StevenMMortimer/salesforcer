@@ -27,7 +27,7 @@ along with additional diagnostic information where available.}
 argument \code{as_tbl}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Displays a list of up to 200 tabular, matrix, or summary reports that you
 recently viewed. To get a full list of reports by format, name, and other

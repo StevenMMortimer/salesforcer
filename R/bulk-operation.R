@@ -1276,7 +1276,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' Run Bulk Operation
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'

@@ -32,7 +32,7 @@ joined metadata.}
 }
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Save changes to a report by sending a PATCH request to the Report resource.
 Note that saving a report deletes any running async report jobs because they

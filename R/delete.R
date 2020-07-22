@@ -1,7 +1,7 @@
 #' Delete Records
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' Deletes one or more records from your organization’s data.
 #' 

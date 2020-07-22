@@ -35,7 +35,7 @@ along with additional diagnostic information where available.}
 A \code{list} of details from the created retrieve request
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This function makes a request to retrieve metadata
 as a package XML files that can be modified and later

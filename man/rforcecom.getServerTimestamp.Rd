@@ -16,5 +16,5 @@ in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.}
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }

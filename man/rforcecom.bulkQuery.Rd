@@ -41,5 +41,5 @@ along with additional diagnostic information where available.}
 A \code{data.frame} of the recordset returned by query
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }

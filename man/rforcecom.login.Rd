@@ -27,5 +27,5 @@ rforcecom.login(
 \item{apiVersion}{API Version.}
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }

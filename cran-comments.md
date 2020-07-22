@@ -10,13 +10,10 @@
 
 ## R CMD check results
 
+checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Steven M. Mortimer <***>'
+
 0 errors v | 0 warnings v | 1 note x
-
-\* checking CRAN incoming feasibility ... NOTE
-Maintainer: ‘Steven M. Mortimer <***>’
-
-Package has help file(s) containing install/render-stage \\Sexpr{} expressions 
-but no prebuilt PDF manual.
 
 ----
 

@@ -1,7 +1,7 @@
 #' Update Records
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' Updates one or more records to your organization’s data.
 #' 

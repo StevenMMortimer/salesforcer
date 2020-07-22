@@ -1,7 +1,7 @@
 #' Describe the Metadata in an Organization
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' This function returns details about the organization metadata
 #' 

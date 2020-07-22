@@ -86,7 +86,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_df} of the recordset returned by the query
 }
 \description{
-\lifecycle{maturing}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
 
 This function is a convenience wrapper for submitting and retrieving
 query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.

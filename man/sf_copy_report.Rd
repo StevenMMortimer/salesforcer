@@ -32,7 +32,7 @@ joined metadata.}
 }
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Creates a copy of a custom, standard, or public report by sending a POST
 request to the Report List resource.

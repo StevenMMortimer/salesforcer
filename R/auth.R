@@ -32,7 +32,7 @@
 #' Log in to Salesforce
 #' 
 #' @description
-#' \lifecycle{stable}
+#' `r lifecycle::badge("stable")`
 #' 
 #' Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
 #' not require sharing passwords, but will require authorizing \code{salesforcer} 

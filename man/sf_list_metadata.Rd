@@ -20,7 +20,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_dfs} containing the queried metadata types
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This function takes a query of metadata types and returns a
 summary of all objects in salesforce of the requested types

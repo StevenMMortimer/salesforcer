@@ -20,7 +20,7 @@ user-friendly format.}
 \code{list}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Creates new shares to replace the existing shares in the share list for the folder.
 }

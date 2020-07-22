@@ -25,7 +25,7 @@ along with additional diagnostic information where available.}
 }
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Retrieves report, report type, and related metadata for a tabular, summary,
 or matrix report.

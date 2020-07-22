@@ -22,7 +22,7 @@ set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \description{
-\lifecycle{maturing}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
 
 Retrieves the list of individual records that have been inserted or updated
 within the given timespan in the specified object.

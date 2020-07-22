@@ -1,7 +1,7 @@
 #' Perform SOSL Search
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' Searches for records in your organization’s data.
 #' 

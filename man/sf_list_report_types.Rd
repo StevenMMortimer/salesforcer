@@ -20,7 +20,7 @@ along with additional diagnostic information where available.}
 argument \code{as_tbl}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Return a list of report types.
 }

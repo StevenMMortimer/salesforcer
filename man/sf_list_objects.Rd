@@ -10,7 +10,7 @@ sf_list_objects()
 \code{list}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 Lists the available objects and their metadata for your organization’s data.
 }

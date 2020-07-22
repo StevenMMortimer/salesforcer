@@ -3,7 +3,7 @@
 #' List analytics notifications
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template source
 #' @template owner_id
@@ -40,7 +40,7 @@ sf_analytics_notifications_list <- function(source=c("lightningDashboardSubscrib
 #' Return limits of analytics notifications
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template source
 #' @template record_id
@@ -75,7 +75,7 @@ sf_analytics_notifications_limits <- function(source=c("lightningDashboardSubscr
 #' Create an analytics notification
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template body
 #' @return \code{list}
@@ -92,7 +92,7 @@ sf_analytics_notification_create <- function(body){
 #' Describe an analytics notification
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template notification_id
 #' @return \code{list}
@@ -121,7 +121,7 @@ sf_analytics_notification_describe <- function(notification_id){
 #' Update an analytics notification
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template notification_id
 #' @template body
@@ -139,7 +139,7 @@ sf_analytics_notification_update <- function(notification_id, body){
 #' Delete an analytics notification
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template notification_id
 #' @return \code{logical}

@@ -1,7 +1,7 @@
 #' Delete Object or Field Metadata in Salesforce
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' This function takes a request of named elements in Salesforce and deletes them.
 #'

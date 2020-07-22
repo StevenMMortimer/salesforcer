@@ -48,5 +48,5 @@ list in first. This parameter works when order parameter has been set.
 (Default: FALSE)}
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }
