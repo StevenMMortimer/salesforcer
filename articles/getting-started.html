@@ -194,8 +194,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013YA5lAAG TRUE   </span>
-<span class="co">#&gt; 2 0033s000013YA5mAAG TRUE</span>
+<span class="co">#&gt; 1 0033s000013YDjWAAW TRUE   </span>
+<span class="co">#&gt; 2 0033s000013YDjXAAW TRUE</span>
 </pre></div>
 </div>
 <div id="retrieving-records" class="section level2">
@@ -210,8 +210,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sObject Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 Contact 0033s000013YA5lAAG Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 Contact 0033s000013YA5mAAG Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 Contact 0033s000013YDjWAAW Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 Contact 0033s000013YDjXAAW Test      Contact-Create-2</span>
 </pre></div>
 </div>
 <div id="querying-records" class="section level2">
@@ -237,8 +237,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013YA5lAAG Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013YA5mAAG Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013YDjWAAW Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013YDjXAAW Test      Contact-Create-2</span>
 </pre></div>
 <p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
@@ -256,8 +256,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013YA5lAAG TRUE   </span>
-<span class="co">#&gt; 2 0033s000013YA5mAAG TRUE</span>
+<span class="co">#&gt; 1 0033s000013YDjWAAW TRUE   </span>
+<span class="co">#&gt; 2 0033s000013YDjXAAW TRUE</span>
 </pre></div>
 </div>
 <div id="deleting-records" class="section level2">
@@ -270,8 +270,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013YA5lAAG TRUE   </span>
-<span class="co">#&gt; 2 0033s000013YA5mAAG TRUE</span>
+<span class="co">#&gt; 1 0033s000013YDjWAAW TRUE   </span>
+<span class="co">#&gt; 2 0033s000013YDjXAAW TRUE</span>
 </pre></div>
 </div>
 <div id="upserting-records" class="section level2">
@@ -300,9 +300,9 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   id                 success created</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013YA2ZAAW TRUE    FALSE  </span>
-<span class="co">#&gt; 2 0033s000013YA2aAAG TRUE    FALSE  </span>
-<span class="co">#&gt; 3 0033s000013YA5nAAG TRUE    TRUE</span>
+<span class="co">#&gt; 1 0033s000013YDjbAAG TRUE    FALSE  </span>
+<span class="co">#&gt; 2 0033s000013YDjcAAG TRUE    FALSE  </span>
+<span class="co">#&gt; 3 0033s000013YDjgAAG TRUE    TRUE</span>
 </pre></div>
 </div>
 <div id="check-out-the-tests" class="section level2">

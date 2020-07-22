@@ -196,25 +196,25 @@
 <span class="kw">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="kw">soql</span>) <span class="co"># REST API is the default api_type</span>
 <span class="kw">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 0033s000012Nd6FAAS Jenny     Williams</span>
-<span class="co">#&gt; 2 0033s000012NdARAA0 Jenny     Williams</span>
-<span class="co">#&gt; 3 0036A00000kHvVYQA0 John      Bond    </span>
-<span class="co">#&gt; 4 0033s000012NdFhAAK Jenny     Williams</span>
-<span class="co">#&gt; 5 0033s000012Nd6UAAS Jenny     Williams</span>
+<span class="co">#&gt;   Id                 FirstName LastName                    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                       </span>
+<span class="co">#&gt; 1 0033s000013YAdhAAG Test      Contact-Create-Compatibility</span>
+<span class="co">#&gt; 2 0033s000013YB7iAAG Test      Contact-Create-2            </span>
+<span class="co">#&gt; 3 0033s000013YAnLAAW Test      Contact-Create-3            </span>
+<span class="co">#&gt; 4 0033s000013YAnMAAW Test      Contact-Create-4            </span>
+<span class="co">#&gt; 5 0033s000013YBFbAAO Test      Contact-Create-1            </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="kw">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="kw">soql</span>, api_type = <span class="st">"SOAP"</span>)
 <span class="kw">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 0033s000012Nd6FAAS Jenny     Williams</span>
-<span class="co">#&gt; 2 0033s000012NdARAA0 Jenny     Williams</span>
-<span class="co">#&gt; 3 0036A00000kHvVYQA0 John      Bond    </span>
-<span class="co">#&gt; 4 0033s000012NdFhAAK Jenny     Williams</span>
-<span class="co">#&gt; 5 0033s000012Nd6UAAS Jenny     Williams</span>
+<span class="co">#&gt;   Id                 FirstName LastName                    </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                       </span>
+<span class="co">#&gt; 1 0033s000013YAdhAAG Test      Contact-Create-Compatibility</span>
+<span class="co">#&gt; 2 0033s000013YB7iAAG Test      Contact-Create-2            </span>
+<span class="co">#&gt; 3 0033s000013YAnLAAW Test      Contact-Create-3            </span>
+<span class="co">#&gt; 4 0033s000013YAnMAAW Test      Contact-Create-4            </span>
+<span class="co">#&gt; 5 0033s000013YBFbAAO Test      Contact-Create-1            </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 </pre></div>
 </div>
@@ -271,9 +271,9 @@
 )
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;         expr       min       lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST")  419.5878  439.764  506.4858  468.6204  576.4553  628.0015     5</span>
-<span class="co">#&gt;  qry("SOAP") 1908.3579 1959.166 2172.6338 2188.9068 2317.8940 2488.8442     5</span>
+<span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
+<span class="co">#&gt;  qry("REST")  433.0786  433.5689  464.0774  439.0709  468.2504  546.4182     5</span>
+<span class="co">#&gt;  qry("SOAP") 1951.9276 1992.4420 2058.1287 2004.1190 2139.7834 2202.3715     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
@@ -300,8 +300,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.9 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -317,7 +317,7 @@
   )
 )
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.4 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
@@ -360,7 +360,7 @@
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
 <span class="co">#&gt; 3 0013s000010x6GcAAI         99</span>
 <span class="co">#&gt; 4 0013s000010xA6AAAU         99</span>
-<span class="co">#&gt; 5 0013s000010xAGUAA2         99</span>
+<span class="co">#&gt; 5 0013s000010xCCFAA2         99</span>
 <span class="co">#&gt; # … with 9 more rows</span>
 </pre></div>
 <p>The second reason to not use the Bulk APIs is that there is a performance overhead associated with every bulk (asynchronous) job that involves checking the status of the job until it succeeds or fails before retrieving the results.</p>
@@ -406,11 +406,11 @@
 <span class="co">#&gt; # A tibble: 99 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013YA6FAAW 0033s000013YA6FAAW FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013YA6GAAW 0033s000013YA6GAAW FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000013YA6HAAW 0033s000013YA6HAAW FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000013YA6IAAW 0033s000013YA6IAAW FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000013YA6JAAW 0033s000013YA6JAAW FALSE       NA       </span>
+<span class="co">#&gt; 1 0033s000013YDjqAAG 0033s000013YDjqAAG FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013YDjrAAG 0033s000013YDjrAAG FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000013YDjsAAG 0033s000013YDjsAAG FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000013YDjtAAG 0033s000013YDjtAAG FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000013YDjuAAG 0033s000013YDjuAAG FALSE       NA       </span>
 <span class="co">#&gt; # … with 94 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -418,7 +418,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000010xAGUAA2 TRUE</span>
+<span class="co">#&gt; 1 0013s000010xCCFAA2 TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -458,15 +458,15 @@
   FROM Contact
   WHERE Account.Id = null"
 )
-<span class="co">#&gt; # A tibble: 606 x 2</span>
+<span class="co">#&gt; # A tibble: 785 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 0033s000012Nd6FAAS Jenny    </span>
-<span class="co">#&gt; 2 0033s000012NdARAA0 Jenny    </span>
-<span class="co">#&gt; 3 0036A00000kHvVYQA0 John     </span>
-<span class="co">#&gt; 4 0033s000012NdFhAAK Jenny    </span>
-<span class="co">#&gt; 5 0033s000012Nd6UAAS Jenny    </span>
-<span class="co">#&gt; # … with 601 more rows</span>
+<span class="co">#&gt; 1 0033s000013YAdhAAG Test     </span>
+<span class="co">#&gt; 2 0033s000013YB7iAAG Test     </span>
+<span class="co">#&gt; 3 0033s000013YAnLAAW Test     </span>
+<span class="co">#&gt; 4 0033s000013YAnMAAW Test     </span>
+<span class="co">#&gt; 5 0033s000013YBFbAAO Test     </span>
+<span class="co">#&gt; # … with 780 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
