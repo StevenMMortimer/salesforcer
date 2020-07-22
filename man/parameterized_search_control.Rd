@@ -9,22 +9,27 @@ parameterized_search_control(
   fields_scope = c("ALL", "NAME", "EMAIL", "PHONE", "SIDEBAR"),
   fields = NULL,
   overall_limit = 2000,
+  default_limit = 200,
   spell_correction = TRUE
 )
 }
 \arguments{
-\item{objects}{character; objects to search and return in the response. Multiple
+\item{objects}{\code{character}; objects to search and return in the response. Multiple
 objects can be provided as a character vector}
 
-\item{fields_scope}{character; scope of fields to search in order to limit the resources
+\item{fields_scope}{\code{character}; scope of fields to search in order to limit the resources
 used and improve performance}
 
-\item{fields}{character; one or more fields to return in the response for each
+\item{fields}{\code{character}; one or more fields to return in the response for each
 sobject specified. If no fields are specified only the Ids of the matching records
 are returned.}
 
-\item{overall_limit}{numeric; the maximum number of results to return across
-all sobject parameters specified.}
+\item{overall_limit}{\code{numeric}; the maximum number of results to return across
+all objects in the search.}
+
+\item{default_limit}{\code{numeric}; the maximum number of results to return for
+each of the specified objects. This parameter is ignored if the \code{objects} argument
+is left \code{NULL}.}
 
 \item{spell_correction}{logical; specifies whether spell correction should be
 enabled for a user’s search.}
