@@ -22,7 +22,7 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 Object descriptions
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }
 \note{
 This function returns a data.frame with one row per field for an object.

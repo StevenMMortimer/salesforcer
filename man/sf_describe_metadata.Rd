@@ -16,7 +16,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_df}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This function returns details about the organization metadata
 }

@@ -28,5 +28,5 @@ from the dashboard metadata using \link{sf_dashboard_describe}.}
 \code{tbl_df}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 }

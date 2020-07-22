@@ -47,7 +47,7 @@ if it is not supplied directly.}
 \code{tibble}
 }
 \description{
-\lifecycle{maturing}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
 
 Searches for records in your organization’s data.
 }

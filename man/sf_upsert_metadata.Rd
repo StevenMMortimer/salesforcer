@@ -37,7 +37,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_df} containing the creation result for each submitted metadata component
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This function takes a list of Metadata components and sends them
 to Salesforce for creation or update if the object already exists

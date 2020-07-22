@@ -46,7 +46,7 @@ set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
 not require sharing passwords, but will require authorizing \code{salesforcer}

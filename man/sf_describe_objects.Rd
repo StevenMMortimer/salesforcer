@@ -35,7 +35,7 @@ along with additional diagnostic information where available.}
 \code{list}
 }
 \description{
-\lifecycle{maturing}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
 
 Describes the individual metadata for the specified object.
 }

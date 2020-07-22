@@ -24,7 +24,7 @@ along with additional diagnostic information where available.}
 \code{tbl_df} of records with success indicator
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Delete records from the recycle bin immediately and permanently.
 }

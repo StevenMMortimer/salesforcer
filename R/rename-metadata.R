@@ -1,7 +1,7 @@
 #' Rename Metadata Elements in Salesforce
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' This function takes an old and new name for a 
 #' metadata element in Salesforce and applies the new name

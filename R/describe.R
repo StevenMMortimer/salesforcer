@@ -1,7 +1,7 @@
 #' SObject Basic Information
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' Describes the individual metadata for the specified object.
 #' 

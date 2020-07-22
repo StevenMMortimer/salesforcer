@@ -25,5 +25,5 @@ deleted and archived records (available only when querying Task and Event record
 Result dataset.
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }

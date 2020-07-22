@@ -16,7 +16,7 @@ typically retrieved via query on the Attachment object}
 current directory.}
 }
 \description{
-\lifecycle{maturing}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
 
 This function will allow you to download an attachment to disk based on the
 attachment body, file name, and path.

@@ -38,7 +38,7 @@ along with additional diagnostic information where available.}
 \code{tbl_df}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Run a report without creating a new report or changing the existing one by making
 a POST request to the query resource. This allows you to get report data

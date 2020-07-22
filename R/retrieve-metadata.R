@@ -1,7 +1,7 @@
 #' Make A Request to Retrieve the Metadata
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' This function makes a request to retrieve metadata 
 #' as a package XML files that can be modified and later
@@ -97,7 +97,7 @@ sf_retrieve_metadata <- function(retrieve_request,
 #' Check on Retrieve Calls and Get Contents If Available
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' This function returns details about an initiated retrieveMetadata request
 #' and saves the results into a zip file

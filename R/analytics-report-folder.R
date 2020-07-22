@@ -3,7 +3,7 @@
 #' List report folders
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @return \code{list}
 #' @export
@@ -18,7 +18,7 @@ sf_report_folders_list <- function(){
 #' Create report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template body
 #' @return \code{list}
@@ -35,7 +35,7 @@ sf_report_folder_create <- function(body){
 #' Describe a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @return \code{list}
@@ -50,7 +50,7 @@ sf_report_folder_describe <- function(report_folder_id){
 #' Update a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @template body
@@ -68,7 +68,7 @@ sf_report_folder_update <- function(report_folder_id, body){
 #' Delete a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @return \code{logical}
@@ -83,7 +83,7 @@ sf_report_folder_delete <- function(report_folder_id){
 #' List the shares in a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @return \code{list}
@@ -99,7 +99,7 @@ sf_report_folder_shares_list <- function(report_folder_id){
 #' Add shares to a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' Creates new shares and appends them to the existing share list for the folder.
 #'
@@ -119,7 +119,7 @@ sf_report_folder_shares_add <- function(report_folder_id, body){
 #' Update the shares for a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' Creates new shares to replace the existing shares in the share list for the folder.
 #'
@@ -139,7 +139,7 @@ sf_report_folder_shares_update <- function(report_folder_id, body){
 #' Describe a report folder share
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @template share_id
@@ -155,7 +155,7 @@ sf_report_folder_share_describe <- function(report_folder_id, share_id){
 #' Update a report folder share
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @template share_id
@@ -174,7 +174,7 @@ sf_report_folder_share_update <- function(report_folder_id, share_id, body){
 #' Delete a report folder share
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @template share_id
@@ -191,7 +191,7 @@ sf_report_folder_share_delete <- function(report_folder_id, share_id){
 #' Get report folder share recipients
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @param share_type \code{character}; Return data for the recipients of the 
@@ -215,7 +215,7 @@ sf_report_folder_share_recipients <- function(report_folder_id,
 #' Get the subfolders (children) of a report folder
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @template report_folder_id
 #' @param page_size \code{integer}; integer that indicates how many results each 

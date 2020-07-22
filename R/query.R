@@ -1,7 +1,7 @@
 #' Perform SOQL Query
 #' 
 #' @description
-#' \lifecycle{maturing}
+#' `r lifecycle::badge("maturing")`
 #' 
 #' Executes a query against the specified object and returns data that matches 
 #' the specified criteria.

@@ -18,5 +18,5 @@ necessary to pass the session in each function call.}
 \item{queryString}{Query strings to search. (ex: "United", "Electoronics")}
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }

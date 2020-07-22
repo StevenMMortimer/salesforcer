@@ -1,7 +1,7 @@
 #' Update Object or Field Metadata in Salesforce
 #' 
 #' @description
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("experimental")`
 #' 
 #' This function takes a list of Metadata components and sends them 
 #' to Salesforce to update an object that already exists

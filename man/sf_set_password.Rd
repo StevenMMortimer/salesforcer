@@ -21,7 +21,7 @@ along with additional diagnostic information where available.}
 \code{list}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Sets the specified user’s password to the specified value.
 }

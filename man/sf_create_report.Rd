@@ -43,7 +43,7 @@ joined metadata.}
 }
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Create a new report using a POST request. To create a report, you only have to
 specify a name and report type to create a new report; all other metadata properties

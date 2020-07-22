@@ -24,5 +24,5 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 \code{data.frame} containing the id and success indicator of the record creation process
 }
 \description{
-\lifecycle{soft-deprecated}
+\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
 }

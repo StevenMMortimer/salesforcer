@@ -19,7 +19,7 @@ along with additional diagnostic information where available.}
 \code{list} or \code{tbl_df} depending on the value of argument \code{as_tbl}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Returns a list of recently used dashboards
 }

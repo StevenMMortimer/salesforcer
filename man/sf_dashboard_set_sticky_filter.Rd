@@ -22,7 +22,7 @@ from the dashboard metadata using \link{sf_dashboard_describe}.}
 \code{list}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Set a default filter value which gets applied to a dashboard when you open
 it. The default filter value you specify only applies to you (other people

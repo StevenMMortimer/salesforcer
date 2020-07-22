@@ -23,8 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - uses: r-lib/actions/setup-tinytex@v1
-      
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: 'release'
@@ -63,7 +61,7 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false       
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), build_args = c( "--force"), error_on = "warning", check_dir = "check")
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Show testthat output

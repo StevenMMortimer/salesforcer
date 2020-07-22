@@ -59,7 +59,7 @@ along with additional diagnostic information where available.}
 data from the "T!T" entry in the fact map.
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Retrieves results for an instance of a report run asynchronously with or without
 filters. Depending on your asynchronous report run request, data can be at the

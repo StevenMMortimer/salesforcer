@@ -84,7 +84,7 @@ which means that the content from the API is converted from JSON to a list
 with no other post-processing.
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Get summary data with or without details by running a report synchronously or
 asynchronously through the API. When you run a report, the API returns data
