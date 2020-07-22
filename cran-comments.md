@@ -10,7 +10,10 @@
 
 ## R CMD check results
 
-0 errors v | 0 warnings v | 0 notes v
+checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Steven M. Mortimer <***>'
+
+0 errors v | 0 warnings v | 1 note x
 
 ----
 
