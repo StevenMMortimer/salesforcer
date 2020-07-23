@@ -2,7 +2,7 @@ name: test-coverage
 
 on:
   push:
-    branches: master
+    branches: main
   schedule:
     # Execute monthly at 9AM UTC (5AM EDT (during daylight savings), otherwise 4AM)
     - cron:  '0 9 1 * *'

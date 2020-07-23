@@ -3,7 +3,7 @@ name: pkgdown
 on:
   push:
     branches:
-      - master
+      - main
       
 jobs:
   pkgdown:
