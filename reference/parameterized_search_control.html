@@ -97,7 +97,7 @@ when not using SOSL" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9001</span>
       </span>
     </div>
 
@@ -195,6 +195,7 @@ when not using SOSL</p>
   fields_scope = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ALL"</span>, <span class='st'>"NAME"</span>, <span class='st'>"EMAIL"</span>, <span class='st'>"PHONE"</span>, <span class='st'>"SIDEBAR"</span>),
   fields = <span class='kw'>NULL</span>,
   overall_limit = <span class='fl'>2000</span>,
+  default_limit = <span class='fl'>200</span>,
   spell_correction = <span class='fl'>TRUE</span>
 )</pre>
 
@@ -203,24 +204,30 @@ when not using SOSL</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>objects</th>
-      <td><p>character; objects to search and return in the response. Multiple
+      <td><p><code>character</code>; objects to search and return in the response. Multiple
 objects can be provided as a character vector</p></td>
     </tr>
     <tr>
       <th>fields_scope</th>
-      <td><p>character; scope of fields to search in order to limit the resources
+      <td><p><code>character</code>; scope of fields to search in order to limit the resources
 used and improve performance</p></td>
     </tr>
     <tr>
       <th>fields</th>
-      <td><p>character; one or more fields to return in the response for each
+      <td><p><code>character</code>; one or more fields to return in the response for each
 sobject specified. If no fields are specified only the Ids of the matching records
 are returned.</p></td>
     </tr>
     <tr>
       <th>overall_limit</th>
-      <td><p>numeric; the maximum number of results to return across
-all sobject parameters specified.</p></td>
+      <td><p><code>numeric</code>; the maximum number of results to return across
+all objects in the search.</p></td>
+    </tr>
+    <tr>
+      <th>default_limit</th>
+      <td><p><code>numeric</code>; the maximum number of results to return for
+each of the specified objects. This parameter is ignored if the <code>objects</code> argument
+is left <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>spell_correction</th>
