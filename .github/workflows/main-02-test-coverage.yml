@@ -2,7 +2,7 @@ name: Test coverage
 
 on:
   repository_dispatch:
-    types: main-02-test-coverage
+    types: [main-02-test-coverage]
   schedule:
     # Execute monthly at 9AM UTC (5AM EDT (during daylight savings), otherwise 4AM)
     - cron:  '0 9 1 * *'
@@ -10,7 +10,7 @@ on:
 jobs:
   test-coverage:
   
-    if: {{ github.ref == github.event.client_payload.github_ref && github.sha == github.event.client_payload.github_sha }}
+    if: {{ github.ref == github.event.client_payload.ref && github.sha == github.event.client_payload.sha }}
     
     runs-on: macOS-latest
     
@@ -69,5 +69,9 @@ jobs:
         
       - name: Trigger next workflow
         if: success()
-        run: |        
-          curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches -d '{ "event_type":"main-03-R-CMD-check-mac", "client_payload":{"github":{"sha":"${{ github.sha }}", "ref":"${{ github.ref }}"}}}'
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: StevenMMortimer/salesforcer
+          event-type: main-03-R-CMD-check-mac
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
