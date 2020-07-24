@@ -1,4 +1,4 @@
-name: Dev Branch R-CMD-check on macOS
+name: Dev branch R-CMD-check on Mac
 
 on:
   push:
