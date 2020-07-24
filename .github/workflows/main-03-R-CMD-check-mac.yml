@@ -1,14 +1,11 @@
-name: R-CMD-check on Windows
+name: R-CMD-check on macOS
 
 on:
   repository_dispatch:
-    types: [build_success]
+    types: main-03-R-CMD-check-mac
       
 jobs:
-  R-CMD-check-windows:
-  
-    # see https://github.com/lewagon/quay-github-actions-dispatch for use-case
-    if: startsWith(github.sha, github.event.client_payload.text)  
+  R-CMD-check-mac:
   
     runs-on: ${{ matrix.config.os }}
     
@@ -19,7 +16,7 @@ jobs:
       max-parallel: 1
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
+          - {os: macOS-latest,   r: 'release'}
           
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -31,16 +28,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      # This step will retry until required check passes
-      # and will fail the whole workflow if the check conclusion is not a success
-      - name: Wait on tests
-        uses: lewagon/wait-on-check-action@v0.1-beta.2
-        with:
-          ref: main # can be commit SHA or tag too
-          check-name: R-CMD-check-mac # name of the existing check
-          repo-token: ${{ env.GITHUB_PAT }}
-          wait-interval: 60 # seconds      
       
       - uses: r-lib/actions/setup-r@master
         with:
@@ -104,3 +91,16 @@ jobs:
         with:
           name: ${{ runner.os }}-r-${{ matrix.config.r }}-results
           path: check
+          
+      - name: Trigger next workflow
+        if: always()
+        run: |        
+          - curl \
+          -X POST \ 
+          -H "Authorization: Bearer ${{ env.GITHUB_PAT }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches \
+          -d '{
+            "event_type":"main-04-R-CMD-check-windows", 
+            "client_payload":{"github":{"sha":"${{ env.GITHUB_SHA }}", "ref":"${{ env.GITHUB_REF }}"}}
+          }'
