@@ -95,4 +95,4 @@ jobs:
       - name: Trigger next workflow
         if: always()
         run: |        
-          curl -X POST -H "Authorization: Bearer ${{ env.GITHUB_PAT }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches -d '{ "event_type":"main-05-R-CMD-check-linux", "client_payload":{"github":{"sha":"${{ $GITHUB_SHA }}", "ref":"${{ $GITHUB_REF }}"}}}'
+          curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches -d '{ "event_type":"main-05-R-CMD-check-linux", "client_payload":{"github":{"sha":"${{ github.sha }}", "ref":"${{ github.ref }}"}}}'
