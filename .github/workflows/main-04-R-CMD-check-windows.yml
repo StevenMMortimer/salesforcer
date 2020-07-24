@@ -2,10 +2,12 @@ name: R-CMD-check on Windows
 
 on:
   repository_dispatch:
-    types: main-04-R-CMD-check-windows
+    types: [main-04-R-CMD-check-windows]
       
 jobs:
   R-CMD-check-windows:
+  
+    if: {{ github.ref == github.event.client_payload.ref && github.sha == github.event.client_payload.sha }}
   
     runs-on: ${{ matrix.config.os }}
     
@@ -94,5 +96,9 @@ jobs:
           
       - name: Trigger next workflow
         if: always()
-        run: |        
-          curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches -d '{ "event_type":"main-05-R-CMD-check-linux", "client_payload":{"github":{"sha":"${{ github.sha }}", "ref":"${{ github.ref }}"}}}'
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: StevenMMortimer/salesforcer
+          event-type: main-05-R-CMD-check-linux
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

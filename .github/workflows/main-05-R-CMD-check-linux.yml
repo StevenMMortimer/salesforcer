@@ -2,10 +2,12 @@ name: R-CMD-check on Linux
 
 on:
   repository_dispatch:
-    types: main-05-R-CMD-check-linux
+    types: [main-05-R-CMD-check-linux]
       
 jobs:
   R-CMD-check-linux:
+    
+    if: {{ github.ref == github.event.client_payload.ref && github.sha == github.event.client_payload.sha }}
     
     runs-on: ${{ matrix.config.os }}
     

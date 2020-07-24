@@ -57,5 +57,9 @@ jobs:
           
       - name: Trigger next workflow
         if: success()
-        run: |
-          curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches -d '{ "event_type":"main-02-test-coverage", "client_payload":{"github":{"sha":"${{ github.sha }}", "ref":"${{ github.ref }}"}}}'
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: StevenMMortimer/salesforcer
+          event-type: main-02-test-coverage
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
