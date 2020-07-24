@@ -94,13 +94,5 @@ jobs:
           
       - name: Trigger next workflow
         if: always()
-        run: |        
-          curl \
-          -X POST \ 
-          -H "Authorization: Bearer ${{ env.GITHUB_PAT }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches \
-          -d '{
-            "event_type":"main-04-R-CMD-check-windows", 
-            "client_payload":{"github":{"sha":"${{ $GITHUB_SHA }}", "ref":"${{ $GITHUB_REF }}"}}
-          }'
+        run: |
+          curl -X POST -H "Authorization: Bearer ${{ env.GITHUB_PAT }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/StevenMMortimer/salesforcer/dispatches -d '{ "event_type":"main-04-R-CMD-check-windows", "client_payload":{"github":{"sha":"${{ $GITHUB_SHA }}", "ref":"${{ $GITHUB_REF }}"}}}'
