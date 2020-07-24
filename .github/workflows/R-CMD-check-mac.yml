@@ -1,12 +1,14 @@
-name: R-CMD-check
+name: R-CMD-check on macOS
 
 on:
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types: [build_success]
       
 jobs:
-  R-CMD-check:
+  R-CMD-check-mac:
+  
+    # see https://github.com/lewagon/quay-github-actions-dispatch for use-case
+    if: startsWith(github.sha, github.event.client_payload.text)
   
     runs-on: ${{ matrix.config.os }}
     
@@ -29,6 +31,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      # This step will retry until required check passes
+      # and will fail the whole workflow if the check conclusion is not a success
+      - name: Wait on tests
+        uses: lewagon/wait-on-check-action@v0.1-beta.2
+        with:
+          ref: main # can be commit SHA or tag too
+          check-name: pkgdown # name of the existing check
+          repo-token: ${{ env.GITHUB_PAT }}
+          wait-interval: 60 # seconds      
       
       - uses: r-lib/actions/setup-r@master
         with:
