@@ -272,8 +272,8 @@
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST")  405.1596  426.6233  424.2804  427.8865  429.3582  432.3745     5</span>
-<span class="co">#&gt;  qry("SOAP") 1968.3815 1980.0413 2005.3423 2012.7880 2032.6048 2032.8959     5</span>
+<span class="co">#&gt;  qry("REST")  444.4073  452.8298  487.0709  462.1386  479.4977  596.4813     5</span>
+<span class="co">#&gt;  qry("SOAP") 2025.6476 2048.9501 2121.1588 2066.4883 2155.8340 2308.8742     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
@@ -301,7 +301,7 @@
   )
 )
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.3 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -316,8 +316,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.4 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 2.8 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.8 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
@@ -358,7 +358,7 @@
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
-<span class="co">#&gt; 3 0013s000010xkIRAAY         99</span>
+<span class="co">#&gt; 3 0013s000010xkOUAAY         99</span>
 <span class="co">#&gt; 4 0016A0000035mJ4QAI          2</span>
 <span class="co">#&gt; 5 0016A0000035mJ5QAI          1</span>
 <span class="co">#&gt; # … with 7 more rows</span>
@@ -406,11 +406,11 @@
 <span class="co">#&gt; # A tibble: 99 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013ZACsAAO 0033s000013ZACsAAO FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013ZACtAAO 0033s000013ZACtAAO FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000013ZACuAAO 0033s000013ZACuAAO FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000013ZACvAAO 0033s000013ZACvAAO FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000013ZACwAAO 0033s000013ZACwAAO FALSE       NA       </span>
+<span class="co">#&gt; 1 0033s000013ZAMSAA4 0033s000013ZAMSAA4 FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013ZAMTAA4 0033s000013ZAMTAA4 FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000013ZAMUAA4 0033s000013ZAMUAA4 FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000013ZAMVAA4 0033s000013ZAMVAA4 FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000013ZAMWAA4 0033s000013ZAMWAA4 FALSE       NA       </span>
 <span class="co">#&gt; # … with 94 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -418,7 +418,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000010xkIRAAY TRUE</span>
+<span class="co">#&gt; 1 0013s000010xkOUAAY TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -458,7 +458,7 @@
   FROM Contact
   WHERE Account.Id = null"
 )
-<span class="co">#&gt; # A tibble: 369 x 2</span>
+<span class="co">#&gt; # A tibble: 379 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000013YI4OAAW Test     </span>
@@ -466,7 +466,7 @@
 <span class="co">#&gt; 3 0033s000013YIFgAAO Test     </span>
 <span class="co">#&gt; 4 0033s000013YJ5GAAW Test     </span>
 <span class="co">#&gt; 5 0033s000012Nd6FAAS Jenny    </span>
-<span class="co">#&gt; # … with 364 more rows</span>
+<span class="co">#&gt; # … with 374 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
