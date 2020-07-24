@@ -98,7 +98,7 @@ jobs:
         if: always()
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPO_GHA_PAT }}
           repository: StevenMMortimer/salesforcer
           event-type: main-04-R-CMD-check-windows
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
