@@ -7,7 +7,7 @@ on:
 jobs:
   R-CMD-check-linux:
     
-    if: {{ github.ref == github.event.client_payload.ref && github.sha == github.event.client_payload.sha }}
+    if: ${{ github.ref == github.event.client_payload.ref && github.sha == github.event.client_payload.sha }}
     
     runs-on: ${{ matrix.config.os }}
     
