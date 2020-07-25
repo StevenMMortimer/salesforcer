@@ -95,7 +95,7 @@ jobs:
           path: check
           
       - name: Trigger next workflow
-        if: always()
+        if: success()
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
