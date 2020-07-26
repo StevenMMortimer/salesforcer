@@ -271,9 +271,9 @@
 )
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;         expr       min        lq      mean    median        uq      max neval</span>
-<span class="co">#&gt;  qry("REST")  488.1632  503.8168  521.5684  527.0131  527.6429  561.206     5</span>
-<span class="co">#&gt;  qry("SOAP") 2304.7754 2313.2035 2359.1852 2354.2995 2404.1282 2419.520     5</span>
+<span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
+<span class="co">#&gt;  qry("REST")  413.2676  422.0523  430.0717  434.8833  436.4254  443.7297     5</span>
+<span class="co">#&gt;  qry("SOAP") 1858.5547 1865.7564 1883.3997 1884.3125 1902.1686 1906.2063     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
@@ -300,8 +300,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -317,7 +317,7 @@
   )
 )
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
@@ -338,7 +338,7 @@
                      `Contact.FirstName` = <span class="kw">FirstName</span>), 
             by = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Id"</span> = <span class="st">"Account.Id"</span>))
 <span class="kw">nested_query_recs</span>
-<span class="co">#&gt; # A tibble: 1,513 x 4</span>
+<span class="co">#&gt; # A tibble: 514 x 4</span>
 <span class="co">#&gt;   Id              Name                         Contact.Id       Contact.FirstNa…</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt;            &lt;chr&gt;           </span>
 <span class="co">#&gt; 1 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzw… KEEP            </span>
@@ -346,22 +346,22 @@
 <span class="co">#&gt; 3 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzy… KEEP            </span>
 <span class="co">#&gt; 4 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzz… KEEP            </span>
 <span class="co">#&gt; 5 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nl00… KEEP            </span>
-<span class="co">#&gt; # … with 1,508 more rows</span>
+<span class="co">#&gt; # … with 509 more rows</span>
 
 <span class="kw">aggregate_query_recs</span> <span class="op">&lt;-</span> <span class="kw">nested_query_recs</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Id</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(.groups = <span class="st">'drop'</span>, 
             contacts_n = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">Contact.Id</span>)))
 <span class="kw">aggregate_query_recs</span>
-<span class="co">#&gt; # A tibble: 14 x 2</span>
+<span class="co">#&gt; # A tibble: 13 x 2</span>
 <span class="co">#&gt;   Id                 contacts_n</span>
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
 <span class="co">#&gt; 3 0013s000010xlnJAAQ         99</span>
-<span class="co">#&gt; 4 0013s000010xlqhAAA        999</span>
-<span class="co">#&gt; 5 0013s000010xlr6AAA         99</span>
-<span class="co">#&gt; # … with 9 more rows</span>
+<span class="co">#&gt; 4 0013s000010xnkCAAQ         99</span>
+<span class="co">#&gt; 5 0016A0000035mJ4QAI          2</span>
+<span class="co">#&gt; # … with 8 more rows</span>
 </pre></div>
 <p>The second reason to not use the Bulk APIs is that there is a performance overhead associated with every bulk (asynchronous) job that involves checking the status of the job until it succeeds or fails before retrieving the results.</p>
 <p>The example below is provided so that you can take this code as an example to run your own performance test of queries that return 10K, 100K, 1M+ records to see where the Bulk APIs outperform the REST API.</p>
@@ -406,11 +406,11 @@
 <span class="co">#&gt; # A tibble: 99 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013ZCekAAG 0033s000013ZCekAAG FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013ZCelAAG 0033s000013ZCelAAG FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000013ZCemAAG 0033s000013ZCemAAG FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000013ZCenAAG 0033s000013ZCenAAG FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000013ZCeoAAG 0033s000013ZCeoAAG FALSE       NA       </span>
+<span class="co">#&gt; 1 0033s000013ZEhMAAW 0033s000013ZEhMAAW FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013ZEhNAAW 0033s000013ZEhNAAW FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000013ZEhOAAW 0033s000013ZEhOAAW FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000013ZEhPAAW 0033s000013ZEhPAAW FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000013ZEhQAAW 0033s000013ZEhQAAW FALSE       NA       </span>
 <span class="co">#&gt; # … with 94 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -418,7 +418,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000010xlr6AAA TRUE</span>
+<span class="co">#&gt; 1 0013s000010xnkCAAQ TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -439,13 +439,13 @@
   WHERE Account.Id != null"
 )
 <span class="co">#&gt; # A tibble: 414 x 3</span>
-<span class="co">#&gt;   Id                 FirstName Account.Name                        </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                               </span>
-<span class="co">#&gt; 1 0033s000012Nl0rAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 2 0033s000012Nl0sAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 3 0033s000012Nl0tAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 4 0033s000012Nl0uAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 5 0033s000012Nl0vAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt;   Id                 FirstName Account.Name                   </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                          </span>
+<span class="co">#&gt; 1 0036A000002C6MWQA0 Rose      Edge Communications            </span>
+<span class="co">#&gt; 2 0036A000002C6MXQA0 Sean      Edge Communications            </span>
+<span class="co">#&gt; 3 0036A000002C6MfQAK Babara    Express Logistics and Transport</span>
+<span class="co">#&gt; 4 0036A000002C6MgQAK Josh      Express Logistics and Transport</span>
+<span class="co">#&gt; 5 0036A000002C6MhQAK Jane      University of Arizona          </span>
 <span class="co">#&gt; # … with 409 more rows</span>
 </pre></div>
 <p>Sometimes you may notice that the requested relationship fields do not appear in the query results. This is because the SOAP and REST APIs do not return any related object information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. In the example below, if there were Account information an additional column titled <code>"Account.Name"</code> would appear in the results.</p>
@@ -458,7 +458,7 @@
   FROM Contact
   WHERE Account.Id = null"
 )
-<span class="co">#&gt; # A tibble: 505 x 2</span>
+<span class="co">#&gt; # A tibble: 565 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000013YI4OAAW Test     </span>
@@ -466,7 +466,7 @@
 <span class="co">#&gt; 3 0033s000013YIFgAAO Test     </span>
 <span class="co">#&gt; 4 0033s000013YJ5GAAW Test     </span>
 <span class="co">#&gt; 5 0033s000012Nd6FAAS Jenny    </span>
-<span class="co">#&gt; # … with 500 more rows</span>
+<span class="co">#&gt; # … with 560 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
