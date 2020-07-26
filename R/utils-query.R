@@ -5,6 +5,7 @@
 #' each record represents a row in the data frame.
 #' 
 #' @importFrom tibble as_tibble_row
+#' @importFrom purrr list_modify pluck
 #' @importFrom rlist list.flatten
 #' @param x \code{list}; a list to be extracted into a \code{tbl_df}.
 #' @return \code{tbl_df} parsed from the flattened list.
@@ -12,7 +13,17 @@
 #' @keywords internal
 #' @export
 flatten_tbl_df <- function(x){
-  x %>% list.flatten() %>% as_tibble_row()
+  errors <- x %>% pluck("errors")
+  x_tbl <- x %>% 
+    list_modify("errors" = NULL) %>% 
+    list.flatten() %>% 
+    as_tibble_row()
+  
+  if(!is.null(errors)){
+    x_tbl$errors <- list(errors) 
+  }
+  
+  return(x_tbl)
 }
 
 #' Flatten list column
@@ -120,6 +131,46 @@ set_null_elements_to_na_recursively <- function(x) {
   x %>%
     map_if(is.list, set_null_elements_to_na_recursively) %>% 
     set_null_elements_to_na()
+}
+
+#' Unlist all list elements of length 1 if they are not a list
+#' 
+#' This function wraps a simple \code{\link[purrr:modify]{modify_if}} function 
+#' to "unbox" list elements. This is helpful when the \code{\link[xml2]{as_list}} 
+#' returns elements of XML and the element value is kept as a list of length 1,
+#' even though it could be a single primitive data type (e.g. \code{logical},
+#' \code{character}, etc.).
+#' 
+#' @importFrom purrr modify_if
+#' @param x \code{list}; a list to be cleaned.
+#' @return \code{list} containing \code{NA} in place of \code{NULL} element values.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+unbox_list_elements <- function(x){
+  x %>% 
+    modify_if(~((length(.x) == 1) && (!is.list(.x[[1]]))), 
+              .f = function(x){return(unlist(x))})  
+}
+
+#' Recursively unlist all list elements of length 1 if they are not a list
+#' 
+#' This function wraps a simple \code{\link[purrr:modify]{modify_if}} function 
+#' to recursively "unbox" list elements. This is helpful when the 
+#' \code{\link[xml2]{as_list}} returns elements of XML and the element value is 
+#' kept as a list of length 1, even though it could be a single primitive data 
+#' type (e.g. \code{logical}, \code{character}, etc.).
+#' 
+#' @importFrom purrr map_if
+#' @param x \code{list}; a list to be cleaned.
+#' @return \code{list} containing "unboxed" list elements.
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+unbox_list_elements_recursively <- function(x) {
+  x %>%
+    map_if(is.list, unbox_list_elements_recursively) %>% 
+    unbox_list_elements()
 }
 
 #' Remove Salesforce attributes data from list
@@ -257,10 +308,10 @@ xml_drop_and_unlist_recursively <- function(x) {
 #' This function accepts an \code{xml_node} assuming it already represents one 
 #' record and formats that node into a single row \code{tbl_df}.
 #' 
-#' @importFrom dplyr mutate_all as_tibble
+#' @importFrom dplyr tibble
 #' @importFrom tibble as_tibble_row
-#' @importFrom xml2 xml_find_all xml_text as_list xml_find_first xml_children xml_name xml_remove
-#' @importFrom purrr modify_if map_df
+#' @importFrom xml2 xml_find_all as_list xml_remove xml_find_first xml_text
+#' @importFrom purrr map
 #' @param node \code{xml_node}; the node to have records extracted into one row \code{tbl_df}.
 #' @param object_name_append \code{logical}; whether to include the object type
 #' (e.g. Account or Contact) as part of the column names (e.g. Account.Name).
@@ -277,15 +328,18 @@ extract_records_from_xml_node <- function(node,
   # TODO: Consider doing something with the duplicate match data because what is returned
   # in the duplicateResult element is very detailed. For now just remove it
   # if(length(xml_find_all(node, "//errors[@xsi:type='DuplicateError']")) > 0){
-  if(length(xml_find_first(node, "//errors | //error")) > 0){
-    children <- xml_find_first(node, "//errors | //error") %>% xml_children()
-    for(i in 1:length(children)){
-      if(!(xml_name(children[[i]]) %in% c("message", "statusCode", 
-                                          "errorMessage", "errorCode"))){
-        node_to_remove <- children[[i]]
-        xml_remove(node_to_remove)
-      }
-    }
+  error_nodes <- xml_find_all(node, ".//errors | .//error")
+  if(length(error_nodes) > 0){
+    errors_list <- error_nodes %>% 
+      # convert to list
+      as_list() %>%
+      # "unbox" length 1 list elements
+      map(unbox_list_elements_recursively) %>%
+      # return as a length 1 list, which is what the row requires (a single element)
+      list()
+    xml_remove(error_nodes)
+  } else {
+    errors_list <- list()
   }
   
   if(object_name_append | object_name_as_col){
@@ -308,6 +362,11 @@ extract_records_from_xml_node <- function(node,
   } else {
     x <- tibble()
   }
+  
+  if(length(errors_list) == 1){
+    x$errors <- errors_list
+  }
+  
   return(x)
 }
 

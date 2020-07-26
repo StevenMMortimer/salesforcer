@@ -15,6 +15,33 @@ test_that("testing REST API Functionality", {
   expect_equal(nrow(created_records), n)
   expect_is(created_records$success, "logical")
   
+  # sf_create error ------------------------------------------------------------
+  new_campaign_members <- tibble(CampaignId = "",
+                                 ContactId = "0036A000002C6MbQAK")
+  created_records <- sf_create(new_campaign_members, 
+                               object_name = "CampaignMember", 
+                               api_type="REST")
+  expect_is(created_records, "tbl_df")
+  expect_equal(names(created_records), c("success", "errors"))
+  expect_equal(nrow(created_records), 1)
+  expect_is(created_records$errors, "list")
+  expect_equal(length(created_records$errors[1][[1]]), 2)
+  expect_equal(names(created_records$errors[1][[1]][[1]]), 
+               c("statusCode", "message", "fields"))
+  
+  new_campaign_members <- tibble(CampaignId = "7013s000000j6n1AAA",
+                                 ContactId = "0036A000002C6MbQAK")
+  created_records <- sf_create(new_campaign_members, 
+                               object_name = "CampaignMember", 
+                               api_type="REST")
+  expect_is(created_records, "tbl_df")
+  expect_equal(names(created_records), c("success", "errors"))
+  expect_equal(nrow(created_records), 1)
+  expect_is(created_records$errors, "list")   
+  expect_equal(length(created_records$errors[1][[1]]), 1)
+  expect_equal(names(created_records$errors[1][[1]][[1]]), 
+               c("statusCode", "message", "fields"))
+  
   # sf_retrieve ----------------------------------------------------------------  
   retrieved_records <- sf_retrieve(ids = created_records$id, 
                                    fields = c("FirstName", "LastName"), 
