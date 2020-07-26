@@ -6,9 +6,7 @@ on:
       
 jobs:
   R-CMD-check-mac:
-  
-    if: ${{ github.ref == github.event.client_payload.ref && github.sha == github.event.client_payload.sha }}
-    
+
     runs-on: ${{ matrix.config.os }}
     
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -30,6 +28,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - run: echo ${{ github.event.client_payload.sha }}
       
       - uses: r-lib/actions/setup-r@master
         with:
