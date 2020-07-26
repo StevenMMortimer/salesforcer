@@ -191,11 +191,11 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000ZgzOAEAZ TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000ZgzOFEAZ TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000ZgzOKEAZ TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000ZgzOPEAZ TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000ZgzOUEAZ TRUE   </span>
+<span class="co">#&gt; 1 00P3s00000Zh2tZEAR TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000Zh2teEAB TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000Zh2tjEAB TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000Zh2toEAB TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000Zh2ttEAB TRUE   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -215,11 +215,11 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 00P3s00000Zg… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 2 00P3s00000Zg… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 3 00P3s00000Zg… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 4 00P3s00000Zg… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 5 00P3s00000Zg… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 1 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 2 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 3 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 4 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 5 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
@@ -249,17 +249,17 @@
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Name</span>, 
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Path</span>)
 <span class="kw">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZgzOAEAZ/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh2tZEAR/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZgzOFEAZ/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh2teEAB/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZgzOKEAZ/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh2tjEAB/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZgzOUEAZ/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh2ttEAB/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZgzOPEAZ/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh2tyEAB/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZgzOZEAZ/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh2toEAB/Body </span>
 <span class="co">#&gt;                                                             TRUE</span>
 </pre></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
@@ -276,11 +276,11 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000ZgzOeEAJ TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000ZgzOfEAJ TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000ZgzOgEAJ TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000ZgzOhEAJ TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000ZgzOiEAJ TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 00P3s00000Zh2u3EAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000Zh2u4EAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000Zh2u5EAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000Zh2u6EAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000Zh2u7EAB TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -303,7 +303,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gZGKAA2 TRUE</span>
+<span class="co">#&gt; 1 0153s000001gZHmAAM TRUE</span>
 </pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
@@ -318,7 +318,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gZGPAA2 TRUE</span>
+<span class="co">#&gt; 1 0153s000001gZHrAAM TRUE</span>
 </pre></div>
 </div>
 <div id="reference-links" class="section level2">
