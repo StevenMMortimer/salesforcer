@@ -43,23 +43,23 @@ test_that("testing REST API Functionality", {
                c("fields", "message", "statusCode"))
   
   # sf_create duplicate --------------------------------------------------------
-  n <- 3
+  dupe_n <- 3
   prefix <- paste0("KEEP-", as.integer(runif(1,1,100000)), "-")
-  new_contacts <- tibble(FirstName = rep("KEEP", n),
-                         LastName = paste0("Test-Contact-Dupe", 1:n),
-                         Email = rep("keeptestcontact@gmail.com", n),
-                         Phone = rep("(123) 456-7890", n),
-                         test_number__c = rep(999.9, n),
-                         My_External_Id__c = paste0(prefix, 1:n, "ZZZ"))
+  new_contacts <- tibble(FirstName = rep("KEEP", dupe_n),
+                         LastName = paste0("Test-Contact-Dupe", 1:dupe_n),
+                         Email = rep("keeptestcontact@gmail.com", dupe_n),
+                         Phone = rep("(123) 456-7890", dupe_n),
+                         test_number__c = rep(999.9, dupe_n),
+                         My_External_Id__c = paste0(prefix, 1:dupe_n, "ZZZ"))
   dupe_records <- sf_create(new_contacts, 
-                            object_name="Contact", 
+                            object_name = "Contact", 
                             api_type = "REST",
                             control = list(allowSave = FALSE, 
                                            includeRecordDetails = TRUE,
                                            runAsCurrentUser = TRUE))
   expect_is(dupe_records, "tbl_df")
   expect_equal(names(dupe_records), c("success", "errors"))
-  expect_equal(nrow(dupe_records), n)
+  expect_equal(nrow(dupe_records), dupe_n)
   expect_is(dupe_records$errors, "list")   
   expect_equal(length(dupe_records$errors[1][[1]]), 1)
   expect_equal(sort(names(dupe_records$errors[1][[1]][[1]])), 
