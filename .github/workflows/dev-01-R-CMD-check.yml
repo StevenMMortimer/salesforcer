@@ -41,4 +41,4 @@ jobs:
           token: ${{ secrets.REPO_GHA_PAT }}
           repository: StevenMMortimer/salesforcer
           event-type: test-01
-          client-payload: "{'success': ${{ job.status == 'success' }}}"
+          client-payload: '{"success": ${{ job.status == ''success'' }}}'
