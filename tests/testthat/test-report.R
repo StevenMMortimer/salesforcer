@@ -26,10 +26,9 @@ test_that("testing sf_list_reports()", {
   reports_list <- sf_list_reports(as_tbl=FALSE)
   expect_is(reports_list, "list")
   
-  # recent=FALSE
-  reports_tbl <- sf_list_reports(recent=FALSE)
+  # recent=TRUE
+  reports_tbl <- sf_list_reports(recent=TRUE)
   expect_is(reports_tbl, "tbl_df")
-  expect_true(common_report_id %in% reports_tbl$id) 
 })
 
 test_that("testing sf_describe_report()", {
