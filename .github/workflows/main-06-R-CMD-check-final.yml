@@ -1,0 +1,16 @@
+name: R-CMD-check
+
+on:
+  repository_dispatch:
+    types: [main-06-R-CMD-check-final]
+    
+jobs:
+  R-CMD-check:
+  
+    runs-on:  macOS-latest
+
+    steps:
+    
+      - name: Convey final status of all R-CMD-check workflows
+        if: ${{ !github.event.client_payload.success }}
+        run: exit 1
