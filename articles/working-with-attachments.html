@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
       </span>
     </div>
 
@@ -191,11 +191,11 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000Zh30wEAB TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000Zh311EAB TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000Zh316EAB TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000Zh31BEAR TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000Zh31GEAR TRUE   </span>
+<span class="co">#&gt; 1 00P3s00000Zh96EEAR TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000Zh96JEAR TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000Zh96OEAR TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000Zh96TEAR TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000Zh96YEAR TRUE   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -219,7 +219,7 @@
 <span class="co">#&gt; 2 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
 <span class="co">#&gt; 3 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
 <span class="co">#&gt; 4 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 5 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 5 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
@@ -249,17 +249,17 @@
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Name</span>, 
                           <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Path</span>)
 <span class="kw">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh30wEAB/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh96EEAR/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh316EAB/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh96OEAR/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh311EAB/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh96JEAR/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh31BEAR/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh96TEAR/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh31LEAR/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh96YEAR/Body </span>
 <span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh31GEAR/Body </span>
+<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000Zh96dEAB/Body </span>
 <span class="co">#&gt;                                                             TRUE</span>
 </pre></div>
 <p><strong>Uploading large batches using the Bulk API</strong></p>
@@ -276,11 +276,11 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000Zh31QEAR TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000Zh31REAR TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000Zh31SEAR TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000Zh31TEAR TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000Zh31UEAR TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 00P3s00000Zh92nEAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000Zh92oEAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000Zh92pEAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000Zh96iEAB TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000Zh96jEAB TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -303,7 +303,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gZIuAAM TRUE</span>
+<span class="co">#&gt; 1 0153s000001gZNfAAM TRUE</span>
 </pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
@@ -318,7 +318,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gZIzAAM TRUE</span>
+<span class="co">#&gt; 1 0153s000001gZNkAAM TRUE</span>
 </pre></div>
 </div>
 <div id="reference-links" class="section level2">

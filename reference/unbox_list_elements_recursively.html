@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bulk Get Job Generic URL Generator — make_bulk_get_job_url • salesforcer</title>
+<title>Recursively unlist all list elements of length 1 if they are not a list — unbox_list_elements_recursively • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,12 @@
 
 
 
-<meta property="og:title" content="Bulk Get Job Generic URL Generator — make_bulk_get_job_url" />
-<meta property="og:description" content="Bulk Get Job Generic URL Generator" />
+<meta property="og:title" content="Recursively unlist all list elements of length 1 if they are not a list — unbox_list_elements_recursively" />
+<meta property="og:description" content="This function wraps a simple modify_if function
+to recursively &quot;unbox&quot; list elements. This is helpful when the
+as_list returns elements of XML and the element value is
+kept as a list of length 1, even though it could be a single primitive data
+type (e.g. logical, character, etc.)." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -179,22 +183,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bulk Get Job Generic URL Generator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/endpoints-bulk.R'><code>R/endpoints-bulk.R</code></a></small>
-    <div class="hidden name"><code>make_bulk_get_job_url.Rd</code></div>
+    <h1>Recursively unlist all list elements of length 1 if they are not a list</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
+    <div class="hidden name"><code>unbox_list_elements_recursively.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Bulk Get Job Generic URL Generator</p>
+    <p>This function wraps a simple <code><a href='https://purrr.tidyverse.org/reference/modify.html'>modify_if</a></code> function
+to recursively "unbox" list elements. This is helpful when the
+<code><a href='http://xml2.r-lib.org/reference/as_list.html'>as_list</a></code> returns elements of XML and the element value is
+kept as a list of length 1, even though it could be a single primitive data
+type (e.g. <code>logical</code>, <code>character</code>, etc.).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_bulk_get_job_url</span>(
-  <span class='kw'>job_id</span>,
-  api_type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  query_operation = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>unbox_list_elements_recursively</span>(<span class='kw'>x</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code>list</code>; a list to be cleaned.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>list</code> containing "unboxed" list elements.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function is meant to be used internally. Only use when debugging.</p>

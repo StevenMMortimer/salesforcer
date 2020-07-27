@@ -54,8 +54,9 @@
 
 <meta property="og:title" content="List reports — sf_list_reports" />
 <meta property="og:description" content="
-Displays a list of up to 200 tabular, matrix, or summary reports that you
-recently viewed. To get a full list of reports by format, name, and other
+Displays a list of full list of reports based on the Report object. If
+recent is up to 200 tabular, matrix, or summary reports that you
+recently viewed. To get additional details on reports by format, name, and other
 fields, use a SOQL query on the Report object." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -99,7 +100,7 @@ fields, use a SOQL query on the Report object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
       </span>
     </div>
 
@@ -189,12 +190,13 @@ fields, use a SOQL query on the Report object." />
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Displays a list of up to 200 tabular, matrix, or summary reports that you
-recently viewed. To get a full list of reports by format, name, and other
+<p>Displays a list of full list of reports based on the <code>Report</code> object. If
+<code>recent</code> is up to 200 tabular, matrix, or summary reports that you
+recently viewed. To get additional details on reports by format, name, and other
 fields, use a SOQL query on the Report object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_list_reports</span>(recent = <span class='fl'>TRUE</span>, as_tbl = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_reports</span>(recent = <span class='fl'>FALSE</span>, as_tbl = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,10 +205,11 @@ fields, use a SOQL query on the Report object.</p>
       <th>recent</th>
       <td><p><code>logical</code>; an indicator of whether to return the 200 most
 recently viewed reports or to invoke a query on the <code>Report</code> object to
-return all reports in the Org. By default, this argument is set to <code>TRUE</code>
-meaning that only the most recently viewed reports are returned because this
-is the default behavior of the reports list endpoint in the Reports and
-Dashboards REST API.</p></td>
+return all reports in the Org. By default, this argument is set to <code>FALSE</code>
+meaning that all of the reports, not just the most recently viewed reports
+are returned. Note that the default behavior of the reports list endpoint in
+the Reports and Dashboards REST API is only the most recently viewed up to
+200 reports.</p></td>
     </tr>
     <tr>
       <th>as_tbl</th>
@@ -228,22 +231,23 @@ along with additional diagnostic information where available.</p></td>
 argument <code>as_tbl</code></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function will only return up to 200 of recently viewed reports. For
-a COMPLETE list you must use <code><a href='sf_query.html'>sf_query</a></code> on the report object.</p>
+    <p>This function will only return up to 200 of recently viewed reports when the
+<code>recent</code> argument is set to <code>TRUE</code>. For a complete details you must
+use <code><a href='sf_query.html'>sf_query</a></code> on the report object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_recentreportslist.htm'>Salesforce Documentation</a>, <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist'>Salesforce Example</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># return up to 200 recently viewed reports</span>
+<span class='co'># to return all possible reports, which is queried from the Report object</span>
 <span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_reports</span>()
 
 <span class='co'># return the results as a list</span>
 <span class='kw'>reports_as_list</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_reports</span>(as_tbl=<span class='fl'>FALSE</span>)
 
-<span class='co'># to return all possible reports, which is queried from the Report object</span>
-<span class='kw'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_reports</span>(recent=<span class='fl'>FALSE</span>)
+<span class='co'># return up to 200 recently viewed reports</span>
+<span class='kw'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_reports</span>(recent=<span class='fl'>TRUE</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
