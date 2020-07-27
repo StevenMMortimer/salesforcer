@@ -34,55 +34,11 @@ jobs:
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
       
-      - uses: r-lib/actions/setup-r@master
-        with:
-          r-version: 'release'
-          
-      - uses: r-lib/actions/setup-pandoc@master
-      
-      - name: Query dependencies
-        run: |
-          # getting dev remotes for better behaviour re: installation order
-          install.packages("https://github.com/r-lib/remotes/archive/master.tar.gz", repos = NULL)
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-        shell: Rscript {0}
-        
-      - name: Cache R packages
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.0-2-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.0-2-
-          
-      - name: Install dependencies
-        run: |
-          # temporary hack until there's a macOS binary for ps
-          install.packages("ps", type = "source")
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
-
-      - name: Session info
-        run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
-        shell: Rscript {0}
-
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false       
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
-
-      - name: Show testthat output
+      - name: Set final R-CMD-check status
         if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@master
+        uses: peter-evans/repository-dispatch@v1
         with:
-          name: macOS-latest-r-release-results
-          path: check
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: StevenMMortimer/salesforcer
+          event-type: test-01
+          client-payload: '{"success": ${{ job.status == "success" }}}'

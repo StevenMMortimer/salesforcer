@@ -1,0 +1,16 @@
+name: Test
+
+on:
+  repository_dispatch:
+    types: [test-01]
+    
+jobs:
+  test:
+  
+    runs-on:  macOS-latest
+
+    steps:
+    
+      - name: Convey final status of all R-CMD-check workflows
+        if: ${{ !github.event.client_payload.success }}
+        run: exit 1
