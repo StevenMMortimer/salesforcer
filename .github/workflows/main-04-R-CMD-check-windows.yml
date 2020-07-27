@@ -100,3 +100,12 @@ jobs:
           repository: StevenMMortimer/salesforcer
           event-type: main-05-R-CMD-check-linux
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+          
+      - name: Set final R-CMD-check status
+        if: failure()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: StevenMMortimer/salesforcer
+          event-type: main-06-R-CMD-check-final
+          client-payload: '{"success": false}'

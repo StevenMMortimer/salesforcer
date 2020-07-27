@@ -93,3 +93,12 @@ jobs:
         with:
           name: ${{ runner.os }}-r-${{ matrix.config.r }}-results
           path: check
+          
+      - name: Set final R-CMD-check status
+        if: always()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: StevenMMortimer/salesforcer
+          event-type: main-06-R-CMD-check-final
+          client-payload: '{"success": ${{ success() }}}'
