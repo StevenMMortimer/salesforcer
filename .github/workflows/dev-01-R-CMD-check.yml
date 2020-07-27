@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - dev
+  pull_request:
+    branches:
+      - dev
       
 jobs:
   dev-R-CMD-check:
@@ -16,7 +19,7 @@ jobs:
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
       SALESFORCER_PASSWORD: ${{ secrets.SALESFORCER_PASSWORD }}
       SALESFORCER_SECURITY_TOKEN: ${{ secrets.SALESFORCER_SECURITY_TOKEN }} 
-
+      
     steps:
       - uses: actions/checkout@v2
       
