@@ -5,37 +5,40 @@
 #' @description
 #' `r lifecycle::badge("experimental")`
 #' 
-#' Displays a list of up to 200 tabular, matrix, or summary reports that you
-#' recently viewed. To get a full list of reports by format, name, and other
+#' Displays a list of full list of reports based on the \code{Report} object. If 
+#' \code{recent} is up to 200 tabular, matrix, or summary reports that you
+#' recently viewed. To get additional details on reports by format, name, and other
 #' fields, use a SOQL query on the Report object.
 #'
 #' @importFrom dplyr rename_with mutate expr 
 #' @importFrom purrr transpose
 #' @param recent \code{logical}; an indicator of whether to return the 200 most 
 #' recently viewed reports or to invoke a query on the \code{Report} object to 
-#' return all reports in the Org. By default, this argument is set to \code{TRUE} 
-#' meaning that only the most recently viewed reports are returned because this 
-#' is the default behavior of the reports list endpoint in the Reports and 
-#' Dashboards REST API.
+#' return all reports in the Org. By default, this argument is set to \code{FALSE} 
+#' meaning that all of the reports, not just the most recently viewed reports 
+#' are returned. Note that the default behavior of the reports list endpoint in 
+#' the Reports and Dashboards REST API is only the most recently viewed up to 
+#' 200 reports.
 #' @template as_tbl
 #' @template verbose
 #' @return \code{tbl_df} by default, or a \code{list} depending on the value of 
 #' argument \code{as_tbl}
 #' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_recentreportslist.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist}{Salesforce Example}
-#' @note This function will only return up to 200 of recently viewed reports. For 
-#' a COMPLETE list you must use \code{\link{sf_query}} on the report object.
+#' @note This function will only return up to 200 of recently viewed reports when the 
+#' \code{recent} argument is set to \code{TRUE}. For a complete details you must 
+#' use \code{\link{sf_query}} on the report object.
 #' @examples \dontrun{
-#' # return up to 200 recently viewed reports
+#' # to return all possible reports, which is queried from the Report object
 #' reports <- sf_list_reports()
 #' 
 #' # return the results as a list
 #' reports_as_list <- sf_list_reports(as_tbl=FALSE)
 #' 
-#' # to return all possible reports, which is queried from the Report object
-#' all_reports <- sf_list_reports(recent=FALSE)
+#' # return up to 200 recently viewed reports
+#' all_reports <- sf_list_reports(recent=TRUE)
 #' }
 #' @export
-sf_list_reports <- function(recent=TRUE, as_tbl=TRUE, verbose=FALSE){
+sf_list_reports <- function(recent=FALSE, as_tbl=TRUE, verbose=FALSE){
   if(recent){
     this_url <- make_reports_list_url()
     resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
