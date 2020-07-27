@@ -101,4 +101,4 @@ jobs:
           token: ${{ secrets.REPO_GHA_PAT }}
           repository: StevenMMortimer/salesforcer
           event-type: main-06-R-CMD-check-final
-          client-payload: '{"success": ${{ success() }}}'
+          client-payload: '{"success": ${{ job.status == ''success'' }}}'
