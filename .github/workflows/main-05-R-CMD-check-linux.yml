@@ -63,8 +63,6 @@ jobs:
           
       - name: Install dependencies
         run: |
-          # temporary hack until there's a macOS binary for ps
-          install.packages("ps", type = "source")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
@@ -89,7 +87,7 @@ jobs:
 
       - name: Upload check results
         if: failure()
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}-r-${{ matrix.config.r }}-results
           path: check
