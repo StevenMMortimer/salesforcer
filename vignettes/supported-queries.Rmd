@@ -156,7 +156,8 @@ qry <- function(api_type){
 res <- microbenchmark::microbenchmark(
   qry("REST"),
   qry("SOAP"),
-  times = 5
+  times = 5, 
+  unit = "s"
 )
 res
 
@@ -268,7 +269,8 @@ res <- microbenchmark::microbenchmark(
   qry_compare("REST"),
   qry_compare("Bulk 1.0"),
   qry_compare("Bulk 2.0"),
-  times = 5
+  times = 5, 
+  unit = "s"
 )
 ```
 
