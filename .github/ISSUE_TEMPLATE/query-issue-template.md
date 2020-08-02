@@ -8,7 +8,7 @@ assignees: StevenMMortimer
 
 ### Issue submission checklist
 
-When filing your issue please make an attempt to understand your query and debug a little bit on your own. Below are a few suggestions on how to troubleshoot and document your issue. You may also refer to the [Troubleshooting](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html#troubleshooting-1) section of the [Supported Queries vignette]((https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html).
+When filing your issue please make an attempt to understand your query and debug a little bit on your own. Below are a few suggestions on how to troubleshoot and document your issue. You may also refer to the [Troubleshooting](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html#troubleshooting-1) section of the [Supported Queries vignette](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html). Thank you for considering these steps! It will speed up the process of resolving your issue.  
 
   - [ ] I have set `verbose=TRUE` in `sf_query()`.
   
@@ -19,8 +19,6 @@ When filing your issue please make an attempt to understand your query and debug
   - [ ] I have considered making a minimal reproducible example using the [**reprex**](http://reprex.tidyverse.org/) package. Details on how to create a reprex are available here: https://www.tidyverse.org/help/#reprex.
   
   - [ ] I have included the version of R and any packages that are used (Hint: Simply copy/paste the result of `devtools::session_info()` at the bottom of your issue).
-  
-  Thank you for considering these steps. It will speed up the process of resolving your issue.  
   
 ----
 
