@@ -39,8 +39,7 @@ jobs:
       
       - name: Query dependencies
         run: |
-          # getting dev remotes for better behaviour re: installation order
-          install.packages("https://github.com/r-lib/remotes/archive/master.tar.gz", repos = NULL)
+          install.packages("remotes")
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
         shell: Rscript {0}
         
@@ -63,7 +62,8 @@ jobs:
           
       - name: Install dependencies
         run: |
-          remotes::install_deps(dependencies = TRUE, type="binary")
+          remotes::install_version("dplyr", version = "1.0.0")
+          remotes::install_deps(dependencies = TRUE, upgrade = "never")
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
         
