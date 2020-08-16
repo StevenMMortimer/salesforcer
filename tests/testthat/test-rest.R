@@ -126,30 +126,35 @@ test_that("testing REST API Functionality", {
   
   # sf_create_attachment -------------------------------------------------------
   attachment_details <- tibble(Name = c("salesforcer Logo"),
-                               Body = system.file("extdata", "logo.png", package="salesforcer"),
+                               Body = system.file("extdata", "logo.png", package = "salesforcer"),
                                ContentType = c("image/png"),
                                ParentId = upserted_records$id[1]) #"0016A0000035mJ5")
   attachment_records <- sf_create_attachment(attachment_details, api_type="REST")
   expect_is(attachment_records, "tbl_df")
   expect_equal(names(attachment_records), c("id", "success"))
-  expect_equal(nrow(attachment_records), 1)  
+  expect_equal(nrow(attachment_records), 1)
+  expect_true(attachment_records$success)
   
   # sf_update_attachment -------------------------------------------------------
   temp_f <- tempfile(fileext = ".zip")
-  zipr(temp_f, system.file("extdata", "logo.png", package="salesforcer"))
+  zipr(temp_f, system.file("extdata", "logo.png", package = "salesforcer"))
   attachment_details2 <- tibble(Id = attachment_records$id[1],
                                 Name = "logo.png.zip",
                                 Body = temp_f)
   attachment_records_update <- sf_update_attachment(attachment_details2, api_type="REST")
   expect_is(attachment_records_update, "tbl_df")
   expect_equal(names(attachment_records_update), c("id", "success"))
-  expect_true(attachment_records_update$success)
   expect_equal(nrow(attachment_records_update), 1)
+  expect_true(attachment_records_update$success)
+  
+  # sf_delete_attachment -------------------------------------------------------
+  deleted_attachments <- sf_delete_attachment(attachment_records$id, api_type = "REST")
+  expect_is(deleted_attachments, "tbl_df")
+  expect_equal(names(deleted_attachments), c("id", "success"))
+  expect_equal(nrow(deleted_attachments), 1)
+  expect_true(deleted_attachments$success)
   
   # sf_delete ------------------------------------------------------------------
-  # clean up by deleting attachment first
-  deleted_records <- sf_delete(attachment_records$id, object_name = "Attachment", api_type = "REST")
-  
   ids_to_delete <- unique(c(upserted_records$id[!is.na(upserted_records$id)], queried_records$Id))
   deleted_records <- sf_delete(ids_to_delete, object_name = object, api_type = "REST")
   expect_is(deleted_records, "tbl_df")

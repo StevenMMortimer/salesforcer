@@ -51,6 +51,13 @@ are optional. It is recommended to use the metadata from existing reports pulled
 using \code{\link{sf_describe_report}} as a guide on how to specify the properties
 of a new report.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm}{Documentation}
+}
+}
+
 \examples{
 \dontrun{
 # creating a blank report using just the name and type
@@ -74,5 +81,18 @@ my_new_report <- sf_create_report(report_metadata=report_describe_list)
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_report_example_post_report.htm}{Salesforce Documentation}
+Other Report functions: 
+\code{\link{sf_copy_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_fields}()},
+\code{\link{sf_list_report_filter_operators}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_list_reports}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_run_report}()},
+\code{\link{sf_update_report}()}
 }
+\concept{Report functions}

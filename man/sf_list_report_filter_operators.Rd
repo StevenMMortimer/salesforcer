@@ -26,6 +26,14 @@ Use the Filter Operators API to get information about which filter operators are
 available for reports and dashboards. The Filter Operators API is available in
 API version 40.0 and later.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Example}
+}
+}
+
 \examples{
 \dontrun{
 report_filters <- sf_list_report_filter_operators()
@@ -36,5 +44,18 @@ picklist_field_operators <- report_filters \%>\% filter(supported_field_type == 
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example}
+Other Report functions: 
+\code{\link{sf_copy_report}()},
+\code{\link{sf_create_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_fields}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_list_reports}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_run_report}()},
+\code{\link{sf_update_report}()}
 }
+\concept{Report functions}

@@ -46,20 +46,18 @@ navbar:
       
 reference:
   - title: Authentication
-    desc: Functions to authenticate
+    desc: Function to authenticate to your Salesforce Org.
     contents:
       - '`sf_auth`'
   - title: Query/Search Functions
-    desc: Functions to query and search records
+    desc: Functions to query and search records.
     contents:
       - '`sf_query`'
       - '`sf_search`'
   - title: CRUD Functions
-    desc: Functions to create, retrieve, update, and delete records.
+    desc: Functions to perform create, retrieve, update, and delete (CRUD) operations on records.
     contents:
       - '`sf_create`'
-      - '`sf_create_attachment`'
-      - '`sf_download_attachment`'
       - '`sf_retrieve`'
       - '`sf_update`'
       - '`sf_upsert`'
@@ -67,8 +65,15 @@ reference:
       - '`sf_undelete`'
       - '`sf_get_deleted`'
       - '`sf_get_updated`'
+  - title: Attachment Functions
+    desc: Convenience functions to work with attachments.
+    contents:
+      - '`sf_create_attachment`'
+      - '`sf_download_attachment`'
+      - '`sf_update_attachment`'
+      - '`sf_delete_attachment`'  
   - title: Bulk API Functions
-    desc: Convenience functions to perform async CRUD and query operations
+    desc: Convenience functions to perform async CRUD and query operations.
     contents:
       - '`sf_run_bulk_query`'
       - '`sf_run_bulk_operation`' 
@@ -124,7 +129,7 @@ reference:
       - '`sf_reset_password`'
       - '`sf_control`'
   - title: Backward Compatibility with RForcecom
-    desc: Functions that mirror RForcecom to ease code transitions between salesforcer and RForcecom.
+    desc: Functions that mimic {RForcecom} to ease code transitions between {salesforcer} and {RForcecom}.
     contents:
       - '`rforcecom.login`'
       - '`rforcecom.getServerTimestamp`'

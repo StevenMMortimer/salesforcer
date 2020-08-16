@@ -37,6 +37,13 @@ joined metadata.}
 Creates a copy of a custom, standard, or public report by sending a POST
 request to the Report List resource.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_report.htm}{Documentation}
+}
+}
+
 \examples{
 \dontrun{
 # only the 200 most recently viewed reports
@@ -56,5 +63,18 @@ report_details <- sf_copy_report(this_report_id, "My New Copy of Report ABC")
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_clone_report.htm}{Salesforce Documentation}
+Other Report functions: 
+\code{\link{sf_create_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_fields}()},
+\code{\link{sf_list_report_filter_operators}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_list_reports}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_run_report}()},
+\code{\link{sf_update_report}()}
 }
+\concept{Report functions}

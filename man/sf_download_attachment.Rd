@@ -43,6 +43,13 @@ content
 This function will allow you to download an attachment to disk based on the
 attachment body, file name, and path.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_blob_retrieve.htm}{Get Attachment Content from a Record}
+}
+}
+
 \examples{
 \dontrun{
 # downloading all attachments for a Parent record
@@ -58,7 +65,11 @@ mapply(sf_download_attachment, queried_attachments$Body, queried_attachments$Nam
 sf_download_attachment(sf_id = queried_attachments$Id[1])
 }
 }
-\concept{Attachment functions
-\itemize{
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_blob_retrieve.htm}{Salesforce Examples - Get Attachment Content from a Record}
-}}
+\seealso{
+Other Attachment functions: 
+\code{\link{check_and_encode_files}()},
+\code{\link{sf_create_attachment}()},
+\code{\link{sf_delete_attachment}()},
+\code{\link{sf_update_attachment}()}
+}
+\concept{Attachment functions}

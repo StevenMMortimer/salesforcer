@@ -42,6 +42,13 @@ Use the resource to determine the best fields for use in dashboard filters by
 seeing which fields different source reports have in common. Available in API
 version 40.0 and later.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_fields.htm}{Documentation}
+}
+}
+
 \examples{
 \dontrun{
 # first, grab all possible reports in your Org
@@ -55,5 +62,18 @@ fields <- sf_list_report_fields(this_report_id, intersect_with=head(all_reports[
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_fields.htm}{Salesforce Documentation}
+Other Report functions: 
+\code{\link{sf_copy_report}()},
+\code{\link{sf_create_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_filter_operators}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_list_reports}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_run_report}()},
+\code{\link{sf_update_report}()}
 }
+\concept{Report functions}

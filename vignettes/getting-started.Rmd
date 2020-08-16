@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 author: "Steven M. Mortimer"
-date: "2018-03-12"
+date: "2020-08-16"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -26,11 +26,15 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 
 ## Authentication
 
-First, load the `salesforcer` package and login. There are two ways to authenticate: 
-1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that 
-passwords do not have to be shared/embedded within scripts. User credentials will 
-be stored in locally cached file entitled ".httr-oauth-salesforcer" in the current working 
-directory.
+First, load the {salesforcer} package and login. There are two ways to
+authenticate: 
+
+1. OAuth 2.0
+2. Basic Username-Password
+
+It is recommended to use OAuth 2.0 so that passwords do not have to be
+shared/embedded within scripts. User credentials will be stored in locally
+cached file entitled `.httr-oauth-salesforcer` in the current working directory.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
@@ -55,8 +59,8 @@ sf_auth()
 
 Just a note, that it's not necessary to setup your own Connected App in Salesforce 
 to use OAuth 2.0 authentication. The only difference is that the authentication 
-will be run through the client created and associated with the `salesforcer` 
-package. By using the package client, you will *NOT* be giving access to Salesforce 
+will be run through the client created and associated with the {salesforcer}
+package. By using the package client, you will **NOT** be giving access to Salesforce 
 to anyone, the package is just the medium for you to connect to your own data. 
 If you wanted more control you would specify those options like so: 
 
@@ -143,13 +147,16 @@ queried_records <- sf_query(my_soql)
 queried_records
 ```
 
-You'll notice that the `"Account.Name"` column does not appear in the results. This is 
-because the SOAP and REST APIs do not return any Account information if it does not 
-exist on the record and there is no reliable way to extract and rebuild the empty
-columns based on the query string. If there were Account information, an
-additional column titled `"Account.Name"` would appear in the results. Note, that 
-the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a column of all 
-`NA` values for this query because they return results differently.
+**NOTE**: In the example above, you'll notice that the `"Account.Name"` column
+does not appear in the results. This is because the SOAP and REST APIs only
+return an empty Account object for the record if there is no relationship to an
+account ( see <a rel="noopener noreferrer" target="_blank"
+href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There
+is no reliable way to extract and rebuild the empty columns based on the query
+string. If there were Account information, an additional column titled
+`"Account.Name"` would appear in the results. Note, that the Bulk 1.0 and Bulk
+2.0 APIs will return `"Account.Name"` as a column of all `NA` values for this
+query because they return results differently.
 
 ## Updating records
 
@@ -189,7 +196,7 @@ is not found based an an "External Id" field, then Salesforce will create the
 record instead of updating one. Below is an example where we create 2 records, 
 then upsert 3, where 2 are matched and updated and one is created. **NOTE**: You 
 will need to create a custom field on the target object and ensure it is labeled as 
-an "External Id" field. Read more at: <a target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.
+an "External Id" field. Read more at: <a rel="noopener noreferrer" target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.
 
 ```{r}
 n <- 2
@@ -221,4 +228,4 @@ deleted_records <- sf_delete(upserted_records$id, object_name = "Contact")
 The {salesforcer} package has quite a bit of unit test coverage to track any
 changes made between newly released versions of the Salesforce API (typically 4
 each year). These tests are an excellent source of examples because they cover
-most all cases of utilizing the package functions. You can access them here: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/<a>
+most all cases of utilizing the package functions. You can access them here: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/<a>

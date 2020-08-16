@@ -158,7 +158,7 @@
 <span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;               &lt;chr&gt;                                             </span>
 <span class="co">#&gt; 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.</span></pre></body></html></div>
 <p>You will notice that the argument <code>DisableFeedTrackingHeader</code> can be included right into the function without any documentation existing for it in the <code>sf_create</code> function. This is because the dots (<code>...</code>) allow you to pass over a dozen different control parameters and that documentation would be tedious to create and maintain over multiple functions in the package. However, you will notice in the documentation entry for the <code>control</code> argument there is a link to a function called <code>sf_control</code> which you can use to directly to pass into <code>control</code> or simply to review its documentation of all the possible control parameters and their defaults. This is where you can review the various control options in more detail before trying to set them.</p>
-<p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity.</p>
+<p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity.</p>
 </div>
 <div id="an-example-using-the-duplicateruleheader" class="section level2">
 <h2 class="hasAnchor">
@@ -194,7 +194,7 @@
 <span class="co">#&gt;   success errors.statusCode   errors.message                                    </span>
 <span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;               &lt;chr&gt;                                             </span>
 <span class="co">#&gt; 1 FALSE   DUPLICATES_DETECTED Another contact record has the same email address.</span></pre></body></html></div>
-<p>Per the description above, note that setting <code>allowSave=TRUE</code> will not override rules where the “Action on Create” for a rule is set to “Block”. If the duplicate rule’s action is “Allow” with an alert, then setting <code>allowSave=TRUE</code> means the record will be created with no warning message. If <code>allowSave=FALSE</code>, then the record will be prevented from being created. For additional information on the <code>DuplicateRuleHeader</code>, please see the Salesforce documentation at: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a></p>
+<p>Per the description above, note that setting <code>allowSave=TRUE</code> will not override rules where the “Action on Create” for a rule is set to “Block”. If the duplicate rule’s action is “Allow” with an alert, then setting <code>allowSave=TRUE</code> means the record will be created with no warning message. If <code>allowSave=FALSE</code>, then the record will be prevented from being created. For additional information on the <code>DuplicateRuleHeader</code>, please see the Salesforce documentation at: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a></p>
 <p>Finally, you may notice during your use that only certain control arguments are permitted based on the API. For example, the <code>DuplicateRuleHeader</code> is not implemented in the REST API like it is in the SOAP API. In the example below you should take note of two things:</p>
 <ol style="list-style-type: decimal">
 <li><p>When using the REST API and setting the <code>DuplicateRuleHeader</code>, then you will notice a warning that the header was ignored. You will receive warnings when trying to set any control parameters for an API or operation that does not recognize that particular control.</p></li>
@@ -244,25 +244,25 @@
 <li>
 <p><strong>SOAP API Headers</strong>:</p>
 <ul>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a></li>
 </ul>
 </li>
 <li>
 <p><strong>REST API Headers</strong>:</p>
 <ul>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Bulk 1.0 API Headers</strong>:</p>
 <ul>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Metadata API Headers</strong>:</p>
 <ul>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a></li>
 </ul>
 </li>
 <li><p><strong>Bulk 2.0 API Headers</strong>: None<br></p></li>

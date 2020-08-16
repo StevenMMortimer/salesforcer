@@ -88,6 +88,17 @@ without total rows and given options to filter, and select the Top N as
 function arguments rather than forcing the user to create an entire list of
 \code{reportMetadata}.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Sync Example}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Async Example}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
+}
+}
+
 \examples{
 \dontrun{
 # find a report in your org and run it
@@ -123,10 +134,18 @@ results_using_OR <- sf_run_report(my_report_id,
 }
 }
 \seealso{
-Please see the following resources for more information:
-\itemize{
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getreportrundata.htm}{Sync}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_sync_reportexecute}{Example - Sync}
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_summaryasync.htm}{Async}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_report_async_instances}{Example - Async}
-\item\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource}{Filtering Results}
+Other Report functions: 
+\code{\link{sf_copy_report}()},
+\code{\link{sf_create_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_fields}()},
+\code{\link{sf_list_report_filter_operators}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_list_reports}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_update_report}()}
 }
-}
+\concept{Report functions}

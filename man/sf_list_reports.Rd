@@ -40,6 +40,14 @@ This function will only return up to 200 of recently viewed reports when the
 \code{recent} argument is set to \code{TRUE}. For a complete details you must
 use \code{\link{sf_query}} on the report object.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_recentreportslist.htm}{Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist}{Example}
+}
+}
+
 \examples{
 \dontrun{
 # to return all possible reports, which is queried from the Report object
@@ -53,5 +61,18 @@ all_reports <- sf_list_reports(recent=TRUE)
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_recentreportslist.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_recentreports.htm#example_recent_reportslist}{Salesforce Example}
+Other Report functions: 
+\code{\link{sf_copy_report}()},
+\code{\link{sf_create_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_fields}()},
+\code{\link{sf_list_report_filter_operators}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_run_report}()},
+\code{\link{sf_update_report}()}
 }
+\concept{Report functions}

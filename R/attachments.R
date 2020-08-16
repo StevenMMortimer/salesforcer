@@ -24,8 +24,9 @@
 #' @return \code{character}; invisibly return the file path of the downloaded 
 #' content
 #' @family Attachment functions
+#' @section Salesforce Documentation:
 #' \itemize{
-#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_blob_retrieve.htm}{Salesforce Examples - Get Attachment Content from a Record}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_blob_retrieve.htm}{Get Attachment Content from a Record}
 #' }
 #' @examples 
 #' \dontrun{
@@ -108,10 +109,11 @@ sf_download_attachment <- function(body,
 #' allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB 
 #' of base64–encoded data.
 #' @family Attachment functions
+#' @section Salesforce Documentation:
 #' \itemize{
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
-#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Salesforce Examples - Insert or Update Blob Data}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Insert or Update Blob Data}
 #' }
 #' @examples 
 #' \dontrun{
@@ -328,7 +330,6 @@ sf_create_attachment_bulk_v1 <- function(attachment_input_data,
   return(resultset)
 }
 
-
 #' Update Attachments
 #' 
 #' @description
@@ -355,10 +356,11 @@ sf_create_attachment_bulk_v1 <- function(attachment_input_data,
 #' allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB 
 #' of base64–encoded data.
 #' @family Attachment functions
+#' @section Salesforce Documentation:
 #' \itemize{
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
-#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Salesforce Examples - Insert or Update Blob Data}
+#'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Insert or Update Blob Data}
 #' }
 #' @examples 
 #' \dontrun{
@@ -576,6 +578,55 @@ sf_update_attachment_bulk_v1 <- function(attachment_input_data,
                                  control = control, ...,
                                  verbose = verbose)
   return(resultset)
+}
+
+#' Delete Attachments
+#' 
+#' @description
+#' `r lifecycle::badge("experimental")`
+#' 
+#' This function is a wrapper around \code{\link{sf_delete}} that accepts a list 
+#' of Ids and assumes that they are in the Attachment object and should be deleted. 
+#' This function is solely provided as a convenience and to provide the last 
+#' attachment function to parallel the CRUD functionality for all other records.
+#' 
+#' @template ids
+#' @template api_type
+#' @template control
+#' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
+#' to \code{\link{sf_bulk_operation}}
+#' @template verbose
+#' @return \code{tbl_df} with details of the deleted records
+#' @note Because the SOAP and REST calls chunk data into batches of 200 records 
+#' the AllOrNoneHeader will only apply to the success or failure of every batch 
+#' of records and not all records submitted to the function.
+#' @family Attachment functions
+#' @examples 
+#' \dontrun{
+#' # upload a PDF to a particular record as an Attachment
+#' file_path <- system.file("extdata",
+#'                          "data-wrangling-cheatsheet.pdf",
+#'                          package = "salesforcer")
+#' parent_record_id <- "0036A000002C6MmQAK" # replace with your own ParentId!
+#' attachment_details <- tibble(Body = file_path, ParentId = parent_record_id)
+#' create_result <- sf_create_attachment(attachment_details)
+#' 
+#' # now delete the attachment
+#' # note that the function below is just running the following!
+#' # sf_delete(ids = create_result$id)
+#' sf_delete_attachment(ids = create_result$id)
+#' }
+#' @export
+sf_delete_attachment <- function(ids,
+                                 object_name = c("Attachment"),
+                                 api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
+                                 ...,
+                                 verbose = FALSE){
+  sf_delete(ids = ids, 
+            object_name = object_name, 
+            api_type = api_type, 
+            ..., 
+            verbose = verbose)
 }
 
 #' Check that file paths exist and data is encoded if specified

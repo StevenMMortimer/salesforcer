@@ -7,33 +7,6 @@ salesforcer_state <- function(){
   .state
 }
 
-#' Return NA if NULL
-#' 
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-merge_null_to_na <- function(x){
-  if(is.null(x)){ 
-    NA
-  } else if(length(x) == 0){
-    NA
-  } else if(is.list(x) & length(x) == 1 & is.null(x[[1]])){
-    NA
-  } else {
-    x
-  }
-}
-
-#' Write a CSV file in format acceptable to Salesforce APIs
-#' 
-#' @importFrom readr write_csv
-#' @note This function is meant to be used internally. Only use when debugging.
-#' @keywords internal
-#' @export
-sf_write_csv <- function(x, path){
-  write_csv(x=x, path=path, na="#N/A")
-}
-
 #' Determine the host operating system
 #' 
 #' This function determines whether the system running the R code
@@ -64,7 +37,55 @@ get_os <- function(){
       os <- "linux"
     }
   }
-  unname(tolower(os))
+  return(unname(tolower(os)))
+}
+
+#' Create a temporary directory path without a double slash
+#' 
+#' This function fixes a long standing bug in R where the 
+#' \code{\link[base:tempfile]{tempdir}} function will return a path with an 
+#' extra slash.
+#' 
+#' @return \code{character}; a string representing the temp directory path 
+#' without containing a double slash
+#' @examples
+#' \dontrun{
+#' patched_tempdir()
+#' }
+#' @seealso \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html}{R documentation on Environmen Vars}, \href{https://stackoverflow.com/questions/15361980/why-does-tempdir-adds-extra-slash-at-end-of-directory-tree-on-osx/15362110#15362110}{Stack Overflow - Why does tempdir() adds extra slash...}
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+patched_tempdir <- function(){
+  t <- tempdir(check=TRUE)
+  return(file.path(normalizePath(Sys.getenv("TMPDIR")), basename(t)))
+}
+
+#' Return NA if NULL
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+merge_null_to_na <- function(x){
+  if(is.null(x)){ 
+    NA
+  } else if(length(x) == 0){
+    NA
+  } else if(is.list(x) & length(x) == 1 & is.null(x[[1]])){
+    NA
+  } else {
+    x
+  }
+}
+
+#' Write a CSV file in format acceptable to Salesforce APIs
+#' 
+#' @importFrom readr write_csv
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_write_csv <- function(x, path){
+  write_csv(x=x, path=path, na="#N/A")
 }
 
 #' Remove NA Columns Created by Empty Related Entity Values

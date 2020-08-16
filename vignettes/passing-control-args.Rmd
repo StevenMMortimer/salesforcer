@@ -70,7 +70,7 @@ can use to directly to pass into `control` or simply to review its documentation
 possible control parameters and their defaults. This is where you can review the various 
 control options in more detail before trying to set them.
 
-You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" target="_blank">DisableFeedTrackingHeader</a> was formatted 
+You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank">DisableFeedTrackingHeader</a> was formatted 
 as a list with an element inside called `disableFeedTracking` set to `TRUE`. This may 
 seem redundant but there are two reasons for this. First, this is exactly how the 
 Salesforce APIs documents these options, which are typically referred to as "headers" 
@@ -124,7 +124,7 @@ duplicate rule's action is "Allow" with an alert, then setting `allowSave=TRUE`
 means the record will be created with no warning message. If `allowSave=FALSE`, 
 then the record will be prevented from being created. For additional information 
 on the `DuplicateRuleHeader`, please see the Salesforce documentation at: 
-<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a>
+<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a>
 
 Finally, you may notice during your use that only certain control arguments are 
 permitted based on the API. For example, the `DuplicateRuleHeader` is not implemented 
@@ -200,19 +200,19 @@ referenced below.
 
  * **SOAP API Headers**: 
    
-   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a>
    
  * **REST API Headers**: 
    
-   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a>
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a>
    
  * **Bulk 1.0 API Headers**: 
    
-   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a>
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a>
    
  * **Metadata API Headers**: 
    
-   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a>
+   * <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a>
  
  * **Bulk 2.0 API Headers**: None  
  * **Reports and Dashboards REST API Headers**: None

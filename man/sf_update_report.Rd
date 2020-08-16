@@ -38,6 +38,13 @@ Save changes to a report by sending a PATCH request to the Report resource.
 Note that saving a report deletes any running async report jobs because they
 might be obsolete based on the updates.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_save_report.htm#example_save_report}{Example}
+}
+}
+
 \examples{
 \dontrun{
 # first, grab all possible reports in your Org
@@ -62,5 +69,18 @@ my_updated_report <- sf_update_report(this_report_id,
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_save_report.htm#example_save_report}{Salesforce Documentation}
+Other Report functions: 
+\code{\link{sf_copy_report}()},
+\code{\link{sf_create_report}()},
+\code{\link{sf_delete_report}()},
+\code{\link{sf_describe_report_type}()},
+\code{\link{sf_describe_report}()},
+\code{\link{sf_execute_report}()},
+\code{\link{sf_list_report_fields}()},
+\code{\link{sf_list_report_filter_operators}()},
+\code{\link{sf_list_report_types}()},
+\code{\link{sf_list_reports}()},
+\code{\link{sf_query_report}()},
+\code{\link{sf_run_report}()}
 }
+\concept{Report functions}

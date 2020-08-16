@@ -134,6 +134,7 @@ test_that("testing SOAP API Functionality", {
   expect_is(attachment_records, "tbl_df")
   expect_equal(names(attachment_records), c("id", "success"))
   expect_equal(nrow(attachment_records), 1)
+  expect_true(attachment_records$success)
   
   # sf_update_attachment -------------------------------------------------------
   temp_f <- tempfile(fileext = ".zip")
@@ -147,10 +148,14 @@ test_that("testing SOAP API Functionality", {
   expect_true(attachment_records_update$success)
   expect_equal(nrow(attachment_records_update), 1)
   
-  # sf_delete ------------------------------------------------------------------
-  # clean up by deleting attachment first
-  deleted_records <- sf_delete(attachment_records$id, object_name = "Attachment", api_type = "SOAP")
+  # sf_delete_attachment -------------------------------------------------------
+  deleted_attachments <- sf_delete_attachment(attachment_records$id, api_type = "SOAP")
+  expect_is(deleted_attachments, "tbl_df")
+  expect_equal(names(deleted_attachments), c("id", "success"))
+  expect_equal(nrow(deleted_attachments), 1)
+  expect_true(deleted_attachments$success)
   
+  # sf_delete ------------------------------------------------------------------
   ids_to_delete <- unique(c(upserted_records$id[!is.na(upserted_records$id)], queried_records$Id))
   deleted_records <- sf_delete(ids_to_delete, object_name=object, api_type = "SOAP")
   expect_is(deleted_records, "tbl_df")

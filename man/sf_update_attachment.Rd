@@ -61,6 +61,15 @@ You can only create or update documents to a maximum size of 5 MB. The REST API
 allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB
 of base64–encoded data.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Insert or Update Blob Data}
+}
+}
+
 \examples{
 \dontrun{
 # upload a PDF to a particular record as an Attachment
@@ -80,17 +89,10 @@ update_result <- sf_update_attachment(attachment_details)
 }
 }
 \seealso{
-Other Attachment functions
-\itemize{
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Salesforce Examples - Insert or Update Blob Data}
-}: 
-\code{\link{sf_create_attachment}()}
+Other Attachment functions: 
+\code{\link{check_and_encode_files}()},
+\code{\link{sf_create_attachment}()},
+\code{\link{sf_delete_attachment}()},
+\code{\link{sf_download_attachment}()}
 }
-\concept{Attachment functions
-\itemize{
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Salesforce Examples - Insert or Update Blob Data}
-}}
+\concept{Attachment functions}
