@@ -26,7 +26,7 @@ Imports:
     methods (>= 3.6.0),
     utils (>= 3.6.0),
     stats (>= 3.6.0),
-    dplyr (>= 1.0.0),
+    dplyr (== 1.0.0),
     tibble (>= 3.0.3),
     purrr (>= 0.3.4),
     vctrs (>= 0.3.2),

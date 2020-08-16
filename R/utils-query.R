@@ -607,8 +607,6 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
 # #' a \code{tbl_df} with missing values filled in and all columns stacked regardless 
 # #' of if the datatypes were different within the same column.
 # #' 
-# #' @importFrom data.table rbindlist
-# #' @importFrom dplyr as_tibble
 # #' @param l \code{list}; A list containing data frames as elements.
 # #' @param fill \code{logical}; \code{TRUE} fills missing columns with NA 
 # #' (default \code{TRUE}). When \code{TRUE}, use.names is set to \code{TRUE}.

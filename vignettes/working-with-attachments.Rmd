@@ -250,7 +250,7 @@ document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 1",
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
-```{r cleanup-3, include = FALSE}
+```{r cleanup-4, include = FALSE}
 sf_delete(result$id)
 ```
 

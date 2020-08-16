@@ -1,5 +1,12 @@
 ## salesforcer 0.2.1
 
+### Dependencies
+
+  * **CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced 
+  a bug in `bind_rows()` with how it binds lists where the list elements have differing 
+  lengths. This is documented in tidyverse/dplyr#5417 and r-lib/vctrs#1073. The 
+  timeline for a fix is unknown as of Aug 16, 2020.**
+
 ### Features
 
   * Add support for the `defaultLimit` argument in `sf_search()` to be able to 
@@ -13,7 +20,7 @@
 
 ### Bug fixes
 
-  * Fix bug introduced in {salesforcer} v0.2.0 which could not stack records with 
+  * Fix bug introduced in {salesforcer 0.2.0} which could not stack records with 
   errors longer than length 1. The new solution is to always return the `errors` 
   column as a list, which is coerced to length 1 for the record (#66).
   * Fix bug in `sf_search()` that was passing `"true"/"false"` instead of actual 
@@ -23,11 +30,13 @@
 
 ## salesforcer 0.2.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0)
 
-### Features
+### Dependencies
 
   * **CAUTION: This release only has automated test coverage on R 4.0.0 or greater. 
-  Users should still be able to install and run using R (>= 3.6.0); however, it 
+  Users should still be able to install and run using R (>= 3.6.0). However, it 
   is recommended to upgrade to R 4.0.0 or greater.**
+
+### Features
   
   * Add experimental support for the Reports and Dashboards REST API.
   

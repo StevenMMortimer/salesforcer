@@ -40,7 +40,6 @@ each of the packages side-by-side and producing the same result.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
-suppressWarnings(suppressMessages(library(here)))
 library(salesforcer)
 
 username <- Sys.getenv("SALESFORCER_USERNAME")
