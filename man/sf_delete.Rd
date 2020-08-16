@@ -17,8 +17,8 @@ sf_delete(
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or
-\code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive)
-that can be passed in the request}
+\code{tbl_df}; if not a vector, there must be a column called Id (case
+insensitive) that can be passed in the request.}
 
 \item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}

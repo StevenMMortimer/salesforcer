@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.2.0)
+# install the current CRAN version (0.2.1)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -168,8 +168,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000013Y9dsAAC TRUE   
-#> 2 0033s000013Y9dtAAC TRUE
+#> 1 0033s000013wZZ3AAM TRUE   
+#> 2 0033s000013wZZ4AAM TRUE
 ```
 
 ### Query
@@ -194,18 +194,22 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000013Y9dsAAC Test      Contact-Create-1
-#> 2 0033s000013Y9dtAAC Test      Contact-Create-2
+#> 1 0033s000013wZZ3AAM Test      Contact-Create-1
+#> 2 0033s000013wZZ4AAM Test      Contact-Create-2
 ```
 
-You’ll notice that the `"Account.Name"` column does not appear in the
-results. This is because the SOAP and REST APIs do not return any
-Account information if it does not exist on the record and there is no
-reliable way to extract and rebuild the empty columns based on the query
-string. If there were Account information, an additional column titled
-`"Account.Name"` would appear in the results. Note, that the Bulk 1.0
-and Bulk 2.0 APIs will return `"Account.Name"` as a column of all `NA`
-values for this query because they return results differently.
+**NOTE**: In the example above, you’ll notice that the `"Account.Name"`
+column does not appear in the results. This is because the SOAP and REST
+APIs only return an empty Account object for the record if there is no
+relationship to an account ( see
+<a rel="noopener noreferrer" target="_blank"
+href="https://github.com/StevenMMortimer/salesforcer/issues/78">\#78</a>).
+There is no reliable way to extract and rebuild the empty columns based
+on the query string. If there were Account information, an additional
+column titled `"Account.Name"` would appear in the results. Note, that
+the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a column
+of all `NA` values for this query because they return results
+differently.
 
 ### Update
 
@@ -228,8 +232,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000013Y9dsAAC TRUE   
-#> 2 0033s000013Y9dtAAC TRUE
+#> 1 0033s000013wZZ3AAM TRUE   
+#> 2 0033s000013wZZ4AAM TRUE
 ```
 
 ### Bulk Operations
@@ -266,8 +270,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000013Y9dwAAC TRUE    TRUE    NA   
-#> 2 0033s000013Y9dxAAC TRUE    TRUE    NA
+#> 1 0033s000013wZXhAAM TRUE    TRUE    NA   
+#> 2 0033s000013wZXiAAM TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -282,8 +286,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000013Y9dwAAC Test      Contact-Create-1
-#> 2 0033s000013Y9dxAAC Test      Contact-Create-2
+#> 1 0033s000013wZXhAAM Test      Contact-Create-1
+#> 2 0033s000013wZXiAAM Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -291,8 +295,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s000013Y9dwAAC 0033s000013Y9dwAAC FALSE       NA       
-#> 2 0033s000013Y9dxAAC 0033s000013Y9dxAAC FALSE       NA
+#> 1 0033s000013wZXhAAM 0033s000013wZXhAAM FALSE       NA       
+#> 2 0033s000013wZXiAAM 0033s000013wZXiAAM FALSE       NA
 ```
 
 ### Using the Metadata API
@@ -358,7 +362,7 @@ each field on the Account object:
 ``` r
 acct_fields <- sf_describe_object_fields('Account')
 acct_fields %>% select(name, label, length, soapType, type)
-#> # A tibble: 69 x 5
+#> # A tibble: 68 x 5
 #>   name           label            length soapType    type     
 #>   <chr>          <chr>            <chr>  <chr>       <chr>    
 #> 1 Id             Account ID       18     tns:ID      id       
@@ -366,7 +370,7 @@ acct_fields %>% select(name, label, length, soapType, type)
 #> 3 MasterRecordId Master Record ID 18     tns:ID      reference
 #> 4 Name           Account Name     255    xsd:string  string   
 #> 5 Type           Account Type     40     xsd:string  picklist 
-#> # … with 64 more rows
+#> # … with 63 more rows
 
 # show the picklist selection options for the Account Type field
 acct_fields %>% 

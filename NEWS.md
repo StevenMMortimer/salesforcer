@@ -1,15 +1,23 @@
-## salesforcer 0.2.0.9001
+## salesforcer 0.2.1
 
 ### Features
 
   * Add support for the `defaultLimit` argument in `sf_search()` to be able to 
-  restrict the number of records from each individual object when searching across 
-  one or more objects.
+  restrict the number of records from each individual object when searching 
+  across one or more objects.
+  * Add support for updating attachments with the `sf_update_attachments()` 
+  function (#79).
+  * Add support for downloading attachments just by its Id. In addition, the 
+  `sf_download_attachment()` function returns the file path of the downloaded 
+  content instead of a logical indicating success.
 
 ### Bug fixes
 
+  * Fix bug introduced in {salesforcer} v0.2.0 which could not stack records with 
+  errors longer than length 1. The new solution is to always return the `errors` 
+  column as a list, which is coerced to length 1 for the record (#66).
   * Fix bug in `sf_search()` that was passing `"true"/"false"` instead of actual 
-  boolean value for the `spellCorrection` parameter in the POST body.
+  boolean value for the `spellCorrection` parameter in the POST body.  
 
 ---
 

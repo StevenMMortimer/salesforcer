@@ -131,11 +131,20 @@ test_that("testing REST API Functionality", {
                                ParentId = upserted_records$id[1]) #"0016A0000035mJ5")
   attachment_records <- sf_create_attachment(attachment_details, api_type="REST")
   expect_is(attachment_records, "tbl_df")
-  expect_equal(names(attachment_records), c("id", "success", "errors"))
+  expect_equal(names(attachment_records), c("id", "success"))
   expect_equal(nrow(attachment_records), 1)  
   
   # sf_update_attachment -------------------------------------------------------
-  # TODO: Add this test?
+  temp_f <- tempfile(fileext = ".zip")
+  zipr(temp_f, system.file("extdata", "logo.png", package="salesforcer"))
+  attachment_details2 <- tibble(Id = attachment_records$id[1],
+                                Name = "logo.png.zip",
+                                Body = temp_f)
+  attachment_records_update <- sf_update_attachment(attachment_details2, api_type="REST")
+  expect_is(attachment_records_update, "tbl_df")
+  expect_equal(names(attachment_records_update), c("id", "success"))
+  expect_true(attachment_records_update$success)
+  expect_equal(nrow(attachment_records_update), 1)
   
   # sf_delete ------------------------------------------------------------------
   # clean up by deleting attachment first

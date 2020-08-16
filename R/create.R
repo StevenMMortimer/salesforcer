@@ -6,8 +6,7 @@
 #' Adds one or more new records to your organization’s data.
 #' 
 #' @importFrom lifecycle deprecate_warn is_present deprecated
-#' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
-#' \code{tbl_df}; data can be coerced into a \code{data.frame}
+#' @template input_data
 #' @template object_name
 #' @template api_type
 #' @template guess_types

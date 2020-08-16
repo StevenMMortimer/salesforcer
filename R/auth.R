@@ -92,7 +92,7 @@ sf_auth <- function(username = NULL,
   
   if(!is.null(username) & !is.null(password) & !is.null(security_token)){
     
-    # basic authentication (username-password) -------------------------------------
+    # basic authentication (username-password) ---------------------------------
     body <- xml_new_document()
     
     # build the xml request for the SOAP API
@@ -152,7 +152,9 @@ sf_auth <- function(username = NULL,
       
       sf_oauth_endpoints <- oauth_endpoint(request = NULL,
                                            base_url = sprintf("%s/services/oauth2", login_url),
-                                           authorize = "authorize", access = "token", revoke = "revoke")
+                                           authorize = "authorize", 
+                                           access = "token", 
+                                           revoke = "revoke")
       
       proxy <- build_proxy()
       if(!is.null(proxy)){

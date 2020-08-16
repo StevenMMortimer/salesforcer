@@ -13,12 +13,16 @@
 #' @keywords internal
 #' @export
 flatten_tbl_df <- function(x){
+  
+  # set aside errors
   errors <- x %>% pluck("errors")
+  
   x_tbl <- x %>% 
     list_modify("errors" = NULL) %>% 
     list.flatten() %>% 
     as_tibble_row()
   
+  # convert errors to list column (since it can have multiple elements)
   if(!is.null(errors)){
     x_tbl$errors <- list(errors) 
   }
@@ -349,9 +353,10 @@ extract_records_from_xml_node <- function(node,
   }
   
   if(length(node) > 0){
-    x <- as_list(node) %>% 
-      xml_drop_and_unlist_recursively() %>% 
-      drop_empty_recursively() %>% 
+    x <- node %>% 
+      as_list() %>%
+      xml_drop_and_unlist_recursively() %>%
+      drop_empty_recursively() %>%
       as_tibble_row()
     if(object_name_append){
       colnames(x) <- paste(object_name, colnames(x), sep='.')
@@ -429,7 +434,8 @@ extract_records_from_xml_nodeset_of_records <- function(x,
                                                         object_name_append = FALSE, 
                                                         object_name_as_col = FALSE){
   if(length(x) > 0){
-    x_list <- as_list(x) %>% 
+    x_list <- x %>% 
+      as_list() %>% 
       map(xml_drop_and_unlist_recursively) %>% 
       map(drop_empty_recursively)
     x <- x_list %>% 
@@ -493,14 +499,14 @@ xml_extract_parent_and_child_result <- function(x){
 #' @export
 extract_nested_child_records <- function(x){
   
-  child_records <- x %>% 
-    map(pluck("records")) %>%  
+  child_records <- x %>%
+    map(pluck("records")) %>%
     map(~drop_attributes(.x, object_name_append = TRUE)) %>%
-    drop_attributes_recursively() %>% 
+    drop_attributes_recursively() %>%
     drop_empty_recursively() %>%
-    map_depth(2, flatten_tbl_df) %>% 
-    pluck(1) %>% 
-    bind_rows() %>% 
+    map_depth(2, flatten_tbl_df) %>%
+    pluck(1) %>%
+    bind_rows() %>%
     as_tibble()
   
   return(child_records)
@@ -595,6 +601,31 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
     ))
 }
 
+# #' Stack data frames which may have differing types in the same column
+# #' 
+# #' This function accepts a list of data frames and will stack them all and return 
+# #' a \code{tbl_df} with missing values filled in and all columns stacked regardless 
+# #' of if the datatypes were different within the same column.
+# #' 
+# #' @importFrom data.table rbindlist
+# #' @importFrom dplyr as_tibble
+# #' @param l \code{list}; A list containing data frames as elements.
+# #' @param fill \code{logical}; \code{TRUE} fills missing columns with NA 
+# #' (default \code{TRUE}). When \code{TRUE}, use.names is set to \code{TRUE}.
+# #' @param idcol \code{character}; Creates a column in the result showing which 
+# #' list item those rows came from. TRUE names this column ".id". idcol="file" 
+# #' names this column "file".
+# #' @param ... arguments passed to \code{\link[data.table]{rbindlist}}
+# #' @return \code{tbl_df}; all list elements stacked on top of each other to 
+# #' form a single data frame
+# #' @note This function is meant to be used internally. Only use when debugging.
+# #' @keywords internal
+# #' @export
+# safe_bind_rows <- function(l, fill=TRUE, idcol=NULL, ...){
+#   rbindlist(l = l, fill = fill, idcol = idcol, ...) %>% 
+#     as_tibble()
+# }
+
 #' Extract tibble based on the "records" element of a list
 #' 
 #' This function accepts a list representing the parsed JSON recordset In this 
@@ -616,8 +647,8 @@ records_list_to_tbl <- function(x,
                                 object_name_as_col = FALSE){
   resultset <- x %>% 
     drop_attributes(object_name_append, object_name_as_col) %>%
-    drop_attributes_recursively() %>% 
-    drop_empty_recursively() %>% 
+    drop_attributes_recursively() %>%
+    drop_empty_recursively() %>%
     map_df(flatten_tbl_df)
   
   return(resultset)
@@ -641,6 +672,13 @@ records_list_to_tbl <- function(x,
 #' @keywords internal
 #' @export
 bind_query_resultsets <- function(resultset, next_records){
+  
+  # HOLD ON INTRODUCING THIS BECAUSE IT CREATES A {{data.table}} DEPENDENCY
+  # deprecate_warn("0.2.1", "bind_query_resultsets()", "safe_bind_rows()", 
+  #                details = paste0("Consider safe_bind_rows() which silently combines ", 
+  #                                 "all columns regardless if there are mixed datatypes ", 
+  #                                 "in a single column."))
+  
   resultset <- tryCatch({
     bind_rows(resultset, next_records)  
   }, error=function(e){

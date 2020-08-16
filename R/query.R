@@ -203,14 +203,14 @@ sf_query_rest <- function(soql,
                                                  object_name_append = TRUE,
                                                  object_name_as_col = object_name_as_col, 
                                                  verbose = verbose)
-                child_records <- bind_rows(child_records, next_child_recs)
+                child_records <- bind_query_resultsets(child_records, next_child_recs)
               }
               y <- combine_parent_and_child_resultsets(parent_record, child_records)
             } else {
               y <- list_extract_parent_and_child_result(x)
             }
             return(y)
-          }
+          } 
         )
       } else {
         resultset <- response_parsed$records %>% 

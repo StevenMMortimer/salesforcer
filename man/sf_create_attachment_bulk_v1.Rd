@@ -5,8 +5,8 @@
 \title{Create Attachments using Bulk 1.0 API}
 \usage{
 sf_create_attachment_bulk_v1(
-  input_data,
-  object_name = "Attachment",
+  attachment_input_data,
+  object_name = c("Attachment", "Document"),
   content_type = "ZIP_CSV",
   control,
   ...,

@@ -12,4 +12,5 @@ Check that file paths exist and data is encoded if specified
 \note{
 This function is meant to be used internally. Only use when debugging.
 }
+\concept{Attachment functions}
 \keyword{internal}

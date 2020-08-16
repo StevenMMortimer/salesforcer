@@ -203,17 +203,33 @@ test_that("testing Bulk 2.0 Functionality", {
   expect_true(attachment_records_csv$Success)
   expect_equal(nrow(attachment_records_csv), 1)
   
-  attachment_records_json <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_JSON")
+  attachment_records_json <- sf_create_attachment(attachment_details, 
+                                                  api_type="Bulk 1.0", 
+                                                  content_type="ZIP_JSON")
   expect_is(attachment_records_json, "tbl_df")
   expect_equal(names(attachment_records_json), c("id", "success", "created", "errors"))
   expect_true(attachment_records_json$success)
   expect_equal(nrow(attachment_records_json), 1)
   
-  attachment_records_xml <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_XML")
+  attachment_records_xml <- sf_create_attachment(attachment_details, 
+                                                 api_type="Bulk 1.0", 
+                                                 content_type="ZIP_XML")
   expect_is(attachment_records_xml, "tbl_df")
   expect_equal(names(attachment_records_xml), c("id", "success", "created"))
   expect_true(attachment_records_xml$success)
   expect_equal(nrow(attachment_records_xml), 1)
+  
+  # sf_update_attachment -------------------------------------------------------
+  temp_f <- tempfile(fileext = ".zip")
+  zipr(temp_f, system.file("extdata", "logo.png", package="salesforcer"))
+  attachment_details2 <- tibble(Id = attachment_records_csv$Id[1],
+                                Name = "logo.png.zip",
+                                Body = temp_f)
+  attachment_records_update <- sf_update_attachment(attachment_details2, api_type="Bulk 1.0")
+  expect_is(attachment_records_update, "tbl_df")
+  expect_equal(names(attachment_records_update), c("Id", "Success", "Created", "Error"))
+  expect_true(attachment_records_update$Success)
+  expect_equal(nrow(attachment_records_update), 1)
   
   # clean up by deleting attachments
   ids_to_delete <- c(attachment_records_csv$Id, attachment_records_json$id, attachment_records_xml$id)

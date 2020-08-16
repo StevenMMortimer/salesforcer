@@ -1313,18 +1313,18 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' }
 #' @export
 sf_run_bulk_operation <- function(input_data,
-                              object_name,
-                              operation = c("insert", "delete", "upsert", 
-                                            "update", "hardDelete"),
-                              external_id_fieldname = NULL,
-                              guess_types = TRUE,
-                              api_type = c("Bulk 1.0", "Bulk 2.0"),
-                              batch_size = NULL,
-                              interval_seconds = 3,
-                              max_attempts = 200,
-                              wait_for_results = TRUE,
-                              control = list(...), ...,
-                              verbose = FALSE){
+                                  object_name,
+                                  operation = c("insert", "delete", "upsert", 
+                                                "update", "hardDelete"),
+                                  external_id_fieldname = NULL,
+                                  guess_types = TRUE,
+                                  api_type = c("Bulk 1.0", "Bulk 2.0"),
+                                  batch_size = NULL,
+                                  interval_seconds = 3,
+                                  max_attempts = 200,
+                                  wait_for_results = TRUE,
+                                  control = list(...), ...,
+                                  verbose = FALSE){
 
   stopifnot(!missing(operation))
   api_type <- match.arg(api_type)

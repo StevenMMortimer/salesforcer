@@ -226,11 +226,13 @@ accepted_controls_by_api <- function(api_type = c("SOAP", "REST", "Bulk 1.0", "B
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-accepted_controls_by_operation <- function(operation = c("delete", "undelete", "hardDelete", 
+accepted_controls_by_operation <- function(operation = c("create" , "insert",
+                                                         "update", "upsert",
+                                                         "delete", "undelete", "hardDelete",
+                                                         "query", "queryall", "retrieve",
                                                          "convertLead", "merge",
-                                                         "insert", "update", "upsert", 
-                                                         "query", "queryall", "retrieve", 
-                                                         "resetPassword", "describeSObjects")){
+                                                         "describeSObjects",
+                                                         "resetPassword")){
   record_creation_controls <- c("AllOrNoneHeader", "AllowFieldTruncationHeader", 
                                 "AssignmentRuleHeader", "DisableFeedTrackingHeader", 
                                 "DuplicateRuleHeader", "EmailHeader", "MruHeader")
@@ -238,20 +240,21 @@ accepted_controls_by_operation <- function(operation = c("delete", "undelete", "
   bulk_controls <- c("BatchRetryHeader", "LineEndingHeader")
   this_operation <- match.arg(operation)
   switch(this_operation, 
-         "delete" = c("AllOrNoneHeader", "DisableFeedTrackingHeader", "EmailHeader", 
-                      "UserTerritoryDeleteHeader", bulk_controls),
-         "undelete" = c("AllOrNoneHeader", "AllowFieldTruncationHeader"), 
-         "hardDelete" = bulk_controls,
-         "convertLead" = c("AllowFieldTruncationHeader", "DisableFeedTrackingHeader"),
-         "merge" = c("AllowFieldTruncationHeader", "DisableFeedTrackingHeader"),
+         "create" = c(record_creation_controls, bulk_controls),
          "insert" = c(record_creation_controls, bulk_controls),
          "update" = c(record_creation_controls, bulk_controls, "OwnerChangeOptions"),
          "upsert" = c(record_creation_controls, bulk_controls, "OwnerChangeOptions"),
+         "delete" = c("AllOrNoneHeader", "DisableFeedTrackingHeader", "EmailHeader", 
+                      "UserTerritoryDeleteHeader", bulk_controls),
+         "undelete" = c("AllOrNoneHeader", "AllowFieldTruncationHeader"), 
+         "hardDelete" = bulk_controls,         
          "query" = query_controls,
          "queryall" = query_controls, 
          "retrieve" = c("MruHeader"),
-         "resetPassword" = c("EmailHeader"),
+         "convertLead" = c("AllowFieldTruncationHeader", "DisableFeedTrackingHeader"),
+         "merge" = c("AllowFieldTruncationHeader", "DisableFeedTrackingHeader"),         
          "describeSObjects" = c("LocaleOptions"),
+         "resetPassword" = c("EmailHeader"),
          character(0))
 }
 
