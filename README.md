@@ -442,7 +442,7 @@ Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=
 -----
 
 Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/.github/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/StevenMMortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
 [Top](#salesforcer)
