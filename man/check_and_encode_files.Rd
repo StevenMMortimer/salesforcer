@@ -12,4 +12,12 @@ Check that file paths exist and data is encoded if specified
 \note{
 This function is meant to be used internally. Only use when debugging.
 }
+\seealso{
+Other Attachment functions: 
+\code{\link{sf_create_attachment}()},
+\code{\link{sf_delete_attachment}()},
+\code{\link{sf_download_attachment}()},
+\code{\link{sf_update_attachment}()}
+}
+\concept{Attachment functions}
 \keyword{internal}

@@ -1,7 +1,7 @@
 ---
 title: "Working with Attachments"
 author: "Steven M. Mortimer"
-date: "2020-06-07"
+date: "2020-08-16"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -33,7 +33,6 @@ attachments, first, load the {salesforcer} and {dplyr} packages and login, if ne
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
-library(here)
 library(salesforcer)
 
 username <- Sys.getenv("SALESFORCER_USERNAME")
@@ -47,7 +46,6 @@ sf_auth(username = username,
 
 ```{r load-package, eval=FALSE}
 library(dplyr)
-library(here)
 library(salesforcer)
 sf_auth()
 ```
@@ -69,9 +67,6 @@ an absolute or relative path to the current working directory. If the `Name` col
 is omitted, then the name of the attachment as it appears in Salesforce will be 
 the same as the base file name and extension. For example, if the path provided is 
 "/Documents/attachments/doc1.pdf", then the `Name` field will be set to "doc1.pdf".
-In the sample code below we are leveraging the **here** package to consistently 
-create relative paths. Although, this is not required, it is encouraged to increase 
-the portability of your code. 
 
 In the example below, we upload three attachments to two different parent records. 
 Note: Make sure to replace the paths and ParentIds in the example below with file 
@@ -151,22 +146,64 @@ queried_attachments <- queried_attachments %>%
 
 # download all of the attachments for a single ParentId record to their own folder
 download_result <- mapply(sf_download_attachment, 
-                          queried_attachments$Body, 
-                          queried_attachments$Name, 
-                          queried_attachments$Path)
+                          body = queried_attachments$Body, 
+                          name = queried_attachments$Name, 
+                          path = queried_attachments$Path)
 download_result
 ```
 ```{r cleanup-1, include = FALSE}
 sf_delete(queried_attachments$Id)
 ```
 
-**Uploading large batches using the Bulk API**
+## Updating Attachments
 
-The SOAP and REST APIs are good for working with a few attachments at a time. 
-However, the Bulk API can be invoked using api_type="Bulk 1.0" to automatically take a 
-`data.frame` or `tbl_df` of Attachment field data and create a ZIP file with CSV manifest 
-that is required by that API to upload In the example above we downloaded the 3 attachments 
-each belonging to 2 different parent records. Assuming that I have a directory on my computer
+Once an Attachment record is created, you are still able to update the content
+and metadata (`Name`, `IsPrivate`, and `OwnerId`) for the record. The
+`sf_update_attachment()` function works just like `sf_update()` except that you
+will need to include the `Body` column where the content of the attachment is
+help. **NOTE**: If you just want to update the metadata and not the Attachment
+content itself, you can simply use `sf_update()` to modify fields other than the
+`Body` field on the record.
+
+The example below demonstrates how to add an attachment to a record, then 
+download it, zip it, re-upload to the record in order to save disk space in your 
+Org.
+
+```{r}
+# upload a PDF to a particular record as an Attachment
+file_path <- system.file("extdata",
+                         "data-wrangling-cheatsheet.pdf",
+                         package = "salesforcer")
+parent_record_id <- "0036A000002C6MmQAK" # replace with your own ParentId!
+attachment_details <- tibble(Body = file_path, ParentId = parent_record_id)
+create_result <- sf_create_attachment(attachment_details)
+
+# download, zip, and re-upload the PDF
+pdf_path <- sf_download_attachment(sf_id = create_result$id[1])
+zipped_path <- paste0(pdf_path, ".zip")
+zip(zipped_path, pdf_path, flags = "-qq") # quiet zipping messages
+attachment_details <- tibble(Id = create_result$id, Body = zipped_path)
+sf_update_attachment(attachment_details)
+```
+
+There is a function `sf_delete_attachment()`, which simply wraps `sf_delete()` 
+so feel free to use for clarity in your code that you're working with attachments 
+use `sf_delete()`.
+
+```{r cleanup-2}
+sf_delete_attachment(ids = create_result$id)
+# sf_delete(ids = create_result$id) # would also work
+```
+
+**Uploading large batches of attachments using the Bulk API**
+
+The SOAP and REST APIs are good for working with a few attachments at a time.
+However, the Bulk API can be invoked using api_type="Bulk 1.0" to automatically
+take a `data.frame` or `tbl_df` of Attachment field data and create a ZIP file
+with CSV manifest that is required by that API to upload. In the example above, 
+we downloaded the three attachments each belonging to two different parent
+records. Assuming that I have run that code and the files are in that my computer 
+I can demonstrate that all of them can be uploaded at once using the Bulk 1.0 API.
 
 ```{r}
 # create the attachment metadata required (Name, Body, ParentId)
@@ -178,12 +215,19 @@ attachment_details <- queried_attachments %>%
 result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
 result
 ```
-```{r cleanup-2, include = FALSE}
+```{r cleanup-3, include = FALSE}
 for (pid in unique(queried_attachments$ParentId)){
   unlink(file.path(temp_dir, pid), recursive=TRUE) # remove directories...
 }
 sf_delete(result$Id) #... and records in Salesforce
 ```
+
+**NOTE**: As of v48.0 (Spring '20), it does not appear that the Bulk 2.0 API 
+supports working with Attachments, so the Bulk 1.0 API must be used for bulk 
+functionality.
+
+Finally, you are able to update Attachments with the Bulk API just as shown 
+above in the REST/SOAP API examples.
 
 ## Extending to Documents and Other Blob Data
 
@@ -206,7 +250,7 @@ document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 1",
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
-```{r cleanup-3, include = FALSE}
+```{r cleanup-4, include = FALSE}
 sf_delete(result$id)
 ```
 
@@ -225,7 +269,7 @@ document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 2",
 result <- sf_create_attachment(document_details, object_name = "Document")
 result
 ```
-```{r cleanup-4, include = FALSE}
+```{r cleanup-5, include = FALSE}
 sf_delete(result$id)
 ```
 
@@ -238,10 +282,10 @@ functions exactly as they are described in the Salesforce documentation so that
 they are flexible enough to handle most all cases that the APIs were intended to 
 support.
 
- * **Attachment Object**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a>
+ * **Attachment Object**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a>
  
- * **Document Object**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a>
+ * **Document Object**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a>
  
- * **REST API Upload Attachment**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a> 
+ * **REST API Upload Attachment**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a> 
  
- * **Bulk API Upload Attachments**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a>
+ * **Bulk API Upload Attachments**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a>

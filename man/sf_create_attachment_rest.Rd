@@ -5,8 +5,8 @@
 \title{Create Attachment using REST API}
 \usage{
 sf_create_attachment_rest(
-  input_data,
-  object_name = "Attachment",
+  attachment_input_data,
+  object_name = c("Attachment", "Document"),
   control,
   ...,
   verbose = FALSE

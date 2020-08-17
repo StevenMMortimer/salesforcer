@@ -4,16 +4,38 @@
 \alias{sf_download_attachment}
 \title{Download an Attachment}
 \usage{
-sf_download_attachment(body, name, path = ".")
+sf_download_attachment(
+  body,
+  name = NULL,
+  sf_id = NULL,
+  object_name = c("Attachment", "Document"),
+  path = "."
+)
 }
 \arguments{
-\item{body}{character; a URL path to the body of the attachment in Salesforce,
-typically retrieved via query on the Attachment object}
+\item{body}{\code{character}; a URL path to the body of the attachment in
+Salesforce, typically retrieved by \code{\link{sf_query}} on the Attachment
+object. Alternatively, you can specify the Salesforce Id of the Attachment.}
 
-\item{name}{character; the name of the file you would like to save the content to}
+\item{name}{\code{character}; the name of the file you would like to save the
+content to. Note that you should include the file extension in this name
+and if this argument is left \code{NULL}, then a query will be made to
+determine the name and file extension needed. This process may result in a
+slower download process, so attempt to provide the body and name arguments
+whenever possible for the best performance.}
 
-\item{path}{character; a directory path where to create file, defaults to the
-current directory.}
+\item{sf_id}{\code{character}; a Salesforce generated Id that uniquely
+identifies a record.}
+
+\item{object_name}{\code{character}; the name of the Salesforce object that the
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
+
+\item{path}{\code{character}; a directory path where to create file, defaults
+to the current directory.}
+}
+\value{
+\code{character}; invisibly return the file path of the downloaded
+content
 }
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
@@ -21,11 +43,33 @@ current directory.}
 This function will allow you to download an attachment to disk based on the
 attachment body, file name, and path.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_blob_retrieve.htm}{Get Attachment Content from a Record}
+}
+}
+
 \examples{
 \dontrun{
-queried_attachments <- sf_query("SELECT Body, Name 
+# downloading all attachments for a Parent record
+# if your attachment name doesn't include the extension, then you can use the 
+# ContentType column to append it to the Name, if needed
+queried_attachments <- sf_query("SELECT Id, Body, Name, ContentType 
                                  FROM Attachment 
                                  WHERE ParentId = '0016A0000035mJ5'")
 mapply(sf_download_attachment, queried_attachments$Body, queried_attachments$Name)
+
+# downloading an attachment by its Id
+# (the file name will be the same as it exists in Salesforce)
+sf_download_attachment(sf_id = queried_attachments$Id[1])
 }
 }
+\seealso{
+Other Attachment functions: 
+\code{\link{check_and_encode_files}()},
+\code{\link{sf_create_attachment}()},
+\code{\link{sf_delete_attachment}()},
+\code{\link{sf_update_attachment}()}
+}
+\concept{Attachment functions}

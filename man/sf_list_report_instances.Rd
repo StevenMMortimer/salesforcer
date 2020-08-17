@@ -29,6 +29,14 @@ Returns a list of instances for a report that you requested to be run asynchrono
 Each item in the list is treated as a separate instance of the report run with
 metadata in that snapshot of time.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_resource.htm}{Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_asyncreportruns.htm#example_async_fetchresults_instances}{Example}
+}
+}
+
 \examples{
 \dontrun{
 # first, get the Id of a report in your Org
@@ -45,5 +53,8 @@ instance_status <- instance_list[[which(instance_list$id == results$id), "status
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instances_resource.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_list_asyncreportruns.htm#example_async_fetchresults_instances}{Salesforce Example}
+Other Report Instance functions: 
+\code{\link{sf_delete_report_instance}()},
+\code{\link{sf_get_report_instance_results}()}
 }
+\concept{Report Instance functions}

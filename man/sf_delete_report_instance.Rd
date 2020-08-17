@@ -29,6 +29,13 @@ will return \code{TRUE} if successful in deleting the report instance.
 If the given report instance has a status of \code{Success} or \code{Error},
 delete the report instance.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Documentation}
+}
+}
+
 \examples{
 \dontrun{
 # first, get the Id of a report in your Org
@@ -44,5 +51,8 @@ instance_status <- instance_list[[which(instance_list$id == results$id), "status
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}
+Other Report Instance functions: 
+\code{\link{sf_get_report_instance_results}()},
+\code{\link{sf_list_report_instances}()}
 }
+\concept{Report Instance functions}

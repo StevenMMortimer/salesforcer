@@ -88,6 +88,15 @@ in the second-level grouping.}
 in the second-level grouping.}
 }
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Documentation}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Example}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm}{Factmap Documentation}
+}
+}
+
 \examples{
 \dontrun{
 # execute a report asynchronously in your Org
@@ -107,5 +116,8 @@ if(instance_status == "Success"){
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_instance_resource_results.htm}{Salesforce Documentation}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm#example_instance_reportresults}{Salesforce Example}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm}{Factmap Documentation}
+Other Report Instance functions: 
+\code{\link{sf_delete_report_instance}()},
+\code{\link{sf_list_report_instances}()}
 }
+\concept{Report Instance functions}

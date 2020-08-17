@@ -11,9 +11,7 @@
 #' @importFrom dplyr bind_rows as_tibble
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom purrr map_df
-#' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
-#' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
-#' that can be passed in the request
+#' @template ids
 #' @template object_name
 #' @template api_type
 #' @template guess_types

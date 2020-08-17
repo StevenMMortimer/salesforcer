@@ -17,8 +17,8 @@ sf_retrieve(
 }
 \arguments{
 \item{ids}{\code{vector}, \code{matrix}, \code{data.frame}, or
-\code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive)
-that can be passed in the request}
+\code{tbl_df}; if not a vector, there must be a column called Id (case
+insensitive) that can be passed in the request.}
 
 \item{fields}{character; one or more strings indicating the fields to be returned
 on the records}

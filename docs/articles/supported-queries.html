@@ -134,7 +134,7 @@
             
             <h4 class="date">2020-07-11</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/supported-queries.Rmd"><code>vignettes/supported-queries.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/main/vignettes/supported-queries.Rmd"><code>vignettes/supported-queries.Rmd</code></a></small>
       <div class="hidden name"><code>supported-queries.Rmd</code></div>
 
     </div>
@@ -154,17 +154,17 @@
 <p>If you are not familiar with SOQL, then please consider reading the following resources:</p>
 <ul>
 <li>
-<a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_sosl_intro.htm">Introduction to SOQL and SOSL</a><br>
+<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_sosl_intro.htm">Introduction to SOQL and SOSL</a><br>
 </li>
 <li>
-<a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_select.htm">SOQL SELECT Syntax</a><br>
+<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_select.htm">SOQL SELECT Syntax</a><br>
 </li>
 <li>
-<a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_relationships.htm">Relationship Queries</a><br>
+<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_relationships.htm">Relationship Queries</a><br>
 </li>
-<li><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/async_query_overview.htm">Async SOQL</a></li>
-<li><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm">Overview of queries in Bulk 1.0 API</a></li>
-<li><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm">Overview of queries in Bulk 2.0 API</a></li>
+<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/async_query_overview.htm">Async SOQL</a></li>
+<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm">Overview of queries in Bulk 1.0 API</a></li>
+<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm">Overview of queries in Bulk 2.0 API</a></li>
 </ul>
 <hr>
 </div>
@@ -474,7 +474,7 @@
 <div id="troubleshooting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
-<p>If you are having an issue with a query please submit in the {salesforcer} GitHub repository at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, queries are tough to debug because every Salesforce Org is unique. Custom objects or relationships created in your Salesforce Org may be different or even impossible to test in another Org. When filing your issue please make an attempt to understand the query and debug a little bit on your own. Here are a few suggestions:</p>
+<p>If you are having an issue with a query please submit in the {salesforcer} GitHub repository at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, queries are tough to debug because every Salesforce Org is unique. Custom objects or relationships created in your Salesforce Org may be different or even impossible to test in another Org. When filing your issue please make an attempt to understand the query and debug a little bit on your own. Here are a few suggestions:</p>
 <ol style="list-style-type: decimal">
 <li>
 <p>Slightly modify your function call to <code><a href="../reference/sf_query.html">sf_query()</a></code> to observe the results. Here are a few prompting questions that may assist you:</p>
@@ -487,13 +487,13 @@
 </ul>
 </li>
 <li><p>Check out Salesforce’s <a href="https://workbench.developerforce.com/login.php">Workbench</a> tool to see how it builds out queries.</p></li>
-<li><p>Double check Salesforce’s <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">SOQL reference guide</a> to see whether your query is supported or limited in some way.</p></li>
-<li><p>Review query unit tests at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-query.R">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-query.R</a>. These unit tests were written to cover a variety of use cases and to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples that may be helpful in troubleshooting your own query.</p></li>
+<li><p>Double check Salesforce’s <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">SOQL reference guide</a> to see whether your query is supported or limited in some way.</p></li>
+<li><p>Review query unit tests at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-query.R</a>. These unit tests were written to cover a variety of use cases and to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples that may be helpful in troubleshooting your own query.</p></li>
 <li>
 <p>Roll up your sleeves and dive into the source code for the {salesforcer} package. The main scripts to review are:</p>
 <ul>
-<li><p><a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/R/query.R">https://github.com/StevenMMortimer/salesforcer/blob/master/R/query.R</a></p></li>
-<li><p><a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R">https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R</a></p></li>
+<li><p><a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/query.R</a></p></li>
+<li><p><a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-query.R</a></p></li>
 </ul>
 </li>
 </ol>

@@ -200,29 +200,47 @@ test_that("testing Bulk 2.0 Functionality", {
   attachment_records_csv <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
   expect_is(attachment_records_csv, "tbl_df")
   expect_equal(names(attachment_records_csv), c("Id", "Success", "Created", "Error"))
-  expect_true(attachment_records_csv$Success)
   expect_equal(nrow(attachment_records_csv), 1)
+  expect_true(attachment_records_csv$Success)
   
-  attachment_records_json <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_JSON")
+  attachment_records_json <- sf_create_attachment(attachment_details, 
+                                                  api_type="Bulk 1.0", 
+                                                  content_type="ZIP_JSON")
   expect_is(attachment_records_json, "tbl_df")
   expect_equal(names(attachment_records_json), c("id", "success", "created", "errors"))
-  expect_true(attachment_records_json$success)
   expect_equal(nrow(attachment_records_json), 1)
+  expect_true(attachment_records_json$success)
   
-  attachment_records_xml <- sf_create_attachment(attachment_details, api_type="Bulk 1.0", content_type="ZIP_XML")
+  attachment_records_xml <- sf_create_attachment(attachment_details, 
+                                                 api_type="Bulk 1.0", 
+                                                 content_type="ZIP_XML")
   expect_is(attachment_records_xml, "tbl_df")
   expect_equal(names(attachment_records_xml), c("id", "success", "created"))
-  expect_true(attachment_records_xml$success)
   expect_equal(nrow(attachment_records_xml), 1)
+  expect_true(attachment_records_xml$success)
   
-  # clean up by deleting attachments
-  ids_to_delete <- c(attachment_records_csv$Id, attachment_records_json$id, attachment_records_xml$id)
-  deleted_records <- sf_delete(ids_to_delete, object_name="Attachment", api_type = "Bulk 1.0")
-  expect_is(deleted_records, "tbl_df")
-  expect_named(deleted_records, c("Id", "Success", "Created", "Error"))
-  expect_equal(nrow(deleted_records), length(ids_to_delete))
-  expect_true(all(is.na(deleted_records$Error)))
-  expect_true(all(!deleted_records$Created))
+  # sf_update_attachment -------------------------------------------------------
+  temp_f <- tempfile(fileext = ".zip")
+  zipr(temp_f, system.file("extdata", "logo.png", package="salesforcer"))
+  attachment_details2 <- tibble(Id = attachment_records_csv$Id[1],
+                                Name = "logo.png.zip",
+                                Body = temp_f)
+  attachment_records_update <- sf_update_attachment(attachment_details2, api_type="Bulk 1.0")
+  expect_is(attachment_records_update, "tbl_df")
+  expect_equal(names(attachment_records_update), c("Id", "Success", "Created", "Error"))
+  expect_equal(nrow(attachment_records_update), 1)
+  expect_true(attachment_records_update$Success)
+  
+  # sf_delete_attachment -------------------------------------------------------
+  ids_to_delete <- c(attachment_records_csv$Id, 
+                     attachment_records_json$id, 
+                     attachment_records_xml$id)
+  deleted_attachments <- sf_delete_attachment(ids_to_delete, api_type = "Bulk 1.0")
+  expect_is(deleted_attachments, "tbl_df")
+  expect_named(deleted_attachments, c("Id", "Success", "Created", "Error"))
+  expect_equal(nrow(deleted_attachments), length(ids_to_delete))
+  expect_true(all(is.na(deleted_attachments$Error)))
+  expect_true(all(!deleted_attachments$Created))
   
   # sf_delete ------------------------------------------------------------------
   ids_to_delete <- unique(c(upserted_records$sf__Id, queried_records$Id)) 

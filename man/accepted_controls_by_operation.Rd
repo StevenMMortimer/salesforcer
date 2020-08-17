@@ -5,9 +5,9 @@
 \title{Return the Accepted Control Arguments by Operation}
 \usage{
 accepted_controls_by_operation(
-  operation = c("delete", "undelete", "hardDelete", "convertLead", "merge", "insert",
-    "update", "upsert", "query", "queryall", "retrieve", "resetPassword",
-    "describeSObjects")
+  operation = c("create", "insert", "update", "upsert", "delete", "undelete",
+    "hardDelete", "query", "queryall", "retrieve", "convertLead", "merge",
+    "describeSObjects", "resetPassword")
 )
 }
 \description{

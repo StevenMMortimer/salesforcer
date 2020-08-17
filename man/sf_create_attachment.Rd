@@ -5,8 +5,8 @@
 \title{Create Attachments}
 \usage{
 sf_create_attachment(
-  input_data,
-  object_name = "Attachment",
+  attachment_input_data,
+  object_name = c("Attachment", "Document"),
   api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
   control = list(...),
   ...,
@@ -14,12 +14,13 @@ sf_create_attachment(
 )
 }
 \arguments{
-\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
-\code{tbl_df}; data can be coerced into a \code{data.frame}. The input must
-contain a column entitled 'Body' with an absolute or relative file path
-(unless creating a Document using a Url) along with other required fields depending
-on the object. See the details below for the other required fields when creating
-Attachments and Documents.}
+\item{attachment_input_data}{\code{named vector}, \code{matrix},
+\code{data.frame}, or \code{tbl_df}; data can be coerced into a
+\code{data.frame}. The input must contain a column entitled 'Body' with an
+absolute or relative file path (unless creating a Document using a Url)
+along with other required fields depending on the object.If performing an
+\code{update} operation, then one column or field of the input must be
+the \code{Id} of the record to modify.}
 
 \item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
@@ -59,12 +60,21 @@ You can only create or update documents to a maximum size of 5 MB. The REST API
 allows you to insert or update blob data limited to 50 MB of text data or 37.5 MB
 of base64–encoded data.
 }
+\section{Salesforce Documentation}{
+
+\itemize{
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Insert or Update Blob Data}
+}
+}
+
 \examples{
 \dontrun{
 # upload two PDFs from working directory to a particular record as Attachments
 file_path1 <- here::here("doc1.pdf")
 file_path2 <- here::here("doc2.pdf")
-parent_record_id <- "0033s00000zLbgs"
+parent_record_id <- "0036A000002C6MmQAK"
 attachment_details <- tibble(Body = c(file_path1, file_path2), 
                              ParentId = rep(parent_record_id, 2))
 result <- sf_create_attachment(attachment_details)
@@ -74,7 +84,7 @@ result <- sf_create_attachment(attachment_details)
 document_details <- tibble(Name = "doc1.pdf", 
                            Description = "Test Document 1", 
                            Body = file_path1,
-                           FolderId = "00l6A000001EgIwQAK",
+                           FolderId = "00l6A000001EgIwQAK", # replace with your FolderId!
                            Keywords = "example,test,document")
 result <- sf_create_attachment(document_details, object_name = "Document")
 
@@ -84,10 +94,11 @@ result <- sf_create_attachment(document_details, object_name = "Document")
 result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
 }
 }
-\references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}
-
-\url{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}
-
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}
+\seealso{
+Other Attachment functions: 
+\code{\link{check_and_encode_files}()},
+\code{\link{sf_delete_attachment}()},
+\code{\link{sf_download_attachment}()},
+\code{\link{sf_update_attachment}()}
 }
+\concept{Attachment functions}

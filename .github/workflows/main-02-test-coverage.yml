@@ -37,14 +37,13 @@ jobs:
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
           
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v1
       
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@v1
       
       - name: Query dependencies
         run: |
-          # getting dev remotes for better behaviour re: installation order
-          install.packages("https://github.com/r-lib/remotes/archive/master.tar.gz", repos = NULL)
+          install.packages("remotes")
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
         shell: Rscript {0}
 
@@ -57,9 +56,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # temporary hack until there's a macOS binary for ps
-          install.packages("ps", type = "source")
-          remotes::install_deps(dependencies = TRUE)
+          remotes::install_version("dplyr", version = "1.0.0")
+          remotes::install_deps(dependencies = TRUE, upgrade = "never")
           remotes::install_cran("covr")
         shell: Rscript {0}
 

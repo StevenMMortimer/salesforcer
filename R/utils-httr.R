@@ -93,6 +93,35 @@ rPUT <- VERB_n("PUT")
 #' @export
 rDELETE <- VERB_n("DELETE")
 
+#' Function to parse out the message and status code of an HTTP error
+#' 
+#' Assuming the error code is less than 500, this function will return the 
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+parse_error_code_and_message <- function(x){
+  
+  if(!is.null(x$exceptionCode)){
+    error_code <- x$exceptionCode
+    error_message <- x$exceptionMessage
+  } else if(!is.null(x$error$exceptionCode)){
+    error_code <- x$error$exceptionCode
+    error_message <- x$error$exceptionMessage
+  } else if(!is.null(x[[1]]$Error$errorCode[[1]])){
+    error_code <- x[[1]]$Error$errorCode[[1]]
+    error_message <- x[[1]]$Error$message[[1]]
+  } else {
+    error_code <- x[[1]]$errorCode 
+    error_message <- x[[1]]$message
+  }
+  
+  return(
+    list(errorCode = error_code, 
+         message = error_message)
+  )
+}
+
 #' Function to catch and print HTTP errors
 #'
 #' @importFrom httr content http_error
@@ -109,33 +138,62 @@ catch_errors <- function(x){
       response_parsed <- as_list(response_parsed)
     }
     if(status_code(x) < 500){
-      if(!is.null(response_parsed$exceptionCode)){
-        stop(sprintf("%s: %s", 
-                     response_parsed$exceptionCode, 
-                     response_parsed$exceptionMessage), 
-             call. = FALSE)
-      } else if(!is.null(response_parsed$error$exceptionCode)){
-        stop(sprintf("%s: %s", 
-                     response_parsed$error$exceptionCode, 
-                     response_parsed$error$exceptionMessage), 
-             call. = FALSE)
-      } else if(!is.null(response_parsed[[1]]$Error$errorCode[[1]])){
-        stop(sprintf("%s: %s", 
-                     response_parsed[[1]]$Error$errorCode[[1]], 
-                     response_parsed[[1]]$Error$message[[1]]), 
-             call. = FALSE)
-      }  else {
-        stop(sprintf("%s: %s", 
-                     response_parsed[[1]]$errorCode, 
-                     response_parsed[[1]]$message), 
-             call. = FALSE)
-      }
+      parsed_error <- parse_error_code_and_message(response_parsed)
+      stop(sprintf("%s: %s", 
+                   parsed_error$errorCode, 
+                   parsed_error$message), 
+           call. = FALSE)
     } else {
       error_message <- response_parsed$Envelope$Body$Fault
       stop(error_message$faultstring[[1]][1])
     }
   }
   invisible(FALSE)
+}
+
+#' Execute a non-paginated REST API call to list items
+#' 
+#' @template as_tbl
+#' @param records_root \code{character} or \code{integer}; an index or string that 
+#' identifies the element in the parsed list which contains the records returned 
+#' by the API call. By default, this argument is \code{NULL}, which means that 
+#' each element in the list is an individual record.
+#' @template verbose
+#' @importFrom purrr map_df
+#' @importFrom dplyr as_tibble tibble
+#' @importFrom readr col_guess type_convert
+#' @importFrom httr content
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+sf_rest_list <- function(url, 
+                         as_tbl=FALSE, 
+                         records_root=NULL,
+                         verbose=FALSE){
+  httr_response <- rGET(url = url)
+  if(verbose){
+    make_verbose_httr_message(httr_response$request$method, 
+                              httr_response$request$url, 
+                              httr_response$request$headers)
+  }
+  catch_errors(httr_response)
+  response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
+  
+  if(as_tbl){
+    if(is.null(records_root)){
+      records_list <- response_parsed
+    } else {
+      records_list <- response_parsed[[records_root]]  
+    }
+    if(length(records_list) > 0){
+      response_parsed <- records_list %>% 
+        map_df(as_tibble) %>%
+        type_convert(col_types = cols(.default = col_guess()))
+    } else {
+      response_parsed <- tibble()
+    }
+  }
+  return(response_parsed)
 }
 
 #' Function to build a proxy object to pass along with httr requests

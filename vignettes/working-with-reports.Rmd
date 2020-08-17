@@ -36,10 +36,10 @@ need to know and have is the report's Salesforce Id. If you want to fully levera
 the features of the Reports and Dashboards REST API I recommend reading the following 
 so that you are better equipped to understand and use the functions within {salesforcer}.
 
- - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">Running a Report Synchronously or Asynchronously</a>  
- - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm">Understanding a Report Fact Map</a>   
- - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource">Filter Reports on Demand</a>  
- - <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API Documentation Home Page</a>  
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">Running a Report Synchronously or Asynchronously</a>  
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm">Understanding a Report Fact Map</a>   
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource">Filter Reports on Demand</a>  
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API Documentation Home Page</a>  
 
 ----  
 
@@ -233,7 +233,7 @@ success
 ## Troubleshooting
 
 If you are having an issue with a report please submit in the {salesforcer} GitHub 
-repository at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, reports can be are tough to debug because every Salesforce 
+repository at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, reports can be are tough to debug because every Salesforce 
 Org is unique. When filing your issue please make an attempt to understand the 
 query and debug a little bit on your own. Here are a few suggestions:  
 
@@ -246,9 +246,9 @@ query and debug a little bit on your own. Here are a few suggestions:
       
       - What happens if you try running a different type of report?
   
-  2. Double check Salesforce's <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API Developer Guide</a> to see whether if your report type would be supported or limited in some way.
+  2. Double check Salesforce's <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API Developer Guide</a> to see whether if your report type would be supported or limited in some way.
   
-  3. Review report unit tests at: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-report.R">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/test-report.R</a>. 
+  3. Review report unit tests at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-report.R">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-report.R</a>. 
   These unit tests were written to cover a variety of use cases and to track any 
   changes made between newly released versions of the Salesforce API (typically 
   4 each year). These tests are an excellent source of examples that may be 
@@ -257,6 +257,6 @@ query and debug a little bit on your own. Here are a few suggestions:
   4. Roll up your sleeves and dive into the source code for the {salesforcer} 
   package. The main scripts to review are:  
   
-      - <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R">https://github.com/StevenMMortimer/salesforcer/blob/master/R/analytics-report.R</a>
+      - <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/analytics-report.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/analytics-report.R</a>
       
-      - <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-report.R">https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-report.R</a>
+      - <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-report.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-report.R</a>

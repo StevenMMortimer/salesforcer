@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (0.2.0)
+# install the current CRAN version (0.2.1)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -182,13 +182,16 @@ queried_records <- sf_query(my_soql)
 queried_records
 ```
 
-You'll notice that the `"Account.Name"` column does not appear in the results. This is 
-because the SOAP and REST APIs do not return any Account information if it does not 
-exist on the record and there is no reliable way to extract and rebuild the empty
-columns based on the query string. If there were Account information, an
-additional column titled `"Account.Name"` would appear in the results. Note, that 
-the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a column of all 
-`NA` values for this query because they return results differently.
+**NOTE**: In the example above, you'll notice that the `"Account.Name"` column
+does not appear in the results. This is because the SOAP and REST APIs only
+return an empty Account object for the record if there is no relationship to an
+account ( see <a rel="noopener noreferrer" target="_blank"
+href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There
+is no reliable way to extract and rebuild the empty columns based on the query
+string. If there were Account information, an additional column titled
+`"Account.Name"` would appear in the results. Note, that the Bulk 1.0 and Bulk
+2.0 APIs will return `"Account.Name"` as a column of all `NA` values for this
+query because they return results differently.
 
 ### Update
 
@@ -333,7 +336,7 @@ https://StevenMMortimer.github.io/salesforcer.
 [Get supported salesforcer with the Tidelift Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
 
 ---
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StevenMMortimer/salesforcer/blob/master/.github/CODE_OF_CONDUCT.md). 
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StevenMMortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md). 
 By participating in this project you agree to abide by its terms.  
 
 [Top](#salesforcer)

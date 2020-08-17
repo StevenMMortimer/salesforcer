@@ -5,9 +5,7 @@
 #' 
 #' Retrieves one or more new records to your organization’s data.
 #' 
-#' @param ids \code{vector}, \code{matrix}, \code{data.frame}, or 
-#' \code{tbl_df}; if not a vector, there must be a column called Id (case-insensitive) 
-#' that can be passed in the request
+#' @template ids
 #' @param fields character; one or more strings indicating the fields to be returned 
 #' on the records
 #' @template object_name

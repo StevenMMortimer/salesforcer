@@ -134,7 +134,7 @@
             
             <h4 class="date">2018-03-12</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/getting-started.Rmd"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/main/vignettes/getting-started.Rmd"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
 
     </div>
@@ -254,7 +254,7 @@
 <div id="upserting-records" class="section level2">
 <h2 class="hasAnchor">
 <a href="#upserting-records" class="anchor"></a>Upserting records</h2>
-<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at: <a target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
+<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at: <a rel="noopener noreferrer" target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
                        <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span>:<span class="no">n</span>),
@@ -283,7 +283,7 @@
 <div id="check-out-the-tests" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-out-the-tests" class="anchor"></a>Check out the Tests</h2>
-<p>The {salesforcer} package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions. You can access them here: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/"></a><a href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/" class="uri">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/</a><a></a></p>
+<p>The {salesforcer} package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions. You can access them here: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/"></a><a href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/" class="uri">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/</a><a></a></p>
 </div>
   </div>
 

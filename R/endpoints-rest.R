@@ -122,6 +122,15 @@ make_rest_objects_url <- function(object){
   paste0(make_base_rest_url(), "sobjects/", object, "/")
 }
 
+#' REST Individual Record URL Generator
+#' 
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+make_rest_record_url <- function(object, sf_id){
+  paste0(make_base_rest_url(), "sobjects/", object, "/", sf_id)
+}
+
 #' Composite Batch URL Generator
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.

@@ -182,7 +182,8 @@ bulk2_query <- function(){sf_query(soql, api_type="Bulk 2.0")} # Bulk 2.0 doesn'
 res <- microbenchmark::microbenchmark(
   bulk1_query(),
   bulk2_query(), 
-  times=8
+  times=8, 
+  unit = "s"
 )
 res
 
