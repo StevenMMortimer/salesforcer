@@ -51,6 +51,7 @@ Suggests:
     here,
     microbenchmark,
     ggplot2,
+    sessioninfo,
     RForcecom
 VignetteBuilder:
     knitr
