@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="kw">acct_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">"Account"</span>)
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, <span class="kw">label</span>, <span class="kw">length</span>, <span class="kw">soapType</span>, <span class="kw">type</span>)
-<span class="co">#&gt; # A tibble: 69 x 5</span>
+<span class="co">#&gt; # A tibble: 68 x 5</span>
 <span class="co">#&gt;   name           label            length soapType    type     </span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 Id             Account ID       18     tns:ID      id       </span>
@@ -204,7 +204,7 @@
 <span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
 <span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
 <span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
-<span class="co">#&gt; # … with 64 more rows</span>
+<span class="co">#&gt; # … with 63 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> 

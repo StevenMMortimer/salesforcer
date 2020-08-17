@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -141,11 +141,11 @@
 
     
     
-<p>While writing the {salesforcer} package we were keenly aware that many folks are already using the <strong>RForcecom</strong> package to connect to Salesforce. In order to foster adoption and switching between the packages {salesforcer} replicates the functionality of many <strong>RForcecom</strong> functions so that you will only need to swap out <code><a href="http://rforcecom.plavox.info">library(RForcecom)</a></code> for <code><a href="https://github.com/StevenMMortimer/salesforcer">library(salesforcer)</a></code> and still have your production tested scripts perform as usual.</p>
+<p>While writing the {salesforcer} package we were keenly aware that many folks are already using the {RForcecom} package to connect to Salesforce. In order to foster adoption and switching between the packages {salesforcer} replicates the functionality of many {RForcecom} functions so that you will only need to swap out <code><a href="http://rforcecom.plavox.info">library(RForcecom)</a></code> for <code><a href="https://github.com/StevenMMortimer/salesforcer">library(salesforcer)</a></code> and still have your production tested scripts perform as usual.</p>
 <div id="authentication" class="section level2">
 <h2 class="hasAnchor">
 <a href="#authentication" class="anchor"></a>Authentication</h2>
-<p>{salesforcer} supports OAuth 2.0 authentication which is preferred, but for backward compatibility provides the username-password authentication routine implemented by <strong>RForcecom</strong>. Here is an example running the function from each of the packages side-by-side and producing the same result.</p>
+<p>{salesforcer} supports OAuth 2.0 authentication which is preferred, but for backward compatibility provides the username-password authentication routine implemented by {RForcecom}. Here is an example running the function from each of the packages side-by-side and producing the same result.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co"># the RForcecom way</span>
 <span class="kw">session1</span> <span class="op">&lt;-</span> <span class="kw">RForcecom</span>::<span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html">rforcecom.login</a></span>(<span class="kw">username</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">password</span>, <span class="kw">security_token</span>), 
@@ -168,12 +168,12 @@
 <span class="co">#&gt;                      apiVersion </span>
 <span class="co">#&gt;                          "48.0"</span>
 </pre></div>
-<p>Note that we must set the API version here because calls to session will not create a new sessionId and then we are stuck with version 35.0 (the default from RForcecom::rforcecom.login). Some functions in {salesforcer} implement API calls that are only available after version 35.0.</p>
+<p>Note that we must set the API version here because calls to session will not create a new sessionId and then we are stuck with version 35.0 (the default from <code><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html">RForcecom::rforcecom.login()</a></code>). Some functions in {salesforcer} implement API calls that are only available after version 35.0.</p>
 </div>
 <div id="crud-operations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#crud-operations" class="anchor"></a>CRUD Operations</h2>
-<p>“CRUD” operations (Create, Retrieve, Update, Delete) in the <strong>RForcecom</strong> package only operate on one record at a time. One benefit to using the {salesforcer} package is that these operations will accept a named vector (one record) or an entire <code>data.frame</code> or <code>tbl_df</code> of records to churn through. However, rest assured that the replicated functions behave exactly the same way if you are hesitant to making the switch.</p>
+<p>“CRUD” operations (Create, Retrieve, Update, Delete) in the {RForcecom} package only operate on one record at a time. One benefit to using the {salesforcer} package is that these operations will accept a named vector (one record) or an entire <code>data.frame</code> or <code>tbl_df</code> of records to churn through. However, rest assured that the replicated functions behave exactly the same way if you are hesitant to making the switch.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw">object</span> <span class="op">&lt;-</span> <span class="st">"Contact"</span>
 <span class="kw">fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(FirstName=<span class="st">"Test"</span>, LastName=<span class="st">"Contact-Create-Compatibility"</span>)
@@ -182,13 +182,13 @@
 <span class="kw">result1</span> <span class="op">&lt;-</span> <span class="kw">RForcecom</span>::<span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html">rforcecom.create</a></span>(<span class="kw">session</span>, objectName=<span class="kw">object</span>, <span class="kw">fields</span>)
 <span class="kw">result1</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000013ZPWWAA4    true</span>
+<span class="co">#&gt; 1 0033s000013wclWAAQ    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="kw">result2</span> <span class="op">&lt;-</span> <span class="kw">salesforcer</span>::<span class="fu"><a href="../reference/rforcecom.create.html">rforcecom.create</a></span>(<span class="kw">session</span>, objectName=<span class="kw">object</span>, <span class="kw">fields</span>)
 <span class="kw">result2</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000013ZPUJAA4    TRUE</span>
+<span class="co">#&gt; 1 0033s000013wclbAAA    TRUE</span>
 </pre></div>
 <p>Here is an example showing the reduction in code of using {salesforcer} if you would like to create multiple records.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
@@ -206,8 +206,8 @@
 }
 <span class="kw">rforcecom_results</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000013ZPWbAAO    true</span>
-<span class="co">#&gt; 2 0033s000013ZPWgAAO    true</span>
+<span class="co">#&gt; 1 0033s000013wclgAAA    true</span>
+<span class="co">#&gt; 2 0033s000013wcllAAA    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 <span class="kw">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>, object_name=<span class="st">"Contact"</span>)
@@ -215,14 +215,14 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013ZPWlAAO TRUE   </span>
-<span class="co">#&gt; 2 0033s000013ZPWmAAO TRUE</span>
+<span class="co">#&gt; 1 0033s000013wclqAAA TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wclrAAA TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level2">
 <h2 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h2>
-<p>{salesforcer} also has better printing and type-casting when returning query result thanks to features of the readr package.</p>
+<p>{salesforcer} also has better printing and type-casting when returning query result thanks to features of the {readr} package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">this_soql</span> <span class="op">&lt;-</span> <span class="st">"SELECT Id, Email FROM Contact LIMIT 5"</span>
 
@@ -230,11 +230,11 @@
 <span class="kw">result1</span> <span class="op">&lt;-</span> <span class="kw">RForcecom</span>::<span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.query.html">rforcecom.query</a></span>(<span class="kw">session</span>, soqlQuery = <span class="kw">this_soql</span>)
 <span class="kw">result1</span>
 <span class="co">#&gt;                   Id</span>
-<span class="co">#&gt; 1 0033s000013ZGpXAAW</span>
-<span class="co">#&gt; 2 0033s000013YI4OAAW</span>
-<span class="co">#&gt; 3 0033s000013YIFfAAO</span>
-<span class="co">#&gt; 4 0033s000013YIFgAAO</span>
-<span class="co">#&gt; 5 0033s000013YJ5GAAW</span>
+<span class="co">#&gt; 1 0033s000013wZYyAAM</span>
+<span class="co">#&gt; 2 0033s000013wZYzAAM</span>
+<span class="co">#&gt; 3 0033s000013wbrCAAQ</span>
+<span class="co">#&gt; 4 0033s000013wa1iAAA</span>
+<span class="co">#&gt; 5 0033s000013wa1jAAA</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="kw">result2</span> <span class="op">&lt;-</span> <span class="kw">salesforcer</span>::<span class="fu"><a href="../reference/rforcecom.query.html">rforcecom.query</a></span>(<span class="kw">session</span>, soqlQuery = <span class="kw">this_soql</span>)
@@ -242,11 +242,11 @@
 <span class="co">#&gt; # A tibble: 5 x 1</span>
 <span class="co">#&gt;   Id                </span>
 <span class="co">#&gt;   &lt;chr&gt;             </span>
-<span class="co">#&gt; 1 0033s000013ZGpXAAW</span>
-<span class="co">#&gt; 2 0033s000013YI4OAAW</span>
-<span class="co">#&gt; 3 0033s000013YIFfAAO</span>
-<span class="co">#&gt; 4 0033s000013YIFgAAO</span>
-<span class="co">#&gt; 5 0033s000013YJ5GAAW</span>
+<span class="co">#&gt; 1 0033s000013wZYyAAM</span>
+<span class="co">#&gt; 2 0033s000013wZYzAAM</span>
+<span class="co">#&gt; 3 0033s000013wbrCAAQ</span>
+<span class="co">#&gt; 4 0033s000013wa1iAAA</span>
+<span class="co">#&gt; 5 0033s000013wa1jAAA</span>
 
 <span class="co"># the better way in salesforcer to query</span>
 <span class="kw">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="kw">this_soql</span>)
@@ -254,17 +254,17 @@
 <span class="co">#&gt; # A tibble: 5 x 1</span>
 <span class="co">#&gt;   Id                </span>
 <span class="co">#&gt;   &lt;chr&gt;             </span>
-<span class="co">#&gt; 1 0033s000013ZGpXAAW</span>
-<span class="co">#&gt; 2 0033s000013YI4OAAW</span>
-<span class="co">#&gt; 3 0033s000013YIFfAAO</span>
-<span class="co">#&gt; 4 0033s000013YIFgAAO</span>
-<span class="co">#&gt; 5 0033s000013YJ5GAAW</span>
+<span class="co">#&gt; 1 0033s000013wZYyAAM</span>
+<span class="co">#&gt; 2 0033s000013wZYzAAM</span>
+<span class="co">#&gt; 3 0033s000013wbrCAAQ</span>
+<span class="co">#&gt; 4 0033s000013wa1iAAA</span>
+<span class="co">#&gt; 5 0033s000013wa1jAAA</span>
 </pre></div>
 </div>
 <div id="describe" class="section level2">
 <h2 class="hasAnchor">
 <a href="#describe" class="anchor"></a>Describe</h2>
-<p>The <strong>RForcecom</strong> package has the function <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code> which returns a <code>data.frame</code> with one row per field on an object. The same function in {salesforcer} is named <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> and also has better printing and datatype casting by using tibbles.</p>
+<p>The {RForcecom} package has the function <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code> which returns a <code>data.frame</code> with one row per field on an object. The same function in {salesforcer} is named <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> and also has better printing and datatype casting by using tibbles.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="co"># the RForcecom way</span>
 <span class="kw">result1</span> <span class="op">&lt;-</span> <span class="kw">RForcecom</span>::<span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription</a></span>(<span class="kw">session</span>, objectName=<span class="st">'Account'</span>)
@@ -275,7 +275,7 @@
 <span class="co"># the better way in salesforcer to get object fields</span>
 <span class="kw">result3</span> <span class="op">&lt;-</span> <span class="kw">salesforcer</span>::<span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="kw">result3</span>
-<span class="co">#&gt; # A tibble: 69 x 39</span>
+<span class="co">#&gt; # A tibble: 68 x 39</span>
 <span class="co">#&gt;   aggregatable aiPredictionFie… autoNumber byteLength calculated caseSensitive</span>
 <span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        </span>
 <span class="co">#&gt; 1 true         false            false      18         false      false        </span>
@@ -283,7 +283,7 @@
 <span class="co">#&gt; 3 true         false            false      18         false      false        </span>
 <span class="co">#&gt; 4 true         false            false      765        false      false        </span>
 <span class="co">#&gt; 5 true         false            false      120        false      false        </span>
-<span class="co">#&gt; # … with 64 more rows, and 33 more variables: compoundFieldName &lt;chr&gt;,</span>
+<span class="co">#&gt; # … with 63 more rows, and 33 more variables: compoundFieldName &lt;chr&gt;,</span>
 <span class="co">#&gt; #   createable &lt;chr&gt;, custom &lt;chr&gt;, defaultedOnCreate &lt;chr&gt;,</span>
 <span class="co">#&gt; #   defaultValue &lt;list&gt;, deprecatedAndHidden &lt;chr&gt;, digits &lt;chr&gt;,</span>
 <span class="co">#&gt; #   externalId &lt;chr&gt;, extraTypeInfo &lt;chr&gt;, filterable &lt;chr&gt;, groupable &lt;chr&gt;,</span>
@@ -294,7 +294,7 @@
 <span class="co">#&gt; #   restrictedPicklist &lt;chr&gt;, scale &lt;chr&gt;, searchPrefilterable &lt;chr&gt;,</span>
 <span class="co">#&gt; #   soapType &lt;chr&gt;, sortable &lt;chr&gt;, type &lt;chr&gt;, unique &lt;chr&gt;, updateable &lt;chr&gt;</span>
 </pre></div>
-<p>In the future more features will be migrated from <strong>RForcecom</strong> to make the transition as seamless as possible.</p>
+<p>In the future more features will be migrated from {RForcecom} to make the transition as seamless as possible.</p>
 </div>
   </div>
 

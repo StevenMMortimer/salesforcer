@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@
       <h1 data-toc-skip>Getting Started</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2018-03-12</h4>
+            <h4 class="date">2020-08-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/getting-started.Rmd"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
@@ -144,14 +144,19 @@
 <div id="authentication" class="section level2">
 <h2 class="hasAnchor">
 <a href="#authentication" class="anchor"></a>Authentication</h2>
-<p>First, load the <code>salesforcer</code> package and login. There are two ways to authenticate: 1) OAuth 2.0 and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory.</p>
+<p>First, load the {salesforcer} package and login. There are two ways to authenticate:</p>
+<ol style="list-style-type: decimal">
+<li>OAuth 2.0</li>
+<li>Basic Username-Password</li>
+</ol>
+<p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled <code>.httr-oauth-salesforcer</code> in the current working directory.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()
 </pre></div>
 <p><strong>Setting up your own Connected App for OAuth</strong></p>
-<p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the <code>salesforcer</code> package. By using the package client, you will <em>NOT</em> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
+<p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the {salesforcer} package. By using the package client, you will <strong>NOT</strong> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(salesforcer.consumer_key = <span class="st">"012345678901-99thisisatest99connected33app22key"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(salesforcer.consumer_secret = <span class="st">"Th1s1sMyConsumerS3cr3t"</span>)
@@ -194,8 +199,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013ZPUHAA4 TRUE   </span>
-<span class="co">#&gt; 2 0033s000013ZPUIAA4 TRUE</span>
+<span class="co">#&gt; 1 0033s000013wcjRAAQ TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wcjSAAQ TRUE</span>
 </pre></div>
 </div>
 <div id="retrieving-records" class="section level2">
@@ -210,8 +215,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   sObject Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 Contact 0033s000013ZPUHAA4 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 Contact 0033s000013ZPUIAA4 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 Contact 0033s000013wcjRAAQ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 Contact 0033s000013wcjSAAQ Test      Contact-Create-2</span>
 </pre></div>
 </div>
 <div id="querying-records" class="section level2">
@@ -237,10 +242,10 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013ZPUHAA4 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013ZPUIAA4 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013wcjRAAQ Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013wcjSAAQ Test      Contact-Create-2</span>
 </pre></div>
-<p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
+<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="updating-records" class="section level2">
 <h2 class="hasAnchor">
@@ -256,8 +261,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013ZPUHAA4 TRUE   </span>
-<span class="co">#&gt; 2 0033s000013ZPUIAA4 TRUE</span>
+<span class="co">#&gt; 1 0033s000013wcjRAAQ TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wcjSAAQ TRUE</span>
 </pre></div>
 </div>
 <div id="deleting-records" class="section level2">
@@ -270,14 +275,14 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013ZPUHAA4 TRUE   </span>
-<span class="co">#&gt; 2 0033s000013ZPUIAA4 TRUE</span>
+<span class="co">#&gt; 1 0033s000013wcjRAAQ TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wcjSAAQ TRUE</span>
 </pre></div>
 </div>
 <div id="upserting-records" class="section level2">
 <h2 class="hasAnchor">
 <a href="#upserting-records" class="anchor"></a>Upserting records</h2>
-<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at: <a target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
+<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at: <a rel="noopener noreferrer" target="_blank" href="http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">http://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="kw">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
@@ -300,15 +305,15 @@
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   id                 success created</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013ZPUMAA4 TRUE    FALSE  </span>
-<span class="co">#&gt; 2 0033s000013ZPUNAA4 TRUE    FALSE  </span>
-<span class="co">#&gt; 3 0033s000013ZPOBAA4 TRUE    TRUE</span>
+<span class="co">#&gt; 1 0033s000013wcjWAAQ TRUE    FALSE  </span>
+<span class="co">#&gt; 2 0033s000013wcjXAAQ TRUE    FALSE  </span>
+<span class="co">#&gt; 3 0033s000013wcjbAAA TRUE    TRUE</span>
 </pre></div>
 </div>
 <div id="check-out-the-tests" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-out-the-tests" class="anchor"></a>Check out the Tests</h2>
-<p>The {salesforcer} package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions. You can access them here: <a target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/"></a><a href="https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/" class="uri">https://github.com/StevenMMortimer/salesforcer/blob/master/tests/testthat/</a><a></a></p>
+<p>The {salesforcer} package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions. You can access them here: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/"></a><a href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/" class="uri">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/</a><a></a></p>
 </div>
   </div>
 

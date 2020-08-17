@@ -250,6 +250,9 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_objects_url.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_record_url.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_search_url.html</loc>
   </url>
   <url>
@@ -274,7 +277,13 @@
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/parameterized_search_control.html</loc>
   </url>
   <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/parse_error_code_and_message.html</loc>
+  </url>
+  <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/parse_report_detail_rows.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/patched_tempdir.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/rDELETE.html</loc>
@@ -488,6 +497,9 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_attachment.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_bulk_v1.html</loc>
@@ -743,6 +755,18 @@
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_bulk_v1.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_rest.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_soap.html</loc>
   </url>
   <url>
     <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_bulk_v1.html</loc>

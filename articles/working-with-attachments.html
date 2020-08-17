@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@
       <h1 data-toc-skip>Working with Attachments</h1>
                         <h4 class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2020-06-07</h4>
+            <h4 class="date">2020-08-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-attachments.Rmd"><code>vignettes/working-with-attachments.Rmd</code></a></small>
       <div class="hidden name"><code>working-with-attachments.Rmd</code></div>
@@ -147,7 +147,6 @@
 <p>Almost all records in Salesforce support attachments. Attachments are just blob data storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id of the record that the attachment belongs to. To get started creating and updating attachments, first, load the {salesforcer} and {dplyr} packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/krlmlr/here">here</a></span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()
 </pre></div>
@@ -162,7 +161,7 @@
 <li>Uploading large batches of files using the Bulk API, which zips the files before upload</li>
 </ol>
 <p><strong>Uploading local files as Attachments (SOAP and REST)</strong></p>
-<p>When uploading an attachment stored locally (i.e. on your computer), you can provide an absolute or relative path to the current working directory. If the <code>Name</code> column is omitted, then the name of the attachment as it appears in Salesforce will be the same as the base file name and extension. For example, if the path provided is “/Documents/attachments/doc1.pdf”, then the <code>Name</code> field will be set to “doc1.pdf”. In the sample code below we are leveraging the <strong>here</strong> package to consistently create relative paths. Although, this is not required, it is encouraged to increase the portability of your code.</p>
+<p>When uploading an attachment stored locally (i.e. on your computer), you can provide an absolute or relative path to the current working directory. If the <code>Name</code> column is omitted, then the name of the attachment as it appears in Salesforce will be the same as the base file name and extension. For example, if the path provided is “/Documents/attachments/doc1.pdf”, then the <code>Name</code> field will be set to “doc1.pdf”.</p>
 <p>In the example below, we upload three attachments to two different parent records. Note: Make sure to replace the paths and ParentIds in the example below with file paths that exist on your local machine and Ids of records in your Salesforce org.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="co"># define the ParentIds where the attachments will be shown in Salesforce</span>
@@ -191,11 +190,11 @@
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000ZhFLNEA3 TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000ZhFLSEA3 TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000ZhFLXEA3 TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000ZhFLcEAN TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000ZhFLhEAN TRUE   </span>
+<span class="co">#&gt; 1 00P3s00000ZOLoNEAX TRUE   </span>
+<span class="co">#&gt; 2 00P3s00000ZOLoSEAX TRUE   </span>
+<span class="co">#&gt; 3 00P3s00000ZOLmXEAX TRUE   </span>
+<span class="co">#&gt; 4 00P3s00000ZOLoXEAX TRUE   </span>
+<span class="co">#&gt; 5 00P3s00000ZOLo1EAH TRUE   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 </div>
@@ -215,11 +214,11 @@
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 2 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 3 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 4 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 5 00P3s00000Zh… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 1 00P3s00000ZO… /services/data/v48.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
+<span class="co">#&gt; 2 00P3s00000ZO… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
+<span class="co">#&gt; 3 00P3s00000ZO… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 4 00P3s00000ZO… /services/data/v48.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
+<span class="co">#&gt; 5 00P3s00000ZO… /services/data/v48.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
@@ -245,50 +244,87 @@
 
 <span class="co"># download all of the attachments for a single ParentId record to their own folder</span>
 <span class="kw">download_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="kw">sf_download_attachment</span>, 
-                          <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Body</span>, 
-                          <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Name</span>, 
-                          <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Path</span>)
+                          body = <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Body</span>, 
+                          name = <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Name</span>, 
+                          path = <span class="kw">queried_attachments</span><span class="op">$</span><span class="kw">Path</span>)
 <span class="kw">download_result</span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZhFLSEA3/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZhFLNEA3/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZhFLXEA3/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZhFLhEAN/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZhFHYEA3/Body </span>
-<span class="co">#&gt;                                                             TRUE </span>
-<span class="co">#&gt; /services/data/v48.0/sobjects/Attachment/00P3s00000ZhFLcEAN/Body </span>
-<span class="co">#&gt;                                                             TRUE</span>
+<span class="co">#&gt;                               /services/data/v48.0/sobjects/Attachment/00P3s00000ZOLmXEAX/Body </span>
+<span class="co">#&gt; "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpZ1Otjn/0016A0000035mJ4QAI/old-logo.png" </span>
+<span class="co">#&gt;                               /services/data/v48.0/sobjects/Attachment/00P3s00000ZOLoSEAX/Body </span>
+<span class="co">#&gt;     "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpZ1Otjn/0016A0000035mJ4QAI/logo.png" </span>
+<span class="co">#&gt;                               /services/data/v48.0/sobjects/Attachment/00P3s00000ZOLoNEAX/Body </span>
+<span class="co">#&gt;    "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpZ1Otjn/0016A0000035mJ4QAI/cloud.png" </span>
+<span class="co">#&gt;                               /services/data/v48.0/sobjects/Attachment/00P3s00000ZOLoXEAX/Body </span>
+<span class="co">#&gt;    "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpZ1Otjn/0016A0000035mJ5QAI/cloud.png" </span>
+<span class="co">#&gt;                               /services/data/v48.0/sobjects/Attachment/00P3s00000ZOLo1EAH/Body </span>
+<span class="co">#&gt;     "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpZ1Otjn/0016A0000035mJ5QAI/logo.png" </span>
+<span class="co">#&gt;                               /services/data/v48.0/sobjects/Attachment/00P3s00000ZOLloEAH/Body </span>
+<span class="co">#&gt; "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpZ1Otjn/0016A0000035mJ5QAI/old-logo.png"</span>
 </pre></div>
-<p><strong>Uploading large batches using the Bulk API</strong></p>
-<p>The SOAP and REST APIs are good for working with a few attachments at a time. However, the Bulk API can be invoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload In the example above we downloaded the 3 attachments each belonging to 2 different parent records. Assuming that I have a directory on my computer</p>
+</div>
+<div id="updating-attachments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#updating-attachments" class="anchor"></a>Updating Attachments</h2>
+<p>Once an Attachment record is created, you are still able to update the content and metadata (<code>Name</code>, <code>IsPrivate</code>, and <code>OwnerId</code>) for the record. The <code><a href="../reference/sf_update_attachment.html">sf_update_attachment()</a></code> function works just like <code><a href="../reference/sf_update.html">sf_update()</a></code> except that you will need to include the <code>Body</code> column where the content of the attachment is help. <strong>NOTE</strong>: If you just want to update the metadata and not the Attachment content itself, you can simply use <code><a href="../reference/sf_update.html">sf_update()</a></code> to modify fields other than the <code>Body</code> field on the record.</p>
+<p>The example below demonstrates how to add an attachment to a record, then download it, zip it, re-upload to the record in order to save disk space in your Org.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co"># upload a PDF to a particular record as an Attachment</span>
+<span class="kw">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>,
+                         <span class="st">"data-wrangling-cheatsheet.pdf"</span>,
+                         package = <span class="st">"salesforcer"</span>)
+<span class="kw">parent_record_id</span> <span class="op">&lt;-</span> <span class="st">"0036A000002C6MmQAK"</span> <span class="co"># replace with your own ParentId!</span>
+<span class="kw">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(Body = <span class="kw">file_path</span>, ParentId = <span class="kw">parent_record_id</span>)
+<span class="kw">create_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="kw">attachment_details</span>)
+
+<span class="co"># download, zip, and re-upload the PDF</span>
+<span class="kw">pdf_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_download_attachment.html">sf_download_attachment</a></span>(sf_id = <span class="kw">create_result</span><span class="op">$</span><span class="kw">id</span>[<span class="fl">1</span>])
+<span class="kw">zipped_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">pdf_path</span>, <span class="st">".zip"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/zip.html">zip</a></span>(<span class="kw">zipped_path</span>, <span class="kw">pdf_path</span>, flags = <span class="st">"-qq"</span>) <span class="co"># quiet zipping messages</span>
+<span class="kw">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(Id = <span class="kw">create_result</span><span class="op">$</span><span class="kw">id</span>, Body = <span class="kw">zipped_path</span>)
+<span class="fu"><a href="../reference/sf_update_attachment.html">sf_update_attachment</a></span>(<span class="kw">attachment_details</span>)
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 00P3s00000ZOLocEAH TRUE</span>
+</pre></div>
+<p>There is a function <code><a href="../reference/sf_delete_attachment.html">sf_delete_attachment()</a></code>, which simply wraps <code><a href="../reference/sf_delete.html">sf_delete()</a></code> so feel free to use for clarity in your code that you’re working with attachments use <code><a href="../reference/sf_delete.html">sf_delete()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="../reference/sf_delete_attachment.html">sf_delete_attachment</a></span>(ids = <span class="kw">create_result</span><span class="op">$</span><span class="kw">id</span>)
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   id                 success</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
+<span class="co">#&gt; 1 00P3s00000ZOLocEAH TRUE</span>
+<span class="co"># sf_delete(ids = create_result$id) # would also work</span>
+</pre></div>
+<p><strong>Uploading large batches of attachments using the Bulk API</strong></p>
+<p>The SOAP and REST APIs are good for working with a few attachments at a time. However, the Bulk API can be invoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload. In the example above, we downloaded the three attachments each belonging to two different parent records. Assuming that I have run that code and the files are in that my computer I can demonstrate that all of them can be uploaded at once using the Bulk 1.0 API.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="co"># create the attachment metadata required (Name, Body, ParentId)</span>
 <span class="kw">attachment_details</span> <span class="op">&lt;-</span> <span class="kw">queried_attachments</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(Body = <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw">Path</span>, <span class="kw">Name</span>)) <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">Name</span>, <span class="kw">Body</span>, <span class="kw">ParentId</span>) 
 </pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span>(<span class="kw">attachment_details</span>, api_type=<span class="st">"Bulk 1.0"</span>)
 <span class="kw">result</span>
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000ZhFLOEA3 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000ZhFLPEA3 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000ZhFLQEA3 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000ZhFLREA3 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000ZhFLmEAN TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 00P3s00000ZOLohEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 00P3s00000ZOLoiEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 00P3s00000ZOLojEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 00P3s00000ZOLokEAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 00P3s00000ZOLolEAH TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 1 more row</span>
 </pre></div>
+<p><strong>NOTE</strong>: As of v48.0 (Spring ’20), it does not appear that the Bulk 2.0 API supports working with Attachments, so the Bulk 1.0 API must be used for bulk functionality.</p>
+<p>Finally, you are able to update Attachments with the Bulk API just as shown above in the REST/SOAP API examples.</p>
 </div>
 <div id="extending-to-documents-and-other-blob-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extending-to-documents-and-other-blob-data" class="anchor"></a>Extending to Documents and Other Blob Data</h2>
 <p>The commands for working with Attachments also work for uploading documents and other blob data as well. Documents are just like Attachments in Salesforce except instead of having an associated ParentId they have an associated FolderId where the blob will be associated with upon creation. Here is a brief example of uploading a PDF (“Document”) to a Folder</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="co"># the function supports inserting all types of blob content, just update the </span>
 <span class="co"># object_name argument to add the PDF as a Document instead of an Attachment</span>
 <span class="kw">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(Name = <span class="st">"Data Wrangling Cheatsheet - Test 1"</span>,
@@ -303,10 +339,10 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gZQZAA2 TRUE</span>
+<span class="co">#&gt; 1 0153s000001w0DVAAY TRUE</span>
 </pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">cheatsheet_url</span> <span class="op">&lt;-</span> <span class="st">"https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"</span>
 <span class="kw">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(Name = <span class="st">"Data Wrangling Cheatsheet - Test 2"</span>,
                            Description = <span class="st">"RStudio cheatsheet covering dplyr and tidyr."</span>,
@@ -318,7 +354,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s000001gZQeAAM TRUE</span>
+<span class="co">#&gt; 1 0153s000001w0DaAAI TRUE</span>
 </pre></div>
 </div>
 <div id="reference-links" class="section level2">
@@ -326,10 +362,10 @@
 <a href="#reference-links" class="anchor"></a>Reference Links</h2>
 <p>Below is a list of links to existing Salesforce documentation that provide more detail into how Attachments, Documents, and other blob data are handled via their APIs. As with many functions in {salesforcer}, we have tried to translate these functions exactly as they are described in the Salesforce documentation so that they are flexible enough to handle most all cases that the APIs were intended to support.</p>
 <ul>
-<li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
-<li><p><strong>Document Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p></li>
-<li><p><strong>REST API Upload Attachment</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a></p></li>
-<li><p><strong>Bulk API Upload Attachments</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a></p></li>
+<li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
+<li><p><strong>Document Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p></li>
+<li><p><strong>REST API Upload Attachment</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a></p></li>
+<li><p><strong>Bulk API Upload Attachments</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a></p></li>
 </ul>
 </div>
   </div>

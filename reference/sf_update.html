@@ -97,7 +97,7 @@ Updates one or more records to your organization’s data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -207,7 +207,9 @@ Updates one or more records to your organization’s data." />
     <tr>
       <th>input_data</th>
       <td><p><code>named vector</code>, <code>matrix</code>, <code>data.frame</code>, or
-<code>tbl_df</code>; data can be coerced into a <code>data.frame</code></p></td>
+<code>tbl_df</code>; data can be coerced into a <code>data.frame</code>. If performing an
+<code>update</code>, <code>upsert</code>, or <code>delete</code> operation, then one column or
+field must be the <code>Id</code> of the record to modify or delete.</p></td>
     </tr>
     <tr>
       <th>object_name</th>

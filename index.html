@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install the current CRAN version (0.2.0)</span>
+<span class="co"># install the current CRAN version (0.2.1)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
 <span class="co"># or get the development version on GitHub</span>
@@ -208,7 +208,7 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p>The README below outlines the basic package functionality. For more information please feel free to browse the <code>pkgdown</code> site at <a href="https://StevenMMortimer.github.io/salesforcer" class="uri">https://StevenMMortimer.github.io/salesforcer</a> which contains the following vignettes:</p>
+<p>The README below outlines the basic package functionality for more detailed notes on how to utilize the features of this package consider reading the following vignettes:</p>
 <ul>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
 <li><a href="https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html">Supported Queries</a></li>
@@ -269,8 +269,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013Y9dcAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000013Y9ddAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013wZZDAA2 TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wZZEAA2 TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level3">
@@ -295,10 +295,10 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013Y9dcAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013Y9ddAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013wZZDAA2 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013wZZEAA2 Test      Contact-Create-2</span>
 </pre></div>
-<p>You’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs do not return any Account information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
+<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -308,14 +308,14 @@
 <span class="co"># Update some of those records</span>
 <span class="kw">queried_records</span> <span class="op">&lt;-</span> <span class="kw">queried_records</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(FirstName = <span class="st">"TestTest"</span>)
-
+  
 <span class="kw">updated_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_update.html">sf_update</a></span>(<span class="kw">queried_records</span>, object_name = <span class="st">"Contact"</span>)
 <span class="kw">updated_records</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013Y9dcAAC TRUE   </span>
-<span class="co">#&gt; 2 0033s000013Y9ddAAC TRUE</span>
+<span class="co">#&gt; 1 0033s000013wZZDAA2 TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wZZEAA2 TRUE</span>
 </pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
@@ -333,8 +333,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013Y9dhAAC TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013Y9diAAC TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000013wZZIAA2 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000013wZZJAA2 TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -353,8 +353,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013Y9dhAAC Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013Y9diAAC Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000013wZZIAA2 Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013wZZJAA2 Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type = <span class="st">"Bulk 2.0"</span>)
@@ -362,8 +362,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013Y9dhAAC 0033s000013Y9dhAAC FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013Y9diAAC 0033s000013Y9diAAC FALSE       NA</span>
+<span class="co">#&gt; 1 0033s000013wZZIAA2 0033s000013wZZIAA2 FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000013wZZJAA2 0033s000013wZZJAA2 FALSE       NA</span>
 </pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
@@ -413,7 +413,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">acct_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, <span class="kw">label</span>, <span class="kw">length</span>, <span class="kw">soapType</span>, <span class="kw">type</span>)
-<span class="co">#&gt; # A tibble: 69 x 5</span>
+<span class="co">#&gt; # A tibble: 68 x 5</span>
 <span class="co">#&gt;   name           label            length soapType    type     </span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 Id             Account ID       18     tns:ID      id       </span>
@@ -421,7 +421,7 @@
 <span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
 <span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
 <span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
-<span class="co">#&gt; # … with 64 more rows</span>
+<span class="co">#&gt; # … with 63 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> 
