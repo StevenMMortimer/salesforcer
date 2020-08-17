@@ -24,6 +24,6 @@ patched_tempdir()
 }
 }
 \seealso{
-\href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html}{R documentation on Environmen Vars}, \href{https://stackoverflow.com/questions/15361980/why-does-tempdir-adds-extra-slash-at-end-of-directory-tree-on-osx/15362110#15362110}{Stack Overflow - Why does tempdir() adds extra slash...}
+\href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html}{R documentation on environment vars}, \href{https://stackoverflow.com/questions/15361980/why-does-tempdir-adds-extra-slash-at-end-of-directory-tree-on-osx/15362110#15362110}{Stack Overflow - Why does tempdir() adds extra slash...}
 }
 \keyword{internal}

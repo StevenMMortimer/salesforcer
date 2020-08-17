@@ -131,7 +131,7 @@ test_that("testing REST API Functionality", {
                                ParentId = upserted_records$id[1]) #"0016A0000035mJ5")
   attachment_records <- sf_create_attachment(attachment_details, api_type="REST")
   expect_is(attachment_records, "tbl_df")
-  expect_equal(names(attachment_records), c("id", "success"))
+  expect_equal(names(attachment_records), c("id", "success", "errors"))
   expect_equal(nrow(attachment_records), 1)
   expect_true(attachment_records$success)
   
@@ -143,7 +143,7 @@ test_that("testing REST API Functionality", {
                                 Body = temp_f)
   attachment_records_update <- sf_update_attachment(attachment_details2, api_type="REST")
   expect_is(attachment_records_update, "tbl_df")
-  expect_equal(names(attachment_records_update), c("id", "success"))
+  expect_equal(names(attachment_records_update), c("id", "success", "errors"))
   expect_equal(nrow(attachment_records_update), 1)
   expect_true(attachment_records_update$success)
   

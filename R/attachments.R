@@ -539,11 +539,11 @@ sf_update_attachment_rest <- function(attachment_input_data,
     
     # format the result because if successful, it will be blank!
     if(status_code(httr_response) == 204){
-      this_resultset <- tibble(id = this_id, success = TRUE)
+      this_resultset <- tibble(id = this_id, success = TRUE, errors = list(list()))
     } else if(http_error(httr_response)){
       response_parsed <- content(httr_response, as = "parsed", encoding = 'UTF-8')
       parsed_error <- parse_error_code_and_message(response_parsed)
-      this_resultset <- tibble(id = this_id, success = FALSE, error = parsed_error)
+      this_resultset <- tibble(id = this_id, success = FALSE, errors = list(parsed_error))
     } else {
       # Assuming we need to wrap response with "[]" to make the JSON an array of 
       # like we do with `sf_create_attachment_rest()`
@@ -591,8 +591,8 @@ sf_update_attachment_bulk_v1 <- function(attachment_input_data,
 #' attachment function to parallel the CRUD functionality for all other records.
 #' 
 #' @template ids
+#' @template object_name
 #' @template api_type
-#' @template control
 #' @param ... arguments passed to \code{\link{sf_control}} or further downstream 
 #' to \code{\link{sf_bulk_operation}}
 #' @template verbose

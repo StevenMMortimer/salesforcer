@@ -1525,7 +1525,6 @@ retrieveMetadata
 retrieveRequest
 RetrieveRequest
 RetrieveResult
-rforcecom
 RForcecom
 rightElementName
 rightElementType
@@ -1724,6 +1723,7 @@ SZL
 TabLimitConfig
 TabVisibility
 teardown
+tempdir
 TenAttempts
 Termanative
 TerritoryAndSubordinates
@@ -1807,6 +1807,7 @@ undeleted
 Undeletes
 UnderConstruction
 unlist
+Unlist
 unmanaged
 unnest
 unnested
@@ -1847,6 +1848,7 @@ ValueSetValuesDefinition
 ValueTranslation
 ValueTypeField
 variableName
+vctrs
 VE
 VEB
 VEF

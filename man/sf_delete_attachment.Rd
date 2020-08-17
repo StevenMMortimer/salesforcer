@@ -17,6 +17,9 @@ sf_delete_attachment(
 \code{tbl_df}; if not a vector, there must be a column called Id (case
 insensitive) that can be passed in the request.}
 
+\item{object_name}{\code{character}; the name of the Salesforce object that the
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
+
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
@@ -28,10 +31,6 @@ to \code{\link{sf_bulk_operation}}}
 detail for each API call, which is useful for debugging. More specifically, when
 set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
-
-\item{control}{\code{list}; a list of parameters for controlling the behavior of
-the API call being used. For more information of what parameters are available
-look at the documentation for \code{\link{sf_control}}.}
 }
 \value{
 \code{tbl_df} with details of the deleted records

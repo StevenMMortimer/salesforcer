@@ -102,18 +102,18 @@ rDELETE <- VERB_n("DELETE")
 #' @export
 parse_error_code_and_message <- function(x){
   
-  if(!is.null(response_parsed$exceptionCode)){
-    error_code <- response_parsed$exceptionCode
-    error_message <- response_parsed$exceptionMessage
-  } else if(!is.null(response_parsed$error$exceptionCode)){
-    error_code <- response_parsed$error$exceptionCode
-    error_message <- response_parsed$error$exceptionMessage
-  } else if(!is.null(response_parsed[[1]]$Error$errorCode[[1]])){
-    error_code <- response_parsed[[1]]$Error$errorCode[[1]]
-    error_message <- response_parsed[[1]]$Error$message[[1]]
+  if(!is.null(x$exceptionCode)){
+    error_code <- x$exceptionCode
+    error_message <- x$exceptionMessage
+  } else if(!is.null(x$error$exceptionCode)){
+    error_code <- x$error$exceptionCode
+    error_message <- x$error$exceptionMessage
+  } else if(!is.null(x[[1]]$Error$errorCode[[1]])){
+    error_code <- x[[1]]$Error$errorCode[[1]]
+    error_message <- x[[1]]$Error$message[[1]]
   } else {
-    error_code <- response_parsed[[1]]$errorCode 
-    error_message <- response_parsed[[1]]$message
+    error_code <- x[[1]]$errorCode 
+    error_message <- x[[1]]$message
   }
   
   return(

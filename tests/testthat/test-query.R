@@ -44,7 +44,7 @@ test_that("testing zero row query", {
   bulk1_queried_records <- sf_query(zero_row_soql_wo_compound, object_name=object, api_type="Bulk 1.0")
   expect_is(bulk1_queried_records, "tbl_df")
   expect_equal(nrow(bulk1_queried_records), 0)
-  expect_equal(names(bulk1_queried_records), character(0)) 
+  expect_equal(names(bulk1_queried_records), character(0))
 
   # Bulk 2.0 API ---------------------------------------------------------------
   expect_error(sf_query(zero_row_soql, api_type="Bulk 2.0"), 
