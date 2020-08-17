@@ -181,18 +181,18 @@ create_result <- sf_create_attachment(attachment_details)
 # download, zip, and re-upload the PDF
 pdf_path <- sf_download_attachment(sf_id = create_result$id[1])
 zipped_path <- paste0(pdf_path, ".zip")
-zip(zipped_path, pdf_path)
+zip(zipped_path, pdf_path, flags = "-qq") # quiet zipping messages
 attachment_details <- tibble(Id = create_result$id, Body = zipped_path)
 sf_update_attachment(attachment_details)
 ```
 
 There is a function `sf_delete_attachment()`, which simply wraps `sf_delete()` 
 so feel free to use for clarity in your code that you're working with attachments 
-use `sf_delete()`..
+use `sf_delete()`.
 
 ```{r cleanup-2}
-sf_delete_attachment(create_result$Id)
-# sf_delete(create_result$Id) # would also work
+sf_delete_attachment(ids = create_result$id)
+# sf_delete(ids = create_result$id) # would also work
 ```
 
 **Uploading large batches of attachments using the Bulk API**

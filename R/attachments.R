@@ -622,6 +622,8 @@ sf_delete_attachment <- function(ids,
                                  api_type = c("SOAP", "REST", "Bulk 1.0", "Bulk 2.0"),
                                  ...,
                                  verbose = FALSE){
+  object_name <- match.arg(object_name)
+  api_type <- match.arg(api_type)
   sf_delete(ids = ids, 
             object_name = object_name, 
             api_type = api_type, 
