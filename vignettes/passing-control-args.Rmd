@@ -35,8 +35,7 @@ functions you're already familiar with.
 
 This new feature can be seen in the `sf_create` (and many other functions) as 
 `control=list(...)`. The dots mean that you can pass any number of controls directly 
-into the function. For example, the following code will create a record, but prevent 
-its creation from showing up in the Chatter feeds by setting the `DisableFeedTrackingHeader`. 
+into the function. 
 
 ```{r auth, include = FALSE}
 library(salesforcer)
@@ -50,6 +49,17 @@ sf_auth(username = username,
         security_token = security_token)
 ```
 
+First, authenticate and load any required packages for your analysis.
+
+```{r load-package, eval=FALSE}
+library(salesforcer)
+sf_auth()
+```
+
+In the example below, we demonstrate how to create a record, but use the control 
+arguments to prevent its creation from showing up in the Chatter feeds by setting 
+the `DisableFeedTrackingHeader`.
+
 ```{r sample-create}
 new_contact <- c(FirstName = "Jenny", 
                  LastName = "Williams", 
@@ -60,23 +70,25 @@ record1 <- sf_create(new_contact,
 record1
 ```
 
-You will notice that the argument `DisableFeedTrackingHeader` can be included right into 
-the function without any documentation existing for it in the `sf_create` function. 
-This is because the dots (`...`) allow you to pass over a dozen different control 
-parameters and that documentation would be tedious to create and maintain over multiple 
-functions in the package. However, you will notice in the documentation entry for 
-the `control` argument there is a link to a function called `sf_control` which you 
-can use to directly to pass into `control` or simply to review its documentation of all the 
-possible control parameters and their defaults. This is where you can review the various 
-control options in more detail before trying to set them.
+You will notice that the argument `DisableFeedTrackingHeader` can be included
+right into the function without any documentation existing for it in the
+`sf_create` function. This is because the dots (`...`) allow you to pass over a
+dozen different control parameters and that documentation would be tedious to
+create and maintain over multiple functions in the package. However, you will
+notice in the documentation entry for the `control` argument there is a link to
+a function called `sf_control` which you can use to directly to pass into
+`control` or simply to review its documentation of all the possible control
+parameters and their defaults. This is where you can review the various control
+options in more detail before trying to set them.
 
-You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank">DisableFeedTrackingHeader</a> was formatted 
-as a list with an element inside called `disableFeedTracking` set to `TRUE`. This may 
-seem redundant but there are two reasons for this. First, this is exactly how the 
-Salesforce APIs documents these options, which are typically referred to as "headers" 
-because they are passed as a named header of the HTTP request and then the header fields 
-and values are provided for that header. Second, some headers have multiple fields and values 
-so a list is the only way to provide multiple named fields and values under a single header entity. 
+You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank">DisableFeedTrackingHeader</a> was
+formatted as a list with an element inside called `disableFeedTracking` set to
+`TRUE`. This may seem redundant but there are two reasons for this. First, this
+is exactly how the Salesforce APIs documents these options, which are typically
+referred to as "headers" because they are passed as a named header of the HTTP
+request and then the header fields and values are provided for that header.
+Second, some headers have multiple fields and values so a list is the only way
+to provide multiple named fields and values under a single header entity.
 
 ## An example using the `DuplicateRuleHeader`
 

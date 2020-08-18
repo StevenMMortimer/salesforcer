@@ -51,8 +51,8 @@ sf_auth(username = username,
 ```
 
 ```{r load-package, eval=FALSE}
-suppressWarnings(suppressMessages(library(dplyr)))
-suppressWarnings(suppressMessages(library(purrr)))
+library(dplyr, warn.conflicts = FALSE)
+library(purrr)
 library(salesforcer)
 sf_auth()
 ```
