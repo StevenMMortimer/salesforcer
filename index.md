@@ -70,7 +70,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.2.1)
+# install the current CRAN version (0.2.0)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
