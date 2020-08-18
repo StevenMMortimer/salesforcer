@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -145,8 +145,14 @@
 <div id="the-new-control-argument" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-new-control-argument" class="anchor"></a>The new control argument</h2>
-<p>This new feature can be seen in the <code>sf_create</code> (and many other functions) as <code>control=list(...)</code>. The dots mean that you can pass any number of controls directly into the function. For example, the following code will create a record, but prevent its creation from showing up in the Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
+<p>This new feature can be seen in the <code>sf_create</code> (and many other functions) as <code>control=list(...)</code>. The dots mean that you can pass any number of controls directly into the function.</p>
+<p>First, authenticate and load any required packages for your analysis.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span>)
+<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()
+</pre></div>
+<p>In the example below, we demonstrate how to create a record, but use the control arguments to prevent its creation from showing up in the Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw">new_contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(FirstName = <span class="st">"Jenny"</span>, 
                  LastName = <span class="st">"Williams"</span>, 
                  Email = <span class="st">"jennyw@gmail.com"</span>)
@@ -173,7 +179,7 @@
 <li><p><code>runAsCurrentUser</code> - Make sure that sharing rules for the current user are enforced when duplicate rules run by setting this property to true. Use the sharing rules specified in the class for the request by setting this property to false. If no sharing rules are specified, Apex code runs in system context and sharing rules for the current user are not enforced.</p></li>
 </ol>
 <p>Specifying these arguments requires a <code>list</code> structure in R, which may seem redundant in some cases, but is necessary to follow in order to build the API request correctly.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
+<div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># override the duplicate rules ...</span>
 <span class="kw">record2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contact</span>,
                      object_name = <span class="st">"Contact"</span>,
@@ -184,7 +190,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013wcjgAAA TRUE</span>
+<span class="co">#&gt; 1 0033s000013wfJ2AAI TRUE</span>
 
 <span class="co"># ... or succumb to the duplicate rules</span>
 <span class="kw">record3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contact</span>,
@@ -204,7 +210,7 @@
 <li><p>When using the REST API and setting the <code>DuplicateRuleHeader</code>, then you will notice a warning that the header was ignored. You will receive warnings when trying to set any control parameters for an API or operation that does not recognize that particular control.</p></li>
 <li><p>In this example, you cannot bypass the duplicate rule alert to create the record if using the REST API like you can with the SOAP API.</p></li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">record4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contact</span>,
                      object_name = <span class="st">"Contact"</span>,
                      DuplicateRuleHeader = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(allowSave = <span class="fl">FALSE</span>, 
@@ -224,7 +230,7 @@
 <h2 class="hasAnchor">
 <a href="#creating-the-control-argument-with-sf_control" class="anchor"></a>Creating the control argument with sf_control</h2>
 <p>If this type of control structure is new to you, take a look at the documentation for the <code>glm</code> and <code>glm.control</code> functions. The way these two functions behave is exactly how functions like <code>sf_create</code> and <code>sf_control</code> work with each other. As demonstrated above you can pass any number of arbitrary controls into the function and they are all gathered up into the control by <code>control = list(...)</code>. However, you can specify the control directly like this:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
          object_name = <span class="st">"Account"</span>,
          control = <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span>(QueryOptions = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(batchSize = <span class="fl">200</span>)))

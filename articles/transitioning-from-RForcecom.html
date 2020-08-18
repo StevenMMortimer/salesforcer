@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -182,13 +182,13 @@
 <span class="kw">result1</span> <span class="op">&lt;-</span> <span class="kw">RForcecom</span>::<span class="fu"><a href="https://rdrr.io/pkg/RForcecom/man/rforcecom.create.html">rforcecom.create</a></span>(<span class="kw">session</span>, objectName=<span class="kw">object</span>, <span class="kw">fields</span>)
 <span class="kw">result1</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000013wclWAAQ    true</span>
+<span class="co">#&gt; 1 0033s000013wfKnAAI    true</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="kw">result2</span> <span class="op">&lt;-</span> <span class="kw">salesforcer</span>::<span class="fu"><a href="../reference/rforcecom.create.html">rforcecom.create</a></span>(<span class="kw">session</span>, objectName=<span class="kw">object</span>, <span class="kw">fields</span>)
 <span class="kw">result2</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000013wclbAAA    TRUE</span>
+<span class="co">#&gt; 1 0033s000013wfIPAAY    TRUE</span>
 </pre></div>
 <p>Here is an example showing the reduction in code of using {salesforcer} if you would like to create multiple records.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
@@ -206,8 +206,8 @@
 }
 <span class="kw">rforcecom_results</span>
 <span class="co">#&gt;                   id success</span>
-<span class="co">#&gt; 1 0033s000013wclgAAA    true</span>
-<span class="co">#&gt; 2 0033s000013wcllAAA    true</span>
+<span class="co">#&gt; 1 0033s000013wfIpAAI    true</span>
+<span class="co">#&gt; 2 0033s000013wfKsAAI    true</span>
 
 <span class="co"># the better way in salesforcer to do multiple records</span>
 <span class="kw">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="kw">new_contacts</span>, object_name=<span class="st">"Contact"</span>)
@@ -215,8 +215,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013wclqAAA TRUE   </span>
-<span class="co">#&gt; 2 0033s000013wclrAAA TRUE</span>
+<span class="co">#&gt; 1 0033s000013wfKxAAI TRUE   </span>
+<span class="co">#&gt; 2 0033s000013wfKyAAI TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level2">
@@ -232,9 +232,9 @@
 <span class="co">#&gt;                   Id</span>
 <span class="co">#&gt; 1 0033s000013wZYyAAM</span>
 <span class="co">#&gt; 2 0033s000013wZYzAAM</span>
-<span class="co">#&gt; 3 0033s000013wbrCAAQ</span>
-<span class="co">#&gt; 4 0033s000013wa1iAAA</span>
-<span class="co">#&gt; 5 0033s000013wa1jAAA</span>
+<span class="co">#&gt; 3 0033s000013wf9wAAA</span>
+<span class="co">#&gt; 4 0033s000013wbrCAAQ</span>
+<span class="co">#&gt; 5 0033s000013wa1iAAA</span>
 
 <span class="co"># replicated in salesforcer package</span>
 <span class="kw">result2</span> <span class="op">&lt;-</span> <span class="kw">salesforcer</span>::<span class="fu"><a href="../reference/rforcecom.query.html">rforcecom.query</a></span>(<span class="kw">session</span>, soqlQuery = <span class="kw">this_soql</span>)
@@ -244,9 +244,9 @@
 <span class="co">#&gt;   &lt;chr&gt;             </span>
 <span class="co">#&gt; 1 0033s000013wZYyAAM</span>
 <span class="co">#&gt; 2 0033s000013wZYzAAM</span>
-<span class="co">#&gt; 3 0033s000013wbrCAAQ</span>
-<span class="co">#&gt; 4 0033s000013wa1iAAA</span>
-<span class="co">#&gt; 5 0033s000013wa1jAAA</span>
+<span class="co">#&gt; 3 0033s000013wf9wAAA</span>
+<span class="co">#&gt; 4 0033s000013wbrCAAQ</span>
+<span class="co">#&gt; 5 0033s000013wa1iAAA</span>
 
 <span class="co"># the better way in salesforcer to query</span>
 <span class="kw">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="kw">this_soql</span>)
@@ -256,9 +256,9 @@
 <span class="co">#&gt;   &lt;chr&gt;             </span>
 <span class="co">#&gt; 1 0033s000013wZYyAAM</span>
 <span class="co">#&gt; 2 0033s000013wZYzAAM</span>
-<span class="co">#&gt; 3 0033s000013wbrCAAQ</span>
-<span class="co">#&gt; 4 0033s000013wa1iAAA</span>
-<span class="co">#&gt; 5 0033s000013wa1jAAA</span>
+<span class="co">#&gt; 3 0033s000013wf9wAAA</span>
+<span class="co">#&gt; 4 0033s000013wbrCAAQ</span>
+<span class="co">#&gt; 5 0033s000013wa1iAAA</span>
 </pre></div>
 </div>
 <div id="describe" class="section level2">
