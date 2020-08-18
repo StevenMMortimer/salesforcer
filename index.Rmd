@@ -74,8 +74,8 @@ Package features include:
 install.packages("salesforcer")
 
 # or get the development version on GitHub
-# install.packages("devtools")
-devtools::install_github("StevenMMortimer/salesforcer")
+# install.packages("remotes")
+remotes::install_github("StevenMMortimer/salesforcer")
 ```
 
 If you encounter an issue while using this package, please file a minimal reproducible 

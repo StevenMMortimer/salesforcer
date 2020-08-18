@@ -45,7 +45,7 @@ sf_auth(username = username,
 ```
 
 ```{r load-package, eval=FALSE}
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 library(salesforcer)
 sf_auth()
 ```
