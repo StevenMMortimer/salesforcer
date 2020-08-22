@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="working-with-bulk-apis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="working-with-bulk-apis_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with Bulk APIs</h1>
@@ -134,7 +134,7 @@
             
             <h4 class="date">2020-07-12</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/main/vignettes/working-with-bulk-apis.Rmd"><code>vignettes/working-with-bulk-apis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-bulk-apis.Rmd"><code>vignettes/working-with-bulk-apis.Rmd</code></a></small>
       <div class="hidden name"><code>working-with-bulk-apis.Rmd</code></div>
 
     </div>
@@ -145,7 +145,7 @@
 <h2 class="hasAnchor">
 <a href="#using-the-bulk-api" class="anchor"></a>Using the Bulk API</h2>
 <p>First, load the {salesforcer} and {dplyr} packages and login, if needed.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>, <span class="kw">warn.conflicts</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>For really large inserts, updates, deletes, upserts, and queries you can just add <code>api_type = "Bulk 1.0"</code> to most functions to get the benefits of using the Bulk API instead of the SOAP or REST APIs. The change you have to make from using the REST API to the Bulk 1.0 API as simple as adding <code>api_type="Bulk 1.0"</code> to your function arguments. First, let’s build a <code>tbl_df</code> with two new records to be created.</p>
@@ -163,8 +163,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013YBUaAAO TRUE   </span>
-<span class="co">#&gt; 2 0033s000013YBUbAAO TRUE</span>
+<span class="co">#&gt; 1 0033s0000149YlHAAU TRUE   </span>
+<span class="co">#&gt; 2 0033s0000149YlIAAU TRUE</span>
 
 <span class="co"># Bulk</span>
 <span class="no">bulk_created_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>[<span class="fl">3</span>:<span class="fl">4</span>,],
@@ -174,8 +174,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YBUuAAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013YBUvAAO TRUE    TRUE    NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s0000149YlfAAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s0000149YlgAAE TRUE    TRUE    NA</span></pre></body></html></div>
 </div>
 <div id="a-complete-bulk-api-workflow" class="section level2">
 <h2 class="hasAnchor">
@@ -187,8 +187,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YBUwAAO TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013YBUxAAO TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s0000149YlkAAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s0000149YllAAE TRUE    TRUE    NA</span>
 
 <span class="co"># query bulk</span>
 <span class="no">my_soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -203,8 +203,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013YBUwAAO Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013YBUxAAO Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s0000149YlkAAE Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s0000149YllAAE Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="no">deleted_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">queried_records</span>$<span class="no">Id</span>, <span class="kw">object_name</span><span class="kw">=</span><span class="no">object</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 1.0"</span>)
@@ -212,8 +212,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YBUwAAO TRUE    FALSE   NA   </span>
-<span class="co">#&gt; 2 0033s000013YBUxAAO TRUE    FALSE   NA</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s0000149YlkAAE TRUE    FALSE   NA   </span>
+<span class="co">#&gt; 2 0033s0000149YllAAE TRUE    FALSE   NA</span></pre></body></html></div>
 </div>
 <div id="query-limitations" class="section level2">
 <h2 class="hasAnchor">
@@ -249,11 +249,11 @@
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013YBVEAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013YBVFAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 0033s000013YBVGAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 0033s000013YBVHAA4 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 0033s000013YBVIAA4 TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 1 0033s0000149YluAAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s0000149YlvAAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 3 0033s0000149YlwAAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 4 0033s0000149YlxAAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 5 0033s0000149YlyAAE TRUE    TRUE    NA   </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="no">created_records_v2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>[<span class="fl">11</span>:<span class="fl">20</span>,],
@@ -263,11 +263,11 @@
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;   sf__Id sf__Created sf__Error FirstName LastName My_External_Id_…</span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;lgl&gt;       &lt;lgl&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-46000-k    </span>
-<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-46000-l    </span>
-<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-46000-m    </span>
-<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-46000-n    </span>
-<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-46000-o    </span>
+<span class="co">#&gt; 1 0033s… TRUE        NA        Test      Contact… Bulk-62976-k    </span>
+<span class="co">#&gt; 2 0033s… TRUE        NA        Test      Contact… Bulk-62976-l    </span>
+<span class="co">#&gt; 3 0033s… TRUE        NA        Test      Contact… Bulk-62976-m    </span>
+<span class="co">#&gt; 4 0033s… TRUE        NA        Test      Contact… Bulk-62976-n    </span>
+<span class="co">#&gt; 5 0033s… TRUE        NA        Test      Contact… Bulk-62976-o    </span>
 <span class="co">#&gt; # … with 5 more rows, and 1 more variable: test_number__c &lt;dbl&gt;</span></pre></body></html></div>
 </div>
 <div id="performance-benchmarks-for-bulk-queries" class="section level2">
@@ -281,13 +281,14 @@
 <span class="no">res</span> <span class="kw">&lt;-</span> <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
   <span class="fu">bulk1_query</span>(),
   <span class="fu">bulk2_query</span>(),
-  <span class="kw">times</span><span class="kw">=</span><span class="fl">8</span>
+  <span class="kw">times</span><span class="kw">=</span><span class="fl">8</span>,
+  <span class="kw">unit</span> <span class="kw">=</span> <span class="st">"s"</span>
 )
 <span class="no">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;           expr      min       lq     mean   median       uq       max neval</span>
-<span class="co">#&gt;  bulk1_query() 8.195603 8.398375 8.729189 8.581101 9.044724  9.589512     8</span>
-<span class="co">#&gt;  bulk2_query() 6.879304 6.943748 8.640519 7.046924 8.683199 16.897109     8</span>
+<span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
+<span class="co">#&gt;  bulk1_query() 8.465201 8.650781 8.908351 8.926604 9.183635 9.279567     8</span>
+<span class="co">#&gt;  bulk2_query() 7.062541 7.094679 7.403501 7.401601 7.620701 7.931506     8</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">res</span>) +

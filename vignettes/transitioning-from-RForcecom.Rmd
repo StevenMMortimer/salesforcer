@@ -39,7 +39,7 @@ implemented by {RForcecom}. Here is an example running the function from
 each of the packages side-by-side and producing the same result.
 
 ```{r auth, include = FALSE}
-suppressWarnings(suppressMessages(library(dplyr)))
+library(dplyr, warn.conflicts = FALSE)
 library(salesforcer)
 
 username <- Sys.getenv("SALESFORCER_USERNAME")

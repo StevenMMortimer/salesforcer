@@ -55,7 +55,8 @@ sf_upsert <- function(input_data,
   control_args$operation <- "upsert"
   
   if(is_present(all_or_none)) {
-    deprecate_warn("0.1.3", "sf_upsert(all_or_none = )", "sf_upsert(AllOrNoneHeader = )", 
+    deprecate_warn("0.1.3", "salesforcer::sf_upsert(all_or_none = )", 
+                   "sf_upsert(AllOrNoneHeader = )", 
                    details = paste0("You can pass the all or none header directly ", 
                                     "as shown above or via the `control` argument."))
     control_args$AllOrNoneHeader <- list(allOrNone = tolower(all_or_none))

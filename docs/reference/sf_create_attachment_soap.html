@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create Attachment using SOAP API</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/main/R/attachments.R'><code>R/attachments.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/attachments.R'><code>R/attachments.R</code></a></small>
     <div class="hidden name"><code>sf_create_attachment_soap.Rd</code></div>
     </div>
 
@@ -189,8 +189,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>sf_create_attachment_soap</span>(
-  <span class='no'>input_data</span>,
-  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Attachment"</span>,
+  <span class='no'>attachment_input_data</span>,
+  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Attachment"</span>, <span class='st'>"Document"</span>),
   <span class='no'>control</span>,
   <span class='no'>...</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>

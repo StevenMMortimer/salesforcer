@@ -61,7 +61,8 @@ sf_query <- function(soql,
   control_args$operation <- if(queryall) "queryall" else "query"
   
   if(is_present(page_size)) {
-    deprecate_warn("0.1.3", "sf_query(page_size = )", "sf_query(QueryOptions = )", 
+    deprecate_warn("0.1.3", "salesforcer::sf_query(page_size = )", 
+                   "sf_query(QueryOptions = )", 
                    details = paste0("You can pass the page/batch size directly ", 
                                     "as shown above or via the `control` argument."))
     control_args$QueryOptions <- list(batchSize = as.integer(page_size))

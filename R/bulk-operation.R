@@ -72,7 +72,8 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
   control_args$operation <- operation
   
   if(is_present(line_ending)) {
-    deprecate_warn("0.1.3", "sf_create_job_bulk(line_ending = )", "sf_create_job_bulk(LineEndingHeader = )", 
+    deprecate_warn("0.1.3", "salesforcer::sf_create_job_bulk(line_ending = )", 
+                   "sf_create_job_bulk(LineEndingHeader = )", 
                    details = paste0("You can pass the line ending directly ", 
                                     "as shown above or via the `control` argument."))
     control_args$LineEndingHeader <- list(`Sforce-Line-Ending` = line_ending)

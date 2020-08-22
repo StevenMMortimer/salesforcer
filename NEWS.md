@@ -1,11 +1,16 @@
-## salesforcer 0.2.0.9000
+## salesforcer 0.2.1
 
 ### Dependencies
 
   * **CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced 
   a bug in `bind_rows()` with how it binds lists where the list elements have differing 
   lengths. This is documented in tidyverse/dplyr#5417 and r-lib/vctrs#1073. The 
-  timeline for a fix is unknown as of Aug 16, 2020.**
+  timeline for a fix is unknown as of Aug 16, 2020.** You can install the older 
+  version of {dplyr} using the following command: 
+  
+  ```r
+  remotes::install_version("dplyr", "1.0.0")
+  ```
 
 ### Features
 

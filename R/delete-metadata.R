@@ -42,8 +42,7 @@ sf_delete_metadata <- function(metadata_type,
   control_args$operation <- "delete"
   
   if(is_present(all_or_none)) {
-    deprecate_warn("0.1.3", 
-                   "sf_delete_metadata(all_or_none = )", 
+    deprecate_warn("0.1.3", "salesforcer::sf_delete_metadata(all_or_none = )", 
                    "sf_delete_metadata(AllOrNoneHeader = )", 
                    details = paste0("You can pass the all or none header directly ", 
                                     "as shown above or via the `control` argument."))

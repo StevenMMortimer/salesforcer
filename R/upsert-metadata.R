@@ -68,8 +68,7 @@ sf_upsert_metadata <- function(metadata_type,
   control_args$operation <- "upsert"
   
   if(is_present(all_or_none)) {
-    deprecate_warn("0.1.3", 
-                   "sf_upsert_metadata(all_or_none = )", 
+    deprecate_warn("0.1.3", "salesforcer::sf_upsert_metadata(all_or_none = )", 
                    "sf_upsert_metadata(AllOrNoneHeader = )", 
                    details = paste0("You can pass the all or none header directly ", 
                                     "as shown above or via the `control` argument."))
