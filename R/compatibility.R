@@ -37,7 +37,7 @@
 #' @export
 rforcecom.login <- function(username, password, loginURL="https://login.salesforce.com/", apiVersion="35.0"){
   
-  deprecate_soft("0.1.0", "rforcecom.login()", "sf_auth()")  
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.login()", "sf_auth()")  
   
   if(!is.null(loginURL)){
     options(salesforcer.login_url = loginURL)
@@ -70,7 +70,7 @@ rforcecom.login <- function(username, password, loginURL="https://login.salesfor
 #' @export
 rforcecom.getServerTimestamp <- function(session){
   
-  deprecate_soft("0.1.0", "rforcecom.getServerTimestamp()", "sf_server_timestamp()")  
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.getServerTimestamp()", "sf_server_timestamp()")  
   
   result <- sf_server_timestamp()
   # format like rforcecom.getServerTimestamp()
@@ -92,7 +92,7 @@ rforcecom.getServerTimestamp <- function(session){
 #' @export
 rforcecom.getObjectDescription <- function(session, objectName){
   
-  deprecate_soft("0.1.0", "rforcecom.getObjectDescription()", "sf_describe_objects()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.getObjectDescription()", "sf_describe_objects()")
   
   obj_dat <- sf_describe_objects(object_names = objectName, 
                                  api_type="SOAP")[[1]]
@@ -117,7 +117,7 @@ rforcecom.getObjectDescription <- function(session, objectName){
 #' @export
 rforcecom.create <- function(session, objectName, fields){
   
-  deprecate_soft("0.1.0", "rforcecom.create()", "sf_create()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.create()", "sf_create()")
   
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
   created_records <- sf_create(input_data = fields, object_name = objectName)
@@ -155,7 +155,7 @@ rforcecom.retrieve <- function(session, objectName,
                                offset=NULL, order=NULL,
                                inverse=NULL, nullsLast=NULL){
   
-  deprecate_soft("0.1.0", "rforcecom.retrieve()", "sf_retrieve()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.retrieve()", "sf_retrieve()")
   
   # Make SOQL
   fieldList <- paste(fields, collapse=", ")
@@ -208,7 +208,7 @@ rforcecom.retrieve <- function(session, objectName,
 #' @export
 rforcecom.update <- function(session, objectName, id, fields){
   
-  deprecate_soft("0.1.0", "rforcecom.update()", "sf_update()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.update()", "sf_update()")
 
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
   fields$id <- id
@@ -230,7 +230,7 @@ rforcecom.update <- function(session, objectName, id, fields){
 #' @export
 rforcecom.delete <- function(session, objectName, id){
   
-  deprecate_soft("0.1.0", "rforcecom.delete()", "sf_delete()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.delete()", "sf_delete()")
   
   invisible(sf_delete(id, object_name = objectName))
   # rforcecom.delete returns NULL if successful??
@@ -254,7 +254,7 @@ rforcecom.upsert <- function(session, objectName,
                              externalIdField, externalId, 
                              fields){
   
-  deprecate_soft("0.1.0", "rforcecom.upsert()", "sf_upsert()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.upsert()", "sf_upsert()")
 
   fields[externalIdField] <- externalId
   fields <- as.data.frame(as.list(fields), stringsAsFactors = FALSE)
@@ -276,7 +276,7 @@ rforcecom.upsert <- function(session, objectName,
 #' @export
 rforcecom.search <- function(session, queryString){
   
-  deprecate_soft("0.1.0", "rforcecom.search()", "sf_search()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.search()", "sf_search()")
   
   queryString <- paste0("FIND {", queryString, "}", sep="")
   resultset <- sf_search(search_string = queryString, is_sosl=TRUE)
@@ -297,7 +297,7 @@ rforcecom.search <- function(session, queryString){
 #' @export
 rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
   
-  deprecate_soft("0.1.0", "rforcecom.query()", "sf_query()")  
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.query()", "sf_query()")  
   
   sf_query(soql=soqlQuery, queryall=queryAll)
 }
@@ -324,7 +324,7 @@ rforcecom.bulkQuery <- function(session,
                                 max_attempts=100, 
                                 verbose=FALSE){
   
-  deprecate_soft("0.1.0", "rforcecom.bulkQuery()", "sf_query()")  
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.bulkQuery()", "sf_query()")  
   
   sf_query(soql = soqlQuery, 
            object_name = object,
@@ -375,7 +375,7 @@ rforcecom.bulkAction <- function(session,
                                  max_attempts=100,
                                  verbose=FALSE){
   
-  deprecate_soft("0.1.0", "rforcecom.bulkAction()", "sf_bulk_operation()")
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.bulkAction()", "sf_bulk_operation()")
   
   operation <- match.arg(operation)
   res <- sf_bulk_operation(input_data = data, 

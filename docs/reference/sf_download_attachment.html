@@ -98,7 +98,7 @@ attachment body, file name, and path." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -182,7 +182,7 @@ attachment body, file name, and path." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download an Attachment</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/main/R/attachments.R'><code>R/attachments.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/attachments.R'><code>R/attachments.R</code></a></small>
     <div class="hidden name"><code>sf_download_attachment.Rd</code></div>
     </div>
 
@@ -192,34 +192,82 @@ attachment body, file name, and path." />
 attachment body, file name, and path.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_download_attachment</span>(<span class='no'>body</span>, <span class='no'>name</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_download_attachment</span>(
+  <span class='no'>body</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sf_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Attachment"</span>, <span class='st'>"Document"</span>),
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>body</th>
-      <td><p>character; a URL path to the body of the attachment in Salesforce,
-typically retrieved via query on the Attachment object</p></td>
+      <td><p><code>character</code>; a URL path to the body of the attachment in
+Salesforce, typically retrieved by <code><a href='sf_query.html'>sf_query</a></code> on the Attachment
+object. Alternatively, you can specify the Salesforce Id of the Attachment.</p></td>
     </tr>
     <tr>
       <th>name</th>
-      <td><p>character; the name of the file you would like to save the content to</p></td>
+      <td><p><code>character</code>; the name of the file you would like to save the
+content to. Note that you should include the file extension in this name
+and if this argument is left <code>NULL</code>, then a query will be made to
+determine the name and file extension needed. This process may result in a
+slower download process, so attempt to provide the body and name arguments
+whenever possible for the best performance.</p></td>
+    </tr>
+    <tr>
+      <th>sf_id</th>
+      <td><p><code>character</code>; a Salesforce generated Id that uniquely
+identifies a record.</p></td>
+    </tr>
+    <tr>
+      <th>object_name</th>
+      <td><p><code>character</code>; the name of the Salesforce object that the
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>character; a directory path where to create file, defaults to the
-current directory.</p></td>
+      <td><p><code>character</code>; a directory path where to create file, defaults
+to the current directory.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>character</code>; invisibly return the file path of the downloaded
+content</p>
+    <h2 class="hasAnchor" id="salesforce-documentation"><a class="anchor" href="#salesforce-documentation"></a>Salesforce Documentation</h2>
+
+    
+
+<ul>
+<li><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_blob_retrieve.htm'>Get Attachment Content from a Record</a></p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other Attachment functions: 
+<code><a href='check_and_encode_files.html'>check_and_encode_files</a>()</code>,
+<code><a href='sf_create_attachment.html'>sf_create_attachment</a>()</code>,
+<code><a href='sf_delete_attachment.html'>sf_delete_attachment</a>()</code>,
+<code><a href='sf_update_attachment.html'>sf_update_attachment</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>queried_attachments</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Body, Name 
+<span class='co'># downloading all attachments for a Parent record</span>
+<span class='co'># if your attachment name doesn't include the extension, then you can use the </span>
+<span class='co'># ContentType column to append it to the Name, if needed</span>
+<span class='no'>queried_attachments</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Body, Name, ContentType 
                                  FROM Attachment 
                                  WHERE ParentId = '0016A0000035mJ5'"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span>(<span class='no'>sf_download_attachment</span>, <span class='no'>queried_attachments</span>$<span class='no'>Body</span>, <span class='no'>queried_attachments</span>$<span class='no'>Name</span>)
+
+<span class='co'># downloading an attachment by its Id</span>
+<span class='co'># (the file name will be the same as it exists in Salesforce)</span>
+<span class='fu'>sf_download_attachment</span>(<span class='kw'>sf_id</span> <span class='kw'>=</span> <span class='no'>queried_attachments</span>$<span class='no'>Id</span>[<span class='fl'>1</span>])
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -672,7 +672,7 @@ records_list_to_tbl <- function(x,
 bind_query_resultsets <- function(resultset, next_records){
   
   # HOLD ON INTRODUCING THIS BECAUSE IT CREATES A {{data.table}} DEPENDENCY
-  # deprecate_warn("0.2.1", "bind_query_resultsets()", "safe_bind_rows()", 
+  # deprecate_warn("0.2.1", "salesforcer::bind_query_resultsets()", "safe_bind_rows()", 
   #                details = paste0("Consider safe_bind_rows() which silently combines ", 
   #                                 "all columns regardless if there are mixed datatypes ", 
   #                                 "in a single column."))

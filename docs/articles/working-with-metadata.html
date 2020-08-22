@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="working-with-metadata_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="working-with-metadata_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with Metadata</h1>
@@ -134,7 +134,7 @@
             
             <h4 class="date">2019-07-26</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/main/vignettes/working-with-metadata.Rmd"><code>vignettes/working-with-metadata.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-metadata.Rmd"><code>vignettes/working-with-metadata.Rmd</code></a></small>
       <div class="hidden name"><code>working-with-metadata.Rmd</code></div>
 
     </div>
@@ -146,8 +146,8 @@
 <h2 class="hasAnchor">
 <a href="#retrieving-object-metadata" class="anchor"></a>Retrieving Object Metadata</h2>
 <p>One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). First, load the {salesforcer}, {dplyr}, and {purrr} packages and login, if needed.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)))
-<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)))
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>, <span class="kw">warn.conflicts</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
 <p>You can use the <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
@@ -191,7 +191,7 @@
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using<br><code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">"Account"</span>)
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
-<span class="co">#&gt; # A tibble: 69 x 5</span>
+<span class="co">#&gt; # A tibble: 68 x 5</span>
 <span class="co">#&gt;   name           label            length soapType    type     </span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 Id             Account ID       18     tns:ID      id       </span>
@@ -199,7 +199,7 @@
 <span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
 <span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
 <span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
-<span class="co">#&gt; # … with 64 more rows</span>
+<span class="co">#&gt; # … with 63 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
 <span class="no">acct_fields</span> <span class="kw">%&gt;%</span>

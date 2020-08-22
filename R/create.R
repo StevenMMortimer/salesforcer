@@ -52,7 +52,8 @@ sf_create <- function(input_data,
   control_args$operation <- "insert"
   
   if(is_present(all_or_none)) {
-    deprecate_warn("0.1.3", "sf_create(all_or_none = )", "sf_create(AllOrNoneHeader = )", 
+    deprecate_warn("0.1.3", "salesforcer::sf_create(all_or_none = )", 
+                   "sf_create(AllOrNoneHeader = )", 
                    details = paste0("You can pass the all or none header directly ", 
                                     "as shown above or via the `control` argument."))
     control_args$AllOrNoneHeader <- list(allOrNone = tolower(all_or_none))

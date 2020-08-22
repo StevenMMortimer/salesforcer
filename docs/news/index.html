@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -179,24 +179,36 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/main/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="salesforcer-0209999" class="section level2">
+    <div id="salesforcer-021" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0209999" class="anchor"></a>salesforcer 0.2.0.9999</h2>
+<a href="#salesforcer-021" class="anchor"></a>salesforcer 0.2.1</h2>
+<div id="dependencies" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dependencies" class="anchor"></a>Dependencies</h3>
+<ul>
+<li>
+<strong>CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code>bind_rows()</code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5417'>#5417</a> and r-lib/vctrs<a href='https://github.com/StevenMMortimer/salesforcer/issues/1073'>#1073</a>. The timeline for a fix is unknown as of Aug 16, 2020.</strong> You can install the older version of {dplyr} using the following command:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span>(<span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span>)</pre></div>
+</div>
 <div id="features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h3>
 <ul>
-<li>None yet!</li>
+<li>Add support for the <code>defaultLimit</code> argument in <code><a href="../reference/sf_search.html">sf_search()</a></code> to be able to restrict the number of records from each individual object when searching across one or more objects.</li>
+<li>Add support for updating attachments with the <code>sf_update_attachments()</code> function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/79'>#79</a>).</li>
+<li>Add support for downloading attachments just by its Id. In addition, the <code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code> function returns the file path of the downloaded content instead of a logical indicating success.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
 <ul>
-<li>None yet!</li>
+<li>Fix bug introduced in {salesforcer 0.2.0} which could not stack records with errors longer than length 1. The new solution is to always return the <code>errors</code> column as a list, which is coerced to length 1 for the record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/66'>#66</a>).</li>
+<li>Fix bug in <code><a href="../reference/sf_search.html">sf_search()</a></code> that was passing <code>"true"/"false"</code> instead of actual boolean value for the <code>spellCorrection</code> parameter in the POST body.</li>
 </ul>
 <hr>
 </div>
@@ -205,11 +217,17 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-020-release" class="anchor"></a>salesforcer 0.2.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0">release</a>
 </h2>
+<div id="dependencies-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dependencies-1" class="anchor"></a>Dependencies</h3>
+<ul>
+<li><strong>CAUTION: This release only has automated test coverage on R 4.0.0 or greater. Users should still be able to install and run using R (&gt;= 3.6.0). However, it is recommended to upgrade to R 4.0.0 or greater.</strong></li>
+</ul>
+</div>
 <div id="features-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#features-1" class="anchor"></a>Features</h3>
 <ul>
-<li><p><strong>CAUTION: This release only has automated test coverage on R 4.0.0 or greater. Users should still be able to install and run using R (&gt;= 3.6.0); however, it is recommended to upgrade to R 4.0.0 or greater.</strong></p></li>
 <li><p>Add experimental support for the Reports and Dashboards REST API.</p></li>
 <li><p>Add support for Bulk 2.0 queries that was added in Salesforce version 47.0 (Winter ’20). <strong>CAUTION: The Bulk 2.0 API is now the default API when using <code><a href="../reference/sf_run_bulk_query.html">sf_query_bulk()</a></code> or <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code></strong>. Please test prior to upgrading in a production environment where you are running bulk queries.</p></li>
 <li>
