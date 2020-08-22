@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -170,6 +170,13 @@
 <li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) within a specific timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
+<p><strong>CAUTION: The most recent release, {salesforcer 0.2.1}, requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr#5417 and r-lib/vctrs#1073. The timeline for a fix is unknown as of August 2020, but a new version of {salesforcer} (0.2.2) will be released immediately following the {dplyr} fix.</strong></p>
+<p>You can install the older version of {dplyr} using the following command:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># remove.packages("dplyr")</span>
+<span class="co"># install.packages("remotes")</span>
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span>(<span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span>)
+</pre></div>
 <div id="table-of-contents" class="section level2">
 <h2 class="hasAnchor">
 <a href="#table-of-contents" class="anchor"></a>Table of Contents</h2>
@@ -195,8 +202,8 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install the current CRAN version (0.2.0)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install the current CRAN version (0.2.1)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
 <span class="co"># or get the development version on GitHub</span>
@@ -232,7 +239,7 @@
 <li>Basic Username-Password</li>
 </ol>
 <p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory. Also, note that if you use OAuth 2.0 authentication then the package will automatically refresh it so you will not have to call <code><a href="reference/sf_auth.html">sf_auth()</a></code> during each session if you have a cached “.httr-oauth-salesforcer” file in the working directory. The cache file is named that way to not conflict with the “.httr-oauth” files created by other packages.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
+<div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts = <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span>)
 
@@ -245,7 +252,7 @@
         security_token = <span class="st">"{SECURITY_TOKEN_HERE}"</span>)
 </pre></div>
 <p>After logging in with <code><a href="reference/sf_auth.html">sf_auth()</a></code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># pull down information of person logged in</span>
 <span class="co"># it's a simple easy call to get started </span>
 <span class="co"># and confirm a connection to the APIs</span>
@@ -260,7 +267,7 @@
 <h3 class="hasAnchor">
 <a href="#create" class="anchor"></a>Create</h3>
 <p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="kw">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
                        LastName = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="kw">n</span>))
@@ -269,15 +276,15 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013wZZDAA2 TRUE   </span>
-<span class="co">#&gt; 2 0033s000013wZZEAA2 TRUE</span>
+<span class="co">#&gt; 1 0033s0000149YezAAE TRUE   </span>
+<span class="co">#&gt; 2 0033s0000149Yf0AAE TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level3">
 <h3 class="hasAnchor">
 <a href="#query" class="anchor"></a>Query</h3>
 <p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, 
                            Account.Name, 
                            FirstName, 
@@ -295,8 +302,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013wZZDAA2 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013wZZEAA2 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s0000149YezAAE Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s0000149Yf0AAE Test      Contact-Create-2</span>
 </pre></div>
 <p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
@@ -304,7 +311,7 @@
 <h3 class="hasAnchor">
 <a href="#update" class="anchor"></a>Update</h3>
 <p>After creating records you can update them using <code><a href="reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="co"># Update some of those records</span>
 <span class="kw">queried_records</span> <span class="op">&lt;-</span> <span class="kw">queried_records</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(FirstName = <span class="st">"TestTest"</span>)
@@ -314,8 +321,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000013wZZDAA2 TRUE   </span>
-<span class="co">#&gt; 2 0033s000013wZZEAA2 TRUE</span>
+<span class="co">#&gt; 1 0033s0000149YezAAE TRUE   </span>
+<span class="co">#&gt; 2 0033s0000149Yf0AAE TRUE</span>
 </pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
@@ -323,7 +330,7 @@
 <a href="#bulk-operations" class="anchor"></a>Bulk Operations</h3>
 <p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in {salesforcer} you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
 <p>The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in bulk is usually quicker than running thousands of individuals calls when your data is large. <strong>Note:</strong> the Bulk 2.0 API does <strong>NOT</strong> guarantee the order of the data submitted is preserved in the output. This means that you must join on other data columns to match up the Ids that are returned in the output with the data you submitted. For this reason, Bulk 2.0 may not be a good solution for creating, updating, or upserting records where you need to keep track of the created Ids. The Bulk 2.0 API would be fine for deleting records where you only need to know which Ids were successfully deleted.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="co"># create contacts using the Bulk API</span>
 <span class="kw">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="kw">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(FirstName = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="kw">n</span>),
@@ -333,8 +340,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000013wZZIAA2 TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000013wZZJAA2 TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s0000149Yf4AAE TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s0000149Yf5AAE TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -353,8 +360,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000013wZZIAA2 Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000013wZZJAA2 Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s0000149Yf4AAE Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s0000149Yf5AAE Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type = <span class="st">"Bulk 2.0"</span>)
@@ -362,15 +369,15 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000013wZZIAA2 0033s000013wZZIAA2 FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000013wZZJAA2 0033s000013wZZJAA2 FALSE       NA</span>
+<span class="co">#&gt; 1 0033s0000149Yf4AAE 0033s0000149Yf4AAE FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s0000149Yf5AAE 0033s0000149Yf5AAE FALSE       NA</span>
 </pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-the-metadata-api" class="anchor"></a>Using the Metadata API</h3>
 <p>Salesforce is a very flexible platform in that it provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm">Metadata API</a> for users to create, read, update and delete their entire Salesforce environment from objects to page layouts and more. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">read_obj_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_read_metadata.html">sf_read_metadata</a></span>(metadata_type = <span class="st">'CustomObject'</span>,
                                     object_names = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
 
@@ -410,7 +417,7 @@
 <span class="co">#&gt; [1] "Picklist"</span>
 </pre></div>
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">acct_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">'Account'</span>)
 <span class="kw">acct_fields</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, <span class="kw">label</span>, <span class="kw">length</span>, <span class="kw">soapType</span>, <span class="kw">type</span>)
 <span class="co">#&gt; # A tibble: 68 x 5</span>
@@ -512,7 +519,7 @@
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: Maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
-<li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=master"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
+<li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=main"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>
 </div>

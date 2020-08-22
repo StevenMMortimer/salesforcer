@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -182,15 +182,19 @@
       <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="salesforcer-0209000" class="section level2">
+    <div id="salesforcer-021" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-0209000" class="anchor"></a>salesforcer 0.2.0.9000</h2>
+<a href="#salesforcer-021" class="anchor"></a>salesforcer 0.2.1</h2>
 <div id="dependencies" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dependencies" class="anchor"></a>Dependencies</h3>
 <ul>
-<li><strong>CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5417'>#5417</a> and r-lib/vctrs<a href='https://github.com/StevenMMortimer/salesforcer/issues/1073'>#1073</a>. The timeline for a fix is unknown as of Aug 16, 2020.</strong></li>
+<li>
+<strong>CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5417'>#5417</a> and r-lib/vctrs<a href='https://github.com/StevenMMortimer/salesforcer/issues/1073'>#1073</a>. The timeline for a fix is unknown as of Aug 16, 2020.</strong> You can install the older version of {dplyr} using the following command:</li>
 </ul>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span>(<span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span>)
+</pre></div>
 </div>
 <div id="features" class="section level3">
 <h3 class="hasAnchor">
