@@ -12,7 +12,7 @@ Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP,
     <https://stevenmmortimer.github.io/salesforcer/> for more information, 
     documentation, and examples.
 Authors@R: c(
-    person(c("Steven", "M."), "Mortimer", , "reportmort@gmail.com", c("aut", "cre")),
+    person(c("Steven", "M."), "Mortimer", , "smmortimer1@gmail.com", c("aut", "cre")),
     person("Takekatsu", "Hiramura", , "thira@plavox.info", c("ctb")),
     person("Jennifer", "Bryan", , "jenny@rstudio.com", c("ctb", "cph")),
     person("Joanna", "Zhao", , "joanna.zhao@alumni.ubc.ca", c("ctb", "cph"))

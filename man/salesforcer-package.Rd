@@ -25,7 +25,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Steven M. Mortimer \email{reportmort@gmail.com}
+\strong{Maintainer}: Steven M. Mortimer \email{smmortimer1@gmail.com}
 
 Other contributors:
 \itemize{

@@ -11,7 +11,12 @@
 ## R CMD check results
 
 checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Steven M. Mortimer <***>'
+  Maintainer: 'Steven M. Mortimer <smmortimer1@gmail.com>'
+
+New maintainer:
+  Steven M. Mortimer <smmortimer1@gmail.com>
+Old maintainer(s):
+  Steven M. Mortimer <reportmort@gmail.com>  
 
 0 errors v | 0 warnings v | 1 note x
 
