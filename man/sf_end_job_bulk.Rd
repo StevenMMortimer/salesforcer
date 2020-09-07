@@ -15,7 +15,7 @@ sf_end_job_bulk(
 \item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as
 returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 
-\item{end_type}{character; taking a value of "Closed" or "Aborted" indicating
+\item{end_type}{\code{character}; taking a value of "Closed" or "Aborted" indicating
 how the bulk job should be ended}
 
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},

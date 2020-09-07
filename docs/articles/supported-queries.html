@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -189,25 +189,25 @@
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>) <span class="co"># REST API is the default api_type</span>
 <span class="no">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName                    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                       </span>
-<span class="co">#&gt; 1 0033s000013wlpjAAA Test      Contact-Create-1            </span>
-<span class="co">#&gt; 2 0033s000013wlpkAAA Test      Contact-Create-2            </span>
-<span class="co">#&gt; 3 0033s000013wm08AAA Test      Contact-Create-Compatibility</span>
-<span class="co">#&gt; 4 0033s000013wlpeAAA Test      Contact-Create-2            </span>
-<span class="co">#&gt; 5 0033s000012Nd6FAAS Jenny     Williams                    </span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000013wlpjAAA Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013wlpkAAA Test      Contact-Create-2</span>
+<span class="co">#&gt; 3 0033s000014AG4HAAW Test      Contact-Create-1</span>
+<span class="co">#&gt; 4 0033s0000149ZoCAAU Test      Contact-Create-1</span>
+<span class="co">#&gt; 5 0033s0000149ZoDAAU Test      Contact-Create-2</span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"SOAP"</span>)
 <span class="no">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;   Id                 FirstName LastName                    </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                       </span>
-<span class="co">#&gt; 1 0033s000013wlpjAAA Test      Contact-Create-1            </span>
-<span class="co">#&gt; 2 0033s000013wlpkAAA Test      Contact-Create-2            </span>
-<span class="co">#&gt; 3 0033s000013wm08AAA Test      Contact-Create-Compatibility</span>
-<span class="co">#&gt; 4 0033s000013wlpeAAA Test      Contact-Create-2            </span>
-<span class="co">#&gt; 5 0033s000012Nd6FAAS Jenny     Williams                    </span>
+<span class="co">#&gt;   Id                 FirstName LastName        </span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000013wlpjAAA Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000013wlpkAAA Test      Contact-Create-2</span>
+<span class="co">#&gt; 3 0033s000014AG4HAAW Test      Contact-Create-1</span>
+<span class="co">#&gt; 4 0033s0000149ZoCAAU Test      Contact-Create-1</span>
+<span class="co">#&gt; 5 0033s0000149ZoDAAU Test      Contact-Create-2</span>
 <span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
 </div>
 <div id="rest-vs--soap-api-query-performance-test" class="section level2">
@@ -258,9 +258,9 @@
 )
 <span class="no">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST") 0.5350182 0.5402298 0.5657159 0.5782125 0.5795702 0.5955489     5</span>
-<span class="co">#&gt;  qry("SOAP") 1.8384984 1.9858533 2.3996804 1.9916697 2.2584836 3.9238971     5</span>
+<span class="co">#&gt;         expr       min        lq      mean    median        uq      max neval</span>
+<span class="co">#&gt;  qry("REST") 0.5290675 0.5866569 0.7599904 0.8234205 0.8272156 1.033592     5</span>
+<span class="co">#&gt;  qry("SOAP") 2.7185003 2.9724736 3.2149618 3.2690952 3.2703491 3.844390     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">res</span>) +
@@ -283,8 +283,8 @@
     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.9 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -297,8 +297,8 @@
     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1.1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.4 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span></pre></body></html></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, FirstName, Account.Id
@@ -335,7 +335,7 @@
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
-<span class="co">#&gt; 3 0013s000011ImcVAAS         99</span>
+<span class="co">#&gt; 3 0013s000011JhcyAAC         99</span>
 <span class="co">#&gt; 4 0016A0000035mJ4QAI          2</span>
 <span class="co">#&gt; 5 0016A0000035mJ5QAI          1</span>
 <span class="co">#&gt; # … with 7 more rows</span></pre></body></html></div>
@@ -374,11 +374,11 @@
 <span class="co">#&gt; # A tibble: 99 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s0000149YjPAAU 0033s0000149YjPAAU FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s0000149YjQAAU 0033s0000149YjQAAU FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s0000149YjRAAU 0033s0000149YjRAAU FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s0000149YjSAAU 0033s0000149YjSAAU FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s0000149YjTAAU 0033s0000149YjTAAU FALSE       NA       </span>
+<span class="co">#&gt; 1 0033s000014AdQtAAK 0033s000014AdQtAAK FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000014AdQuAAK 0033s000014AdQuAAK FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000014AdQvAAK 0033s000014AdQvAAK FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000014AdQwAAK 0033s000014AdQwAAK FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000014AdQxAAK 0033s000014AdQxAAK FALSE       NA       </span>
 <span class="co">#&gt; # … with 94 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -386,7 +386,7 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000011ImcVAAS TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0013s000011JhcyAAC TRUE</span></pre></body></html></div>
 </div>
 <div id="relationship-queries" class="section level2">
 <h2 class="hasAnchor">
@@ -418,15 +418,15 @@
   FROM Contact
   WHERE Account.Id = null"</span>
 )
-<span class="co">#&gt; # A tibble: 56 x 2</span>
+<span class="co">#&gt; # A tibble: 266 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000013wlpjAAA Test     </span>
 <span class="co">#&gt; 2 0033s000013wlpkAAA Test     </span>
-<span class="co">#&gt; 3 0033s000013wm08AAA Test     </span>
-<span class="co">#&gt; 4 0033s000013wlpeAAA Test     </span>
-<span class="co">#&gt; 5 0033s000012Nd6FAAS Jenny    </span>
-<span class="co">#&gt; # … with 51 more rows</span></pre></body></html></div>
+<span class="co">#&gt; 3 0033s000014AG4HAAW Test     </span>
+<span class="co">#&gt; 4 0033s0000149ZoCAAU Test     </span>
+<span class="co">#&gt; 5 0033s0000149ZoDAAU Test     </span>
+<span class="co">#&gt; # … with 261 more rows</span></pre></body></html></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>(

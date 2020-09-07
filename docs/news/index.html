@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -182,17 +182,31 @@
       <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="salesforcer-021" class="section level2">
+    <div id="salesforcer-022" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-021" class="anchor"></a>salesforcer 0.2.1</h2>
+<a href="#salesforcer-022" class="anchor"></a>salesforcer 0.2.2</h2>
 <div id="dependencies" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dependencies" class="anchor"></a>Dependencies</h3>
 <ul>
+<li>This release relaxes the dependency on {dplyr} and brings back use of <code>rbindlist()</code> from {data.table} because of limitations of <code><a href="https://dplyr.tidyverse.org/reference/bind.html">dplyr::bind_rows()</a></code>. As noted in (tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5429'>#5429</a>) {dplyr} will only support binding data.frames or lists of data.frames, <strong>not</strong> a list of lists which is needed in some applications of the {salesforcer} package.</li>
+<li>Due to other recent changes between {vctrs} and {dplyr}, you may now see the following warning displayed when loading {salesforcer}, which is emitted by the loading of {dplyr}:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="r">Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame' when loading 'dplyr'</pre></div>
+</div>
+</div>
+    <div id="salesforcer-021-release" class="section level2">
+<h2 class="hasAnchor">
+<a href="#salesforcer-021-release" class="anchor"></a>salesforcer 0.2.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.1">release</a>
+</h2>
+<div id="dependencies-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dependencies-1" class="anchor"></a>Dependencies</h3>
+<ul>
 <li>
 <strong>CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code>bind_rows()</code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5417'>#5417</a> and r-lib/vctrs<a href='https://github.com/StevenMMortimer/salesforcer/issues/1073'>#1073</a>. The timeline for a fix is unknown as of Aug 16, 2020.</strong> You can install the older version of {dplyr} using the following command:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span>(<span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span>(<span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span>)</pre></div>
 </div>
 <div id="features" class="section level3">
 <h3 class="hasAnchor">
@@ -217,9 +231,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-020-release" class="anchor"></a>salesforcer 0.2.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0">release</a>
 </h2>
-<div id="dependencies-1" class="section level3">
+<div id="dependencies-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#dependencies-1" class="anchor"></a>Dependencies</h3>
+<a href="#dependencies-2" class="anchor"></a>Dependencies</h3>
 <ul>
 <li><strong>CAUTION: This release only has automated test coverage on R 4.0.0 or greater. Users should still be able to install and run using R (&gt;= 3.6.0). However, it is recommended to upgrade to R 4.0.0 or greater.</strong></li>
 </ul>

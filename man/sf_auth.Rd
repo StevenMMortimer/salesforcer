@@ -36,9 +36,9 @@ stored as an \code{.rds} file}
 and "Callback URL" when using a connected app; defaults to the \code{salesforcer}
 connected apps' consumer key, secret, and callback url}
 
-\item{cache}{logical or character; TRUE means to cache using the default cache
-file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use
-the specified path as the cache file.}
+\item{cache}{\code{logical} or \code{character}; TRUE means to cache using
+the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not
+cache. A string means use the specified path as the cache file.}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional
 detail for each API call, which is useful for debugging. More specifically, when

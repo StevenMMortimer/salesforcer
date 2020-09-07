@@ -20,7 +20,7 @@ sf_retrieve(
 \code{tbl_df}; if not a vector, there must be a column called Id (case
 insensitive) that can be passed in the request.}
 
-\item{fields}{character; one or more strings indicating the fields to be returned
+\item{fields}{\code{character}; one or more strings indicating the fields to be returned
 on the records}
 
 \item{object_name}{\code{character}; the name of the Salesforce object that the

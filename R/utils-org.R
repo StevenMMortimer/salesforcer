@@ -72,8 +72,8 @@ sf_user_info <- function(api_type=c("SOAP", "Chatter"), verbose=FALSE){
 #' 
 #' Sets the specified user’s password to the specified value.
 #' 
-#' @param user_id character; the unique Salesforce Id assigned to the User
-#' @param password character; a new password that you would like to set for the 
+#' @param user_id \code{character}; the unique Salesforce Id assigned to the User
+#' @param password \code{character}; a new password that you would like to set for the 
 #' supplied user that complies to your organizations password requirements
 #' @template verbose
 #' @return \code{list}
@@ -113,7 +113,7 @@ sf_set_password <- function(user_id, password, verbose=FALSE){
 #' 
 #' @importFrom httr content
 #' @importFrom xml2 xml_ns_strip xml_find_all xml_text
-#' @param user_id character; the unique Salesforce Id assigned to the User
+#' @param user_id \code{character}; the unique Salesforce Id assigned to the User
 #' @template control
 #' @param ... arguments passed to \code{\link{sf_control}}
 #' @template verbose
@@ -673,9 +673,9 @@ sf_convert_lead <- function(input_data,
 #' @importFrom xml2 xml_ns_strip xml_find_all as_list
 #' @importFrom purrr map_df
 #' @importFrom dplyr tibble
-#' @param master_id character; a Salesforce generated Id that identifies the master record, 
+#' @param master_id \code{character}; a Salesforce generated Id that identifies the master record, 
 #' which is the record to which the victim records will be merged into
-#' @param victim_ids character; one or two Salesforce Ids of records to be merged into 
+#' @param victim_ids \code{character}; one or two Salesforce Ids of records to be merged into 
 #' the master record. Up to three records can be merged in a single request, including 
 #' the master record. This limit is the same as the limit enforced by the Salesforce user 
 #' interface. To merge more than 3 records, successively merge records by running 

@@ -6,7 +6,7 @@
 #' Retrieves one or more new records to your organization’s data.
 #' 
 #' @template ids
-#' @param fields character; one or more strings indicating the fields to be returned 
+#' @param fields \code{character}; one or more strings indicating the fields to be returned 
 #' on the records
 #' @template object_name
 #' @template api_type

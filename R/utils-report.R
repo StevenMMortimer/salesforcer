@@ -76,14 +76,17 @@ parse_report_detail_rows <- function(content,
   stops_triggered <- character(0)
   
   if(!content$allData){
-    warning(paste0("Results are the same number of rows as a report run in ", 
-                   "Salesforce which is the only allowed behavior. Consider ", 
-                   "using filters to refine results."), call.=FALSE)
+    warning(paste0("The data returned by the API does not contain all data for ", 
+                   "this report. Per the Salesforce API documentation, the API ",
+                   "returns the same number of rows as a report run within ", 
+                   "Salesforce, which is limited to 2,000 records. As a workaround, ", 
+                   "consider running this report multiple times with different ", 
+                   "filters to paginate through all of the records."), call.=FALSE)
   }
   
   if(is.null(content$reportExtendedMetadata$detailColumnInfo)){
     warning(paste0("Please set `include_details=TRUE` when executing the report. ", 
-                   "It appears that there is no detail information (data) for this ", 
+                   "It appears that there is no detail-level data for this ", 
                    "report."), call.=FALSE)
     stops_triggered <- c(stops_triggered, "No detailColumnInfo")
   }

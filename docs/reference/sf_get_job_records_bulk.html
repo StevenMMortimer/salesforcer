@@ -97,7 +97,7 @@ which has already been submitted completed (successfully or not)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -214,14 +214,14 @@ making the request.</p></td>
     </tr>
     <tr>
       <th>record_types</th>
-      <td><p>character; one or more types of records to retrieve from
+      <td><p><code>character</code>; one or more types of records to retrieve from
 the results of running the specified job</p></td>
     </tr>
     <tr>
       <th>combine_record_types</th>
-      <td><p>logical; indicating for Bulk 2.0 jobs whether the
-successfulResults, failedResults, and unprocessedRecords should be stacked together
-using <code>bind_rows</code></p></td>
+      <td><p><code>logical</code>; indicating for Bulk 2.0 jobs whether the
+successfulResults, failedResults, and unprocessedRecords should be stacked
+together by binding the rows.</p></td>
     </tr>
     <tr>
       <th>verbose</th>

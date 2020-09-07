@@ -158,10 +158,10 @@ make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){
 #' @param input_data a \code{data.frame} of data to fill the XML body
 #' @template operation
 #' @template object_name
-#' @param fields character; one or more strings indicating the fields to be returned 
+#' @param fields \code{character}; one or more strings indicating the fields to be returned 
 #' on the records
 #' @template external_id_fieldname
-#' @param root_name character; the name of the root node if created
+#' @param root_name \code{character}; the name of the root node if created
 #' @param ns named vector; a collection of character strings indicating the namespace 
 #' definitions of the root node if created
 #' @param root \code{XMLNode}; a node to be used as the root
@@ -311,7 +311,7 @@ build_soap_xml_from_list <- function(input_data,
 #' @importFrom XML newXMLNode xmlValue<-
 #' @param input_data XML document serving as the basis upon which to add the list
 #' @param metatype a character indicating the element name of each record in the list
-#' @param root_name character; the name of the root node if created
+#' @param root_name \code{character}; the name of the root node if created
 #' @param ns named vector; a collection of character strings indicating the namespace 
 #' definitions of the root node if created
 #' @param root \code{XMLNode}; a node to be used as the root

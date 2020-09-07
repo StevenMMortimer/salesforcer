@@ -47,7 +47,7 @@ look at the documentation for \code{\link{sf_control}}.}
 \item{...}{arguments passed to \code{\link{sf_control}} or further downstream
 to \code{\link{sf_bulk_operation}}}
 
-\item{all_or_none}{logical; allows a call to roll back all changes unless all
+\item{all_or_none}{\code{logical}; allows a call to roll back all changes unless all
 records are processed successfully.}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional

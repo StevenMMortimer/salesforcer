@@ -8,14 +8,14 @@
 #' @template soql
 #' @template external_id_fieldname
 #' @template api_type
-#' @param content_type character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to 
+#' @param content_type \code{character}; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to 
 #' indicate the type of data being passed to the Bulk APIs. For the Bulk 2.0 API the only 
 #' valid value (and the default) is 'CSV'.
-#' @param concurrency_mode character; either "Parallel" or "Serial" that specifies 
+#' @param concurrency_mode \code{character}; either "Parallel" or "Serial" that specifies 
 #' whether batches should be completed sequentially or in parallel. Use "Serial" 
 #' only if lock contentions persist with in "Parallel" mode. Note: this argument is 
 #' only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.
-#' @param column_delimiter character; indicating the column delimiter used for CSV job data. 
+#' @param column_delimiter \code{character}; indicating the column delimiter used for CSV job data. 
 #' The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE", 
 #' "SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also, 
 #' note that this argument is only used in the Bulk 2.0 API and will be ignored 
@@ -304,7 +304,7 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete",
 #'
 #' @template job_id
 #' @template api_type
-#' @param query_operation logical; an indicator of whether the job is a query job, 
+#' @param query_operation \code{logical}; an indicator of whether the job is a query job, 
 #' which is needed when using the Bulk 2.0 API because the URI endpoints are different 
 #' for the "ingest" vs. the "query" jobs.
 #' @template verbose
@@ -532,7 +532,7 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
 #' 
 #' @importFrom jsonlite toJSON prettify
 #' @template job_id
-#' @param end_type character; taking a value of "Closed" or "Aborted" indicating 
+#' @param end_type \code{character}; taking a value of "Closed" or "Aborted" indicating 
 #' how the bulk job should be ended
 #' @template api_type
 #' @template verbose
@@ -1160,9 +1160,9 @@ sf_batch_details_bulk <- function(job_id, batch_id,
 #'
 #' @template job_id
 #' @template api_type
-#' @param record_types character; one or more types of records to retrieve from 
+#' @param record_types \code{character}; one or more types of records to retrieve from 
 #' the results of running the specified job
-#' @param combine_record_types logical; indicating for Bulk 2.0 jobs whether the 
+#' @param combine_record_types \code{logical}; indicating for Bulk 2.0 jobs whether the 
 #' successfulResults, failedResults, and unprocessedRecords should be stacked 
 #' together by binding the rows.
 #' @template verbose
@@ -1283,14 +1283,14 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @param input_data \code{named vector}, \code{matrix}, \code{data.frame}, or 
 #' \code{tbl_df}; data can be coerced into CSV file for submitting as batch request
 #' @template object_name
-#' @param operation character; string defining the type of operation being performed
+#' @param operation \code{character}; string defining the type of operation being performed
 #' @template external_id_fieldname
 #' @template guess_types
 #' @template api_type
 #' @template batch_size
 #' @template interval_seconds
 #' @template max_attempts
-#' @param wait_for_results logical; indicating whether to wait for the operation to complete 
+#' @param wait_for_results \code{logical}; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 

@@ -890,12 +890,12 @@ sf_delete_report_instance <- function(report_id,
 #' # ... if so, then grab the results
 #' if(instance_status == "Success"){
 #'   report_data <- sf_get_report_instance_results(report_id = this_report_id, 
-#'                                             report_instance_id = results$id)
+#'                                                 report_instance_id = results$id)
 #' }
 #' }
 #' @export
 sf_get_report_instance_results <- function(report_id, 
-                                           report_instance_id, 
+                                           report_instance_id,
                                            labels = TRUE,
                                            guess_types = TRUE, 
                                            bind_using_character_cols = FALSE,
@@ -1121,7 +1121,8 @@ sf_run_report <- function(report_id,
           }
         }
       }
-      results <- sf_get_report_instance_results(report_id, results$id, 
+      results <- sf_get_report_instance_results(report_id, 
+                                                results$id, 
                                                 verbose = verbose)
     }
   }

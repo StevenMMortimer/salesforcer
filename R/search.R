@@ -10,10 +10,10 @@
 #' @importFrom purrr map_df 
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom httr content
-#' @param search_string character; string to search using parameterized search 
+#' @param search_string \code{character}; string to search using parameterized search 
 #' or SOSL. Note that is_sosl must be set to TRUE and the string valid in order 
 #' to perform a search using SOSL.
-#' @param is_sosl logical; indicating whether or not to try the string as SOSL
+#' @param is_sosl \code{logical}; indicating whether or not to try the string as SOSL
 #' @template guess_types
 #' @template api_type
 #' @param parameterized_search_options \code{list}; a list of parameters for 
@@ -166,7 +166,7 @@ sf_search <- function(search_string,
 #' @param default_limit \code{numeric}; the maximum number of results to return for 
 #' each of the specified objects. This parameter is ignored if the \code{objects} argument 
 #' is left \code{NULL}.
-#' @param spell_correction logical; specifies whether spell correction should be
+#' @param spell_correction \code{logical}; specifies whether spell correction should be
 #' enabled for a user’s search.
 #' @return \code{list} of parameters passed onto sf_search
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_search_parameterized.htm#resources_search_parameterized}
