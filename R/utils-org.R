@@ -648,7 +648,7 @@ sf_convert_lead <- function(input_data,
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
       map_df(extract_records_from_xml_node)
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   
   resultset <- resultset %>%
@@ -1006,7 +1006,7 @@ sf_undelete <- function(ids,
       xml_ns_strip() %>%
       xml_find_all('.//result') %>%
       map_df(xml_nodeset_to_df)
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   resultset <- resultset %>%
     type_convert(col_types = cols())
@@ -1107,7 +1107,7 @@ sf_empty_recycle_bin <- function(ids,
       xml_ns_strip() %>%
       xml_find_all('.//result') %>%
       map_df(xml_nodeset_to_df)
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   resultset <- resultset %>%
     type_convert(col_types = cols())

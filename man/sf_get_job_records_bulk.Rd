@@ -24,8 +24,8 @@ making the request.}
 the results of running the specified job}
 
 \item{combine_record_types}{logical; indicating for Bulk 2.0 jobs whether the
-successfulResults, failedResults, and unprocessedRecords should be stacked together
-using \code{bind_rows}}
+successfulResults, failedResults, and unprocessedRecords should be stacked
+together by binding the rows.}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional
 detail for each API call, which is useful for debugging. More specifically, when

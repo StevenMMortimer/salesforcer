@@ -426,7 +426,7 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
                                          next_records_url = response_parsed$nextRecordsUrl,
                                          api_type = api_type, 
                                          verbose = verbose)
-    resultset <- bind_rows(resultset, next_records)
+    resultset <- safe_bind_rows(list(resultset, next_records))
   }
   
   if(is.null(next_records_url) & (nrow(resultset) > 0)){
@@ -510,7 +510,7 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
                                          next_records_url = response_parsed$nextRecordsUrl,
                                          api_type = api_type, 
                                          verbose = verbose)
-    resultset <- bind_rows(resultset, next_records)
+    resultset <- safe_bind_rows(list(resultset, next_records))
   }
   
   # cast the data in the final iteration and remove Bulk 1.0 ingest operations
@@ -906,7 +906,7 @@ sf_create_batches_bulk_v1 <- function(job_id,
       batches_response[[batch+1]] <- this_batch_info
     }
   }
-  batches_response <- bind_rows(batches_response)
+  batches_response <- safe_bind_rows(batches_response)
   return(batches_response)
 }
 
@@ -1014,7 +1014,7 @@ sf_job_batches_bulk <- function(job_id,
     response_parsed <- content(httr_response, as='parsed', type="application/json", encoding="UTF-8")
     response_parsed <- response_parsed$batchInfo %>% 
       map(function(x) map(x, function(y) ifelse(is.null(y), NA, y)))
-    resultset <- bind_rows(response_parsed) %>%
+    resultset <- safe_bind_rows(response_parsed) %>%
       type_convert(col_types = cols())
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
@@ -1074,7 +1074,7 @@ sf_batch_status_bulk <- function(job_id, batch_id,
     response_parsed <- content(httr_response, as='parsed', type="application/json", encoding="UTF-8")
     response_parsed <- response_parsed$batchInfo %>% 
       map(function(x) map(x, function(y) ifelse(is.null(y), NA, y)))
-    resultset <- bind_rows(response_parsed) %>%
+    resultset <- safe_bind_rows(response_parsed) %>%
       type_convert(col_types = cols())
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
@@ -1163,8 +1163,8 @@ sf_batch_details_bulk <- function(job_id, batch_id,
 #' @param record_types character; one or more types of records to retrieve from 
 #' the results of running the specified job
 #' @param combine_record_types logical; indicating for Bulk 2.0 jobs whether the 
-#' successfulResults, failedResults, and unprocessedRecords should be stacked together 
-#' using \code{bind_rows}
+#' successfulResults, failedResults, and unprocessedRecords should be stacked 
+#' together by binding the rows.
 #' @template verbose
 #' @return A \code{tbl_df} or \code{list} of \code{tbl_df}, formatted by Salesforce, 
 #' with information containing the success or failure or certain rows in a submitted job
@@ -1203,7 +1203,6 @@ sf_get_job_records_bulk <- function(job_id,
   return(batch_records)
 }
 
-#' @importFrom dplyr bind_rows
 sf_get_job_records_bulk_v1 <- function(job_id, verbose = FALSE){
   batches_info <- sf_job_batches_bulk(job_id, api_type = "Bulk 1.0", verbose = verbose)
   # loop through all the batches
@@ -1213,14 +1212,13 @@ sf_get_job_records_bulk_v1 <- function(job_id, verbose = FALSE){
                                                   batch_id = batches_info$id[i], 
                                                   api_type = "Bulk 1.0",
                                                   verbose = verbose)
-    resultset <- bind_rows(resultset, this_batch_resultset)
+    resultset <- safe_bind_rows(list(resultset, this_batch_resultset))
   }
   return(resultset)
 }
 
 #' @importFrom readr read_csv
 #' @importFrom httr content
-#' @importFrom dplyr bind_rows
 sf_get_job_records_bulk_v2 <- function(job_id,
                                        record_types = c("successfulResults", 
                                                         "failedResults", 
@@ -1267,7 +1265,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
       }
     }
     # Third, now bind them together
-    res <- bind_rows(records)
+    res <- safe_bind_rows(records)
   } else {
     res <- records
   }

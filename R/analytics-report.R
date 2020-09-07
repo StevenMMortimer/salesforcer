@@ -104,7 +104,7 @@ sf_list_report_filter_operators <- function(as_tbl=TRUE, verbose=FALSE){
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   if(as_tbl){
     resultset <- lapply(resultset, FUN=function(x){x %>% map_df(flatten_tbl_df)})
-    resultset <- bind_rows(resultset, .id="supported_field_type")
+    resultset <- safe_bind_rows(resultset, idcol="supported_field_type")
   }
   return(resultset)
 }

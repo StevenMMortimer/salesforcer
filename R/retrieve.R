@@ -128,7 +128,7 @@ sf_retrieve_soap <- function(ids,
              object_name_as_col = TRUE) %>% 
       # ignore record ids that could not be matched
       filter(across(any_of("Id"), ~!is.na(.x)))
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   
   resultset <- resultset %>% 

@@ -46,7 +46,7 @@ flatten_tbl_df <- function(x){
 unnest_col <- function(df, col){
   key_rows <- df %>% select(-all_of(col))
   col_data <- df %>% select(all_of(col))
-  bind_rows(
+  safe_bind_rows(
     lapply(1:nrow(key_rows), 
            FUN=function(x, y, z){
              key_record <- y[x,]
@@ -506,7 +506,7 @@ extract_nested_child_records <- function(x){
     drop_empty_recursively() %>%
     map_depth(2, flatten_tbl_df) %>%
     pluck(1) %>%
-    bind_rows() %>%
+    safe_bind_rows() %>%
     as_tibble()
   
   return(child_records)
@@ -581,7 +581,7 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
   if(is.tbl(child_df_list)){
     child_df_list <- list(child_df_list)
   }
-  bind_rows(
+  safe_bind_rows(
     lapply(1:nrow(parents_df), 
            FUN=function(x, y, z){
              parent_record <- y[x,]
@@ -601,28 +601,31 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
     ))
 }
 
-# #' Stack data frames which may have differing types in the same column
-# #' 
-# #' This function accepts a list of data frames and will stack them all and return 
-# #' a \code{tbl_df} with missing values filled in and all columns stacked regardless 
-# #' of if the datatypes were different within the same column.
-# #' 
-# #' @param l \code{list}; A list containing data frames as elements.
-# #' @param fill \code{logical}; \code{TRUE} fills missing columns with NA 
-# #' (default \code{TRUE}). When \code{TRUE}, use.names is set to \code{TRUE}.
-# #' @param idcol \code{character}; Creates a column in the result showing which 
-# #' list item those rows came from. TRUE names this column ".id". idcol="file" 
-# #' names this column "file".
-# #' @param ... arguments passed to \code{\link[data.table]{rbindlist}}
-# #' @return \code{tbl_df}; all list elements stacked on top of each other to 
-# #' form a single data frame
-# #' @note This function is meant to be used internally. Only use when debugging.
-# #' @keywords internal
-# #' @export
-# safe_bind_rows <- function(l, fill=TRUE, idcol=NULL, ...){
-#   rbindlist(l = l, fill = fill, idcol = idcol, ...) %>% 
-#     as_tibble()
-# }
+#' Stack data frames which may have differing types in the same column
+#'
+#' This function accepts a list of data frames and will stack them all and
+#' return a \code{tbl_df} with missing values filled in and all columns stacked
+#' regardless of if the datatypes were different within the same column.
+#'
+#' @importFrom dplyr as_tibble
+#' @importFrom data.table rbindlist
+#' @param l \code{list}; A list containing data frames or lists that can be coerced 
+#' to data frames.
+#' @param fill \code{logical}; \code{TRUE} fills missing columns with NA
+#' (default \code{TRUE}). When \code{TRUE}, use.names is set to \code{TRUE}.
+#' @param idcol \code{character}; Creates a column in the result showing which
+#' list item those rows came from. TRUE names this column ".id". idcol="file"
+#' names this column "file".
+#' @param ... arguments passed to \code{\link[data.table]{rbindlist}}
+#' @return \code{tbl_df}; all list elements stacked on top of each other to
+#' form a single data frame
+#' @note This function is meant to be used internally. Only use when debugging.
+#' @keywords internal
+#' @export
+safe_bind_rows <- function(l, fill=TRUE, idcol=NULL, ...){
+  rbindlist(l = l, fill = fill, idcol = idcol, ...) %>%
+    as_tibble()
+}
 
 #' Extract tibble based on the "records" element of a list
 #' 
@@ -671,11 +674,10 @@ records_list_to_tbl <- function(x,
 #' @export
 bind_query_resultsets <- function(resultset, next_records){
   
-  # HOLD ON INTRODUCING THIS BECAUSE IT CREATES A {{data.table}} DEPENDENCY
-  # deprecate_warn("0.2.1", "salesforcer::bind_query_resultsets()", "safe_bind_rows()", 
-  #                details = paste0("Consider safe_bind_rows() which silently combines ", 
-  #                                 "all columns regardless if there are mixed datatypes ", 
-  #                                 "in a single column."))
+  deprecate_warn("0.2.2", "salesforcer::bind_query_resultsets()", "safe_bind_rows()",
+                 details = paste0("Consider safe_bind_rows() which silently combines ",
+                                  "all columns regardless if there are mixed datatypes ",
+                                  "in a single column."))
   
   resultset <- tryCatch({
     bind_rows(resultset, next_records)  
