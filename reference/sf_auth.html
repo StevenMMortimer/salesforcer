@@ -102,7 +102,7 @@ cached in a file named .httr-oauth-salesforcer in the current working directory.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -248,9 +248,9 @@ connected apps' consumer key, secret, and callback url</p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>logical or character; TRUE means to cache using the default cache
-file <code>.httr-oauth-salesforcer</code>, FALSE means don't cache. A string means use
-the specified path as the cache file.</p></td>
+      <td><p><code>logical</code> or <code>character</code>; TRUE means to cache using
+the default cache file <code>.httr-oauth-salesforcer</code>, FALSE means do not
+cache. A string means use the specified path as the cache file.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -280,7 +280,8 @@ along with additional diagnostic information where available.</p></td>
 <span class='co'># Save token and log in using it</span>
 <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span>(<span class='fu'><a href='salesforcer_state.html'>salesforcer_state</a></span>()<span class='op'>$</span><span class='kw'>token</span>, <span class='st'>"token.rds"</span>)
 <span class='fu'>sf_auth</span>(token = <span class='st'>"token.rds"</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -296,7 +297,7 @@ along with additional diagnostic information where available.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

@@ -98,7 +98,7 @@ attachment body, file name, and path." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -262,15 +262,14 @@ content</p>
 <span class='co'># ContentType column to append it to the Name, if needed</span>
 <span class='kw'>queried_attachments</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Body, Name, ContentType 
                                  FROM Attachment 
-                                 WHERE ParentId = '0016A0000035mJ5'"</span>
-                                 FROM Attachment 
-                                 WHERE ParentId = '0016A0000035mJ5'")
+                                 WHERE ParentId = '0016A0000035mJ5'"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span>(<span class='kw'>sf_download_attachment</span>, <span class='kw'>queried_attachments</span><span class='op'>$</span><span class='kw'>Body</span>, <span class='kw'>queried_attachments</span><span class='op'>$</span><span class='kw'>Name</span>)
 
 <span class='co'># downloading an attachment by its Id</span>
 <span class='co'># (the file name will be the same as it exists in Salesforce)</span>
 <span class='fu'>sf_download_attachment</span>(sf_id = <span class='kw'>queried_attachments</span><span class='op'>$</span><span class='kw'>Id</span>[<span class='fl'>1</span>])
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -286,7 +285,7 @@ content</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

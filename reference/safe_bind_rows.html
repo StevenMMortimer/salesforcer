@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update Attachments using Bulk 1.0 API — sf_update_attachment_bulk_v1 • salesforcer</title>
+<title>Stack data frames which may have differing types in the same column — safe_bind_rows • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,10 @@
 
 
 
-<meta property="og:title" content="Update Attachments using Bulk 1.0 API — sf_update_attachment_bulk_v1" />
-<meta property="og:description" content="Update Attachments using Bulk 1.0 API" />
+<meta property="og:title" content="Stack data frames which may have differing types in the same column — safe_bind_rows" />
+<meta property="og:description" content="This function accepts a list of data frames and will stack them all and
+return a tbl_df with missing values filled in and all columns stacked
+regardless of if the datatypes were different within the same column." />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
 
@@ -179,25 +181,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update Attachments using Bulk 1.0 API</h1>
-    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/attachments.R'><code>R/attachments.R</code></a></small>
-    <div class="hidden name"><code>sf_update_attachment_bulk_v1.Rd</code></div>
+    <h1>Stack data frames which may have differing types in the same column</h1>
+    <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/utils-query.R'><code>R/utils-query.R</code></a></small>
+    <div class="hidden name"><code>safe_bind_rows.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Update Attachments using Bulk 1.0 API</p>
+    <p>This function accepts a list of data frames and will stack them all and
+return a <code>tbl_df</code> with missing values filled in and all columns stacked
+regardless of if the datatypes were different within the same column.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_update_attachment_bulk_v1</span>(
-  <span class='kw'>attachment_input_data</span>,
-  object_name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Attachment"</span>),
-  content_type = <span class='st'>"ZIP_CSV"</span>,
-  <span class='kw'>control</span>,
-  <span class='kw'>...</span>,
-  verbose = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>safe_bind_rows</span>(<span class='kw'>l</span>, fill = <span class='fl'>TRUE</span>, idcol = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>l</th>
+      <td><p><code>list</code>; A list containing data frames or lists that can be coerced
+to data frames.</p></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p><code>logical</code>; <code>TRUE</code> fills missing columns with NA
+(default <code>TRUE</code>). When <code>TRUE</code>, use.names is set to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>idcol</th>
+      <td><p><code>character</code>; Creates a column in the result showing which
+list item those rows came from. TRUE names this column ".id". idcol="file"
+names this column "file".</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></code></p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>tbl_df</code>; all list elements stacked on top of each other to
+form a single data frame</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function is meant to be used internally. Only use when debugging.</p>

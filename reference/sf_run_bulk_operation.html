@@ -97,7 +97,7 @@ This function is a convenience wrapper for submitting bulk API jobs" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -237,7 +237,7 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").</p
     </tr>
     <tr>
       <th>operation</th>
-      <td><p>character; string defining the type of operation being performed</p></td>
+      <td><p><code>character</code>; string defining the type of operation being performed</p></td>
     </tr>
     <tr>
       <th>external_id_fieldname</th>
@@ -277,7 +277,7 @@ completion before stopping.</p></td>
     </tr>
     <tr>
       <th>wait_for_results</th>
-      <td><p>logical; indicating whether to wait for the operation to complete
+      <td><p><code>logical</code>; indicating whether to wait for the operation to complete
 so that the batch results of individual records can be obtained</p></td>
     </tr>
     <tr>
@@ -320,7 +320,8 @@ match the ordering of records in the original job data.</p>
 <span class='kw'>inserts</span> <span class='op'>&lt;-</span> <span class='fu'>sf_bulk_operation</span>(input_data = <span class='kw'>new_contacts</span>, 
                              object_name = <span class='st'>"Contact"</span>, 
                              operation = <span class='st'>"insert"</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -336,7 +337,7 @@ match the ordering of records in the original job data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

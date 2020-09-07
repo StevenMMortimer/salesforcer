@@ -97,7 +97,7 @@ Searches for records in your organization’s data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -205,13 +205,13 @@ Searches for records in your organization’s data." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>search_string</th>
-      <td><p>character; string to search using parameterized search
+      <td><p><code>character</code>; string to search using parameterized search
 or SOSL. Note that is_sosl must be set to TRUE and the string valid in order
 to perform a search using SOSL.</p></td>
     </tr>
     <tr>
       <th>is_sosl</th>
-      <td><p>logical; indicating whether or not to try the string as SOSL</p></td>
+      <td><p><code>logical</code>; indicating whether or not to try the string as SOSL</p></td>
     </tr>
     <tr>
       <th>guess_types</th>
@@ -277,7 +277,8 @@ for more detail.</p>
                         <span class='st'>"contact(id, phone, firstname, lastname),"</span>,
                         <span class='st'>"lead(id, phone, firstname, lastname)"</span>)
 <span class='kw'>sosl_search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='kw'>my_sosl_search</span>, is_sosl=<span class='fl'>TRUE</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -293,7 +294,7 @@ for more detail.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

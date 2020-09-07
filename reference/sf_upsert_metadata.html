@@ -98,7 +98,7 @@ to Salesforce for creation or update if the object already exists" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -225,7 +225,7 @@ look at the documentation for <code><a href='sf_control.html'>sf_control</a></co
     </tr>
     <tr>
       <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all
+      <td><p><code>logical</code>; allows a call to roll back all changes unless all
 records are processed successfully.</p></td>
     </tr>
     <tr>
@@ -275,7 +275,8 @@ when an existing Salesforce element matches the metadata type and fullName.</p>
 <span class='kw'>upsert_metadata</span>[[<span class='fl'>2</span>]]<span class='op'>$</span><span class='kw'>pluralLabel</span> <span class='op'>&lt;-</span> <span class='st'>'Custom_Account2s_new'</span>
 <span class='kw'>upserted_custom_object_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_upsert_metadata</span>(metadata_type = <span class='st'>'CustomObject'</span>,
                                                     metadata = <span class='kw'>upsert_metadata</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -291,7 +292,7 @@ when an existing Salesforce element matches the metadata type and fullName.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

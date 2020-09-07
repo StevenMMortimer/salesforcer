@@ -98,7 +98,7 @@ and saves the results into a zip file" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -204,11 +204,11 @@ and saves the results into a zip file</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>id</th>
-      <td><p>character; string id returned from <a href='sf_retrieve_metadata.html'>sf_retrieve_metadata</a></p></td>
+      <td><p><code>character</code>; string id returned from <a href='sf_retrieve_metadata.html'>sf_retrieve_metadata</a></p></td>
     </tr>
     <tr>
       <th>include_zip</th>
-      <td><p>logical; Set to false to check the status of the retrieval without
+      <td><p><code>logical</code>; Set to false to check the status of the retrieval without
 attempting to retrieve the zip file. If omitted, this argument defaults to true.</p></td>
     </tr>
     <tr>
@@ -243,7 +243,8 @@ along with additional diagnostic information where available.</p></td>
 
 <span class='co'># check on status, this will automatically download the contents to package.zip when ready</span>
 <span class='kw'>retrieve_status</span> <span class='op'>&lt;-</span> <span class='fu'>sf_retrieve_metadata_check_status</span>(<span class='kw'>retrieve_info</span><span class='op'>$</span><span class='kw'>id</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -259,7 +260,7 @@ along with additional diagnostic information where available.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

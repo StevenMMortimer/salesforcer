@@ -100,7 +100,7 @@ parent of the related records." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -212,12 +212,12 @@ parent of the related records.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>master_id</th>
-      <td><p>character; a Salesforce generated Id that identifies the master record,
+      <td><p><code>character</code>; a Salesforce generated Id that identifies the master record,
 which is the record to which the victim records will be merged into</p></td>
     </tr>
     <tr>
       <th>victim_ids</th>
-      <td><p>character; one or two Salesforce Ids of records to be merged into
+      <td><p><code>character</code>; one or two Salesforce Ids of records to be merged into
 the master record. Up to three records can be merged in a single request, including
 the master record. This limit is the same as the limit enforced by the Salesforce user
 interface. To merge more than 3 records, successively merge records by running
@@ -280,11 +280,11 @@ along with additional diagnostic information where available.</p></td>
                       master_fields = <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='st'>"Description"</span> = <span class='kw'>new_contacts</span><span class='op'>$</span><span class='kw'>Description</span>[<span class='fl'>2</span>]))
 <span class='co'># check the second and third records now have the same Master Record Id as the first</span>
 <span class='kw'>merge_check</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, MasterRecordId, Description 
-                                 FROM Contact WHERE Id IN ('%s')"</span>iption 
-                                 FROM Contact WHERE Id IN ('%s')", 
+                                 FROM Contact WHERE Id IN ('%s')"</span>, 
                                  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='kw'>new_recs1</span><span class='op'>$</span><span class='kw'>id</span>, collapse=<span class='st'>"','"</span>)), 
                         queryall = <span class='fl'>TRUE</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -300,7 +300,7 @@ along with additional diagnostic information where available.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

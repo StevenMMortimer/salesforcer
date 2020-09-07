@@ -97,7 +97,7 @@ Updates one or more records to your organization’s data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -244,7 +244,7 @@ to <code><a href='sf_run_bulk_operation.html'>sf_bulk_operation</a></code></p></
     </tr>
     <tr>
       <th>all_or_none</th>
-      <td><p>logical; allows a call to roll back all changes unless all
+      <td><p><code>logical</code>; allows a call to roll back all changes unless all
 records are processed successfully.</p></td>
     </tr>
     <tr>
@@ -277,7 +277,8 @@ of records and not all records submitted to the function.</p>
 <span class='co'># update and allow fields to be truncated if they are too long</span>
 <span class='kw'>update</span> <span class='op'>&lt;-</span> <span class='fu'>sf_update</span>(input_data = <span class='kw'>updated_contacts</span>, object_name = <span class='st'>"Contact"</span>,
                     AllowFieldTruncationHeader=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(allowFieldTruncation=<span class='fl'>TRUE</span>))
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -293,7 +294,7 @@ of records and not all records submitted to the function.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>

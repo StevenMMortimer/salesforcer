@@ -97,7 +97,7 @@ which has already been submitted completed (successfully or not)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -214,14 +214,14 @@ making the request.</p></td>
     </tr>
     <tr>
       <th>record_types</th>
-      <td><p>character; one or more types of records to retrieve from
+      <td><p><code>character</code>; one or more types of records to retrieve from
 the results of running the specified job</p></td>
     </tr>
     <tr>
       <th>combine_record_types</th>
-      <td><p>logical; indicating for Bulk 2.0 jobs whether the
-successfulResults, failedResults, and unprocessedRecords should be stacked together
-using <code>bind_rows</code></p></td>
+      <td><p><code>logical</code>; indicating for Bulk 2.0 jobs whether the
+successfulResults, failedResults, and unprocessedRecords should be stacked
+together by binding the rows.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -253,7 +253,8 @@ match the ordering of records in the original job data.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span>(<span class='fl'>3</span>)
 <span class='co'># check status using - sf_get_job_bulk(job_info$id)</span>
 <span class='kw'>job_record_details</span> <span class='op'>&lt;-</span> <span class='fu'>sf_get_job_records_bulk</span>(job_id=<span class='kw'>job_info</span><span class='op'>$</span><span class='kw'>id</span>)
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -269,7 +270,7 @@ match the ordering of records in the original job data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>
