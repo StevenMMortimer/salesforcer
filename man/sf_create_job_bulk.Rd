@@ -39,16 +39,16 @@ objects during upserts to determine if the record already exists in Salesforce o
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{content_type}{character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to
+\item{content_type}{\code{character}; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to
 indicate the type of data being passed to the Bulk APIs. For the Bulk 2.0 API the only
 valid value (and the default) is 'CSV'.}
 
-\item{concurrency_mode}{character; either "Parallel" or "Serial" that specifies
+\item{concurrency_mode}{\code{character}; either "Parallel" or "Serial" that specifies
 whether batches should be completed sequentially or in parallel. Use "Serial"
 only if lock contentions persist with in "Parallel" mode. Note: this argument is
 only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.}
 
-\item{column_delimiter}{character; indicating the column delimiter used for CSV job data.
+\item{column_delimiter}{\code{character}; indicating the column delimiter used for CSV job data.
 The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE",
 "SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also,
 note that this argument is only used in the Bulk 2.0 API and will be ignored

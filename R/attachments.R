@@ -233,7 +233,7 @@ sf_create_attachment_soap <- function(attachment_input_data,
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
       map_df(xml_nodeset_to_df)
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   resultset <- resultset %>%
     sf_reorder_cols() %>% 
@@ -300,7 +300,7 @@ sf_create_attachment_rest <- function(attachment_input_data,
     # I have no idea why fromJSON would parse things differently. 
     # This doesn't occur with the calls to the composite REST API like with create 
     # and update because those inherently passed as JSON arrays 
-    resultset <- bind_rows(resultset, fromJSON(sprintf("[%s]", response_parsed)))
+    resultset <- safe_bind_rows(list(resultset, fromJSON(sprintf("[%s]", response_parsed))))
   }
   resultset <- resultset %>%
     as_tibble() %>%
@@ -472,7 +472,7 @@ sf_update_attachment_soap <- function(attachment_input_data,
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
       map_df(xml_nodeset_to_df)
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   resultset <- resultset %>%
     sf_reorder_cols() %>% 
@@ -550,7 +550,7 @@ sf_update_attachment_rest <- function(attachment_input_data,
       response_parsed <- content(httr_response, as = "text", encoding = "UTF-8")
       this_resultset <- fromJSON(sprintf("[%s]", response_parsed))      
     }
-    resultset <- bind_query_resultsets(resultset, this_resultset)
+    resultset <- safe_bind_rows(list(resultset, this_resultset))
   }
   resultset <- resultset %>%
     as_tibble() %>%

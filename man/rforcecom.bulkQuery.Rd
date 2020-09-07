@@ -25,7 +25,7 @@ necessary to pass the session in each function call.}
 \item{soqlQuery}{\code{character}; a string defining a SOQL query
 (e.g. "SELECT Id, Name FROM Account").}
 
-\item{object}{character; the name of one Salesforce objects that the
+\item{object}{\code{character}; the name of one Salesforce objects that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c")}
 
 \item{interval_seconds}{an integer defining the seconds between attempts to check for job completion}

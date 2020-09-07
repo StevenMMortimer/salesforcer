@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -237,20 +237,20 @@ making the request.</p></td>
     </tr>
     <tr>
       <th>content_type</th>
-      <td><p>character; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to
+      <td><p><code>character</code>; being one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 'ZIP_JSON' to
 indicate the type of data being passed to the Bulk APIs. For the Bulk 2.0 API the only
 valid value (and the default) is 'CSV'.</p></td>
     </tr>
     <tr>
       <th>concurrency_mode</th>
-      <td><p>character; either "Parallel" or "Serial" that specifies
+      <td><p><code>character</code>; either "Parallel" or "Serial" that specifies
 whether batches should be completed sequentially or in parallel. Use "Serial"
 only if lock contentions persist with in "Parallel" mode. Note: this argument is
 only used in the Bulk 1.0 API and will be ignored in calls using the Bulk 2.0 API.</p></td>
     </tr>
     <tr>
       <th>column_delimiter</th>
-      <td><p>character; indicating the column delimiter used for CSV job data.
+      <td><p><code>character</code>; indicating the column delimiter used for CSV job data.
 The default value is COMMA. Valid values are: "BACKQUOTE", "CARET", "COMMA", "PIPE",
 "SEMICOLON", and "TAB", but this package only accepts and uses "COMMA". Also,
 note that this argument is only used in the Bulk 2.0 API and will be ignored

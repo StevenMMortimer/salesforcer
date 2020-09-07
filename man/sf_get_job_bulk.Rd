@@ -19,7 +19,7 @@ returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{query_operation}{logical; an indicator of whether the job is a query job,
+\item{query_operation}{\code{logical}; an indicator of whether the job is a query job,
 which is needed when using the Bulk 2.0 API because the URI endpoints are different
 for the "ingest" vs. the "query" jobs.}
 

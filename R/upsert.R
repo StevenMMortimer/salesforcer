@@ -248,7 +248,7 @@ sf_upsert_rest <- function(input_data,
     response_parsed <- content(httr_response, as="parsed", encoding="UTF-8")
     response_parsed <- response_parsed$results %>%
       map_df(~flatten_tbl_df(.x$result))
-    resultset <- bind_rows(resultset, response_parsed)
+    resultset <- safe_bind_rows(list(resultset, response_parsed))
   }
 
   resultset <- resultset %>% 

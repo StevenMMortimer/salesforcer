@@ -291,7 +291,7 @@ rforcecom.search <- function(session, queryString){
 #' 
 #' @template session
 #' @template soqlQuery
-#' @param queryAll  logical; indicating if the query recordset should include 
+#' @param queryAll  \code{logical}; indicating if the query recordset should include 
 #' deleted and archived records (available only when querying Task and Event records)
 #' @return Result dataset.
 #' @export
@@ -310,7 +310,7 @@ rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
 #' 
 #' @template session
 #' @template soqlQuery
-#' @param object character; the name of one Salesforce objects that the 
+#' @param object \code{character}; the name of one Salesforce objects that the 
 #' function is operating against (e.g. "Account", "Contact", "CustomObject__c")
 #' @param interval_seconds an integer defining the seconds between attempts to check for job completion
 #' @param max_attempts an integer defining then max number attempts to check for job completion before stopping

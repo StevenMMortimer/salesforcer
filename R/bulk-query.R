@@ -277,7 +277,7 @@ sf_query_result_bulk_v2 <- function(job_id,
                                             locator = locator,
                                             api_type = api_type,
                                             verbose = verbose)
-    resultset <- bind_query_resultsets(resultset, next_records)
+    resultset <- safe_bind_rows(list(resultset, next_records))
   }
   
   if(is.tbl(resultset)){
@@ -415,7 +415,7 @@ sf_query_bulk_v1 <- function(soql,
                                              api_type = api_type,
                                              verbose = verbose)
     }
-    resultset <- bind_rows(resultset)
+    resultset <- safe_bind_rows(resultset)
     close_job_info <- sf_close_job_bulk(job_info$id, 
                                         api_type = api_type, 
                                         verbose = verbose)

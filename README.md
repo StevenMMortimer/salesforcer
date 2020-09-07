@@ -51,23 +51,6 @@ Package features include:
   - Passing API call control parameters such as, “All or None”,
     “Duplicate Rule”, “Assignment Rule” execution and many more\!
 
-**CAUTION: The most recent release, {salesforcer 0.2.1}, requires {dplyr
-1.0.0} because {dplyr 1.0.1} introduced a bug in `bind_rows()` with how
-it binds lists where the list elements have differing lengths. This is
-documented in tidyverse/dplyr\#5417 and r-lib/vctrs\#1073. The timeline
-for a fix is unknown as of August 2020, but a new version of
-{salesforcer} (0.2.2) will be released immediately following the {dplyr}
-fix.**
-
-You can install the older version of {dplyr} using the following
-command:
-
-``` r
-# remove.packages("dplyr")
-# install.packages("remotes")
-remotes::install_version("dplyr", "1.0.0")
-```
-
 ## Table of Contents
 
   - [Installation](#installation)
@@ -86,7 +69,7 @@ remotes::install_version("dplyr", "1.0.0")
 ## Installation
 
 ``` r
-# install the current CRAN version (0.2.1)
+# install the current CRAN version (0.2.0)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -185,8 +168,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s0000149YhZAAU TRUE   
-#> 2 0033s0000149YhaAAE TRUE
+#> 1 0033s000014Ad6NAAS TRUE   
+#> 2 0033s000014Ad6OAAS TRUE
 ```
 
 ### Query
@@ -211,8 +194,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s0000149YhZAAU Test      Contact-Create-1
-#> 2 0033s0000149YhaAAE Test      Contact-Create-2
+#> 1 0033s000014Ad6NAAS Test      Contact-Create-1
+#> 2 0033s000014Ad6OAAS Test      Contact-Create-2
 ```
 
 **NOTE**: In the example above, you’ll notice that the `"Account.Name"`
@@ -249,8 +232,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s0000149YhZAAU TRUE   
-#> 2 0033s0000149YhaAAE TRUE
+#> 1 0033s000014Ad6NAAS TRUE   
+#> 2 0033s000014Ad6OAAS TRUE
 ```
 
 ### Bulk Operations
@@ -287,8 +270,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s0000149YheAAE TRUE    TRUE    NA   
-#> 2 0033s0000149YhfAAE TRUE    TRUE    NA
+#> 1 0033s000014Ad6WAAS TRUE    TRUE    NA   
+#> 2 0033s000014Ad6XAAS TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -303,8 +286,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s0000149YheAAE Test      Contact-Create-1
-#> 2 0033s0000149YhfAAE Test      Contact-Create-2
+#> 1 0033s000014Ad6WAAS Test      Contact-Create-1
+#> 2 0033s000014Ad6XAAS Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -312,8 +295,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s0000149YheAAE 0033s0000149YheAAE FALSE       NA       
-#> 2 0033s0000149YhfAAE 0033s0000149YhfAAE FALSE       NA
+#> 1 0033s000014Ad6WAAS 0033s000014Ad6WAAS FALSE       NA       
+#> 2 0033s000014Ad6XAAS 0033s000014Ad6XAAS FALSE       NA
 ```
 
 ### Using the Metadata API

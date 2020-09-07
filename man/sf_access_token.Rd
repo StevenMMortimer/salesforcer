@@ -13,7 +13,7 @@ set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \value{
-character; a string of the access_token element of the current token in
+\code{character}; a string of the access_token element of the current token in
 force; otherwise NULL
 }
 \description{

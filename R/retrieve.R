@@ -6,7 +6,7 @@
 #' Retrieves one or more new records to your organization’s data.
 #' 
 #' @template ids
-#' @param fields character; one or more strings indicating the fields to be returned 
+#' @param fields \code{character}; one or more strings indicating the fields to be returned 
 #' on the records
 #' @template object_name
 #' @template api_type
@@ -128,7 +128,7 @@ sf_retrieve_soap <- function(ids,
              object_name_as_col = TRUE) %>% 
       # ignore record ids that could not be matched
       filter(across(any_of("Id"), ~!is.na(.x)))
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   
   resultset <- resultset %>% 

@@ -1,4 +1,21 @@
-## salesforcer 0.2.1
+## salesforcer 0.2.2
+
+### Dependencies
+
+  * This release relaxes the dependency on {dplyr} and brings back use of 
+  `rbindlist()` from {data.table} because of limitations of `dplyr::bind_rows()`. 
+  As noted in (tidyverse/dplyr#5429) {dplyr} will only support binding data.frames 
+  or lists of data.frames, **not** a list of lists which is needed in some 
+  applications of the {salesforcer} package.
+  * Due to other recent changes between {vctrs} and {dplyr}, you may now see the 
+  following warning displayed when loading {salesforcer}, which is emitted by the 
+  loading of {dplyr}:
+  
+  ```r
+  Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame' when loading 'dplyr'
+  ```
+
+## salesforcer 0.2.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.1)
 
 ### Dependencies
 

@@ -18,9 +18,9 @@
 #' @param filename a file path to save the zip file in the event that it is downloaded. The 
 #' name must have a .zip extension. The default behavior will be to save in the current 
 #' working directory as "package.zip"
-#' @param check_interval numeric; specifying the seconds to wait between retrieve 
+#' @param check_interval \code{numeric}; specifying the seconds to wait between retrieve 
 #' status requests to check if complete
-#' @param max_tries numeric; specifying the maximum number of times to check 
+#' @param max_tries \code{numeric}; specifying the maximum number of times to check 
 #' whether the retrieve package.zip is complete before the function times out
 #' @template verbose
 #' @return A \code{list} of details from the created retrieve request
@@ -110,8 +110,8 @@ sf_retrieve_metadata <- function(retrieve_request,
 #' @importFrom purrr map_df map_dfc
 #' @importFrom dplyr as_tibble
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_checkretrievestatus.htm}
-#' @param id character; string id returned from \link{sf_retrieve_metadata}
-#' @param include_zip logical; Set to false to check the status of the retrieval without 
+#' @param id \code{character}; string id returned from \link{sf_retrieve_metadata}
+#' @param include_zip \code{logical}; Set to false to check the status of the retrieval without 
 #' attempting to retrieve the zip file. If omitted, this argument defaults to true.
 #' @param filename a file path to save the zip file in the event that it is downloaded. The 
 #' name must have a .zip extension. The default behavior will be to save in the current 

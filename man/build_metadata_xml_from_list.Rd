@@ -17,7 +17,7 @@ build_metadata_xml_from_list(
 
 \item{metatype}{a character indicating the element name of each record in the list}
 
-\item{root_name}{character; the name of the root node if created}
+\item{root_name}{\code{character}; the name of the root node if created}
 
 \item{ns}{named vector; a collection of character strings indicating the namespace
 definitions of the root node if created}

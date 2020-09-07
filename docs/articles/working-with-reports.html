@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -279,13 +279,13 @@
 <p>Second, Salesforce has a few API endpoints that tell you the fields on the report or the report type, more generally, and all the ways you can declare a filter on a particular field type and. The <code>reportTypeMetadata</code> element returned on the report description also has detailed information on how to filter the report. For example, it already contains the start and end dates that would be applied when using the “LAST_MONTH” filter value on a date field.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">report_details</span>$<span class="no">reportTypeMetadata</span>$<span class="no">standardDateFilterDurationGroups</span><span class="kw">[[</span><span class="fl">6</span>]]$<span class="no">standardDateFilterDurations</span><span class="kw">[[</span><span class="fl">1</span>]]
 <span class="co">#&gt; $endDate</span>
-<span class="co">#&gt; [1] "2020-07-31"</span>
+<span class="co">#&gt; [1] "2020-08-31"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $label</span>
 <span class="co">#&gt; [1] "Last Month"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $startDate</span>
-<span class="co">#&gt; [1] "2020-07-01"</span>
+<span class="co">#&gt; [1] "2020-08-01"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $value</span>
 <span class="co">#&gt; [1] "LAST_MONTH"</span></pre></body></html></div>

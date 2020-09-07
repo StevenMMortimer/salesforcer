@@ -31,7 +31,7 @@ all objects in the search.}
 each of the specified objects. This parameter is ignored if the \code{objects} argument
 is left \code{NULL}.}
 
-\item{spell_correction}{logical; specifies whether spell correction should be
+\item{spell_correction}{\code{logical}; specifies whether spell correction should be
 enabled for a user’s search.}
 }
 \value{

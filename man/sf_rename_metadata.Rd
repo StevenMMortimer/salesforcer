@@ -9,10 +9,10 @@ sf_rename_metadata(metadata_type, old_fullname, new_fullname, verbose = FALSE)
 \arguments{
 \item{metadata_type}{\code{character}; string on what type of metadata to create.}
 
-\item{old_fullname}{character; string corresponding to the fullName of the element you would
+\item{old_fullname}{\code{character}; string corresponding to the fullName of the element you would
 like to rename}
 
-\item{new_fullname}{character; string corresponding to the new fullName you would like
+\item{new_fullname}{\code{character}; string corresponding to the new fullName you would like
 to apply the targeted element}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional

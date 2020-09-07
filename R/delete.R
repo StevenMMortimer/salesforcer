@@ -153,7 +153,7 @@ sf_delete_soap <- function(ids,
       xml_ns_strip() %>%
       xml_find_all('.//result') %>% 
       map_df(extract_records_from_xml_node)
-    resultset <- bind_rows(resultset, this_set)
+    resultset <- safe_bind_rows(list(resultset, this_set))
   }
   
   resultset <- resultset %>% 

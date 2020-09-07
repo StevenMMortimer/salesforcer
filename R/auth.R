@@ -40,7 +40,7 @@
 #' a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer} 
 #' permission to operate on your behalf. By default, these user credentials are 
 #' cached in a file named \code{.httr-oauth-salesforcer} in the current working directory.
-#'
+#' 
 #' @importFrom httr content oauth2.0_token oauth_app oauth_endpoint
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling xml_set_namespace xml_find_first xml_child
 #' @param username Salesforce username, typically an email address
@@ -55,9 +55,9 @@
 #' @param consumer_key,consumer_secret,callback_url the "Consumer Key","Consumer Secret", 
 #' and "Callback URL" when using a connected app; defaults to the \code{salesforcer} 
 #' connected apps' consumer key, secret, and callback url
-#' @param cache logical or character; TRUE means to cache using the default cache 
-#' file \code{.httr-oauth-salesforcer}, FALSE means don't cache. A string means use 
-#' the specified path as the cache file.
+#' @param cache \code{logical} or \code{character}; TRUE means to cache using 
+#' the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not 
+#' cache. A string means use the specified path as the cache file.
 #' @template verbose
 #' @examples
 #' \dontrun{
@@ -363,7 +363,7 @@ token_available <- function(verbose = TRUE) {
 #' Return access_token attribute of OAuth 2.0 Token
 #'
 #' @template verbose
-#' @return character; a string of the access_token element of the current token in 
+#' @return \code{character}; a string of the access_token element of the current token in 
 #' force; otherwise NULL
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
@@ -376,7 +376,7 @@ sf_access_token <- function(verbose = FALSE) {
 #' Return session_id resulting from Basic auth routine
 #'
 #' @template verbose
-#' @return character; a string of the sessionId element of the current authorized 
+#' @return \code{character}; a string of the sessionId element of the current authorized 
 #' API session; otherwise NULL
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal

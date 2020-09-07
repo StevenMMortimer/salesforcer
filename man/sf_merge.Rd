@@ -16,10 +16,10 @@ sf_merge(
 )
 }
 \arguments{
-\item{master_id}{character; a Salesforce generated Id that identifies the master record,
+\item{master_id}{\code{character}; a Salesforce generated Id that identifies the master record,
 which is the record to which the victim records will be merged into}
 
-\item{victim_ids}{character; one or two Salesforce Ids of records to be merged into
+\item{victim_ids}{\code{character}; one or two Salesforce Ids of records to be merged into
 the master record. Up to three records can be merged in a single request, including
 the master record. This limit is the same as the limit enforced by the Salesforce user
 interface. To merge more than 3 records, successively merge records by running

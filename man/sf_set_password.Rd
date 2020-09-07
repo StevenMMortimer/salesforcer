@@ -7,9 +7,9 @@
 sf_set_password(user_id, password, verbose = FALSE)
 }
 \arguments{
-\item{user_id}{character; the unique Salesforce Id assigned to the User}
+\item{user_id}{\code{character}; the unique Salesforce Id assigned to the User}
 
-\item{password}{character; a new password that you would like to set for the
+\item{password}{\code{character}; a new password that you would like to set for the
 supplied user that complies to your organizations password requirements}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional

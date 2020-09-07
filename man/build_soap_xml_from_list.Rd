@@ -28,14 +28,14 @@ performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
 \item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{fields}{character; one or more strings indicating the fields to be returned
+\item{fields}{\code{character}; one or more strings indicating the fields to be returned
 on the records}
 
 \item{external_id_fieldname}{\code{character}; string identifying a custom field on the
 object that has been set as an "External ID" field. This field is used to reference
 objects during upserts to determine if the record already exists in Salesforce or not.}
 
-\item{root_name}{character; the name of the root node if created}
+\item{root_name}{\code{character}; the name of the root node if created}
 
 \item{ns}{named vector; a collection of character strings indicating the namespace
 definitions of the root node if created}

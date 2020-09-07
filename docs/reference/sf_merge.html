@@ -100,7 +100,7 @@ parent of the related records." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -212,12 +212,12 @@ parent of the related records.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>master_id</th>
-      <td><p>character; a Salesforce generated Id that identifies the master record,
+      <td><p><code>character</code>; a Salesforce generated Id that identifies the master record,
 which is the record to which the victim records will be merged into</p></td>
     </tr>
     <tr>
       <th>victim_ids</th>
-      <td><p>character; one or two Salesforce Ids of records to be merged into
+      <td><p><code>character</code>; one or two Salesforce Ids of records to be merged into
 the master record. Up to three records can be merged in a single request, including
 the master record. This limit is the same as the limit enforced by the Salesforce user
 interface. To merge more than 3 records, successively merge records by running

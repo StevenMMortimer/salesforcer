@@ -52,21 +52,6 @@ Package features include:
   * Passing API call control parameters such as, "All or None", "Duplicate Rule", 
   "Assignment Rule" execution and many more!  
   
-**CAUTION: The most recent release, {salesforcer 0.2.1}, requires {dplyr 1.0.0} 
-because {dplyr 1.0.1} introduced a bug in `bind_rows()` with how it binds 
-lists where the list elements have differing lengths. This is documented in 
-tidyverse/dplyr#5417 and r-lib/vctrs#1073. The timeline for a fix is unknown as 
-of August 2020, but a new version of {salesforcer} (0.2.2) will be released 
-immediately following the {dplyr} fix.**  
-
-You can install the older version of {dplyr} using the following command:  
-
-```r
-# remove.packages("dplyr")
-# install.packages("remotes")
-remotes::install_version("dplyr", "1.0.0")
-```
-
 ## Table of Contents  
   * [Installation](#installation)
   * [Vignettes](#vignettes)
@@ -84,7 +69,7 @@ remotes::install_version("dplyr", "1.0.0")
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (0.2.1)
+# install the current CRAN version (0.2.0)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -119,13 +104,14 @@ First, load the {salesforcer} package and login. There are two ways to authentic
   1. OAuth 2.0
   2. Basic Username-Password
 
-It is recommended to use OAuth 2.0 so that passwords do not have to be shared or 
-embedded within scripts. User credentials will be stored in locally cached file 
-entitled ".httr-oauth-salesforcer" in the current working directory. Also, note that 
-if you use OAuth 2.0 authentication then the package will automatically refresh 
-it so you will not have to call `sf_auth()` during each session if you have a 
-cached ".httr-oauth-salesforcer" file in the working directory. The cache file is named 
-that way to not conflict with the ".httr-oauth" files created by other packages. 
+It is recommended to use OAuth 2.0 so that passwords do not have to be shared or
+embedded within scripts. User credentials will be stored in locally cached file
+entitled ".httr-oauth-salesforcer" in the current working directory. Also, note
+that if you use OAuth 2.0 authentication then the package will automatically
+refresh it so you will not have to call `sf_auth()` during each session if you
+have a cached ".httr-oauth-salesforcer" file in the working directory. The cache
+file is named that way to not conflict with the ".httr-oauth" files created by
+other packages.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))

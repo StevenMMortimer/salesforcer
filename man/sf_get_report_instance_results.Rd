@@ -111,7 +111,7 @@ instance_status <- instance_list[[which(instance_list$id == results$id), "status
 # ... if so, then grab the results
 if(instance_status == "Success"){
   report_data <- sf_get_report_instance_results(report_id = this_report_id, 
-                                            report_instance_id = results$id)
+                                                report_instance_id = results$id)
 }
 }
 }

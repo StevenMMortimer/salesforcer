@@ -104,7 +104,7 @@ sf_list_report_filter_operators <- function(as_tbl=TRUE, verbose=FALSE){
   resultset <- sf_rest_list(url=this_url, as_tbl=FALSE, verbose=verbose)
   if(as_tbl){
     resultset <- lapply(resultset, FUN=function(x){x %>% map_df(flatten_tbl_df)})
-    resultset <- bind_rows(resultset, .id="supported_field_type")
+    resultset <- safe_bind_rows(resultset, idcol="supported_field_type")
   }
   return(resultset)
 }
@@ -890,12 +890,12 @@ sf_delete_report_instance <- function(report_id,
 #' # ... if so, then grab the results
 #' if(instance_status == "Success"){
 #'   report_data <- sf_get_report_instance_results(report_id = this_report_id, 
-#'                                             report_instance_id = results$id)
+#'                                                 report_instance_id = results$id)
 #' }
 #' }
 #' @export
 sf_get_report_instance_results <- function(report_id, 
-                                           report_instance_id, 
+                                           report_instance_id,
                                            labels = TRUE,
                                            guess_types = TRUE, 
                                            bind_using_character_cols = FALSE,
@@ -1121,7 +1121,8 @@ sf_run_report <- function(report_id,
           }
         }
       }
-      results <- sf_get_report_instance_results(report_id, results$id, 
+      results <- sf_get_report_instance_results(report_id, 
+                                                results$id, 
                                                 verbose = verbose)
     }
   }
