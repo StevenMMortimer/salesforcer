@@ -53,8 +53,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          remotes::install_version("dplyr", version = "1.0.0")
-          remotes::install_deps(dependencies = TRUE, upgrade = "never")
+          remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
         shell: Rscript {0}
         
