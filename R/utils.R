@@ -17,7 +17,7 @@ salesforcer_state <- function(){
 #' \dontrun{
 #' get_os()
 #' }
-#' @seealso \url{http://conjugateprior.org/2015/06/identifying-the-os-from-r}
+#' @seealso \url{https://conjugateprior.org/2015/06/identifying-the-os-from-r}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

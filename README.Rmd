@@ -16,16 +16,16 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 # salesforcer<img src="man/figures/salesforcer.png" width="120px" align="right" />
 
 <!-- badges: start -->
-[![R Build Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check)
+[![R Build Status](https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/stevenmmortimer/salesforcer/actions?workflow=R-CMD-check)
 [![CRAN Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle: Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Monthly Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
-[![Coverage Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=main)
+[![Coverage Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main)
 <!-- badges: end -->
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs using 
-tidy principles. The package implements actions from the SOAP, REST, Bulk 1.0, 
-Bulk 2.0, and Metadata APIs.  
+tidy principles. The package implements actions from the REST, SOAP, Bulk 1.0, 
+Bulk 2.0, Reports and Dashboards, and Metadata APIs.   
 
 Package features include: 
 
@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (0.2.0)
+# install the current CRAN version (0.2.2)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -78,22 +78,21 @@ remotes::install_github("StevenMMortimer/salesforcer")
 ```
 
 If you encounter an issue while using this package, please file a minimal reproducible 
-example on [GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
+example on [GitHub](https://github.com/stevenmmortimer/salesforcer/issues).
 
 ## Vignettes
 
 The README below outlines the basic package functionality. For more information 
-please feel free to browse the `pkgdown` site at https://StevenMMortimer.github.io/salesforcer 
-which contains the following vignettes:
+please feel free to browse the {salesforcer} website at https://stevenmmortimer.github.io/salesforcer/ which contains the following vignettes:
 
-  * [Getting Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
-  * [Supported Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
-  * [Working with Bulk APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
-  * [Working with Reports](https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html)
-  * [Working with Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
-  * [Working with Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
-  * [Passing Control Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
-  * [Transitioning from RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
+  * [Getting Started](https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html)
+  * [Supported Queries](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html)
+  * [Working with Bulk APIs](https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
+  * [Working with Reports](https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html)
+  * [Working with Attachments](https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html)
+  * [Working with Metadata](https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html)
+  * [Passing Control Args](https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html)
+  * [Transitioning from RForcecom](https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
 
 ## Usage
 
@@ -186,8 +185,8 @@ queried_records
 **NOTE**: In the example above, you'll notice that the `"Account.Name"` column
 does not appear in the results. This is because the SOAP and REST APIs only
 return an empty Account object for the record if there is no relationship to an
-account ( see <a rel="noopener noreferrer" target="_blank"
-href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There
+account (see <a rel="noopener noreferrer" target="_blank"
+href="https://github.com/stevenmmortimer/salesforcer/issues/78">#78</a>). There
 is no reliable way to extract and rebuild the empty columns based on the query
 string. If there were Account information, an additional column titled
 `"Account.Name"` would appear in the results. Note, that the Bulk 1.0 and Bulk
@@ -330,14 +329,13 @@ most all operations supported by the Salesforce APIs are available via this pack
 This package makes requests best formatted to match what the APIs require as input. 
 This articulation is not perfect and continued progress will be made to add and improve 
 functionality. For details on formatting, attributes, and methods please refer to 
-[Salesforce's documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview)
-as they are explained better there. More information is also available on the `pkgdown` site at 
-https://StevenMMortimer.github.io/salesforcer.  
+[Salesforce's documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview) as they are explained better there. More information 
+is also available on the {salesforcer} pkgdown website at https://stevenmmortimer.github.io/salesforcer/.  
 
 [Get supported salesforcer with the Tidelift Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
 
 ---
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StevenMMortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md). 
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/stevenmmortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md). 
 By participating in this project you agree to abide by its terms.  
 
 [Top](#salesforcer)

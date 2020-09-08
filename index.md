@@ -2,7 +2,7 @@
 <!-- badges: start -->
 
 [![R Build
-Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check)
+Status](https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/stevenmmortimer/salesforcer/actions?workflow=R-CMD-check)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle:
@@ -10,15 +10,15 @@ Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
-Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=main)
+Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main)
 <!-- badges: end -->
 
 <br>
 <img src="man/figures/salesforcer.png" width="120px" align="right" />
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs
-using tidy principles. The package implements actions from the SOAP,
-REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.
+using tidy principles. The package implements actions from the REST,
+SOAP, Bulk 1.0, Bulk 2.0, Reports and Dashboards, and Metadata APIs.
 
 Package features include:
 
@@ -70,7 +70,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.2.0)
+# install the current CRAN version (0.2.2)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -80,7 +80,7 @@ remotes::install_github("StevenMMortimer/salesforcer")
 
 If you encounter an issue while using this package, please file a
 minimal reproducible example on
-[GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
+[GitHub](https://github.com/stevenmmortimer/salesforcer/issues).
 
 ## Vignettes
 
@@ -89,21 +89,21 @@ detailed notes on how to utilize the features of this package consider
 reading the following vignettes:
 
   - [Getting
-    Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
+    Started](https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html)
   - [Supported
-    Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
+    Queries](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html)
   - [Working with Bulk
-    APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
+    APIs](https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
   - [Working with
-    Reports](https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html)
+    Reports](https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html)
   - [Working with
-    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
+    Attachments](https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html)
   - [Working with
-    Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
+    Metadata](https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html)
   - [Passing Control
-    Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
+    Args](https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html)
   - [Transitioning from
-    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
+    RForcecom](https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
 
 ## Usage
 
@@ -168,8 +168,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000014Ad7FAAS TRUE   
-#> 2 0033s000014Ad7GAAS TRUE
+#> 1 0033s000014AgfSAAS TRUE   
+#> 2 0033s000014AgfTAAS TRUE
 ```
 
 ### Query
@@ -194,16 +194,16 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000014Ad7FAAS Test      Contact-Create-1
-#> 2 0033s000014Ad7GAAS Test      Contact-Create-2
+#> 1 0033s000014AgfSAAS Test      Contact-Create-1
+#> 2 0033s000014AgfTAAS Test      Contact-Create-2
 ```
 
 **NOTE**: In the example above, you’ll notice that the `"Account.Name"`
 column does not appear in the results. This is because the SOAP and REST
 APIs only return an empty Account object for the record if there is no
-relationship to an account ( see
+relationship to an account (see
 <a rel="noopener noreferrer" target="_blank"
-href="https://github.com/StevenMMortimer/salesforcer/issues/78">\#78</a>).
+href="https://github.com/stevenmmortimer/salesforcer/issues/78">\#78</a>).
 There is no reliable way to extract and rebuild the empty columns based
 on the query string. If there were Account information, an additional
 column titled `"Account.Name"` would appear in the results. Note, that
@@ -232,8 +232,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000014Ad7FAAS TRUE   
-#> 2 0033s000014Ad7GAAS TRUE
+#> 1 0033s000014AgfSAAS TRUE   
+#> 2 0033s000014AgfTAAS TRUE
 ```
 
 ### Bulk Operations
@@ -270,8 +270,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000014Ad7KAAS TRUE    TRUE    NA   
-#> 2 0033s000014Ad7LAAS TRUE    TRUE    NA
+#> 1 0033s000014AgfXAAS TRUE    TRUE    NA   
+#> 2 0033s000014AgfYAAS TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -286,8 +286,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000014Ad7KAAS Test      Contact-Create-1
-#> 2 0033s000014Ad7LAAS Test      Contact-Create-2
+#> 1 0033s000014AgfXAAS Test      Contact-Create-1
+#> 2 0033s000014AgfYAAS Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -295,8 +295,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s000014Ad7KAAS 0033s000014Ad7KAAS FALSE       NA       
-#> 2 0033s000014Ad7LAAS 0033s000014Ad7LAAS FALSE       NA
+#> 1 0033s000014AgfXAAS 0033s000014AgfXAAS FALSE       NA       
+#> 2 0033s000014AgfYAAS 0033s000014AgfYAAS FALSE       NA
 ```
 
 ### Using the Metadata API
