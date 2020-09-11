@@ -7,7 +7,8 @@
 #' principles and the tidyverse.
 #' 
 #' Additional material can be found in the 
-#' \href{https://github.com/reportmort/salesforcer}{README} on GitHub
+#' \href{https://github.com/stevenmmortimer/salesforcer}{README} on GitHub and 
+#' the package website \url{https://stevenmmortimer.github.io/salesforcer/}.
 #'
 #' @keywords internal
 #' @importFrom dplyr %>%

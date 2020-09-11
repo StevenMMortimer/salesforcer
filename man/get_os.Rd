@@ -22,6 +22,6 @@ get_os()
 }
 }
 \seealso{
-\url{http://conjugateprior.org/2015/06/identifying-the-os-from-r}
+\url{https://conjugateprior.org/2015/06/identifying-the-os-from-r}
 }
 \keyword{internal}

@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![R Build
-Status](https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check)
+Status](https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/badge.svg)](https://github.com/stevenmmortimer/salesforcer/actions?workflow=R-CMD-check)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle:
@@ -12,12 +12,12 @@ Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
-Status](https://codecov.io/gh/StevenMMortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/StevenMMortimer/salesforcer?branch=main)
+Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main)
 <!-- badges: end -->
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs
-using tidy principles. The package implements actions from the SOAP,
-REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.
+using tidy principles. The package implements actions from the REST,
+SOAP, Bulk 1.0, Bulk 2.0, Reports and Dashboards, and Metadata APIs.
 
 Package features include:
 
@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.2.0)
+# install the current CRAN version (0.2.2)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -79,31 +79,31 @@ remotes::install_github("StevenMMortimer/salesforcer")
 
 If you encounter an issue while using this package, please file a
 minimal reproducible example on
-[GitHub](https://github.com/StevenMMortimer/salesforcer/issues).
+[GitHub](https://github.com/stevenmmortimer/salesforcer/issues).
 
 ## Vignettes
 
 The README below outlines the basic package functionality. For more
-information please feel free to browse the `pkgdown` site at
-<https://StevenMMortimer.github.io/salesforcer> which contains the
+information please feel free to browse the {salesforcer} website at
+<https://stevenmmortimer.github.io/salesforcer/> which contains the
 following vignettes:
 
   - [Getting
-    Started](https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html)
+    Started](https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html)
   - [Supported
-    Queries](https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html)
+    Queries](https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html)
   - [Working with Bulk
-    APIs](https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
+    APIs](https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html)
   - [Working with
-    Reports](https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html)
+    Reports](https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html)
   - [Working with
-    Attachments](https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html)
+    Attachments](https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html)
   - [Working with
-    Metadata](https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html)
+    Metadata](https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html)
   - [Passing Control
-    Args](https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html)
+    Args](https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html)
   - [Transitioning from
-    RForcecom](https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
+    RForcecom](https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html)
 
 ## Usage
 
@@ -168,8 +168,8 @@ created_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000014Ad6NAAS TRUE   
-#> 2 0033s000014Ad6OAAS TRUE
+#> 1 0033s000014AgdIAAS TRUE   
+#> 2 0033s000014AgdJAAS TRUE
 ```
 
 ### Query
@@ -194,16 +194,16 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000014Ad6NAAS Test      Contact-Create-1
-#> 2 0033s000014Ad6OAAS Test      Contact-Create-2
+#> 1 0033s000014AgdIAAS Test      Contact-Create-1
+#> 2 0033s000014AgdJAAS Test      Contact-Create-2
 ```
 
 **NOTE**: In the example above, you’ll notice that the `"Account.Name"`
 column does not appear in the results. This is because the SOAP and REST
 APIs only return an empty Account object for the record if there is no
-relationship to an account ( see
+relationship to an account (see
 <a rel="noopener noreferrer" target="_blank"
-href="https://github.com/StevenMMortimer/salesforcer/issues/78">\#78</a>).
+href="https://github.com/stevenmmortimer/salesforcer/issues/78">\#78</a>).
 There is no reliable way to extract and rebuild the empty columns based
 on the query string. If there were Account information, an additional
 column titled `"Account.Name"` would appear in the results. Note, that
@@ -232,8 +232,8 @@ updated_records
 #> # A tibble: 2 x 2
 #>   id                 success
 #>   <chr>              <lgl>  
-#> 1 0033s000014Ad6NAAS TRUE   
-#> 2 0033s000014Ad6OAAS TRUE
+#> 1 0033s000014AgdIAAS TRUE   
+#> 2 0033s000014AgdJAAS TRUE
 ```
 
 ### Bulk Operations
@@ -270,8 +270,8 @@ created_records
 #> # A tibble: 2 x 4
 #>   Id                 Success Created Error
 #>   <chr>              <lgl>   <lgl>   <lgl>
-#> 1 0033s000014Ad6WAAS TRUE    TRUE    NA   
-#> 2 0033s000014Ad6XAAS TRUE    TRUE    NA
+#> 1 0033s000014AgfhAAC TRUE    TRUE    NA   
+#> 2 0033s000014AgfiAAC TRUE    TRUE    NA
 
 # query large recordsets using the Bulk API
 my_soql <- sprintf("SELECT Id,
@@ -286,8 +286,8 @@ queried_records
 #> # A tibble: 2 x 3
 #>   Id                 FirstName LastName        
 #>   <chr>              <chr>     <chr>           
-#> 1 0033s000014Ad6WAAS Test      Contact-Create-1
-#> 2 0033s000014Ad6XAAS Test      Contact-Create-2
+#> 1 0033s000014AgfhAAC Test      Contact-Create-1
+#> 2 0033s000014AgfiAAC Test      Contact-Create-2
 
 # delete these records using the Bulk 2.0 API
 deleted_records <- sf_delete(queried_records$Id, "Contact", api_type = "Bulk 2.0")
@@ -295,8 +295,8 @@ deleted_records
 #> # A tibble: 2 x 4
 #>   Id                 sf__Id             sf__Created sf__Error
 #>   <chr>              <chr>              <lgl>       <lgl>    
-#> 1 0033s000014Ad6WAAS 0033s000014Ad6WAAS FALSE       NA       
-#> 2 0033s000014Ad6XAAS 0033s000014Ad6XAAS FALSE       NA
+#> 1 0033s000014AgfhAAC 0033s000014AgfhAAC FALSE       NA       
+#> 2 0033s000014AgfiAAC 0033s000014AgfiAAC FALSE       NA
 ```
 
 ### Using the Metadata API
@@ -433,8 +433,8 @@ and improve functionality. For details on formatting, attributes, and
 methods please refer to [Salesforce’s
 documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview)
 as they are explained better there. More information is also available
-on the `pkgdown` site at
-<https://StevenMMortimer.github.io/salesforcer>.
+on the {salesforcer} pkgdown website at
+<https://stevenmmortimer.github.io/salesforcer/>.
 
 [Get supported salesforcer with the Tidelift
 Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
@@ -442,7 +442,7 @@ Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=
 -----
 
 Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/StevenMMortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/stevenmmortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
 [Top](#salesforcer)
