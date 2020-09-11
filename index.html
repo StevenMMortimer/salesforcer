@@ -139,7 +139,7 @@
 
 
 <p><br><img src="reference/figures/salesforcer.png" width="120px" align="right"></p>
-<p>{salesforcer} is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements actions from the SOAP, REST, Bulk 1.0, Bulk 2.0, and Metadata APIs.</p>
+<p>{salesforcer} is an R package that connects to Salesforce Platform APIs using tidy principles. The package implements actions from the REST, SOAP, Bulk 1.0, Bulk 2.0, Reports and Dashboards, and Metadata APIs.</p>
 <p>Package features include:</p>
 <ul>
 <li>OAuth 2.0 (Single Sign On) and Basic (Username-Password) Authentication methods (<code><a href="reference/sf_auth.html">sf_auth()</a></code>)</li>
@@ -196,28 +196,28 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install the current CRAN version (0.2.0)</span>
+<span class="co"># install the current CRAN version (0.2.2)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"salesforcer"</span>)
 
 <span class="co"># or get the development version on GitHub</span>
 <span class="co"># install.packages("remotes")</span>
 <span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"StevenMMortimer/salesforcer"</span>)
 </pre></div>
-<p>If you encounter an issue while using this package, please file a minimal reproducible example on <a href="https://github.com/StevenMMortimer/salesforcer/issues">GitHub</a>.</p>
+<p>If you encounter an issue while using this package, please file a minimal reproducible example on <a href="https://github.com/stevenmmortimer/salesforcer/issues">GitHub</a>.</p>
 </div>
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
 <p>The README below outlines the basic package functionality for more detailed notes on how to utilize the features of this package consider reading the following vignettes:</p>
 <ul>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/supported-queries.html">Supported Queries</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-bulk-apis.html">Working with Bulk APIs</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-reports.html">Working with Reports</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
-<li><a href="https://StevenMMortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html">Supported Queries</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html">Working with Bulk APIs</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html">Working with Reports</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html">Working with Attachments</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html">Working with Metadata</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html">Passing Control Args</a></li>
+<li><a href="https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 </ul>
 </div>
 <div id="usage" class="section level2">
@@ -269,8 +269,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000014Ad7FAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000014Ad7GAAS TRUE</span>
+<span class="co">#&gt; 1 0033s000014AgfSAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000014AgfTAAS TRUE</span>
 </pre></div>
 </div>
 <div id="query" class="section level3">
@@ -290,10 +290,10 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000014Ad7FAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000014Ad7GAAS Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000014AgfSAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000014AgfTAAS Test      Contact-Create-2</span>
 </pre></div>
-<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
+<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account (see <a rel="noopener noreferrer" target="_blank" href="https://github.com/stevenmmortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div id="update" class="section level3">
 <h3 class="hasAnchor">
@@ -309,8 +309,8 @@
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000014Ad7FAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000014Ad7GAAS TRUE</span>
+<span class="co">#&gt; 1 0033s000014AgfSAAS TRUE   </span>
+<span class="co">#&gt; 2 0033s000014AgfTAAS TRUE</span>
 </pre></div>
 </div>
 <div id="bulk-operations" class="section level3">
@@ -328,8 +328,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000014Ad7KAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000014Ad7LAAS TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s000014AgfXAAS TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s000014AgfYAAS TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
 <span class="kw">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id,
@@ -344,8 +344,8 @@
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000014Ad7KAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000014Ad7LAAS Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s000014AgfXAAS Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s000014AgfYAAS Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="kw">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span>(<span class="kw">queried_records</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type = <span class="st">"Bulk 2.0"</span>)
@@ -353,8 +353,8 @@
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000014Ad7KAAS 0033s000014Ad7KAAS FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000014Ad7LAAS 0033s000014Ad7LAAS FALSE       NA</span>
+<span class="co">#&gt; 1 0033s000014AgfXAAS 0033s000014AgfXAAS FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000014AgfYAAS 0033s000014AgfYAAS FALSE       NA</span>
 </pre></div>
 </div>
 <div id="using-the-metadata-api" class="section level3">
@@ -499,11 +499,11 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check"><img src="https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
+<li><a href="https://github.com/stevenmmortimer/salesforcer/actions?workflow=R-CMD-check"><img src="https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: Maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
-<li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=main"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
+<li><a href="https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main"><img src="https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>
 </div>

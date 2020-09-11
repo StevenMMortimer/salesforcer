@@ -1,8 +1,16 @@
 pandoc: 2.7.3
 pkgdown: 1.6.0.9000
-pkgdown_sha: f3d5e4141b7893df4f0a122983f89a440d187625
-articles: []
-last_built: 2020-09-08T00:33Z
+pkgdown_sha: 2c210e86c82ea19f74c122c7329dad11a647e956
+articles:
+  getting-started: getting-started.html
+  passing-control-args: passing-control-args.html
+  supported-queries: supported-queries.html
+  transitioning-from-RForcecom: transitioning-from-RForcecom.html
+  working-with-attachments: working-with-attachments.html
+  working-with-bulk-apis: working-with-bulk-apis.html
+  working-with-metadata: working-with-metadata.html
+  working-with-reports: working-with-reports.html
+last_built: 2020-09-11T19:07Z
 urls:
   reference: https://stevenmmortimer.github.io/salesforcer/reference
   article: https://stevenmmortimer.github.io/salesforcer/articles
