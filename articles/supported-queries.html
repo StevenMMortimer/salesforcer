@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2.9000</span>
       </span>
     </div>
 
@@ -266,8 +266,8 @@
 <span class="kw">res</span>
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST") 0.4506776 0.4571358 0.4699523 0.4745226 0.4824428 0.4849826     5</span>
-<span class="co">#&gt;  qry("SOAP") 1.8196109 1.8516137 1.8506402 1.8528008 1.8608800 1.8682956     5</span>
+<span class="co">#&gt;  qry("REST")  3.907048  3.970231  4.078336  4.028972  4.073535  4.411894     5</span>
+<span class="co">#&gt;  qry("SOAP") 18.448496 18.553716 19.126748 18.724751 18.861404 21.045371     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
   <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw">res</span>) <span class="op">+</span> 
@@ -292,8 +292,8 @@
     api_type = <span class="st">"Bulk 2.0"</span>
   )
 )
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.7 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -307,7 +307,7 @@
   )
 )
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.8 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span>
 </pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
@@ -326,7 +326,7 @@
                      `Contact.FirstName` = <span class="kw">FirstName</span>), 
             by = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Id"</span> = <span class="st">"Account.Id"</span>))
 <span class="kw">nested_query_recs</span>
-<span class="co">#&gt; # A tibble: 415 x 4</span>
+<span class="co">#&gt; # A tibble: 1,315 x 4</span>
 <span class="co">#&gt;   Id              Name                         Contact.Id       Contact.FirstNa…</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt;            &lt;chr&gt;           </span>
 <span class="co">#&gt; 1 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzw… KEEP            </span>
@@ -334,7 +334,7 @@
 <span class="co">#&gt; 3 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzy… KEEP            </span>
 <span class="co">#&gt; 4 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzz… KEEP            </span>
 <span class="co">#&gt; 5 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nl00… KEEP            </span>
-<span class="co">#&gt; # … with 410 more rows</span>
+<span class="co">#&gt; # … with 1,310 more rows</span>
 
 <span class="kw">aggregate_query_recs</span> <span class="op">&lt;-</span> <span class="kw">nested_query_recs</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Id</span>) <span class="op">%&gt;%</span>
@@ -346,7 +346,7 @@
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
-<span class="co">#&gt; 3 0013s000011JxeKAAS         99</span>
+<span class="co">#&gt; 3 0013s000011K0xmAAC        999</span>
 <span class="co">#&gt; 4 0016A0000035mJ4QAI          2</span>
 <span class="co">#&gt; 5 0016A0000035mJ5QAI          1</span>
 <span class="co">#&gt; # … with 7 more rows</span>
@@ -388,22 +388,22 @@
           <span class="kw">new_account</span><span class="op">$</span><span class="kw">id</span>)
 )
 <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw">contacts_to_delete</span><span class="op">$</span><span class="kw">Id</span>, <span class="st">"Contact"</span>, api_type=<span class="st">"Bulk 2.0"</span>)
-<span class="co">#&gt; # A tibble: 99 x 4</span>
+<span class="co">#&gt; # A tibble: 999 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000014AyJDAA0 0033s000014AyJDAA0 FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000014AyJEAA0 0033s000014AyJEAA0 FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000014AyJFAA0 0033s000014AyJFAA0 FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000014AyJGAA0 0033s000014AyJGAA0 FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000014AyJHAA0 0033s000014AyJHAA0 FALSE       NA       </span>
-<span class="co">#&gt; # … with 94 more rows</span>
+<span class="co">#&gt; 1 0033s000014B3XAAA0 0033s000014B3XAAA0 FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000014B3XBAA0 0033s000014B3XBAA0 FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000014B3WxAAK 0033s000014B3WxAAK FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000014B3WyAAK 0033s000014B3WyAAK FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000014B3WzAAK 0033s000014B3WzAAK FALSE       NA       </span>
+<span class="co">#&gt; # … with 994 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
 <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="kw">new_account</span><span class="op">$</span><span class="kw">id</span>)
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000011JxeKAAS TRUE</span>
+<span class="co">#&gt; 1 0013s000011K0xmAAC TRUE</span>
 </pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
@@ -439,7 +439,7 @@
   FROM Contact
   WHERE Account.Id = null"</span>
 )
-<span class="co">#&gt; # A tibble: 482 x 2</span>
+<span class="co">#&gt; # A tibble: 592 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000013wlpjAAA Test     </span>
@@ -447,7 +447,7 @@
 <span class="co">#&gt; 3 0033s000014AG4HAAW Test     </span>
 <span class="co">#&gt; 4 0033s0000149ZoCAAU Test     </span>
 <span class="co">#&gt; 5 0033s0000149ZoDAAU Test     </span>
-<span class="co">#&gt; # … with 477 more rows</span>
+<span class="co">#&gt; # … with 587 more rows</span>
 </pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
@@ -545,7 +545,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
