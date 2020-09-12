@@ -1,4 +1,20 @@
-## salesforcer 0.2.2
+## salesforcer 0.2.2.9000  
+
+### Dependencies
+
+  * None yet.
+
+### Features
+
+  * None yet.
+
+### Bug fixes
+
+  * None yet.
+
+---
+
+## salesforcer 0.2.2 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.2)
 
 ### Dependencies
 
@@ -14,6 +30,15 @@
   ```r
   Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame' when loading 'dplyr'
   ```
+  
+### Features
+
+  * None 
+  
+  
+### Bug fixes
+
+  * None 
 
 ## salesforcer 0.2.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.1)
 
