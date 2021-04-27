@@ -45,8 +45,11 @@ detail for each API call, which is useful for debugging. More specifically, when
 set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
+\value{
+A list containing the authorization method, token, session ID, and instance URL
+}
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
 not require sharing passwords, but will require authorizing \code{salesforcer}

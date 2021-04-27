@@ -59,6 +59,7 @@
 #' the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not 
 #' cache. A string means use the specified path as the cache file.
 #' @template verbose
+#' @return A list containing the authorization method, token, session ID, and instance URL
 #' @examples
 #' \dontrun{
 #' # log in using basic authentication (username-password)
