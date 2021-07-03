@@ -7,7 +7,8 @@
 
 ### Features
 
-  * None yet.
+  * Improve documentation to retrieve the access token or session ID after 
+    authentication (#97)
 
 ### Bug fixes
 
