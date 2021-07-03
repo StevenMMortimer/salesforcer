@@ -12,7 +12,11 @@
 
 ### Bug fixes
 
-  * Fixed the format of the `OwnerChangeOptions` header so it is accepted (#94)
+  * Generalize the date and datetime parsing mechanism, such that, reports with 
+    date and datetime fields are not returned as NA (#93)
+  * Fix the format of the `OwnerChangeOptions` header so it is accepted (#94)
+  * Fix bug that caused Bulk 2.0 calls to crash when the results had datetime 
+    fields in the recordset (#95)
 
 ---
 
