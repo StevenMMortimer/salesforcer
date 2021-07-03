@@ -138,12 +138,26 @@ make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){
   
   if(length(soap_headers)>0){
     for(i in 1:length(soap_headers)){
-      opt_node <- newXMLNode(paste0(ns_prefix, ":", names(soap_headers)[i]),
-                             parent=header_node)
-      for(j in 1:length(soap_headers[[i]])){
-        this_node <- newXMLNode(paste0(ns_prefix, ":", names(soap_headers[[i]])[j]),
-                                as.character(soap_headers[[i]][[j]]),
-                                parent=opt_node)
+      option_name <- names(soap_headers)[i]
+      opt_node <- newXMLNode(paste0(ns_prefix, ":", option_name), parent=header_node)
+      # process OwnerChangeOptions differently because it can be a list of multiple 
+      # different options all put under the OwnerChangeOptions node
+      if (option_name == "OwnerChangeOptions"){
+        options_spec <- soap_headers[[i]]$options
+        for(j in 1:length(options_spec)){
+          this_node <- newXMLNode(paste0(ns_prefix, ":", "options"), parent=opt_node)
+          for(k in 1:length(options_spec[[j]])){
+            this_node2 <- newXMLNode(paste0(ns_prefix, ":", names(options_spec[[j]])[k]),
+                                    as.character(options_spec[[j]][[k]]),
+                                    parent=this_node)
+          }
+        }
+      } else {
+        for(j in 1:length(soap_headers[[i]])){
+          this_node <- newXMLNode(paste0(ns_prefix, ":", names(soap_headers[[i]])[j]),
+                                  as.character(soap_headers[[i]][[j]]),
+                                  parent=opt_node)
+        }        
       }
     }
   }

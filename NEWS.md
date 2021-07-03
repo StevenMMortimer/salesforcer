@@ -3,7 +3,7 @@
 ### Dependencies
 
   * Remove references to RForcecom after it was removed from CRAN on 6/9/2021 (#101)
-  * Remove LazyData option in DESCRIPTION since `data()` is not utilized.
+  * Remove LazyData option in DESCRIPTION since `data()` is not utilized
 
 ### Features
 
@@ -12,7 +12,7 @@
 
 ### Bug fixes
 
-  * None yet.
+  * Fixed the format of the `OwnerChangeOptions` header so it is accepted (#94)
 
 ---
 
