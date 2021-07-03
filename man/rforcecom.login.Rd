@@ -3,7 +3,7 @@
 \name{rforcecom.login}
 \alias{rforcecom.login}
 \title{The \code{salesforcer} backwards compatible version of
-\code{\link[RForcecom]{rforcecom.login}}}
+\code{RForcecom::rforcecom.login}}
 \usage{
 rforcecom.login(
   username,
