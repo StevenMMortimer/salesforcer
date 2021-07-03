@@ -962,6 +962,9 @@ sf_get_report_instance_results <- function(report_id,
 #' report finish running so that data can be obtained. Otherwise, return the
 #' report instance details which can be used to retrieve the results when the
 #' async report has finished.
+#' @template guess_types
+#' @template bind_using_character_cols
+#' @template fact_map_key
 #' @template verbose
 #' @return \code{tbl_df}
 #' @family Report functions
@@ -1017,6 +1020,9 @@ sf_run_report <- function(report_id,
                           interval_seconds = 3,
                           max_attempts = 200,
                           wait_for_results = TRUE,
+                          guess_types = TRUE,
+                          bind_using_character_cols = FALSE,
+                          fact_map_key = "T!T",
                           verbose = FALSE){
   
   # build out the body of the request based on the inputted arguments by starting 
@@ -1090,7 +1096,9 @@ sf_run_report <- function(report_id,
   
   results <- sf_execute_report(report_id, 
                                async = async, 
-                               report_metadata = request_body, 
+                               report_metadata = request_body,
+                               guess_types = guess_types,
+                               bind_using_character_cols = bind_using_character_cols,
                                verbose = verbose)
   
   # request the report results (still wait if async is specified)
@@ -1123,6 +1131,9 @@ sf_run_report <- function(report_id,
       }
       results <- sf_get_report_instance_results(report_id, 
                                                 results$id, 
+                                                guess_types = guess_types,
+                                                bind_using_character_cols = bind_using_character_cols,
+                                                fact_map_key = "T!T",
                                                 verbose = verbose)
     }
   }

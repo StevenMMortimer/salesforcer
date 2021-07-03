@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-query.R
 \name{sf_guess_cols}
 \alias{sf_guess_cols}
-\title{Reorder resultset columns to prioritize \code{sObject} and \code{Id}}
+\title{Parse resultset columns to a known datatype in R}
 \usage{
 sf_guess_cols(df, guess_types = TRUE, dataType = NULL)
 }

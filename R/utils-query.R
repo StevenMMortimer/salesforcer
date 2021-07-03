@@ -733,12 +733,13 @@ sf_reorder_cols <- function(df){
              contains("."))
 }
 
-#' Reorder resultset columns to prioritize \code{sObject} and \code{Id}
+#' Parse resultset columns to a known datatype in R
 #' 
 #' This function accepts a \code{tbl_df} with columns rearranged.
 #' 
 #' @importFrom dplyr mutate across
-#' @importFrom readr type_convert cols col_guess
+#' @importFrom anytime anytime anydate
+#' @importFrom readr type_convert cols col_guess locale
 #' @param df \code{tbl_df}; the data frame to rearrange columns in
 #' @return \code{tbl_df} the formatted data frame
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -746,19 +747,32 @@ sf_reorder_cols <- function(df){
 #' @export
 sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
   if(guess_types){
-    if(is.null(dataType) || any(is.na(dataType)) || (length(dataType)== 0)){
+    if(is.null(dataType) || any(is.na(dataType)) || (length(dataType) == 0)){
       df <- df %>% 
-        type_convert(col_types = cols(.default = col_guess()))      
+        type_convert(col_types = cols(.default = col_guess()), locale=locale(tz="UTC"))      
     } else {
       col_spec <- sf_build_cols_spec(dataType)
-      # if numeric but contains Salesforce "-" then preemptively change to NA
+      # if numeric Salesforce will flag N/A as "-" so we need to preemptively change to NA
+      # TODO: Does it use "-" for NA or zero? Or both?
       if(grepl('i|n', col_spec)){
         numeric_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] %in% c("i", "n"))
         df <- df %>% 
           mutate(across(all_of(numeric_col_idx), ~ifelse(.x == "-", NA_character_, .x)))
       }
-      df <- df %>% 
-        type_convert(col_types = col_spec)      
+      # Salesforce returns dates and datetimes in UTC but sometimes as YYYY-MM-DD 
+      # or MM/DD/YYYY in the case of reports, so we will convert using the 
+      # anytime package rather than trusting type_convert's behavior
+      if(grepl('D', col_spec)){
+        date_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] == "D")
+        df <- df %>% 
+          mutate(across(all_of(date_col_idx), ~as.character(anydate(.x, tz="UTC", asUTC=TRUE))))
+      }
+      if(grepl('T', col_spec)){
+        datetime_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] == "T")
+        df <- df %>% 
+          mutate(across(all_of(datetime_col_idx), ~as.character(anytime(.x, tz="UTC", asUTC=TRUE))))
+      }
+      df <- df %>% type_convert(col_types = col_spec, locale=locale(tz="UTC"))
     }
   }
   return(df)
