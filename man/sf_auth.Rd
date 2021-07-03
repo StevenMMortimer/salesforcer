@@ -84,6 +84,7 @@ server instance located in Chicago, USA / Washington DC, USA per this
 Knowledge Article: \url{https://help.salesforce.com/articleView?id=000314281}.
 }
 }
+}
 \examples{
 \dontrun{
 # log in using basic authentication (username-password)

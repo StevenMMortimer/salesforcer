@@ -58,9 +58,10 @@
 #' @param cache \code{logical} or \code{character}; TRUE means to cache using 
 #' the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not 
 #' cache. A string means use the specified path as the cache file.
+#' @template verbose
 #' @return \code{list} invisibly that contains 4 elements detailing the authentication state     
 #' @note The \code{link{sf_auth}} function invisibly returns the following 
-#' 4 pieces of information which can be reused in other operations:
+#' 4 pieces of information which can be reused in other operations: 
 #' \describe{
 #'  \item{auth_method}{
 #'  \code{character}; One of two options 'Basic' or 'OAuth'. If a username, 
@@ -83,7 +84,7 @@
 #'  server instance located in Chicago, USA / Washington DC, USA per this 
 #'  Knowledge Article: \url{https://help.salesforce.com/articleView?id=000314281}.
 #' }
-#' @template verbose
+#' }
 #' @examples
 #' \dontrun{
 #' # log in using basic authentication (username-password)
