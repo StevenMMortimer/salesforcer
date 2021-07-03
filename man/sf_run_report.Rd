@@ -72,7 +72,7 @@ along with additional diagnostic information where available.}
 \code{tbl_df}
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This function is a convenience wrapper for retrieving the data from a report.
 By default, it executes an asynchronous report and waits for the detailed data

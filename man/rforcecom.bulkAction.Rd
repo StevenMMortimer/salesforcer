@@ -54,7 +54,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_df} of the results of the bulk job
 }
 \description{
-\ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}}
 
 This function is a convenience wrapper for submitting bulk API jobs
 }

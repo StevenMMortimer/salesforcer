@@ -4,7 +4,7 @@
 \alias{sf_access_token}
 \title{Return access_token attribute of OAuth 2.0 Token}
 \usage{
-sf_access_token(verbose = FALSE)
+sf_access_token(verbose = TRUE)
 }
 \arguments{
 \item{verbose}{\code{logical}; an indicator of whether to print additional

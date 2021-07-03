@@ -20,7 +20,7 @@ along with additional diagnostic information where available.}
 will return \code{TRUE} if successful in deleting the report.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Delete a report by sending a DELETE request to the Report resource. Deleted
 reports are moved to the Recycle Bin.
