@@ -2,6 +2,8 @@ context("RForcecom Compatibility")
 
 setup(options(lifecycle_verbosity = "quiet"))
 
+skip("Not running due to RForcecom being pulled from CRAN.")
+
 test_that("testing rforcecom.login compatibility", {
 
   username <- Sys.getenv("SALESFORCER_USERNAME")
