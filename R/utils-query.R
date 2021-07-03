@@ -759,8 +759,8 @@ sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
         df <- df %>% 
           mutate(across(all_of(numeric_col_idx), ~ifelse(.x == "-", NA_character_, .x)))
       }
-      # Salesforce returns dates and datetimes in UTC but sometimes as YYYY-MM-DD 
-      # or MM/DD/YYYY in the case of reports, so we will convert using the 
+      # Salesforce returns dates and datetimes in UTC but sometimes as YYYY-MM-DD
+      # or MM/DD/YYYY in the case of reports, so we will convert using the
       # anytime package rather than trusting type_convert's behavior
       if(grepl('D', col_spec)){
         date_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] == "D")

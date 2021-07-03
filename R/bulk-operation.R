@@ -1160,11 +1160,8 @@ sf_batch_details_bulk <- function(job_id, batch_id,
 #'
 #' @template job_id
 #' @template api_type
-#' @param record_types \code{character}; one or more types of records to retrieve from 
-#' the results of running the specified job
-#' @param combine_record_types \code{logical}; indicating for Bulk 2.0 jobs whether the 
-#' successfulResults, failedResults, and unprocessedRecords should be stacked 
-#' together by binding the rows.
+#' @template record_types
+#' @template combine_record_types
 #' @template verbose
 #' @return A \code{tbl_df} or \code{list} of \code{tbl_df}, formatted by Salesforce, 
 #' with information containing the success or failure or certain rows in a submitted job
@@ -1187,7 +1184,7 @@ sf_get_job_records_bulk <- function(job_id,
                                     record_types = c("successfulResults", 
                                                      "failedResults", 
                                                      "unprocessedRecords"), 
-                                    combine_record_types = TRUE, 
+                                    combine_record_types = TRUE,
                                     verbose = FALSE){
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 1.0"){
@@ -1256,11 +1253,13 @@ sf_get_job_records_bulk_v2 <- function(job_id,
     # First, determine the column datatypes from the data.frame with most rows
     base_class_df <- records[[head(which.max(sapply(records, nrow)), 1)]]
     # Second, convert the datatypes for any data.frames with zero rows
+    # From StackOverflow post here: https://stackoverflow.com/a/47800157/5258043
+    # distributed under the CC BY-SA 3.0 license terms.
     for (i in 1:length(records)){
       if(nrow(records[[i]]) == 0){
         common <- names(records[[i]])[names(records[[i]]) %in% names(base_class_df)]
         records[[i]][common] <- lapply(common, function(x) {
-          match.fun(paste0("as.", class(base_class_df[[x]])))(records[[i]][[x]])
+          match.fun(paste0("as.", class(base_class_df[[x]])[1]))(records[[i]][[x]])
         })
       }
     }
@@ -1292,6 +1291,8 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @template max_attempts
 #' @param wait_for_results \code{logical}; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
+#' @template record_types
+#' @template combine_record_types
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
 #' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
@@ -1322,6 +1323,10 @@ sf_run_bulk_operation <- function(input_data,
                                   interval_seconds = 3,
                                   max_attempts = 200,
                                   wait_for_results = TRUE,
+                                  record_types = c("successfulResults", 
+                                                   "failedResults", 
+                                                   "unprocessedRecords"), 
+                                  combine_record_types = TRUE,
                                   control = list(...), ...,
                                   verbose = FALSE){
 
@@ -1392,7 +1397,13 @@ sf_run_bulk_operation <- function(input_data,
       message("Function's Time Limit Exceeded. Aborting Job Now")
       res <- sf_abort_job_bulk(job_info$id, api_type = api_type, verbose = verbose)
     } else {
-      res <- sf_get_job_records_bulk(job_info$id, api_type = api_type, verbose = verbose)
+      res <- sf_get_job_records_bulk(
+        job_info$id, 
+        api_type = api_type, 
+        record_types = record_types,
+        combine_record_types = combine_record_types,
+        verbose = verbose
+      )
       # For Bulk 2.0 jobs -> INVALIDJOBSTATE: Closing already Completed Job not allowed
       if(api_type == "Bulk 1.0"){
         close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, verbose = verbose) 
