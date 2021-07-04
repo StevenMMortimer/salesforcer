@@ -249,9 +249,9 @@ sf_query_rest <- function(soql,
   # fails. Casting all as character and switching to guess types allows all 
   # pages to be pulled without breaking and then trying to reconcile why 
   # the types were different between the paginated API calls
-  if(bind_using_character_cols){
-    resultset <- resultset %>% mutate_all(as.character)
-  }    
+  # RESOLUTION (7/4/2021): We must always pull as character in order for type_convert() 
+  # to use all values in the column to determine the type.
+  resultset <- resultset %>% mutate_all(as.character)
   
   # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
