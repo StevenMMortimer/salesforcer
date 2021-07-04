@@ -195,10 +195,10 @@ sf_query_result_bulk_v1 <- function(job_id,
     response_text <- content(httr_response, type="text/plain", encoding="UTF-8")
     resultset <- as_tibble(xmlToList(response_text))
   } else if(grepl('text/csv', content_type)) {
+    response_text <- content(httr_response, type="text", encoding="UTF-8")
     if(response_text == "Records not found for this query"){
       resultset <- tibble()
     } else {
-      response_text <- content(httr_response, as="text", encoding="UTF-8")
       # required to load as character in order to guess column types by all values 
       # in the column, not just first N
       resultset <- read_csv(response_text, col_types = cols(.default = col_character()))
