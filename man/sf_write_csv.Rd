@@ -4,7 +4,7 @@
 \alias{sf_write_csv}
 \title{Write a CSV file in format acceptable to Salesforce APIs}
 \usage{
-sf_write_csv(x, path)
+sf_write_csv(x, file)
 }
 \description{
 Write a CSV file in format acceptable to Salesforce APIs

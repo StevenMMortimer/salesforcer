@@ -2,13 +2,17 @@
 
 ### Dependencies
 
-  * Remove references to RForcecom after it was removed from CRAN on 6/9/2021 (#101)
+  * Remove uses of {RForcecom} after it was removed from CRAN on 6/9/2021 (#101)
   * Remove LazyData option in DESCRIPTION since `data()` is not utilized
+  * Change argument in `sf_write_csv()` from `path` to `file` as was done in 
+    {readr} v1.4.0
 
 ### Features
 
   * Improve documentation to retrieve the access token or session ID after 
     authentication (#97)
+  * Improve parsing of Bulk API query recordsets from CSV where all values 
+    in the column will be used to guess the type instead of the first 1000.
 
 ### Bug fixes
 
