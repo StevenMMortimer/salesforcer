@@ -1,6 +1,6 @@
 Package: salesforcer
 Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
-Version: 0.2.2.9000
+Version: 0.2.3
 Date: 2021-07-03
 Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP, 
     Bulk 1.0, Bulk 2.0, Metadata, Reports and Dashboards) 
@@ -11,12 +11,23 @@ Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP,
     API documentation and this package's website 
     <https://stevenmmortimer.github.io/salesforcer/> for more information, 
     documentation, and examples.
-Authors@R: c(
-    person(c("Steven", "M."), "Mortimer", , "mortimer.steven.m@gmail.com", c("aut", "cre")),
-    person("Takekatsu", "Hiramura", , "thira@plavox.info", c("ctb")),
-    person("Jennifer", "Bryan", , "jenny@rstudio.com", c("ctb", "cph")),
-    person("Joanna", "Zhao", , "joanna.zhao@alumni.ubc.ca", c("ctb", "cph"))
-    )
+Authors@R: 
+    c(person(given = c("Steven", "M."),
+             family = "Mortimer",
+             role = c("aut", "cre"),
+             email = "mortimer.steven.m@gmail.com"),
+      person(given = "Takekatsu",
+             family = "Hiramura",
+             role = "ctb",
+             email = "thira@plavox.info"),
+      person(given = "Jennifer",
+             family = "Bryan",
+             role = c("ctb", "cph"),
+             email = "jenny@rstudio.com"),
+      person(given = "Joanna",
+             family = "Zhao",
+             role = c("ctb", "cph"),
+             email = "joanna.zhao@alumni.ubc.ca"))
 License: MIT + file LICENSE
 URL: https://github.com/StevenMMortimer/salesforcer
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues
