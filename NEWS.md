@@ -2,7 +2,7 @@
 
 ### Dependencies
 
-  * Increase the default Salesforce API version used to 52.0 (Summer '21).
+  * Increase the package's default Salesforce API version to 52.0 (Summer '21).
   
   * Remove uses of {RForcecom} after it was removed from CRAN on 6/9/2021 (#101)
   
