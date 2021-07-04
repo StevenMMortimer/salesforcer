@@ -2,6 +2,8 @@
 
 ### Dependencies
 
+  * Increase the default Salesforce API version used to 52.0 (Summer '21).
+  
   * Remove uses of {RForcecom} after it was removed from CRAN on 6/9/2021 (#101)
   
   * Remove LazyData option in DESCRIPTION since `data()` is not utilized
