@@ -10,7 +10,7 @@ sf_execute_report(
   include_details = TRUE,
   labels = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   as_tbl = TRUE,
   report_metadata = NULL,
   verbose = FALSE

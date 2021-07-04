@@ -8,7 +8,7 @@ format_report_row(
   x,
   labels = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE
+  bind_using_character_cols = deprecated()
 )
 }
 \arguments{

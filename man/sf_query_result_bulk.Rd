@@ -9,7 +9,7 @@ sf_query_result_bulk(
   batch_id = NULL,
   result_id = NULL,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   batch_size = 50000,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
   verbose = FALSE

@@ -1,8 +1,8 @@
 #' Create Bulk API Job 
 #' 
 #' This function initializes a Job in the Salesforce Bulk API
-#'
-#' @importFrom lifecycle deprecate_warn is_present deprecated
+#' 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @template operation
 #' @template object_name
 #' @template soql

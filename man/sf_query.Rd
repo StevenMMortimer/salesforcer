@@ -14,7 +14,7 @@ sf_query(
   ...,
   page_size = deprecated(),
   next_records_url = NULL,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   object_name_append = FALSE,
   object_name_as_col = FALSE,
   verbose = FALSE

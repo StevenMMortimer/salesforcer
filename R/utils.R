@@ -80,11 +80,21 @@ merge_null_to_na <- function(x){
 
 #' Write a CSV file in format acceptable to Salesforce APIs
 #' 
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @importFrom readr write_csv
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-sf_write_csv <- function(x, file){
+sf_write_csv <- function(x, file, path=deprecated()){
+  if(is_present(path)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_write_csv(path = )", 
+                   "salesforcer::sf_write_csv(file = )", 
+                   details = paste0("The readr package changed the name of the `path` ", 
+                                    "argument to `file` in its v1.4.0 release.")
+    )
+    file <- path
+  }
   write_csv(x=x, file=file, na="#N/A")
 }
 

@@ -16,7 +16,7 @@ sf_run_report(
   max_attempts = 200,
   wait_for_results = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   fact_map_key = "T!T",
   verbose = FALSE
 )

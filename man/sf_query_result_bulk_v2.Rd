@@ -7,7 +7,7 @@
 sf_query_result_bulk_v2(
   job_id,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   batch_size = 50000,
   locator = NULL,
   api_type = c("Bulk 2.0"),

@@ -9,7 +9,7 @@ sf_get_report_instance_results(
   report_instance_id,
   labels = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   fact_map_key = "T!T",
   verbose = FALSE
 )

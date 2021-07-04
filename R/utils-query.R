@@ -674,7 +674,7 @@ records_list_to_tbl <- function(x,
 #' @export
 bind_query_resultsets <- function(resultset, next_records){
   
-  deprecate_warn("0.2.2", "salesforcer::bind_query_resultsets()", "safe_bind_rows()",
+  deprecate_warn("0.2.2", "salesforcer::bind_query_resultsets()", "salesforcer::safe_bind_rows()",
                  details = paste0("Consider safe_bind_rows() which silently combines ",
                                   "all columns regardless if there are mixed datatypes ",
                                   "in a single column."))
@@ -696,10 +696,8 @@ bind_query_resultsets <- function(resultset, next_records){
                      "had different datatypes than prior records in the following columns:", 
                      "\n  - %s\n", 
                      "\n",
-                     "Consider setting `bind_using_character_cols=TRUE` to cast the data to ", 
-                     "character so that `bind_rows()` between pages will succeed and setting ",
-                     "`guess_types=TRUE` which uses readr to determine the datatype based on ", 
-                     "values in the column."), 
+                     "Consider setting `guess_types=FALSE` and manually examinig ", 
+                     "why the datatypes are varying in a particular column."), 
               paste0(mismatched_warn_str, collapse="\n  - "))
       , call. = FALSE
     )

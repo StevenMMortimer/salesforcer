@@ -3,23 +3,35 @@
 ### Dependencies
 
   * Remove uses of {RForcecom} after it was removed from CRAN on 6/9/2021 (#101)
+  
   * Remove LazyData option in DESCRIPTION since `data()` is not utilized
-  * Change argument in `sf_write_csv()` from `path` to `file` as was done in 
-    {readr} v1.4.0
+  
+  * Deprecate argument in `sf_write_csv()` from `path` to `file` as was done in 
+    {readr} v1.4.0.
+    
+  * Deprecate argument `bind_using_character_cols` because we will always need
+    to bind as character and then parse if `guess_types=TRUE`. Per comments in
+    tidyverse/readr#588 and tidyverse/readr#98, we must read all of the data as
+    character first and then use `type_convert()` to ensure that we use all values
+    in the column to guess the type. The default for `read_csv()` is to only use
+    the first 1,000 rows and its `guess_max` argument cannot be set to `Inf`.
+    
   * Change lifecycle status from "Maturing" to "Status" per the retirement of 
-    "Maturing" in the {lifecycle} package as noted:
+    "Maturing" in the {lifecycle} package. The documentation notes:
     
     > Previously we used as maturing for functions that lay somewhere between experimental and stable. We stopped using this stage because, like questioning, it’s not clear what actionable information this stage delivers.
     
-    Per the lifecycle guidance, experimental packages have version numbers less 
-    than 1.0.0 and may have major changes in its future. The {salesforcer} 
-    package has achieved a stable state with core functionality implemented and 
-    a focus on backwards compatibility due to the volume of users.
+    In addition, the lifecycle guidance states that experimental packages have
+    version numbers less than 1.0.0 and may have major changes in its future.
+    The {salesforcer} package has achieved a stable state with core
+    functionality implemented and a focus on backwards compatibility due to the
+    volume of users.
 
 ### Features
 
   * Improve documentation to retrieve the access token or session ID after 
     authentication (#97)
+    
   * Improve parsing of Bulk API query recordsets from CSV where all values 
     in the column will be used to guess the type instead of the first 1000.
 
@@ -27,7 +39,9 @@
 
   * Generalize the date and datetime parsing mechanism, such that, reports with 
     date and datetime fields are not returned as NA (#93)
+    
   * Fix the format of the `OwnerChangeOptions` header so it is accepted (#94)
+  
   * Fix bug that caused Bulk 2.0 calls to crash when the results had datetime 
     fields in the recordset (#95)
 
