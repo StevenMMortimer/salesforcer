@@ -1088,7 +1088,7 @@ sf_batch_status_bulk <- function(job_id, batch_id,
 #' This function returns detailed (row-by-row) information on an existing batch
 #' which has already been submitted to Bulk API Job
 #'
-#' @importFrom readr read_csv
+#' @importFrom readr read_csv type_convert cols col_character
 #' @importFrom httr content
 #' @importFrom XML xmlToList
 #' @importFrom dplyr as_tibble
@@ -1127,7 +1127,9 @@ sf_batch_details_bulk <- function(job_id, batch_id,
   content_type <- httr_response$headers$`content-type`
   if(content_type == 'text/csv' | content_type == 'zip/csv'){
     response_text <- content(httr_response, as="text", encoding="UTF-8")
-    res <- read_csv(response_text)
+    # required to guess column types by all values in the column, not just first N
+    res <- read_csv(response_text, col_types = cols(.default = col_character()))
+    res <- type_convert(res, col_types = cols())
   } else if(content_type == 'zip/xml'){
     response_parsed <- content(httr_response, as="parsed", type="text/xml", encoding="UTF-8")
     res <- response_parsed %>%
@@ -1214,7 +1216,7 @@ sf_get_job_records_bulk_v1 <- function(job_id, verbose = FALSE){
   return(resultset)
 }
 
-#' @importFrom readr read_csv
+#' @importFrom readr read_csv type_convert cols col_character
 #' @importFrom httr content
 sf_get_job_records_bulk_v2 <- function(job_id,
                                        record_types = c("successfulResults", 
@@ -1237,7 +1239,9 @@ sf_get_job_records_bulk_v2 <- function(job_id,
     response_text <- content(httr_response, as="text", encoding="UTF-8")
     content_type <- httr_response$headers$`content-type`
     if(grepl('text/csv', content_type)) {
-      res <- read_csv(response_text)
+      # required to guess column types by all values in the column, not just first N
+      res <- read_csv(response_text, col_types = cols(.default = col_character()))
+      res <- type_convert(res, col_types = cols())
     } else {
       message(sprintf("Unhandled content-type: %s", content_type))
       res <- content(httr_response, as="parsed", encoding="UTF-8")
