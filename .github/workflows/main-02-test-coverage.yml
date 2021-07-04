@@ -1,11 +1,15 @@
 name: Test coverage
 
 on:
+  push:
+    branches:
+      # Push events to a release branch
+      - 'release/**'
   repository_dispatch:
     types: [main-02-test-coverage]
   schedule:
-    # Execute monthly at 9AM UTC (5AM EDT (during daylight savings), otherwise 4AM)
-    - cron:  '0 9 1 * *'
+    # Execute monthly at 9AM UTC (5AM ET during daylight savings, otherwise 4AM)
+    - cron: '0 9 1 * *'
     
 jobs:
   test-coverage:
