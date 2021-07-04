@@ -6,6 +6,10 @@
   * Remove LazyData option in DESCRIPTION since `data()` is not utilized
   * Change argument in `sf_write_csv()` from `path` to `file` as was done in 
     {readr} v1.4.0
+  * Change lifecycle status from "Maturing" to "Status" per the retirement of 
+    "Maturing" in the {lifecycle} package as noted:
+    
+    > Previously we used as maturing for functions that lay somewhere between experimental and stable. We stopped using this stage because, like questioning, it’s not clear what actionable information this stage delivers.
 
 ### Features
 
