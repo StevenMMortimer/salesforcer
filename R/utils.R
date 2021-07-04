@@ -84,8 +84,8 @@ merge_null_to_na <- function(x){
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-sf_write_csv <- function(x, path){
-  write_csv(x=x, path=path, na="#N/A")
+sf_write_csv <- function(x, file){
+  write_csv(x=x, file=path, na="#N/A")
 }
 
 #' Remove NA Columns Created by Empty Related Entity Values
