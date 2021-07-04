@@ -31,12 +31,12 @@ the functionality of many {RForcecom} functions so that you will only need to sw
 out `library(RForcecom)` for `library(salesforcer)` and still have 
 production scripts perform as expected.
 
-## RForcecom removed from CRAN
+## RForcecom Removed from CRAN
 
 As of June 9, 2021, the {RForcecom} package was removed from CRAN. You can still 
-use by installing from the archive, but we strongly recommend using 
-{salesforcer}. All of the functions in {RForcecom} have been further optimized 
-within {salesforcer}.
+use it by installing from the archive, but we strongly recommend using 
+{salesforcer} instead. The existing functionality in {RForcecom} has been further 
+optimized within {salesforcer} and new functionality has been added too.
 
 ## Authentication
 
@@ -45,7 +45,12 @@ backward compatibility provides the username-password authentication routine
 implemented by {RForcecom}. Here is an example running the function from 
 each of the packages side-by-side and producing the same result.
 
-```{r auth, include = FALSE}
+```{r auth, eval=FALSE}
+library(dplyr, warn.conflicts = FALSE)
+library(salesforcer)
+```
+
+```{r auth-background, include = FALSE}
 library(dplyr, warn.conflicts = FALSE)
 library(salesforcer)
 
@@ -63,11 +68,11 @@ sf_auth(username = username,
 # RForcecom::rforcecom.login(username, paste0(password, security_token), 
 #                            apiVersion=getOption("salesforcer.api_version"))
 # replicated in salesforcer package
-session2 <- salesforcer::rforcecom.login(username, 
+session <- salesforcer::rforcecom.login(username, 
                                          paste0(password, security_token), 
                                          apiVersion = getOption("salesforcer.api_version"))
-session2['sessionID'] <- "{MASKED}"
-session2
+session['sessionID'] <- "{MASKED}"
+session
 ```
 
 ```{r, include=FALSE}
