@@ -93,6 +93,7 @@ ApexTrigger
 api
 Api
 APIs
+API's
 APIAccessLevel
 APIAsync
 ApiEvent
@@ -846,6 +847,7 @@ HUF
 hy
 HyphenSeparator
 IDASSIGNMENT
+idcol
 IdeaReputationLevel
 IdeasSettings
 IdpInitiated
@@ -955,6 +957,7 @@ LayoutSection
 LayoutSectionStyle
 LayoutSectionTranslation
 LayoutTranslation
+LazyData
 LBP
 LeadConvertSettings
 LeadSource
@@ -1313,6 +1316,7 @@ PJP
 PJPEG
 Pkb
 PKChunking
+pkgdown
 PKR
 PlatformActionGroupCategory
 PlatformActionList
@@ -1609,6 +1613,7 @@ SessionTimeout
 SetNull
 SettingsOpportunityFilter
 SetupObjectVisibility
+SFDC
 SFDCMobileSettings
 SfdcOrg
 SFX
