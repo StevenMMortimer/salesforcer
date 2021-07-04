@@ -108,8 +108,7 @@ test_that("testing simple SELECT query", {
   simple_select_soql_wo_compound <- sprintf("SELECT %s FROM Contact", 
                                             paste0(contact_fields_to_test_wo_compound, 
                                                    collapse=", "))  
-  bulk2_queried_records <- sf_query(simple_select_soql_wo_compound, 
-                                    api_type="Bulk 2.0")
+  bulk2_queried_records <- sf_query(simple_select_soql_wo_compound, api_type="Bulk 2.0")
   expect_is(bulk2_queried_records, "tbl_df")
   expect_gt(nrow(bulk2_queried_records), 0)
   expect_equal(sort(names(bulk2_queried_records)), 
@@ -171,42 +170,41 @@ test_that("testing child-to-parent-grandparent relationship lookup query", {
   expect_equal(sort(names(bulk1_queried_records)), sort(relationship_fields)) 
   
   # Bulk 2.0 API ---------------------------------------------------------------
-  expect_error(sf_query(relationship_soql, api_type="Bulk 2.0"),
-               paste0("Failure during batch processing: FeatureNotEnabled : ", 
-                      "Cannot serialize value for 'Owner' in CSV format"))
+  bulk2_queried_records <- sf_query(relationship_soql, api_type="Bulk 2.0")
+  expect_is(bulk2_queried_records, "tbl_df")
+  expect_gt(nrow(bulk2_queried_records), 0)
+  expect_equal(sort(names(bulk2_queried_records)), sort(relationship_fields))
 })
 
 test_that("testing parent-to-child nested relationship query", {
   
-  nested_soql <- "SELECT Id, 
-                     (SELECT Id FROM Contacts)
-                  FROM Account"
+  relationship_soql <- "SELECT Id, (SELECT Id FROM Contacts) FROM Account"
   
   # SOAP API -------------------------------------------------------------------  
-  soap_queried_records <- sf_query(nested_soql, api_type="SOAP")
+  soap_queried_records <- sf_query(relationship_soql, api_type="SOAP")
   expect_is(soap_queried_records, "tbl_df")
   expect_gt(nrow(soap_queried_records), 0)
   expect_named(soap_queried_records, c("Id", "Contact.Id"))
   
   # REST API -------------------------------------------------------------------  
-  rest_queried_records <- sf_query(nested_soql, api_type="REST")
+  rest_queried_records <- sf_query(relationship_soql, api_type="REST")
   expect_is(rest_queried_records, "tbl_df")
   expect_gt(nrow(rest_queried_records), 0)
   expect_named(soap_queried_records, c("Id", "Contact.Id"))
   
   # Bulk 1.0 API ---------------------------------------------------------------
-  expect_error(sf_query(nested_soql, object_name=object, api_type="Bulk 1.0"), 
+  expect_error(sf_query(relationship_soql, object_name=object, api_type="Bulk 1.0"), 
                paste0("INVALID_TYPE_FOR_OPERATION: The root entity of the requested ", 
                       "query (Account) does not match the entity of the requested ", 
                       "Bulk API Job (Contact)"), 
                fixed=TRUE)
   
-  expect_error(sf_query(nested_soql, object_name="Account", api_type="Bulk 1.0"), 
+  expect_error(sf_query(relationship_soql, object_name="Account", api_type="Bulk 1.0"), 
                paste0("FeatureNotEnabled : Aggregate Relationships not supported ", 
                       "in Bulk Query with CSV content type"))
   
   # Bulk 2.0 API ---------------------------------------------------------------  
-  expect_error(sf_query(nested_soql, api_type="Bulk 2.0"), 
+  expect_error(sf_query(relationship_soql, api_type="Bulk 2.0"), 
                paste0("API_ERROR: Aggregate Relationships not supported ", 
                       "in Bulk V2 Query with CSV content type"))  
 })
