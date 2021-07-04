@@ -364,7 +364,7 @@ session_id_available <- function(verbose = TRUE) {
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-token_available <- function(verbose = TRUE) {
+token_available <- function(verbose = FALSE) {
   if (is.null(.state$token)) {
     if (verbose) {
       if (file.exists(".httr-oauth-salesforcer")) {
@@ -393,7 +393,7 @@ token_available <- function(verbose = TRUE) {
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-sf_access_token <- function(verbose = TRUE) {
+sf_access_token <- function(verbose = FALSE) {
   if (!token_available(verbose = verbose)) return(NULL)
   .state$token$credentials$access_token
 }
