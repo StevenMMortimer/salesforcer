@@ -1,10 +1,12 @@
 name: Test coverage
 
 on:
-  push:
-    branches:
-      # Push events to a release branch
-      - 'release/**'
+  workflow_dispatch:
+    inputs:
+      trigger_next:
+        description: 'Whether to run the subsequent workflows after triggering this one manully.'
+        required: false
+        default: false
   repository_dispatch:
     types: [main-02-test-coverage]
   schedule:
@@ -76,7 +78,7 @@ jobs:
         shell: Rscript {0}
         
       - name: Trigger next workflow
-        if: success()
+        if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
@@ -85,7 +87,7 @@ jobs:
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
       - name: Set final R-CMD-check status
-        if: failure()
+        if: ${{ (github.event_name != 'workflow_dispatch' && failure()) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}

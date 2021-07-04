@@ -1,6 +1,12 @@
 name: Build pkgdown site
 
 on:
+  workflow_dispatch:
+    inputs:
+      trigger_next:
+        description: 'Whether to run the subsequent workflows after triggering this one manully.'
+        required: false
+        default: false
   push:
     branches: main
       
@@ -74,7 +80,7 @@ jobs:
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'        
           
       - name: Trigger next workflow
-        if: success()
+        if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
@@ -83,7 +89,7 @@ jobs:
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
       - name: Set final R-CMD-check status
-        if: failure()
+        if: ${{ (github.event_name != 'workflow_dispatch' && failure()) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}

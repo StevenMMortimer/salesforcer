@@ -1,6 +1,12 @@
 name: R-CMD-check on Linux
 
 on:
+  workflow_dispatch:
+    inputs:
+      trigger_next:
+        description: 'Whether to run the subsequent workflows after triggering this one manully.'
+        required: false
+        default: false
   repository_dispatch:
     types: [main-05-R-CMD-check-linux]
       
@@ -92,7 +98,7 @@ jobs:
           path: check
           
       - name: Set final R-CMD-check status
-        if: always()
+        if: ${{ (github.event_name != 'workflow_dispatch') || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}

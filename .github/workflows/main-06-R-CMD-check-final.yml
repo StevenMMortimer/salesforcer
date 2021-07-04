@@ -1,6 +1,12 @@
 name: R-CMD-check
 
 on:
+  workflow_dispatch:
+    inputs:
+      force_failure:
+        description: 'A backdoor trigger to force the final R CMD Check status to failed.'
+        required: true
+        default: false
   repository_dispatch:
     types: [main-06-R-CMD-check-final]
     
@@ -12,5 +18,6 @@ jobs:
     steps:
     
       - name: Convey final status of all R-CMD-check workflows
-        if: ${{ !github.event.client_payload.success }}
+        if: ${{ (github.event_name != 'workflow_dispatch' && !github.event.client_payload.success) || (github.event_name == 'workflow_dispatch' && github.event.inputs.force_failure) }}
         run: exit 1
+        
