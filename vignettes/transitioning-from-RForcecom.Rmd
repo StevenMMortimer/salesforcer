@@ -9,7 +9,7 @@ output:
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Transitioning from RForcecom}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
 

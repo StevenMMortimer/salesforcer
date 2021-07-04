@@ -58,15 +58,14 @@ Imports:
     lifecycle (>= 0.2.0)
 Suggests:
     knitr,
+    rmarkdown,
     testthat,
     spelling,
-    rmarkdown,
     here,
     microbenchmark,
     ggplot2,
     sessioninfo
-VignetteBuilder:
-    knitr
+VignetteBuilder: rmarkdown
 ByteCompile: true
 Encoding: UTF-8
 Language: en-US

@@ -9,7 +9,7 @@ output:
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Supported Queries}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -417,8 +417,10 @@ are a few suggestions:
       
       - Do you need a parent-to-child nested relationship query or will a child-to-parent lookup suffice? 
     
-  2. Check out Salesforce's [Workbench](https://workbench.developerforce.com) 
-  tool to see how it builds out queries.
+  2. Check out Salesforce's Workbench tool to see how it constructs specific 
+     queries that you are debugging. The tool is available at
+     `https://workbench.developerforce.com` and requires a Salesforce login 
+     (the same credentials as you normally would use).
   
   3. Double check Salesforce's <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">SOQL reference guide</a> to see whether your query is supported or limited in some way.
   
