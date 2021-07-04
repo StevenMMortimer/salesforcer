@@ -1,7 +1,7 @@
 #' Download an Attachment
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function will allow you to download an attachment to disk based on the 
 #' attachment body, file name, and path.

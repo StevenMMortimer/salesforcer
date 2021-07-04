@@ -71,5 +71,5 @@ sf_close_job_bulk(job_info$id, api_type="Bulk 2.0")
 }
 }
 \references{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 }

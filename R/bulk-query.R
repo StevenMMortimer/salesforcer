@@ -75,7 +75,7 @@ sf_submit_query_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return \code{tbl_df}, formatted by Salesforce, containing query results
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
@@ -217,7 +217,7 @@ sf_query_result_bulk_v1 <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return \code{tbl_df}, formatted by Salesforce, containing query results
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
@@ -449,7 +449,7 @@ sf_query_bulk_v1 <- function(soql,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)
@@ -550,7 +550,7 @@ sf_query_bulk_v2 <- function(soql,
 #' Run bulk query 
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.
@@ -569,7 +569,7 @@ sf_query_bulk_v2 <- function(soql,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)

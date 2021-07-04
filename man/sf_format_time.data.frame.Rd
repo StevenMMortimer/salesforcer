@@ -13,6 +13,6 @@ Format all Date and Datetime columns in a dataset
 This function is meant to be used internally. Only use when debugging.
 }
 \seealso{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 }
 \keyword{internal}

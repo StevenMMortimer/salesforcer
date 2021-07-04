@@ -22,7 +22,7 @@ set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Retrieves the list of individual records that have been deleted within the given
 timespan for the specified object.

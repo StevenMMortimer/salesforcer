@@ -1,7 +1,7 @@
 #' Return Current User Info
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Retrieves personal information for the user associated with the current session.
 #' 
@@ -775,7 +775,7 @@ sf_merge <- function(master_id,
 #' Get Deleted Records from a Timeframe
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Retrieves the list of individual records that have been deleted within the given 
 #' timespan for the specified object.
@@ -847,7 +847,7 @@ sf_get_deleted <- function(object_name,
 #' Get Updated Records from a Timeframe
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Retrieves the list of individual records that have been inserted or updated 
 #' within the given timespan in the specified object.

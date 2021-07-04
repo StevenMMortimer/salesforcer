@@ -3,7 +3,7 @@
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @importFrom lubridate as_datetime
 #' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 #' @export
 sf_format_datetime <- function(x){
   format(as_datetime(x), "%Y-%m-%dT%H:%M:%SZ")  
@@ -13,7 +13,7 @@ sf_format_datetime <- function(x){
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 #' @export
 sf_format_date <- function(x){
   x <- as_datetime(format(x, "%Y-%m-%d 00:00:00"), tz=Sys.timezone())
@@ -30,7 +30,7 @@ sf_format_time <- function (x, ...) {
 #' @importFrom dplyr mutate_if
 #' @importFrom lubridate is.POSIXct is.POSIXlt is.POSIXt is.Date
 #' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 #' @export
 sf_format_time.list <- function(x){
   lapply(x, FUN=function(xx){
@@ -48,7 +48,7 @@ sf_format_time.list <- function(x){
 #' @importFrom dplyr mutate_if
 #' @importFrom lubridate is.POSIXct is.POSIXlt is.POSIXt is.Date
 #' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 #' @export
 sf_format_time.data.frame <- function(x){
   x %>%

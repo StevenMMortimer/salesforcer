@@ -129,7 +129,7 @@ make_bulk_get_all_query_jobs_url <- function(parameterized_search_list = list(is
 #' 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/query_get_all_jobs.htm}
 #' @export
 validate_get_all_jobs_params <- function(parameterized_search_list, type="all"){
   for (n in names(parameterized_search_list)){

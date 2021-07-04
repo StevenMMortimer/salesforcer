@@ -13,6 +13,6 @@ Validate Query Parameters When Getting List of All Bulk Jobs
 This function is meant to be used internally. Only use when debugging.
 }
 \seealso{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/query_get_all_jobs.htm}
 }
 \keyword{internal}

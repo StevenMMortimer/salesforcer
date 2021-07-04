@@ -16,7 +16,7 @@ sf_get_all_jobs_bulk(
 of the URL query string (i.e. after a question mark ("?") so that the result
 only returns information about jobs that meet that specific criteria. For
 more information, read the note below and/or the Salesforce documentation
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}{here}.}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}{here}.}
 
 \item{next_records_url}{character (leave as NULL); a string used internally
 by the function to paginate through to more records until complete}
@@ -55,5 +55,5 @@ all_jobs_info <- sf_get_all_jobs_bulk(parameterized_search_list=list(jobType='Cl
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}
 }

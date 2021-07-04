@@ -304,7 +304,7 @@
 <div id="bulk-operations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bulk-operations" class="anchor"></a>Bulk Operations</h3>
-<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in {salesforcer} you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
+<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in {salesforcer} you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
 <p>The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in bulk is usually quicker than running thousands of individuals calls when your data is large. <strong>Note:</strong> the Bulk 2.0 API does <strong>NOT</strong> guarantee the order of the data submitted is preserved in the output. This means that you must join on other data columns to match up the Ids that are returned in the output with the data you submitted. For this reason, Bulk 2.0 may not be a good solution for creating, updating, or upserting records where you need to keep track of the created Ids. The Bulk 2.0 API would be fine for deleting records where you only need to know which Ids were successfully deleted.</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="co"># create contacts using the Bulk API</span>
 <span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
@@ -483,7 +483,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/StevenMMortimer/salesforcer/actions?workflow=R-CMD-check"><img src="https://github.com/StevenMMortimer/salesforcer/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: Maturing"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: Stable"></a></li>
 <li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
 <li><a href="https://codecov.io/gh/StevenMMortimer/salesforcer?branch=main"><img src="https://codecov.io/gh/StevenMMortimer/salesforcer/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
 </ul>

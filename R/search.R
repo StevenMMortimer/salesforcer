@@ -1,7 +1,7 @@
 #' Perform SOSL Search
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Searches for records in your organization’s data.
 #' 

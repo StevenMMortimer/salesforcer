@@ -370,13 +370,13 @@ sf_get_job_bulk <- function(job_id,
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
 #' more information, read the note below and/or the Salesforce documentation 
-#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}{here}.
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}{here}.
 #' @param next_records_url character (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}
 #' @note parameterized_search_list elements that can be set to filter the results:
 #' \itemize{
 #'   \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
@@ -448,13 +448,13 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
 #' more information, read the note below and/or the Salesforce documentation 
-#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}{here}.
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/query_get_all_jobs.htm}{here}.
 #' @param next_records_url character (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}
 #' @note parameterized_search_list elements that can be set to filter the results:
 #' \itemize{
 #'   \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
@@ -925,7 +925,7 @@ sf_create_batches_bulk_v2 <- function(job_id,
   # encoded content. When job data is uploaded, it is converted to base64. This 
   # conversion can increase the data size by approximately 50%. To account for 
   # the base64 conversion increase, upload data that does not exceed 100 MB. 
-  # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/upload_job_data.htm
+  # https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/upload_job_data.htm
   if(is.null(batch_size)){
     data_size <- object.size(input_data)
     numb_batches <- ceiling((as.numeric(data_size)/(1024^2))/100) # 100MB / (size converted to MB)
@@ -1278,7 +1278,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' Run Bulk Operation
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
