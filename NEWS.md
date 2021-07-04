@@ -1,4 +1,4 @@
-## salesforcer 0.2.3
+## salesforcer 1.0.0
 
 ### Dependencies
 
@@ -10,6 +10,11 @@
     "Maturing" in the {lifecycle} package as noted:
     
     > Previously we used as maturing for functions that lay somewhere between experimental and stable. We stopped using this stage because, like questioning, it’s not clear what actionable information this stage delivers.
+    
+    Per the lifecycle guidance, experimental packages have version numbers less 
+    than 1.0.0 and may have major changes in its future. The {salesforcer} 
+    package has achieved a stable state with core functionality implemented and 
+    a focus on backwards compatibility due to the volume of users.
 
 ### Features
 
