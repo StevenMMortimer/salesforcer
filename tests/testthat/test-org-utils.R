@@ -41,8 +41,7 @@ test_that("testing sf_list_resources()", {
 test_that("testing sf_list_api_limits()", {
   res <- sf_list_api_limits()
   expect_is(res, "list")
-  expect_true(all(c("DailyApiRequests", "DailyBulkApiRequests", "PermissionSets", 
-                    "DataStorageMB", "FileStorageMB") %in% names(res)))
+  expect_true(all(c("DailyApiRequests", "PermissionSets", "DataStorageMB", "FileStorageMB") %in% names(res)))
 })
 
 test_that("testing sf_list_objects()", {
