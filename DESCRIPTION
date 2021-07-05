@@ -65,7 +65,7 @@ Suggests:
     microbenchmark,
     ggplot2,
     sessioninfo
-VignetteBuilder: rmarkdown
+VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-US

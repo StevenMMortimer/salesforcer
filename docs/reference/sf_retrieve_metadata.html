@@ -99,7 +99,7 @@ deployed into an environment" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@ deployed into an environment" />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -188,19 +188,19 @@ deployed into an environment" />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>This function makes a request to retrieve metadata
 as a package XML files that can be modified and later
 deployed into an environment</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_retrieve_metadata</span>(
-  <span class='no'>retrieve_request</span>,
-  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"package.zip"</span>,
-  <span class='kw'>check_interval</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>max_tries</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_retrieve_metadata</span><span class='op'>(</span>
+  <span class='va'>retrieve_request</span>,
+  filename <span class='op'>=</span> <span class='st'>"package.zip"</span>,
+  check_interval <span class='op'>=</span> <span class='fl'>3</span>,
+  max_tries <span class='op'>=</span> <span class='fl'>20</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -248,11 +248,12 @@ retrieveRequest. Here is a link to that documentation:
     <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_retrieve.htm'>https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_retrieve.htm</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>retrieve_request</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>unpackaged</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>types</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>members</span><span class='kw'>=</span><span class='st'>'*'</span>,
-                                                    <span class='kw'>name</span><span class='kw'>=</span><span class='st'>'CustomObject'</span>)))
-<span class='no'>retrieve_info</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_retrieve_metadata</span>(<span class='no'>retrieve_request</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>retrieve_request</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>unpackaged<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>types<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>members<span class='op'>=</span><span class='st'>'*'</span>,
+                                                    name<span class='op'>=</span><span class='st'>'CustomObject'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>retrieve_info</span> <span class='op'>&lt;-</span> <span class='fu'>sf_retrieve_metadata</span><span class='op'>(</span><span class='va'>retrieve_request</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -268,7 +269,7 @@ retrieveRequest. Here is a link to that documentation:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

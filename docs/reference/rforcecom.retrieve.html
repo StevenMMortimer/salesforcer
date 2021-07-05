@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The <code>salesforcer</code> backwards compatible version of
-<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.retrieve.html'>rforcecom.retrieve</a></code> — rforcecom.retrieve • salesforcer</title>
+<title>The salesforcer backwards compatible version of
+RForcecom::rforcecom.retrieve — rforcecom.retrieve • salesforcer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -53,8 +53,8 @@
 
 
 
-<meta property="og:title" content="The <code>salesforcer</code> backwards compatible version of
-<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.retrieve.html'>rforcecom.retrieve</a></code> — rforcecom.retrieve" />
+<meta property="og:title" content="The salesforcer backwards compatible version of
+RForcecom::rforcecom.retrieve — rforcecom.retrieve" />
 <meta property="og:description" content="" />
 <meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png" />
 
@@ -98,7 +98,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -106,7 +106,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -182,26 +182,26 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The <code>salesforcer</code> backwards compatible version of
-<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.retrieve.html'>rforcecom.retrieve</a></code></h1>
+<code>RForcecom::rforcecom.retrieve</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/R/compatibility.R'><code>R/compatibility.R</code></a></small>
     <div class="hidden name"><code>rforcecom.retrieve.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' /></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated'><img src='figures/lifecycle-soft-deprecated.svg' alt='[Soft-deprecated]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>rforcecom.retrieve</span>(
-  <span class='no'>session</span>,
-  <span class='no'>objectName</span>,
-  <span class='no'>fields</span>,
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inverse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nullsLast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>rforcecom.retrieve</span><span class='op'>(</span>
+  <span class='va'>session</span>,
+  <span class='va'>objectName</span>,
+  <span class='va'>fields</span>,
+  limit <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  offset <span class='op'>=</span> <span class='cn'>NULL</span>,
+  order <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inverse <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nullsLast <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,7 +210,7 @@
       <th>session</th>
       <td><p><code>list</code>; a list containing <code>"sessionID"</code>,
 <code>"instanceURL"</code>, and <code>"apiVersion"</code> as returned by
-<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>rforcecom.login</a></code>. This argument is ignored in all
+<code><a href='https://rdrr.io/pkg/RForcecom/man/rforcecom.login.html'>RForcecom::rforcecom.login</a></code>. This argument is ignored in all
 backward compatible calls because the authorization credentials are stored
 in an environment internal to the salesforcer package, so it is no longer
 necessary to pass the session in each function call.</p></td>
@@ -271,7 +271,7 @@ list in first. This parameter works when order parameter has been set.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

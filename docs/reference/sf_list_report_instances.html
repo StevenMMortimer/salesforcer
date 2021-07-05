@@ -99,7 +99,7 @@ metadata in that snapshot of time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@ metadata in that snapshot of time." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -188,13 +188,13 @@ metadata in that snapshot of time." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>Returns a list of instances for a report that you requested to be run asynchronously.
 Each item in the list is treated as a separate instance of the report run with
 metadata in that snapshot of time.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_list_report_instances</span>(<span class='no'>report_id</span>, <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_report_instances</span><span class='op'>(</span><span class='va'>report_id</span>, as_tbl <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -238,19 +238,20 @@ argument <code>as_tbl</code></p>
 <code><a href='sf_get_report_instance_results.html'>sf_get_report_instance_results</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># first, get the Id of a report in your Org</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
-<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
+<span class='va'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span><span class='op'>(</span><span class='st'>"SELECT Id, Name FROM Report"</span><span class='op'>)</span>
+<span class='va'>this_report_id</span> <span class='op'>&lt;-</span> <span class='va'>all_reports</span><span class='op'>$</span><span class='va'>Id</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
 
 <span class='co'># second, execute an async report</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_execute_report.html'>sf_execute_report</a></span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_execute_report.html'>sf_execute_report</a></span><span class='op'>(</span><span class='va'>this_report_id</span>, async<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># third, pull a list of async requests ("instances") usually meant for checking </span>
 <span class='co'># if a recently requested report has succeeded and the results can be retrieved</span>
-<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_instances</span>(<span class='no'>this_report_id</span>)
-<span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
-}</div></pre>
+<span class='va'>instance_list</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_report_instances</span><span class='op'>(</span><span class='va'>this_report_id</span><span class='op'>)</span>
+<span class='va'>instance_status</span> <span class='op'>&lt;-</span> <span class='va'>instance_list</span><span class='op'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>instance_list</span><span class='op'>$</span><span class='va'>id</span> <span class='op'>==</span> <span class='va'>results</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>, <span class='st'>"status"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -266,7 +267,7 @@ argument <code>as_tbl</code></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

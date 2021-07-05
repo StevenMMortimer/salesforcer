@@ -97,7 +97,7 @@ Upserts one or more new records to your organization’s data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@ Upserts one or more new records to your organization’s data." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -186,21 +186,21 @@ Upserts one or more new records to your organization’s data." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
 <p>Upserts one or more new records to your organization’s data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_upsert</span>(
-  <span class='no'>input_data</span>,
-  <span class='no'>object_name</span>,
-  <span class='no'>external_id_fieldname</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>all_or_none</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_upsert</span><span class='op'>(</span>
+  <span class='va'>input_data</span>,
+  <span class='va'>object_name</span>,
+  <span class='va'>external_id_fieldname</span>,
+  api_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span><span class='op'>)</span>,
+  guess_types <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  all_or_none <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -268,25 +268,26 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code> of records with success indicator</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact-Create-"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                       <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='no'>n</span>])
-<span class='no'>new_contacts_result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
+<span class='va'>new_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>FirstName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Test"</span>, <span class='va'>n</span><span class='op'>)</span>,
+                       LastName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Contact-Create-"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>)</span>,
+                       My_External_Id__c<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>new_contacts_result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span><span class='op'>(</span><span class='va'>new_contacts</span>, object_name<span class='op'>=</span><span class='st'>"Contact"</span><span class='op'>)</span>
 
-<span class='no'>upserted_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                            <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact-Upsert-"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                            <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='no'>n</span>])
-<span class='no'>new_record</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='st'>"Test"</span>,
-                     <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact-Upsert-"</span>, <span class='no'>n</span>+<span class='fl'>1</span>),
-                     <span class='kw'>My_External_Id__c</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='no'>n</span>+<span class='fl'>1</span>])
-<span class='no'>upserted_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_rows</span>(<span class='no'>upserted_contacts</span>, <span class='no'>new_record</span>)
+<span class='va'>upserted_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>FirstName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Test"</span>, <span class='va'>n</span><span class='op'>)</span>,
+                            LastName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Contact-Upsert-"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>)</span>,
+                            My_External_Id__c<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>new_record</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>FirstName <span class='op'>=</span> <span class='st'>"Test"</span>,
+                     LastName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Contact-Upsert-"</span>, <span class='va'>n</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>,
+                     My_External_Id__c<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='va'>n</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>upserted_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>upserted_contacts</span>, <span class='va'>new_record</span><span class='op'>)</span>
 
-<span class='no'>upserted_contacts_result1</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_upsert</span>(<span class='no'>upserted_contacts</span>,
-                                       <span class='kw'>object_name</span><span class='kw'>=</span><span class='st'>"Contact"</span>,
-                                       <span class='st'>"My_External_Id__c"</span>)
-}</div></pre>
+<span class='va'>upserted_contacts_result1</span> <span class='op'>&lt;-</span> <span class='fu'>sf_upsert</span><span class='op'>(</span><span class='va'>upserted_contacts</span>, 
+                                       object_name<span class='op'>=</span><span class='st'>"Contact"</span>, 
+                                       <span class='st'>"My_External_Id__c"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -302,7 +303,7 @@ along with additional diagnostic information where available.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

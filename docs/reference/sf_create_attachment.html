@@ -100,7 +100,7 @@ a Description, Keywords, ParentId, FolderId, etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@ a Description, Keywords, ParentId, FolderId, etc." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -189,21 +189,21 @@ a Description, Keywords, ParentId, FolderId, etc." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>This function will allow you to create attachments (and other blob data, such as
 Documents) by supplying file paths (absolute or relative) to media that you
 would like to upload to Salesforce along with accompanying metadata, such as
 a Description, Keywords, ParentId, FolderId, etc.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_create_attachment</span>(
-  <span class='no'>attachment_input_data</span>,
-  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Attachment"</span>, <span class='st'>"Document"</span>),
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_create_attachment</span><span class='op'>(</span>
+  <span class='va'>attachment_input_data</span>,
+  object_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Attachment"</span>, <span class='st'>"Document"</span><span class='op'>)</span>,
+  api_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SOAP"</span>, <span class='st'>"REST"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span><span class='op'>)</span>,
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -279,29 +279,30 @@ of base64–encoded data.</p>
 <code><a href='sf_update_attachment.html'>sf_update_attachment</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># upload two PDFs from working directory to a particular record as Attachments</span>
-<span class='no'>file_path1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>here</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span>(<span class='st'>"doc1.pdf"</span>)
-<span class='no'>file_path2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>here</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span>(<span class='st'>"doc2.pdf"</span>)
-<span class='no'>parent_record_id</span> <span class='kw'>&lt;-</span> <span class='st'>"0036A000002C6MmQAK"</span>
-<span class='no'>attachment_details</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>Body</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>file_path1</span>, <span class='no'>file_path2</span>),
-                             <span class='kw'>ParentId</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>parent_record_id</span>, <span class='fl'>2</span>))
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='no'>attachment_details</span>)
+<span class='va'>file_path1</span> <span class='op'>&lt;-</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"doc1.pdf"</span><span class='op'>)</span>
+<span class='va'>file_path2</span> <span class='op'>&lt;-</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"doc2.pdf"</span><span class='op'>)</span>
+<span class='va'>parent_record_id</span> <span class='op'>&lt;-</span> <span class='st'>"0036A000002C6MmQAK"</span>
+<span class='va'>attachment_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>Body <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>file_path1</span>, <span class='va'>file_path2</span><span class='op'>)</span>, 
+                             ParentId <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>parent_record_id</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span><span class='op'>(</span><span class='va'>attachment_details</span><span class='op'>)</span>
 
 <span class='co'># the function supports inserting all blob content, just update the </span>
 <span class='co'># object_name argument to add the PDF as a Document instead of an Attachment</span>
-<span class='no'>document_details</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>Name</span> <span class='kw'>=</span> <span class='st'>"doc1.pdf"</span>,
-                           <span class='kw'>Description</span> <span class='kw'>=</span> <span class='st'>"Test Document 1"</span>,
-                           <span class='kw'>Body</span> <span class='kw'>=</span> <span class='no'>file_path1</span>,
-                           <span class='kw'>FolderId</span> <span class='kw'>=</span> <span class='st'>"00l6A000001EgIwQAK"</span>, <span class='co'># replace with your FolderId!</span>
-                           <span class='kw'>Keywords</span> <span class='kw'>=</span> <span class='st'>"example,test,document"</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='no'>document_details</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Document"</span>)
+<span class='va'>document_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>Name <span class='op'>=</span> <span class='st'>"doc1.pdf"</span>, 
+                           Description <span class='op'>=</span> <span class='st'>"Test Document 1"</span>, 
+                           Body <span class='op'>=</span> <span class='va'>file_path1</span>,
+                           FolderId <span class='op'>=</span> <span class='st'>"00l6A000001EgIwQAK"</span>, <span class='co'># replace with your FolderId!</span>
+                           Keywords <span class='op'>=</span> <span class='st'>"example,test,document"</span><span class='op'>)</span>
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span><span class='op'>(</span><span class='va'>document_details</span>, object_name <span class='op'>=</span> <span class='st'>"Document"</span><span class='op'>)</span>
 
 <span class='co'># the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically </span>
 <span class='co'># take a data.frame of Attachment info and create a ZIP file with CSV manifest </span>
 <span class='co'># that is required for that API</span>
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_create_attachment</span>(<span class='no'>attachment_details</span>, <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk 1.0"</span>)
-}</div></pre>
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_create_attachment</span><span class='op'>(</span><span class='va'>attachment_details</span>, api_type<span class='op'>=</span><span class='st'>"Bulk 1.0"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -317,7 +318,7 @@ of base64–encoded data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

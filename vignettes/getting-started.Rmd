@@ -9,7 +9,7 @@ output:
     keep_md: true
 vignette: >
   %\VignetteIndexEntry{Getting Started}
-  %\VignetteEngine{rmarkdown::render}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 

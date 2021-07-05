@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
       <ul class="nav navbar-nav">
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="working-with-metadata_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
+      </header><script src="working-with-metadata_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with Metadata</h1>
@@ -146,15 +146,17 @@
 <h2 class="hasAnchor">
 <a href="#retrieving-object-metadata" class="anchor"></a>Retrieving Object Metadata</h2>
 <p>One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). First, load the {salesforcer}, {dplyr}, and {purrr} packages and login, if needed.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>, <span class="kw">warn.conflicts</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
-<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You can use the <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">read_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_read_metadata.html">sf_read_metadata</a></span>(<span class="kw">metadata_type</span> <span class="kw">=</span> <span class="st">"CustomObject"</span>,
-                                    <span class="kw">object_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Account"</span>, <span class="st">"Contact"</span>))
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">read_obj_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_read_metadata.html">sf_read_metadata</a></span><span class="op">(</span>metadata_type <span class="op">=</span> <span class="st">"CustomObject"</span>,
+                                    object_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Account"</span>, <span class="st">"Contact"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"fullName"</span>, <span class="st">"label"</span>, <span class="st">"sharingModel"</span>, <span class="st">"enableHistory"</span>)]
+<span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fullName"</span>, <span class="st">"label"</span>, <span class="st">"sharingModel"</span>, <span class="st">"enableHistory"</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $fullName</span>
 <span class="co">#&gt; [1] "Account"</span>
 <span class="co">#&gt; </span>
@@ -167,10 +169,10 @@
 <span class="co">#&gt; $enableHistory</span>
 <span class="co">#&gt; [1] "false"</span>
 
-<span class="no">first_two_fields_idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]]) <span class="kw">==</span> <span class="st">"fields"</span>), <span class="fl">2</span>)
+<span class="va">first_two_fields_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="st">"fields"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
 
 <span class="co"># show the first two returned fields of the Account object</span>
-<span class="no">read_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="no">first_two_fields_idx</span>]
+<span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">first_two_fields_idx</span><span class="op">]</span>
 <span class="co">#&gt; $fields</span>
 <span class="co">#&gt; $fields$fullName</span>
 <span class="co">#&gt; [1] "AccountNumber"</span>
@@ -187,10 +189,11 @@
 <span class="co">#&gt; [1] "false"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $fields$type</span>
-<span class="co">#&gt; [1] "Picklist"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "Picklist"</span></code></pre></div>
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using<br><code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">acct_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span>(<span class="st">"Account"</span>)
-<span class="no">acct_fields</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">label</span>, <span class="no">length</span>, <span class="no">soapType</span>, <span class="no">type</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">acct_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span><span class="op">(</span><span class="st">"Account"</span><span class="op">)</span>
+<span class="va">acct_fields</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">label</span>, <span class="va">length</span>, <span class="va">soapType</span>, <span class="va">type</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 68 x 5</span>
 <span class="co">#&gt;   name           label            length soapType    type     </span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
@@ -198,13 +201,13 @@
 <span class="co">#&gt; 2 IsDeleted      Deleted          0      xsd:boolean boolean  </span>
 <span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
 <span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
-<span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
+<span class="co">#&gt; 5 Type           Account Type     255    xsd:string  picklist </span>
 <span class="co">#&gt; # … with 63 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
-<span class="no">acct_fields</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">label</span> <span class="kw">==</span> <span class="st">"Account Type"</span>) <span class="kw">%&gt;%</span>
-  <span class="no">.</span>$<span class="no">picklistValues</span>
+<span class="va">acct_fields</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">label</span> <span class="op">==</span> <span class="st">"Account Type"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="va">.</span><span class="op">$</span><span class="va">picklistValues</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; # A tibble: 7 x 4</span>
 <span class="co">#&gt;   active defaultValue label                      value                     </span>
@@ -214,12 +217,13 @@
 <span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span>
 <span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span>
 <span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span>
-<span class="co">#&gt; # … with 2 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 2 more rows</span></code></pre></div>
 <p>If you prefer to be more precise about collecting and formatting the field data you can work directly with the nested lists that the APIs return. In this example we look at the picklist values of fields on the Account object.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">describe_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_objects.html">sf_describe_objects</a></span>(<span class="kw">object_names</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Account'</span>, <span class="st">'Contact'</span>))
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">describe_obj_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_objects.html">sf_describe_objects</a></span><span class="op">(</span>object_names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Account'</span>, <span class="st">'Contact'</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># confirm that the Account object is queryable</span>
-<span class="no">describe_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'label'</span>, <span class="st">'queryable'</span>)]
+<span class="va">describe_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'label'</span>, <span class="st">'queryable'</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $label</span>
 <span class="co">#&gt; [1] "Account"</span>
 <span class="co">#&gt; </span>
@@ -227,13 +231,13 @@
 <span class="co">#&gt; [1] "true"</span>
 
 <span class="co"># now show the different picklist values for the Account Type field</span>
-<span class="no">all_fields</span> <span class="kw">&lt;-</span> <span class="no">describe_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]][<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">describe_obj_result</span><span class="kw">[[</span><span class="fl">1</span>]]) <span class="kw">==</span> <span class="st">"fields"</span>]
+<span class="va">all_fields</span> <span class="op">&lt;-</span> <span class="va">describe_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">describe_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="st">"fields"</span><span class="op">]</span>
 
-<span class="no">acct_type_field_idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">all_fields</span>,
-                                    <span class="kw">FUN</span><span class="kw">=</span><span class="kw">function</span>(<span class="no">x</span>){<span class="no">x</span>$<span class="no">label</span>}) <span class="kw">==</span> <span class="st">"Account Type"</span>)
-<span class="no">acct_type_field</span> <span class="kw">&lt;-</span> <span class="no">all_fields</span><span class="kw">[[</span><span class="no">acct_type_field_idx</span>]]
-<span class="no">acct_type_field</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">acct_type_field</span>) <span class="kw">==</span> <span class="st">"picklistValues"</span>)] <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span>(<span class="no">as_tibble</span>)
+<span class="va">acct_type_field_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">all_fields</span>, 
+                                    FUN<span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="va">x</span><span class="op">$</span><span class="va">label</span><span class="op">}</span><span class="op">)</span> <span class="op">==</span> <span class="st">"Account Type"</span><span class="op">)</span>
+<span class="va">acct_type_field</span> <span class="op">&lt;-</span> <span class="va">all_fields</span><span class="op">[[</span><span class="va">acct_type_field_idx</span><span class="op">]</span><span class="op">]</span>
+<span class="va">acct_type_field</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">acct_type_field</span><span class="op">)</span> <span class="op">==</span> <span class="st">"picklistValues"</span><span class="op">)</span><span class="op">]</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_df</a></span><span class="op">(</span><span class="va">as_tibble</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 7 x 4</span>
 <span class="co">#&gt;   active defaultValue label                      value                     </span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
@@ -242,62 +246,64 @@
 <span class="co">#&gt; 3 true   false        Customer - Channel         Customer - Channel        </span>
 <span class="co">#&gt; 4 true   false        Channel Partner / Reseller Channel Partner / Reseller</span>
 <span class="co">#&gt; 5 true   false        Installation Partner       Installation Partner      </span>
-<span class="co">#&gt; # … with 2 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 2 more rows</span></code></pre></div>
 <p>It is recommended that you try out the various metadata functions <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code>, <code><a href="../reference/sf_list_metadata.html">sf_list_metadata()</a></code>, <code><a href="../reference/sf_describe_metadata.html">sf_describe_metadata()</a></code>, and <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> in order to see which information best suits your use case.</p>
 </div>
 <div id="modifying-metadata" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modifying-metadata" class="anchor"></a>Modifying Metadata</h2>
 <p>Where the Metadata API really shines is when it comes to CRUD operations on metadata. In this example we will create an object, add fields to it, then delete that object.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># create an object</span>
-<span class="no">base_obj_name</span> <span class="kw">&lt;-</span> <span class="st">"Custom_Account1"</span>
-<span class="no">custom_object</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>()
-<span class="no">custom_object</span>$<span class="no">fullName</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">base_obj_name</span>, <span class="st">"__c"</span>)
-<span class="no">custom_object</span>$<span class="no">label</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"_"</span>, <span class="st">" "</span>, <span class="no">base_obj_name</span>))
-<span class="no">custom_object</span>$<span class="no">pluralLabel</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">base_obj_name</span>, <span class="st">"s"</span>)
-<span class="no">custom_object</span>$<span class="no">nameField</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">displayFormat</span> <span class="kw">=</span> <span class="st">'AN-{0000}'</span>,
-                                <span class="kw">label</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">base_obj_name</span>, <span class="st">' Number'</span>),
-                                <span class="kw">type</span> <span class="kw">=</span> <span class="st">'AutoNumber'</span>)
-<span class="no">custom_object</span>$<span class="no">deploymentStatus</span> <span class="kw">&lt;-</span> <span class="st">'Deployed'</span>
-<span class="no">custom_object</span>$<span class="no">sharingModel</span> <span class="kw">&lt;-</span> <span class="st">'ReadWrite'</span>
-<span class="no">custom_object</span>$<span class="no">enableActivities</span> <span class="kw">&lt;-</span> <span class="st">'true'</span>
-<span class="no">custom_object</span>$<span class="no">description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">base_obj_name</span>, <span class="st">" created by the Metadata API"</span>)
-<span class="no">custom_object_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create_metadata.html">sf_create_metadata</a></span>(<span class="kw">metadata_type</span> <span class="kw">=</span> <span class="st">'CustomObject'</span>,
-                                           <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">custom_object</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create an object</span>
+<span class="va">base_obj_name</span> <span class="op">&lt;-</span> <span class="st">"Custom_Account1"</span>
+<span class="va">custom_object</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">fullName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">base_obj_name</span>, <span class="st">"__c"</span><span class="op">)</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">base_obj_name</span><span class="op">)</span><span class="op">)</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">pluralLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">base_obj_name</span>, <span class="st">"s"</span><span class="op">)</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">nameField</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>displayFormat <span class="op">=</span> <span class="st">'AN-{0000}'</span>, 
+                                label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">base_obj_name</span>, <span class="st">' Number'</span><span class="op">)</span>, 
+                                type <span class="op">=</span> <span class="st">'AutoNumber'</span><span class="op">)</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">deploymentStatus</span> <span class="op">&lt;-</span> <span class="st">'Deployed'</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">sharingModel</span> <span class="op">&lt;-</span> <span class="st">'ReadWrite'</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">enableActivities</span> <span class="op">&lt;-</span> <span class="st">'true'</span>
+<span class="va">custom_object</span><span class="op">$</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">base_obj_name</span>, <span class="st">" created by the Metadata API"</span><span class="op">)</span>
+<span class="va">custom_object_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_metadata.html">sf_create_metadata</a></span><span class="op">(</span>metadata_type <span class="op">=</span> <span class="st">'CustomObject'</span>,
+                                           metadata <span class="op">=</span> <span class="va">custom_object</span><span class="op">)</span>
 
 <span class="co"># add fields to the object</span>
-<span class="no">custom_fields</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">fullName</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">base_obj_name</span>, <span class="st">'__c.CustomField3__c'</span>),
-                                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">base_obj_name</span>, <span class="st">'__c.CustomField4__c'</span>)),
-                        <span class="kw">label</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Test Field3'</span>, <span class="st">'Test Field4'</span>),
-                        <span class="kw">length</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">100</span>, <span class="fl">100</span>),
-                        <span class="kw">type</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Text'</span>, <span class="st">'Text'</span>))
-<span class="no">create_fields_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create_metadata.html">sf_create_metadata</a></span>(<span class="kw">metadata_type</span> <span class="kw">=</span> <span class="st">'CustomField'</span>,
-                                           <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">custom_fields</span>)
+<span class="va">custom_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>fullName<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">base_obj_name</span>, <span class="st">'__c.CustomField3__c'</span><span class="op">)</span>, 
+                                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">base_obj_name</span>, <span class="st">'__c.CustomField4__c'</span><span class="op">)</span><span class="op">)</span>, 
+                        label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Test Field3'</span>, <span class="st">'Test Field4'</span><span class="op">)</span>, 
+                        length<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, 
+                        type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Text'</span>, <span class="st">'Text'</span><span class="op">)</span><span class="op">)</span>
+<span class="va">create_fields_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_metadata.html">sf_create_metadata</a></span><span class="op">(</span>metadata_type <span class="op">=</span> <span class="st">'CustomField'</span>, 
+                                           metadata <span class="op">=</span> <span class="va">custom_fields</span><span class="op">)</span>
 
 <span class="co"># delete the object</span>
-<span class="no">delete_obj_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_delete_metadata.html">sf_delete_metadata</a></span>(<span class="kw">metadata_type</span> <span class="kw">=</span> <span class="st">'CustomObject'</span>,
-                                        <span class="kw">object_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Custom_Account1__c'</span>))</pre></body></html></div>
+<span class="va">delete_obj_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_delete_metadata.html">sf_delete_metadata</a></span><span class="op">(</span>metadata_type <span class="op">=</span> <span class="st">'CustomObject'</span>, 
+                                        object_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Custom_Account1__c'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Note that newly created custom fields are not editable by default, meaning that you will not be able to insert records into them until updating the field level security of your user profile. Run the following code to determine the user profiles in your org and updating the field permissions on an object that you may have created with the example code above.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># get list of user proviles in order to get the "fullName" </span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># get list of user proviles in order to get the "fullName" </span>
 <span class="co"># parameter correct in the next call</span>
-<span class="no">my_queries</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">'Profile'</span>))
-<span class="no">profiles_list</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_list_metadata.html">sf_list_metadata</a></span>(<span class="kw">queries</span> <span class="kw">=</span> <span class="no">my_queries</span>)
+<span class="va">my_queries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'Profile'</span><span class="op">)</span><span class="op">)</span>
+<span class="va">profiles_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_metadata.html">sf_list_metadata</a></span><span class="op">(</span>queries <span class="op">=</span> <span class="va">my_queries</span><span class="op">)</span>
 
-<span class="no">admin_editable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">fullName</span> <span class="kw">=</span> <span class="st">'Admin'</span>,
-                       <span class="kw">fieldPermissions</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">field</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">custom_object</span>$<span class="no">fullName</span>,
-                                                          <span class="st">'.CustomField3__c'</span>),
-                                             <span class="kw">editable</span><span class="kw">=</span><span class="st">'true'</span>),
-                       <span class="kw">fieldPermissions</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">field</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">custom_object</span>$<span class="no">fullName</span>,
-                                                          <span class="st">'.CustomField4__c'</span>),
-                                             <span class="kw">editable</span><span class="kw">=</span><span class="st">'true'</span>))
+<span class="va">admin_editable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fullName <span class="op">=</span> <span class="st">'Admin'</span>, 
+                       fieldPermissions<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">custom_object</span><span class="op">$</span><span class="va">fullName</span>, 
+                                                          <span class="st">'.CustomField3__c'</span><span class="op">)</span>,
+                                             editable<span class="op">=</span><span class="st">'true'</span><span class="op">)</span>, 
+                       fieldPermissions<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>field<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">custom_object</span><span class="op">$</span><span class="va">fullName</span>, 
+                                                          <span class="st">'.CustomField4__c'</span><span class="op">)</span>,
+                                             editable<span class="op">=</span><span class="st">'true'</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># update the field level security to "editable" for your fields</span>
-<span class="no">prof_update</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_update_metadata.html">sf_update_metadata</a></span>(<span class="kw">metadata_type</span> <span class="kw">=</span> <span class="st">'Profile'</span>,
-                                  <span class="kw">metadata</span> <span class="kw">=</span> <span class="no">admin_editable</span>)
+<span class="va">prof_update</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_update_metadata.html">sf_update_metadata</a></span><span class="op">(</span>metadata_type <span class="op">=</span> <span class="st">'Profile'</span>, 
+                                  metadata <span class="op">=</span> <span class="va">admin_editable</span><span class="op">)</span>
 
 <span class="co"># now try inserting values into that custom object's fields</span>
-<span class="no">my_new_data</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">CustomField3__c</span> <span class="kw">=</span> <span class="st">"Hello World"</span>, <span class="kw">CustomField4__c</span> <span class="kw">=</span> <span class="st">"Hello World"</span>)
-<span class="no">added_record</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">my_new_data</span>, <span class="kw">object_name</span> <span class="kw">=</span> <span class="no">custom_object</span>$<span class="no">fullName</span>)</pre></body></html></div>
+<span class="va">my_new_data</span> <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>CustomField3__c <span class="op">=</span> <span class="st">"Hello World"</span>, CustomField4__c <span class="op">=</span> <span class="st">"Hello World"</span><span class="op">)</span>
+<span class="va">added_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">my_new_data</span>, object_name <span class="op">=</span> <span class="va">custom_object</span><span class="op">$</span><span class="va">fullName</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -316,7 +322,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

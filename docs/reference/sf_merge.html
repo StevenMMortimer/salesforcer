@@ -100,7 +100,7 @@ parent of the related records." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@ parent of the related records." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -189,23 +189,23 @@ parent of the related records." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>This function combines records of the same object type into one of the records,
 known as the master record. The other records, known as the victim records, will
 be deleted. If a victim record has related records the master record the new
 parent of the related records.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_merge</span>(
-  <span class='no'>master_id</span>,
-  <span class='no'>victim_ids</span>,
-  <span class='no'>object_name</span>,
-  <span class='kw'>master_fields</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>),
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>),
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_merge</span><span class='op'>(</span>
+  <span class='va'>master_id</span>,
+  <span class='va'>victim_ids</span>,
+  <span class='va'>object_name</span>,
+  master_fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>,
+  api_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SOAP"</span><span class='op'>)</span>,
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,26 +264,27 @@ along with additional diagnostic information where available.</p></td>
     <p><code>tbl_df</code> of records with success indicator</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
-<span class='no'>new_contacts</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Test"</span>, <span class='no'>n</span>),
-                       <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Contact"</span>, <span class='fl'>1</span>:<span class='no'>n</span>),
-                       <span class='kw'>Description</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Description"</span>, <span class='fl'>1</span>:<span class='no'>n</span>))
-<span class='no'>new_recs1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_contacts</span>, <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>
+<span class='va'>new_contacts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>FirstName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Test"</span>, <span class='va'>n</span><span class='op'>)</span>,
+                       LastName <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Contact"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>)</span>,
+                       Description <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Description"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>new_recs1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span><span class='op'>(</span><span class='va'>new_contacts</span>, object_name <span class='op'>=</span> <span class='st'>"Contact"</span><span class='op'>)</span>
 
 <span class='co'># merge the second and third into the first record, but set the</span>
 <span class='co'># description field equal to the description of the second. All other fields</span>
 <span class='co'># will from the first record or, if blank, from the other records</span>
-<span class='no'>merge_res</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_merge</span>(<span class='kw'>master_id</span> <span class='kw'>=</span> <span class='no'>new_recs1</span>$<span class='no'>id</span>[<span class='fl'>1</span>],
-                      <span class='kw'>victim_ids</span> <span class='kw'>=</span> <span class='no'>new_recs1</span>$<span class='no'>id</span>[<span class='fl'>2</span>:<span class='fl'>3</span>],
-                      <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>"Contact"</span>,
-                      <span class='kw'>master_fields</span> <span class='kw'>=</span> <span class='fu'>tibble</span>(<span class='st'>"Description"</span> <span class='kw'>=</span> <span class='no'>new_contacts</span>$<span class='no'>Description</span>[<span class='fl'>2</span>]))
+<span class='va'>merge_res</span> <span class='op'>&lt;-</span> <span class='fu'>sf_merge</span><span class='op'>(</span>master_id <span class='op'>=</span> <span class='va'>new_recs1</span><span class='op'>$</span><span class='va'>id</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+                      victim_ids <span class='op'>=</span> <span class='va'>new_recs1</span><span class='op'>$</span><span class='va'>id</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>,
+                      object_name <span class='op'>=</span> <span class='st'>"Contact"</span>,
+                      master_fields <span class='op'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='st'>"Description"</span> <span class='op'>=</span> <span class='va'>new_contacts</span><span class='op'>$</span><span class='va'>Description</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># check the second and third records now have the same Master Record Id as the first</span>
-<span class='no'>merge_check</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"SELECT Id, MasterRecordId, Description 
-                                 FROM Contact WHERE Id IN ('%s')"</span>,
-                                 <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>new_recs1</span>$<span class='no'>id</span>, <span class='kw'>collapse</span><span class='kw'>=</span><span class='st'>"','"</span>)),
-                        <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div></pre>
+<span class='va'>merge_check</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>"SELECT Id, MasterRecordId, Description 
+                                 FROM Contact WHERE Id IN ('%s')"</span>, 
+                                 <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>new_recs1</span><span class='op'>$</span><span class='va'>id</span>, collapse<span class='op'>=</span><span class='st'>"','"</span><span class='op'>)</span><span class='op'>)</span>, 
+                        queryall <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -299,7 +300,7 @@ along with additional diagnostic information where available.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

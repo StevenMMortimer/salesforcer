@@ -19,6 +19,7 @@
 
 # produced vignettes
 vignettes/*.html
+vignettes/*.md
 vignettes/*.pdf
 vignettes/*.R
 
@@ -41,8 +42,8 @@ salesforcer.tar
 .DS_Store
 
 # Folders created by vignette builds
-doc/
-Meta/
+/doc/
+/Meta/
 
 # Files created by tests
 *.pdf

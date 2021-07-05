@@ -97,7 +97,7 @@ Return a list of report types." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@ Return a list of report types." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -186,11 +186,11 @@ Return a list of report types." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>Return a list of report types.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_list_report_types</span>(<span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sf_list_report_types</span><span class='op'>(</span>as_tbl <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -238,13 +238,14 @@ argument <code>as_tbl</code></p>
 <code><a href='sf_update_report.html'>sf_update_report</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>report_types</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_types</span>()
-<span class='no'>unique_report_types</span> <span class='kw'>&lt;-</span> <span class='no'>report_types</span> <span class='kw'>%&gt;%</span> <span class='fu'>select</span>(<span class='no'>reportTypes.type</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>report_types</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_report_types</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>unique_report_types</span> <span class='op'>&lt;-</span> <span class='va'>report_types</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>reportTypes.type</span><span class='op'>)</span>
 
 <span class='co'># return the results as a list</span>
-<span class='no'>reports_as_list</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_list_report_types</span>(<span class='kw'>as_tbl</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-}</div></pre>
+<span class='va'>reports_as_list</span> <span class='op'>&lt;-</span> <span class='fu'>sf_list_report_types</span><span class='op'>(</span>as_tbl<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -260,7 +261,7 @@ argument <code>as_tbl</code></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
