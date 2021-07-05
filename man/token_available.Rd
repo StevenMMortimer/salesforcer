@@ -4,7 +4,7 @@
 \alias{token_available}
 \title{Check token availability}
 \usage{
-token_available(verbose = TRUE)
+token_available(verbose = FALSE)
 }
 \value{
 logical
