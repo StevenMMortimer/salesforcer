@@ -2,9 +2,42 @@
 % Please edit documentation in R/utils-datatypes.R
 \name{sf_format_time}
 \alias{sf_format_time}
-\title{Format all Date and Datetime columns in a list}
+\alias{sf_format_time.list}
+\alias{sf_format_time.data.frame}
+\alias{sf_format_time.Date}
+\alias{sf_format_time.POSIXct}
+\alias{sf_format_time.POSIXlt}
+\alias{sf_format_time.POSIXt}
+\alias{sf_format_time.character}
+\alias{sf_format_time.numeric}
+\alias{sf_format_time.logical}
+\alias{sf_format_time.NULL}
+\alias{sf_format_time.AsIs}
+\title{Format all Date and Datetime values in an object}
 \usage{
 sf_format_time(x, ...)
+
+\method{sf_format_time}{list}(x)
+
+\method{sf_format_time}{data.frame}(x)
+
+\method{sf_format_time}{Date}(x)
+
+\method{sf_format_time}{POSIXct}(x)
+
+\method{sf_format_time}{POSIXlt}(x)
+
+\method{sf_format_time}{POSIXt}(x)
+
+\method{sf_format_time}{character}(x)
+
+\method{sf_format_time}{numeric}(x)
+
+\method{sf_format_time}{logical}(x)
+
+\method{sf_format_time}{`NULL`}(x)
+
+\method{sf_format_time}{AsIs}(x)
 }
 \arguments{
 \item{x}{data which may or may not have values, elements, columns that
@@ -15,7 +48,7 @@ per the requirements of Salesforce APIs.}
 the same data object with datetime values formatted.
 }
 \description{
-Format all Date and Datetime columns in a list
+Format all Date and Datetime values in an object
 }
 \note{
 This function is meant to be used internally. Only use when debugging.

@@ -7,11 +7,13 @@
 sf_format_datetime(x)
 }
 \arguments{
-\item{x}{a value representing a datetime}
+\item{x}{an object, potentially, representing a datetime that should be converted
+to the Salesforce standard.}
 }
 \value{
-\code{character}; a datetime string formatted in ISO8601 per the
-requirements of the Salesforce APIs.
+\code{character}; an object where any values that appear to be a date
+or date time are reformatted as an ISO8601 string per the requirements of the
+Salesforce APIs.
 }
 \description{
 Format Datetimes for Create and Update operations
