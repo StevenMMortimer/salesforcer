@@ -11,7 +11,7 @@ sf_write_csv(x, file, path = deprecated())
 
 \item{file}{A file or connection to write to.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")},
+\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 use the \code{file} argument instead.}
 }
 \value{

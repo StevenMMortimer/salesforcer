@@ -93,7 +93,7 @@ merge_null_to_na <- function(x){
 #' @importFrom readr write_csv
 #' @param x \code{tbl_df}; a data frame object to save as a CSV
 #' @param file A file or connection to write to.
-#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, 
+#' @param path `r lifecycle::badge("deprecated")`
 #' use the `file` argument instead.
 #' @return the input \code{x} invisibly. This function is called for its 
 #' side-effect of creating a CSV file at the specified location using the format 
