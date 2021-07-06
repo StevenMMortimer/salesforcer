@@ -10,8 +10,9 @@ sf_format_date(x)
 \item{x}{a value representing a datetime}
 }
 \value{
-\code{character}; a date string with the time set to midnight and then
-formatted in ISO8601 per the requirements of the Salesforce APIs.
+\code{character}; a date string with the time set to midnight in the
+user's system timezone and then formatted in ISO8601 per the requirements of
+the Salesforce APIs.
 }
 \description{
 Format Dates for Create and Update operations

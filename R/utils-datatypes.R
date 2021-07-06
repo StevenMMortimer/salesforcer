@@ -15,8 +15,9 @@ sf_format_datetime <- function(x){
 #' Format Dates for Create and Update operations
 #' 
 #' @param x a value representing a datetime
-#' @return \code{character}; a date string with the time set to midnight and then 
-#' formatted in ISO8601 per the requirements of the Salesforce APIs.
+#' @return \code{character}; a date string with the time set to midnight in the 
+#' user's system timezone and then formatted in ISO8601 per the requirements of 
+#' the Salesforce APIs.
 #' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
@@ -126,5 +127,12 @@ sf_format_time.NULL <- function(x){
 
 #' @keywords internal
 sf_format_time.AsIs <- function(x){ 
-  x
+  if("AsIs" %in% class(x)){
+    if(length(class(x)[-match("AsIs", class(x))]) == 0){
+      x <- unclass(x)
+    } else {
+      class(x) <- class(x)[-match("AsIs", class(x))]
+    }
+  }
+  sf_format_time(x)
 }
