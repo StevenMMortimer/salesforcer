@@ -42,14 +42,13 @@ sf_format_date <- function(x){
 #' @keywords internal
 #' @rdname sf_format_time
 #' @export
-sf_format_time <- function (x, ...) {
+sf_format_time <- function (x) {
   UseMethod("sf_format_time", x)
 }
 
 #' @importFrom dplyr mutate_if
 #' @importFrom lubridate is.POSIXct is.POSIXlt is.POSIXt is.Date
 #' @rdname sf_format_time
-#' @export sf_format_time.list
 #' @export
 sf_format_time.list <- function(x){
   lapply(x, FUN=function(xx){
@@ -64,7 +63,6 @@ sf_format_time.list <- function(x){
 #' @importFrom dplyr mutate_if
 #' @importFrom lubridate is.POSIXct is.POSIXlt is.POSIXt is.Date
 #' @rdname sf_format_time
-#' @export sf_format_time.data.frame
 #' @export
 sf_format_time.data.frame <- function(x){
   x %>%
@@ -75,63 +73,54 @@ sf_format_time.data.frame <- function(x){
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.Date
 #' @export
 sf_format_time.Date <- function(x){ 
   sf_format_date(x)
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.POSIXct
 #' @export
 sf_format_time.POSIXct <- function(x){ 
   sf_format_datetime(x)
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.POSIXlt
 #' @export
 sf_format_time.POSIXlt <- function(x){ 
   sf_format_datetime(x)
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.POSIXt
 #' @export
 sf_format_time.POSIXt <- function(x){ 
   sf_format_datetime(x)
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.character
 #' @export
 sf_format_time.character <- function(x){ 
   x
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.numeric
 #' @export
 sf_format_time.numeric <- function(x){ 
   x
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.logical
 #' @export
 sf_format_time.logical <- function(x){ 
   x
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.NULL
 #' @export
 sf_format_time.NULL <- function(x){ 
   x
 }
 
 #' @rdname sf_format_time
-#' @export sf_format_time.AsIs
 #' @export
 sf_format_time.AsIs <- function(x){ 
   if(length(class(x)[-match("AsIs", class(x))]) == 0){

@@ -15,7 +15,7 @@
 \alias{sf_format_time.AsIs}
 \title{Format all Date and Datetime values in an object}
 \usage{
-sf_format_time(x, ...)
+sf_format_time(x)
 
 \method{sf_format_time}{list}(x)
 
