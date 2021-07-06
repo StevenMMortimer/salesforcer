@@ -6,6 +6,15 @@
 \usage{
 make_analytics_folder_child_operations_url(report_folder_id)
 }
+\arguments{
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created
+analytics folder (it will start with "00l").}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Analytics folder calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Analytics Folder child operations URL generator
 }

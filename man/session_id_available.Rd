@@ -7,7 +7,7 @@
 session_id_available(verbose = TRUE)
 }
 \value{
-logical
+\code{logical}
 }
 \description{
 Check if a session_id is available in \code{\link{salesforcer}}'s internal

@@ -8,9 +8,13 @@ make_soap_xml_skeleton(soap_headers = list(), metadata_ns = FALSE)
 }
 \arguments{
 \item{soap_headers}{\code{list}; any number of SOAP headers}
+
+\item{metadata_ns}{\code{logical}; an indicator of whether to use the namespaces
+required by the Metadata API or the default ones.}
 }
 \value{
-a XML document
+\code{xmlNode}; an XML object containing just the header portion of the
+request
 }
 \description{
 Create XML in preparation for sending to the SOAP API

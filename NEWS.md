@@ -4,7 +4,7 @@
 
   * Increase the package's default Salesforce API version to 52.0 (Summer '21).
   
-  * Remove uses of {RForcecom} after it was removed from CRAN on 6/9/2021 (#101)
+  * Remove uses of {RForcecom} after it was archived on CRAN on 6/8/2021 (#101)
   
   * Remove LazyData option in DESCRIPTION since `data()` is not utilized
   

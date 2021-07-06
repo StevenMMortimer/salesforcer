@@ -6,6 +6,23 @@
 \usage{
 filter_valid_controls(supplied, api_type = NULL, operation = NULL)
 }
+\arguments{
+\item{supplied}{\code{list}; a list of input data regarding the control arguments
+along with the with API and operation information to make a complete assessment
+of which control arguments are applicable.}
+
+\item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
+\code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
+making the request.}
+
+\item{operation}{\code{character}; a string defining the type of operation being
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
+"query", "queryall").}
+}
+\value{
+\code{character}; a vector of strings returning only the control arguments
+that are accepted by the specified API and operation.
+}
 \description{
 Filter Out Control Arguments by API or Operation
 }

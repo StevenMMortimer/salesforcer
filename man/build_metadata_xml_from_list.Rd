@@ -22,10 +22,11 @@ build_metadata_xml_from_list(
 \item{ns}{named vector; a collection of character strings indicating the namespace
 definitions of the root node if created}
 
-\item{root}{\code{XMLNode}; a node to be used as the root}
+\item{root}{\code{xmlNode}; an XML node to be used as the root}
 }
 \value{
-A XML document with the sublist data added
+\code{xmlNode}; an XML node with the input data added as needed for the
+Metadata API and its objects.
 }
 \description{
 This function converts a list of metadata to XML

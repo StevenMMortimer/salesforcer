@@ -4,7 +4,19 @@
 \alias{make_rest_record_url}
 \title{REST Individual Record URL Generator}
 \usage{
-make_rest_record_url(object, sf_id)
+make_rest_record_url(object_name, sf_id)
+}
+\arguments{
+\item{object_name}{\code{character}; the name of the Salesforce object that the
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
+
+\item{sf_id}{\code{character}; a Salesforce generated Id that uniquely
+identifies a record.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send REST API calls to regarding a specific record in an object. This URL is
+also specific to your instance and the API version being used.
 }
 \description{
 REST Individual Record URL Generator

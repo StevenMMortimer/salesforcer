@@ -6,6 +6,13 @@
 \usage{
 sf_format_datetime(x)
 }
+\arguments{
+\item{x}{a value representing a datetime}
+}
+\value{
+\code{character}; a datetime string formatted in ISO8601 per the
+requirements of the Salesforce APIs.
+}
 \description{
 Format Datetimes for Create and Update operations
 }

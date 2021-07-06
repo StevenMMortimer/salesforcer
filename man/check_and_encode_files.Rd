@@ -6,6 +6,22 @@
 \usage{
 check_and_encode_files(dat, column = "Body", encode = TRUE, n_check = 100)
 }
+\arguments{
+\item{dat}{\code{tbl_df} or \code{list} of information regarding attachments
+stored locally that will be encoded for use in the APIs.}
+
+\item{column}{\code{character}; a string that indicates which column in the
+\code{dat} argument is storing the body of information that needs to be encoded.}
+
+\item{encode}{\code{logical}; a indicator of whether the body column should
+be encoded in this step, which allows us to utilize this function for checking
+or checking and encoding.}
+
+\item{n_check}{\code{integer}; an integer specifying how many elements in the
+\code{dat} argument that should be checked to see if the referenced file path
+exists locally. This fails the function early if users accidentally specify
+the wrong path.}
+}
 \description{
 Check that file paths exist and data is encoded if specified
 }

@@ -6,6 +6,18 @@
 \usage{
 is_legit_token(x, verbose = FALSE)
 }
+\arguments{
+\item{x}{an object that is supposed to be an object of class \code{Token2.0}
+(an S3 class provided by \code{httr}). If so, the result will return \code{TRUE}.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
+along with additional diagnostic information where available.}
+}
+\value{
+\code{logical}
+}
 \description{
 Check that token appears to be legitimate
 }

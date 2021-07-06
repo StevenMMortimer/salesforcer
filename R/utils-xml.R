@@ -54,7 +54,7 @@ xmlToList2 <- function(node){
 #' @importFrom purrr modify_if
 #' @importFrom utils capture.output
 #' @param this_node \code{xml_node}; to be parsed out
-#' @return \code{data.frame} parsed from the supplied xml
+#' @return \code{tbl_df} parsed from the supplied XML
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -78,7 +78,10 @@ xml_nodeset_to_df <- function(this_node){
 #' 
 #' @importFrom XML newXMLNode xmlValue<-
 #' @param soap_headers \code{list}; any number of SOAP headers
-#' @return a XML document
+#' @param metadata_ns \code{logical}; an indicator of whether to use the namespaces 
+#' required by the Metadata API or the default ones.
+#' @return \code{xmlNode}; an XML object containing just the header portion of the 
+#' request
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' Any of the following SOAP headers are allowed:
@@ -172,14 +175,15 @@ make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){
 #' @param input_data a \code{data.frame} of data to fill the XML body
 #' @template operation
 #' @template object_name
-#' @param fields \code{character}; one or more strings indicating the fields to be returned 
-#' on the records
+#' @param fields \code{character}; one or more strings indicating the fields to 
+#' be returned on the records
 #' @template external_id_fieldname
 #' @param root_name \code{character}; the name of the root node if created
 #' @param ns named vector; a collection of character strings indicating the namespace 
 #' definitions of the root node if created
-#' @param root \code{XMLNode}; a node to be used as the root
-#' @return a XML document
+#' @param root \code{xmlNode}; an XML node to be used as the root
+#' @return \code{xmlNode}; an XML node with the complete XML built using the root 
+#' and the input data in the format needed for the operation. 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -328,8 +332,9 @@ build_soap_xml_from_list <- function(input_data,
 #' @param root_name \code{character}; the name of the root node if created
 #' @param ns named vector; a collection of character strings indicating the namespace 
 #' definitions of the root node if created
-#' @param root \code{XMLNode}; a node to be used as the root
-#' @return A XML document with the sublist data added
+#' @param root \code{xmlNode}; an XML node to be used as the root
+#' @return \code{xmlNode}; an XML node with the input data added as needed for the 
+#' Metadata API and its objects.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -371,9 +376,10 @@ build_metadata_xml_from_list <- function(input_data,
 #'
 #' @importFrom XML newXMLNode xmlValue<-
 #' @param input_data \code{list}; data to be appended
-#' @param root \code{XMLNode}; a node to be used as the root
+#' @param root \code{xmlNode}; an XML node to be used as the root
+#' @return \code{xmlNode}; an XML node constructed into a manifest data required 
+#' by the Bulk APIs for handling binary attachment data.
 #' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_create_request_file.htm}
-#' @return A XML document with the sublist manifest data added
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

@@ -17,7 +17,7 @@ rforcecom.login(
 
 \item{password}{Your password for login to the Salesforce.com. Note: DO NOT FORGET your Security Token. (Ex.) If your password is "Pass1234" and your security token is "XYZXYZXYZXYZ", you should set "Pass1234XYZXYZXYZXYZ".}
 
-\item{loginURL}{(optional) Login URL. If your environment is sandbox specify (ex:) "https://test.salesforce.com/".}
+\item{loginURL}{(optional) Login URL. If your environment is sandbox specify (ex:) "https://test.salesforce.com".}
 
 \item{apiVersion}{(optional) Version of the REST API and SOAP API that you want to use. (ex:) "35.0" Supported versions from v20.0 and up.}
 }

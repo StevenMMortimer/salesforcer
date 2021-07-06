@@ -16,6 +16,43 @@ sf_create_job_bulk_v2(
   verbose = FALSE
 )
 }
+\arguments{
+\item{operation}{\code{character}; a string defining the type of operation being
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
+"query", "queryall").}
+
+\item{object_name}{\code{character}; the name of the Salesforce object that the
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
+
+\item{soql}{\code{character}; a string defining a SOQL query
+(e.g. "SELECT Id, Name FROM Account").}
+
+\item{external_id_fieldname}{\code{character}; string identifying a custom field on the
+object that has been set as an "External ID" field. This field is used to reference
+objects during upserts to determine if the record already exists in Salesforce or not.}
+
+\item{content_type}{\code{character}; a string indicating the format for
+the API request and response. Must be 'CSV' because it is the only supported
+format for the Bulk 2.0 API.}
+
+\item{column_delimiter}{\code{character}; a string indicating which character
+should be treated as the delimiter in the CSV file. Must be one of 'COMMA',
+'TAB', 'PIPE', 'SEMICOLON', 'CARET', or 'BACKQUOTE'.}
+
+\item{control}{\code{list}; a list of parameters for controlling the behavior of
+the API call being used. For more information of what parameters are available
+look at the documentation for \code{\link{sf_control}}.}
+
+\item{...}{arguments to be used to form the default control argument if it is not supplied directly.}
+
+\item{verbose}{\code{logical}; an indicator of whether to print additional
+detail for each API call, which is useful for debugging. More specifically, when
+set to \code{TRUE} the URL, header, and body will be printed for each request,
+along with additional diagnostic information where available.}
+}
+\value{
+\code{tbl_df}; a data frame containing information about the job created.
+}
 \description{
 Create Job using Bulk 2.0 API
 }

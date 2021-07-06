@@ -4,7 +4,16 @@
 \alias{make_rest_objects_url}
 \title{REST Objects URL Generator}
 \usage{
-make_rest_objects_url(object)
+make_rest_objects_url(object_name)
+}
+\arguments{
+\item{object_name}{\code{character}; the name of the Salesforce object that the
+function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send REST API calls to regarding a specific object. This URL is also specific
+to your instance and the API version being used.
 }
 \description{
 REST Objects URL Generator

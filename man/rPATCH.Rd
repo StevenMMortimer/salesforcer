@@ -6,6 +6,9 @@
 \usage{
 rPATCH(url, headers = character(0), ...)
 }
+\value{
+A \code{response()} object as defined by the \code{httr} package.
+}
 \description{
 PATCHs with retries and authentication
 }

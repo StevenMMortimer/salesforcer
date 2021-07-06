@@ -7,7 +7,7 @@
 token_available(verbose = FALSE)
 }
 \value{
-logical
+\code{logical}
 }
 \description{
 Check if a token is available in \code{\link{salesforcer}}'s internal

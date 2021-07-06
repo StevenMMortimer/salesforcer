@@ -6,6 +6,11 @@
 \usage{
 make_base_metadata_url()
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Metadata API calls to. This URL is specific to your instance and the API
+version being used.
+}
 \description{
 Base Metadata API URL Generator
 }

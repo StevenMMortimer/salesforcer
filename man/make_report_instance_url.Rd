@@ -6,6 +6,19 @@
 \usage{
 make_report_instance_url(report_id, report_instance_id)
 }
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
+analytics report. It will start with \code{"00O"}.}
+
+\item{report_instance_id}{\code{character}; the Salesforce Id assigned to a
+created analytics report instance (an asynchronous run). It will start with
+\code{"0LG"}.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Reports and Dashboards API calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Report Instance URL generator
 }

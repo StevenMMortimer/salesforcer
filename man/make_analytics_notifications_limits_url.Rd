@@ -6,6 +6,11 @@
 \usage{
 make_analytics_notifications_limits_url()
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Analytics notification calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Analytics Notification limits URL generator
 }

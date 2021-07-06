@@ -6,6 +6,17 @@
 \usage{
 validate_get_all_jobs_params(parameterized_search_list, type = "all")
 }
+\arguments{
+\item{parameterized_search_list}{\code{list}; a list of search options to
+locate Bulk API jobs.}
+
+\item{type}{\code{character}; a string indicating which type of jobs to
+include in the result.}
+}
+\value{
+\code{character}; a complete URL (as a string) to send a request
+to in order to retrieve queried jobs.
+}
 \description{
 Validate Query Parameters When Getting List of All Bulk Jobs
 }

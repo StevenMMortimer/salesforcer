@@ -7,7 +7,12 @@
 xml_drop_and_unlist(x)
 }
 \arguments{
-\item{x}{\code{list}; a list of xml content parsed into a list by xml2}
+\item{x}{\code{list}; a list of XML content parsed into a list by xml2}
+}
+\value{
+\code{character}; a named vector of strings from the parsed XML. Nested
+elements have their hierarchy represented by a period between the element names
+at each level.
 }
 \description{
 This function will detect if there are metadata fields returned by the SOAP

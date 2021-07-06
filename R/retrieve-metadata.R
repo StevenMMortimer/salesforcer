@@ -109,7 +109,6 @@ sf_retrieve_metadata <- function(retrieve_request,
 #' @importFrom xml2 xml_ns_strip xml_find_all as_list read_xml
 #' @importFrom purrr map_df map_dfc
 #' @importFrom dplyr as_tibble
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_checkretrievestatus.htm}
 #' @param id \code{character}; string id returned from \link{sf_retrieve_metadata}
 #' @param include_zip \code{logical}; Set to false to check the status of the retrieval without 
 #' attempting to retrieve the zip file. If omitted, this argument defaults to true.
@@ -118,6 +117,7 @@ sf_retrieve_metadata <- function(retrieve_request,
 #' working directory as package.zip
 #' @template verbose
 #' @return A \code{list} of the response
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_checkretrievestatus.htm}
 #' @examples
 #' \dontrun{
 #' retrieve_request <- list(unpackaged=list(types=list(members='*', name='CustomObject')))

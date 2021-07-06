@@ -203,6 +203,9 @@ sf_control <- function(AllOrNoneHeader=list(allOrNone=FALSE),
 
 #' Return the Accepted Control Arguments by API Type
 #' 
+#' @template api_type
+#' @return \code{character}; a vector of strings indicating which control arguments 
+#' are accepted by the specified API.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -223,6 +226,9 @@ accepted_controls_by_api <- function(api_type = c("SOAP", "REST", "Bulk 1.0", "B
 
 #' Return the Accepted Control Arguments by Operation
 #' 
+#' @template operation
+#' @return \code{character}; a vector of strings indicating which control arguments 
+#' are accepted by the specified operation.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -260,6 +266,13 @@ accepted_controls_by_operation <- function(operation = c("create" , "insert",
 
 #' Filter Out Control Arguments by API or Operation
 #' 
+#' @param supplied \code{list}; a list of input data regarding the control arguments 
+#' along with the with API and operation information to make a complete assessment 
+#' of which control arguments are applicable.
+#' @template api_type
+#' @template operation
+#' @return \code{character}; a vector of strings returning only the control arguments 
+#' that are accepted by the specified API and operation.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -306,6 +319,12 @@ filter_valid_controls <- function(supplied, api_type = NULL, operation = NULL){
 
 #' Of All Args Return Ones Matching Control Arguments
 #' 
+#' @param args \code{character}; a vector of strings that represent the function 
+#' arguments.
+#' @return \code{character}; a vector of strings returning only the function arguments 
+#' that match control arguments so that users can specify them directly in each 
+#' function and not have to construct a control object every time in order to 
+#' pass only one or two control arguments.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

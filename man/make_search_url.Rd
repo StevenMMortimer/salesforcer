@@ -6,6 +6,14 @@
 \usage{
 make_search_url(search_string)
 }
+\arguments{
+\item{search_string}{\code{character}; a valid string for conducting a SOSL
+search.}
+}
+\value{
+\code{character}; a complete URL (as a string) that has applied the
+proper escaping and formatting for the search specified by the string.
+}
 \description{
 Search URL Generator
 }

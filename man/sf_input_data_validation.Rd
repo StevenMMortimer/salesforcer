@@ -6,6 +6,21 @@
 \usage{
 sf_input_data_validation(input_data, operation = "")
 }
+\arguments{
+\item{input_data}{\code{named vector}, \code{matrix}, \code{data.frame}, or
+\code{tbl_df}; data can be coerced into a \code{data.frame}. If performing an
+\code{update}, \code{upsert}, or \code{delete} operation, then one column or
+field must be the \code{Id} of the record to modify or delete.}
+
+\item{operation}{\code{character}; a string defining the type of operation being
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
+"query", "queryall").}
+}
+\value{
+the input data validated and formatted according to the specified
+operation. This allows more flexibility for the user while ensuring that all
+inputs are formatted as expected by the target APIs and operations.
+}
 \description{
 Validate the input for an operation
 }

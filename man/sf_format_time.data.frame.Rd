@@ -6,6 +6,14 @@
 \usage{
 \method{sf_format_time}{data.frame}(x)
 }
+\arguments{
+\item{x}{\code{tbl_df}; a data frame object which may or may not have columns
+that represent a datetime. If so, they are cast to the ISO8601 standard per
+the requirements of Salesforce APIs.}
+}
+\value{
+\code{tbl_df}; the same data frame object with datetime values formatted.
+}
 \description{
 Format all Date and Datetime columns in a dataset
 }

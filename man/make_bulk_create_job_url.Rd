@@ -9,6 +9,18 @@ make_bulk_create_job_url(
   query_operation = FALSE
 )
 }
+\arguments{
+\item{api_type}{\code{character}; a string indicating which Bulk API to execute
+the call against.}
+
+\item{query_operation}{\code{logical}; an indicator of whether the call is
+for a query or another operation, such as, CRUD operations.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send subsequent Bulk API calls to. This URL is specific to your instance and
+the API version being used.
+}
 \description{
 Bulk Create Job URL Generator
 }

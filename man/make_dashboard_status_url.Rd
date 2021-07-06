@@ -6,6 +6,15 @@
 \usage{
 make_dashboard_status_url(dashboard_id)
 }
+\arguments{
+\item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
+dashboard. It will start with \code{"01Z"}.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Reports and Dashboards API calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Dashboard status URL generator
 }

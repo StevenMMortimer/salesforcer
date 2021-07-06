@@ -260,7 +260,10 @@ drop_attributes_recursively <- function(x,
 #' @importFrom purrr map modify_if
 #' @importFrom rlist list.flatten
 #' @importFrom utils head tail
-#' @param x \code{list}; a list of xml content parsed into a list by xml2
+#' @param x \code{list}; a list of XML content parsed into a list by xml2
+#' @return \code{character}; a named vector of strings from the parsed XML. Nested 
+#' elements have their hierarchy represented by a period between the element names 
+#' at each level.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -468,9 +471,10 @@ extract_records_from_xml_nodeset_of_records <- function(x,
 #' bound together to return one complete \code{tbl_df} of the query result for 
 #' that parent record.
 #' 
+#' @importFrom xml2 xml_find_all xml_remove
 #' @param x \code{xml_node}; a \code{xml_node} from an xml2 parsed response 
 #' representing one individual parent query record.
-#' @importFrom xml2 xml_find_all xml_remove
+#' @return \code{tbl_df} of the query result for that parent record.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -574,6 +578,8 @@ list_extract_parent_and_child_result <- function(x){
 #' the query recordset, that can be joined with its corresponding child records.
 #' @param child_df_list \code{list} of \code{tbl_df}; a list of child records that 
 #' is the same length as the number of rows in the parent_df.
+#' @return \code{tbl_df}; a data frame of parent data replicated for each child 
+#' record in the corresponding list.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

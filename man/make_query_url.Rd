@@ -6,6 +6,22 @@
 \usage{
 make_query_url(soql, queryall, next_records_url)
 }
+\arguments{
+\item{soql}{\code{character}; a string defining a SOQL query
+(e.g. "SELECT Id, Name FROM Account").}
+
+\item{queryall}{\code{logical}; indicating if the query recordset should include records
+that have been deleted because of a merge or delete. Setting this argument to
+\code{TRUE} will also return information about archived Task and Event records.
+It is available in API versions 29.0 and later.}
+
+\item{next_records_url}{\code{character}; a string returned by a Salesforce
+query from where to find subsequent records returned by a paginated query.}
+}
+\value{
+\code{character}; a complete URL (as a string) to send a request
+to in order to retrieve queried records.
+}
 \description{
 Query URL Generator
 }

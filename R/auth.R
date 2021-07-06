@@ -243,7 +243,12 @@ sf_auth <- function(username = NULL,
 
 #' Check that token appears to be legitimate
 #'
+#' @param x an object that is supposed to be an object of class \code{Token2.0} 
+#' (an S3 class provided by \code{httr}). If so, the result will return \code{TRUE}.
+#' @template verbose
+#' @return \code{logical} 
 #' @keywords internal
+#' @export
 is_legit_token <- function(x, verbose = FALSE) {
   
   if (!inherits(x, "Token2.0")) {
@@ -336,7 +341,7 @@ sf_auth_refresh <- function(verbose = FALSE) {
 #' Check if a session_id is available in \code{\link{salesforcer}}'s internal
 #' \code{.state} environment.
 #'
-#' @return logical
+#' @return \code{logical}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -360,7 +365,7 @@ session_id_available <- function(verbose = TRUE) {
 #' Check if a token is available in \code{\link{salesforcer}}'s internal
 #' \code{.state} environment.
 #'
-#' @return logical
+#' @return \code{logical}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

@@ -6,10 +6,23 @@
 \usage{
 make_login_url(login_url)
 }
+\arguments{
+\item{login_url}{\code{character}; the package default login URL is
+https://login.salesforce.com, but other URLs can be used. For example, if you
+are logging into a sandbox environment, then the login URL should be set to
+https://test.salesforce.com.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+login to. This string is specific to your environment (production, sandbox,
+etc.) and the API version being used.
+}
 \description{
 Login URL Generator
 }
 \note{
 This function is meant to be used internally. Only use when debugging.
+You should set the login URL globally as one of the package options:
+\code{options(salesforcer.login_url="https://test.salesforce.com")}.
 }
 \keyword{internal}

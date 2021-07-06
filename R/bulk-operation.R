@@ -126,8 +126,23 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
 #' @importFrom httr content
 #' @importFrom XML xmlToList
+#' @template operation
+#' @template object_name
+#' @template external_id_fieldname
+#' @param content_type \code{character}; a string indicating the format for 
+#' the API request and response. Must be one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 
+#' 'ZIP_JSON'.
+#' @param concurrency_mode \code{character}; a string indicating whether the batches 
+#' should be processed in parallel or serially (sequentially). Serial processing 
+#' is helpful when multiple records may trigger simultaneous edits to another 
+#' related record (e.g., updating multiple children all on the same account).
+#' @template control
+#' @param ... arguments to be used to form the default control argument if it is not supplied directly.
+#' @template verbose
+#' @return \code{tbl_df}; a data frame containing information about the job created.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
+#' @export
 sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "update", 
                                                 "hardDelete", "query", "queryall"), 
                                   object_name,
@@ -213,8 +228,23 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON prettify
+#' @template operation
+#' @template object_name
+#' @template soql
+#' @template external_id_fieldname
+#' @param content_type \code{character}; a string indicating the format for 
+#' the API request and response. Must be 'CSV' because it is the only supported 
+#' format for the Bulk 2.0 API.
+#' @param column_delimiter \code{character}; a string indicating which character 
+#' should be treated as the delimiter in the CSV file. Must be one of 'COMMA', 
+#' 'TAB', 'PIPE', 'SEMICOLON', 'CARET', or 'BACKQUOTE'.
+#' @template control
+#' @param ... arguments to be used to form the default control argument if it is not supplied directly.
+#' @template verbose
+#' @return \code{tbl_df}; a data frame containing information about the job created.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
+#' @export
 sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", 
                                                 "upsert", "update", 
                                                 "query", "queryall"),
@@ -536,6 +566,8 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
 #' how the bulk job should be ended
 #' @template api_type
 #' @template verbose
+#' @return \code{logical}; returns \code{TRUE} if the job was able to be ended; 
+#' otherwise, an error message is printed
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -547,7 +579,7 @@ sf_end_job_bulk <- function(job_id,
   end_type <- match.arg(end_type)
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 2.0" & end_type == "Closed"){
-    end_typ <- "UploadComplete"
+    end_type <- "UploadComplete"
   }
   request_body <- toJSON(list(state=end_type), auto_unbox = TRUE)
   bulk_end_job_url <- make_bulk_end_job_generic_url(job_id, api_type)

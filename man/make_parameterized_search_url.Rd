@@ -5,17 +5,25 @@
 \title{Parameterized Search URL Generator}
 \usage{
 make_parameterized_search_url(search_string = NULL, params = NULL)
+}
+\arguments{
+\item{search_string}{\code{character}; a valid string for conducting a simple
+RESTful search using parameters instead of a SOSL clause.}
 
-make_parameterized_search_url(search_string = NULL, params = NULL)
+\item{params}{\code{list}; a list of other values to populate in the URL
+query string to further restrict the search}
+}
+\value{
+\code{character}; a complete URL (as a string) that has applied the
+proper escaping and formatting for the search specified by the function inputs.
 }
 \description{
-Parameterized Search URL Generator
-
 Parameterized Search URL Generator
 }
 \note{
 This function is meant to be used internally. Only use when debugging.
-
-This function is meant to be used internally. Only use when debugging.
+}
+\references{
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_search_parameterized.htm}
 }
 \keyword{internal}

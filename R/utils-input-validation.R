@@ -102,6 +102,11 @@ message_w_errors_listed <- function(main_text = "Consider the following:",
 
 #' Validate the input for an operation
 #' 
+#' @template input_data
+#' @template operation
+#' @return the input data validated and formatted according to the specified 
+#' operation. This allows more flexibility for the user while ensuring that all 
+#' inputs are formatted as expected by the target APIs and operations.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

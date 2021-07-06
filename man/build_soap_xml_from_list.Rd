@@ -28,8 +28,8 @@ performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
 \item{object_name}{\code{character}; the name of the Salesforce object that the
 function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 
-\item{fields}{\code{character}; one or more strings indicating the fields to be returned
-on the records}
+\item{fields}{\code{character}; one or more strings indicating the fields to
+be returned on the records}
 
 \item{external_id_fieldname}{\code{character}; string identifying a custom field on the
 object that has been set as an "External ID" field. This field is used to reference
@@ -40,10 +40,11 @@ objects during upserts to determine if the record already exists in Salesforce o
 \item{ns}{named vector; a collection of character strings indicating the namespace
 definitions of the root node if created}
 
-\item{root}{\code{XMLNode}; a node to be used as the root}
+\item{root}{\code{xmlNode}; an XML node to be used as the root}
 }
 \value{
-a XML document
+\code{xmlNode}; an XML node with the complete XML built using the root
+and the input data in the format needed for the operation.
 }
 \description{
 Parse data into XML format

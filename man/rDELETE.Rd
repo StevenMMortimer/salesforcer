@@ -6,6 +6,9 @@
 \usage{
 rDELETE(url, headers = character(0), ...)
 }
+\value{
+A \code{response()} object as defined by the \code{httr} package.
+}
 \description{
 DELETEs with retries and authentication
 }

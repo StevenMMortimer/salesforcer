@@ -6,6 +6,13 @@
 \usage{
 sf_format_date(x)
 }
+\arguments{
+\item{x}{a value representing a datetime}
+}
+\value{
+\code{character}; a date string with the time set to midnight and then
+formatted in ISO8601 per the requirements of the Salesforce APIs.
+}
 \description{
 Format Dates for Create and Update operations
 }

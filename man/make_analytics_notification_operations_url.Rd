@@ -6,6 +6,11 @@
 \usage{
 make_analytics_notification_operations_url(notification_id)
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Analytics notification calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Analytics Notification operations URL generator
 }

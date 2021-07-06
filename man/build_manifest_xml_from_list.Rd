@@ -9,10 +9,11 @@ build_manifest_xml_from_list(input_data, root = NULL)
 \arguments{
 \item{input_data}{\code{list}; data to be appended}
 
-\item{root}{\code{XMLNode}; a node to be used as the root}
+\item{root}{\code{xmlNode}; an XML node to be used as the root}
 }
 \value{
-A XML document with the sublist manifest data added
+\code{xmlNode}; an XML node constructed into a manifest data required
+by the Bulk APIs for handling binary attachment data.
 }
 \description{
 This function converts a list of data for binary attachments to XML

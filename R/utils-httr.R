@@ -27,9 +27,11 @@
 
 #' Generic implementation of HTTP methods with retries and authentication
 #' 
-#' @param verb string; The name of HTTP verb to execute
 #' @importFrom httr RETRY status_code config add_headers
 #' @importFrom stats runif
+#' @param verb string; The name of HTTP verb to execute
+#' @return The last response. Note that if the request doesn't succeed after 
+#' \code{times} then the request will fail and return the response.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -60,6 +62,7 @@ VERB_n <- function(verb) {
 #' GETs with retries and authentication
 #' 
 #' @importFrom httr GET
+#' @return A \code{response()} object as defined by the \code{httr} package.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -67,6 +70,8 @@ rGET <- VERB_n("GET")
 
 #' POSTs with retries and authentication
 #' 
+#' @importFrom httr POST
+#' @return A \code{response()} object as defined by the \code{httr} package.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -74,6 +79,8 @@ rPOST <- VERB_n("POST")
 
 #' PATCHs with retries and authentication
 #' 
+#' @importFrom httr PATCH
+#' @return A \code{response()} object as defined by the \code{httr} package.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -81,6 +88,8 @@ rPATCH <- VERB_n("PATCH")
 
 #' PUTs with retries and authentication
 #' 
+#' @importFrom httr PUT
+#' @return A \code{response()} object as defined by the \code{httr} package.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -88,6 +97,8 @@ rPUT <- VERB_n("PUT")
 
 #' DELETEs with retries and authentication
 #' 
+#' @importFrom httr DELETE
+#' @return A \code{response()} object as defined by the \code{httr} package.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -97,6 +108,8 @@ rDELETE <- VERB_n("DELETE")
 #' 
 #' Assuming the error code is less than 500, this function will return the 
 #' 
+#' @param x \code{response()}; a response that indicates an error
+#' @return \code{list}; a list containing the error code and message for printing.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -126,6 +139,9 @@ parse_error_code_and_message <- function(x){
 #'
 #' @importFrom httr content http_error
 #' @importFrom xml2 as_list xml_find_first
+#' @param x \code{response()}; a response from an HTTP request
+#' @return \code{logical}; return \code{FALSE} if the function finishes without 
+#' detecting an error, otherwise stop the function call. 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -153,16 +169,18 @@ catch_errors <- function(x){
 
 #' Execute a non-paginated REST API call to list items
 #' 
+#' @importFrom purrr map_df
+#' @importFrom dplyr as_tibble tibble
+#' @importFrom readr col_guess type_convert
+#' @importFrom httr content
+#' @param url \code{character}; a valid REST API URL (as a string)
 #' @template as_tbl
 #' @param records_root \code{character} or \code{integer}; an index or string that 
 #' identifies the element in the parsed list which contains the records returned 
 #' by the API call. By default, this argument is \code{NULL}, which means that 
 #' each element in the list is an individual record.
 #' @template verbose
-#' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble tibble
-#' @importFrom readr col_guess type_convert
-#' @importFrom httr content
+#' @return \code{tbl_df} or \code{list} of data depending on what was requested.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -199,6 +217,7 @@ sf_rest_list <- function(url,
 #' Function to build a proxy object to pass along with httr requests
 #'
 #' @importFrom httr use_proxy
+#' @return an \code{httr} proxy object
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
