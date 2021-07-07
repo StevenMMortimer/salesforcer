@@ -6,6 +6,14 @@
 \usage{
 format_headers_for_verbose(request_headers)
 }
+\arguments{
+\item{request_headers}{\code{list}; a list of values from the API request or
+response that represent the headers of the call}
+}
+\value{
+\code{character}; a string constructed from the input that is easier
+to read when we print it out
+}
 \description{
 Format Headers for Printing
 }

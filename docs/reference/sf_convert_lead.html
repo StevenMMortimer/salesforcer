@@ -97,7 +97,7 @@ Converts Leads each into an Account, Contact, as well as (optionally) an Opportu
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@ Converts Leads each into an Account, Contact, as well as (optionally) an Opportu
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -186,18 +186,18 @@ Converts Leads each into an Account, Contact, as well as (optionally) an Opportu
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_convert_lead</span>(
-  <span class='no'>input_data</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SOAP"</span>),
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_convert_lead</span><span class='op'>(</span>
+  <span class='va'>input_data</span>,
+  guess_types <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  api_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SOAP"</span><span class='op'>)</span>,
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,7 +256,7 @@ want opportunities to not be created for each converted lead then add a column
 in your input data called <code>doNotCreateOpportunity</code> and set its value to
 <code>TRUE</code>. The default is <code>FALSE</code> which creates opportunities. The order
 of columns in the input data does not matter, just that the names
-match (case-insensitive).</p><dl'>
+match (case-insensitive).</p><dl>
 <dt>leadId</dt><dd><p>ID of the Lead to convert. Required.</p></dd>
 <dt>convertedStatus</dt><dd><p>Valid LeadStatus value for a converted lead. Required.</p></dd>
 <dt>accountId</dt><dd><p>Id of the Account into which the lead will be merged. Required
@@ -297,21 +297,22 @@ the default).</p></dd>
 </dl><p><a href='https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_convertlead.htm'>Salesforce Documentation</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># create a new lead at Grand Hotels &amp; Resorts Ltd</span>
-<span class='no'>new_lead</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>FirstName</span> <span class='kw'>=</span> <span class='st'>"Test"</span>, <span class='kw'>LastName</span> <span class='kw'>=</span> <span class='st'>"Prospect"</span>,
-                   <span class='kw'>Company</span> <span class='kw'>=</span> <span class='st'>"Grand Hotels &amp; Resorts Ltd"</span>)
-<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span>(<span class='no'>new_lead</span>, <span class='st'>"Lead"</span>)
+<span class='va'>new_lead</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>FirstName <span class='op'>=</span> <span class='st'>"Test"</span>, LastName <span class='op'>=</span> <span class='st'>"Prospect"</span>,
+                   Company <span class='op'>=</span> <span class='st'>"Grand Hotels &amp; Resorts Ltd"</span><span class='op'>)</span>
+<span class='va'>rec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_create.html'>sf_create</a></span><span class='op'>(</span><span class='va'>new_lead</span>, <span class='st'>"Lead"</span><span class='op'>)</span>
 
 <span class='co'># find the Id of matching account to link to</span>
-<span class='no'>acct_id</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id from Account WHERE name = 'Grand Hotels &amp; Resorts Ltd' LIMIT 1"</span>)
+<span class='va'>acct_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span><span class='op'>(</span><span class='st'>"SELECT Id from Account WHERE name = 'Grand Hotels &amp; Resorts Ltd' LIMIT 1"</span><span class='op'>)</span>
 
 <span class='co'># create the row(s) for the leads to convert</span>
-<span class='no'>to_convert</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>leadId</span> <span class='kw'>=</span> <span class='no'>rec</span>$<span class='no'>id</span>,
-                     <span class='kw'>convertedStatus</span> <span class='kw'>=</span> <span class='st'>"Closed - Converted"</span>,
-                     <span class='kw'>accountId</span> <span class='kw'>=</span> <span class='no'>acct_id</span>$<span class='no'>Id</span>)
-<span class='no'>converted_lead</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_convert_lead</span>(<span class='no'>to_convert</span>)
-}</div></pre>
+<span class='va'>to_convert</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>leadId <span class='op'>=</span> <span class='va'>rec</span><span class='op'>$</span><span class='va'>id</span>, 
+                     convertedStatus <span class='op'>=</span> <span class='st'>"Closed - Converted"</span>, 
+                     accountId <span class='op'>=</span> <span class='va'>acct_id</span><span class='op'>$</span><span class='va'>Id</span><span class='op'>)</span>
+<span class='va'>converted_lead</span> <span class='op'>&lt;-</span> <span class='fu'>sf_convert_lead</span><span class='op'>(</span><span class='va'>to_convert</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -327,7 +328,7 @@ the default).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

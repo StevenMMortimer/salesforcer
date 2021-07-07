@@ -4,7 +4,20 @@
 \alias{sf_write_csv}
 \title{Write a CSV file in format acceptable to Salesforce APIs}
 \usage{
-sf_write_csv(x, path)
+sf_write_csv(x, file, path = deprecated())
+}
+\arguments{
+\item{x}{\code{tbl_df}; a data frame object to save as a CSV}
+
+\item{file}{A file or connection to write to.}
+
+\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+use the \code{file} argument instead.}
+}
+\value{
+the input \code{x} invisibly. This function is called for its
+side-effect of creating a CSV file at the specified location using the format
+required by Salesforce.
 }
 \description{
 Write a CSV file in format acceptable to Salesforce APIs

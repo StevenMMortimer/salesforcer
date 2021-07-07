@@ -4,10 +4,10 @@
 \alias{token_available}
 \title{Check token availability}
 \usage{
-token_available(verbose = TRUE)
+token_available(verbose = FALSE)
 }
 \value{
-logical
+\code{logical}
 }
 \description{
 Check if a token is available in \code{\link{salesforcer}}'s internal

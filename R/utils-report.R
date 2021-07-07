@@ -4,6 +4,7 @@
 #' selects either the value or label for the report columns to turn into a one 
 #' row \code{tbl_df} that will usually be bound to the other rows in the report
 #' 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom purrr map pluck
 #' @importFrom dplyr as_tibble
 #' @importFrom vctrs vec_as_names
@@ -22,19 +23,25 @@
 format_report_row <- function(x, 
                               labels = TRUE, 
                               guess_types = TRUE, 
-                              bind_using_character_cols = FALSE){
+                              bind_using_character_cols = deprecated()){
   stopifnot(is.list(x), names(x) == "dataCells")
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::format_report_row(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }
+  
   element_name <- if(labels) "label" else "value"
+  
   x$dataCells %>% 
     map(~pluck(.x, element_name)) %>% 
     modify_if(~(length(.x) == 0), .f=function(x){return(NA)}) %>% 
-    {
-      if(!guess_types | bind_using_character_cols){
-        map(., as.character)
-      } else {
-        .
-      }
-    } %>% 
+    map(., as.character) %>% 
     as_tibble(.name_repair = 
                 ~vec_as_names(names = paste0("v", seq_len(length(.))), 
                               repair = "unique", quiet = TRUE))
@@ -46,6 +53,7 @@ format_report_row <- function(x,
 #' parses it to return a single \code{tbl_df} representing the detail rows and 
 #' columns of the report without any filters, aggregates, or totals.
 #' 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom stats setNames
 #' @importFrom purrr map pluck
 #' @importFrom dplyr as_tibble
@@ -66,7 +74,17 @@ parse_report_detail_rows <- function(content,
                                      fact_map_key = "T!T",
                                      labels = TRUE, 
                                      guess_types = TRUE, 
-                                     bind_using_character_cols = FALSE){
+                                     bind_using_character_cols = deprecated()){
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::parse_report_detail_rows(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }
   
   # create a boolean that will be set whenever an offending issue is identified 
   # that can be used to stop the function execution only after all of the checks 
@@ -124,8 +142,7 @@ parse_report_detail_rows <- function(content,
       drop_empty_recursively() %>% 
       map_df(format_report_row, 
              labels = labels, 
-             guess_types = guess_types,
-             bind_using_character_cols = bind_using_character_cols) %>% 
+             guess_types = guess_types) %>% 
       set_names(nm = result_colnames)
   }
   

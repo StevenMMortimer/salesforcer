@@ -6,6 +6,14 @@
 \usage{
 sf_format_date(x)
 }
+\arguments{
+\item{x}{a value representing a datetime}
+}
+\value{
+\code{character}; a date string with the time set to midnight in the
+user's system timezone and then formatted in ISO8601 per the requirements of
+the Salesforce APIs.
+}
 \description{
 Format Dates for Create and Update operations
 }
@@ -13,6 +21,6 @@ Format Dates for Create and Update operations
 This function is meant to be used internally. Only use when debugging.
 }
 \seealso{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 }
 \keyword{internal}

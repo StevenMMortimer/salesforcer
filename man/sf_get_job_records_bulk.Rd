@@ -20,12 +20,12 @@ returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 
-\item{record_types}{\code{character}; one or more types of records to retrieve from
-the results of running the specified job}
+\item{record_types}{\code{character}; one or more types of records to retrieve
+from the results of running the specified job}
 
 \item{combine_record_types}{\code{logical}; indicating for Bulk 2.0 jobs whether the
 successfulResults, failedResults, and unprocessedRecords should be stacked
-together by binding the rows.}
+together by binding the rows}
 
 \item{verbose}{\code{logical}; an indicator of whether to print additional
 detail for each API call, which is useful for debugging. More specifically, when

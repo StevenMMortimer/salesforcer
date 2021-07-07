@@ -21,14 +21,14 @@
 # limitations under the License.
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.login}}
+#' \code{RForcecom::rforcecom.login}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
 #' 
 #' @param username Your username for login to the Salesforce.com. In many cases, username is your E-mail address.
 #' @param password Your password for login to the Salesforce.com. Note: DO NOT FORGET your Security Token. (Ex.) If your password is "Pass1234" and your security token is "XYZXYZXYZXYZ", you should set "Pass1234XYZXYZXYZXYZ".
-#' @param loginURL (optional) Login URL. If your environment is sandbox specify (ex:) "https://test.salesforce.com/".
+#' @param loginURL (optional) Login URL. If your environment is sandbox specify (ex:) "https://test.salesforce.com".
 #' @param apiVersion (optional) Version of the REST API and SOAP API that you want to use. (ex:) "35.0" Supported versions from v20.0 and up.
 #' @return 
 #' \item{sessionID}{Session ID.}
@@ -41,11 +41,11 @@ rforcecom.login <- function(username, password, loginURL="https://login.salesfor
   
   if(!is.null(loginURL)){
     options(salesforcer.login_url = loginURL)
-    #message("Ignoring loginURL. If needed, set in options like so: options(salesforcer.login_url = \"https://login.salesforce.com\")")
+    # message("Ignoring loginURL. If needed, set in options like so: options(salesforcer.login_url = \"https://login.salesforce.com\")")
   }
   if(!is.null(apiVersion)){
     options(salesforcer.api_version = apiVersion)
-    #message("Ignoring apiVersion. If needed, set in options like so: options(salesforcer.api_version = \"42.0\")")
+    # message("Ignoring apiVersion. If needed, set in options like so: options(salesforcer.api_version = \"42.0\")")
   }
   
   sf_auth(username=username, 
@@ -61,7 +61,7 @@ rforcecom.login <- function(username, password, loginURL="https://login.salesfor
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.getServerTimestamp}}
+#' \code{RForcecom::rforcecom.getServerTimestamp}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -79,7 +79,7 @@ rforcecom.getServerTimestamp <- function(session){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.getObjectDescription}}
+#' \code{RForcecom::rforcecom.getObjectDescription}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -104,7 +104,7 @@ rforcecom.getObjectDescription <- function(session, objectName){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.create}}
+#' \code{RForcecom::rforcecom.create}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -130,7 +130,7 @@ rforcecom.create <- function(session, objectName, fields){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.retrieve}}
+#' \code{RForcecom::rforcecom.retrieve}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -195,7 +195,7 @@ rforcecom.retrieve <- function(session, objectName,
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.update}}
+#' \code{RForcecom::rforcecom.update}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -218,7 +218,7 @@ rforcecom.update <- function(session, objectName, id, fields){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.delete}}
+#' \code{RForcecom::rforcecom.delete}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -238,7 +238,7 @@ rforcecom.delete <- function(session, objectName, id){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.upsert}}
+#' \code{RForcecom::rforcecom.upsert}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -266,7 +266,7 @@ rforcecom.upsert <- function(session, objectName,
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.search}}
+#' \code{RForcecom::rforcecom.search}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -284,7 +284,7 @@ rforcecom.search <- function(session, queryString){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.query}}
+#' \code{RForcecom::rforcecom.query}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`
@@ -303,7 +303,7 @@ rforcecom.query <- function(session, soqlQuery, queryAll=FALSE){
 }
 
 #' The \code{salesforcer} backwards compatible version of 
-#' \code{\link[RForcecom]{rforcecom.bulkQuery}}
+#' \code{RForcecom::rforcecom.bulkQuery}
 #' 
 #' @description
 #' `r lifecycle::badge("soft-deprecated")`

@@ -10,7 +10,7 @@ sf_execute_report(
   include_details = TRUE,
   labels = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   as_tbl = TRUE,
   report_metadata = NULL,
   verbose = FALSE
@@ -84,7 +84,7 @@ which means that the content from the API is converted from JSON to a list
 with no other post-processing.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Get summary data with or without details by running a report synchronously or
 asynchronously through the API. When you run a report, the API returns data

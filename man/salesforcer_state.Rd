@@ -6,6 +6,9 @@
 \usage{
 salesforcer_state()
 }
+\value{
+\code{list}; a list of values stored in the package's .state environment variable
+}
 \description{
 Return the package's .state environment variable
 }

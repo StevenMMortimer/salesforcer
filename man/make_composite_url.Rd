@@ -6,6 +6,11 @@
 \usage{
 make_composite_url()
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send composite REST API calls to. This URL is specific to your
+instance and the API version because it relies on the base rest URL.
+}
 \description{
 Composite URL Generator
 }

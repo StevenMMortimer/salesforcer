@@ -13,6 +13,10 @@ remove_empty_linked_object_cols(dat, api_type = c("SOAP", "REST"))
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
 making the request.}
 }
+\value{
+\code{tbl_df}; the passed in data, but with the object columns removed
+that are empty links to other objects.
+}
 \description{
 This function will detect if there are related entity columns coming back
 in the resultset and try to exclude an additional completely blank column

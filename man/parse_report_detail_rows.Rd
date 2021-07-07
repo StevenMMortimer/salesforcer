@@ -9,7 +9,7 @@ parse_report_detail_rows(
   fact_map_key = "T!T",
   labels = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE
+  bind_using_character_cols = deprecated()
 )
 }
 \arguments{

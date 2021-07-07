@@ -6,6 +6,12 @@
 \usage{
 parse_error_code_and_message(x)
 }
+\arguments{
+\item{x}{\code{response()}; a response that indicates an error}
+}
+\value{
+\code{list}; a list containing the error code and message for printing.
+}
 \description{
 Assuming the error code is less than 500, this function will return the
 }

@@ -75,7 +75,7 @@ sf_read_metadata <- function(metadata_type, object_names, verbose=FALSE){
 #' Describe Object Fields
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function takes the name of an object in Salesforce and returns a description 
 #' of the fields on that object by returning a tibble with one row per field.

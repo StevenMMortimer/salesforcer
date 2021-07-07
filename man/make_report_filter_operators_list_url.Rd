@@ -6,6 +6,15 @@
 \usage{
 make_report_filter_operators_list_url(for_dashboards = FALSE)
 }
+\arguments{
+\item{for_dashboards}{\code{logical}; an indicator of whether the filter is
+in reference to dashboards or not.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Reports and Dashboards API calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Report Filter Operator List URL generator
 }

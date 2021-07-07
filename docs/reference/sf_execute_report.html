@@ -103,7 +103,7 @@ use sf_run_report." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@ use sf_run_report." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -192,7 +192,7 @@ use sf_run_report." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>Get summary data with or without details by running a report synchronously or
 asynchronously through the API. When you run a report, the API returns data
 for the same number of records that are available when the report is run in
@@ -202,17 +202,17 @@ groupings, and aggregates in the report metadata. Finally, you may want to
 use <code><a href='sf_run_report.html'>sf_run_report</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_execute_report</span>(
-  <span class='no'>report_id</span>,
-  <span class='kw'>async</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>include_details</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as_tbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_execute_report</span><span class='op'>(</span>
+  <span class='va'>report_id</span>,
+  async <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  include_details <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  labels <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  guess_types <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  bind_using_character_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  as_tbl <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  report_metadata <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,7 +275,7 @@ JSON into a <code>tbl_df</code>.</p></td>
 elements of <code>reportMetadata</code> are documented
 <a href='https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_getbasic_reportmetadata.htm#analyticsapi_basicmetadata'>HERE</a>,
 but you will most commonly only need to specify the following 3 elements to
-filter or query the results of an existing report:</p><dl'>
+filter or query the results of an existing report:</p><dl>
 <dt>reportFormat</dt><dd><p>A <code>character</code> specifying the format of the report
 with possible values: <code>"TABULAR"</code>, <code>"SUMMARY"</code>, <code>"MATRIX"</code>,
 or <code>"MULTI_BLOCK"</code>.</p></dd>
@@ -356,25 +356,25 @@ by, and filters that already exist in the report:</p><ul>
 <code><a href='sf_update_report.html'>sf_update_report</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># first, get the Id of a report in your Org</span>
-<span class='no'>all_reports</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='st'>"SELECT Id, Name FROM Report"</span>)
-<span class='no'>this_report_id</span> <span class='kw'>&lt;-</span> <span class='no'>all_reports</span>$<span class='no'>Id</span>[<span class='fl'>1</span>]
+<span class='va'>all_reports</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span><span class='op'>(</span><span class='st'>"SELECT Id, Name FROM Report"</span><span class='op'>)</span>
+<span class='va'>this_report_id</span> <span class='op'>&lt;-</span> <span class='va'>all_reports</span><span class='op'>$</span><span class='va'>Id</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
 
 <span class='co'># then execute a synchronous report that will wait for the results</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_execute_report</span>(<span class='no'>this_report_id</span>)
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>sf_execute_report</span><span class='op'>(</span><span class='va'>this_report_id</span><span class='op'>)</span>
 
 <span class='co'># alternatively, you can execute an async report and then grab its results when done</span>
 <span class='co'>#   - The benefit of an async report is that the results will be stored for up to</span>
 <span class='co'>#     24 hours for faster recall, if needed</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_execute_report</span>(<span class='no'>this_report_id</span>, <span class='kw'>async</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>sf_execute_report</span><span class='op'>(</span><span class='va'>this_report_id</span>, async<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># check if completed and proceed if the status is "Success"</span>
-<span class='no'>instance_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_list_report_instances.html'>sf_list_report_instances</a></span>(<span class='no'>report_id</span>)
-<span class='no'>instance_status</span> <span class='kw'>&lt;-</span> <span class='no'>instance_list</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>instance_list</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='no'>results</span>$<span class='no'>id</span>), <span class='st'>"status"</span>]]
-<span class='kw'>if</span>(<span class='no'>instance_status</span> <span class='kw'>==</span> <span class='st'>"Success"</span>){
-  <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_get_report_instance_results.html'>sf_get_report_instance_results</a></span>(<span class='no'>report_id</span>, <span class='no'>results</span>$<span class='no'>id</span>)
-}
+<span class='va'>instance_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_list_report_instances.html'>sf_list_report_instances</a></span><span class='op'>(</span><span class='va'>report_id</span><span class='op'>)</span>
+<span class='va'>instance_status</span> <span class='op'>&lt;-</span> <span class='va'>instance_list</span><span class='op'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>instance_list</span><span class='op'>$</span><span class='va'>id</span> <span class='op'>==</span> <span class='va'>results</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>, <span class='st'>"status"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='kw'>if</span><span class='op'>(</span><span class='va'>instance_status</span> <span class='op'>==</span> <span class='st'>"Success"</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_get_report_instance_results.html'>sf_get_report_instance_results</a></span><span class='op'>(</span><span class='va'>report_id</span>, <span class='va'>results</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># Note: For more complex execution use the report_metadata argument.</span>
 <span class='co'># This can be done by building the list from scratch based on Salesforce </span>
@@ -382,13 +382,14 @@ by, and filters that already exist in the report:</p><ul>
 <span class='co'># property of the report and modifying the list slightly (recommended). </span>
 <span class='co'># In addition, for relatively simple changes, you can leverage the convenience </span>
 <span class='co'># function sf_report_wrapper() which makes it easier to retrieve report results</span>
-<span class='no'>report_details</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_describe_report.html'>sf_describe_report</a></span>(<span class='no'>this_report_id</span>)
-<span class='no'>report_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>reportMetadata</span> <span class='kw'>=</span> <span class='no'>report_details</span>$<span class='no'>reportMetadata</span>)
-<span class='no'>report_metadata</span>$<span class='no'>reportMetadata</span>$<span class='no'>showGrandTotal</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
-<span class='no'>report_metadata</span>$<span class='no'>reportMetadata</span>$<span class='no'>showSubtotals</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
-<span class='no'>fields</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_execute_report</span>(<span class='no'>this_report_id</span>,
-                            <span class='kw'>report_metadata</span> <span class='kw'>=</span> <span class='no'>report_metadata</span>)
-}</div></pre>
+<span class='va'>report_details</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_describe_report.html'>sf_describe_report</a></span><span class='op'>(</span><span class='va'>this_report_id</span><span class='op'>)</span>
+<span class='va'>report_metadata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>reportMetadata <span class='op'>=</span> <span class='va'>report_details</span><span class='op'>$</span><span class='va'>reportMetadata</span><span class='op'>)</span>
+<span class='va'>report_metadata</span><span class='op'>$</span><span class='va'>reportMetadata</span><span class='op'>$</span><span class='va'>showGrandTotal</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span>
+<span class='va'>report_metadata</span><span class='op'>$</span><span class='va'>reportMetadata</span><span class='op'>$</span><span class='va'>showSubtotals</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span>
+<span class='va'>fields</span> <span class='op'>&lt;-</span> <span class='fu'>sf_execute_report</span><span class='op'>(</span><span class='va'>this_report_id</span>,
+                            report_metadata <span class='op'>=</span> <span class='va'>report_metadata</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -404,7 +405,7 @@ by, and filters that already exist in the report:</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

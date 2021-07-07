@@ -6,6 +6,16 @@
 \usage{
 return_matching_controls(args)
 }
+\arguments{
+\item{args}{\code{character}; a vector of strings that represent the function
+arguments.}
+}
+\value{
+\code{character}; a vector of strings returning only the function arguments
+that match control arguments so that users can specify them directly in each
+function and not have to construct a control object every time in order to
+pass only one or two control arguments.
+}
 \description{
 Of All Args Return Ones Matching Control Arguments
 }

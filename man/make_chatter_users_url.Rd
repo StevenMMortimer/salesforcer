@@ -6,6 +6,11 @@
 \usage{
 make_chatter_users_url()
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send REST API calls regarding chatter users. This URL is specific to your
+instance and the API version because it relies on the base rest URL.
+}
 \description{
 Chatter Users URL Generator
 }

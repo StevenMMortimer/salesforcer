@@ -1,11 +1,17 @@
 name: Test coverage
 
 on:
+  workflow_dispatch:
+    inputs:
+      trigger_next:
+        description: 'Whether to run the subsequent workflows after triggering this one manully.'
+        required: false
+        default: false
   repository_dispatch:
     types: [main-02-test-coverage]
   schedule:
-    # Execute monthly at 9AM UTC (5AM EDT (during daylight savings), otherwise 4AM)
-    - cron:  '0 9 1 * *'
+    # Execute monthly at 9AM UTC (5AM ET during daylight savings, otherwise 4AM)
+    - cron: '0 9 1 * *'
     
 jobs:
   test-coverage:
@@ -72,7 +78,7 @@ jobs:
         shell: Rscript {0}
         
       - name: Trigger next workflow
-        if: success()
+        if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
@@ -81,7 +87,7 @@ jobs:
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
       - name: Set final R-CMD-check status
-        if: failure()
+        if: ${{ (github.event_name != 'workflow_dispatch' && failure()) }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}

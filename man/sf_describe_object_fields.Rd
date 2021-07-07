@@ -14,7 +14,7 @@ function is operating against (e.g. "Account", "Contact", "CustomObject__c").}
 A \code{tbl_df} containing one row per field for the requested object.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function takes the name of an object in Salesforce and returns a description
 of the fields on that object by returning a tibble with one row per field.

@@ -9,7 +9,7 @@ sf_query_result_bulk(
   batch_id = NULL,
   result_id = NULL,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   batch_size = 50000,
   api_type = c("Bulk 1.0", "Bulk 2.0"),
   verbose = FALSE
@@ -73,5 +73,5 @@ sf_close_job_bulk(job_info$id)
 }
 }
 \references{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 }

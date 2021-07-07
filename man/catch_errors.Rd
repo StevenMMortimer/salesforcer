@@ -6,6 +6,13 @@
 \usage{
 catch_errors(x)
 }
+\arguments{
+\item{x}{\code{response()}; a response from an HTTP request}
+}
+\value{
+\code{logical}; return \code{FALSE} if the function finishes without
+detecting an error, otherwise stop the function call.
+}
 \description{
 Function to catch and print HTTP errors
 }

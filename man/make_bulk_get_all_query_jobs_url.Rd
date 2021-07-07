@@ -11,6 +11,20 @@ make_bulk_get_all_query_jobs_url(
   api_type = c("Bulk 2.0")
 )
 }
+\arguments{
+\item{parameterized_search_list}{\code{list}; a list of search options to locate
+Bulk API query jobs.}
+
+\item{next_records_url}{\code{character}; a string returned by a Salesforce
+query from where to find subsequent records returned by a paginated query.}
+
+\item{api_type}{\code{character}; a string indicating which Bulk API to execute
+the call against.}
+}
+\value{
+\code{character}; a complete URL (as a string) to send a request
+to in order to retrieve queried jobs.
+}
 \description{
 Bulk Get All Query Jobs Generic URL Generator
 }

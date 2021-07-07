@@ -1,7 +1,7 @@
 #' Perform SOQL Query
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Executes a query against the specified object and returns data that matches 
 #' the specified criteria.
@@ -48,7 +48,7 @@ sf_query <- function(soql,
                      control = list(...), ...,
                      page_size = deprecated(),
                      next_records_url = NULL,
-                     bind_using_character_cols = FALSE,
+                     bind_using_character_cols = deprecated(),
                      object_name_append = FALSE,
                      object_name_as_col = FALSE,
                      verbose = FALSE){
@@ -61,12 +61,23 @@ sf_query <- function(soql,
   control_args$operation <- if(queryall) "queryall" else "query"
   
   if(is_present(page_size)) {
-    deprecate_warn("0.1.3", "salesforcer::sf_query(page_size = )", 
-                   "sf_query(QueryOptions = )", 
+    deprecate_warn("0.1.3", 
+                   "salesforcer::sf_query(page_size = )", 
+                   "salesforcer::sf_query(QueryOptions = )", 
                    details = paste0("You can pass the page/batch size directly ", 
                                     "as shown above or via the `control` argument."))
     control_args$QueryOptions <- list(batchSize = as.integer(page_size))
   }
+
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }  
   
   if(api_type == "REST"){
     resultset <- sf_query_rest(soql = soql,
@@ -75,7 +86,6 @@ sf_query <- function(soql,
                                guess_types = guess_types,
                                control = control_args,
                                next_records_url = next_records_url,
-                               bind_using_character_cols = bind_using_character_cols,
                                object_name_append = object_name_append,
                                object_name_as_col = object_name_as_col,
                                verbose = verbose)
@@ -86,7 +96,6 @@ sf_query <- function(soql,
                                guess_types = guess_types,
                                control = control_args,
                                next_records_url = next_records_url,
-                               bind_using_character_cols = bind_using_character_cols,
                                object_name_append = object_name_append,
                                object_name_as_col = object_name_as_col,
                                verbose = verbose)
@@ -125,6 +134,7 @@ sf_query <- function(soql,
   return(resultset)
 }
 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom dplyr tibble mutate_all
 #' @importFrom httr content
 #' @importFrom purrr map map_df modify map_lgl pluck
@@ -134,7 +144,7 @@ sf_query_rest <- function(soql,
                           guess_types = TRUE,
                           control = list(),
                           next_records_url = NULL,
-                          bind_using_character_cols = FALSE,
+                          bind_using_character_cols = deprecated(),
                           object_name_append = FALSE, 
                           object_name_as_col = FALSE,
                           verbose = FALSE){
@@ -151,6 +161,16 @@ sf_query_rest <- function(soql,
                          c("Sforce-Query-Options" = sprintf("batchSize=%s", 
                                                             query_batch_size)))
   }
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_rest(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }  
   
   # GET the url with the q (query) parameter set to the escaped SOQL string
   httr_response <- rGET(url = query_url, headers = request_headers)
@@ -200,7 +220,6 @@ sf_query_rest <- function(soql,
                                                  queryall = queryall,
                                                  guess_types = FALSE,
                                                  control = control,
-                                                 bind_using_character_cols = bind_using_character_cols,
                                                  object_name_append = TRUE,
                                                  object_name_as_col = object_name_as_col, 
                                                  verbose = verbose)
@@ -230,9 +249,9 @@ sf_query_rest <- function(soql,
   # fails. Casting all as character and switching to guess types allows all 
   # pages to be pulled without breaking and then trying to reconcile why 
   # the types were different between the paginated API calls
-  if(bind_using_character_cols){
-    resultset <- resultset %>% mutate_all(as.character)
-  }    
+  # RESOLUTION (7/4/2021): We must always pull as character in order for type_convert() 
+  # to use all values in the column to determine the type.
+  resultset <- resultset %>% mutate_all(as.character)
   
   # check whether the query has more results to pull via pagination 
   if(!response_parsed$done){
@@ -241,7 +260,6 @@ sf_query_rest <- function(soql,
                                   queryall = queryall,
                                   guess_types = FALSE,
                                   control = control,
-                                  bind_using_character_cols = bind_using_character_cols,
                                   object_name_append = object_name_append,
                                   object_name_as_col = object_name_as_col,
                                   verbose = verbose)
@@ -255,6 +273,7 @@ sf_query_rest <- function(soql,
   return(resultset)
 }
 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom dplyr tibble mutate_all
 #' @importFrom httr content
 #' @importFrom purrr map_df modify_if
@@ -265,12 +284,22 @@ sf_query_soap <- function(soql,
                           guess_types = TRUE,
                           control = list(),
                           next_records_url = NULL,
-                          bind_using_character_cols = FALSE,
+                          bind_using_character_cols = deprecated(),
                           object_name_append = FALSE,
                           object_name_as_col = FALSE,
                           verbose = FALSE){
   
   control <- filter_valid_controls(control)
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_soap(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }  
   
   if(!is.null(next_records_url)){
     soap_action <- "queryMore"
@@ -335,7 +364,6 @@ sf_query_soap <- function(soql,
                                              queryall = queryall,
                                              guess_types = FALSE,
                                              control = control,
-                                             bind_using_character_cols = bind_using_character_cols,
                                              object_name_append = TRUE,
                                              object_name_as_col = object_name_as_col,
                                              verbose = verbose)
@@ -378,9 +406,7 @@ sf_query_soap <- function(soql,
   # neither will a number, so the `as_list()` function will return all values as 
   # characters, which is why we should have the default value of the `guess_types`
   # argument to be set to TRUE
-  if(bind_using_character_cols){
-    resultset <- resultset %>% mutate_all(as.character)
-  }
+  resultset <- resultset %>% mutate_all(as.character)
   
   done_status <- response_parsed %>% 
     xml_ns_strip() %>%
@@ -397,7 +423,6 @@ sf_query_soap <- function(soql,
                                   queryall = queryall,
                                   guess_types = FALSE,
                                   control = control,
-                                  bind_using_character_cols = bind_using_character_cols,
                                   object_name_append = object_name_append,
                                   object_name_as_col = object_name_as_col,
                                   verbose = verbose)

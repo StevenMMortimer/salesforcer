@@ -6,6 +6,14 @@
 \usage{
 make_report_type_describe_url(type)
 }
+\arguments{
+\item{type}{\code{character}; The API name of a report type.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Reports and Dashboards API calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Report Type Describe URL generator
 }

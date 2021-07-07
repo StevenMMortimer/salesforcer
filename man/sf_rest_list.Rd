@@ -7,6 +7,8 @@
 sf_rest_list(url, as_tbl = FALSE, records_root = NULL, verbose = FALSE)
 }
 \arguments{
+\item{url}{\code{character}; a valid REST API URL (as a string)}
+
 \item{as_tbl}{\code{logical}; an indicator of whether to convert the parsed
 JSON into a \code{tbl_df}.}
 
@@ -19,6 +21,9 @@ each element in the list is an individual record.}
 detail for each API call, which is useful for debugging. More specifically, when
 set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
+}
+\value{
+\code{tbl_df} or \code{list} of data depending on what was requested.
 }
 \description{
 Execute a non-paginated REST API call to list items

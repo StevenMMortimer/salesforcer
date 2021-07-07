@@ -1,7 +1,7 @@
 #' Create Records
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Adds one or more new records to your organization’s data.
 #' 

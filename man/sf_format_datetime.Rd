@@ -6,6 +6,15 @@
 \usage{
 sf_format_datetime(x)
 }
+\arguments{
+\item{x}{an object, potentially, representing a datetime that should be converted
+to the Salesforce standard.}
+}
+\value{
+\code{character}; an object where any values that appear to be a date
+or date time are reformatted as an ISO8601 string per the requirements of the
+Salesforce APIs.
+}
 \description{
 Format Datetimes for Create and Update operations
 }
@@ -13,6 +22,6 @@ Format Datetimes for Create and Update operations
 This function is meant to be used internally. Only use when debugging.
 }
 \seealso{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/datafiles_date_format.htm}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/datafiles_date_format.htm}
 }
 \keyword{internal}

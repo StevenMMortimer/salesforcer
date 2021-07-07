@@ -9,7 +9,7 @@ sf_query_bulk_v2(
   object_name = NULL,
   queryall = FALSE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   interval_seconds = 3,
   max_attempts = 200,
   control = list(...),
@@ -85,5 +85,5 @@ ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000',
 }
 }
 \references{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 }

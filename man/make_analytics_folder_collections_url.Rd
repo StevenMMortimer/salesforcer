@@ -6,6 +6,11 @@
 \usage{
 make_analytics_folder_collections_url()
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Analytics folder calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Analytics Folder collections URL generator
 }

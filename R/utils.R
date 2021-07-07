@@ -1,5 +1,6 @@
 #' Return the package's .state environment variable
 #' 
+#' @return \code{list}; a list of values stored in the package's .state environment variable
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -12,7 +13,7 @@ salesforcer_state <- function(){
 #' This function determines whether the system running the R code
 #' is Windows, Mac, or Linux
 #'
-#' @return A character string
+#' @return \code{character}; a string indicating the current operating system.
 #' @examples
 #' \dontrun{
 #' get_os()
@@ -63,6 +64,14 @@ patched_tempdir <- function(){
 
 #' Return NA if NULL
 #' 
+#' A helper function to convert NULL values in API responses to a value of NA 
+#' which is allowed in data frames. Oftentimes, a NULL value creates issues when 
+#' binding and building data frames from parsed output, so we need to switch to NA.
+#' 
+#' @param x a value, typically a single element or a list to switch to NA if 
+#' its value appears to be NULL.
+#' @return the original value of parameter \code{x} or \code{NA} if the value 
+#' meets the criteria to be considered NULL.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -80,12 +89,29 @@ merge_null_to_na <- function(x){
 
 #' Write a CSV file in format acceptable to Salesforce APIs
 #' 
+#' @importFrom lifecycle deprecate_warn is_present deprecated
 #' @importFrom readr write_csv
+#' @param x \code{tbl_df}; a data frame object to save as a CSV
+#' @param file A file or connection to write to.
+#' @param path `r lifecycle::badge("deprecated")`
+#' use the `file` argument instead.
+#' @return the input \code{x} invisibly. This function is called for its 
+#' side-effect of creating a CSV file at the specified location using the format 
+#' required by Salesforce.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-sf_write_csv <- function(x, path){
-  write_csv(x=x, path=path, na="#N/A")
+sf_write_csv <- function(x, file, path=deprecated()){
+  if(is_present(path)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_write_csv(path = )", 
+                   "salesforcer::sf_write_csv(file = )", 
+                   details = paste0("The readr package changed the name of the `path` ", 
+                                    "argument to `file` in its v1.4.0 release.")
+    )
+    file <- path
+  }
+  write_csv(x=x, file=file, na="#N/A")
 }
 
 #' Remove NA Columns Created by Empty Related Entity Values
@@ -94,9 +120,11 @@ sf_write_csv <- function(x, path){
 #' in the resultset and try to exclude an additional completely blank column 
 #' created by records that don't have a relationship at all in that related entity.
 #' 
+#' @importFrom dplyr select one_of
 #' @param dat data; a \code{tbl_df} or \code{data.frame} of a returned resultset
 #' @template api_type
-#' @importFrom dplyr select one_of
+#' @return \code{tbl_df}; the passed in data, but with the object columns removed 
+#' that are empty links to other objects.
 #' @keywords internal
 #' @export
 remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
@@ -131,6 +159,9 @@ remove_empty_linked_object_cols <- function(dat, api_type = c("SOAP", "REST")){
 
 #' Try to Guess the Object if User Does Not Specify for Bulk Queries
 #' 
+#' @template soql
+#' @return \code{character}; a string parsed from the input that represents the 
+#' object name that the query appears to target.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -147,6 +178,10 @@ guess_object_name_from_soql <- function(soql){
 
 #' Format Headers for Printing
 #' 
+#' @param request_headers \code{list}; a list of values from the API request or 
+#' response that represent the headers of the call
+#' @return \code{character}; a string constructed from the input that is easier 
+#' to read when we print it out 
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -159,6 +194,16 @@ format_headers_for_verbose <- function(request_headers){
 #' Format Verbose Call
 #' 
 #' @importFrom jsonlite prettify
+#' @param method \code{character}; the type of HTTP method invoked (e.g., POST, 
+#' PUT, DELETE, etc.).
+#' @param url \code{character}; the URL that the request was sent to
+#' @param headers \code{character}; the set of header options set on the request
+#' @param body \code{character}; the body of the request.
+#' @param auto_unbox \code{logical}, an indicator of whether to parse vectors of 
+#' of length 1 into a single character string, rather than a list.
+#' @param ... additional arguments passed on to \code{\link[jsonlite]{toJSON}}.
+#' @return \code{NULL} invisibly, because this function is intended for the 
+#' side-effect of printing out the details of an HTTP call.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

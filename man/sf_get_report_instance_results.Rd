@@ -9,7 +9,7 @@ sf_get_report_instance_results(
   report_instance_id,
   labels = TRUE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   fact_map_key = "T!T",
   verbose = FALSE
 )
@@ -59,7 +59,7 @@ along with additional diagnostic information where available.}
 data from the "T!T" entry in the fact map.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Retrieves results for an instance of a report run asynchronously with or without
 filters. Depending on your asynchronous report run request, data can be at the

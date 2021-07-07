@@ -97,7 +97,7 @@ query API jobs from the Bulk 2.0 API." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@ query API jobs from the Bulk 2.0 API." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -190,19 +190,19 @@ query API jobs from the Bulk 2.0 API." />
 query API jobs from the Bulk 2.0 API.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_query_bulk_v2</span>(
-  <span class='no'>soql</span>,
-  <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>queryall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bind_using_character_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>interval_seconds</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>max_attempts</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='st'>"Bulk 2.0"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_query_bulk_v2</span><span class='op'>(</span>
+  <span class='va'>soql</span>,
+  object_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  queryall <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  guess_types <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  bind_using_character_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  interval_seconds <span class='op'>=</span> <span class='fl'>3</span>,
+  max_attempts <span class='op'>=</span> <span class='fl'>200</span>,
+  control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  api_type <span class='op'>=</span> <span class='st'>"Bulk 2.0"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -283,18 +283,19 @@ along with additional diagnostic information where available.</p></td>
     <p>A <code>tbl_df</code> of the recordset returned by the query</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm'>Bulk 2.0 documentation</a></p>
+    <p><a href='https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm'>Bulk 2.0 documentation</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># select all Ids from Account object (up to 1000)</span>
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_query_bulk_v2</span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>,
-                        <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>'Account'</span>)
+<span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='fu'>sf_query_bulk_v2</span><span class='op'>(</span>soql <span class='op'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>, 
+                        object_name <span class='op'>=</span> <span class='st'>'Account'</span><span class='op'>)</span>
 <span class='co'># alternatively you can specify as </span>
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span>(<span class='kw'>soql</span> <span class='kw'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>,
-                <span class='kw'>object_name</span> <span class='kw'>=</span> <span class='st'>'Account'</span>,
-                <span class='kw'>api_type</span><span class='kw'>=</span><span class='st'>"Bulk 2.0"</span>)
-}</div></pre>
+<span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sf_query.html'>sf_query</a></span><span class='op'>(</span>soql <span class='op'>=</span> <span class='st'>'SELECT Id FROM Account LIMIT 1000'</span>, 
+                object_name <span class='op'>=</span> <span class='st'>'Account'</span>, 
+                api_type<span class='op'>=</span><span class='st'>"Bulk 2.0"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -310,7 +311,7 @@ along with additional diagnostic information where available.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

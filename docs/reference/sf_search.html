@@ -97,7 +97,7 @@ Searches for records in your organization’s data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@ Searches for records in your organization’s data." />
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -186,19 +186,19 @@ Searches for records in your organization’s data." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
 <p>Searches for records in your organization’s data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sf_search</span>(
-  <span class='no'>search_string</span>,
-  <span class='kw'>is_sosl</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>guess_types</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>api_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span>),
-  <span class='kw'>parameterized_search_options</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>...</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sf_search</span><span class='op'>(</span>
+  <span class='va'>search_string</span>,
+  is_sosl <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  guess_types <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  api_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"REST"</span>, <span class='st'>"SOAP"</span>, <span class='st'>"Bulk 1.0"</span>, <span class='st'>"Bulk 2.0"</span><span class='op'>)</span>,
+  parameterized_search_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,23 +261,24 @@ for more detail.</p>
     <p><a href='https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_sosl.htm'>https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_sosl.htm</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># free text search</span>
-<span class='no'>area_code_search_string</span> <span class='kw'>&lt;-</span> <span class='st'>"(336)"</span>
-<span class='no'>search_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='no'>area_code_search_string</span>)
+<span class='va'>area_code_search_string</span> <span class='op'>&lt;-</span> <span class='st'>"(336)"</span>
+<span class='va'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span><span class='op'>(</span><span class='va'>area_code_search_string</span><span class='op'>)</span>
 
 <span class='co'># free text search with parameters</span>
-<span class='no'>search_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='no'>area_code_search_string</span>,
-                           <span class='kw'>fields_scope</span> <span class='kw'>=</span> <span class='st'>"PHONE"</span>,
-                           <span class='kw'>objects</span> <span class='kw'>=</span> <span class='st'>"Lead"</span>,
-                           <span class='kw'>fields</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id"</span>, <span class='st'>"phone"</span>, <span class='st'>"firstname"</span>, <span class='st'>"lastname"</span>))
+<span class='va'>search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span><span class='op'>(</span><span class='va'>area_code_search_string</span>,
+                           fields_scope <span class='op'>=</span> <span class='st'>"PHONE"</span>,
+                           objects <span class='op'>=</span> <span class='st'>"Lead"</span>,
+                           fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"id"</span>, <span class='st'>"phone"</span>, <span class='st'>"firstname"</span>, <span class='st'>"lastname"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># using SOSL</span>
-<span class='no'>my_sosl_search</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"FIND {(336)} in phone fields returning"</span>,
+<span class='va'>my_sosl_search</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"FIND {(336)} in phone fields returning"</span>,
                         <span class='st'>"contact(id, phone, firstname, lastname),"</span>,
-                        <span class='st'>"lead(id, phone, firstname, lastname)"</span>)
-<span class='no'>sosl_search_result</span> <span class='kw'>&lt;-</span> <span class='fu'>sf_search</span>(<span class='no'>my_sosl_search</span>, <span class='kw'>is_sosl</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-}</div></pre>
+                        <span class='st'>"lead(id, phone, firstname, lastname)"</span><span class='op'>)</span>
+<span class='va'>sosl_search_result</span> <span class='op'>&lt;-</span> <span class='fu'>sf_search</span><span class='op'>(</span><span class='va'>my_sosl_search</span>, is_sosl<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -293,7 +294,7 @@ for more detail.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

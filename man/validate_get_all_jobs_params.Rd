@@ -6,6 +6,17 @@
 \usage{
 validate_get_all_jobs_params(parameterized_search_list, type = "all")
 }
+\arguments{
+\item{parameterized_search_list}{\code{list}; a list of search options to
+locate Bulk API jobs.}
+
+\item{type}{\code{character}; a string indicating which type of jobs to
+include in the result.}
+}
+\value{
+\code{character}; a complete URL (as a string) to send a request
+to in order to retrieve queried jobs.
+}
 \description{
 Validate Query Parameters When Getting List of All Bulk Jobs
 }
@@ -13,6 +24,6 @@ Validate Query Parameters When Getting List of All Bulk Jobs
 This function is meant to be used internally. Only use when debugging.
 }
 \seealso{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/query_get_all_jobs.htm}
 }
 \keyword{internal}

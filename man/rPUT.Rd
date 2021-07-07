@@ -6,6 +6,9 @@
 \usage{
 rPUT(url, headers = character(0), ...)
 }
+\value{
+A \code{response()} object as defined by the \code{httr} package.
+}
 \description{
 PUTs with retries and authentication
 }

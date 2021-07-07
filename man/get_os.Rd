@@ -7,7 +7,7 @@
 get_os()
 }
 \value{
-A character string
+\code{character}; a string indicating the current operating system.
 }
 \description{
 This function determines whether the system running the R code

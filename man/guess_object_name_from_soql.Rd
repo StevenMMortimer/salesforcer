@@ -6,6 +6,14 @@
 \usage{
 guess_object_name_from_soql(soql)
 }
+\arguments{
+\item{soql}{\code{character}; a string defining a SOQL query
+(e.g. "SELECT Id, Name FROM Account").}
+}
+\value{
+\code{character}; a string parsed from the input that represents the
+object name that the query appears to target.
+}
 \description{
 Try to Guess the Object if User Does Not Specify for Bulk Queries
 }

@@ -9,6 +9,10 @@ VERB_n(verb)
 \arguments{
 \item{verb}{string; The name of HTTP verb to execute}
 }
+\value{
+The last response. Note that if the request doesn't succeed after
+\code{times} then the request will fail and return the response.
+}
 \description{
 Generic implementation of HTTP methods with retries and authentication
 }

@@ -1,7 +1,7 @@
 #' Retrieve Records By Id
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' Retrieves one or more new records to your organization’s data.
 #' 

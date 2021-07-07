@@ -1,7 +1,7 @@
 #' Download an Attachment
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function will allow you to download an attachment to disk based on the 
 #' attachment body, file name, and path.
@@ -635,8 +635,20 @@ sf_delete_attachment <- function(ids,
 #' 
 #' @importFrom base64enc base64encode
 #' @family Attachment functions
+#' @param dat \code{tbl_df} or \code{list} of information regarding attachments 
+#' stored locally that will be encoded for use in the APIs.
+#' @param column \code{character}; a string that indicates which column in the 
+#' \code{dat} argument is storing the body of information that needs to be encoded.
+#' @param encode \code{logical}; a indicator of whether the body column should 
+#' be encoded in this step, which allows us to utilize this function for checking 
+#' or checking and encoding.
+#' @param n_check \code{integer}; an integer specifying how many elements in the 
+#' \code{dat} argument that should be checked to see if the referenced file path 
+#' exists locally. This fails the function early if users accidentally specify 
+#' the wrong path.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
+#' @export
 check_and_encode_files <- function(dat, column = "Body", encode = TRUE, n_check = 100){
   # Documents can be created from Urls so ignore encoding if there is no "Body" column
   if(column == "Body" & !("Body" %in% names(dat))){

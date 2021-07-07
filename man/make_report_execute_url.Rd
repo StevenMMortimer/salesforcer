@@ -6,6 +6,25 @@
 \usage{
 make_report_execute_url(report_id, async = TRUE, include_details = FALSE)
 }
+\arguments{
+\item{report_id}{\code{character}; the Salesforce Id assigned to a created
+analytics report. It will start with \code{"00O"}.}
+
+\item{async}{\code{logical}; an indicator, by default set to \code{TRUE}, which
+executes the report asynchronously. If executed asynchronously, this function
+will return a list of attributes of the created report instance. The results
+can be pulled down by providing the report id and instance id to
+the function \code{\link{sf_get_report_instance_results}}. Refer to the details
+of the documentation on why executing a report asynchronously is preferred.}
+
+\item{include_details}{\code{logical}; an indicator applying to a synchronous
+indicating whether the run should return summary data with details.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Reports and Dashboards API calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Report Execute URL generator
 }

@@ -8,7 +8,7 @@ Status](https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/bad
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle:
-Maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Coverage
@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (0.2.2)
+# install the current CRAN version (1.0.0)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -242,7 +242,7 @@ For really large operations (inserts, updates, upserts, deletes, and
 queries) Salesforce provides the
 [Bulk 1.0](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm)
 and
-[Bulk 2.0](https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/introduction_bulk_api_2.htm)
+[Bulk 2.0](https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/introduction_bulk_api_2.htm)
 APIs. In order to use the Bulk APIs in {salesforcer} you can just add
 `api_type = "Bulk 1.0"` or `api_type = "Bulk 2.0"` to your functions and
 the operation will be executed using the Bulk APIs. It’s that simple.

@@ -14,7 +14,7 @@ sf_query(
   ...,
   page_size = deprecated(),
   next_records_url = NULL,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   object_name_append = FALSE,
   object_name_as_col = FALSE,
   verbose = FALSE
@@ -79,7 +79,7 @@ along with additional diagnostic information where available.}
 \code{tbl_df} of records
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Executes a query against the specified object and returns data that matches
 the specified criteria.

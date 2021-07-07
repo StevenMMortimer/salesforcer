@@ -6,6 +6,9 @@
 \usage{
 rGET(url, headers = character(0), ...)
 }
+\value{
+A \code{response()} object as defined by the \code{httr} package.
+}
 \description{
 GETs with retries and authentication
 }

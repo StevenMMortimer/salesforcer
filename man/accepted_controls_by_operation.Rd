@@ -10,6 +10,15 @@ accepted_controls_by_operation(
     "describeSObjects", "resetPassword")
 )
 }
+\arguments{
+\item{operation}{\code{character}; a string defining the type of operation being
+performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
+"query", "queryall").}
+}
+\value{
+\code{character}; a vector of strings indicating which control arguments
+are accepted by the specified operation.
+}
 \description{
 Return the Accepted Control Arguments by Operation
 }

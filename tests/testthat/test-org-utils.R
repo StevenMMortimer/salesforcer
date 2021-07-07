@@ -27,7 +27,7 @@ test_that("testing sf_list_rest_api_versions()", {
   res <- sf_list_rest_api_versions() 
   versions <- sapply(res, function(x){as.integer(x$version)})
   expect_is(res, "list")
-  expect_true(all(20:46 %in% versions))  
+  expect_true(all(21:52 %in% versions)) 
 })
 
 test_that("testing sf_list_resources()", {
@@ -41,8 +41,7 @@ test_that("testing sf_list_resources()", {
 test_that("testing sf_list_api_limits()", {
   res <- sf_list_api_limits()
   expect_is(res, "list")
-  expect_true(all(c("DailyApiRequests", "DailyBulkApiRequests", "PermissionSets", 
-                    "DataStorageMB", "FileStorageMB") %in% names(res)))
+  expect_true(all(c("DailyApiRequests", "PermissionSets", "DataStorageMB", "FileStorageMB") %in% names(res)))
 })
 
 test_that("testing sf_list_objects()", {

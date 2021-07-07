@@ -10,6 +10,9 @@ xml_extract_parent_and_child_result(x)
 \item{x}{\code{xml_node}; a \code{xml_node} from an xml2 parsed response
 representing one individual parent query record.}
 }
+\value{
+\code{tbl_df} of the query result for that parent record.
+}
 \description{
 This function accepts a node representing the result of an individual parent
 recordset from a nested parent-child query where there are zero or more child

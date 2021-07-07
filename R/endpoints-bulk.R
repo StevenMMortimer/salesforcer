@@ -1,5 +1,12 @@
 #' Bulk Create Job URL Generator
 #' 
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @param query_operation \code{logical}; an indicator of whether the call is 
+#' for a query or another operation, such as, CRUD operations.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -27,6 +34,14 @@ make_bulk_create_job_url <- function(api_type=c("Bulk 1.0", "Bulk 2.0"),
 
 #' Bulk Get Job Generic URL Generator
 #' 
+#' @template job_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @param query_operation \code{logical}; an indicator of whether the call is 
+#' for a query or another operation, such as, CRUD operations.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -58,6 +73,14 @@ make_bulk_get_job_url <- function(job_id,
 
 #' Bulk Get All Jobs Generic URL Generator
 #' 
+#' @param parameterized_search_list \code{list}; a list of search options to locate 
+#' Bulk API jobs.
+#' @param next_records_url \code{character}; a string returned by a Salesforce 
+#' query from where to find subsequent records returned by a paginated query.
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) to send a request 
+#' to in order to retrieve queried jobs.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -92,14 +115,22 @@ make_bulk_get_all_jobs_url <- function(parameterized_search_list = list(isPkChun
 
 #' Bulk Get All Query Jobs Generic URL Generator
 #' 
+#' @param parameterized_search_list \code{list}; a list of search options to locate 
+#' Bulk API query jobs.
+#' @param next_records_url \code{character}; a string returned by a Salesforce 
+#' query from where to find subsequent records returned by a paginated query.
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) to send a request 
+#' to in order to retrieve queried jobs.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
 make_bulk_get_all_query_jobs_url <- function(parameterized_search_list = list(isPkChunkingEnabled=NULL, 
-                                                                        jobType=NULL, 
-                                                                        concurrencyMode=NULL), 
-                                       next_records_url=NULL, 
-                                       api_type=c("Bulk 2.0")){
+                                                                              jobType=NULL, 
+                                                                              concurrencyMode=NULL), 
+                                             next_records_url=NULL, 
+                                             api_type=c("Bulk 2.0")){
   # ensure we are authenticated first so the url can be formed
   sf_auth_check()
   api_type <- match.arg(api_type)
@@ -127,9 +158,15 @@ make_bulk_get_all_query_jobs_url <- function(parameterized_search_list = list(is
 
 #' Validate Query Parameters When Getting List of All Bulk Jobs
 #' 
+#' @param parameterized_search_list \code{list}; a list of search options to 
+#' locate Bulk API jobs.
+#' @param type \code{character}; a string indicating which type of jobs to 
+#' include in the result.
+#' @return \code{character}; a complete URL (as a string) to send a request 
+#' to in order to retrieve queried jobs.
+#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/query_get_all_jobs.htm}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
-#' @seealso \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}
 #' @export
 validate_get_all_jobs_params <- function(parameterized_search_list, type="all"){
   for (n in names(parameterized_search_list)){
@@ -159,6 +196,12 @@ validate_get_all_jobs_params <- function(parameterized_search_list, type="all"){
 
 #' Bulk End Job Generic URL Generator
 #' 
+#' @template job_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -181,6 +224,12 @@ make_bulk_end_job_generic_url <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2
 
 #' Bulk Delete Job Generic URL Generator
 #' 
+#' @template job_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -201,6 +250,12 @@ make_bulk_delete_job_url <- function(job_id, api_type=c("Bulk 2.0")){
 #' Bulk Batches URL Generator
 #' 
 #' @importFrom xml2 url_escape
+#' @template job_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -223,6 +278,12 @@ make_bulk_batches_url <- function(job_id, api_type=c("Bulk 1.0", "Bulk 2.0")){
 
 #' Bulk Query URL Generator
 #' 
+#' @template job_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -248,6 +309,13 @@ make_bulk_query_url <- function(job_id=NULL,
 
 #' Bulk Batch Status URL Generator
 #' 
+#' @template job_id
+#' @template batch_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -265,6 +333,13 @@ make_bulk_batch_status_url <- function(job_id, batch_id, api_type=c("Bulk 1.0"))
 
 #' Bulk Batch Details URL Generator
 #' 
+#' @template job_id
+#' @template batch_id
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -282,6 +357,15 @@ make_bulk_batch_details_url <- function(job_id, batch_id, api_type=c("Bulk 1.0")
 
 #' Bulk Query Result URL Generator
 #' 
+#' @template job_id
+#' @template batch_id
+#' @param result_id \code{character}; the Salesforce Id assigned to a generated 
+#' result for a bulk query batch.
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -316,6 +400,14 @@ make_bulk_query_result_url <- function(job_id,
 
 #' Bulk Job Records URL Generator
 #' 
+#' @template job_id
+#' @param record_type \code{character}; one of 'successfulResults', 'failedResults', 
+#' or 'unprocessedRecords' indicating the type of records to retrieve.
+#' @param api_type \code{character}; a string indicating which Bulk API to execute 
+#' the call against.
+#' @return \code{character}; a complete URL (as a string) that will be used to 
+#' send subsequent Bulk API calls to. This URL is specific to your instance and 
+#' the API version being used.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export

@@ -75,7 +75,7 @@ sf_submit_query_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return \code{tbl_df}, formatted by Salesforce, containing query results
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
@@ -93,15 +93,25 @@ sf_query_result_bulk <- function(job_id,
                                  batch_id = NULL, 
                                  result_id = NULL,
                                  guess_types = TRUE,
-                                 bind_using_character_cols = FALSE,
+                                 bind_using_character_cols = deprecated(),
                                  batch_size = 50000,
                                  api_type = c("Bulk 1.0", "Bulk 2.0"), 
                                  verbose = FALSE){
   api_type <- match.arg(api_type)
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_result_bulk(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }
+  
   if(api_type == "Bulk 2.0"){
     resultset <- sf_query_result_bulk_v2(job_id = job_id, 
                                          guess_types = guess_types,
-                                         bind_using_character_cols = bind_using_character_cols,
                                          batch_size = batch_size,
                                          locator = NULL,
                                          api_type = api_type,
@@ -111,7 +121,6 @@ sf_query_result_bulk <- function(job_id,
                                          batch_id = batch_id, 
                                          result_id = result_id,
                                          guess_types = guess_types,
-                                         bind_using_character_cols = bind_using_character_cols,
                                          api_type = api_type,
                                          verbose = verbose)    
   }
@@ -124,7 +133,8 @@ sf_query_result_bulk <- function(job_id,
 #' This function returns the row-level recordset of a Bulk 1.0 query
 #' which has already been submitted to Bulk API Job and has Completed state
 #' 
-#' @importFrom readr col_guess col_character
+#' @importFrom lifecycle deprecated is_present deprecate_warn
+#' @importFrom readr read_csv cols col_character
 #' @importFrom httr content
 #' @importFrom XML xmlToList
 #' @importFrom dplyr is.tbl as_tibble tibble select any_of matches everything
@@ -156,10 +166,21 @@ sf_query_result_bulk_v1 <- function(job_id,
                                     batch_id = NULL, 
                                     result_id = NULL,                                    
                                     guess_types = TRUE,
-                                    bind_using_character_cols = FALSE,
+                                    bind_using_character_cols = deprecated(),
                                     api_type = c("Bulk 1.0"), 
                                     verbose = FALSE){
   api_type <- match.arg(api_type)
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_result_bulk_v1(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }    
+  
   bulk_query_result_url <- make_bulk_query_result_url(job_id, batch_id, result_id, api_type)
   httr_response <- rGET(url = bulk_query_result_url)
   if(verbose){
@@ -168,19 +189,19 @@ sf_query_result_bulk_v1 <- function(job_id,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  response_text <- content(httr_response, type="text/plain", encoding="UTF-8")
   
   content_type <- httr_response$headers$`content-type`
   if (grepl('xml', content_type)) {
+    response_text <- content(httr_response, type="text/plain", encoding="UTF-8")
     resultset <- as_tibble(xmlToList(response_text))
   } else if(grepl('text/csv', content_type)) {
+    response_text <- content(httr_response, type="text", encoding="UTF-8")
     if(response_text == "Records not found for this query"){
       resultset <- tibble()
     } else {
-      cols_default <- if(bind_using_character_cols | 
-                         !guess_types) col_character() else col_guess()
-      resultset <- content(httr_response, as="parsed", encoding="UTF-8", 
-                           col_types = cols(.default=cols_default))
+      # required to load as character in order to guess column types by all values 
+      # in the column, not just first N
+      resultset <- read_csv(response_text, col_types = cols(.default = col_character()))
     }
   } else {
     message(sprintf("Unhandled content-type: %s", content_type))
@@ -196,14 +217,14 @@ sf_query_result_bulk_v1 <- function(job_id,
   return(resultset)
 }
 
-
 #' Retrieve the results of a Bulk 2.0 query
 #' 
 #' This function returns the row-level recordset of a Bulk 2.0 query
 #' which has already been submitted as a Bulk 2.0 API job and has a JobComplete
 #' state.
 #' 
-#' @importFrom readr col_guess col_character type_convert
+#' @importFrom lifecycle deprecated is_present deprecate_warn
+#' @importFrom readr read_csv cols col_character
 #' @importFrom httr content parse_url build_url
 #' @importFrom dplyr is.tbl select any_of contains
 #' @template job_id
@@ -217,7 +238,7 @@ sf_query_result_bulk_v1 <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return \code{tbl_df}, formatted by Salesforce, containing query results
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' my_query <- "SELECT Id, Name FROM Account LIMIT 1000"
@@ -233,13 +254,23 @@ sf_query_result_bulk_v1 <- function(job_id,
 #' @export
 sf_query_result_bulk_v2 <- function(job_id, 
                                     guess_types = TRUE,
-                                    bind_using_character_cols = FALSE,
+                                    bind_using_character_cols = deprecated(),
                                     batch_size = 50000,
                                     locator = NULL,
                                     api_type = c("Bulk 2.0"), 
                                     verbose = FALSE){  
   
   api_type <- match.arg(api_type)
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_result_bulk_v2(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }  
 
   # construct the url for requesting the records
   bulk_query_result_url <- make_bulk_query_result_url(job_id, api_type=api_type)
@@ -255,13 +286,12 @@ sf_query_result_bulk_v2 <- function(job_id,
                               httr_response$request$headers)
   }
   catch_errors(httr_response)
-  
   content_type <- httr_response$headers$`content-type`
   if(grepl('text/csv', content_type)) {
-    cols_default <- if(bind_using_character_cols | 
-                       !guess_types) col_character() else col_guess()
-    resultset <- content(httr_response, as="parsed", encoding="UTF-8", 
-                         col_types = cols(.default=cols_default))
+    response_text <- content(httr_response, as="text", encoding="UTF-8")
+    # required to load as character in order to guess column types by all values 
+    # in the column, not just first N
+    resultset <- read_csv(response_text, col_types = cols(.default = col_character()))
   } else {
     message(sprintf("Unexpected content-type: %s", content_type))
     resultset <- content(httr_response, as="parsed", encoding="UTF-8")
@@ -272,7 +302,6 @@ sf_query_result_bulk_v2 <- function(job_id,
   if(!is.null(locator) && locator != "null"){
     next_records <- sf_query_result_bulk_v2(job_id = job_id, 
                                             guess_types = guess_types,
-                                            bind_using_character_cols = bind_using_character_cols,
                                             batch_size = batch_size,
                                             locator = locator,
                                             api_type = api_type,
@@ -294,6 +323,7 @@ sf_query_result_bulk_v2 <- function(job_id,
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 API.
 #'
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom dplyr filter across any_of bind_rows is.tbl
 #' @template soql
 #' @template object_name
@@ -324,7 +354,7 @@ sf_query_bulk_v1 <- function(soql,
                              object_name = NULL,
                              queryall = FALSE,
                              guess_types = TRUE,
-                             bind_using_character_cols = FALSE,
+                             bind_using_character_cols = deprecated(),
                              interval_seconds = 3,
                              max_attempts = 200, 
                              control = list(...), ...,
@@ -349,6 +379,16 @@ sf_query_bulk_v1 <- function(soql,
   control_args$api_type <- api_type
   this_operation <- if(queryall) "queryall" else "query"
   control_args$operation <- this_operation
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_bulk_v1(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }
   
   job_info <- sf_create_job_bulk(operation = this_operation,
                                  object_name = object_name, 
@@ -411,7 +451,6 @@ sf_query_bulk_v1 <- function(soql,
                                              batch_id = batch_query_info$id[i],
                                              result_id = batch_query_details$result,
                                              guess_types = guess_types,
-                                             bind_using_character_cols = bind_using_character_cols,
                                              api_type = api_type,
                                              verbose = verbose)
     }
@@ -436,6 +475,7 @@ sf_query_bulk_v1 <- function(soql,
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 2.0 API.
 #'
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @template soql
 #' @template object_name
 #' @template queryall
@@ -449,7 +489,7 @@ sf_query_bulk_v1 <- function(soql,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)
@@ -465,7 +505,7 @@ sf_query_bulk_v2 <- function(soql,
                              object_name = NULL,
                              queryall = FALSE,
                              guess_types = TRUE,
-                             bind_using_character_cols = FALSE,
+                             bind_using_character_cols = deprecated(),
                              interval_seconds = 3,
                              max_attempts = 200, 
                              control = list(...), ...,
@@ -493,6 +533,16 @@ sf_query_bulk_v2 <- function(soql,
   control_args$api_type <- api_type
   this_operation <- if(queryall) "queryall" else "query"
   control_args$operation <- this_operation
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_query_bulk_v2(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }
   
   # save out the query batch size control because for the Bulk 2.0 API 
   # it is not a header argument, it's actually a query parameter and, 
@@ -539,7 +589,6 @@ sf_query_bulk_v2 <- function(soql,
   } else {
     res <- sf_query_result_bulk(job_id = job_info$id,
                                 guess_types = guess_types,
-                                bind_using_character_cols = bind_using_character_cols,
                                 batch_size = batch_size,
                                 api_type = api_type,
                                 verbose = verbose)
@@ -550,11 +599,12 @@ sf_query_bulk_v2 <- function(soql,
 #' Run bulk query 
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function is a convenience wrapper for submitting and retrieving 
 #' query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.
 #'
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @template soql
 #' @template object_name
 #' @template queryall
@@ -569,7 +619,7 @@ sf_query_bulk_v2 <- function(soql,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of the recordset returned by the query
-#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+#' @references \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 #' @examples
 #' \dontrun{
 #' # select all Ids from Account object (up to 1000)
@@ -592,7 +642,7 @@ sf_run_bulk_query <- function(soql,
                           object_name = NULL,
                           queryall = FALSE,
                           guess_types = TRUE,
-                          bind_using_character_cols = FALSE,
+                          bind_using_character_cols = deprecated(),
                           interval_seconds = 3,
                           max_attempts = 200,
                           control = list(...), ...,
@@ -607,14 +657,23 @@ sf_run_bulk_query <- function(soql,
   # It should be a relatively small performance hit given its a bulk operation.
   control_args <- return_matching_controls(control)
   control_args$api_type <- api_type
-  control_args$operation <- if(queryall) "queryall" else "query"  
-  
+  control_args$operation <- if(queryall) "queryall" else "query"
+
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_run_bulk_query(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }  
+    
   if(api_type == "Bulk 2.0"){
     resultset <- sf_query_bulk_v2(soql = soql, 
                                   object_name = object_name,
                                   queryall = queryall,
                                   guess_types = guess_types,
-                                  bind_using_character_cols = bind_using_character_cols,
                                   interval_seconds = interval_seconds,
                                   max_attempts = max_attempts, 
                                   control = control_args, ...,

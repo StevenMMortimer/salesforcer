@@ -6,6 +6,18 @@
 \usage{
 make_analytics_folder_share_by_id_url(report_folder_id, share_id)
 }
+\arguments{
+\item{report_folder_id}{\code{character}; the Salesforce Id assigned to a created
+analytics folder (it will start with "00l").}
+
+\item{share_id}{\code{character}; the Salesforce Id assigned to a created
+analytics folder share (it will start with "004").}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send Analytics folder calls to. This URL is specific to your instance
+and the API version being used.
+}
 \description{
 Analytics Folder share by Id URL generator
 }

@@ -260,7 +260,10 @@ drop_attributes_recursively <- function(x,
 #' @importFrom purrr map modify_if
 #' @importFrom rlist list.flatten
 #' @importFrom utils head tail
-#' @param x \code{list}; a list of xml content parsed into a list by xml2
+#' @param x \code{list}; a list of XML content parsed into a list by xml2
+#' @return \code{character}; a named vector of strings from the parsed XML. Nested 
+#' elements have their hierarchy represented by a period between the element names 
+#' at each level.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -468,9 +471,10 @@ extract_records_from_xml_nodeset_of_records <- function(x,
 #' bound together to return one complete \code{tbl_df} of the query result for 
 #' that parent record.
 #' 
+#' @importFrom xml2 xml_find_all xml_remove
 #' @param x \code{xml_node}; a \code{xml_node} from an xml2 parsed response 
 #' representing one individual parent query record.
-#' @importFrom xml2 xml_find_all xml_remove
+#' @return \code{tbl_df} of the query result for that parent record.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -574,6 +578,8 @@ list_extract_parent_and_child_result <- function(x){
 #' the query recordset, that can be joined with its corresponding child records.
 #' @param child_df_list \code{list} of \code{tbl_df}; a list of child records that 
 #' is the same length as the number of rows in the parent_df.
+#' @return \code{tbl_df}; a data frame of parent data replicated for each child 
+#' record in the corresponding list.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -674,7 +680,7 @@ records_list_to_tbl <- function(x,
 #' @export
 bind_query_resultsets <- function(resultset, next_records){
   
-  deprecate_warn("0.2.2", "salesforcer::bind_query_resultsets()", "safe_bind_rows()",
+  deprecate_warn("0.2.2", "salesforcer::bind_query_resultsets()", "salesforcer::safe_bind_rows()",
                  details = paste0("Consider safe_bind_rows() which silently combines ",
                                   "all columns regardless if there are mixed datatypes ",
                                   "in a single column."))
@@ -696,10 +702,8 @@ bind_query_resultsets <- function(resultset, next_records){
                      "had different datatypes than prior records in the following columns:", 
                      "\n  - %s\n", 
                      "\n",
-                     "Consider setting `bind_using_character_cols=TRUE` to cast the data to ", 
-                     "character so that `bind_rows()` between pages will succeed and setting ",
-                     "`guess_types=TRUE` which uses readr to determine the datatype based on ", 
-                     "values in the column."), 
+                     "Consider setting `guess_types=FALSE` and manually examinig ", 
+                     "why the datatypes are varying in a particular column."), 
               paste0(mismatched_warn_str, collapse="\n  - "))
       , call. = FALSE
     )
@@ -733,12 +737,13 @@ sf_reorder_cols <- function(df){
              contains("."))
 }
 
-#' Reorder resultset columns to prioritize \code{sObject} and \code{Id}
+#' Parse resultset columns to a known datatype in R
 #' 
 #' This function accepts a \code{tbl_df} with columns rearranged.
 #' 
 #' @importFrom dplyr mutate across
-#' @importFrom readr type_convert cols col_guess
+#' @importFrom anytime anytime anydate
+#' @importFrom readr type_convert cols col_guess locale
 #' @param df \code{tbl_df}; the data frame to rearrange columns in
 #' @return \code{tbl_df} the formatted data frame
 #' @note This function is meant to be used internally. Only use when debugging.
@@ -746,19 +751,32 @@ sf_reorder_cols <- function(df){
 #' @export
 sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
   if(guess_types){
-    if(is.null(dataType) || any(is.na(dataType)) || (length(dataType)== 0)){
+    if(is.null(dataType) || any(is.na(dataType)) || (length(dataType) == 0)){
       df <- df %>% 
-        type_convert(col_types = cols(.default = col_guess()))      
+        type_convert(col_types = cols(.default = col_guess()), locale=locale(tz="UTC"))      
     } else {
       col_spec <- sf_build_cols_spec(dataType)
-      # if numeric but contains Salesforce "-" then preemptively change to NA
+      # if numeric Salesforce will flag N/A as "-" so we need to preemptively change to NA
+      # TODO: Does it use "-" for NA or zero? Or both?
       if(grepl('i|n', col_spec)){
         numeric_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] %in% c("i", "n"))
         df <- df %>% 
           mutate(across(all_of(numeric_col_idx), ~ifelse(.x == "-", NA_character_, .x)))
       }
-      df <- df %>% 
-        type_convert(col_types = col_spec)      
+      # Salesforce returns dates and datetimes in UTC but sometimes as YYYY-MM-DD
+      # or MM/DD/YYYY in the case of reports, so we will convert using the
+      # anytime package rather than trusting type_convert's behavior
+      if(grepl('D', col_spec)){
+        date_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] == "D")
+        df <- df %>% 
+          mutate(across(all_of(date_col_idx), ~as.character(anydate(.x, tz="UTC", asUTC=TRUE))))
+      }
+      if(grepl('T', col_spec)){
+        datetime_col_idx <- which(strsplit(col_spec, split=character(0))[[1]] == "T")
+        df <- df %>% 
+          mutate(across(all_of(datetime_col_idx), ~as.character(anytime(.x, tz="UTC", asUTC=TRUE))))
+      }
+      df <- df %>% type_convert(col_types = col_spec, locale=locale(tz="UTC"))
     }
   }
   return(df)

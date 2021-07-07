@@ -6,6 +6,18 @@
 \usage{
 make_bulk_batches_url(job_id, api_type = c("Bulk 1.0", "Bulk 2.0"))
 }
+\arguments{
+\item{job_id}{\code{character}; the Salesforce Id assigned to a submitted job as
+returned by \link{sf_create_job_bulk}. It will start with \code{"750"}.}
+
+\item{api_type}{\code{character}; a string indicating which Bulk API to execute
+the call against.}
+}
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send subsequent Bulk API calls to. This URL is specific to your instance and
+the API version being used.
+}
 \description{
 Bulk Batches URL Generator
 }

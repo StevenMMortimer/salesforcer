@@ -621,6 +621,7 @@ sf_delete_report <- function(report_id, verbose=FALSE){
 #'   \item reportFilters
 #' }
 #' 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom dplyr mutate across select any_of everything
 #' @importFrom readr parse_datetime type_convert cols col_guess
 #' @importFrom tibble as_tibble_row
@@ -686,10 +687,20 @@ sf_execute_report <- function(report_id,
                               include_details = TRUE,
                               labels = TRUE,
                               guess_types = TRUE, 
-                              bind_using_character_cols = FALSE,
+                              bind_using_character_cols = deprecated(),
                               as_tbl = TRUE,
                               report_metadata = NULL,
                               verbose = FALSE){
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_execute_report(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  } 
   
   if(!is.null(report_metadata)){
     report_metadata <- sf_input_data_validation(report_metadata,
@@ -736,8 +747,7 @@ sf_execute_report <- function(report_id,
       response_parsed <- response_parsed %>% 
         parse_report_detail_rows(
           labels = labels,
-          guess_types = guess_types,
-          bind_using_character_cols = bind_using_character_cols
+          guess_types = guess_types
         )
     }
   }
@@ -859,6 +869,7 @@ sf_delete_report_instance <- function(report_id,
 #' filters. Depending on your asynchronous report run request, data can be at the 
 #' summary level or include details.
 #'
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @importFrom purrr map_df pluck set_names map_chr
 #' @template report_id
 #' @template report_instance_id
@@ -898,9 +909,19 @@ sf_get_report_instance_results <- function(report_id,
                                            report_instance_id,
                                            labels = TRUE,
                                            guess_types = TRUE, 
-                                           bind_using_character_cols = FALSE,
+                                           bind_using_character_cols = deprecated(),
                                            fact_map_key = "T!T",
                                            verbose = FALSE){
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_get_report_instance_results(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }   
   
   this_url <- make_report_instance_url(report_id, report_instance_id)
   resultset <- sf_rest_list(url = this_url, as_tbl = FALSE, verbose = verbose)
@@ -908,8 +929,7 @@ sf_get_report_instance_results <- function(report_id,
     parse_report_detail_rows(
       fact_map_key = fact_map_key,
       labels = labels,
-      guess_types = guess_types,
-      bind_using_character_cols = bind_using_character_cols
+      guess_types = guess_types
     )
   return(resultset)
 }
@@ -932,6 +952,7 @@ sf_get_report_instance_results <- function(report_id,
 #' function arguments rather than forcing the user to create an entire list of
 #' \code{reportMetadata}.
 #' 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @template report_id
 #' @param report_filters \code{list}; A \code{list} of reportFilter specifications. 
 #' Each must be a list with 3 elements: 1) \code{column}, 2) \code{operator}, and 
@@ -962,6 +983,9 @@ sf_get_report_instance_results <- function(report_id,
 #' report finish running so that data can be obtained. Otherwise, return the
 #' report instance details which can be used to retrieve the results when the
 #' async report has finished.
+#' @template guess_types
+#' @template bind_using_character_cols
+#' @template fact_map_key
 #' @template verbose
 #' @return \code{tbl_df}
 #' @family Report functions
@@ -1017,7 +1041,20 @@ sf_run_report <- function(report_id,
                           interval_seconds = 3,
                           max_attempts = 200,
                           wait_for_results = TRUE,
+                          guess_types = TRUE,
+                          bind_using_character_cols = deprecated(),
+                          fact_map_key = "T!T",
                           verbose = FALSE){
+  
+  if(is_present(bind_using_character_cols)) {
+    deprecate_warn("1.0.0", 
+                   "salesforcer::sf_run_report(bind_using_character_cols)", 
+                   details = paste0("The `bind_using_character_cols` functionality ", 
+                                    "will always be `TRUE` going forward. Per the ", 
+                                    "{readr} package, we have to read as character ", 
+                                    "and then invoke `type_convert()` in order to ",
+                                    "use all values in a column to guess its type."))
+  }    
   
   # build out the body of the request based on the inputted arguments by starting 
   # with a simplified version and then adding to it based on the user inputted arguments
@@ -1090,7 +1127,8 @@ sf_run_report <- function(report_id,
   
   results <- sf_execute_report(report_id, 
                                async = async, 
-                               report_metadata = request_body, 
+                               report_metadata = request_body,
+                               guess_types = guess_types,
                                verbose = verbose)
   
   # request the report results (still wait if async is specified)
@@ -1123,6 +1161,8 @@ sf_run_report <- function(report_id,
       }
       results <- sf_get_report_instance_results(report_id, 
                                                 results$id, 
+                                                guess_types = guess_types,
+                                                fact_map_key = "T!T",
                                                 verbose = verbose)
     }
   }

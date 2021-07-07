@@ -10,7 +10,7 @@ xml_nodeset_to_df(this_node)
 \item{this_node}{\code{xml_node}; to be parsed out}
 }
 \value{
-\code{data.frame} parsed from the supplied xml
+\code{tbl_df} parsed from the supplied XML
 }
 \description{
 A function specifically for parsing an XML node into a \code{data.frame}

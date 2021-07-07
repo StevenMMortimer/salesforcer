@@ -13,6 +13,25 @@ make_verbose_httr_message(
   ...
 )
 }
+\arguments{
+\item{method}{\code{character}; the type of HTTP method invoked (e.g., POST,
+PUT, DELETE, etc.).}
+
+\item{url}{\code{character}; the URL that the request was sent to}
+
+\item{headers}{\code{character}; the set of header options set on the request}
+
+\item{body}{\code{character}; the body of the request.}
+
+\item{auto_unbox}{\code{logical}, an indicator of whether to parse vectors of
+of length 1 into a single character string, rather than a list.}
+
+\item{...}{additional arguments passed on to \code{\link[jsonlite]{toJSON}}.}
+}
+\value{
+\code{NULL} invisibly, because this function is intended for the
+side-effect of printing out the details of an HTTP call.
+}
 \description{
 Format Verbose Call
 }

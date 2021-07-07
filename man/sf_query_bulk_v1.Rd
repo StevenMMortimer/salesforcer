@@ -9,7 +9,7 @@ sf_query_bulk_v1(
   object_name = NULL,
   queryall = FALSE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   interval_seconds = 3,
   max_attempts = 200,
   control = list(...),

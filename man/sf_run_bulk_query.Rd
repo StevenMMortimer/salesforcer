@@ -10,7 +10,7 @@ sf_run_bulk_query(
   object_name = NULL,
   queryall = FALSE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   interval_seconds = 3,
   max_attempts = 200,
   control = list(...),
@@ -24,7 +24,7 @@ sf_query_bulk(
   object_name = NULL,
   queryall = FALSE,
   guess_types = TRUE,
-  bind_using_character_cols = FALSE,
+  bind_using_character_cols = deprecated(),
   interval_seconds = 3,
   max_attempts = 200,
   control = list(...),
@@ -86,7 +86,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_df} of the recordset returned by the query
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function is a convenience wrapper for submitting and retrieving
 query API jobs from the Bulk 1.0 and Bulk 2.0 APIs.
@@ -110,5 +110,5 @@ ids <- sf_query(soql = 'SELECT Id FROM Account LIMIT 1000',
 }
 }
 \references{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm}{Bulk 2.0 documentation}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm}{Bulk 1.0 documentation} and \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm}{Bulk 2.0 documentation}
 }

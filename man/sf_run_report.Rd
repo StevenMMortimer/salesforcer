@@ -15,6 +15,9 @@ sf_run_report(
   interval_seconds = 3,
   max_attempts = 200,
   wait_for_results = TRUE,
+  guess_types = TRUE,
+  bind_using_character_cols = deprecated(),
+  fact_map_key = "T!T",
   verbose = FALSE
 )
 }
@@ -63,6 +66,26 @@ report finish running so that data can be obtained. Otherwise, return the
 report instance details which can be used to retrieve the results when the
 async report has finished.}
 
+\item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
+to try and cast the data returned in the recordset. If \code{TRUE} then
+\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
+as character. This is helpful when \code{col_guess()} will mangle field values
+in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
+like numeric looking values that must be preserved as strings ("48.0").}
+
+\item{bind_using_character_cols}{\code{logical}; an indicator of whether to
+cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
+does not fail because two paginated recordsets have differing datatypes for the
+same column. Set this to \code{TRUE} rarely, typically only when having this
+set to \code{FALSE} returns an error or you want all columns in the data to be
+character.}
+
+\item{fact_map_key}{\code{character}; string providing an index into each
+section of a fact map, from which you can access summary and detailed data.
+The pattern for the fact map keys varies by report format so it is important
+to know what the \code{reportFormat} property of the target report is. See the
+note below for more details.}
+
 \item{verbose}{\code{logical}; an indicator of whether to print additional
 detail for each API call, which is useful for debugging. More specifically, when
 set to \code{TRUE} the URL, header, and body will be printed for each request,
@@ -72,7 +95,7 @@ along with additional diagnostic information where available.}
 \code{tbl_df}
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This function is a convenience wrapper for retrieving the data from a report.
 By default, it executes an asynchronous report and waits for the detailed data
@@ -87,6 +110,29 @@ be returned. In this case we've forced the \code{reportFormat="TABULAR"}
 without total rows and given options to filter, and select the Top N as
 function arguments rather than forcing the user to create an entire list of
 \code{reportMetadata}.
+}
+\note{
+Below are the fact map key patterns for three report types:
+\describe{
+\item{TABULAR}{\code{T!T}: The grand total of a report. Both record data
+values and the grand total are represented by this key.}
+\item{SUMMARY}{\code{<First level row grouping_second level row grouping_third 
+  level row grouping>!T}: T refers to the row grand total.}
+\item{MATRIX}{\code{<First level row grouping_second level row grouping>!<First 
+  level column grouping_second level column grouping>.}}
+}
+
+Each item in a row or column grouping is numbered starting with 0. Here are
+some examples of fact map keys:
+
+\describe{
+\item{0!T}{The first item in the first-level grouping.}
+\item{1!T}{The second item in the first-level grouping.}
+\item{0_0!T}{The first item in the first-level grouping and the first item
+in the second-level grouping.}
+\item{0_1!T}{The first item in the first-level grouping and the second item
+in the second-level grouping.}
+}
 }
 \section{Salesforce Documentation}{
 

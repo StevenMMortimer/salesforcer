@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -182,44 +182,101 @@
       <small>Source: <a href='https://github.com/StevenMMortimer/salesforcer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="salesforcer-022" class="section level2">
+    <div id="salesforcer-100" class="section level2">
 <h2 class="hasAnchor">
-<a href="#salesforcer-022" class="anchor"></a>salesforcer 0.2.2</h2>
+<a href="#salesforcer-100" class="anchor"></a>salesforcer 1.0.0</h2>
 <div id="dependencies" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dependencies" class="anchor"></a>Dependencies</h3>
 <ul>
+<li><p>Increase the package’s default Salesforce API version to 52.0 (Summer ’21).</p></li>
+<li><p>Remove uses of {RForcecom} after it was removed from CRAN on 6/9/2021 (<a href='https://github.com/StevenMMortimer/salesforcer/issues/101'>#101</a>)</p></li>
+<li><p>Remove LazyData option in DESCRIPTION since <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code> is not utilized</p></li>
+<li><p>Deprecate argument in <code><a href="../reference/sf_write_csv.html">sf_write_csv()</a></code> from <code>path</code> to <code>file</code> as was done in {readr} v1.4.0.</p></li>
+<li><p>Deprecate argument <code>bind_using_character_cols</code> because we will always need to bind as character and then parse if <code>guess_types=TRUE</code>. Per comments in tidyverse/readr<a href='https://github.com/StevenMMortimer/salesforcer/issues/588'>#588</a> and tidyverse/readr<a href='https://github.com/StevenMMortimer/salesforcer/issues/98'>#98</a>, we must read all of the data as character first and then use <code>type_convert()</code> to ensure that we use all values in the column to guess the type. The default for <code>read_csv()</code> is to only use the first 1,000 rows and its <code>guess_max</code> argument cannot be set to <code>Inf</code>.</p></li>
+<li>
+<p>Change lifecycle status from “Maturing” to “Status” per the retirement of “Maturing” in the {lifecycle} package. The documentation notes:</p>
+<blockquote>
+<p>Previously we used as maturing for functions that lay somewhere between experimental and stable. We stopped using this stage because, like questioning, it’s not clear what actionable information this stage delivers.</p>
+</blockquote>
+<p>In addition, the lifecycle guidance states that experimental packages have version numbers less than 1.0.0 and may have major changes in its future. The {salesforcer} package has achieved a stable state with core functionality implemented and a focus on backwards compatibility due to the volume of users.</p>
+</li>
+</ul>
+</div>
+<div id="features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h3>
+<ul>
+<li><p>Improve documentation to retrieve the access token or session ID after authentication (<a href='https://github.com/StevenMMortimer/salesforcer/issues/97'>#97</a>)</p></li>
+<li><p>Improve parsing of Bulk API query recordsets from CSV where all values in the column will be used to guess the type instead of the first 1000.</p></li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
+<ul>
+<li><p>Generalize the date and datetime parsing mechanism, such that, reports with date and datetime fields are not returned as NA (<a href='https://github.com/StevenMMortimer/salesforcer/issues/93'>#93</a>)</p></li>
+<li><p>Fix the format of the <code>OwnerChangeOptions</code> header so it is accepted (<a href='https://github.com/StevenMMortimer/salesforcer/issues/94'>#94</a>)</p></li>
+<li><p>Fix bug that caused Bulk 2.0 calls to crash when the results had datetime fields in the recordset (<a href='https://github.com/StevenMMortimer/salesforcer/issues/95'>#95</a>)</p></li>
+</ul>
+<hr>
+</div>
+</div>
+    <div id="salesforcer-022-release" class="section level2">
+<h2 class="hasAnchor">
+<a href="#salesforcer-022-release" class="anchor"></a>salesforcer 0.2.2 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.2">release</a>
+</h2>
+<div id="dependencies-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dependencies-1" class="anchor"></a>Dependencies</h3>
+<ul>
 <li>This release relaxes the dependency on {dplyr} and brings back use of <code>rbindlist()</code> from {data.table} because of limitations of <code><a href="https://dplyr.tidyverse.org/reference/bind.html">dplyr::bind_rows()</a></code>. As noted in (tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5429'>#5429</a>) {dplyr} will only support binding data.frames or lists of data.frames, <strong>not</strong> a list of lists which is needed in some applications of the {salesforcer} package.</li>
 <li>Due to other recent changes between {vctrs} and {dplyr}, you may now see the following warning displayed when loading {salesforcer}, which is emitted by the loading of {dplyr}:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="r">Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame' when loading 'dplyr'</pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>Warning<span class="op">:</span><span class="st"> </span>replacing previous import <span class="st">'vctrs::data_frame'</span> by <span class="st">'tibble::data_frame'</span> when loading <span class="st">'dplyr'</span></span></code></pre></div>
+</div>
+<div id="features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features-1" class="anchor"></a>Features</h3>
+<ul>
+<li>None</li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h3>
+<ul>
+<li>None</li>
+</ul>
 </div>
 </div>
     <div id="salesforcer-021-release" class="section level2">
 <h2 class="hasAnchor">
 <a href="#salesforcer-021-release" class="anchor"></a>salesforcer 0.2.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.1">release</a>
 </h2>
-<div id="dependencies-1" class="section level3">
+<div id="dependencies-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#dependencies-1" class="anchor"></a>Dependencies</h3>
+<a href="#dependencies-2" class="anchor"></a>Dependencies</h3>
 <ul>
 <li>
-<strong>CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code>bind_rows()</code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5417'>#5417</a> and r-lib/vctrs<a href='https://github.com/StevenMMortimer/salesforcer/issues/1073'>#1073</a>. The timeline for a fix is unknown as of Aug 16, 2020.</strong> You can install the older version of {dplyr} using the following command:</li>
+<strong>CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced a bug in <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> with how it binds lists where the list elements have differing lengths. This is documented in tidyverse/dplyr<a href='https://github.com/StevenMMortimer/salesforcer/issues/5417'>#5417</a> and r-lib/vctrs<a href='https://github.com/StevenMMortimer/salesforcer/issues/1073'>#1073</a>. The timeline for a fix is unknown as of Aug 16, 2020.</strong> You can install the older version of {dplyr} using the following command:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span>(<span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"1.0.0"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="features" class="section level3">
+<div id="features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h3>
+<a href="#features-2" class="anchor"></a>Features</h3>
 <ul>
 <li>Add support for the <code>defaultLimit</code> argument in <code><a href="../reference/sf_search.html">sf_search()</a></code> to be able to restrict the number of records from each individual object when searching across one or more objects.</li>
 <li>Add support for updating attachments with the <code>sf_update_attachments()</code> function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/79'>#79</a>).</li>
 <li>Add support for downloading attachments just by its Id. In addition, the <code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code> function returns the file path of the downloaded content instead of a logical indicating success.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h3>
 <ul>
 <li>Fix bug introduced in {salesforcer 0.2.0} which could not stack records with errors longer than length 1. The new solution is to always return the <code>errors</code> column as a list, which is coerced to length 1 for the record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/66'>#66</a>).</li>
 <li>Fix bug in <code><a href="../reference/sf_search.html">sf_search()</a></code> that was passing <code>"true"/"false"</code> instead of actual boolean value for the <code>spellCorrection</code> parameter in the POST body.</li>
@@ -231,16 +288,16 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-020-release" class="anchor"></a>salesforcer 0.2.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0">release</a>
 </h2>
-<div id="dependencies-2" class="section level3">
+<div id="dependencies-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#dependencies-2" class="anchor"></a>Dependencies</h3>
+<a href="#dependencies-3" class="anchor"></a>Dependencies</h3>
 <ul>
 <li><strong>CAUTION: This release only has automated test coverage on R 4.0.0 or greater. Users should still be able to install and run using R (&gt;= 3.6.0). However, it is recommended to upgrade to R 4.0.0 or greater.</strong></li>
 </ul>
 </div>
-<div id="features-1" class="section level3">
+<div id="features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-1" class="anchor"></a>Features</h3>
+<a href="#features-3" class="anchor"></a>Features</h3>
 <ul>
 <li><p>Add experimental support for the Reports and Dashboards REST API.</p></li>
 <li><p>Add support for Bulk 2.0 queries that was added in Salesforce version 47.0 (Winter ’20). <strong>CAUTION: The Bulk 2.0 API is now the default API when using <code><a href="../reference/sf_run_bulk_query.html">sf_query_bulk()</a></code> or <code><a href="../reference/sf_run_bulk_query.html">sf_run_bulk_query()</a></code></strong>. Please test prior to upgrading in a production environment where you are running bulk queries.</p></li>
@@ -281,9 +338,9 @@
 <li><p>Remove dependency on {data.table} which does not have a build for R-devel. This should only affect <code><a href="../reference/sf_read_metadata.html">sf_read_metadata()</a></code>.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-3" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p>Fix bug that prevented enabling PKChunking in Bulk 1.0 queries. Users can now specify using <code>TRUE/FALSE</code> or details like <code>chunkSize</code> that imply <code>TRUE</code>. The results are then parsed appropriately by waiting for all individual batches to finish. (<a href='https://github.com/StevenMMortimer/salesforcer/issues/46'>#46</a>)</p></li>
 <li><p>Fix bugs in REST and SOAP API queries to prevent infinite looping and mangling results of relationship queries, specifically parent-to-child nested queries. (<a href='https://github.com/StevenMMortimer/salesforcer/issues/19'>#19</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/35'>#35</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/38'>#38</a>, <a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</p></li>
@@ -296,9 +353,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-014-release" class="anchor"></a>salesforcer 0.1.4 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.4">release</a>
 </h2>
-<div id="features-2" class="section level3">
+<div id="features-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-2" class="anchor"></a>Features</h3>
+<a href="#features-4" class="anchor"></a>Features</h3>
 <ul>
 <li><p>Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1) (<a href='https://github.com/StevenMMortimer/salesforcer/issues/53'>#53</a>)</p></li>
 <li><p>Upgrade to Salesforce version 48.0 (Spring ’20) from version 46.0 (Summer ’19)</p></li>
@@ -310,9 +367,9 @@
 <li><p>Add Attachment and Metadata vignettes along with updated Bulk vignette.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-4" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p>Fix issue where REST query was not correctly passing and honoring the batch size control argument to paginate results</p></li>
 <li><p>Fix issue in results of REST query pagination where the function was looping infinitely because of a bug in the implementation that would continue using the same <code>next_records_url</code> that was previously passed into the function (<a href='https://github.com/StevenMMortimer/salesforcer/issues/54'>#54</a>)</p></li>
@@ -328,9 +385,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-013-release" class="anchor"></a>salesforcer 0.1.3 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3">release</a>
 </h2>
-<div id="features-3" class="section level3">
+<div id="features-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-3" class="anchor"></a>Features</h3>
+<a href="#features-5" class="anchor"></a>Features</h3>
 <ul>
 <li><p>Upgrade to version 46.0 (Summer ’19) from version 45.0 (Spring ’19)</p></li>
 <li><p>Add <strong>RForcecom</strong> backward compatible version of <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code></p></li>
@@ -347,9 +404,9 @@
 <li><p>Add new function <code><a href="../reference/sf_merge.html">sf_merge()</a></code> which combines up to 3 records of the same type into 1 record (<a href='https://github.com/StevenMMortimer/salesforcer/issues/22'>#22</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-5" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p>Fix bug where Username/Password authenticated sessions where not working with api_type = “Bulk 1.0”</p></li>
 <li><p>Fix bug where Bulk 1.0 queries that timeout hit an error while trying to abort since that only supported aborting Bulk 2.0 jobs (<a href='https://github.com/StevenMMortimer/salesforcer/issues/13'>#13</a>)</p></li>
@@ -365,9 +422,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-012-release" class="anchor"></a>salesforcer 0.1.2 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2">release</a>
 </h2>
-<div id="features-4" class="section level3">
+<div id="features-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-4" class="anchor"></a>Features</h3>
+<a href="#features-6" class="anchor"></a>Features</h3>
 <ul>
 <li><p>Add support for Bulk 1.0 operations of “create”, “update”, “upsert”, “delete” and “hardDelete”</p></li>
 <li><p>Bulk 2.0 operations, by default, now return a single <code>tbl_df</code> containing all of the successful records, error records, and unprocessed records</p></li>
@@ -380,9 +437,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-011-release" class="anchor"></a>salesforcer 0.1.1 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1">release</a>
 </h2>
-<div id="features-5" class="section level3">
+<div id="features-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-5" class="anchor"></a>Features</h3>
+<a href="#features-7" class="anchor"></a>Features</h3>
 <ul>
 <li><p>Add <code><a href="../reference/sf_search.html">sf_search()</a></code> with REST and SOAP API support for SOSL and free text search</p></li>
 <li><p>Add <code><a href="../reference/sf_describe_objects.html">sf_describe_objects()</a></code> with REST and SOAP API to return object metadata</p></li>
@@ -414,9 +471,9 @@
 <li><p>Update the default file name for a cached token to <code>.httr-oauth-salesforcer</code> so that it does not clash with other package token names.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug Fixes</h3>
+<a href="#bug-fixes-6" class="anchor"></a>Bug Fixes</h3>
 <ul>
 <li><p><code><a href="../reference/sf_user_info.html">sf_user_info()</a></code> returning <code>argument is of length zero</code> because token is not automatically refreshed before calling GET.</p></li>
 <li><p><code>sf_token()</code> ignoring basic authorized sessions since it was only looking for a token using <code>token_avaiable()</code>. Replace with <code><a href="../reference/sf_auth_check.html">sf_auth_check()</a></code> so now it considers a session or a token to be “available” (<a href='https://github.com/StevenMMortimer/salesforcer/issues/1'>#1</a>).</p></li>
@@ -428,9 +485,9 @@
 <h2 class="hasAnchor">
 <a href="#salesforcer-010-release" class="anchor"></a>salesforcer 0.1.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0">release</a>
 </h2>
-<div id="features-6" class="section level3">
+<div id="features-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#features-6" class="anchor"></a>Features</h3>
+<a href="#features-8" class="anchor"></a>Features</h3>
 <ul>
 <li><p>OAuth 2.0 and Basic authentication methods (<code><a href="../reference/sf_auth.html">sf_auth()</a></code>)</p></li>
 <li><p>Query operations via REST and Bulk APIs (<code><a href="../reference/sf_query.html">sf_query()</a></code>)</p></li>
@@ -488,7 +545,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

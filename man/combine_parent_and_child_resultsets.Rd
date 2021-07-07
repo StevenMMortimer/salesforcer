@@ -13,6 +13,10 @@ the query recordset, that can be joined with its corresponding child records.}
 \item{child_df_list}{\code{list} of \code{tbl_df}; a list of child records that
 is the same length as the number of rows in the parent_df.}
 }
+\value{
+\code{tbl_df}; a data frame of parent data replicated for each child
+record in the corresponding list.
+}
 \description{
 This function accepts a \code{data.frame} with one row representing each
 parent record returned by a query with a corresponding list element in the

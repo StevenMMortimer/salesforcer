@@ -6,6 +6,9 @@
 \usage{
 build_proxy()
 }
+\value{
+an \code{httr} proxy object
+}
 \description{
 Function to build a proxy object to pass along with httr requests
 }

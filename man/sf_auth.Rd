@@ -45,15 +45,45 @@ detail for each API call, which is useful for debugging. More specifically, when
 set to \code{TRUE} the URL, header, and body will be printed for each request,
 along with additional diagnostic information where available.}
 }
+\value{
+\code{list} invisibly that contains 4 elements detailing the authentication state
+}
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
+Log in using Basic (Username-Password) or OAuth 2.0 authentication. OAuth does
 not require sharing passwords, but will require authorizing \code{salesforcer}
 as a connected app to view and manage your organization. You will be directed to
 a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer}
 permission to operate on your behalf. By default, these user credentials are
 cached in a file named \code{.httr-oauth-salesforcer} in the current working directory.
+}
+\note{
+The \code{link{sf_auth}} function invisibly returns the following
+4 pieces of information which can be reused in other operations:
+\describe{
+\item{auth_method}{
+\code{character}; One of two options 'Basic' or 'OAuth'. If a username,
+password, and security token were supplied, then this would result in
+'Basic' authentication.
+}
+\item{token}{
+\code{Token2.0}; The object returned by \code{\link[httr]{oauth2.0_token}}.
+This value is \code{NULL} if \code{auth_method='Basic'}.
+}
+\item{session_id}{
+\code{character}; A unique ID associated with this user session. The session
+ID is obtained from the X-SFDC-Session header fetched with SOAP API's login()
+call. This value is \code{NULL} if \code{auth_method='OAuth'}.
+}
+\item{instance_url}{
+\code{character}; The domain address of the server that your Salesforce org
+is on and where subsequent API calls will be directed to. For example,
+\code{https://na21.salesforce.com} refers to an org located on the 'NA21'
+server instance located in Chicago, USA / Washington DC, USA per this
+Knowledge Article: \url{https://help.salesforce.com/articleView?id=000314281}.
+}
+}
 }
 \examples{
 \dontrun{
@@ -62,15 +92,14 @@ sf_auth(username = "test@gmail.com",
         password = "test_password", 
         security_token = "test_token")
 
-# log in using OAuth 2.0
-# Via brower or refresh of .httr-oauth-salesforcer
+# log in using OAuth 2.0 (via browser or cached .httr-oauth-salesforcer)
 sf_auth()
 
 # log in to a Sandbox environment
 # Via brower or refresh of .httr-oauth-salesforcer
 sf_auth(login_url = "https://test.salesforce.com")
 
-# Save token and log in using it
+# Save token to disk and log in using it
 saveRDS(salesforcer_state()$token, "token.rds")
 sf_auth(token = "token.rds")
 }

@@ -1,8 +1,8 @@
 #' Create Bulk API Job 
 #' 
 #' This function initializes a Job in the Salesforce Bulk API
-#'
-#' @importFrom lifecycle deprecate_warn is_present deprecated
+#' 
+#' @importFrom lifecycle deprecated is_present deprecate_warn
 #' @template operation
 #' @template object_name
 #' @template soql
@@ -126,8 +126,23 @@ sf_create_job_bulk <- function(operation = c("insert", "delete", "upsert", "upda
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
 #' @importFrom httr content
 #' @importFrom XML xmlToList
+#' @template operation
+#' @template object_name
+#' @template external_id_fieldname
+#' @param content_type \code{character}; a string indicating the format for 
+#' the API request and response. Must be one of 'CSV', 'ZIP_CSV', 'ZIP_XML', or 
+#' 'ZIP_JSON'.
+#' @param concurrency_mode \code{character}; a string indicating whether the batches 
+#' should be processed in parallel or serially (sequentially). Serial processing 
+#' is helpful when multiple records may trigger simultaneous edits to another 
+#' related record (e.g., updating multiple children all on the same account).
+#' @template control
+#' @param ... arguments to be used to form the default control argument if it is not supplied directly.
+#' @template verbose
+#' @return \code{tbl_df}; a data frame containing information about the job created.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
+#' @export
 sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "update", 
                                                 "hardDelete", "query", "queryall"), 
                                   object_name,
@@ -213,8 +228,23 @@ sf_create_job_bulk_v1 <- function(operation = c("insert", "delete", "upsert", "u
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling
 #' @importFrom httr content
 #' @importFrom jsonlite toJSON prettify
+#' @template operation
+#' @template object_name
+#' @template soql
+#' @template external_id_fieldname
+#' @param content_type \code{character}; a string indicating the format for 
+#' the API request and response. Must be 'CSV' because it is the only supported 
+#' format for the Bulk 2.0 API.
+#' @param column_delimiter \code{character}; a string indicating which character 
+#' should be treated as the delimiter in the CSV file. Must be one of 'COMMA', 
+#' 'TAB', 'PIPE', 'SEMICOLON', 'CARET', or 'BACKQUOTE'.
+#' @template control
+#' @param ... arguments to be used to form the default control argument if it is not supplied directly.
+#' @template verbose
+#' @return \code{tbl_df}; a data frame containing information about the job created.
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
+#' @export
 sf_create_job_bulk_v2 <- function(operation = c("insert", "delete", 
                                                 "upsert", "update", 
                                                 "query", "queryall"),
@@ -370,13 +400,13 @@ sf_get_job_bulk <- function(job_id,
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
 #' more information, read the note below and/or the Salesforce documentation 
-#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}{here}.
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}{here}.
 #' @param next_records_url character (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}
 #' @note parameterized_search_list elements that can be set to filter the results:
 #' \itemize{
 #'   \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
@@ -448,13 +478,13 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
 #' more information, read the note below and/or the Salesforce documentation 
-#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/query_get_all_jobs.htm}{here}.
+#' \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/query_get_all_jobs.htm}{here}.
 #' @param next_records_url character (leave as NULL); a string used internally 
 #' by the function to paginate through to more records until complete
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the details of all bulk jobs
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/get_all_jobs.htm}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/get_all_jobs.htm}
 #' @note parameterized_search_list elements that can be set to filter the results:
 #' \itemize{
 #'   \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns 
@@ -536,6 +566,8 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
 #' how the bulk job should be ended
 #' @template api_type
 #' @template verbose
+#' @return \code{logical}; returns \code{TRUE} if the job was able to be ended; 
+#' otherwise, an error message is printed
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -547,7 +579,7 @@ sf_end_job_bulk <- function(job_id,
   end_type <- match.arg(end_type)
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 2.0" & end_type == "Closed"){
-    end_typ <- "UploadComplete"
+    end_type <- "UploadComplete"
   }
   request_body <- toJSON(list(state=end_type), auto_unbox = TRUE)
   bulk_end_job_url <- make_bulk_end_job_generic_url(job_id, api_type)
@@ -925,7 +957,7 @@ sf_create_batches_bulk_v2 <- function(job_id,
   # encoded content. When job data is uploaded, it is converted to base64. This 
   # conversion can increase the data size by approximately 50%. To account for 
   # the base64 conversion increase, upload data that does not exceed 100 MB. 
-  # https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/upload_job_data.htm
+  # https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/upload_job_data.htm
   if(is.null(batch_size)){
     data_size <- object.size(input_data)
     numb_batches <- ceiling((as.numeric(data_size)/(1024^2))/100) # 100MB / (size converted to MB)
@@ -1088,7 +1120,7 @@ sf_batch_status_bulk <- function(job_id, batch_id,
 #' This function returns detailed (row-by-row) information on an existing batch
 #' which has already been submitted to Bulk API Job
 #'
-#' @importFrom readr read_csv
+#' @importFrom readr read_csv type_convert cols col_character
 #' @importFrom httr content
 #' @importFrom XML xmlToList
 #' @importFrom dplyr as_tibble
@@ -1127,7 +1159,9 @@ sf_batch_details_bulk <- function(job_id, batch_id,
   content_type <- httr_response$headers$`content-type`
   if(content_type == 'text/csv' | content_type == 'zip/csv'){
     response_text <- content(httr_response, as="text", encoding="UTF-8")
-    res <- read_csv(response_text)
+    # required to guess column types by all values in the column, not just first N
+    res <- read_csv(response_text, col_types = cols(.default = col_character()))
+    res <- type_convert(res, col_types = cols())
   } else if(content_type == 'zip/xml'){
     response_parsed <- content(httr_response, as="parsed", type="text/xml", encoding="UTF-8")
     res <- response_parsed %>%
@@ -1160,11 +1194,8 @@ sf_batch_details_bulk <- function(job_id, batch_id,
 #'
 #' @template job_id
 #' @template api_type
-#' @param record_types \code{character}; one or more types of records to retrieve from 
-#' the results of running the specified job
-#' @param combine_record_types \code{logical}; indicating for Bulk 2.0 jobs whether the 
-#' successfulResults, failedResults, and unprocessedRecords should be stacked 
-#' together by binding the rows.
+#' @template record_types
+#' @template combine_record_types
 #' @template verbose
 #' @return A \code{tbl_df} or \code{list} of \code{tbl_df}, formatted by Salesforce, 
 #' with information containing the success or failure or certain rows in a submitted job
@@ -1187,7 +1218,7 @@ sf_get_job_records_bulk <- function(job_id,
                                     record_types = c("successfulResults", 
                                                      "failedResults", 
                                                      "unprocessedRecords"), 
-                                    combine_record_types = TRUE, 
+                                    combine_record_types = TRUE,
                                     verbose = FALSE){
   api_type <- match.arg(api_type)
   if(api_type == "Bulk 1.0"){
@@ -1217,7 +1248,7 @@ sf_get_job_records_bulk_v1 <- function(job_id, verbose = FALSE){
   return(resultset)
 }
 
-#' @importFrom readr read_csv
+#' @importFrom readr read_csv type_convert cols col_character
 #' @importFrom httr content
 sf_get_job_records_bulk_v2 <- function(job_id,
                                        record_types = c("successfulResults", 
@@ -1240,7 +1271,9 @@ sf_get_job_records_bulk_v2 <- function(job_id,
     response_text <- content(httr_response, as="text", encoding="UTF-8")
     content_type <- httr_response$headers$`content-type`
     if(grepl('text/csv', content_type)) {
-      res <- read_csv(response_text)
+      # required to guess column types by all values in the column, not just first N
+      res <- read_csv(response_text, col_types = cols(.default = col_character()))
+      res <- type_convert(res, col_types = cols())
     } else {
       message(sprintf("Unhandled content-type: %s", content_type))
       res <- content(httr_response, as="parsed", encoding="UTF-8")
@@ -1256,11 +1289,13 @@ sf_get_job_records_bulk_v2 <- function(job_id,
     # First, determine the column datatypes from the data.frame with most rows
     base_class_df <- records[[head(which.max(sapply(records, nrow)), 1)]]
     # Second, convert the datatypes for any data.frames with zero rows
+    # From StackOverflow post here: https://stackoverflow.com/a/47800157/5258043
+    # distributed under the CC BY-SA 3.0 license terms.
     for (i in 1:length(records)){
       if(nrow(records[[i]]) == 0){
         common <- names(records[[i]])[names(records[[i]]) %in% names(base_class_df)]
         records[[i]][common] <- lapply(common, function(x) {
-          match.fun(paste0("as.", class(base_class_df[[x]])))(records[[i]][[x]])
+          match.fun(paste0("as.", class(base_class_df[[x]])[1]))(records[[i]][[x]])
         })
       }
     }
@@ -1275,7 +1310,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' Run Bulk Operation
 #' 
 #' @description
-#' `r lifecycle::badge("maturing")`
+#' `r lifecycle::badge("stable")`
 #' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
@@ -1292,6 +1327,8 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @template max_attempts
 #' @param wait_for_results \code{logical}; indicating whether to wait for the operation to complete 
 #' so that the batch results of individual records can be obtained
+#' @template record_types
+#' @template combine_record_types
 #' @template control
 #' @param ... other arguments passed on to \code{\link{sf_control}} or \code{\link{sf_create_job_bulk}} 
 #' to specify the \code{content_type}, \code{concurrency_mode}, and/or \code{column_delimiter}.
@@ -1322,6 +1359,10 @@ sf_run_bulk_operation <- function(input_data,
                                   interval_seconds = 3,
                                   max_attempts = 200,
                                   wait_for_results = TRUE,
+                                  record_types = c("successfulResults", 
+                                                   "failedResults", 
+                                                   "unprocessedRecords"), 
+                                  combine_record_types = TRUE,
                                   control = list(...), ...,
                                   verbose = FALSE){
 
@@ -1392,7 +1433,13 @@ sf_run_bulk_operation <- function(input_data,
       message("Function's Time Limit Exceeded. Aborting Job Now")
       res <- sf_abort_job_bulk(job_info$id, api_type = api_type, verbose = verbose)
     } else {
-      res <- sf_get_job_records_bulk(job_info$id, api_type = api_type, verbose = verbose)
+      res <- sf_get_job_records_bulk(
+        job_info$id, 
+        api_type = api_type, 
+        record_types = record_types,
+        combine_record_types = combine_record_types,
+        verbose = verbose
+      )
       # For Bulk 2.0 jobs -> INVALIDJOBSTATE: Closing already Completed Job not allowed
       if(api_type == "Bulk 1.0"){
         close_job_info <- sf_close_job_bulk(job_info$id, api_type = api_type, verbose = verbose) 

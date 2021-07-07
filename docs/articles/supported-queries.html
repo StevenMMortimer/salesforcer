@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
       <ul class="nav navbar-nav">
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fas fa fas fa-book"></span>
+    <span class="fas fa-book"></span>
      
     Articles
      
@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="supported-queries_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
+      </header><script src="supported-queries_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Supported Queries</h1>
@@ -164,7 +164,7 @@
 </li>
 <li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/async_query_overview.htm">Async SOQL</a></li>
 <li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm">Overview of queries in Bulk 1.0 API</a></li>
-<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm">Overview of queries in Bulk 2.0 API</a></li>
+<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm">Overview of queries in Bulk 2.0 API</a></li>
 </ul>
 <hr>
 </div>
@@ -172,100 +172,104 @@
 <h2 class="hasAnchor">
 <a href="#authentication" class="anchor"></a>Authentication</h2>
 <p>First, load the {salesforcer} package and login. There are two ways to authenticate: 1) OAuth 2.0 (SSO) and 2) Basic Username-Password. It is recommended to use OAuth 2.0 so that passwords do not have to be embedded in scripts or environment variables. By default, OAuth 2.0 stores the user’s credentials in a locally cached file entitled “.httr-oauth-salesforcer” in the current working directory and will be refreshed automatically when the session expires.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>, <span class="kw">warn.conflicts</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">salesforcer</span>)
-<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="default-query-behavior" class="section level2">
 <h2 class="hasAnchor">
 <a href="#default-query-behavior" class="anchor"></a>Default query behavior</h2>
 <p>The default API for the <code><a href="../reference/sf_query.html">sf_query()</a></code> function is the REST API because it is both fast and flexible. Every effort has been made so that the format of the results from the REST and SOAP APIs is exactly the same. The only difference will be speed. The REST API uses JSON, which can generally be processed more quickly than XML used in the SOAP API.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">soql</span> <span class="kw">&lt;-</span> <span class="st">"SELECT Id,
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">soql</span> <span class="op">&lt;-</span> <span class="st">"SELECT Id,
                 FirstName, 
                 LastName
          FROM Contact
          LIMIT 10"</span>
 
-<span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>) <span class="co"># REST API is the default api_type</span>
-<span class="no">queried_records</span>
+<span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">soql</span><span class="op">)</span> <span class="co"># REST API is the default api_type</span>
+<span class="va">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
 <span class="co">#&gt; 1 0033s000013wlpjAAA Test      Contact-Create-1</span>
 <span class="co">#&gt; 2 0033s000013wlpkAAA Test      Contact-Create-2</span>
-<span class="co">#&gt; 3 0033s000014AG4HAAW Test      Contact-Create-1</span>
-<span class="co">#&gt; 4 0033s0000149ZoCAAU Test      Contact-Create-1</span>
-<span class="co">#&gt; 5 0033s0000149ZoDAAU Test      Contact-Create-2</span>
+<span class="co">#&gt; 3 0033s000014CRFoAAO Test      Contact-Create-1</span>
+<span class="co">#&gt; 4 0033s000014CRFpAAO Test      Contact-Create-2</span>
+<span class="co">#&gt; 5 0033s000014AG4HAAW Test      Contact-Create-1</span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
-<span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"SOAP"</span>)
-<span class="no">queried_records</span>
+<span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">soql</span>, api_type <span class="op">=</span> <span class="st">"SOAP"</span><span class="op">)</span>
+<span class="va">queried_records</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
 <span class="co">#&gt; 1 0033s000013wlpjAAA Test      Contact-Create-1</span>
 <span class="co">#&gt; 2 0033s000013wlpkAAA Test      Contact-Create-2</span>
-<span class="co">#&gt; 3 0033s000014AG4HAAW Test      Contact-Create-1</span>
-<span class="co">#&gt; 4 0033s0000149ZoCAAU Test      Contact-Create-1</span>
-<span class="co">#&gt; 5 0033s0000149ZoDAAU Test      Contact-Create-2</span>
-<span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
+<span class="co">#&gt; 3 0033s000014CRFoAAO Test      Contact-Create-1</span>
+<span class="co">#&gt; 4 0033s000014CRFpAAO Test      Contact-Create-2</span>
+<span class="co">#&gt; 5 0033s000014AG4HAAW Test      Contact-Create-1</span>
+<span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 </div>
 <div id="rest-vs--soap-api-query-performance-test" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rest-vs--soap-api-query-performance-test" class="anchor"></a>REST vs. SOAP API query performance test</h2>
 <p>Below is a small example to roughly demonstrate the magnitude of the performance difference between the REST and SOAP APIs when querying 1,000 records.</p>
 <p><strong>Setup performance test</strong></p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># create a new account </span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create a new account </span>
 <span class="co"># (if replicating, you may or may not have an external id field in your Org)</span>
-<span class="no">prefix</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"APerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99999</span>)))
-<span class="no">new_account</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(
-    <span class="kw">Name</span> <span class="kw">=</span> <span class="st">"Test Account For Performance Test"</span>,
-    <span class="kw">My_External_Id__c</span> <span class="kw">=</span> <span class="no">prefix</span>,
-    <span class="kw">Description</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"This is a test account with 1,000 records for "</span>,
-                         <span class="st">"testing the performance differences between the "</span>,
-                         <span class="st">"SOAP and REST APIs."</span>)
-  ),
-  <span class="kw">object_name</span> <span class="kw">=</span> <span class="st">"Account"</span>
-)
+<span class="va">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"APerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99999</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">new_account</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+    Name <span class="op">=</span> <span class="st">"Test Account For Performance Test"</span>, 
+    My_External_Id__c <span class="op">=</span> <span class="va">prefix</span>,
+    Description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"This is a test account with 1,000 records for "</span>, 
+                         <span class="st">"testing the performance differences between the "</span>, 
+                         <span class="st">"SOAP and REST APIs."</span><span class="op">)</span>
+  <span class="op">)</span>, 
+  object_name <span class="op">=</span> <span class="st">"Account"</span>
+<span class="op">)</span>
 
 <span class="co"># create and associate a thousand new contacts with that account</span>
 <span class="co"># (again, you may or may not have an external id field in your Org)</span>
-<span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">1000</span>
-<span class="no">prefix</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"CPerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99999</span>)), <span class="st">"-"</span>)
-<span class="no">new_contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">FirstName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Test"</span>, <span class="no">n</span>),
-                       <span class="kw">LastName</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Query-Vignette"</span>, <span class="fl">1</span>:<span class="no">n</span>),
-                       <span class="kw">test_number__c</span> <span class="kw">=</span> <span class="fl">999.9</span>,
-                       <span class="kw">AccountId</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="no">new_account</span>$<span class="no">id</span>, <span class="no">n</span>),
-                       <span class="kw">My_External_Id__c</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">prefix</span>, <span class="fl">1</span>:<span class="no">n</span>))
-<span class="no">new_contacts_res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span>(<span class="no">new_contacts</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)</pre></body></html></div>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+<span class="va">prefix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"CPerfTest-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">99999</span><span class="op">)</span><span class="op">)</span>, <span class="st">"-"</span><span class="op">)</span>
+<span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,
+                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Query-Vignette"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span>, 
+                       test_number__c <span class="op">=</span> <span class="fl">999.9</span>,
+                       AccountId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">new_account</span><span class="op">$</span><span class="va">id</span>, <span class="va">n</span><span class="op">)</span>,
+                       My_External_Id__c<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">prefix</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
+<span class="va">new_contacts_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span>, <span class="st">"Contact"</span>, api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span></code></pre></div>
 <p><strong>Performance test</strong></p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">qry</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">api_type</span>){
-  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, Name, Owner.Id, 
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">qry</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">api_type</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id, Name, Owner.Id, 
                (SELECT Id, LastName, Owner.Id FROM Contacts) 
             FROM Account
-            WHERE Id = '%s'"</span>,
-            <span class="no">new_account</span>$<span class="no">id</span>),
-    <span class="kw">api_type</span> <span class="kw">=</span> <span class="no">api_type</span>
-  )
-}
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-  <span class="fu">qry</span>(<span class="st">"REST"</span>),
-  <span class="fu">qry</span>(<span class="st">"SOAP"</span>),
-  <span class="kw">times</span> <span class="kw">=</span> <span class="fl">5</span>,
-  <span class="kw">unit</span> <span class="kw">=</span> <span class="st">"s"</span>
-)
-<span class="no">res</span>
+            WHERE Id = '%s'"</span>, 
+            <span class="va">new_account</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>, 
+    api_type <span class="op">=</span> <span class="va">api_type</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  <span class="fu">qry</span><span class="op">(</span><span class="st">"REST"</span><span class="op">)</span>,
+  <span class="fu">qry</span><span class="op">(</span><span class="st">"SOAP"</span><span class="op">)</span>,
+  times <span class="op">=</span> <span class="fl">5</span>, 
+  unit <span class="op">=</span> <span class="st">"s"</span>
+<span class="op">)</span>
+<span class="va">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;         expr       min        lq      mean    median        uq      max neval</span>
-<span class="co">#&gt;  qry("REST") 0.5290675 0.5866569 0.7599904 0.8234205 0.8272156 1.033592     5</span>
-<span class="co">#&gt;  qry("SOAP") 2.7185003 2.9724736 3.2149618 3.2690952 3.2703491 3.844390     5</span>
+<span class="co">#&gt;         expr       min        lq      mean    median       uq       max neval</span>
+<span class="co">#&gt;  qry("REST")  2.993883  3.049738  4.115384  3.824167  4.37407  6.335064     5</span>
+<span class="co">#&gt;  qry("SOAP") 16.932824 17.222654 19.531516 18.276266 21.75184 23.473992     5</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">res</span>) +
-    <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="kw">name</span><span class="kw">=</span><span class="st">"Time [seconds]"</span>, <span class="kw">n.breaks</span><span class="kw">=</span><span class="fl">6</span>)
-))</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Time [seconds]"</span>, n.breaks<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
+<span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="supported-queries_files/figure-html/run-performance-test-1.png" width="700"></p>
 <p>As seen in the limited test above, the REST API can be anywhere from <strong>4-6x</strong> faster than the SOAP API for a query on 1,000 contact records associated with a single Account. Breaking up the number of records returned into smaller batches by setting <code>QueryOptions = list(batchSize = 200)</code> typically does not affect this result very much but it also depends on the number of fields in the query. For the REST API the default is 2,000 records per batch with a minimum of 200 and maximum of 2,000. For the SOAP API the default is 500 records per batch. For both APIs it is important to note that there is no guarantee that the requested batch size is the actual batch size. Changes are made as necessary to maximize performance. For example, the SOAP API states “batch size will be no more than 200 if the SOQL statement selects two or more custom fields of type long text”. The REST API mentions that the limit imposed by Salesforce’s app servers is around 20,000 characters which can cause batches to be smaller. In short, it’s generally okay to use the default batch sizes since Salesforce may optimize over your specified batch size anyways.</p>
 </div>
@@ -273,49 +277,51 @@
 <h2 class="hasAnchor">
 <a href="#when-to-use-the-bulk-apis-for-queries" class="anchor"></a>When to use the Bulk APIs for queries</h2>
 <p>A general rule of thumb for using the Bulk APIs (Bulk 1.0 and Bulk 2.0) for queries is anytime you need to retrieve more than 10,000 records. The main reasons to not use the Bulk APIs are twofold. First, they do not support complex relationship queries or aggregate queries. If you need to write a nested relationship or aggregate query involving a large number of records you may be tempted to use the REST API. However, it is recommended to perform two or more separate bulk queries that retrieve the records you need and then join or aggregate the results in R.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># nested relationship query </span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># nested relationship query </span>
 <span class="co"># (supposed to return the id and first name of all contacts on each account)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>(
-  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
+<span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span>
+  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
     <span class="st">"SELECT Id, Name, 
       (SELECT Id, FirstName FROM Contacts)
     FROM Account"</span>,
-    <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>
-  )
-)
-<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.9 seconds...</span>
+    api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.2 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
 <span class="co"># (supposed to return the count of contacts per account)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>(
-  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
+<span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span>
+  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
     <span class="st">"SELECT Account.Id, Count(Name) contacts_n
     FROM Contact
-    GROUP BY Account.Id"</span>,
-    <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>
-  )
-)
-<span class="co">#&gt; Request failed [400]. Retrying in 1.3 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span></pre></body></html></div>
+    GROUP BY Account.Id"</span>,  
+    api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.1 seconds...</span>
+<span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span></code></pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, FirstName, Account.Id
-                     FROM Contact"</span>,
-                     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="st">"SELECT Id, FirstName, Account.Id
+                     FROM Contact"</span>, 
+                     api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span>
 
-<span class="no">accounts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, Name 
-                     FROM Account"</span>,
-                     <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
+<span class="va">accounts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="st">"SELECT Id, Name 
+                     FROM Account"</span>, 
+                     api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span>
 
-<span class="no">nested_query_recs</span> <span class="kw">&lt;-</span> <span class="no">accounts</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span>(<span class="no">contacts</span> <span class="kw">%&gt;%</span>
-              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span>(<span class="kw">`Contact.Id`</span> <span class="kw">=</span> <span class="no">Id</span>,
-                     <span class="kw">`Contact.FirstName`</span> <span class="kw">=</span> <span class="no">FirstName</span>),
-            <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Id"</span> <span class="kw">=</span> <span class="st">"Account.Id"</span>))
-<span class="no">nested_query_recs</span>
-<span class="co">#&gt; # A tibble: 415 x 4</span>
+<span class="va">nested_query_recs</span> <span class="op">&lt;-</span> <span class="va">accounts</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">contacts</span> <span class="op">%&gt;%</span> 
+              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>`Contact.Id` <span class="op">=</span> <span class="va">Id</span>, 
+                     `Contact.FirstName` <span class="op">=</span> <span class="va">FirstName</span><span class="op">)</span>, 
+            by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Id"</span> <span class="op">=</span> <span class="st">"Account.Id"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">nested_query_recs</span>
+<span class="co">#&gt; # A tibble: 1,515 x 4</span>
 <span class="co">#&gt;   Id              Name                         Contact.Id       Contact.FirstNa…</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt;            &lt;chr&gt;           </span>
 <span class="co">#&gt; 1 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzw… KEEP            </span>
@@ -323,70 +329,73 @@
 <span class="co">#&gt; 3 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzy… KEEP            </span>
 <span class="co">#&gt; 4 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nkzz… KEEP            </span>
 <span class="co">#&gt; 5 0013s00000zFdu… KEEP Test Account With Chil… 0033s000012Nl00… KEEP            </span>
-<span class="co">#&gt; # … with 410 more rows</span>
+<span class="co">#&gt; # … with 1,510 more rows</span>
 
-<span class="no">aggregate_query_recs</span> <span class="kw">&lt;-</span> <span class="no">nested_query_recs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">Id</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="kw">.groups</span> <span class="kw">=</span> <span class="st">'drop'</span>,
-            <span class="kw">contacts_n</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">Contact.Id</span>)))
-<span class="no">aggregate_query_recs</span>
-<span class="co">#&gt; # A tibble: 12 x 2</span>
+<span class="va">aggregate_query_recs</span> <span class="op">&lt;-</span> <span class="va">nested_query_recs</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Id</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>.groups <span class="op">=</span> <span class="st">'drop'</span>, 
+            contacts_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Contact.Id</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">aggregate_query_recs</span>
+<span class="co">#&gt; # A tibble: 16 x 2</span>
 <span class="co">#&gt;   Id                 contacts_n</span>
 <span class="co">#&gt;   &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt; 1 0013s00000zFdugAAC        300</span>
 <span class="co">#&gt; 2 0013s00000zFgA6AAK          0</span>
-<span class="co">#&gt; 3 0013s000011JhcyAAC         99</span>
-<span class="co">#&gt; 4 0016A0000035mJ4QAI          2</span>
-<span class="co">#&gt; 5 0016A0000035mJ5QAI          1</span>
-<span class="co">#&gt; # … with 7 more rows</span></pre></body></html></div>
+<span class="co">#&gt; 3 0013s000014jF2HAAU          0</span>
+<span class="co">#&gt; 4 0013s000014jF2vAAE          0</span>
+<span class="co">#&gt; 5 0013s000014jFj6AAE         99</span>
+<span class="co">#&gt; # … with 11 more rows</span></code></pre></div>
 <p>The second reason to not use the Bulk APIs is that there is a performance overhead associated with every bulk (asynchronous) job that involves checking the status of the job until it succeeds or fails before retrieving the results.</p>
 <p>The example below is provided so that you can take this code as an example to run your own performance test of queries that return 10K, 100K, 1M+ records to see where the Bulk APIs outperform the REST API.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">qry_compare</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">api_type</span>){
-  <span class="no">soql</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id, LastName, Account.Id, Account.Name, Owner.Id
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">qry_compare</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">api_type</span><span class="op">)</span><span class="op">{</span>
+  <span class="va">soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id, LastName, Account.Id, Account.Name, Owner.Id
                    FROM Contact
-                   WHERE Account.Id = '%s'"</span>,
-                   <span class="no">new_account</span>$<span class="no">id</span>)
-  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="no">api_type</span>)
-}
+                   WHERE Account.Id = '%s'"</span>, 
+                   <span class="va">new_account</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">soql</span>, api_type <span class="op">=</span> <span class="va">api_type</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-  <span class="fu">qry_compare</span>(<span class="st">"REST"</span>),
-  <span class="fu">qry_compare</span>(<span class="st">"Bulk 1.0"</span>),
-  <span class="fu">qry_compare</span>(<span class="st">"Bulk 2.0"</span>),
-  <span class="kw">times</span> <span class="kw">=</span> <span class="fl">5</span>,
-  <span class="kw">unit</span> <span class="kw">=</span> <span class="st">"s"</span>
-)</pre></body></html></div>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  <span class="fu">qry_compare</span><span class="op">(</span><span class="st">"REST"</span><span class="op">)</span>,
+  <span class="fu">qry_compare</span><span class="op">(</span><span class="st">"Bulk 1.0"</span><span class="op">)</span>,
+  <span class="fu">qry_compare</span><span class="op">(</span><span class="st">"Bulk 2.0"</span><span class="op">)</span>,
+  times <span class="op">=</span> <span class="fl">5</span>, 
+  unit <span class="op">=</span> <span class="st">"s"</span>
+<span class="op">)</span></code></pre></div>
 <p>Note that the Bulk 1.0 API requires users to specify the target object along with their submitted SOQL. This is because it is needed when creating the bulk job that will manage and execute the query.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">queried_records</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="no">soql</span>, <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 1.0"</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">soql</span>, api_type <span class="op">=</span> <span class="st">"Bulk 1.0"</span><span class="op">)</span>
 <span class="co">#&gt; Guessed 'Contact' as the object_name from supplied SOQL.</span>
-<span class="co">#&gt; Please set `object_name` explicitly if this is incorrect because it is required by the Bulk APIs.</span></pre></body></html></div>
+<span class="co">#&gt; Please set `object_name` explicitly if this is incorrect because it is required by the Bulk APIs.</span></code></pre></div>
 <p>As you can see above the {salesforcer} package will try to infer the object in the query if not explicitly provided. If it does not guess correctly, then please specify.</p>
 <p><strong>Cleanup after performance tests</strong></p>
 <p>By keeping track of the account ids used in our tests, it is fairly easy to find and delete these test records from our Org to save space.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># cleanup performance test Contact records ...</span>
-<span class="no">contacts_to_delete</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
-  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"SELECT Id 
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># cleanup performance test Contact records ...</span>
+<span class="va">contacts_to_delete</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id 
           FROM Contact 
           WHERE Account.Id = '%s'"</span>,
-          <span class="no">new_account</span>$<span class="no">id</span>)
-)
-<span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">contacts_to_delete</span>$<span class="no">Id</span>, <span class="st">"Contact"</span>, <span class="kw">api_type</span><span class="kw">=</span><span class="st">"Bulk 2.0"</span>)
-<span class="co">#&gt; # A tibble: 99 x 4</span>
+          <span class="va">new_account</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span><span class="op">(</span><span class="va">contacts_to_delete</span><span class="op">$</span><span class="va">Id</span>, <span class="st">"Contact"</span>, api_type<span class="op">=</span><span class="st">"Bulk 2.0"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 999 x 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000014AdQtAAK 0033s000014AdQtAAK FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000014AdQuAAK 0033s000014AdQuAAK FALSE       NA       </span>
-<span class="co">#&gt; 3 0033s000014AdQvAAK 0033s000014AdQvAAK FALSE       NA       </span>
-<span class="co">#&gt; 4 0033s000014AdQwAAK 0033s000014AdQwAAK FALSE       NA       </span>
-<span class="co">#&gt; 5 0033s000014AdQxAAK 0033s000014AdQxAAK FALSE       NA       </span>
-<span class="co">#&gt; # … with 94 more rows</span>
+<span class="co">#&gt; 1 0033s000017uM3kAAE 0033s000017uM3kAAE FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s000017uM3lAAE 0033s000017uM3lAAE FALSE       NA       </span>
+<span class="co">#&gt; 3 0033s000017uM3mAAE 0033s000017uM3mAAE FALSE       NA       </span>
+<span class="co">#&gt; 4 0033s000017uM3nAAE 0033s000017uM3nAAE FALSE       NA       </span>
+<span class="co">#&gt; 5 0033s000017uM3oAAE 0033s000017uM3oAAE FALSE       NA       </span>
+<span class="co">#&gt; # … with 994 more rows</span>
 
 <span class="co"># ... and finally delete the account</span>
-<span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span>(<span class="no">new_account</span>$<span class="no">id</span>)
+<span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span><span class="op">(</span><span class="va">new_account</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0013s000011JhcyAAC TRUE</span></pre></body></html></div>
+<span class="co">#&gt; 1 0013s000014jG3BAAU TRUE</span></code></pre></div>
 </div>
 <div id="relationship-queries" class="section level2">
 <h2 class="hasAnchor">
@@ -396,57 +405,68 @@
 <h3 class="hasAnchor">
 <a href="#child-to-parent-lookup-queries" class="anchor"></a>child-to-parent “lookup” queries</h3>
 <p>The first type of relationship query and the most common is child to parent. For example, the Contact object (child) to their parent, the Account object. In order to pull down parent object fields with your child record query, you just need to prefix any fields from the related object by concatenating the name of the object with the field name separated by a period. In the example below we are retrieving all Contact object records that have a relationship to an Account.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># child-to-parent relationship (e.g. Account.Name from Contact record)</span>
-<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># child-to-parent relationship (e.g. Account.Name from Contact record)</span>
+<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
   <span class="st">"SELECT Id, FirstName, Account.Name
   FROM Contact
   WHERE Account.Id != null"</span>
-)
-<span class="co">#&gt; # A tibble: 315 x 3</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 513 x 3</span>
 <span class="co">#&gt;   Id                 FirstName Account.Name                        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;                               </span>
-<span class="co">#&gt; 1 0033s000012Nl0rAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 2 0033s000012Nl0sAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 3 0033s000012Nl0tAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 4 0033s000012Nl0uAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; 5 0033s000012Nl0vAAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; # … with 310 more rows</span></pre></body></html></div>
+<span class="co">#&gt; 1 0033s000012NkzwAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 2 0033s000012NkzxAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 3 0033s000012NkzyAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 4 0033s000012NkzzAAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; 5 0033s000012Nl00AAC KEEP      KEEP Test Account With Child Records</span>
+<span class="co">#&gt; # … with 508 more rows</span></code></pre></div>
 <p>Sometimes you may notice that the requested relationship fields do not appear in the query results. This is because the SOAP and REST APIs do not return any related object information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. In the example below, if there were Account information an additional column titled <code>"Account.Name"</code> would appear in the results.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># child-to-parent relationship (e.g. Account.Name from Contact record)</span>
-<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># child-to-parent relationship (e.g. Account.Name from Contact record)</span>
+<span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
   <span class="st">"SELECT Id, FirstName, Account.Name
   FROM Contact
   WHERE Account.Id = null"</span>
-)
-<span class="co">#&gt; # A tibble: 266 x 2</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1,110 x 2</span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 0033s000013wlpjAAA Test     </span>
 <span class="co">#&gt; 2 0033s000013wlpkAAA Test     </span>
-<span class="co">#&gt; 3 0033s000014AG4HAAW Test     </span>
-<span class="co">#&gt; 4 0033s0000149ZoCAAU Test     </span>
-<span class="co">#&gt; 5 0033s0000149ZoDAAU Test     </span>
-<span class="co">#&gt; # … with 261 more rows</span></pre></body></html></div>
+<span class="co">#&gt; 3 0033s000014CRFoAAO Test     </span>
+<span class="co">#&gt; 4 0033s000014CRFpAAO Test     </span>
+<span class="co">#&gt; 5 0033s000014AG4HAAW Test     </span>
+<span class="co">#&gt; # … with 1,105 more rows</span></code></pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>(
-  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(<span class="st">"SELECT Id, FirstName, Account.Owner.Id
-            FROM Contact"</span>,
-           <span class="kw">api_type</span> <span class="kw">=</span> <span class="st">"Bulk 2.0"</span>)
-)
-<span class="co">#&gt; Error in sf_query_bulk_v2(soql = soql, object_name = object_name, queryall = queryall,  : </span>
-<span class="co">#&gt;   Failure during batch processing: FeatureNotEnabled : Cannot serialize value for 'Owner' in CSV format</span></pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span>
+  <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="st">"SELECT Id, FirstName, Account.Owner.Id
+            FROM Contact"</span>, 
+           api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1,623 x 3</span>
+<span class="co">#&gt;   Id                 FirstName Account.Owner.Id</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 0033s000012Nd60AAC Jenny     &lt;NA&gt;            </span>
+<span class="co">#&gt; 2 0033s000012Nd65AAC Jenny     &lt;NA&gt;            </span>
+<span class="co">#&gt; 3 0033s000012Nd6FAAS Jenny     &lt;NA&gt;            </span>
+<span class="co">#&gt; 4 0033s000012Nd6UAAS Jenny     &lt;NA&gt;            </span>
+<span class="co">#&gt; 5 0033s000012NdARAA0 Jenny     &lt;NA&gt;            </span>
+<span class="co">#&gt; # … with 1,618 more rows</span></code></pre></div>
 </div>
 <div id="parent-to-child-nested-queries" class="section level3">
 <h3 class="hasAnchor">
 <a href="#parent-to-child-nested-queries" class="anchor"></a>parent-to-child “nested” queries</h3>
 <p>Instead of “looking up” a related field, users can write queries that retrieve the individual records related to a parent. For example, if you would like all of the Accounts and their Contacts you can write the query like so:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
   <span class="st">"SELECT Id, Name, 
     (SELECT Id, FirstName FROM Contacts)
   FROM Account"</span>
-)
-<span class="co">#&gt; # A tibble: 316 x 4</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 516 x 4</span>
 <span class="co">#&gt;   Id              Name                         Contact.FirstName Contact.Id     </span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt;             &lt;chr&gt;          </span>
 <span class="co">#&gt; 1 0013s00000zFgA… KEEP Test Account With Chil… &lt;NA&gt;              &lt;NA&gt;           </span>
@@ -454,15 +474,16 @@
 <span class="co">#&gt; 3 0013s00000zFdu… KEEP Test Account With Chil… KEEP              0033s000012Nkz…</span>
 <span class="co">#&gt; 4 0013s00000zFdu… KEEP Test Account With Chil… KEEP              0033s000012Nkz…</span>
 <span class="co">#&gt; 5 0013s00000zFdu… KEEP Test Account With Chil… KEEP              0033s000012Nkz…</span>
-<span class="co">#&gt; # … with 311 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 511 more rows</span></code></pre></div>
 <p>At first glance this query may appear the same as a lookup query on the Contact object that includes the account id and name. However, the small difference is that every Account is included, regardless of whether or not they have a Contact. This can be helpful when you want to ensure a query contains all of the parent records and their child records, if they exist. Also, note that the plural object name is used inside the nested query (“Contacts” instead of “Contact”).</p>
 <p>Finally, a parent-to-child nested query can also contain a child-to-parent lookup relationship within it. Below is an example where the Owner Id on the Contact is included so you can know who is responsible for the Contacts under each Account.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span>(
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span>
   <span class="st">"SELECT Name, Owner.Id, 
     (SELECT Id, FirstName, Owner.Id FROM Contacts)
    FROM Account"</span>
-)
-<span class="co">#&gt; # A tibble: 316 x 5</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 516 x 5</span>
 <span class="co">#&gt;   Name              Contact.FirstName Contact.Id    Contact.Owner.Id Owner.Id   </span>
 <span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;      </span>
 <span class="co">#&gt; 1 KEEP Test Accoun… &lt;NA&gt;              &lt;NA&gt;          &lt;NA&gt;             0056A00000…</span>
@@ -470,7 +491,7 @@
 <span class="co">#&gt; 3 KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
 <span class="co">#&gt; 4 KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
 <span class="co">#&gt; 5 KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
-<span class="co">#&gt; # … with 311 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 511 more rows</span></code></pre></div>
 </div>
 </div>
 <div id="troubleshooting" class="section level2">
@@ -488,7 +509,7 @@
 <li><p>Do you need a parent-to-child nested relationship query or will a child-to-parent lookup suffice?</p></li>
 </ul>
 </li>
-<li><p>Check out Salesforce’s <a href="https://workbench.developerforce.com/login.php">Workbench</a> tool to see how it builds out queries.</p></li>
+<li><p>Check out Salesforce’s Workbench tool to see how it constructs specific queries that you are debugging. The tool is available at <code>https://workbench.developerforce.com</code> and requires a Salesforce login (the same credentials as you normally would use).</p></li>
 <li><p>Double check Salesforce’s <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">SOQL reference guide</a> to see whether your query is supported or limited in some way.</p></li>
 <li><p>Review query unit tests at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-query.R</a>. These unit tests were written to cover a variety of use cases and to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples that may be helpful in troubleshooting your own query.</p></li>
 <li>
@@ -517,7 +538,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

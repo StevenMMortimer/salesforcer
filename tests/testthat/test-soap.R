@@ -102,7 +102,16 @@ test_that("testing SOAP API Functionality", {
     mutate(FirstName = "TestTest")
   
   # sf_update ------------------------------------------------------------------
-  updated_records <- sf_update(queried_records, object_name=object, api_type="SOAP")
+  updated_records <- sf_update(
+    queried_records, object_name=object, api_type="SOAP", 
+    # test syntax for this control argument alongside the function
+    OwnerChangeOptions = list(
+      options = list(
+        list(execute = TRUE, type = "TransferNotesAndAttachments"),
+        list(execute = TRUE, type = "TransferOpenActivities")
+      )
+    ),
+  )
   expect_is(updated_records, "tbl_df")
   expect_equal(names(updated_records), c("id", "success"))
   expect_equal(nrow(updated_records), n)

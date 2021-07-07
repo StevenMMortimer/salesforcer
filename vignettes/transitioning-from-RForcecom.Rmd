@@ -1,7 +1,7 @@
 ---
 title: "Transitioning from RForcecom"
 author: "Steven M. Mortimer"
-date: "2018-03-12"
+date: "2021-07-03"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -25,11 +25,18 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 ```
 
 While writing the {salesforcer} package we were keenly aware that many folks 
-are already using the {RForcecom} package to connect to Salesforce. In order 
+were already using the {RForcecom} package to connect to Salesforce. In order 
 to foster adoption and switching between the packages {salesforcer} replicates 
 the functionality of many {RForcecom} functions so that you will only need to swap 
-out `library(RForcecom)` for `library(salesforcer)` and still have your production 
-tested scripts perform as usual.
+out `library(RForcecom)` for `library(salesforcer)` and still have 
+production scripts perform as expected.
+
+## RForcecom Removed from CRAN
+
+As of June 9, 2021, the {RForcecom} package was removed from CRAN. You can still 
+use it by installing from the archive, but we strongly recommend using 
+{salesforcer} instead. The existing functionality in {RForcecom} has been further 
+optimized within {salesforcer} and new functionality has been added too.
 
 ## Authentication
 
@@ -38,7 +45,12 @@ backward compatibility provides the username-password authentication routine
 implemented by {RForcecom}. Here is an example running the function from 
 each of the packages side-by-side and producing the same result.
 
-```{r auth, include = FALSE}
+```{r auth, eval=FALSE}
+library(dplyr, warn.conflicts = FALSE)
+library(salesforcer)
+```
+
+```{r auth-background, include = FALSE}
 library(dplyr, warn.conflicts = FALSE)
 library(salesforcer)
 
@@ -53,17 +65,14 @@ sf_auth(username = username,
 
 ```{r, warning=FALSE}
 # the RForcecom way
-session1 <- RForcecom::rforcecom.login(username, paste0(password, security_token), 
-                                       apiVersion=getOption("salesforcer.api_version"))
-session1['sessionID'] <- "{MASKED}"
-session1
-
+# RForcecom::rforcecom.login(username, paste0(password, security_token), 
+#                            apiVersion=getOption("salesforcer.api_version"))
 # replicated in salesforcer package
-session2 <- salesforcer::rforcecom.login(username, 
+session <- salesforcer::rforcecom.login(username, 
                                          paste0(password, security_token), 
                                          apiVersion = getOption("salesforcer.api_version"))
-session2['sessionID'] <- "{MASKED}"
-session2
+session['sessionID'] <- "{MASKED}"
+session
 ```
 
 ```{r, include=FALSE}
@@ -92,12 +101,11 @@ object <- "Contact"
 fields <- c(FirstName="Test", LastName="Contact-Create-Compatibility")
 
 # the RForcecom way
-result1 <- RForcecom::rforcecom.create(session, objectName=object, fields)
-result1
+# RForcecom::rforcecom.create(session, objectName=object, fields)
 
 # replicated in salesforcer package
-result2 <- salesforcer::rforcecom.create(session, objectName=object, fields)
-result2
+result <- salesforcer::rforcecom.create(session, objectName=object, fields)
+result
 ```
 
 Here is an example showing the reduction in code of using {salesforcer} if you 
@@ -108,15 +116,14 @@ n <- 2
 new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact-Create-", 1:n))
 
-# the RForcecom way
-rforcecom_results <- NULL
-for(i in 1:nrow(new_contacts)){
-  temp <- RForcecom::rforcecom.create(session, 
-                                      objectName = "Contact", 
-                                      fields = unlist(slice(new_contacts,i)))
-  rforcecom_results <- bind_rows(rforcecom_results, temp)
-}
-rforcecom_results
+# the RForcecom way (requires a loop)
+# rforcecom_results <- NULL
+# for(i in 1:nrow(new_contacts)){
+#   temp <- RForcecom::rforcecom.create(session, 
+#                                       objectName = "Contact", 
+#                                       fields = unlist(slice(new_contacts,i)))
+#   rforcecom_results <- bind_rows(rforcecom_results, temp)
+# }
 
 # the better way in salesforcer to do multiple records
 salesforcer_results <- sf_create(new_contacts, object_name="Contact")
@@ -132,12 +139,11 @@ result thanks to features of the {readr} package.
 this_soql <- "SELECT Id, Email FROM Contact LIMIT 5"
 
 # the RForcecom way
-result1 <- RForcecom::rforcecom.query(session, soqlQuery = this_soql)
-result1
+# RForcecom::rforcecom.query(session, soqlQuery = this_soql)
 
 # replicated in salesforcer package
-result2 <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
-result2
+result <- salesforcer::rforcecom.query(session, soqlQuery = this_soql)
+result
 
 # the better way in salesforcer to query
 salesforcer_results <- sf_query(this_soql)
@@ -153,15 +159,12 @@ better printing and datatype casting by using tibbles.
 
 ```{r, warning=FALSE}
 # the RForcecom way
-result1 <- RForcecom::rforcecom.getObjectDescription(session, objectName='Account')
+# RForcecom::rforcecom.getObjectDescription(session, objectName='Account')
 
 # backwards compatible in the salesforcer package
-result2 <- salesforcer::rforcecom.getObjectDescription(session, objectName='Account')
+result <- salesforcer::rforcecom.getObjectDescription(session, objectName='Account')
 
 # the better way in salesforcer to get object fields
-result3 <- salesforcer::sf_describe_object_fields('Account')
-result3
+result2 <- salesforcer::sf_describe_object_fields('Account')
+result2
 ```
-
-In the future more features will be migrated from {RForcecom} to make the 
-transition as seamless as possible.

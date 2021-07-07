@@ -6,6 +6,11 @@
 \usage{
 make_composite_batch_url()
 }
+\value{
+\code{character}; a complete URL (as a string) that will be used to
+send composite batch REST API calls to. This URL is specific to your instance
+and the API version being used because it relies on the base REST URL.
+}
 \description{
 Composite Batch URL Generator
 }

@@ -45,7 +45,7 @@ along with additional diagnostic information where available.}
 \code{tbl_df} with details of the converted record
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Converts Leads each into an Account, Contact, as well as (optionally) an Opportunity.
 }

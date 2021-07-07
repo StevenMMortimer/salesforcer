@@ -16,6 +16,8 @@ sf_run_bulk_operation(
   interval_seconds = 3,
   max_attempts = 200,
   wait_for_results = TRUE,
+  record_types = c("successfulResults", "failedResults", "unprocessedRecords"),
+  combine_record_types = TRUE,
   control = list(...),
   ...,
   verbose = FALSE
@@ -32,6 +34,8 @@ sf_bulk_operation(
   interval_seconds = 3,
   max_attempts = 200,
   wait_for_results = TRUE,
+  record_types = c("successfulResults", "failedResults", "unprocessedRecords"),
+  combine_record_types = TRUE,
   control = list(...),
   ...,
   verbose = FALSE
@@ -73,6 +77,13 @@ completion before stopping.}
 \item{wait_for_results}{\code{logical}; indicating whether to wait for the operation to complete
 so that the batch results of individual records can be obtained}
 
+\item{record_types}{\code{character}; one or more types of records to retrieve
+from the results of running the specified job}
+
+\item{combine_record_types}{\code{logical}; indicating for Bulk 2.0 jobs whether the
+successfulResults, failedResults, and unprocessedRecords should be stacked
+together by binding the rows}
+
 \item{control}{\code{list}; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
 look at the documentation for \code{\link{sf_control}}.}
@@ -89,7 +100,7 @@ along with additional diagnostic information where available.}
 A \code{tbl_df} of the results of the bulk job
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function is a convenience wrapper for submitting bulk API jobs
 }

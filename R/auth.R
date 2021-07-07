@@ -34,7 +34,7 @@
 #' @description
 #' `r lifecycle::badge("stable")`
 #' 
-#' Log in using Basic (Username-Password) or OAuth 2.0 authenticaion. OAuth does
+#' Log in using Basic (Username-Password) or OAuth 2.0 authentication. OAuth does
 #' not require sharing passwords, but will require authorizing \code{salesforcer} 
 #' as a connected app to view and manage your organization. You will be directed to 
 #' a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer} 
@@ -59,6 +59,32 @@
 #' the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not 
 #' cache. A string means use the specified path as the cache file.
 #' @template verbose
+#' @return \code{list} invisibly that contains 4 elements detailing the authentication state     
+#' @note The \code{link{sf_auth}} function invisibly returns the following 
+#' 4 pieces of information which can be reused in other operations: 
+#' \describe{
+#'  \item{auth_method}{
+#'  \code{character}; One of two options 'Basic' or 'OAuth'. If a username, 
+#'  password, and security token were supplied, then this would result in 
+#'  'Basic' authentication.
+#'  }
+#'  \item{token}{
+#'  \code{Token2.0}; The object returned by \code{\link[httr]{oauth2.0_token}}. 
+#'  This value is \code{NULL} if \code{auth_method='Basic'}.
+#'  }
+#'  \item{session_id}{
+#'  \code{character}; A unique ID associated with this user session. The session 
+#'  ID is obtained from the X-SFDC-Session header fetched with SOAP API's login() 
+#'  call. This value is \code{NULL} if \code{auth_method='OAuth'}.
+#'  }
+#'  \item{instance_url}{
+#'  \code{character}; The domain address of the server that your Salesforce org 
+#'  is on and where subsequent API calls will be directed to. For example, 
+#'  \code{https://na21.salesforce.com} refers to an org located on the 'NA21' 
+#'  server instance located in Chicago, USA / Washington DC, USA per this 
+#'  Knowledge Article: \url{https://help.salesforce.com/articleView?id=000314281}.
+#' }
+#' }
 #' @examples
 #' \dontrun{
 #' # log in using basic authentication (username-password)
@@ -66,15 +92,14 @@
 #'         password = "test_password", 
 #'         security_token = "test_token")
 #' 
-#' # log in using OAuth 2.0
-#' # Via brower or refresh of .httr-oauth-salesforcer
+#' # log in using OAuth 2.0 (via browser or cached .httr-oauth-salesforcer)
 #' sf_auth()
 #' 
 #' # log in to a Sandbox environment
 #' # Via brower or refresh of .httr-oauth-salesforcer
 #' sf_auth(login_url = "https://test.salesforce.com")
 #' 
-#' # Save token and log in using it
+#' # Save token to disk and log in using it
 #' saveRDS(salesforcer_state()$token, "token.rds")
 #' sf_auth(token = "token.rds")
 #' }
@@ -218,7 +243,12 @@ sf_auth <- function(username = NULL,
 
 #' Check that token appears to be legitimate
 #'
+#' @param x an object that is supposed to be an object of class \code{Token2.0} 
+#' (an S3 class provided by \code{httr}). If so, the result will return \code{TRUE}.
+#' @template verbose
+#' @return \code{logical} 
 #' @keywords internal
+#' @export
 is_legit_token <- function(x, verbose = FALSE) {
   
   if (!inherits(x, "Token2.0")) {
@@ -311,7 +341,7 @@ sf_auth_refresh <- function(verbose = FALSE) {
 #' Check if a session_id is available in \code{\link{salesforcer}}'s internal
 #' \code{.state} environment.
 #'
-#' @return logical
+#' @return \code{logical}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
@@ -335,11 +365,11 @@ session_id_available <- function(verbose = TRUE) {
 #' Check if a token is available in \code{\link{salesforcer}}'s internal
 #' \code{.state} environment.
 #'
-#' @return logical
+#' @return \code{logical}
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
 #' @export
-token_available <- function(verbose = TRUE) {
+token_available <- function(verbose = FALSE) {
   if (is.null(.state$token)) {
     if (verbose) {
       if (file.exists(".httr-oauth-salesforcer")) {

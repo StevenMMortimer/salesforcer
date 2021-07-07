@@ -51,7 +51,7 @@ resources:
  - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_relationships.htm">Relationship Queries</a>  
  - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/async_query_overview.htm">Async SOQL</a> 
  - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm">Overview of queries in Bulk 1.0 API</a> 
- - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_bulk_v2.meta/api_bulk_v2/queries.htm">Overview of queries in Bulk 2.0 API</a>
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm">Overview of queries in Bulk 2.0 API</a>
 
 ----  
 
@@ -417,8 +417,10 @@ are a few suggestions:
       
       - Do you need a parent-to-child nested relationship query or will a child-to-parent lookup suffice? 
     
-  2. Check out Salesforce's [Workbench](https://workbench.developerforce.com/login.php) 
-  tool to see how it builds out queries.
+  2. Check out Salesforce's Workbench tool to see how it constructs specific 
+     queries that you are debugging. The tool is available at
+     `https://workbench.developerforce.com` and requires a Salesforce login 
+     (the same credentials as you normally would use).
   
   3. Double check Salesforce's <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">SOQL reference guide</a> to see whether your query is supported or limited in some way.
   
