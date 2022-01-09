@@ -147,7 +147,7 @@ parse_error_code_and_message <- function(x){
 #' @export
 catch_errors <- function(x){
   if(http_error(x)){
-    response_parsed <- content(x, encoding='UTF-8')
+    response_parsed <- content(x) # turn off hard-coded UTF-8 parsing , encoding='UTF-8')
     # convert to list if xml content type
     content_type <- x$headers$`content-type`
     if(grepl('xml', content_type)){
