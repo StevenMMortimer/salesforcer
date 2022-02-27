@@ -24,7 +24,6 @@ jobs:
       - name: Decrypt OAuth Token secret
         run: |
           ./.github/scripts/decrypt_secret.sh
-          ls $SALESFORCER_TOKEN_PATH
         env:
           SALESFORCER_TOKEN_PASSPHRASE: ${{ secrets.SALESFORCER_TOKEN_PASSPHRASE }}
       

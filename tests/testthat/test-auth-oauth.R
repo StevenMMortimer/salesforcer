@@ -1,7 +1,5 @@
 context("OAuth 2.0 Authorization")
 
-skip("No token on GitHub Actions.")
-
 test_that("testing auth status", {
   expect_false(token_available())
   expect_null(sf_access_token())
@@ -14,7 +12,6 @@ test_that("testing nonsense inputs", {
   expect_error(sf_auth(token = letters[1:3]))
 })
 
-salesforcer_test_settings <- readRDS("salesforcer_test_settings.rds")
 salesforcer_token <- readRDS("salesforcer_token.rds")
 
 test_that("testing OAuth passing token as filename", {

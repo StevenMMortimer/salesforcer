@@ -1,5 +1,7 @@
 context("Basic Authorization")
 
+skip("Basic Auth not allowed after Feb 1, 2022.")
+
 test_that("testing auth status", {
   expect_false(token_available())
   expect_null(sf_access_token())
