@@ -24,9 +24,10 @@ jobs:
       - name: Retrieve the OAuth Token secret and decode it to a file
         env:
           SALESFORCER_TOKEN_BASE64: ${{ secrets.SALESFORCER_TOKEN_BASE64 }}
+          SALESFORCER_TOKEN_PATH: "$GITHUB_WORKSPACE/tests/testthat"
         run: |
           echo SALESFORCER_TOKEN_BASE64 | base64 --decode > salesforcer_token.rds
-          mv salesforcer_token.rds /Users/runner/work/salesforcer/salesforcer/tests/testthat
+          mv salesforcer_token.rds $SALESFORCER_TOKEN_PATH
       
       - name: Reveal env vars
         run: |
