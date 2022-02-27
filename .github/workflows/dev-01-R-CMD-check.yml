@@ -26,7 +26,7 @@ jobs:
           SALESFORCER_TOKEN_BASE64: ${{ secrets.SALESFORCER_TOKEN_BASE64 }}
         run: |
           echo SALESFORCER_TOKEN_BASE64 | base64 --decode > salesforcer_token.rds
-          mv salesforcer_token.rds tests/testthat
+          mv salesforcer_token.rds /Users/runner/work/salesforcer/salesforcer/tests/testthat
       
       - name: Reveal env vars
         run: |
