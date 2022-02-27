@@ -38,6 +38,7 @@ packages and login, if needed.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(purrr)))
 suppressWarnings(suppressMessages(library(here)))
 library(salesforcer)
 token_path <- Sys.getenv("SALESFORCER_TOKEN_PATH")
