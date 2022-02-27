@@ -17,6 +17,7 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
+      SALESFORCER_TOKEN_PATH: ${{ github.GITHUB_WORKSPACE }}/tests/testthat
       
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +25,6 @@ jobs:
       - name: Retrieve the OAuth Token secret and decode it to a file
         env:
           SALESFORCER_TOKEN_BASE64: ${{ secrets.SALESFORCER_TOKEN_BASE64 }}
-          SALESFORCER_TOKEN_PATH: ${{ GITHUB_WORKSPACE }}/tests/testthat
         run: |
           echo $SALESFORCER_TOKEN_PATH
           echo SALESFORCER_TOKEN_BASE64 | base64 --decode > salesforcer_token.rds
