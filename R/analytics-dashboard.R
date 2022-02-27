@@ -16,7 +16,7 @@
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_get_list.htm#topic-title}{Salesforce Example}
 #' }
 #' @export
-sf_dashboards_list <- function(as_tbl=TRUE, verbose=FALSE){
+sf_list_dashboards <- function(as_tbl=TRUE, verbose=FALSE){
   this_url <- make_dashboards_list_url()
   resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
   return(resultset)
@@ -40,7 +40,7 @@ sf_dashboards_list <- function(as_tbl=TRUE, verbose=FALSE){
 #'   \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_example_get_dashboard_metadata.htm#analytics_api_dashboard_example_get_dashboard_metadata}{Salesforce Example}
 #' }
 #' @export
-sf_dashboard_describe <- function(dashboard_id, as_tbl=TRUE, verbose=FALSE){
+sf_describe_dashboard <- function(dashboard_id, as_tbl=TRUE, verbose=FALSE){
   this_url <- make_dashboard_describe_url(dashboard_id)
   resultset <- sf_rest_list(url=this_url, as_tbl=as_tbl, verbose=verbose)
   return(resultset)
@@ -56,7 +56,7 @@ sf_dashboard_describe <- function(dashboard_id, as_tbl=TRUE, verbose=FALSE){
 #' dashboard component.
 #' @return \code{list}
 #' @export
-sf_dashboard_components_describe <- function(dashboard_id, 
+sf_describe_dashboard_components <- function(dashboard_id, 
                                              component_ids=c(character(0))){
   .NotYetImplemented()  
   # # make_dashboard_url()
@@ -79,9 +79,9 @@ sf_dashboard_components_describe <- function(dashboard_id,
 #' @template dashboard_filters
 #' @return \code{list}
 #' @export
-sf_dashboard_status <- function(dashboard_id,
-                                running_user = NULL, 
-                                dashboard_filters = c(character(0))){
+sf_get_dashboard_status <- function(dashboard_id,
+                                    running_user = NULL, 
+                                    dashboard_filters = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_status_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE/status
@@ -89,47 +89,6 @@ sf_dashboard_status <- function(dashboard_id,
   # GET
   # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_status_resource.htm#topic-title}{Salesforce Documentation}
   # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_status_resource.htm#topic-title}{Example - Filtering results}
-}
-
-#' List dashboard filter operators
-#' 
-#' @description
-#' `r lifecycle::badge("experimental")`
-#' 
-#' @return \code{list}
-#' @export
-sf_dashboard_filter_operators_list <- function(){
-  .NotYetImplemented()
-  # make_report_filter_operators_list_url
-  # /services/data/v34.0/analytics/filteroperators?forDashboards=true
-  # GET
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}
-  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example}
-}
-
-#' Get an analysis of the filter options for a dashboard
-#' 
-#' @description
-#' `r lifecycle::badge("experimental")`
-#' 
-#' @template dashboard_id
-#' @param filter_columns \code{list}; a list of fields from the source report 
-#' which you check filter values against. Each object in the array has these 
-#' properties:...
-#' @param options \code{list}; a list of objects describing a dashboard filter. 
-#' Each object has these properties:...
-#' @return \code{list}
-#' @export
-sf_dashboard_filter_options_analysis <- function(dashboard_id, 
-                                                 filter_columns = list(), 
-                                                 options = list()){
-  .NotYetImplemented()
-  # make_dashboard_filter_options_analysis_url
-  # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE/filteroptionsanalysis
-  # GET
-  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_filteroptionsanalysis.htm
-  
-
 }
 
 #' Get the results of an existing dashboard
@@ -146,9 +105,9 @@ sf_dashboard_filter_options_analysis <- function(dashboard_id,
 #' @template dashboard_filters
 #' @return \code{tbl_df}
 #' @export
-sf_dashboard_results <- function(dashboard_id,
-                                 running_user = NULL, 
-                                 dashboard_filters = c(character(0))){
+sf_get_dashboard_results <- function(dashboard_id,
+                                     running_user = NULL, 
+                                     dashboard_filters = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url()
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
@@ -173,6 +132,47 @@ sf_get_dashboard_data <- function(dashboard_id,
   .NotYetImplemented()
 }
 
+
+#' List dashboard filter operators
+#' 
+#' @description
+#' `r lifecycle::badge("experimental")`
+#' 
+#' @return \code{list}
+#' @export
+sf_filter_dashboard_operators_list <- function(){
+  .NotYetImplemented()
+  # make_report_filter_operators_list_url
+  # /services/data/v34.0/analytics/filteroperators?forDashboards=true
+  # GET
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_resource.htm}{Salesforce Documentation}
+  # \href{https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_filteroperators_reference_list.htm}{Salesforce Example}
+}
+
+#' Get an analysis of the filter options for a dashboard
+#' 
+#' @description
+#' `r lifecycle::badge("experimental")`
+#' 
+#' @template dashboard_id
+#' @param filter_columns \code{list}; a list of fields from the source report 
+#' which you check filter values against. Each object in the array has these 
+#' properties:...
+#' @param options \code{list}; a list of objects describing a dashboard filter. 
+#' Each object has these properties:...
+#' @return \code{list}
+#' @export
+sf_filter_dashboard_options_analysis <- function(dashboard_id, 
+                                                 filter_columns = list(), 
+                                                 options = list()){
+  .NotYetImplemented()
+  # make_dashboard_filter_options_analysis_url
+  # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE/filteroptionsanalysis
+  # GET
+  # https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/analytics_api_dashboard_filteroptionsanalysis.htm
+}
+
+
 #' Refresh an existing dashboard
 #' 
 #' @description
@@ -182,7 +182,7 @@ sf_get_dashboard_data <- function(dashboard_id,
 #' @template dashboard_filters
 #' @return \code{list}
 #' @export
-sf_dashboard_refresh <- function(dashboard_id, 
+sf_refresh_dashboard <- function(dashboard_id, 
                                  dashboard_filters=c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url()
@@ -203,7 +203,7 @@ sf_dashboard_refresh <- function(dashboard_id,
 #' @template report_folder_id
 #' @return \code{list}
 #' @export
-sf_dashboard_copy <- function(dashboard_id, report_folder_id){
+sf_copy_dashboard <- function(dashboard_id, report_folder_id){
   .NotYetImplemented()
   # # make_dashboard_copy_url
   # /services/data/v34.0/analytics/dashboards/?cloneId=01ZD00000007S89MAE
@@ -224,7 +224,7 @@ sf_dashboard_copy <- function(dashboard_id, report_folder_id){
 #' @template body
 #' @return \code{list}
 #' @export
-sf_dashboard_update <- function(dashboard_id, body){
+sf_update_dashboard <- function(dashboard_id, body){
   .NotYetImplemented()
   # # make_dashboard_url
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE
@@ -257,7 +257,7 @@ sf_dashboard_update <- function(dashboard_id, body){
 #' @template dashboard_filters
 #' @return \code{list}
 #' @export
-sf_dashboard_set_sticky_filter <- function(dashboard_id, 
+sf_set_dashboard_sticky_filter <- function(dashboard_id, 
                                            dashboard_filters = c(character(0))){
   .NotYetImplemented()
   # # make_dashboard_url(sticky_filter_save = TRUE)
@@ -282,7 +282,7 @@ sf_dashboard_set_sticky_filter <- function(dashboard_id,
 #' @template dashboard_id
 #' @return \code{logical}
 #' @export
-sf_dashboard_delete <- function(dashboard_id){
+sf_delete_dashboard <- function(dashboard_id){
   .NotYetImplemented()
   # # make_dashboard_url
   # /services/data/v34.0/analytics/dashboards/01ZD00000007S89MAE

@@ -42,7 +42,7 @@ sf_format_date <- function(x){
 #' @keywords internal
 #' @rdname sf_format_time
 #' @export
-sf_format_time <- function (x) {
+sf_format_time <- function(x) {
   UseMethod("sf_format_time", x)
 }
 

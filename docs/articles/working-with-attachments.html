@@ -34,6 +34,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -46,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -104,7 +106,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/StevenMMortimer/salesforcer">
+  <a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
     GitHub
@@ -126,34 +128,34 @@
 
       
 
-      </header><script src="working-with-attachments_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with Attachments</h1>
-                        <h4 class="author">Steven M. Mortimer</h4>
+                        <h4 data-toc-skip class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2020-08-16</h4>
+            <h4 data-toc-skip class="date">2020-08-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-attachments.Rmd"><code>vignettes/working-with-attachments.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/HEAD/vignettes/working-with-attachments.Rmd" class="external-link"><code>vignettes/working-with-attachments.Rmd</code></a></small>
       <div class="hidden name"><code>working-with-attachments.Rmd</code></div>
 
     </div>
 
     
     
-<div id="attachments-in-salesforce" class="section level2">
-<h2 class="hasAnchor">
-<a href="#attachments-in-salesforce" class="anchor"></a>Attachments in Salesforce</h2>
+<div class="section level2">
+<h2 id="attachments-in-salesforce">Attachments in Salesforce<a class="anchor" aria-label="anchor" href="#attachments-in-salesforce"></a>
+</h2>
 <p>Almost all records in Salesforce support attachments. Attachments are just blob data storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id of the record that the attachment belongs to. To get started creating and updating attachments, first, load the {salesforcer} and {dplyr} packages and login, if needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The Attachment data, for example, the attachment’s Id, ParentId, Name, Body, ModifiedDate, and other attributes are stored in the Attachment object, a Standard Object in Salesforce.</p>
 </div>
-<div id="creating-uploading-attachments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#creating-uploading-attachments" class="anchor"></a>Creating (Uploading) Attachments</h2>
+<div class="section level2">
+<h2 id="creating-uploading-attachments">Creating (Uploading) Attachments<a class="anchor" aria-label="anchor" href="#creating-uploading-attachments"></a>
+</h2>
 <p>Below we will cover 2 different methods of creating attachments:</p>
 <ol style="list-style-type: decimal">
 <li>Uploading local files as Attachments one at a time using the SOAP and REST API (most common usage)</li>
@@ -170,52 +172,52 @@
 <span class="co"># provide the file paths of where the attachments exist locally on your machine</span>
 <span class="co"># in this case we are referencing images included within the salesforcer package, </span>
 <span class="co"># but any absolute or relative path locally will work</span>
-<span class="va">file_path1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"cloud.png"</span>, package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>
-<span class="va">file_path2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"logo.png"</span>, package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>
-<span class="va">file_path3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"old-logo.png"</span>, package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>
+<span class="va">file_path1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"cloud.png"</span>, package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>
+<span class="va">file_path2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"logo.png"</span>, package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>
+<span class="va">file_path3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"old-logo.png"</span>, package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>
 
 <span class="co"># create a data.frame or tbl_df out of this information</span>
-<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">file_path1</span>, 
+<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">file_path1</span>, 
                                           <span class="va">file_path2</span>, 
                                           <span class="va">file_path3</span><span class="op">)</span>, 
                                         times<span class="op">=</span><span class="fl">2</span><span class="op">)</span>,
-                             ParentId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">parent_record_id1</span>, 
+                             ParentId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">parent_record_id1</span>, 
                                               <span class="va">parent_record_id2</span><span class="op">)</span>, 
                                             each<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># create the attachments!</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span><span class="op">(</span><span class="va">attachment_details</span><span class="op">)</span>
 <span class="va">result</span>
-<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000d243PEAQ TRUE   </span>
-<span class="co">#&gt; 2 00P3s00000d243UEAQ TRUE   </span>
-<span class="co">#&gt; 3 00P3s00000d243ZEAQ TRUE   </span>
-<span class="co">#&gt; 4 00P3s00000d243eEAA TRUE   </span>
-<span class="co">#&gt; 5 00P3s00000d243jEAA TRUE   </span>
-<span class="co">#&gt; # … with 1 more row</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWmlHEAS TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWmlMEAS TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWmlREAS TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWmlWEAS TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWmlbEAC TRUE   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1 more row</span></span></code></pre></div>
 </div>
-<div id="downloading-attachments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#downloading-attachments" class="anchor"></a>Downloading Attachments</h2>
+<div class="section level2">
+<h2 id="downloading-attachments">Downloading Attachments<a class="anchor" aria-label="anchor" href="#downloading-attachments"></a>
+</h2>
 <p>After uploading attachments to Salesforce you can download them by first querying the metadata in the Attachment object. This metadata provides the Id for the blob data attachment for download. A convenience function, <code><a href="../reference/sf_download_attachment.html">sf_download_attachment()</a></code>, has been created to download attachments quickly. The example below shows how to query the metadata of attachments belonging to particular ParentId.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># pull down all attachments associated with a particular record</span>
-<span class="va">queried_attachments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id, Body, Name, ParentId
+<span class="va">queried_attachments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id, Body, Name, ParentId
                                          FROM Attachment
                                          WHERE ParentId IN ('%s', '%s')"</span>, 
                                          <span class="va">parent_record_id1</span>, <span class="va">parent_record_id2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">queried_attachments</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
-<span class="co">#&gt;   Id            Body                                     Name      ParentId     </span>
-<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt;     &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 00P3s00000d2… /services/data/v52.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 2 00P3s00000d2… /services/data/v52.0/sobjects/Attachmen… logo.png  0016A0000035…</span>
-<span class="co">#&gt; 3 00P3s00000d2… /services/data/v52.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; 4 00P3s00000d2… /services/data/v52.0/sobjects/Attachmen… cloud.png 0016A0000035…</span>
-<span class="co">#&gt; 5 00P3s00000d2… /services/data/v52.0/sobjects/Attachmen… old-logo… 0016A0000035…</span>
-<span class="co">#&gt; # … with 1 more row</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span>
+<span class="co">#&gt;   Id                 Body                                 Name     ParentId     </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWmlHEAS /services/data/v52.0/sobjects/Attac… cloud.p… 0016A0000035…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWmlMEAS /services/data/v52.0/sobjects/Attac… logo.png 0016A0000035…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWmlREAS /services/data/v52.0/sobjects/Attac… old-log… 0016A0000035…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWmlbEAC /services/data/v52.0/sobjects/Attac… logo.png 0016A0000035…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWmlWEAS /services/data/v52.0/sobjects/Attac… cloud.p… 0016A0000035…</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1 more row</span></span></code></pre></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
 <ol style="list-style-type: decimal">
 <li>Create a new column (e.g. <code>unique_name</code>) that is the concatenation of the Attachment Id and the Attachment’s name which is guaranteed to be unique.</li>
@@ -224,136 +226,136 @@
 <p>As long as the same ParentId record doesn’t name attachments with the same name, then Strategy #2 above will work. In addition, it may help better organize the documents if you are planning to download many and then upload again to Salesforce using the Bulk API as demonstrated later in this script.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a new folder for each ParentId in the dataset</span>
-<span class="va">temp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">pid</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">queried_attachments</span><span class="op">$</span><span class="va">ParentId</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">temp_dir</span>, <span class="va">pid</span><span class="op">)</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># ignore if already exists</span>
+<span class="va">temp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">pid</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">queried_attachments</span><span class="op">$</span><span class="va">ParentId</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_dir</span>, <span class="va">pid</span><span class="op">)</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># ignore if already exists</span>
 <span class="op">}</span>
 
 <span class="co"># create a new columns in the queried data so that we can pass this information </span>
 <span class="co"># on to the function `sf_download_attachment()` that will actually perform the download</span>
-<span class="va">queried_attachments</span> <span class="op">&lt;-</span> <span class="va">queried_attachments</span> <span class="op">%&gt;%</span> 
+<span class="va">queried_attachments</span> <span class="op">&lt;-</span> <span class="va">queried_attachments</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># Strategy 1: Unique file names (ununsed here, but shown as an example)</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>unique_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">Id</span>, <span class="va">Name</span>, sep<span class="op">=</span><span class="st">'___'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>unique_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">Id</span>, <span class="va">Name</span>, sep<span class="op">=</span><span class="st">'___'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="co"># Strategy 2: Separate folders per parent</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">temp_dir</span>, <span class="va">ParentId</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_dir</span>, <span class="va">ParentId</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># download all of the attachments for a single ParentId record to their own folder</span>
-<span class="va">download_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span><span class="va">sf_download_attachment</span>, 
+<span class="va">download_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="va">sf_download_attachment</span>, 
                           body <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Body</span>, 
                           name <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Name</span>, 
                           path <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Path</span><span class="op">)</span>
 <span class="va">download_result</span>
-<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000d243PEAQ/Body </span>
-<span class="co">#&gt;    "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpQjcDk6/0016A0000035mJ4QAI/cloud.png" </span>
-<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000d243UEAQ/Body </span>
-<span class="co">#&gt;     "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpQjcDk6/0016A0000035mJ4QAI/logo.png" </span>
-<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000d243ZEAQ/Body </span>
-<span class="co">#&gt; "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpQjcDk6/0016A0000035mJ4QAI/old-logo.png" </span>
-<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000d243eEAA/Body </span>
-<span class="co">#&gt;    "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpQjcDk6/0016A0000035mJ5QAI/cloud.png" </span>
-<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000d243oEAA/Body </span>
-<span class="co">#&gt; "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpQjcDk6/0016A0000035mJ5QAI/old-logo.png" </span>
-<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000d243jEAA/Body </span>
-<span class="co">#&gt;     "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpQjcDk6/0016A0000035mJ5QAI/logo.png"</span></code></pre></div>
+<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000gWmlHEAS/Body </span>
+<span class="co">#&gt;    "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//Rtmpo0EfUa/0016A0000035mJ4QAI/cloud.png" </span>
+<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000gWmlMEAS/Body </span>
+<span class="co">#&gt;     "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//Rtmpo0EfUa/0016A0000035mJ4QAI/logo.png" </span>
+<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000gWmlREAS/Body </span>
+<span class="co">#&gt; "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//Rtmpo0EfUa/0016A0000035mJ4QAI/old-logo.png" </span>
+<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000gWmlbEAC/Body </span>
+<span class="co">#&gt;     "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//Rtmpo0EfUa/0016A0000035mJ5QAI/logo.png" </span>
+<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000gWmlWEAS/Body </span>
+<span class="co">#&gt;    "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//Rtmpo0EfUa/0016A0000035mJ5QAI/cloud.png" </span>
+<span class="co">#&gt;                               /services/data/v52.0/sobjects/Attachment/00P3s00000gWmlgEAC/Body </span>
+<span class="co">#&gt; "/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//Rtmpo0EfUa/0016A0000035mJ5QAI/old-logo.png"</span></code></pre></div>
 </div>
-<div id="updating-attachments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#updating-attachments" class="anchor"></a>Updating Attachments</h2>
+<div class="section level2">
+<h2 id="updating-attachments">Updating Attachments<a class="anchor" aria-label="anchor" href="#updating-attachments"></a>
+</h2>
 <p>Once an Attachment record is created, you are still able to update the content and metadata (<code>Name</code>, <code>IsPrivate</code>, and <code>OwnerId</code>) for the record. The <code><a href="../reference/sf_update_attachment.html">sf_update_attachment()</a></code> function works just like <code><a href="../reference/sf_update.html">sf_update()</a></code> except that you will need to include the <code>Body</code> column where the content of the attachment is help. <strong>NOTE</strong>: If you just want to update the metadata and not the Attachment content itself, you can simply use <code><a href="../reference/sf_update.html">sf_update()</a></code> to modify fields other than the <code>Body</code> field on the record.</p>
 <p>The example below demonstrates how to add an attachment to a record, then download it, zip it, re-upload to the record in order to save disk space in your Org.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># upload a PDF to a particular record as an Attachment</span>
-<span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,
+<span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,
                          <span class="st">"data-wrangling-cheatsheet.pdf"</span>,
                          package <span class="op">=</span> <span class="st">"salesforcer"</span><span class="op">)</span>
 <span class="va">parent_record_id</span> <span class="op">&lt;-</span> <span class="st">"0036A000002C6MmQAK"</span> <span class="co"># replace with your own ParentId!</span>
-<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="va">file_path</span>, ParentId <span class="op">=</span> <span class="va">parent_record_id</span><span class="op">)</span>
+<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="va">file_path</span>, ParentId <span class="op">=</span> <span class="va">parent_record_id</span><span class="op">)</span>
 <span class="va">create_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span><span class="op">(</span><span class="va">attachment_details</span><span class="op">)</span>
 
 <span class="co"># download, zip, and re-upload the PDF</span>
 <span class="va">pdf_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_download_attachment.html">sf_download_attachment</a></span><span class="op">(</span>sf_id <span class="op">=</span> <span class="va">create_result</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="va">zipped_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">pdf_path</span>, <span class="st">".zip"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/zip.html">zip</a></span><span class="op">(</span><span class="va">zipped_path</span>, <span class="va">pdf_path</span>, flags <span class="op">=</span> <span class="st">"-qq"</span><span class="op">)</span> <span class="co"># quiet zipping messages</span>
-<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Id <span class="op">=</span> <span class="va">create_result</span><span class="op">$</span><span class="va">id</span>, Body <span class="op">=</span> <span class="va">zipped_path</span><span class="op">)</span>
+<span class="va">zipped_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">pdf_path</span>, <span class="st">".zip"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/zip.html" class="external-link">zip</a></span><span class="op">(</span><span class="va">zipped_path</span>, <span class="va">pdf_path</span>, flags <span class="op">=</span> <span class="st">"-qq"</span><span class="op">)</span> <span class="co"># quiet zipping messages</span>
+<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Id <span class="op">=</span> <span class="va">create_result</span><span class="op">$</span><span class="va">id</span>, Body <span class="op">=</span> <span class="va">zipped_path</span><span class="op">)</span>
 <span class="fu"><a href="../reference/sf_update_attachment.html">sf_update_attachment</a></span><span class="op">(</span><span class="va">attachment_details</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000d243tEAA TRUE</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWmllEAC TRUE</span></code></pre></div>
 <p>There is a function <code><a href="../reference/sf_delete_attachment.html">sf_delete_attachment()</a></code>, which simply wraps <code><a href="../reference/sf_delete.html">sf_delete()</a></code> so feel free to use for clarity in your code that you’re working with attachments use <code><a href="../reference/sf_delete.html">sf_delete()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sf_delete_attachment.html">sf_delete_attachment</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="va">create_result</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 00P3s00000d243tEAA TRUE</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWmllEAC TRUE</span>
 <span class="co"># sf_delete(ids = create_result$id) # would also work</span></code></pre></div>
 <p><strong>Uploading large batches of attachments using the Bulk API</strong></p>
 <p>The SOAP and REST APIs are good for working with a few attachments at a time. However, the Bulk API can be invoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload. In the example above, we downloaded the three attachments each belonging to two different parent records. Assuming that I have run that code and the files are in that my computer I can demonstrate that all of them can be uploaded at once using the Bulk 1.0 API.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create the attachment metadata required (Name, Body, ParentId)</span>
-<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="va">queried_attachments</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">Path</span>, <span class="va">Name</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Name</span>, <span class="va">Body</span>, <span class="va">ParentId</span><span class="op">)</span> </code></pre></div>
+<span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="va">queried_attachments</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">Path</span>, <span class="va">Name</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Name</span>, <span class="va">Body</span>, <span class="va">ParentId</span><span class="op">)</span> </code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span><span class="op">(</span><span class="va">attachment_details</span>, api_type<span class="op">=</span><span class="st">"Bulk 1.0"</span><span class="op">)</span>
 <span class="va">result</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 00P3s00000d2443EAA TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 00P3s00000d2444EAA TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 3 00P3s00000d2445EAA TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 4 00P3s00000d2446EAA TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 5 00P3s00000d2447EAA TRUE    TRUE    NA   </span>
-<span class="co">#&gt; # … with 1 more row</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWmlqEAC TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWmlrEAC TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWmlsEAC TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWmltEAC TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWmluEAC TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1 more row</span></span></code></pre></div>
 <p><strong>NOTE</strong>: As of v48.0 (Spring ’20), it does not appear that the Bulk 2.0 API supports working with Attachments, so the Bulk 1.0 API must be used for bulk functionality.</p>
 <p>Finally, you are able to update Attachments with the Bulk API just as shown above in the REST/SOAP API examples.</p>
 </div>
-<div id="extending-to-documents-and-other-blob-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extending-to-documents-and-other-blob-data" class="anchor"></a>Extending to Documents and Other Blob Data</h2>
+<div class="section level2">
+<h2 id="extending-to-documents-and-other-blob-data">Extending to Documents and Other Blob Data<a class="anchor" aria-label="anchor" href="#extending-to-documents-and-other-blob-data"></a>
+</h2>
 <p>The commands for working with Attachments also work for uploading documents and other blob data as well. Documents are just like Attachments in Salesforce except instead of having an associated ParentId they have an associated FolderId where the blob will be associated with upon creation. Here is a brief example of uploading a PDF (“Document”) to a Folder</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># the function supports inserting all types of blob content, just update the </span>
 <span class="co"># object_name argument to add the PDF as a Document instead of an Attachment</span>
-<span class="va">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Name <span class="op">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 1"</span>,
+<span class="va">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Name <span class="op">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 1"</span>,
                            Description <span class="op">=</span> <span class="st">"RStudio cheatsheet covering dplyr and tidyr."</span>,
-                           Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, 
+                           Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, 
                                               <span class="st">"data-wrangling-cheatsheet.pdf"</span>,
                                               package<span class="op">=</span><span class="st">"salesforcer"</span><span class="op">)</span>,
                            FolderId <span class="op">=</span> <span class="st">"00l6A000001EgIwQAK"</span>,
                            Keywords <span class="op">=</span> <span class="st">"test,cheatsheet,document"</span><span class="op">)</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span><span class="op">(</span><span class="va">document_details</span>, object_name <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span>
 <span class="va">result</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s0000028FzCAAU TRUE</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0153s000002btfWAAQ TRUE</span></code></pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cheatsheet_url</span> <span class="op">&lt;-</span> <span class="st">"https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"</span>
-<span class="va">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Name <span class="op">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 2"</span>,
+<span class="va">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Name <span class="op">=</span> <span class="st">"Data Wrangling Cheatsheet - Test 2"</span>,
                            Description <span class="op">=</span> <span class="st">"RStudio cheatsheet covering dplyr and tidyr."</span>,
                            Url <span class="op">=</span> <span class="va">cheatsheet_url</span>,  
                            FolderId <span class="op">=</span> <span class="st">"00l6A000001EgIwQAK"</span>,
                            Keywords <span class="op">=</span> <span class="st">"test,cheatsheet,document"</span><span class="op">)</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span><span class="op">(</span><span class="va">document_details</span>, object_name <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span>
 <span class="va">result</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0153s0000028FzHAAU TRUE</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0153s000002btfbAAA TRUE</span></code></pre></div>
 </div>
-<div id="reference-links" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reference-links" class="anchor"></a>Reference Links</h2>
+<div class="section level2">
+<h2 id="reference-links">Reference Links<a class="anchor" aria-label="anchor" href="#reference-links"></a>
+</h2>
 <p>Below is a list of links to existing Salesforce documentation that provide more detail into how Attachments, Documents, and other blob data are handled via their APIs. As with many functions in {salesforcer}, we have tried to translate these functions exactly as they are described in the Salesforce documentation so that they are flexible enough to handle most all cases that the APIs were intended to support.</p>
 <ul>
-<li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
-<li><p><strong>Document Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p></li>
-<li><p><strong>REST API Upload Attachment</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a></p></li>
-<li><p><strong>Bulk API Upload Attachments</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a></p></li>
+<li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" rel="noopener noreferrer" target="_blank" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
+<li><p><strong>Document Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" rel="noopener noreferrer" target="_blank" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p></li>
+<li><p><strong>REST API Upload Attachment</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" rel="noopener noreferrer" target="_blank" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a></p></li>
+<li><p><strong>Bulk API Upload Attachments</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" rel="noopener noreferrer" target="_blank" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a></p></li>
 </ul>
 </div>
   </div>
@@ -369,11 +371,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Steven M. Mortimer.</p>
+  <p></p>
+<p>Developed by Steven M. Mortimer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -382,9 +386,9 @@
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'BBX5BTLUTL',
     
-    
-    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    apiKey: 'f3a7c81cd6794f9050f32bfee2620882',
     indexName: 'salesforcer',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {

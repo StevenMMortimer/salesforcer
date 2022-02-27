@@ -34,6 +34,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -46,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -104,7 +106,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/StevenMMortimer/salesforcer">
+  <a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
     GitHub
@@ -126,52 +128,52 @@
 
       
 
-      </header><script src="working-with-reports_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with Reports</h1>
-                        <h4 class="author">Steven M. Mortimer</h4>
+                        <h4 data-toc-skip class="author">Steven M. Mortimer</h4>
             
-            <h4 class="date">2020-07-19</h4>
+            <h4 data-toc-skip class="date">2020-07-19</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/master/vignettes/working-with-reports.Rmd"><code>vignettes/working-with-reports.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/HEAD/vignettes/working-with-reports.Rmd" class="external-link"><code>vignettes/working-with-reports.Rmd</code></a></small>
       <div class="hidden name"><code>working-with-reports.Rmd</code></div>
 
     </div>
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>The following vignette outlines how to execute and manage reports in your Org. <strong>Note</strong>: These features are still experimental and are likely to change and/or have bugs. Please take this into account, and if you run into any issues please consider submitting an issue <a href="https://github.com/StevenMMortimer/salesforcer/issues/new?assignees=StevenMMortimer&amp;labels=&amp;template=default-issue-template.md&amp;title=">HERE</a> in the GitHub repository so that we can help troubleshoot and fix, if needed. Thank you!</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>The following vignette outlines how to execute and manage reports in your Org. <strong>Note</strong>: These features are still experimental and are likely to change and/or have bugs. Please take this into account, and if you run into any issues please consider submitting an issue <a href="https://github.com/StevenMMortimer/salesforcer/issues/new?assignees=StevenMMortimer&amp;labels=&amp;template=default-issue-template.md&amp;title=" class="external-link">HERE</a> in the GitHub repository so that we can help troubleshoot and fix, if needed. Thank you!</p>
 <p>In order to pull down the results of a report created within Salesforce all you need to know and have is the report’s Salesforce Id. If you want to fully leverage the features of the Reports and Dashboards REST API I recommend reading the following so that you are better equipped to understand and use the functions within {salesforcer}.</p>
 <ul>
 <li>
-<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">Running a Report Synchronously or Asynchronously</a><br>
+<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm" class="external-link">Running a Report Synchronously or Asynchronously</a><br>
 </li>
 <li>
-<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm">Understanding a Report Fact Map</a><br>
+<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_factmap_example.htm" class="external-link">Understanding a Report Fact Map</a><br>
 </li>
 <li>
-<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource">Filter Reports on Demand</a><br>
+<a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_filter_reportdata.htm#example_requestbody_execute_resource" class="external-link">Filter Reports on Demand</a><br>
 </li>
-<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API Documentation Home Page</a></li>
+<li><a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm" class="external-link">Reports and Dashboards REST API Documentation Home Page</a></li>
 </ul>
 <hr>
 </div>
-<div id="authenticate" class="section level2">
-<h2 class="hasAnchor">
-<a href="#authenticate" class="anchor"></a>Authenticate</h2>
+<div class="section level2">
+<h2 id="authenticate">Authenticate<a class="anchor" aria-label="anchor" href="#authenticate"></a>
+</h2>
 <p>First, load the {salesforcer} package and login either by OAuth 2.0 (SSO) or using your username, password, and security key.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="running-a-report-in-your-org" class="section level2">
-<h2 class="hasAnchor">
-<a href="#running-a-report-in-your-org" class="anchor"></a>Running a Report in your Org</h2>
+<div class="section level2">
+<h2 id="running-a-report-in-your-org">Running a Report in your Org<a class="anchor" aria-label="anchor" href="#running-a-report-in-your-org"></a>
+</h2>
 <p>In Salesforce there is a dedicated page to displaying the list of reports in your Org. It typically follows the pattern: <code>https://na1.salesforce.com/00O/o</code> (replace <code>na1</code> with your server instance). When you click on a report in the GUI you should see the results. Below is a screenshot of how a report may look in your Org. Note the report Id in the URL bar.</p>
 <p><img src="working-with-reports_files/report-screenshot.png"></p>
 <p>The report Id above (<code>"00O3s000006tE7zEAE"</code>) is the only information needed to pull those same results from an R session, like so:</p>
@@ -179,69 +181,69 @@
 <code class="sourceCode R"><span class="va">my_report_id</span> <span class="op">&lt;-</span> <span class="st">"00O3s000006tE7zEAE"</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_run_report.html">sf_run_report</a></span><span class="op">(</span><span class="va">my_report_id</span><span class="op">)</span>
 <span class="va">results</span>
-<span class="co">#&gt; # A tibble: 14 x 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 14 × 8</span></span>
 <span class="co">#&gt;   `Contact ID`    `First Name` `test number` `Contact Owner` `Account ID`   </span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;          </span>
-<span class="co">#&gt; 1 0036A000002C6Mm Edna                    NA Steven Mortimer 0016A0000035mJE</span>
-<span class="co">#&gt; 2 0036A000002C6Ml Liz                     NA Steven Mortimer 0016A0000035mJD</span>
-<span class="co">#&gt; 3 0036A000002C6Mk Tom                     NA Steven Mortimer 0016A0000035mJD</span>
-<span class="co">#&gt; 4 0036A000002C6MX Sean                    NA Steven Mortimer 0016A0000035mJ4</span>
-<span class="co">#&gt; 5 0036A000002C6MW Rose                    NA Steven Mortimer 0016A0000035mJ4</span>
-<span class="co">#&gt; # … with 9 more rows, and 3 more variables: Account Name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Billing City &lt;chr&gt;, Account Owner &lt;chr&gt;</span></code></pre></div>
-<p>Note that the <code><a href="../reference/sf_run_report.html">sf_run_report()</a></code> function will, by default, run the report asynchronously. This means that a report instance will be requested and then the function will wait to retrieve the results. The advantage to using an asynchronous report is that the results of such a report are stored for 24 hours and can be retrieved again saving CPU resources, if needed. A more in-depth discussion on synchronous vs. asynchronous reports is available here <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm">https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm</a>. However, for reports with a relatively small number of records a synchronous report may be faster without having to do the round trip of creating then querying a report instance.</p>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0036A000002C6MW Rose                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0036A000002C6MX Sean                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0036A000002C6MY Jack                    99 Steven Mortimer 0016A0000035mJ5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0036A000002C6Mb Tim                     <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0036A000002C6Mc John                    23 Steven Mortimer 0016A0000035mJ8</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows, and 3 more variables: Account Name &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   Billing City &lt;chr&gt;, Account Owner &lt;chr&gt;</span></span></code></pre></div>
+<p>Note that the <code><a href="../reference/sf_run_report.html">sf_run_report()</a></code> function will, by default, run the report asynchronously. This means that a report instance will be requested and then the function will wait to retrieve the results. The advantage to using an asynchronous report is that the results of such a report are stored for 24 hours and can be retrieved again saving CPU resources, if needed. A more in-depth discussion on synchronous vs. asynchronous reports is available here <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm</a>. However, for reports with a relatively small number of records a synchronous report may be faster without having to do the round trip of creating then querying a report instance.</p>
 </div>
-<div id="filtering-a-report-on-the-fly" class="section level2">
-<h2 class="hasAnchor">
-<a href="#filtering-a-report-on-the-fly" class="anchor"></a>Filtering a Report on the Fly</h2>
+<div class="section level2">
+<h2 id="filtering-a-report-on-the-fly">Filtering a Report on the Fly<a class="anchor" aria-label="anchor" href="#filtering-a-report-on-the-fly"></a>
+</h2>
 <p>The neat thing about using the API is that you can retrieve the results of a report with different filters applied. This allows you to obtain exactly the results needed without having to create separate copies of the same report. It takes some basic understanding of how report operators need to be supplied to the API, but it is not too difficult. Below is an example that only includes contact records created prior to this month and belong to an Account with a non-NULL Billing City.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># filter records that was created before this month</span>
-<span class="va">filter1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>column <span class="op">=</span> <span class="st">"CREATED_DATE"</span>,
+<span class="va">filter1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>column <span class="op">=</span> <span class="st">"CREATED_DATE"</span>,
                         operator <span class="op">=</span> <span class="st">"lessThan"</span>, 
                         value <span class="op">=</span> <span class="st">"THIS_MONTH"</span><span class="op">)</span>
 
 <span class="co"># filter records where the account billing address city is not empty</span>
-<span class="va">filter2</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>column <span class="op">=</span> <span class="st">"ACCOUNT.ADDRESS1_CITY"</span>,
+<span class="va">filter2</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>column <span class="op">=</span> <span class="st">"ACCOUNT.ADDRESS1_CITY"</span>,
                         operator <span class="op">=</span> <span class="st">"notEqual"</span>, 
                         value <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
 
 <span class="co"># combine filter1 and filter2 using 'AND' which means that records must meet both filters</span>
 <span class="va">results_using_AND</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_run_report.html">sf_run_report</a></span><span class="op">(</span><span class="va">my_report_id</span>, 
                                    report_boolean_logic <span class="op">=</span> <span class="st">"1 AND 2"</span>,
-                                   report_filters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">filter1</span>, <span class="va">filter2</span><span class="op">)</span><span class="op">)</span>
+                                   report_filters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">filter1</span>, <span class="va">filter2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">results_using_AND</span>
-<span class="co">#&gt; # A tibble: 14 x 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 14 × 8</span></span>
 <span class="co">#&gt;   `Contact ID`    `First Name` `test number` `Contact Owner` `Account ID`   </span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;          </span>
-<span class="co">#&gt; 1 0036A000002C6MW Rose                    NA Steven Mortimer 0016A0000035mJ4</span>
-<span class="co">#&gt; 2 0036A000002C6MX Sean                    NA Steven Mortimer 0016A0000035mJ4</span>
-<span class="co">#&gt; 3 0036A000002C6MY Jack                    99 Steven Mortimer 0016A0000035mJ5</span>
-<span class="co">#&gt; 4 0036A000002C6Mb Tim                     NA Steven Mortimer 0016A0000035mJ8</span>
-<span class="co">#&gt; 5 0036A000002C6Mc John                    23 Steven Mortimer 0016A0000035mJ8</span>
-<span class="co">#&gt; # … with 9 more rows, and 3 more variables: Account Name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Billing City &lt;chr&gt;, Account Owner &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0036A000002C6MW Rose                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0036A000002C6MX Sean                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0036A000002C6MY Jack                    99 Steven Mortimer 0016A0000035mJ5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0036A000002C6Mb Tim                     <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0036A000002C6Mc John                    23 Steven Mortimer 0016A0000035mJ8</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows, and 3 more variables: Account Name &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   Billing City &lt;chr&gt;, Account Owner &lt;chr&gt;</span></span></code></pre></div>
 <p>This second example shows how to return only the Top N number of records and combine the filter using the logical “OR” instead of “AND”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># combine filter1 and filter2 using 'OR' which means that records must meet one </span>
 <span class="co"># of the filters but also throw in a row limit based on a specific sort order</span>
 <span class="va">results_using_OR</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_run_report.html">sf_run_report</a></span><span class="op">(</span><span class="va">my_report_id</span>, 
                                   report_boolean_logic <span class="op">=</span> <span class="st">"1 OR 2"</span>,
-                                  report_filters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">filter1</span>, <span class="va">filter2</span><span class="op">)</span>, 
+                                  report_filters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">filter1</span>, <span class="va">filter2</span><span class="op">)</span>, 
                                   sort_by <span class="op">=</span> <span class="st">"Contact.test_number__c"</span>, 
                                   decreasing <span class="op">=</span> <span class="cn">TRUE</span>, 
                                   top_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="va">results_using_OR</span>
-<span class="co">#&gt; # A tibble: 5 x 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 8</span></span>
 <span class="co">#&gt;   `Contact ID`    `First Name` `test number` `Contact Owner` `Account ID`   </span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;          </span>
-<span class="co">#&gt; 1 0033s000012Nl0A KEEP                  1000 Steven Mortimer 0013s00000zFdug</span>
-<span class="co">#&gt; 2 0033s000012Nl0E KEEP                  1000 Steven Mortimer 0013s00000zFdug</span>
-<span class="co">#&gt; 3 0033s000012Nl0B KEEP                  1000 Steven Mortimer 0013s00000zFdug</span>
-<span class="co">#&gt; 4 0033s000012Nl0C KEEP                  1000 Steven Mortimer 0013s00000zFdug</span>
-<span class="co">#&gt; 5 0033s000012Nl0D KEEP                  1000 Steven Mortimer 0013s00000zFdug</span>
-<span class="co">#&gt; # … with 3 more variables: Account Name &lt;chr&gt;, Billing City &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Account Owner &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000017uL43 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000017uL44 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000017uL47 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000017uL46 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000017uL45 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: Account Name &lt;chr&gt;, Billing City &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   Account Owner &lt;chr&gt;</span></span></code></pre></div>
 <p>I was able to determine some of the potential ways to filter by first reviewing the <code>reportFilters</code> element in the existing report metadata and also reviewing the list of report filter operators.</p>
 <p>First, you can always take the report filter specification from the report metadata and tailor it to your needs. Below is an example showing how to get that metadata for our report. You can select specific elements to better understand the structure of the report.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -285,13 +287,13 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">report_details</span><span class="op">$</span><span class="va">reportTypeMetadata</span><span class="op">$</span><span class="va">standardDateFilterDurationGroups</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">standardDateFilterDurations</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="co">#&gt; $endDate</span>
-<span class="co">#&gt; [1] "2021-06-30"</span>
+<span class="co">#&gt; [1] "2022-01-31"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $label</span>
 <span class="co">#&gt; [1] "Last Month"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $startDate</span>
-<span class="co">#&gt; [1] "2021-06-01"</span>
+<span class="co">#&gt; [1] "2022-01-01"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $value</span>
 <span class="co">#&gt; [1] "LAST_MONTH"</span></code></pre></div>
@@ -299,15 +301,15 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># report fields</span>
 <span class="va">report_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_report_fields.html">sf_list_report_fields</a></span><span class="op">(</span><span class="va">my_report_id</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">report_fields</span><span class="op">$</span><span class="va">equivalentFieldIndices</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">report_fields</span><span class="op">$</span><span class="va">equivalentFieldIndices</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "CONTACT_CREATED_ALIAS"     "Contact.My_External_Id__c"</span>
 <span class="co">#&gt; [3] "IS_EMAIL_BOUNCED"          "REPORTS_TO"               </span>
 <span class="co">#&gt; [5] "ADDRESS2_ZIP"              "LAST_ACTIVITY"</span>
 
 <span class="va">report_filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_list_report_filter_operators.html">sf_list_report_filter_operators</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">unique_supported_fields</span> <span class="op">&lt;-</span> <span class="va">report_filters</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">supported_field_type</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">unique_supported_fields</span> <span class="op">&lt;-</span> <span class="va">report_filters</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">supported_field_type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">unique_supported_fields</span>
 <span class="co">#&gt;        supported_field_type1        supported_field_type2 </span>
 <span class="co">#&gt;                       "date"                    "address" </span>
@@ -333,22 +335,22 @@
 <span class="co">#&gt;                      "email"              "multipicklist"</span>
 
 <span class="co"># operators to filter a picklist field</span>
-<span class="va">picklist_field_operators</span> <span class="op">&lt;-</span> <span class="va">report_filters</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supported_field_type</span> <span class="op">==</span> <span class="st">"picklist"</span><span class="op">)</span>
+<span class="va">picklist_field_operators</span> <span class="op">&lt;-</span> <span class="va">report_filters</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">supported_field_type</span> <span class="op">==</span> <span class="st">"picklist"</span><span class="op">)</span>
 <span class="va">picklist_field_operators</span>
-<span class="co">#&gt; # A tibble: 9 x 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 3</span></span>
 <span class="co">#&gt;   supported_field_type label         name       </span>
-<span class="co">#&gt;   &lt;chr&gt;                &lt;chr&gt;         &lt;chr&gt;      </span>
-<span class="co">#&gt; 1 picklist             equals        equals     </span>
-<span class="co">#&gt; 2 picklist             not equal to  notEqual   </span>
-<span class="co">#&gt; 3 picklist             less than     lessThan   </span>
-<span class="co">#&gt; 4 picklist             greater than  greaterThan</span>
-<span class="co">#&gt; 5 picklist             less or equal lessOrEqual</span>
-<span class="co">#&gt; # … with 4 more rows</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> picklist             equals        equals     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> picklist             not equal to  notEqual   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> picklist             less than     lessThan   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> picklist             greater than  greaterThan</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> picklist             less or equal lessOrEqual</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 4 more rows</span></span></code></pre></div>
 </div>
-<div id="managing-your-reports" class="section level2">
-<h2 class="hasAnchor">
-<a href="#managing-your-reports" class="anchor"></a>Managing your Reports</h2>
+<div class="section level2">
+<h2 id="managing-your-reports">Managing your Reports<a class="anchor" aria-label="anchor" href="#managing-your-reports"></a>
+</h2>
 <p>The API also allows you to perform many admin functions like creating, copying, updating, or deleting reports and report instances. Take advantage of these functions as needed to keep your Org’s report list well-maintained. Below is a simple flow of creating, updating, and deleting a single report, but the amount you’re able to customize is completely up to you. The {salesforcer} package should support any operation that the Reports and Dashboards REST API supports.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># first, grab all possible reports in your Org</span>
@@ -358,19 +360,19 @@
 <span class="va">this_report_id</span> <span class="op">&lt;-</span> <span class="va">all_reports</span><span class="op">$</span><span class="va">Id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
 
 <span class="va">new_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_copy_report.html">sf_copy_report</a></span><span class="op">(</span><span class="va">this_report_id</span><span class="op">)</span>
-<span class="co">#&gt; Naming the new report: 'KEEP - Accounts and Contacts - Copy'</span>
+<span class="co">#&gt; Naming the new report: 'ReportName - Copy'</span>
 
 <span class="co"># third, update the report (2 ways shown)</span>
 <span class="va">my_updated_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_update_report.html">sf_update_report</a></span><span class="op">(</span><span class="va">new_report</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">id</span>,
                                       report_metadata <span class="op">=</span>
-                                        <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>reportMetadata <span class="op">=</span>
-                                          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Updated Name!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+                                        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>reportMetadata <span class="op">=</span>
+                                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Updated Name!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">my_updated_report</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "Updated Name!"</span>
 
 <span class="co"># alternatively, pull down its metadata and update the name</span>
 <span class="va">report_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_describe_report.html">sf_describe_report</a></span><span class="op">(</span><span class="va">new_report</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>
-<span class="va">report_details</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">report_details</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">name</span>,
+<span class="va">report_details</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">report_details</span><span class="op">$</span><span class="va">reportMetadata</span><span class="op">$</span><span class="va">name</span>,
                                              <span class="st">" - UPDATED AGAIN!"</span><span class="op">)</span>
 
 <span class="co"># update the report by passing the metadata</span>
@@ -384,10 +386,10 @@
 <span class="va">success</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
-<div id="troubleshooting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
-<p>If you are having an issue with a report please submit in the {salesforcer} GitHub repository at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, reports can be are tough to debug because every Salesforce Org is unique. When filing your issue please make an attempt to understand the query and debug a little bit on your own. Here are a few suggestions:</p>
+<div class="section level2">
+<h2 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h2>
+<p>If you are having an issue with a report please submit in the {salesforcer} GitHub repository at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues" class="external-link">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, reports can be are tough to debug because every Salesforce Org is unique. When filing your issue please make an attempt to understand the query and debug a little bit on your own. Here are a few suggestions:</p>
 <ol style="list-style-type: decimal">
 <li>
 <p>Slightly modify your function call to <code><a href="../reference/sf_run_report.html">sf_run_report()</a></code> to observe the results. Here are a few prompting questions that may assist you:</p>
@@ -397,13 +399,13 @@
 <li><p>What happens if you try running a different type of report?</p></li>
 </ul>
 </li>
-<li><p>Double check Salesforce’s <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm">Reports and Dashboards REST API Developer Guide</a> to see whether if your report type would be supported or limited in some way.</p></li>
-<li><p>Review report unit tests at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-report.R">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-report.R</a>. These unit tests were written to cover a variety of use cases and to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples that may be helpful in troubleshooting your own case.</p></li>
+<li><p>Double check Salesforce’s <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_intro.htm" class="external-link">Reports and Dashboards REST API Developer Guide</a> to see whether if your report type would be supported or limited in some way.</p></li>
+<li><p>Review report unit tests at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-report.R" class="external-link">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-report.R</a>. These unit tests were written to cover a variety of use cases and to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples that may be helpful in troubleshooting your own case.</p></li>
 <li>
 <p>Roll up your sleeves and dive into the source code for the {salesforcer} package. The main scripts to review are:</p>
 <ul>
-<li><p><a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/analytics-report.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/analytics-report.R</a></p></li>
-<li><p><a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-report.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-report.R</a></p></li>
+<li><p><a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/analytics-report.R" class="external-link">https://github.com/StevenMMortimer/salesforcer/blob/main/R/analytics-report.R</a></p></li>
+<li><p><a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-report.R" class="external-link">https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-report.R</a></p></li>
 </ul>
 </li>
 </ol>
@@ -421,11 +423,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Steven M. Mortimer.</p>
+  <p></p>
+<p>Developed by Steven M. Mortimer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -434,9 +438,9 @@
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'BBX5BTLUTL',
     
-    
-    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    apiKey: 'f3a7c81cd6794f9050f32bfee2620882',
     indexName: 'salesforcer',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {

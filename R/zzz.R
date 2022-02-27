@@ -2,7 +2,7 @@
   
   op <- options()
   op.salesforcer <- list(
-    salesforcer.api_version = "52.0",
+    salesforcer.api_version = "54.0",
     salesforcer.login_url = "https://login.salesforce.com",
     salesforcer.proxy_url = "",
     salesforcer.proxy_port = NULL,

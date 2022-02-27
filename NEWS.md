@@ -1,6 +1,23 @@
-## salesforcer 1.0.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.0)
+# salesforcer 1.0.1
 
-### Dependencies
+## Dependencies
+
+  * Increase the package's default Salesforce API version to 54.0 (Spring '22).
+  * Added a deprecation warning that using basic authentication (password and 
+    security token) will no longer work since Salesforce announced that all
+    customers will be migrated to MFA beginning February 1st, 2022
+    ([link](https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement)).
+    Many thanks to @klaw2 for highlighting in #113.
+    
+## Bug fixes
+
+  * Changed the naming convention for dashboard-related functions to contain the
+    action verb 
+    `sf_{action}_dashboard` (e.g., `sf_copy_dashboard`)
+
+# salesforcer 1.0.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.0)
+
+## Dependencies
 
   * Increase the package's default Salesforce API version to 52.0 (Summer '21).
   
@@ -29,7 +46,7 @@
     functionality implemented and a focus on backwards compatibility due to the
     volume of users.
 
-### Features
+## Features
 
   * Improve documentation to retrieve the access token or session ID after 
     authentication (#97)
@@ -37,7 +54,7 @@
   * Improve parsing of Bulk API query recordsets from CSV where all values 
     in the column will be used to guess the type instead of the first 1000.
 
-### Bug fixes
+## Bug fixes
 
   * Generalize the date and datetime parsing mechanism, such that, reports with 
     date and datetime fields are not returned as NA (#93)
@@ -49,9 +66,9 @@
 
 ---
 
-## salesforcer 0.2.2 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.2)
+# salesforcer 0.2.2 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.2)
 
-### Dependencies
+## Dependencies
 
   * This release relaxes the dependency on {dplyr} and brings back use of 
   `rbindlist()` from {data.table} because of limitations of `dplyr::bind_rows()`. 
@@ -66,18 +83,18 @@
   Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame' when loading 'dplyr'
   ```
   
-### Features
+## Features
 
   * None 
   
   
-### Bug fixes
+## Bug fixes
 
   * None 
 
-## salesforcer 0.2.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.1)
+# salesforcer 0.2.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.1)
 
-### Dependencies
+## Dependencies
 
   * **CAUTION: This release requires {dplyr 1.0.0} because {dplyr 1.0.1} introduced 
   a bug in `bind_rows()` with how it binds lists where the list elements have differing 
@@ -89,7 +106,7 @@
   remotes::install_version("dplyr", "1.0.0")
   ```
 
-### Features
+## Features
 
   * Add support for the `defaultLimit` argument in `sf_search()` to be able to 
   restrict the number of records from each individual object when searching 
@@ -100,7 +117,7 @@
   `sf_download_attachment()` function returns the file path of the downloaded 
   content instead of a logical indicating success.
 
-### Bug fixes
+## Bug fixes
 
   * Fix bug introduced in {salesforcer 0.2.0} which could not stack records with 
   errors longer than length 1. The new solution is to always return the `errors` 
@@ -110,15 +127,15 @@
 
 ---
 
-## salesforcer 0.2.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0)
+# salesforcer 0.2.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.2.0)
 
-### Dependencies
+## Dependencies
 
   * **CAUTION: This release only has automated test coverage on R 4.0.0 or greater. 
   Users should still be able to install and run using R (>= 3.6.0). However, it 
   is recommended to upgrade to R 4.0.0 or greater.**
 
-### Features
+## Features
   
   * Add experimental support for the Reports and Dashboards REST API.
   
@@ -174,7 +191,7 @@
   should only affect `sf_read_metadata()`.
   
   
-### Bug Fixes
+## Bug Fixes
 
   * Fix bug that prevented enabling PKChunking in Bulk 1.0 queries. Users can
   now specify using `TRUE/FALSE` or details like `chunkSize` that imply `TRUE`.
@@ -193,9 +210,9 @@
 
 ---
 
-## salesforcer 0.1.4 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.4)
+# salesforcer 0.1.4 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.4)
 
-### Features
+## Features
 
   * Rebuilt package against R 4.0 (no issues observed with 3.6.3, 4.0.0, 4.0.1)
   (#53)
@@ -220,7 +237,7 @@
   
   * Add Attachment and Metadata vignettes along with updated Bulk vignette.
   
-### Bug Fixes
+## Bug Fixes
 
   * Fix issue where REST query was not correctly passing and honoring the batch
   size control argument to paginate results
@@ -248,9 +265,9 @@
 
 ---
 
-## salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
+# salesforcer 0.1.3 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.3)
 
-### Features
+## Features
 
   * Upgrade to version 46.0 (Summer '19) from version 45.0 (Spring '19)
   
@@ -293,7 +310,7 @@
   * Add new function `sf_merge()` which combines up to 3 records of the same
   type into 1 record (#22)
   
-### Bug Fixes
+## Bug Fixes
 
   * Fix bug where Username/Password authenticated sessions where not working with 
   api_type = "Bulk 1.0"
@@ -319,9 +336,9 @@
   
 ---
   
-## salesforcer 0.1.2 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2)
+# salesforcer 0.1.2 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.2)
 
-### Features
+## Features
 
   * Add support for Bulk 1.0 operations of "create", "update", "upsert", "delete" 
   and "hardDelete"
@@ -335,9 +352,9 @@
 
 ---
 
-## salesforcer 0.1.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1)
+# salesforcer 0.1.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.1)
 
-### Features
+## Features
 
   * Add `sf_search()` with REST and SOAP API support for SOSL and free text search
   
@@ -368,7 +385,7 @@
   * Update the default file name for a cached token to `.httr-oauth-salesforcer` 
   so that it does not clash with other package token names.
 
-### Bug Fixes
+## Bug Fixes
 
   * `sf_user_info()` returning `argument is of length zero` because token is not 
 automatically refreshed before calling GET.
@@ -379,9 +396,9 @@ automatically refreshed before calling GET.
 
 ---
 
-## salesforcer 0.1.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0)
+# salesforcer 0.1.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v0.1.0)
 
-### Features
+## Features
 
   * OAuth 2.0 and Basic authentication methods (`sf_auth()`)
   

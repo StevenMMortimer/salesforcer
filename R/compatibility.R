@@ -37,7 +37,7 @@
 #' @export
 rforcecom.login <- function(username, password, loginURL="https://login.salesforce.com/", apiVersion="35.0"){
   
-  deprecate_soft("0.1.0", "salesforcer::rforcecom.login()", "sf_auth()")  
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.login()", "sf_auth()")
   
   if(!is.null(loginURL)){
     options(salesforcer.login_url = loginURL)

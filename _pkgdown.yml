@@ -5,7 +5,8 @@ template:
     bootswatch: spacelab
     ganalytics: UA-98603021-2
     docsearch:
-      api_key: c7d5ea1103660127418415a82a24fc3d
+      app_id: BBX5BTLUTL
+      api_key: f3a7c81cd6794f9050f32bfee2620882
       index_name: salesforcer
 
 home:
@@ -95,6 +96,22 @@ reference:
       - '`sf_describe_report_type`'
       - '`sf_list_report_fields`'
       - '`sf_list_report_filter_operators`'
+  - title: Dashboard Functions
+    desc: Functions to create, retrieve, update, delete and query dashboards and their data.
+    contents:
+      - '`sf_list_dashboards`'
+      - '`sf_describe_dashboard`'
+      - '`sf_describe_dashboard_components`'
+      - '`sf_get_dashboard_status`'
+      - '`sf_get_dashboard_results`'
+      - '`sf_get_dashboard_data`'
+      - '`sf_filter_dashboard_operators_list`'
+      - '`sf_filter_dashboard_options_analysis`'
+      - '`sf_refresh_dashboard`'
+      - '`sf_copy_dashboard`'
+      - '`sf_update_dashboard`'
+      - '`sf_set_dashboard_sticky_filter`'
+      - '`sf_delete_dashboard`'
   - title: Metadata Functions
     desc: Functions to create, retrieve, update, and delete metadata.
     contents:
@@ -142,3 +159,4 @@ reference:
       - '`rforcecom.search`'
       - '`rforcecom.query`'
       - '`rforcecom.bulkQuery`'
+  - title: internal
