@@ -21,7 +21,7 @@ jobs:
       
     steps:
       - uses: actions/checkout@v2
-      - name: Decrypt OAuth Token secret
+      - name: Decrypt OAuth Token
         run: |
           ./.github/scripts/decrypt_secret.sh
         env:

@@ -13,10 +13,11 @@ sf_set_dashboard_sticky_filter(
 \item{dashboard_id}{\code{character}; the Salesforce Id assigned to a created
 dashboard. It will start with \code{"01Z"}.}
 
-\item{dashboard_filters}{\code{character}; Dashboard results are always unfiltered, unless you
-have specified filter parameters in your request. Use this argument to include
-up to three optional filter Ids. You can obtain the list of defined filter Ids
-from the dashboard metadata using \link{sf_dashboard_describe}.}
+\item{dashboard_filters}{\code{character}; Dashboard results are always
+unfiltered, unless you have specified filter parameters in your request. Use
+this argument to include up to three optional filter Ids. You can obtain the
+list of defined filter Ids from the dashboard metadata using
+\link{sf_describe_dashboard}.}
 }
 \value{
 \code{list}

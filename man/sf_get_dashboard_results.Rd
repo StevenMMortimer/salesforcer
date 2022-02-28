@@ -19,10 +19,11 @@ as the runner of the job. This should be from a User record (i.e. the Id will
 start with "005"). Note that this will throw an error if the User is not
 allowed to change the running User, or if the selected running User is invalid.}
 
-\item{dashboard_filters}{\code{character}; Dashboard results are always unfiltered, unless you
-have specified filter parameters in your request. Use this argument to include
-up to three optional filter Ids. You can obtain the list of defined filter Ids
-from the dashboard metadata using \link{sf_dashboard_describe}.}
+\item{dashboard_filters}{\code{character}; Dashboard results are always
+unfiltered, unless you have specified filter parameters in your request. Use
+this argument to include up to three optional filter Ids. You can obtain the
+list of defined filter Ids from the dashboard metadata using
+\link{sf_describe_dashboard}.}
 }
 \value{
 \code{tbl_df}
