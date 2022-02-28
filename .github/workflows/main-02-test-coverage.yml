@@ -25,13 +25,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        name: Decrypt OAuth Token
+        with:
+          ref: ${{ github.event.client_payload.sha }}
+      - name: Decrypt OAuth Token
         run: |
           ./.github/scripts/decrypt_secret.sh
         env:
           SALESFORCER_TOKEN_PASSPHRASE: ${{ secrets.SALESFORCER_TOKEN_PASSPHRASE }}
-        with:
-          ref: ${{ github.event.client_payload.sha }}
       
       - name: Reveal env vars
         run: |
