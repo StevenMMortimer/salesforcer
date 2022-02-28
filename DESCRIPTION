@@ -11,12 +11,23 @@ Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP,
     API documentation and this package's website 
     <https://stevenmmortimer.github.io/salesforcer/> for more information, 
     documentation, and examples.
-Authors@R: c(
-    person(c("Steven", "M."), "Mortimer", , "mortimer.steven.m@gmail.com", role = c("aut", "cre")),
-    person("Takekatsu", "Hiramura", , "thira@plavox.info", role = "ctb"),
-    person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("ctb", "cph")),
-    person("Joanna", "Zhao", , "joanna.zhao@alumni.ubc.ca", role = c("ctb", "cph"))
-  )
+Authors@R: 
+    c(person(given = c("Steven", "M."),
+             family = "Mortimer",
+             role = c("aut", "cre"),
+             email = "mortimer.steven.m@gmail.com"),
+      person(given = "Takekatsu",
+             family = "Hiramura",
+             role = "ctb",
+             email = "thira@plavox.info"),
+      person(given = "Jennifer",
+             family = "Bryan",
+             role = c("ctb", "cph"),
+             email = "jenny@rstudio.com"),
+      person(given = "Joanna",
+             family = "Zhao",
+             role = c("ctb", "cph"),
+             email = "joanna.zhao@alumni.ubc.ca"))
 License: MIT + file LICENSE
 URL: https://github.com/StevenMMortimer/salesforcer
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues
