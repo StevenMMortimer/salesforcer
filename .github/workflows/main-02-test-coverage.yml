@@ -21,11 +21,15 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
-      SALESFORCER_PASSWORD: ${{ secrets.SALESFORCER_PASSWORD }}
-      SALESFORCER_SECURITY_TOKEN: ${{ secrets.SALESFORCER_SECURITY_TOKEN }}
+      SALESFORCER_TOKEN_PATH: ${{ github.workspace }}/tests/testthat/
 
     steps:
       - uses: actions/checkout@v2
+        name: Decrypt OAuth Token
+        run: |
+          ./.github/scripts/decrypt_secret.sh
+        env:
+          SALESFORCER_TOKEN_PASSPHRASE: ${{ secrets.SALESFORCER_TOKEN_PASSPHRASE }}
         with:
           ref: ${{ github.event.client_payload.sha }}
       
