@@ -97,5 +97,5 @@ new_custom_fields <- sf_create_metadata(metadata_type = 'CustomField',
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}{Salesforce Documentation}
 }

@@ -21,7 +21,7 @@
 #' @return A \code{tbl_df} containing the creation result for each submitted metadata component
 #' @note The update key is based on the fullName parameter of the metadata, so updates are triggered
 #' when an existing Salesforce element matches the metadata type and fullName.
-#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' # create an object that we can update

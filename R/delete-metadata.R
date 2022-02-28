@@ -14,7 +14,7 @@
 #' @template all_or_none
 #' @template verbose
 #' @return A \code{data.frame} containing the creation result for each submitted metadata component
-#' @seealso \code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
+#' @seealso \code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' metadata_info <- sf_delete_metadata(metadata_type = 'CustomObject', 

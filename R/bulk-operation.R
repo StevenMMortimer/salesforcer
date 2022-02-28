@@ -1335,7 +1335,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @return A \code{tbl_df} of the results of the bulk job
 #' @note With Bulk 2.0 the order of records in the response is not guaranteed to 
 #' match the ordering of records in the original job data.
-#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}{Salesforce Documentation}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' n <- 20
