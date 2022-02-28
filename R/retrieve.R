@@ -65,7 +65,7 @@ sf_retrieve <- function(ids,
 #' Retrieve records using SOAP API
 #' 
  
-#' @importFrom dplyr bind_rows filter across any_of
+#' @importFrom dplyr bind_rows filter if_all any_of
 #' @importFrom httr content
 #' @importFrom purrr map_df
 #' @importFrom readr type_convert cols
@@ -127,7 +127,7 @@ sf_retrieve_soap <- function(ids,
       map_df(extract_records_from_xml_node, 
              object_name_as_col = TRUE) %>% 
       # ignore record ids that could not be matched
-      filter(across(any_of("Id"), ~!is.na(.x)))
+      filter(if_all(any_of("Id"), ~!is.na(.x)))
     resultset <- safe_bind_rows(list(resultset, this_set))
   }
   

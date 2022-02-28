@@ -473,7 +473,7 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' @importFrom httr content
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble bind_rows filter mutate_all across any_of
+#' @importFrom dplyr as_tibble bind_rows filter mutate_all if_all any_of
 #' @param parameterized_search_list list; a list of parameters to be added as part 
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
@@ -552,8 +552,7 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
     resultset <- resultset %>%
       type_convert(col_types = cols(.default = col_guess())) %>% 
       # ignore record ids that could not be matched
-      filter(across(any_of("operation"), 
-                    ~(.x %in% c('query', 'queryall')))) # is queryall an option?
+      filter(if_all(any_of("operation"), ~(.x %in% c('query', 'queryall')))) # is queryall an option?
   }
   return(resultset)
 }

@@ -750,10 +750,21 @@ sf_reorder_cols <- function(df){
 #' @keywords internal
 #' @export
 sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
+
+  
+
+  
   if(guess_types){
     if(is.null(dataType) || any(is.na(dataType)) || (length(dataType) == 0)){
-      df <- df %>% 
-        type_convert(col_types = cols(.default = col_guess()), locale=locale(tz="UTC"))      
+      is_character <- vapply(df, is.character, logical(1))
+      if(any(is_character)){
+        # only proceed if the data.frame contains character columns; otherwise,
+        # readr will produce a warning since type_convert() only works on character cols
+        df <- df %>% 
+          type_convert(col_types = cols(.default = col_guess()), 
+                       locale=locale(tz="UTC")
+                       )
+      } 
     } else {
       col_spec <- sf_build_cols_spec(dataType)
       # if numeric Salesforce will flag N/A as "-" so we need to preemptively change to NA
@@ -776,7 +787,12 @@ sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
         df <- df %>% 
           mutate(across(all_of(datetime_col_idx), ~as.character(anytime(.x, tz="UTC", asUTC=TRUE))))
       }
-      df <- df %>% type_convert(col_types = col_spec, locale=locale(tz="UTC"))
+      is_character <- vapply(df, is.character, logical(1))
+      if(any(is_character)){
+        # only proceed if the data.frame contains character columns; otherwise,
+        # readr will produce a warning since type_convert() only works on character cols
+        df <- df %>% type_convert(col_types = col_spec, locale=locale(tz="UTC"))
+      }
     }
   }
   return(df)

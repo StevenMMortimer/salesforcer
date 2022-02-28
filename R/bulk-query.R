@@ -324,7 +324,7 @@ sf_query_result_bulk_v2 <- function(job_id,
 #' query API jobs from the Bulk 1.0 API.
 #'
 #' @importFrom lifecycle deprecated is_present deprecate_warn
-#' @importFrom dplyr filter across any_of bind_rows is.tbl
+#' @importFrom dplyr filter if_all any_of bind_rows is.tbl
 #' @template soql
 #' @template object_name
 #' @template queryall
@@ -426,7 +426,7 @@ sf_query_bulk_v1 <- function(soql,
       # remove the initial batch
       batch_query_info <- job_batches %>% 
         # ignore record ids that could not be matched
-        filter(across(any_of("state"), ~(.x != 'NotProcessed')))
+        filter(if_all(any_of("state"), ~(.x != 'NotProcessed')))
       
       if(all(batch_query_info$state == "Completed")){
         status_complete <- TRUE
