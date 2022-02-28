@@ -204,8 +204,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDtOAAX TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDtPAAX TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHtnAAH TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHtoAAH TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="query">Query<a class="anchor" aria-label="anchor" href="#query"></a>
@@ -220,14 +220,14 @@
 <span class="co"># the better way in salesforcer to query</span>
 <span class="va">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">this_soql</span><span class="op">)</span>
 <span class="va">salesforcer_results</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 1</span></span>
-<span class="co">#&gt;   Id                </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001844wZAAQ</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001844waAAA</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001844xNAAQ</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001844xQAAQ</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001844xRAAQ</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 2</span></span>
+<span class="co">#&gt;   Id                 Email               </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000014B3IZAA0 rick.james@gmail.com</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000014B3IaAAK rick.james@gmail.com</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000014B3IbAAK rick.james@gmail.com</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6FAAS jennyw@gmail.com    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 jennyw@gmail.com</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="describe">Describe<a class="anchor" aria-label="anchor" href="#describe"></a>
@@ -275,7 +275,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

@@ -2,18 +2,22 @@
 
 ## Dependencies
 
-  * Increase the package's default Salesforce API version to 54.0 (Spring '22).
+  * Increase the package's default Salesforce API version to 54.0 (Spring '22)
   * Added a deprecation warning that using basic authentication (password and 
     security token) will no longer work since Salesforce announced that all
     customers will be migrated to MFA beginning February 1st, 2022
     ([link](https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement)).
     Many thanks to @klaw2 for highlighting in #113.
+  * Remove deprecated use of `dplyr::across()` and add logic to circumvent a
+    new warning emitted by `readr::type_convert()` when no character columns 
+    are present
     
 ## Bug fixes
 
   * Changed the naming convention for dashboard-related functions to contain the
-    action verb 
-    `sf_{action}_dashboard` (e.g., `sf_copy_dashboard`)
+    action verb first (e.g., `sf_copy_dashboard` instead of `sf_dashboard_copy`)
+
+---
 
 # salesforcer 1.0.0 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.0)
 

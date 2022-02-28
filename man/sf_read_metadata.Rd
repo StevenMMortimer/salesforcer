@@ -32,5 +32,5 @@ metadata_info <- sf_read_metadata(metadata_type='CustomObject',
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}
 }

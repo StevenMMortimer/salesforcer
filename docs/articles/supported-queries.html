@@ -193,25 +193,25 @@
 <span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">soql</span><span class="op">)</span> <span class="co"># REST API is the default api_type</span>
 <span class="va">queried_records</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span>
-<span class="co">#&gt;   Id                 FirstName LastName                 </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001844wZAAQ Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001844waAAA Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001844xNAAQ Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001844xQAAQ Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001844xRAAQ Test      Especialização Presencial</span>
+<span class="co">#&gt;   Id                 FirstName LastName</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000014B3IZAA0 Rick      James   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000014B3IaAAK Rick      James   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000014B3IbAAK Rick      James   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6FAAS Jenny     Williams</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny     Williams</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span>
 
 <span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">soql</span>, api_type <span class="op">=</span> <span class="st">"SOAP"</span><span class="op">)</span>
 <span class="va">queried_records</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span>
-<span class="co">#&gt;   Id                 FirstName LastName                 </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001844wZAAQ Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001844waAAA Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001844xNAAQ Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001844xQAAQ Test      Especialização Presencial</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001844xRAAQ Test      Especialização Presencial</span>
+<span class="co">#&gt;   Id                 FirstName LastName</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000014B3IZAA0 Rick      James   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000014B3IaAAK Rick      James   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000014B3IbAAK Rick      James   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6FAAS Jenny     Williams</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny     Williams</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -264,9 +264,9 @@
 <span class="op">)</span>
 <span class="va">res</span>
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST") 0.3382863 0.3524484 0.4277162 0.3864768 0.5250205 0.5363488     5</span>
-<span class="co">#&gt;  qry("SOAP") 1.3420408 1.3607750 1.3666050 1.3679208 1.3706192 1.3916692     5</span>
+<span class="co">#&gt;         expr       min        lq      mean    median        uq      max neval</span>
+<span class="co">#&gt;  qry("REST") 0.4983136 0.5125766 0.6485466 0.5268722 0.6138641 1.091107     5</span>
+<span class="co">#&gt;  qry("SOAP") 2.0455009 2.1894474 2.1916884 2.2099502 2.2191440 2.294400     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">+</span> 
@@ -290,8 +290,8 @@
     api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.9 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.8 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -304,8 +304,8 @@
     api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.7 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 3.2 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.6 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 1.4 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span></code></pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -323,15 +323,15 @@
                      `Contact.FirstName` <span class="op">=</span> <span class="va">FirstName</span><span class="op">)</span>, 
             by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Id"</span> <span class="op">=</span> <span class="st">"Account.Id"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">nested_query_recs</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 615 × 4</span></span>
-<span class="co">#&gt;   Id                 Name                       Contact.Id      Contact.FirstNa…</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s00000zFdugAAC KEEP Test Account With Ch… 0033s000012Nkz… KEEP            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFdugAAC KEEP Test Account With Ch… 0033s000012Nkz… KEEP            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s00000zFdugAAC KEEP Test Account With Ch… 0033s000012Nkz… KEEP            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0013s00000zFdugAAC KEEP Test Account With Ch… 0033s000012Nkz… KEEP            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0013s00000zFdugAAC KEEP Test Account With Ch… 0033s000012Nl0… KEEP            </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 610 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 419 × 4</span></span>
+<span class="co">#&gt;   Id                 Name                            Contact.Id Contact.FirstNa…</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s00000zFdugAAC KEEP Test Account With Child R… 0033s0000… KEEP            </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFdugAAC KEEP Test Account With Child R… 0033s0000… KEEP            </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s00000zFdugAAC KEEP Test Account With Child R… 0033s0000… KEEP            </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0013s00000zFdugAAC KEEP Test Account With Child R… 0033s0000… KEEP            </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0013s00000zFdugAAC KEEP Test Account With Child R… 0033s0000… KEEP            </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 414 more rows</span></span>
 
 <span class="va">aggregate_query_recs</span> <span class="op">&lt;-</span> <span class="va">nested_query_recs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -345,7 +345,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFgA6AAK          0</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s000014jF2HAAU          0</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0013s000014jF2vAAE          0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0013s000014jFj6AAE         99</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0013s000014jFj6AAE          0</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 11 more rows</span></span></code></pre></div>
 <p>The second reason to not use the Bulk APIs is that there is a performance overhead associated with every bulk (asynchronous) job that involves checking the status of the job until it succeeds or fails before retrieving the results.</p>
 <p>The example below is provided so that you can take this code as an example to run your own performance test of queries that return 10K, 100K, 1M+ records to see where the Bulk APIs outperform the REST API.</p>
@@ -385,11 +385,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 99 × 4</span></span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDrTAAX 0033s00001BXDrTAAX FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDrUAAX 0033s00001BXDrUAAX FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXDrVAAX 0033s00001BXDrVAAX FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXDrWAAX 0033s00001BXDrWAAX FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXDrXAAX 0033s00001BXDrXAAX FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHrnAAH 0033s00001BXHrnAAH FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHroAAH 0033s00001BXHroAAH FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXHrpAAH 0033s00001BXHrpAAH FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXHrqAAH 0033s00001BXHrqAAH FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXHrrAAH 0033s00001BXHrrAAH FALSE       <span style="color: #BB0000;">NA</span>       </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 94 more rows</span></span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -397,7 +397,7 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s000019IzObAAK TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s000019J2otAAC TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="relationship-queries">Relationship queries<a class="anchor" aria-label="anchor" href="#relationship-queries"></a>
@@ -414,7 +414,7 @@
   FROM Contact
   WHERE Account.Id != null"</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 513 × 3</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 315 × 3</span></span>
 <span class="co">#&gt;   Id                 FirstName Account.Name                        </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000012NkzwAAC KEEP      KEEP Test Account With Child Records</span>
@@ -422,7 +422,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000012NkzyAAC KEEP      KEEP Test Account With Child Records</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012NkzzAAC KEEP      KEEP Test Account With Child Records</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012Nl00AAC KEEP      KEEP Test Account With Child Records</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 508 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># … with 310 more rows</span></span></code></pre></div>
 <p>Sometimes you may notice that the requested relationship fields do not appear in the query results. This is because the SOAP and REST APIs do not return any related object information if it does not exist on the record and there is no reliable way to extract and rebuild the empty columns based on the query string. In the example below, if there were Account information an additional column titled <code>"Account.Name"</code> would appear in the results.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># child-to-parent relationship (e.g. Account.Name from Contact record)</span>
@@ -431,15 +431,15 @@
   FROM Contact
   WHERE Account.Id = null"</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,339 × 2</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 78 × 2</span></span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001844wZAAQ Test     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001844waAAA Test     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001844xNAAQ Test     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001844xQAAQ Test     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001844xRAAQ Test     </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 1,334 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000014B3IZAA0 Rick     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000014B3IaAAK Rick     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000014B3IbAAK Rick     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6FAAS Jenny    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny    </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 73 more rows</span></span></code></pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -448,7 +448,7 @@
             FROM Contact"</span>, 
            api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,852 × 3</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 393 × 3</span></span>
 <span class="co">#&gt;   Id                 FirstName Account.Owner.Id</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000012Nd60AAC Jenny     <span style="color: #BB0000;">NA</span>              </span>
@@ -456,7 +456,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000012Nd6FAAS Jenny     <span style="color: #BB0000;">NA</span>              </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6UAAS Jenny     <span style="color: #BB0000;">NA</span>              </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny     <span style="color: #BB0000;">NA</span>              </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 1,847 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># … with 388 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="parent-to-child-nested-queries">parent-to-child “nested” queries<a class="anchor" aria-label="anchor" href="#parent-to-child-nested-queries"></a>
@@ -468,15 +468,15 @@
     (SELECT Id, FirstName FROM Contacts)
   FROM Account"</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 516 × 4</span></span>
-<span class="co">#&gt;   Id                 Name                       Contact.FirstNa… Contact.Id     </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s00000zFgA6AAK KEEP Test Account With Ch… <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>             </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFdugAAC KEEP Test Account With Ch… KEEP             0033s000012Nl0…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s00000zFdugAAC KEEP Test Account With Ch… KEEP             0033s000012Nl0…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0013s00000zFdugAAC KEEP Test Account With Ch… KEEP             0033s000012Nl0…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0013s00000zFdugAAC KEEP Test Account With Ch… KEEP             0033s000012Nl0…</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 511 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 320 × 4</span></span>
+<span class="co">#&gt;   Id                 Name                            Contact.FirstNa… Contact.Id</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s00000zFgA6AAK KEEP Test Account With Child R… <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>        </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFdugAAC KEEP Test Account With Child R… KEEP             0033s0000…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s00000zFdugAAC KEEP Test Account With Child R… KEEP             0033s0000…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0013s00000zFdugAAC KEEP Test Account With Child R… KEEP             0033s0000…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0013s00000zFdugAAC KEEP Test Account With Child R… KEEP             0033s0000…</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 315 more rows</span></span></code></pre></div>
 <p>At first glance this query may appear the same as a lookup query on the Contact object that includes the account id and name. However, the small difference is that every Account is included, regardless of whether or not they have a Contact. This can be helpful when you want to ensure a query contains all of the parent records and their child records, if they exist. Also, note that the plural object name is used inside the nested query (“Contacts” instead of “Contact”).</p>
 <p>Finally, a parent-to-child nested query can also contain a child-to-parent lookup relationship within it. Below is an example where the Owner Id on the Contact is included so you can know who is responsible for the Contacts under each Account.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -485,15 +485,15 @@
     (SELECT Id, FirstName, Owner.Id FROM Contacts)
    FROM Account"</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 516 × 5</span></span>
-<span class="co">#&gt;   Name              Contact.FirstName Contact.Id    Contact.Owner.Id Owner.Id   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> KEEP Test Accoun… <span style="color: #BB0000;">NA</span>                <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>               0056A00000…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> KEEP Test Accoun… KEEP              0033s000012N… 0056A000000MPRj… 0056A00000…</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 511 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 320 × 5</span></span>
+<span class="co">#&gt;   Name                     Contact.FirstNa… Contact.Id Contact.Owner.Id Owner.Id</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> KEEP Test Account With … <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>               0056A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> KEEP Test Account With … KEEP             0033s0000… 0056A000000MPRj… 0056A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> KEEP Test Account With … KEEP             0033s0000… 0056A000000MPRj… 0056A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> KEEP Test Account With … KEEP             0033s0000… 0056A000000MPRj… 0056A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> KEEP Test Account With … KEEP             0033s0000… 0056A000000MPRj… 0056A00…</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 315 more rows</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -542,7 +542,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

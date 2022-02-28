@@ -341,7 +341,7 @@ rforcecom.bulkQuery <- function(session,
 #' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @template session
 #' @param operation a character string defining the type of operation being performed
 #' @param data a matrix or data.frame that can be coerced into a CSV file for submitting as batch request

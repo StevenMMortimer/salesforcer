@@ -189,8 +189,8 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0036A000002C6MY Jack                    99 Steven Mortimer 0016A0000035mJ5</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0036A000002C6Mb Tim                     <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ8</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0036A000002C6Mc John                    23 Steven Mortimer 0016A0000035mJ8</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows, and 3 more variables: Account Name &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   Billing City &lt;chr&gt;, Account Owner &lt;chr&gt;</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows, and 3 more variables: `Account Name` &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `Billing City` &lt;chr&gt;, `Account Owner` &lt;chr&gt;</span></span></code></pre></div>
 <p>Note that the <code><a href="../reference/sf_run_report.html">sf_run_report()</a></code> function will, by default, run the report asynchronously. This means that a report instance will be requested and then the function will wait to retrieve the results. The advantage to using an asynchronous report is that the results of such a report are stored for 24 hours and can be retrieved again saving CPU resources, if needed. A more in-depth discussion on synchronous vs. asynchronous reports is available here <a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api_analytics.meta/api_analytics/sforce_analytics_rest_api_get_reportdata.htm</a>. However, for reports with a relatively small number of records a synchronous report may be faster without having to do the round trip of creating then querying a report instance.</p>
 </div>
 <div class="section level2">
@@ -216,13 +216,13 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 14 × 8</span></span>
 <span class="co">#&gt;   `Contact ID`    `First Name` `test number` `Contact Owner` `Account ID`   </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0036A000002C6MW Rose                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0036A000002C6MX Sean                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0036A000002C6MY Jack                    99 Steven Mortimer 0016A0000035mJ5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0036A000002C6Mb Tim                     <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0036A000002C6Mc John                    23 Steven Mortimer 0016A0000035mJ8</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows, and 3 more variables: Account Name &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   Billing City &lt;chr&gt;, Account Owner &lt;chr&gt;</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0036A000002C6Mm Edna                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJE</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0036A000002C6Mk Tom                     <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJD</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0036A000002C6Ml Liz                     <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJD</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0036A000002C6MW Rose                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0036A000002C6MX Sean                    <span style="color: #BB0000;">NA</span> Steven Mortimer 0016A0000035mJ4</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows, and 3 more variables: `Account Name` &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `Billing City` &lt;chr&gt;, `Account Owner` &lt;chr&gt;</span></span></code></pre></div>
 <p>This second example shows how to return only the Top N number of records and combine the filter using the logical “OR” instead of “AND”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># combine filter1 and filter2 using 'OR' which means that records must meet one </span>
@@ -237,13 +237,13 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 8</span></span>
 <span class="co">#&gt;   `Contact ID`    `First Name` `test number` `Contact Owner` `Account ID`   </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000017uL43 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000017uL44 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000017uL47 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000017uL46 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000017uL45 Test                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s000014jFj6</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: Account Name &lt;chr&gt;, Billing City &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   Account Owner &lt;chr&gt;</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000012Nl0r KEEP                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s00000zFdug</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000012Nl0s KEEP                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s00000zFdug</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000012Nl0v KEEP                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s00000zFdug</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nl0u KEEP                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s00000zFdug</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012Nl0t KEEP                  <span style="text-decoration: underline;">1</span>000 Steven Mortimer 0013s00000zFdug</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Account Name` &lt;chr&gt;, `Billing City` &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `Account Owner` &lt;chr&gt;</span></span></code></pre></div>
 <p>I was able to determine some of the potential ways to filter by first reviewing the <code>reportFilters</code> element in the existing report metadata and also reviewing the list of report filter operators.</p>
 <p>First, you can always take the report filter specification from the report metadata and tailor it to your needs. Below is an example showing how to get that metadata for our report. You can select specific elements to better understand the structure of the report.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -429,7 +429,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

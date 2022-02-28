@@ -104,13 +104,14 @@
 <h2 class="page-header" data-toc-text="1.0.1" id="salesforcer-101">salesforcer 1.0.1<a class="anchor" aria-label="anchor" href="#salesforcer-101"></a></h2>
 <div class="section level3">
 <h3 id="dependencies-1-0-1">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies-1-0-1"></a></h3>
-<ul><li>Increase the package’s default Salesforce API version to 54.0 (Spring ’22).</li>
+<ul><li>Increase the package’s default Salesforce API version to 54.0 (Spring ’22)</li>
 <li>Added a deprecation warning that using basic authentication (password and security token) will no longer work since Salesforce announced that all customers will be migrated to MFA beginning February 1st, 2022 (<a href="https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement" class="external-link">link</a>). Many thanks to <a href="https://github.com/klaw2" class="external-link">@klaw2</a> for highlighting in <a href="https://github.com/StevenMMortimer/salesforcer/issues/113" class="external-link">#113</a>.</li>
+<li>Remove deprecated use of <code><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">dplyr::across()</a></code> and add logic to circumvent a new warning emitted by <code><a href="https://readr.tidyverse.org/reference/type_convert.html" class="external-link">readr::type_convert()</a></code> when no character columns are present</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-1-0-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-0-1"></a></h3>
-<ul><li>Changed the naming convention for dashboard-related functions to contain the action verb <code>sf_{action}_dashboard</code> (e.g., <code>sf_copy_dashboard</code>)</li>
-</ul></div>
+<ul><li>Changed the naming convention for dashboard-related functions to contain the action verb first (e.g., <code>sf_copy_dashboard</code> instead of <code>sf_dashboard_copy</code>)</li>
+</ul><hr></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="salesforcer-100-release">salesforcer 1.0.0 <a href="https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.0" class="external-link">release</a>
@@ -375,7 +376,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

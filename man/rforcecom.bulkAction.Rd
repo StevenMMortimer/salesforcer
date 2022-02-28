@@ -68,5 +68,5 @@ updates <- rforcecom.bulkAction(session,
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 }

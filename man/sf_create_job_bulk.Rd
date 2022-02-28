@@ -101,5 +101,5 @@ job_info <- sf_create_job_bulk(operation='query', object_name='Lead')
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 }

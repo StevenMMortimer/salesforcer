@@ -20,10 +20,10 @@ As such, CRAN archived this package.
 ## Test environments
 
 * Local Mac OS install, R-release 4.0.2
-* Ubuntu 16.04 (on GitHub Actions), R-release, R 4.1.0
-* Mac OS 10.15.5 (on GitHub Actions) R-release, R 4.1.0
-* Microsoft Windows Server 2019 10.0.17763 (on GitHub Actions) R-release, R 4.1.0
-* win-builder (R-release 4.1.0)
+* Ubuntu 16.04 (on GitHub Actions), R-release, R 4.1.2
+* Mac OS 10.15.5 (on GitHub Actions) R-release, R 4.1.2
+* Microsoft Windows Server 2019 10.0.17763 (on GitHub Actions) R-release, R 4.1.2
+* win-builder (R-release 4.1.2)
 
 ## R CMD check results
 

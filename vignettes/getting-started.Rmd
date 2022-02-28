@@ -42,8 +42,11 @@ INVALID_LOGIN: Invalid username, password, security token; or user locked out.
 ```
 
 Also, it is a best practice to use OAuth 2.0 so that passwords do not have to be
-shared/embedded within scripts. User credentials will be stored in locally
-cached file entitled `.httr-oauth-salesforcer` in the current working directory.
+embedded within scripts. OAuth 2.0 credentials are stored locally in a cached
+file titled `.httr-oauth-salesforcer` in the current working directory. The
+package will automatically refresh this cached token when it expires so you will
+not have to call `sf_auth()` during every R session if the
+`.httr-oauth-salesforcer` file is present in the working directory.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))

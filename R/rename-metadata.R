@@ -11,7 +11,7 @@
 #' @importFrom httr content 
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom purrr map_df
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}
 #' @template metadata_type
 #' @param old_fullname \code{character}; string corresponding to the fullName of the element you would 
 #' like to rename

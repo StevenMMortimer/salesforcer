@@ -43,6 +43,6 @@ Additionally, Bulk API can't access or query compound address or compound geoloc
 \references{
 \url{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm}
 
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 }
 \keyword{internal}

@@ -1,7 +1,7 @@
 Package: salesforcer
 Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
 Version: 1.0.1
-Date: 2022-02-27
+Date: 2022-02-28
 Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP, 
     Bulk 1.0, Bulk 2.0, Metadata, Reports and Dashboards) 
     <https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview>. 
@@ -11,23 +11,12 @@ Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP,
     API documentation and this package's website 
     <https://stevenmmortimer.github.io/salesforcer/> for more information, 
     documentation, and examples.
-Authors@R: 
-    c(person(given = c("Steven", "M."),
-             family = "Mortimer",
-             role = c("aut", "cre"),
-             email = "mortimer.steven.m@gmail.com"),
-      person(given = "Takekatsu",
-             family = "Hiramura",
-             role = "ctb",
-             email = "thira@plavox.info"),
-      person(given = "Jennifer",
-             family = "Bryan",
-             role = c("ctb", "cph"),
-             email = "jenny@rstudio.com"),
-      person(given = "Joanna",
-             family = "Zhao",
-             role = c("ctb", "cph"),
-             email = "joanna.zhao@alumni.ubc.ca"))
+Authors@R: c(
+    person(c("Steven", "M."), "Mortimer", , "mortimer.steven.m@gmail.com", role = c("aut", "cre")),
+    person("Takekatsu", "Hiramura", , "thira@plavox.info", role = "ctb"),
+    person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("ctb", "cph")),
+    person("Joanna", "Zhao", , "joanna.zhao@alumni.ubc.ca", role = c("ctb", "cph"))
+  )
 License: MIT + file LICENSE
 URL: https://github.com/StevenMMortimer/salesforcer
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues

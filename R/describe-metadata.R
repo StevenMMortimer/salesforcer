@@ -11,7 +11,7 @@
 #' @importFrom xml2 xml_ns_strip xml_find_all xml_text read_xml
 #' @importFrom purrr map_df map_dfc
 #' @importFrom dplyr as_tibble
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}
 #' @template verbose
 #' @return A \code{tbl_df}
 #' @examples

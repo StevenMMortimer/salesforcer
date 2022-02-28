@@ -153,7 +153,7 @@
 </ol>
 <p><strong>NOTE</strong>: Beginning February 1st, 2022, Salesforce will be requiring customers to enable multi-factor authentication, which means that basic authentication using password and security token will no longer work. The function <code><a href="../reference/sf_auth.html">sf_auth()</a></code> will return the error message:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">INVALID_LOGIN:</span> Invalid username, password, security token<span class="kw">;</span> <span class="ex">or</span> user locked out.</span></code></pre></div>
-<p>Also, it is a best practice to use OAuth 2.0 so that passwords do not have to be shared/embedded within scripts. User credentials will be stored in locally cached file entitled <code>.httr-oauth-salesforcer</code> in the current working directory.</p>
+<p>Also, it is a best practice to use OAuth 2.0 so that passwords do not have to be embedded within scripts. OAuth 2.0 credentials are stored locally in a cached file titled <code>.httr-oauth-salesforcer</code> in the current working directory. The package will automatically refresh this cached token when it expires so you will not have to call <code><a href="../reference/sf_auth.html">sf_auth()</a></code> during every R session if the <code>.httr-oauth-salesforcer</code> file is present in the working directory.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span>
@@ -199,8 +199,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDqzAAH TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDr0AAH TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHrOAAX TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHrPAAX TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="retrieving-records">Retrieving records<a class="anchor" aria-label="anchor" href="#retrieving-records"></a>
@@ -214,8 +214,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span>
 <span class="co">#&gt;   sObject Id                 FirstName LastName        </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contact 0033s00001BXDqzAAH Test      Contact-Create-1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Contact 0033s00001BXDr0AAH Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contact 0033s00001BXHrOAAX Test      Contact-Create-1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Contact 0033s00001BXHrPAAX Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="querying-records">Querying records<a class="anchor" aria-label="anchor" href="#querying-records"></a>
@@ -235,8 +235,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDqzAAH Test      Contact-Create-1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDr0AAH Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHrOAAX Test      Contact-Create-1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHrPAAX Test      Contact-Create-2</span></code></pre></div>
 <p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78" class="external-link">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div class="section level2">
@@ -253,8 +253,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDqzAAH TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDr0AAH TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHrOAAX TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHrPAAX TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="deleting-records">Deleting records<a class="anchor" aria-label="anchor" href="#deleting-records"></a>
@@ -266,8 +266,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDqzAAH TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDr0AAH TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHrOAAX TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHrPAAX TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="upserting-records">Upserting records<a class="anchor" aria-label="anchor" href="#upserting-records"></a>
@@ -295,9 +295,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="co">#&gt;   id                 success created</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXDr4AAH TRUE    FALSE  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXDr5AAH TRUE    FALSE  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXDr9AAH TRUE    TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXHrTAAX TRUE    FALSE  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXHrUAAX TRUE    FALSE  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXHrYAAX TRUE    TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="check-out-the-tests">Check out the Tests<a class="anchor" aria-label="anchor" href="#check-out-the-tests"></a>
@@ -323,7 +323,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

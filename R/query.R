@@ -23,7 +23,7 @@
 #' @template object_name_as_col
 #' @template verbose
 #' @return \code{tbl_df} of records
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note Bulk API query doesn't support the following SOQL:
 #' \itemize{
 #'    \item COUNT
