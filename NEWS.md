@@ -6,8 +6,7 @@
   * Added a deprecation warning that using basic authentication (password and 
     security token) will no longer work since Salesforce announced that all
     customers will be migrated to MFA beginning February 1st, 2022
-    ([link](https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement)).
-    Many thanks to @klaw2 for highlighting in #113.
+    ([link](https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement)). Many thanks to @klaw2 for highlighting in #113.
   * Remove deprecated use of `dplyr::across()` and add logic to circumvent a
     new warning emitted by `readr::type_convert()` when no character columns 
     are present

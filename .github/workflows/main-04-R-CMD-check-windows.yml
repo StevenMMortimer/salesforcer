@@ -29,7 +29,7 @@ jobs:
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
-      SALESFORCER_TOKEN_PATH: ${{ github.workspace }}/tests/testthat/
+      SALESFORCER_TOKEN_PATH: ${{ github.workspace }}\tests\testthat\
 
     steps:
       - uses: actions/checkout@v2
