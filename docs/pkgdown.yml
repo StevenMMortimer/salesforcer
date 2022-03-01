@@ -1,5 +1,5 @@
-pandoc: '2.10'
-pkgdown: 1.6.1
+pandoc: 2.16.2
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
@@ -10,7 +10,7 @@ articles:
   working-with-bulk-apis: working-with-bulk-apis.html
   working-with-metadata: working-with-metadata.html
   working-with-reports: working-with-reports.html
-last_built: 2021-07-05T00:40Z
+last_built: 2022-02-28T05:38Z
 urls:
   reference: https://stevenmmortimer.github.io/salesforcer/reference
   article: https://stevenmmortimer.github.io/salesforcer/articles

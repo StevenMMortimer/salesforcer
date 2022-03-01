@@ -10,7 +10,7 @@
 #' @importFrom httr content 
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom purrr map
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}
 #' @template metadata_type
 #' @param object_names a character vector of names that we wish to read metadata for
 #' @template verbose

@@ -25,7 +25,7 @@
 #' @template line_ending
 #' @template verbose
 #' @return A \code{tbl_df} parameters defining the created job, including id
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @examples
 #' \dontrun{
 #' # insert into Account
@@ -339,7 +339,7 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete",
 #' for the "ingest" vs. the "query" jobs.
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the details of the specified job id
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @examples
 #' \dontrun{
 #' job_info <- sf_create_job_bulk('insert', 'Account')
@@ -473,7 +473,7 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
 #' @importFrom httr content
 #' @importFrom readr type_convert cols col_guess
 #' @importFrom purrr map_df
-#' @importFrom dplyr as_tibble bind_rows filter mutate_all across any_of
+#' @importFrom dplyr as_tibble bind_rows filter mutate_all if_all any_of
 #' @param parameterized_search_list list; a list of parameters to be added as part 
 #' of the URL query string (i.e. after a question mark ("?") so that the result 
 #' only returns information about jobs that meet that specific criteria. For 
@@ -552,8 +552,7 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
     resultset <- resultset %>%
       type_convert(col_types = cols(.default = col_guess())) %>% 
       # ignore record ids that could not be matched
-      filter(across(any_of("operation"), 
-                    ~(.x %in% c('query', 'queryall')))) # is queryall an option?
+      filter(if_all(any_of("operation"), ~(.x %in% c('query', 'queryall')))) # is queryall an option?
   }
   return(resultset)
 }
@@ -612,7 +611,7 @@ sf_end_job_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return A \code{list} of parameters defining the now closed job
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note This is a legacy function used only with Bulk 1.0.
 #' @examples
 #' \dontrun{
@@ -640,7 +639,7 @@ sf_close_job_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return A \code{list} of parameters defining the job after signaling a completed upload
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note This function is typically not used directly. It is used in \code{sf_create_batches_bulk()} 
 #' right after submitting the batches to signal to Salesforce that the batches should 
 #' no longer be queued.
@@ -664,7 +663,7 @@ sf_upload_complete_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return A \code{list} of parameters defining the now aborted job
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @examples
 #' \dontrun{
 #' job_info <- sf_create_job_bulk('insert', 'Account')
@@ -718,7 +717,7 @@ sf_delete_job_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return a \code{tbl_df} containing details of each batch
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @examples
 #' \dontrun{
 #' # NOTE THAT YOU MUST FIRST CREATE AN EXTERNAL ID FIELD CALLED My_External_Id 
@@ -1010,7 +1009,7 @@ sf_create_batches_bulk_v2 <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the batch identified by the batch_id
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note This is a legacy function used only with Bulk 1.0.
 #' @examples
 #' \dontrun{
@@ -1069,7 +1068,7 @@ sf_job_batches_bulk <- function(job_id,
 #' @template api_type
 #' @template verbose
 #' @return A \code{tbl_df} of parameters defining the batch identified by the batch_id
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note This is a legacy function used only with Bulk 1.0.
 #' @examples
 #' \dontrun{
@@ -1131,7 +1130,7 @@ sf_batch_status_bulk <- function(job_id, batch_id,
 #' @return A \code{tbl_df}, formatted by Salesforce, with information containing 
 #' the success or failure or certain rows in a submitted batch, unless the operation 
 #' was query, then it is a data.frame containing the result_id for retrieving the recordset.
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note This is a legacy function used only with Bulk 1.0.
 #' @examples
 #' \dontrun{
@@ -1199,7 +1198,7 @@ sf_batch_details_bulk <- function(job_id, batch_id,
 #' @template verbose
 #' @return A \code{tbl_df} or \code{list} of \code{tbl_df}, formatted by Salesforce, 
 #' with information containing the success or failure or certain rows in a submitted job
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @note With Bulk 2.0 the order of records in the response is not guaranteed to 
 #' match the ordering of records in the original job data.
 #' @examples
@@ -1336,7 +1335,7 @@ sf_get_job_records_bulk_v2 <- function(job_id,
 #' @return A \code{tbl_df} of the results of the bulk job
 #' @note With Bulk 2.0 the order of records in the response is not guaranteed to 
 #' match the ordering of records in the original job data.
-#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}{Salesforce Documentation}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' n <- 20

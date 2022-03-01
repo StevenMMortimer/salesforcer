@@ -120,5 +120,5 @@ inserts <- sf_bulk_operation(input_data = new_contacts,
 }
 }
 \seealso{
-\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}{Salesforce Documentation}
+\href{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}{Salesforce Documentation}
 }

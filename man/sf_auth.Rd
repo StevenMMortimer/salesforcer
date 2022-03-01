@@ -81,7 +81,7 @@ call. This value is \code{NULL} if \code{auth_method='OAuth'}.
 is on and where subsequent API calls will be directed to. For example,
 \code{https://na21.salesforce.com} refers to an org located on the 'NA21'
 server instance located in Chicago, USA / Washington DC, USA per this
-Knowledge Article: \url{https://help.salesforce.com/articleView?id=000314281}.
+Knowledge Article: \url{https://help.salesforce.com/s/articleView?language=en_US&id=000314281}.
 }
 }
 }

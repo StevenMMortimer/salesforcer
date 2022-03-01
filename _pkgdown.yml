@@ -5,7 +5,8 @@ template:
     bootswatch: spacelab
     ganalytics: UA-98603021-2
     docsearch:
-      api_key: c7d5ea1103660127418415a82a24fc3d
+      app_id: BBX5BTLUTL
+      api_key: f3a7c81cd6794f9050f32bfee2620882
       index_name: salesforcer
 
 home:
@@ -95,6 +96,22 @@ reference:
       - '`sf_describe_report_type`'
       - '`sf_list_report_fields`'
       - '`sf_list_report_filter_operators`'
+  - title: Dashboard Functions
+    desc: Functions to create, retrieve, update, delete and query dashboards and their data.
+    contents:
+      - '`sf_list_dashboards`'
+      - '`sf_describe_dashboard`'
+      - '`sf_describe_dashboard_components`'
+      - '`sf_get_dashboard_status`'
+      - '`sf_get_dashboard_results`'
+      - '`sf_get_dashboard_data`'
+      - '`sf_filter_dashboard_operators_list`'
+      - '`sf_filter_dashboard_options_analysis`'
+      - '`sf_refresh_dashboard`'
+      - '`sf_copy_dashboard`'
+      - '`sf_update_dashboard`'
+      - '`sf_set_dashboard_sticky_filter`'
+      - '`sf_delete_dashboard`'
   - title: Metadata Functions
     desc: Functions to create, retrieve, update, and delete metadata.
     contents:
@@ -142,3 +159,48 @@ reference:
       - '`rforcecom.search`'
       - '`rforcecom.query`'
       - '`rforcecom.bulkQuery`'
+  - title: internal
+    desc: Functions included for internal use only.
+    contents:
+      - '`collapse_list_with_dupe_names`'
+      - '`metadata_type_validator`'
+      - '`parameterized_search_control`'
+      - '`rforcecom.bulkAction`'
+      - '`sf_abort_job_bulk`'
+      - '`sf_analytics_notification_create`'
+      - '`sf_analytics_notification_delete`'
+      - '`sf_analytics_notification_describe`'
+      - '`sf_analytics_notification_update`'
+      - '`sf_analytics_notifications_limits`'
+      - '`sf_analytics_notifications_list`'
+      - '`sf_batch_details_bulk`'
+      - '`sf_batch_status_bulk`'
+      - '`sf_close_job_bulk`'
+      - '`sf_create_batches_bulk`'
+      - '`sf_create_job_bulk`'
+      - '`sf_delete_job_bulk`'
+      - '`sf_get_job_bulk`'
+      - '`sf_get_job_records_bulk`'
+      - '`sf_job_batches_bulk`'
+      - '`sf_query_bulk_v1`'
+      - '`sf_query_bulk_v2`'
+      - '`sf_query_report`'
+      - '`sf_query_result_bulk`'
+      - '`sf_query_result_bulk_v1`'
+      - '`sf_query_result_bulk_v2`'
+      - '`sf_report_folder_children`'
+      - '`sf_report_folder_create`'
+      - '`sf_report_folder_delete`'
+      - '`sf_report_folder_describe`'
+      - '`sf_report_folder_share_delete`'
+      - '`sf_report_folder_share_describe`'
+      - '`sf_report_folder_share_recipients`'
+      - '`sf_report_folder_share_update`'
+      - '`sf_report_folder_shares_add`'
+      - '`sf_report_folder_shares_list`'
+      - '`sf_report_folder_shares_update`'
+      - '`sf_report_folder_update`'
+      - '`sf_report_folders_list`'
+      - '`sf_submit_query_bulk`'
+      - '`sf_upload_complete_bulk`'
+      - '`valid_metadata_list`'

@@ -47,5 +47,5 @@ metadata_info <- sf_delete_metadata(metadata_type = 'CustomObject',
 }
 }
 \seealso{
-\code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
+\code{\link{sf_list_metadata}}, \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}{Salesforce Documentation}
 }

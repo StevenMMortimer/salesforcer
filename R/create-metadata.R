@@ -19,7 +19,7 @@
 #' @template all_or_none
 #' @template verbose
 #' @return A \code{tbl_df} containing the creation result for each submitted metadata component
-#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}{Salesforce Documentation}
+#' @seealso \href{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}{Salesforce Documentation}
 #' @examples
 #' \dontrun{
 #' # read the metadata of the existing Account object

@@ -75,8 +75,14 @@ sf_retrieve_metadata <- function(retrieve_request,
   resultset <- response_parsed %>%
     xml_ns_strip() %>%
     xml_find_all('.//result') %>%
-    map_df(xml_nodeset_to_df) %>%
-    type_convert(col_types = cols())
+    map_df(xml_nodeset_to_df)
+
+  is_character <- vapply(resultset, is.character, logical(1))
+  if(any(is_character)){
+    # only proceed if the data.frame contains character columns; otherwise,
+    # readr will produce a warning since type_convert() only works on character cols
+    resultset <- resultset %>% type_convert(col_types = cols())
+  }
   
   # continually check status until complete
   counter <- 0
@@ -164,8 +170,14 @@ sf_retrieve_metadata_check_status <- function(id,
   file_properties <- response_parsed %>%
     xml_ns_strip() %>%
     xml_find_all('.//fileProperties') %>%
-    map_df(xml_nodeset_to_df) %>%
-    type_convert(col_types = cols())  
+    map_df(xml_nodeset_to_df)
+  
+  is_character <- vapply(file_properties, is.character, logical(1))
+  if(any(is_character)){
+    # only proceed if the data.frame contains character columns; otherwise,
+    # readr will produce a warning since type_convert() only works on character cols
+    file_properties <- file_properties %>% type_convert(col_types = cols())
+  }
     
   summary_elements <- response_parsed %>%
     xml_ns_strip() %>%

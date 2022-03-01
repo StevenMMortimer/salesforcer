@@ -11,7 +11,7 @@
 #' @importFrom httr content 
 #' @importFrom xml2 xml_ns_strip xml_find_all
 #' @importFrom purrr map_df
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta}
 #' @param queries a \code{list} of \code{list}s with each element consisting of 2 components: 1) 
 #' the metadata type being requested and 2) the folder associated with the type that required for types 
 #' that use folders, such as Dashboard, Document, EmailTemplate, or Report.

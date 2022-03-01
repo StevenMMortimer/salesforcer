@@ -36,5 +36,5 @@ upload_info <- sf_upload_complete_bulk(job_id=job_info$id)
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 }

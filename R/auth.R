@@ -82,7 +82,7 @@
 #'  is on and where subsequent API calls will be directed to. For example, 
 #'  \code{https://na21.salesforce.com} refers to an org located on the 'NA21' 
 #'  server instance located in Chicago, USA / Washington DC, USA per this 
-#'  Knowledge Article: \url{https://help.salesforce.com/articleView?id=000314281}.
+#'  Knowledge Article: \url{https://help.salesforce.com/s/articleView?language=en_US&id=000314281}.
 #' }
 #' }
 #' @examples
@@ -116,6 +116,18 @@ sf_auth <- function(username = NULL,
                     verbose = FALSE){
   
   if(!is.null(username) & !is.null(password) & !is.null(security_token)){
+    
+    deprecate_warn("1.0.1", 
+                   "salesforcer::sf_auth(security_token = )",
+                   "sf_auth(token = )",
+                   details = paste0("Beginning February 1st, 2022, Salesforce will be requiring customers ",
+                                    "to enable multi-factor authentication, which means ",
+                                    "that basic authentication using password and ",
+                                    "security token will no longer work. sf_auth() will return ",
+                                    "the error message: ",
+                                    "'INVALID_LOGIN: Invalid username, password, security token; or user locked out.'."
+                                    )
+                   )
     
     # basic authentication (username-password) ---------------------------------
     body <- xml_new_document()

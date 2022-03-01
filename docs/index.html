@@ -42,6 +42,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -54,7 +56,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -112,7 +114,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/StevenMMortimer/salesforcer">
+  <a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
     GitHub
@@ -170,9 +172,9 @@
 <li>Recover (<code><a href="reference/sf_undelete.html">sf_undelete()</a></code>) or delete from the Recycle Bin (<code><a href="reference/sf_empty_recycle_bin.html">sf_empty_recycle_bin()</a></code>) and list ids of records deleted (<code><a href="reference/sf_get_deleted.html">sf_get_deleted()</a></code>) or updated (<code><a href="reference/sf_get_updated.html">sf_get_updated()</a></code>) within a specific timeframe</li>
 <li>Passing API call control parameters such as, “All or None”, “Duplicate Rule”, “Assignment Rule” execution and many more!</li>
 </ul>
-<div id="table-of-contents" class="section level2">
-<h2 class="hasAnchor">
-<a href="#table-of-contents" class="anchor"></a>Table of Contents</h2>
+<div class="section level2">
+<h2 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
+</h2>
 <ul>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#vignettes">Vignettes</a></li>
@@ -192,21 +194,21 @@
 <li><a href="#more-information">More Information</a></li>
 </ul>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install the current CRAN version (1.0.0)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"salesforcer"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># install the current CRAN version (1.0.1)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"salesforcer"</span><span class="op">)</span>
 
 <span class="co"># or get the development version on GitHub</span>
 <span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"StevenMMortimer/salesforcer"</span><span class="op">)</span></code></pre></div>
-<p>If you encounter an issue while using this package, please file a minimal reproducible example on <a href="https://github.com/stevenmmortimer/salesforcer/issues">GitHub</a>.</p>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"StevenMMortimer/salesforcer"</span><span class="op">)</span></code></pre></div>
+<p>If you encounter an issue while using this package, please file a minimal reproducible example on <a href="https://github.com/stevenmmortimer/salesforcer/issues" class="external-link">GitHub</a>.</p>
 </div>
-<div id="vignettes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<div class="section level2">
+<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h2>
 <p>The README below outlines the basic package functionality for more detailed notes on how to utilize the features of this package consider reading the following vignettes:</p>
 <ul>
 <li><a href="https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a></li>
@@ -219,146 +221,143 @@
 <li><a href="https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html">Transitioning from RForcecom</a></li>
 </ul>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<div id="authenticate" class="section level3">
-<h3 class="hasAnchor">
-<a href="#authenticate" class="anchor"></a>Authenticate</h3>
-<p>First, load the {salesforcer} package and login. There are two ways to authenticate:</p>
-<ol>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<div class="section level3">
+<h3 id="authenticate">Authenticate<a class="anchor" aria-label="anchor" href="#authenticate"></a>
+</h3>
+<p>First, load the {salesforcer} package and log in. There are two ways to authenticate:</p>
+<ol style="list-style-type: decimal">
 <li>OAuth 2.0</li>
-<li>Basic Username-Password</li>
+<li><del>Basic Username-Password</del></li>
 </ol>
-<p>It is recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. User credentials will be stored in locally cached file entitled “.httr-oauth-salesforcer” in the current working directory. Also, note that if you use OAuth 2.0 authentication then the package will automatically refresh it so you will not have to call <code><a href="reference/sf_auth.html">sf_auth()</a></code> during each session if you have a cached “.httr-oauth-salesforcer” file in the working directory. The cache file is named that way to not conflict with the “.httr-oauth” files created by other packages.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer">salesforcer</a></span><span class="op">)</span>
+<p><strong>NOTE</strong>: Beginning February 1, 2022 authentication via a username and password will not work in most orgs. On that date Salesforce will begin requiring customers to enable multi-factor authentication (MFA). The function <code><a href="reference/sf_auth.html">sf_auth()</a></code> will return the error message:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">INVALID_LOGIN:</span> Invalid username, password, security token<span class="kw">;</span> <span class="ex">or</span> user locked out.</span></code></pre></div>
+<p>It has always been recommended to use OAuth 2.0 so that passwords do not have to be shared or embedded within scripts. For more information on how OAuth 2.0 works within the {salesforcer} package, please read the <a href="https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html">Getting Started</a> vignette.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span>
 
 <span class="co"># Using OAuth 2.0 authentication</span>
-<span class="fu"><a href="reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Using Basic Username-Password authentication</span>
-<span class="fu"><a href="reference/sf_auth.html">sf_auth</a></span><span class="op">(</span>username <span class="op">=</span> <span class="st">"test@gmail.com"</span>, 
-        password <span class="op">=</span> <span class="st">"{PASSWORD_HERE}"</span>,
-        security_token <span class="op">=</span> <span class="st">"{SECURITY_TOKEN_HERE}"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>After logging in with <code><a href="reference/sf_auth.html">sf_auth()</a></code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># pull down information of person logged in</span>
 <span class="co"># it's a simple easy call to get started </span>
 <span class="co"># and confirm a connection to the APIs</span>
 <span class="va">user_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_user_info.html">sf_user_info</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"Organization Id: %s"</span>, <span class="va">user_info</span><span class="op">$</span><span class="va">organizationId</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Organization Id: %s"</span>, <span class="va">user_info</span><span class="op">$</span><span class="va">organizationId</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Organization Id: 00D6A0000003dN3UAI"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"User Id: %s"</span>, <span class="va">user_info</span><span class="op">$</span><span class="va">userId</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"User Id: %s"</span>, <span class="va">user_info</span><span class="op">$</span><span class="va">userId</span><span class="op">)</span>
 <span class="co">#&gt; [1] "User Id: 0056A000000MPRjQAO"</span></code></pre></div>
 </div>
-<div id="create" class="section level3">
-<h3 class="hasAnchor">
-<a href="#create" class="anchor"></a>Create</h3>
+<div class="section level3">
+<h3 id="create">Create<a class="anchor" aria-label="anchor" href="#create"></a>
+</h3>
 <p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
-<span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,
-                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
+<span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,
+                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
 <span class="va">created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span>, object_name <span class="op">=</span> <span class="st">"Contact"</span><span class="op">)</span>
 <span class="va">created_records</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000014AgfSAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000014AgfTAAS TRUE</span></code></pre></div>
+<span class="co">#&gt; 1 0033s00001BXHr4AAH TRUE   </span>
+<span class="co">#&gt; 2 0033s00001BXHr5AAH TRUE</span></code></pre></div>
 </div>
-<div id="query" class="section level3">
-<h3 class="hasAnchor">
-<a href="#query" class="anchor"></a>Query</h3>
+<div class="section level3">
+<h3 id="query">Query<a class="anchor" aria-label="anchor" href="#query"></a>
+</h3>
 <p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the attributes of records on almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id, 
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id, 
                            Account.Name, 
                            FirstName, 
                            LastName 
                     FROM Contact 
                     WHERE Id in ('%s')"</span>, 
-                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">created_records</span><span class="op">$</span><span class="va">id</span> , collapse <span class="op">=</span> <span class="st">"','"</span><span class="op">)</span><span class="op">)</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">created_records</span><span class="op">$</span><span class="va">id</span> , collapse <span class="op">=</span> <span class="st">"','"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">my_soql</span><span class="op">)</span>
 <span class="va">queried_records</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000014AgfSAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000014AgfTAAS Test      Contact-Create-2</span></code></pre></div>
-<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account (see <a rel="noopener noreferrer" target="_blank" href="https://github.com/stevenmmortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
+<span class="co">#&gt; 1 0033s00001BXHr4AAH Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s00001BXHr5AAH Test      Contact-Create-2</span></code></pre></div>
+<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account (see <a rel="noopener noreferrer" target="_blank" href="https://github.com/stevenmmortimer/salesforcer/issues/78" class="external-link">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
-<div id="update" class="section level3">
-<h3 class="hasAnchor">
-<a href="#update" class="anchor"></a>Update</h3>
+<div class="section level3">
+<h3 id="update">Update<a class="anchor" aria-label="anchor" href="#update"></a>
+</h3>
 <p>After creating records you can update them using <code><a href="reference/sf_update.html">sf_update()</a></code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Update some of those records</span>
-<span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="va">queried_records</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="st">"TestTest"</span><span class="op">)</span>
+<span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="va">queried_records</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="st">"TestTest"</span><span class="op">)</span>
   
 <span class="va">updated_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_update.html">sf_update</a></span><span class="op">(</span><span class="va">queried_records</span>, object_name <span class="op">=</span> <span class="st">"Contact"</span><span class="op">)</span>
 <span class="va">updated_records</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span>
-<span class="co">#&gt; 1 0033s000014AgfSAAS TRUE   </span>
-<span class="co">#&gt; 2 0033s000014AgfTAAS TRUE</span></code></pre></div>
+<span class="co">#&gt; 1 0033s00001BXHr4AAH TRUE   </span>
+<span class="co">#&gt; 2 0033s00001BXHr5AAH TRUE</span></code></pre></div>
 </div>
-<div id="bulk-operations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bulk-operations" class="anchor"></a>Bulk Operations</h3>
-<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/introduction_bulk_api_2.htm">Bulk 2.0</a> APIs. In order to use the Bulk APIs in {salesforcer} you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
+<div class="section level3">
+<h3 id="bulk-operations">Bulk Operations<a class="anchor" aria-label="anchor" href="#bulk-operations"></a>
+</h3>
+<p>For really large operations (inserts, updates, upserts, deletes, and queries) Salesforce provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm" class="external-link">Bulk 1.0</a> and <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/introduction_bulk_api_2.htm" class="external-link">Bulk 2.0</a> APIs. In order to use the Bulk APIs in {salesforcer} you can just add <code>api_type = "Bulk 1.0"</code> or <code>api_type = "Bulk 2.0"</code> to your functions and the operation will be executed using the Bulk APIs. It’s that simple.</p>
 <p>The benefits of using the Bulk API for larger datasets is that the operation will reduce the number of individual API calls (organization usually have a limit on total calls) and batching the requests in bulk is usually quicker than running thousands of individuals calls when your data is large. <strong>Note:</strong> the Bulk 2.0 API does <strong>NOT</strong> guarantee the order of the data submitted is preserved in the output. This means that you must join on other data columns to match up the Ids that are returned in the output with the data you submitted. For this reason, Bulk 2.0 may not be a good solution for creating, updating, or upserting records where you need to keep track of the created Ids. The Bulk 2.0 API would be fine for deleting records where you only need to know which Ids were successfully deleted.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create contacts using the Bulk API</span>
 <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
-<span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,
-                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
+<span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,
+                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
 <span class="va">created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span>, <span class="st">"Contact"</span>, api_type <span class="op">=</span> <span class="st">"Bulk 1.0"</span><span class="op">)</span>
 <span class="va">created_records</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt; # A tibble: 2 × 4</span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 0033s000014AgfXAAS TRUE    TRUE    NA   </span>
-<span class="co">#&gt; 2 0033s000014AgfYAAS TRUE    TRUE    NA</span>
+<span class="co">#&gt; 1 0033s00001BXHr9AAH TRUE    TRUE    NA   </span>
+<span class="co">#&gt; 2 0033s00001BXHrAAAX TRUE    TRUE    NA</span>
 
 <span class="co"># query large recordsets using the Bulk API</span>
-<span class="va">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id,
+<span class="va">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id,
                            FirstName, 
                            LastName
                     FROM Contact 
                     WHERE Id in ('%s')"</span>, 
-                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">created_records</span><span class="op">$</span><span class="va">Id</span> , collapse <span class="op">=</span> <span class="st">"','"</span><span class="op">)</span><span class="op">)</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">created_records</span><span class="op">$</span><span class="va">Id</span> , collapse <span class="op">=</span> <span class="st">"','"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">queried_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">my_soql</span>, <span class="st">"Contact"</span>, api_type <span class="op">=</span> <span class="st">"Bulk 1.0"</span><span class="op">)</span>
 <span class="va">queried_records</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span>
-<span class="co">#&gt; 1 0033s000014AgfXAAS Test      Contact-Create-1</span>
-<span class="co">#&gt; 2 0033s000014AgfYAAS Test      Contact-Create-2</span>
+<span class="co">#&gt; 1 0033s00001BXHr9AAH Test      Contact-Create-1</span>
+<span class="co">#&gt; 2 0033s00001BXHrAAAX Test      Contact-Create-2</span>
 
 <span class="co"># delete these records using the Bulk 2.0 API</span>
 <span class="va">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_delete.html">sf_delete</a></span><span class="op">(</span><span class="va">queried_records</span><span class="op">$</span><span class="va">Id</span>, <span class="st">"Contact"</span>, api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span>
 <span class="va">deleted_records</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt; # A tibble: 2 × 4</span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;lgl&gt;       &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1 0033s000014AgfXAAS 0033s000014AgfXAAS FALSE       NA       </span>
-<span class="co">#&gt; 2 0033s000014AgfYAAS 0033s000014AgfYAAS FALSE       NA</span></code></pre></div>
+<span class="co">#&gt; 1 0033s00001BXHr9AAH 0033s00001BXHr9AAH FALSE       NA       </span>
+<span class="co">#&gt; 2 0033s00001BXHrAAAX 0033s00001BXHrAAAX FALSE       NA</span></code></pre></div>
 </div>
-<div id="using-the-metadata-api" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-the-metadata-api" class="anchor"></a>Using the Metadata API</h3>
-<p>Salesforce is a very flexible platform in that it provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm">Metadata API</a> for users to create, read, update and delete their entire Salesforce environment from objects to page layouts and more. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="section level3">
+<h3 id="using-the-metadata-api">Using the Metadata API<a class="anchor" aria-label="anchor" href="#using-the-metadata-api"></a>
+</h3>
+<p>Salesforce is a very flexible platform in that it provides the <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm" class="external-link">Metadata API</a> for users to create, read, update and delete their entire Salesforce environment from objects to page layouts and more. This makes it very easy to programmatically setup and teardown the Salesforce environment. One common use case for the Metadata API is retrieving information about an object (fields, permissions, etc.). You can use the <code><a href="reference/sf_read_metadata.html">sf_read_metadata()</a></code> function to return a list of objects and their metadata. In the example below we retrieve the metadata for the Account and Contact objects. Note that the <code>metadata_type</code> argument is “CustomObject”. Standard Objects are an implementation of CustomObjects, so they are returned using that metadata type.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">read_obj_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_read_metadata.html">sf_read_metadata</a></span><span class="op">(</span>metadata_type <span class="op">=</span> <span class="st">'CustomObject'</span>,
-                                    object_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Account'</span>, <span class="st">'Contact'</span><span class="op">)</span><span class="op">)</span>
+                                    object_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Account'</span>, <span class="st">'Contact'</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'fullName'</span>, <span class="st">'label'</span>, <span class="st">'sharingModel'</span>, <span class="st">'enableHistory'</span><span class="op">)</span><span class="op">]</span>
+<span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'fullName'</span>, <span class="st">'label'</span>, <span class="st">'sharingModel'</span>, <span class="st">'enableHistory'</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $fullName</span>
 <span class="co">#&gt; [1] "Account"</span>
 <span class="co">#&gt; </span>
@@ -371,7 +370,7 @@
 <span class="co">#&gt; $enableHistory</span>
 <span class="co">#&gt; [1] "false"</span>
 
-<span class="va">first_two_fields_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="st">"fields"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">first_two_fields_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="st">"fields"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
 
 <span class="co"># show the first two returned fields of the Account object</span>
 <span class="va">read_obj_result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">first_two_fields_idx</span><span class="op">]</span>
@@ -393,25 +392,25 @@
 <span class="co">#&gt; $fields$type</span>
 <span class="co">#&gt; [1] "Picklist"</span></code></pre></div>
 <p>The data is returned as a list because object definitions are highly nested representations. You may notice that we are missing some really specific details, such as, the picklist values of a field with type “Picklist”. You can get that information using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code>. Here is an example using <code><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> where we get a <code>tbl_df</code> with one row for each field on the Account object:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">acct_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span><span class="op">(</span><span class="st">'Account'</span><span class="op">)</span>
-<span class="va">acct_fields</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">label</span>, <span class="va">length</span>, <span class="va">soapType</span>, <span class="va">type</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 68 x 5</span>
+<span class="va">acct_fields</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">label</span>, <span class="va">length</span>, <span class="va">soapType</span>, <span class="va">type</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 68 × 5</span>
 <span class="co">#&gt;   name           label            length soapType    type     </span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;    </span>
 <span class="co">#&gt; 1 Id             Account ID       18     tns:ID      id       </span>
 <span class="co">#&gt; 2 IsDeleted      Deleted          0      xsd:boolean boolean  </span>
 <span class="co">#&gt; 3 MasterRecordId Master Record ID 18     tns:ID      reference</span>
 <span class="co">#&gt; 4 Name           Account Name     255    xsd:string  string   </span>
-<span class="co">#&gt; 5 Type           Account Type     40     xsd:string  picklist </span>
+<span class="co">#&gt; 5 Type           Account Type     255    xsd:string  picklist </span>
 <span class="co">#&gt; # … with 63 more rows</span>
 
 <span class="co"># show the picklist selection options for the Account Type field</span>
-<span class="va">acct_fields</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">label</span> <span class="op">==</span> <span class="st">"Account Type"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">acct_fields</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">label</span> <span class="op">==</span> <span class="st">"Account Type"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="va">.</span><span class="op">$</span><span class="va">picklistValues</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; # A tibble: 7 x 4</span>
+<span class="co">#&gt; # A tibble: 7 × 4</span>
 <span class="co">#&gt;   active defaultValue label                      value                     </span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                      &lt;chr&gt;                     </span>
 <span class="co">#&gt; 1 true   false        Prospect                   Prospect                  </span>
@@ -422,32 +421,32 @@
 <span class="co">#&gt; # … with 2 more rows</span></code></pre></div>
 </div>
 </div>
-<div id="future" class="section level2">
-<h2 class="hasAnchor">
-<a href="#future" class="anchor"></a>Future</h2>
+<div class="section level2">
+<h2 id="future">Future<a class="anchor" aria-label="anchor" href="#future"></a>
+</h2>
 <p>Future APIs to support (roughly in priority order):</p>
 <ul>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm">Connect (Chatter) REST API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm">Analytics External Data API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm">Analytics REST API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm">Tooling API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm">Actions API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm">Streaming API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_placeorder.meta/api_placeorder/sforce_placeorder_rest_api_intro.htm">Place Order API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm">Industries API</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm">Data.com API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_what_is_chatter_connect.htm" class="external-link">Connect (Chatter) REST API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_ext_data.meta/bi_dev_guide_ext_data/bi_ext_data_overview.htm" class="external-link">Analytics External Data API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_rest.meta/bi_dev_guide_rest/bi_rest_overview.htm" class="external-link">Analytics REST API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/intro_api_tooling.htm" class="external-link">Tooling API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_action.meta/api_action/actions_intro.htm" class="external-link">Actions API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm" class="external-link">Streaming API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_placeorder.meta/api_placeorder/sforce_placeorder_rest_api_intro.htm" class="external-link">Place Order API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm" class="external-link">Industries API</a></li>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm" class="external-link">Data.com API</a></li>
 </ul>
 </div>
-<div id="credits" class="section level2">
-<h2 class="hasAnchor">
-<a href="#credits" class="anchor"></a>Credits</h2>
-<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the {googlesheets} package (<a href="https://github.com/jennybc/googlesheets" class="uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the {RForcecom} package (<a href="https://github.com/hiratake55/RForcecom" class="uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
+<div class="section level2">
+<h2 id="credits">Credits<a class="anchor" aria-label="anchor" href="#credits"></a>
+</h2>
+<p>This application uses other open source software components. The authentication components are mostly verbatim copies of the routines established in the {googlesheets} package (<a href="https://github.com/jennybc/googlesheets" class="external-link uri">https://github.com/jennybc/googlesheets</a>). Methods are inspired by the {RForcecom} package (<a href="https://github.com/hiratake55/RForcecom" class="external-link uri">https://github.com/hiratake55/RForcecom</a>). We acknowledge and are grateful to these developers for their contributions to open source.</p>
 </div>
-<div id="more-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#more-information" class="anchor"></a>More Information</h2>
-<p>Salesforce provides client libraries and examples in many programming languages (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs">Salesforce’s documentation</a> as they are explained better there.</p>
-<p><a href="https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&amp;utm_medium=referral&amp;utm_campaign=readme">Get supported salesforcer with the Tidelift Subscription</a></p>
+<div class="section level2">
+<h2 id="more-information">More Information<a class="anchor" aria-label="anchor" href="#more-information"></a>
+</h2>
+<p>Salesforce provides client libraries and examples in many programming languages (Java, Python, Ruby, and PhP) but unfortunately R is not a supported language. However, most all operations supported by the Salesforce APIs are available via this package. This package makes requests best formatted to match what the APIs require as input. This articulation is not perfect and continued progress will be made to add and improve functionality. For details on formatting, attributes, and methods please refer to <a href="https://developer.salesforce.com/page/Salesforce_APIs" class="external-link">Salesforce’s documentation</a> as they are explained better there.</p>
+<p><a href="https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&amp;utm_medium=referral&amp;utm_campaign=readme" class="external-link">Get supported salesforcer with the Tidelift Subscription</a></p>
 <p><a href="#">Top</a></p>
 </div>
 
@@ -455,58 +454,68 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=salesforcer">https://​cloud.r-project.org/​package=salesforcer</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/StevenMMortimer/salesforcer/">https://​github.com/​StevenMMortimer/​salesforcer/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/StevenMMortimer/salesforcer/issues">https://​github.com/​StevenMMortimer/​salesforcer/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=salesforcer" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/StevenMMortimer/salesforcer/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/StevenMMortimer/salesforcer/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Steven M. Mortimer <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing salesforcer</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/stevenmmortimer/salesforcer/actions?workflow=R-CMD-check"><img src="https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: Stable"></a></li>
-<li><a href="https://cran.r-project.org/package=salesforcer"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
-<li><a href="https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main"><img src="https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
+<li>Steven M. Mortimer <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/stevenmmortimer/salesforcer/actions?workflow=R-CMD-check" class="external-link"><img src="https://github.com/stevenmmortimer/salesforcer/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer" class="external-link"><img src="https://www.r-pkg.org/badges/version/salesforcer" alt="CRAN Status"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: Stable"></a></li>
+<li><a href="https://cran.r-project.org/package=salesforcer" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/salesforcer" alt="Monthly Downloads"></a></li>
+<li><a href="https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main" class="external-link"><img src="https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Steven M. Mortimer.</p>
+  <p></p>
+<p>Developed by Steven M. Mortimer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -515,9 +524,9 @@
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'BBX5BTLUTL',
     
-    
-    apiKey: 'c7d5ea1103660127418415a82a24fc3d',
+    apiKey: 'f3a7c81cd6794f9050f32bfee2620882',
     indexName: 'salesforcer',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {

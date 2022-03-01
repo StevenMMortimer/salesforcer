@@ -102,7 +102,7 @@ xml_nodeset_to_df <- function(this_node){
 #'    \item UserTerritoryDeleteHeader
 #'    }
 #' Additionally, Bulk API can't access or query compound address or compound geolocation fields.
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @keywords internal
 #' @export
 make_soap_xml_skeleton <- function(soap_headers=list(), metadata_ns=FALSE){

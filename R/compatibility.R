@@ -37,7 +37,7 @@
 #' @export
 rforcecom.login <- function(username, password, loginURL="https://login.salesforce.com/", apiVersion="35.0"){
   
-  deprecate_soft("0.1.0", "salesforcer::rforcecom.login()", "sf_auth()")  
+  deprecate_soft("0.1.0", "salesforcer::rforcecom.login()", "sf_auth()")
   
   if(!is.null(loginURL)){
     options(salesforcer.login_url = loginURL)
@@ -341,7 +341,7 @@ rforcecom.bulkQuery <- function(session,
 #' 
 #' This function is a convenience wrapper for submitting bulk API jobs
 #'
-#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+#' @references \url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 #' @template session
 #' @param operation a character string defining the type of operation being performed
 #' @param data a matrix or data.frame that can be coerced into a CSV file for submitting as batch request

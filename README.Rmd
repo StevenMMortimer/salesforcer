@@ -20,7 +20,7 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 [![CRAN Status](https://www.r-pkg.org/badges/version/salesforcer)](https://cran.r-project.org/package=salesforcer)
 [![Lifecycle: Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Monthly Downloads](https://cranlogs.r-pkg.org/badges/last-month/salesforcer)](https://cran.r-project.org/package=salesforcer)
-[![Coverage Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg)](https://codecov.io/gh/stevenmmortimer/salesforcer?branch=main)
+[![Coverage Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stevenmmortimer/salesforcer?branch=main)
 <!-- badges: end -->
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs using 
@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (1.0.0)
+# install the current CRAN version (1.0.1)
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -98,29 +98,32 @@ please feel free to browse the {salesforcer} website at https://stevenmmortimer.
 
 ### Authenticate
 
-First, load the {salesforcer} package and login. There are two ways to authenticate:  
+First, load the {salesforcer} package and log in. There are two ways to 
+authenticate:  
 
   1. OAuth 2.0
-  2. Basic Username-Password
+  2. ~~Basic Username-Password~~
+  
+**NOTE**: Beginning February 1, 2022 authentication via a username and
+password will not work in most Salesforce organizations. On that date Salesforce
+will begin requiring customers to enable multi-factor authentication (MFA). The
+function `sf_auth()` will return the error message:
 
-It is recommended to use OAuth 2.0 so that passwords do not have to be shared or
-embedded within scripts. User credentials will be stored in locally cached file
-entitled ".httr-oauth-salesforcer" in the current working directory. Also, note
-that if you use OAuth 2.0 authentication then the package will automatically
-refresh it so you will not have to call `sf_auth()` during each session if you
-have a cached ".httr-oauth-salesforcer" file in the working directory. The cache
-file is named that way to not conflict with the ".httr-oauth" files created by
-other packages.
+```sh
+INVALID_LOGIN: Invalid username, password, security token; or user locked out.
+```
+
+It has always been recommended to use OAuth 2.0 so that passwords do not have to
+be shared or embedded within scripts. For more information on how OAuth 2.0 works
+within the {salesforcer} package, please read the 
+[Getting Started](https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html) 
+vignette.
 
 ```{r auth, include = FALSE}
 suppressWarnings(suppressMessages(library(dplyr)))
 library(salesforcer)
-username <- Sys.getenv("SALESFORCER_USERNAME")
-password <- Sys.getenv("SALESFORCER_PASSWORD")
-security_token <- Sys.getenv("SALESFORCER_SECURITY_TOKEN")
-sf_auth(username = username,
-        password = password,
-        security_token = security_token)
+token_path <- Sys.getenv("SALESFORCER_TOKEN_PATH")
+sf_auth(token = paste0(token_path, "salesforcer_token.rds"))
 ```
 
 ```{r, eval=FALSE}
@@ -129,11 +132,6 @@ library(salesforcer)
 
 # Using OAuth 2.0 authentication
 sf_auth()
-
-# Using Basic Username-Password authentication
-sf_auth(username = "test@gmail.com", 
-        password = "{PASSWORD_HERE}",
-        security_token = "{SECURITY_TOKEN_HERE}")
 ```
 
 After logging in with `sf_auth()`, you can check your connectivity by looking at 

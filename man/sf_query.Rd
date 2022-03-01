@@ -103,5 +103,5 @@ sf_query("SELECT Id, Account.Name, Email FROM Contact LIMIT 10")
 }
 }
 \references{
-\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/}
+\url{https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch}
 }
