@@ -168,8 +168,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU6jAAH TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU6kAAH TRUE</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUSrAAP TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUSsAAP TRUE</span>
 
 <span class="co"># Bulk</span>
 <span class="va">bulk_created_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>,<span class="op">]</span>, 
@@ -179,8 +179,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU6oAAH TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU6pAAH TRUE    TRUE    <span style="color: #BB0000;">NA</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUSwAAP TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUSxAAP TRUE    TRUE    <span style="color: #BB0000;">NA</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="a-complete-bulk-api-workflow">A Complete Bulk API Workflow<a class="anchor" aria-label="anchor" href="#a-complete-bulk-api-workflow"></a>
@@ -193,8 +193,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU6tAAH TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU6uAAH TRUE    TRUE    <span style="color: #BB0000;">NA</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUT6AAP TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUT7AAP TRUE    TRUE    <span style="color: #BB0000;">NA</span></span>
 
 <span class="co"># query bulk</span>
 <span class="va">my_soql</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"SELECT Id,
@@ -209,8 +209,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU6tAAH Test      Contact-Create-1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU6uAAH Test      Contact-Create-2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUT6AAP Test      Contact-Create-1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUT7AAP Test      Contact-Create-2</span>
 
 <span class="co"># delete bulk</span>
 <span class="va">deleted_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_delete.html">sf_delete</a></span><span class="op">(</span><span class="va">queried_records</span><span class="op">$</span><span class="va">Id</span>, object_name<span class="op">=</span><span class="va">object</span>, api_type<span class="op">=</span><span class="st">"Bulk 1.0"</span><span class="op">)</span>
@@ -218,8 +218,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU6tAAH TRUE    FALSE   <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU6uAAH TRUE    FALSE   <span style="color: #BB0000;">NA</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUT6AAP TRUE    FALSE   <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUT7AAP TRUE    FALSE   <span style="color: #BB0000;">NA</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="query-limitations">Query Limitations<a class="anchor" aria-label="anchor" href="#query-limitations"></a>
@@ -256,11 +256,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 4</span></span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU7DAAX TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU7EAAX TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXU7FAAX TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXU7GAAX TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXU7HAAX TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUTGAA5 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUTHAA5 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXUTIAA5 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXUTJAA5 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXUTKAA5 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span>
 
 <span class="va">created_records_v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span>,
@@ -270,11 +270,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="co">#&gt;   sf__Id             sf__Created sf__Error FirstName LastName   My_External_Id_…</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXU7NAAX TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-23083-k    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXU7OAAX TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-23083-l    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXU7PAAX TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-23083-m    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXU7QAAX TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-23083-n    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXU7RAAX TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-23083-o    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXUTaAAP TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-35799-k    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXUTbAAP TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-35799-l    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXUTcAAP TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-35799-m    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXUTdAAP TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-35799-n    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXUTeAAP TRUE        <span style="color: #BB0000;">NA</span>        Test      Contact-C… Bulk-35799-o    </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows, and 1 more variable: test_number__c &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -295,8 +295,8 @@
 <span class="va">res</span>
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
-<span class="co">#&gt;  bulk1_query() 7.826918 7.992798 8.133283 8.127013 8.271128 8.457469     8</span>
-<span class="co">#&gt;  bulk2_query() 6.839337 6.928869 6.968613 6.948773 7.007213 7.139855     8</span>
+<span class="co">#&gt;  bulk1_query() 8.012925 8.057181 8.772236 8.229629 9.113014 11.36532     8</span>
+<span class="co">#&gt;  bulk2_query() 6.845084 6.885607 7.896913 7.021945 7.328404 13.85831     8</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">+</span> 
