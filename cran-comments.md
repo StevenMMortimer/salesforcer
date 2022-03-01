@@ -1,22 +1,5 @@
 # Release summary
 
-## Note for CRAN Maintainers upon Submission of salesforcer 1.0.0
-
-Per the request of Julia Haider, I have added \value{} specs to the .Rd files 
-for all exported methods and explained those values in detail.
-
-In addition, she requested that I explain how the issues which caused this 
-package to be archived have now been resolved. On June 8, 2021, CRAN archived the 
-{RForcecom} package. Tests and vignettes in this package referenced {RForcecom} 
-and it was listed in this package's DESCRIPTION file under 'Suggests'. On June 9, 
-2021, CRAN sent an email that this package had failing check results. The 
-failures were due to RForcecom having been archived on CRAN. To resolve, I 
-removed all executing references to the RForcecom library in the code, because 
-I cannot anticipate whether the author of the package will restore it to CRAN. I 
-was not able to complete this work by the stated deadline (June 23) because I was 
-traveling without connection to the tools required to make the necessary changes. 
-As such, CRAN archived this package.
-
 ## Test environments
 
 * Local Mac OS install, R-release 4.0.2
@@ -27,23 +10,37 @@ As such, CRAN archived this package.
 
 ## R CMD check results
 
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: 'Steven M. Mortimer <mortimer.steven.m@gmail.com>'
-
-New submission
-
-Package was archived on CRAN
 
 Possibly mis-spelled words in DESCRIPTION:
   APIs (2:42, 5:64, 9:16)
   JSON (9:59)
 
-CRAN repository db overrides:
-  X-CRAN-Comment: Archived on 2021-06-23 as check problems were not
-    corrected in time.
-
-0 errors v | 0 warnings v | 1 note x
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
 ## revdepcheck results
 
-Not done for this version because the prior version was removed from CRAN.
+### Platform
+
+|field    |value                                    |
+|:--------|:----------------------------------------|
+|version  |R version 4.0.2 (2020-06-22)             |
+|os       |OS X  12.2.1                             |
+|system   |x86_64, darwin17.0                       |
+|ui       |RStudio                                  |
+|language |(EN)                                     |
+|collate  |en_US.UTF-8                              |
+|ctype    |en_US.UTF-8                              |
+|tz       |America/Chicago                          |
+|date     |2022-02-27                               |
+|rstudio  |2021.09.1+372 Ghost Orchid (desktop)     |
+|pandoc   |2.16.2 @ /usr/local/bin/ (via rmarkdown) |
+
+### Dependencies
+
+|package     |old   |new   |Δ  |
+|:-----------|:-----|:-----|:--|
+|salesforcer |1.0.0 |1.0.1 |*  |
+
+### Revdeps

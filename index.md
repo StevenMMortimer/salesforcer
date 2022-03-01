@@ -116,9 +116,9 @@ authenticate:
 2.  ~~Basic Username-Password~~
 
 **NOTE**: Beginning February 1, 2022 authentication via a username and
-password will not work in most orgs. On that date Salesforce will begin
-requiring customers to enable multi-factor authentication (MFA). The function
-`sf_auth()` will return the error message:
+password will not work in most Salesforce organizations. On that date Salesforce
+will begin requiring customers to enable multi-factor authentication (MFA). The
+function `sf_auth()` will return the error message:
 
 ``` sh
 INVALID_LOGIN: Invalid username, password, security token; or user locked out.
