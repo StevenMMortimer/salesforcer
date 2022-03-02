@@ -1,4 +1,4 @@
-# salesforcer 1.0.1
+# salesforcer 1.0.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.1)
 
 ## Dependencies
 
