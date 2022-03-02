@@ -265,8 +265,8 @@
 <span class="va">res</span>
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  qry("REST") 0.4874077 0.4915966 0.5337155 0.5312294 0.5463926 0.6119513     5</span>
-<span class="co">#&gt;  qry("SOAP") 1.9030113 2.0033086 2.2871877 2.0354180 2.6669384 2.8272624     5</span>
+<span class="co">#&gt;  qry("REST") 0.4705388 0.4749092 0.5165192 0.4779399 0.5773103 0.5818977     5</span>
+<span class="co">#&gt;  qry("SOAP") 1.8766842 1.8784623 1.8953853 1.8787810 1.9119527 1.9310461     5</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">+</span> 
@@ -291,7 +291,7 @@
   <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.4 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 2.9 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk V2 Query with CSV content type</span>
 
 <span class="co"># aggregate query</span>
@@ -305,7 +305,7 @@
   <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; Request failed [400]. Retrying in 1 seconds...</span>
-<span class="co">#&gt; Request failed [400]. Retrying in 1.5 seconds...</span>
+<span class="co">#&gt; Request failed [400]. Retrying in 3.9 seconds...</span>
 <span class="co">#&gt; Error : API_ERROR: Aggregate Relationships not supported in Bulk Query</span></code></pre></div>
 <p>The two queries above were trying to pull all the contacts for each account and then get a count of how many contacts there are per account. If you have a lot of records, using the REST API to return these results may not be feasible. Even though the Bulk APIs cannot handle the same query, they can pull down massive amounts of data quickly. In this case you can pull down all of the Contact records and all of the Account records and then perform the calculation using <strong>dplyr</strong>, like so:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -385,11 +385,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 99 × 4</span></span>
 <span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXXOWAA5 0033s00001BXXOWAA5 FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXXOXAA5 0033s00001BXXOXAA5 FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXXOYAA5 0033s00001BXXOYAA5 FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXXOZAA5 0033s00001BXXOZAA5 FALSE       <span style="color: #BB0000;">NA</span>       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXXOaAAP 0033s00001BXXOaAAP FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXkbWAAT 0033s00001BXkbWAAT FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXkbXAAT 0033s00001BXkbXAAT FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXkbYAAT 0033s00001BXkbYAAT FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s00001BXkbZAAT 0033s00001BXkbZAAT FALSE       <span style="color: #BB0000;">NA</span>       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s00001BXkbaAAD 0033s00001BXkbaAAD FALSE       <span style="color: #BB0000;">NA</span>       </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 94 more rows</span></span>
 
 <span class="co"># ... and finally delete the account</span>
@@ -397,7 +397,7 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s000019JKdrAAG TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s000019JaB2AAK TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="relationship-queries">Relationship queries<a class="anchor" aria-label="anchor" href="#relationship-queries"></a>
@@ -431,7 +431,7 @@
   FROM Contact
   WHERE Account.Id = null"</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 234 × 2</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 278 × 2</span></span>
 <span class="co">#&gt;   Id                 FirstName</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000014B3IZAA0 Rick     </span>
@@ -439,7 +439,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000014B3IbAAK Rick     </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6FAAS Jenny    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny    </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 229 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># … with 273 more rows</span></span></code></pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 <p>Finally, one aspect to note is that the Bulk 2.0 API does not support child-to-parent-grandparent relationships as seen in the example below:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -448,7 +448,7 @@
             FROM Contact"</span>, 
            api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 549 × 3</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 593 × 3</span></span>
 <span class="co">#&gt;   Id                 FirstName Account.Owner.Id</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000012Nd60AAC Jenny     <span style="color: #BB0000;">NA</span>              </span>
@@ -456,7 +456,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000012Nd6FAAS Jenny     <span style="color: #BB0000;">NA</span>              </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6UAAS Jenny     <span style="color: #BB0000;">NA</span>              </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny     <span style="color: #BB0000;">NA</span>              </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 544 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># … with 588 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="parent-to-child-nested-queries">parent-to-child “nested” queries<a class="anchor" aria-label="anchor" href="#parent-to-child-nested-queries"></a>

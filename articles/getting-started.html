@@ -199,8 +199,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXXO2AAP TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXXO3AAP TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXkbCAAT TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXkbDAAT TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="retrieving-records">Retrieving records<a class="anchor" aria-label="anchor" href="#retrieving-records"></a>
@@ -214,8 +214,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span>
 <span class="co">#&gt;   sObject Id                 FirstName LastName        </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contact 0033s00001BXXO2AAP Test      Contact-Create-1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Contact 0033s00001BXXO3AAP Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contact 0033s00001BXkbCAAT Test      Contact-Create-1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Contact 0033s00001BXkbDAAT Test      Contact-Create-2</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="querying-records">Querying records<a class="anchor" aria-label="anchor" href="#querying-records"></a>
@@ -235,8 +235,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="co">#&gt;   Id                 FirstName LastName        </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXXO2AAP Test      Contact-Create-1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXXO3AAP Test      Contact-Create-2</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXkbCAAT Test      Contact-Create-1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXkbDAAT Test      Contact-Create-2</span></code></pre></div>
 <p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>"Account.Name"</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78" class="external-link">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>"Account.Name"</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>"Account.Name"</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
 </div>
 <div class="section level2">
@@ -253,8 +253,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXXO2AAP TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXXO3AAP TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXkbCAAT TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXkbDAAT TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="deleting-records">Deleting records<a class="anchor" aria-label="anchor" href="#deleting-records"></a>
@@ -266,8 +266,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXXO2AAP TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXXO3AAP TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXkbCAAT TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXkbDAAT TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="upserting-records">Upserting records<a class="anchor" aria-label="anchor" href="#upserting-records"></a>
@@ -295,9 +295,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="co">#&gt;   id                 success created</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXXO7AAP TRUE    FALSE  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXXO8AAP TRUE    FALSE  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXXOCAA5 TRUE    TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXkbHAAT TRUE    FALSE  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXkbIAAT TRUE    FALSE  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s00001BXkbMAAT TRUE    TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="check-out-the-tests">Check out the Tests<a class="anchor" aria-label="anchor" href="#check-out-the-tests"></a>

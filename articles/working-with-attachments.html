@@ -191,11 +191,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWrcdEAC TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWrciEAC TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWraYEAS TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWrcsEAC TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWrcxEAC TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWwAlEAK TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWwAqEAK TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWwAvEAK TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWwB0EAK TRUE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWwB5EAK TRUE   </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more row</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -212,11 +212,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="co">#&gt;   Id                 Body                                         Name  ParentId</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWrciEAC /services/data/v54.0/sobjects/Attachment/00… logo… 0016A00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWrcdEAC /services/data/v54.0/sobjects/Attachment/00… clou… 0016A00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWraYEAS /services/data/v54.0/sobjects/Attachment/00… old-… 0016A00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWrd7EAC /services/data/v54.0/sobjects/Attachment/00… old-… 0016A00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWrcsEAC /services/data/v54.0/sobjects/Attachment/00… clou… 0016A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWwAqEAK /services/data/v54.0/sobjects/Attachment/00… logo… 0016A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWwAvEAK /services/data/v54.0/sobjects/Attachment/00… old-… 0016A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWwAlEAK /services/data/v54.0/sobjects/Attachment/00… clou… 0016A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWwB5EAK /services/data/v54.0/sobjects/Attachment/00… logo… 0016A00…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWwBAEA0 /services/data/v54.0/sobjects/Attachment/00… old-… 0016A00…</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more row</span></span></code></pre></div>
 <p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
 <ol style="list-style-type: decimal">
@@ -245,18 +245,18 @@
                           name <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Name</span>, 
                           path <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Path</span><span class="op">)</span>
 <span class="va">download_result</span>
-<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWrciEAC/Body </span>
-<span class="co">#&gt;     "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVr40FV/0016A0000035mJ4QAI/logo.png" </span>
-<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWrcdEAC/Body </span>
-<span class="co">#&gt;    "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVr40FV/0016A0000035mJ4QAI/cloud.png" </span>
-<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWraYEAS/Body </span>
-<span class="co">#&gt; "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVr40FV/0016A0000035mJ4QAI/old-logo.png" </span>
-<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWrd7EAC/Body </span>
-<span class="co">#&gt; "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVr40FV/0016A0000035mJ5QAI/old-logo.png" </span>
-<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWrcsEAC/Body </span>
-<span class="co">#&gt;    "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVr40FV/0016A0000035mJ5QAI/cloud.png" </span>
-<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWrcxEAC/Body </span>
-<span class="co">#&gt;     "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVr40FV/0016A0000035mJ5QAI/logo.png"</span></code></pre></div>
+<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWwAqEAK/Body </span>
+<span class="co">#&gt;     "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpceEFCq/0016A0000035mJ4QAI/logo.png" </span>
+<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWwAvEAK/Body </span>
+<span class="co">#&gt; "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpceEFCq/0016A0000035mJ4QAI/old-logo.png" </span>
+<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWwAlEAK/Body </span>
+<span class="co">#&gt;    "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpceEFCq/0016A0000035mJ4QAI/cloud.png" </span>
+<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWwB5EAK/Body </span>
+<span class="co">#&gt;     "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpceEFCq/0016A0000035mJ5QAI/logo.png" </span>
+<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWwBAEA0/Body </span>
+<span class="co">#&gt; "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpceEFCq/0016A0000035mJ5QAI/old-logo.png" </span>
+<span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWwB0EAK/Body </span>
+<span class="co">#&gt;    "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpceEFCq/0016A0000035mJ5QAI/cloud.png"</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="updating-attachments">Updating Attachments<a class="anchor" aria-label="anchor" href="#updating-attachments"></a>
@@ -281,14 +281,14 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWrdHEAS TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWwBFEA0 TRUE</span></code></pre></div>
 <p>There is a function <code><a href="../reference/sf_delete_attachment.html">sf_delete_attachment()</a></code>, which simply wraps <code><a href="../reference/sf_delete.html">sf_delete()</a></code> so feel free to use for clarity in your code that you’re working with attachments use <code><a href="../reference/sf_delete.html">sf_delete()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sf_delete_attachment.html">sf_delete_attachment</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="va">create_result</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWrdHEAS TRUE</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWwBFEA0 TRUE</span>
 <span class="co"># sf_delete(ids = create_result$id) # would also work</span></code></pre></div>
 <p><strong>Uploading large batches of attachments using the Bulk API</strong></p>
 <p>The SOAP and REST APIs are good for working with a few attachments at a time. However, the Bulk API can be invoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload. In the example above, we downloaded the three attachments each belonging to two different parent records. Assuming that I have run that code and the files are in that my computer I can demonstrate that all of them can be uploaded at once using the Bulk 1.0 API.</p>
@@ -303,11 +303,11 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="co">#&gt;   Id                 Success Created Error</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWrdMEAS TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWrdNEAS TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWrdOEAS TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWrdPEAS TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWrdQEAS TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00P3s00000gWwBKEA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00P3s00000gWwBLEA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00P3s00000gWwBMEA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00P3s00000gWwBNEA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00P3s00000gWwBOEA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more row</span></span></code></pre></div>
 <p><strong>NOTE</strong>: As of v48.0 (Spring ’20), it does not appear that the Bulk 2.0 API supports working with Attachments, so the Bulk 1.0 API must be used for bulk functionality.</p>
 <p>Finally, you are able to update Attachments with the Bulk API just as shown above in the REST/SOAP API examples.</p>
@@ -331,7 +331,7 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0153s000002bttJAAQ TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0153s000002btyJAAQ TRUE</span></code></pre></div>
 <p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cheatsheet_url</span> <span class="op">&lt;-</span> <span class="st">"https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"</span>
@@ -345,7 +345,7 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   id                 success</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0153s000002bttOAAQ TRUE</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0153s000002btyOAAQ TRUE</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="reference-links">Reference Links<a class="anchor" aria-label="anchor" href="#reference-links"></a>
