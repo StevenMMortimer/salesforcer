@@ -324,7 +324,7 @@ sf_create_job_bulk_v2 <- function(operation = c("insert", "delete",
   }
   catch_errors(httr_response)    
   response_parsed <- content(httr_response, encoding="UTF-8")
-  job_info <- as_tibble(response_parsed)
+  job_info <- as_tibble(response_parsed, .name_repair = "unique")
   return(job_info)
 }
 
@@ -374,14 +374,14 @@ sf_get_job_bulk <- function(job_id,
     } else if(grepl('json', content_type)){
       response_parsed <- content(httr_response, as='parsed', type="application/json", encoding="UTF-8")
       response_parsed[sapply(response_parsed, is.null)] <- NA
-      job_info <- as_tibble(response_parsed)
+      job_info <- as_tibble(response_parsed, .name_repair = "unique")
     } else {
       message(sprintf("Unhandled content-type: %s", content_type))
       job_info <- content(httr_response, as='parsed', encoding="UTF-8")
     }
   } else if(api_type == "Bulk 2.0"){
     response_parsed <- content(httr_response, encoding="UTF-8")
-    job_info <- as_tibble(response_parsed)
+    job_info <- as_tibble(response_parsed, .name_repair = "unique")
   } else {
     catch_unknown_api(api_type, c("Bulk 1.0", "Bulk 2.0"))
   }
@@ -444,7 +444,7 @@ sf_get_all_jobs_bulk <- function(parameterized_search_list =
   
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
-      map_df(as_tibble) %>% 
+      map_df(~as_tibble(.x, .name_repair = "unique")) %>% 
       mutate_all(as.character)
   } else {
     resultset <- tibble()
@@ -528,7 +528,7 @@ sf_get_all_query_jobs_bulk <- function(parameterized_search_list =
   
   if(length(response_parsed$records) > 0){
     resultset <- response_parsed$records %>% 
-      map_df(as_tibble) %>% 
+      map_df(~as_tibble(.x, .name_repair = "unique")) %>% 
       mutate_all(as.character)
   } else {
     resultset <- tibble()
@@ -1179,7 +1179,7 @@ sf_batch_details_bulk <- function(job_id, batch_id,
   }
   
   res <- res %>%
-    as_tibble() %>%
+    as_tibble(.name_repair = "unique") %>%
     sf_reorder_cols() %>% 
     sf_guess_cols(TRUE)
   

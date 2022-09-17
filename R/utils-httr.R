@@ -205,7 +205,7 @@ sf_rest_list <- function(url,
     }
     if(length(records_list) > 0){
       response_parsed <- records_list %>% 
-        map_df(as_tibble) %>%
+        map_df(~as_tibble(.x, .name_repair = "unique")) %>%
         type_convert(col_types = cols(.default = col_guess()))
     } else {
       response_parsed <- tibble()
