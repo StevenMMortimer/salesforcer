@@ -1,6 +1,6 @@
 context("Basic Authorization")
 
-skip("Basic Auth not allowed after Feb 1, 2022.")
+skip("Basic Auth discouraged after Feb 1, 2022.")
 
 test_that("testing auth status", {
   expect_false(token_available())

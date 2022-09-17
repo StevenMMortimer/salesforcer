@@ -204,11 +204,11 @@ test_that("testing sf_delete_report_instance()", {
 })
 
 test_that("testing sf_list_report_types()", {
-  # as_tbl = TRUE
   report_types_tbl <- sf_list_report_types()
   expect_is(report_types_tbl, "tbl_df")
   expect_named(report_types_tbl, c("label", 
-                                   "reportTypes.describeUrl", 
+                                   "reportTypes.describeUrl",
+                                   "reportTypes.isCustomReportType",
                                    "reportTypes.isHidden", 
                                    "reportTypes.isHistorical", 
                                    "reportTypes.label", 
