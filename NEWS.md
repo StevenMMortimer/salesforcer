@@ -1,3 +1,26 @@
+# salesforcer 1.0.1.9999
+
+## Dependencies
+
+  * Increment the package's default Salesforce API version to 55.0 (Summer '22).
+  
+  * Remove deprecation warning for basic authentication (password and 
+    security token) because many users have found that it's still possible to
+    use for programmatic (API-based) access even if their org requires users to
+    log in via multi-factor authentication.
+    
+## Bug fixes
+
+  * Fix bug that caused Bulk 1.0 queries using the PKChunking option to error
+    out because the query info returned a vector of IDs instead of one which was
+    expected by the `sf_batch_status_bulk()` function. (#124)
+    
+  * Explicitly specify the column name repair method for all `as_tibble()` and
+    `as_tibble_row()` function calls because this could be causing issues when
+    parsing and binding query recordsets. (#124)
+
+---
+
 # salesforcer 1.0.1 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.1)
 
 ## Dependencies
