@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       trigger_next:
-        description: 'Whether to run the subsequent workflows after triggering this one manully.'
+        description: 'Whether to run the subsequent workflows after triggering this one manually.'
         required: false
         default: false
   repository_dispatch:
