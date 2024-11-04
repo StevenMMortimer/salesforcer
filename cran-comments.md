@@ -37,7 +37,7 @@ Maintainer: 'Steven M. Mortimer <mortimer.steven.m@gmail.com>'
 
 |package     |old   |new        |Δ  |
 |:-----------|:-----|:----------|:--|
-|salesforcer |1.0.1 |1.0.1.9999 |*  |
+|salesforcer |1.0.1 |1.0.2 |*  |
 |withr       |NA    |3.0.2      |*  |
 
 ### Revdeps
