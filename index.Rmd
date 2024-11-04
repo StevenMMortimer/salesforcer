@@ -22,7 +22,7 @@ options(tibble.print_min = 5L, tibble.print_max = 5L)
 <!-- badges: end -->
 
 <br>
-<img src="man/figures/salesforcer.png" width="120px" align="right" />
+<img src="man/figures/salesforcer.png" alt="salesforcer package logo" width="120px" align="right" />
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs using 
 tidy principles. The package implements actions from the REST, SOAP, Bulk 1.0, 

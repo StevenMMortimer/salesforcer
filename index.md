@@ -14,7 +14,7 @@ Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badg
 <!-- badges: end -->
 
 <br>
-<img src="man/figures/salesforcer.png" width="120px" align="right" />
+<img src="man/figures/salesforcer.png" alt="salesforcer package logo" width="120px" align="right" />
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs
 using tidy principles. The package implements actions from the REST,

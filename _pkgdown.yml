@@ -1,6 +1,7 @@
 title: salesforcer
-url: https://stevenmmortimer.github.io/salesforcer
+url: https://stevenmmortimer.github.io/salesforcer/
 template:
+  bootstrap: 5
   params:
     bootswatch: spacelab
     ganalytics: UA-98603021-2
@@ -11,13 +12,19 @@ template:
 
 home:
   strip_header: true
-  
+
+template:
+  opengraph:
+    image:
+      src: man/figures/salesforcer.png
+      alt: "salesforcer package logo"
+
 navbar:
   type: default
   left:
     - text: "Articles"
       icon: fas fa-book
-      menu: 
+      menu:
       -  text: Getting Started
          href: articles/getting-started.html
       -  text: Supported Queries
@@ -44,7 +51,7 @@ navbar:
     - text: GitHub
       icon: fa-github fa-lg
       href: https://github.com/StevenMMortimer/salesforcer
-      
+
 reference:
   - title: Authentication
     desc: Function to authenticate to your Salesforce Org.
@@ -72,12 +79,12 @@ reference:
       - '`sf_create_attachment`'
       - '`sf_download_attachment`'
       - '`sf_update_attachment`'
-      - '`sf_delete_attachment`'  
+      - '`sf_delete_attachment`'
   - title: Bulk API Functions
     desc: Convenience functions to perform async CRUD and query operations.
     contents:
       - '`sf_run_bulk_query`'
-      - '`sf_run_bulk_operation`' 
+      - '`sf_run_bulk_operation`'
   - title: Report Functions
     desc: Functions to create, retrieve, update, delete and query reports and their data.
     contents:
@@ -139,7 +146,7 @@ reference:
       - '`sf_list_rest_api_versions`'
       - '`sf_list_resources`'
       - '`sf_list_api_limits`'
-      - '`sf_list_objects`'      
+      - '`sf_list_objects`'
       - '`sf_user_info`'
       - '`sf_server_timestamp`'
       - '`sf_set_password`'

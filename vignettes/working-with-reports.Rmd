@@ -70,7 +70,7 @@ Org. It typically follows the pattern: `https://na1.salesforce.com/00O/o`
 you should see the results. Below is a screenshot of how a report may look in 
 your Org. Note the report Id in the URL bar.
 
-![](./working-with-reports_files/report-screenshot.png)
+![Alt](./working-with-reports_files/report-screenshot.png "A screenshot of the report id where it's embedded in the URL when viewing in a browser")
 
 The report Id above (`"00O3s000006tE7zEAE"`) is the only information needed to pull 
 those same results from an R session, like so: 
