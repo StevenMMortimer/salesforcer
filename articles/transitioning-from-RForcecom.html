@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -20,8 +20,6 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Transitioning from RForcecom">
-<meta property="og:description" content="salesforcer">
-<meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -34,7 +32,7 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -48,18 +46,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -92,14 +90,14 @@
 <li>
   <a href="../reference/index.html">
     <span class="fa fa-file-code-o"></span>
-     
+
     Reference
   </a>
 </li>
 <li>
   <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
-     
+
     News
   </a>
 </li>
@@ -108,7 +106,7 @@
 <li>
   <a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
     GitHub
   </a>
 </li>
@@ -118,7 +116,7 @@
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
       </form>
-      
+
     </div>
 <!--/.nav-collapse -->
   </div>
@@ -126,143 +124,182 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="transitioning-from-RForcecom_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Transitioning from RForcecom</h1>
-                        <h4 data-toc-skip class="author">Steven M. Mortimer</h4>
+                        <h4 data-toc-skip class="author">Steven M.
+Mortimer</h4>
             
             <h4 data-toc-skip class="date">2021-07-03</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/HEAD/vignettes/transitioning-from-RForcecom.Rmd" class="external-link"><code>vignettes/transitioning-from-RForcecom.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/main/vignettes/transitioning-from-RForcecom.Rmd" class="external-link"><code>vignettes/transitioning-from-RForcecom.Rmd</code></a></small>
       <div class="hidden name"><code>transitioning-from-RForcecom.Rmd</code></div>
 
     </div>
 
     
     
-<p>While writing the {salesforcer} package we were keenly aware that many folks were already using the {RForcecom} package to connect to Salesforce. In order to foster adoption and switching between the packages {salesforcer} replicates the functionality of many {RForcecom} functions so that you will only need to swap out <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(RForcecom)</a></code> for <code><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">library(salesforcer)</a></code> and still have production scripts perform as expected.</p>
+<p>While writing the {salesforcer} package we were keenly aware that
+many folks were already using the {RForcecom} package to connect to
+Salesforce. In order to foster adoption and switching between the
+packages {salesforcer} replicates the functionality of many {RForcecom}
+functions so that you will only need to swap out
+<code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(RForcecom)</a></code> for <code><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">library(salesforcer)</a></code>
+and still have production scripts perform as expected.</p>
 <div class="section level2">
 <h2 id="rforcecom-removed-from-cran">RForcecom Removed from CRAN<a class="anchor" aria-label="anchor" href="#rforcecom-removed-from-cran"></a>
 </h2>
-<p>As of June 9, 2021, the {RForcecom} package was removed from CRAN. You can still use it by installing from the archive, but we strongly recommend using {salesforcer} instead. The existing functionality in {RForcecom} has been further optimized within {salesforcer} and new functionality has been added too.</p>
+<p>As of June 9, 2021, the {RForcecom} package was removed from CRAN.
+You can still use it by installing from the archive, but we strongly
+recommend using {salesforcer} instead. The existing functionality in
+{RForcecom} has been further optimized within {salesforcer} and new
+functionality has been added too.</p>
 </div>
 <div class="section level2">
-<h2 id="salesforce-requires-mfa-which-prevents-rforcecom-basic-auth-log-in">Salesforce Requires MFA Which Prevents RForcecom Basic Auth Log in<a class="anchor" aria-label="anchor" href="#salesforce-requires-mfa-which-prevents-rforcecom-basic-auth-log-in"></a>
+<h2 id="salesforce-requires-mfa-which-prevents-rforcecom-basic-auth-log-in">Salesforce Requires MFA Which Prevents RForcecom Basic Auth Log
+in<a class="anchor" aria-label="anchor" href="#salesforce-requires-mfa-which-prevents-rforcecom-basic-auth-log-in"></a>
 </h2>
-<p>Basic authentication (password and security token) will no longer work since Salesforce announced that all customers will be migrated to MFA beginning February 1st, 2022 (<a href="https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement" class="external-link">link</a>). As a result, the basic authentication routine used {RForcecom} and the legacy, compatibility method written into {salesforcer} will no longer work. Please migrate to {salesforcer} and use <code><a href="../reference/sf_auth.html">sf_auth()</a></code> to generate an OAuth 2.0 token. The examples below will no longer work.</p>
+<p>Basic authentication (password and security token) will no longer
+work since Salesforce announced that all customers will be migrated to
+MFA beginning February 1st, 2022 (<a href="https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement" class="external-link">link</a>).
+As a result, the basic authentication routine used {RForcecom} and the
+legacy, compatibility method written into {salesforcer} will no longer
+work. Please migrate to {salesforcer} and use <code><a href="../reference/sf_auth.html">sf_auth()</a></code> to
+generate an OAuth 2.0 token. The examples below will no longer work.</p>
 </div>
 <div class="section level2">
 <h2 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
 </h2>
-<p>{salesforcer} supports OAuth 2.0 authentication which is preferred, but for backward compatibility provides the username-password authentication routine implemented by {RForcecom}. Here is an example running the function from each of the packages side-by-side and producing the same result.</p>
-<p>First, authenticate and load any required packages for your analysis.</p>
+<p>{salesforcer} supports OAuth 2.0 authentication which is preferred,
+but for backward compatibility provides the username-password
+authentication routine implemented by {RForcecom}. Here is an example
+running the function from each of the packages side-by-side and
+producing the same result.</p>
+<p>First, authenticate and load any required packages for your
+analysis.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Beginning February 1, 2022, basic authentication will no longer work. You must</span>
-<span class="co"># log in to Salesforce using MFA (generating an OAuth 2.0 token typically from </span>
-<span class="co"># the browser).</span>
-
-<span class="co"># the RForcecom way</span>
-<span class="co"># RForcecom::rforcecom.login(username, paste0(password, security_token), </span>
-<span class="co">#                            apiVersion=getOption("salesforcer.api_version"))</span>
-<span class="co"># replicated in salesforcer package</span>
-<span class="va">session</span> <span class="op">&lt;-</span> <span class="fu">salesforcer</span><span class="fu">::</span><span class="fu"><a href="../reference/rforcecom.login.html">rforcecom.login</a></span><span class="op">(</span><span class="va">username</span>, 
-                                         <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">password</span>, <span class="va">security_token</span><span class="op">)</span>, 
-                                         apiVersion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"salesforcer.api_version"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">session</span><span class="op">[</span><span class="st">'sessionID'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"{MASKED}"</span>
-<span class="va">session</span></code></pre></div>
-<p>Note that we must set the API version here because calls to session will not create a new <code>sessionId</code> and then we are stuck with version 35.0 (the default from <code>RForcecom::rforcecom.login()</code>). Some functions in {salesforcer} implement API calls that are only available after version 35.0.</p>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Beginning February 1, 2022, basic authentication will no longer work. You must</span></span>
+<span><span class="co"># log in to Salesforce using MFA (generating an OAuth 2.0 token typically from </span></span>
+<span><span class="co"># the browser).</span></span>
+<span></span>
+<span><span class="co"># the RForcecom way</span></span>
+<span><span class="co"># RForcecom::rforcecom.login(username, paste0(password, security_token), </span></span>
+<span><span class="co">#                            apiVersion=getOption("salesforcer.api_version"))</span></span>
+<span><span class="co"># replicated in salesforcer package</span></span>
+<span><span class="va">session</span> <span class="op">&lt;-</span> <span class="fu">salesforcer</span><span class="fu">::</span><span class="fu"><a href="../reference/rforcecom.login.html">rforcecom.login</a></span><span class="op">(</span><span class="va">username</span>, </span>
+<span>                                         <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">password</span>, <span class="va">security_token</span><span class="op">)</span>, </span>
+<span>                                         apiVersion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"salesforcer.api_version"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">session</span><span class="op">[</span><span class="st">'sessionID'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"{MASKED}"</span></span>
+<span><span class="va">session</span></span></code></pre></div>
+<p>Note that we must set the API version here because calls to session
+will not create a new <code>sessionId</code> and then we are stuck with
+version 35.0 (the default from
+<code>RForcecom::rforcecom.login()</code>). Some functions in
+{salesforcer} implement API calls that are only available after version
+35.0.</p>
 </div>
 <div class="section level2">
 <h2 id="crud-operations">CRUD Operations<a class="anchor" aria-label="anchor" href="#crud-operations"></a>
 </h2>
-<p>“CRUD” operations (Create, Retrieve, Update, Delete) in the {RForcecom} package only operate on one record at a time. One benefit to using the {salesforcer} package is that these operations will accept a named vector (one record) or an entire <code>data.frame</code> or <code>tbl_df</code> of records to churn through. However, rest assured that the replicated functions behave exactly the same way if you are hesitant to making the switch.</p>
-<p>Here is an example showing the reduction in code of using {salesforcer} if you would like to create multiple records.</p>
+<p>“CRUD” operations (Create, Retrieve, Update, Delete) in the
+{RForcecom} package only operate on one record at a time. One benefit to
+using the {salesforcer} package is that these operations will accept a
+named vector (one record) or an entire <code>data.frame</code> or
+<code>tbl_df</code> of records to churn through. However, rest assured
+that the replicated functions behave exactly the same way if you are
+hesitant to making the switch.</p>
+<p>Here is an example showing the reduction in code of using
+{salesforcer} if you would like to create multiple records.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span>
-<span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,
-                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># the RForcecom way (requires a loop)</span>
-<span class="co"># rforcecom_results &lt;- NULL</span>
-<span class="co"># for(i in 1:nrow(new_contacts)){</span>
-<span class="co">#   temp &lt;- RForcecom::rforcecom.create(session, </span>
-<span class="co">#                                       objectName = "Contact", </span>
-<span class="co">#                                       fields = unlist(slice(new_contacts,i)))</span>
-<span class="co">#   rforcecom_results &lt;- bind_rows(rforcecom_results, temp)</span>
-<span class="co"># }</span>
-
-<span class="co"># the better way in salesforcer to do multiple records</span>
-<span class="va">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span>, object_name<span class="op">=</span><span class="st">"Contact"</span><span class="op">)</span>
-<span class="va">salesforcer_results</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
-<span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXoQvAAL TRUE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s00001BXoQwAAL TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="va">new_contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Test"</span>, <span class="va">n</span><span class="op">)</span>,</span>
+<span>                       LastName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Contact-Create-"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># the RForcecom way (requires a loop)</span></span>
+<span><span class="co"># rforcecom_results &lt;- NULL</span></span>
+<span><span class="co"># for(i in 1:nrow(new_contacts)){</span></span>
+<span><span class="co">#   temp &lt;- RForcecom::rforcecom.create(session, </span></span>
+<span><span class="co">#                                       objectName = "Contact", </span></span>
+<span><span class="co">#                                       fields = unlist(slice(new_contacts,i)))</span></span>
+<span><span class="co">#   rforcecom_results &lt;- bind_rows(rforcecom_results, temp)</span></span>
+<span><span class="co"># }</span></span>
+<span></span>
+<span><span class="co"># the better way in salesforcer to do multiple records</span></span>
+<span><span class="va">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contacts</span>, object_name<span class="op">=</span><span class="st">"Contact"</span><span class="op">)</span></span>
+<span><span class="va">salesforcer_results</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
+<span><span class="co">#&gt;   id                 success</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZFaIAO TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZFbIAO TRUE</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="query">Query<a class="anchor" aria-label="anchor" href="#query"></a>
 </h2>
-<p>{salesforcer} also has better printing and type-casting when returning query result thanks to features of the {readr} package.</p>
+<p>{salesforcer} also has better printing and type-casting when
+returning query result thanks to features of the {readr} package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">this_soql</span> <span class="op">&lt;-</span> <span class="st">"SELECT Id, Email FROM Contact LIMIT 5"</span>
-
-<span class="co"># the RForcecom way</span>
-<span class="co"># RForcecom::rforcecom.query(session, soqlQuery = this_soql)</span>
-
-<span class="co"># the better way in salesforcer to query</span>
-<span class="va">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">this_soql</span><span class="op">)</span>
-<span class="va">salesforcer_results</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 2</span></span>
-<span class="co">#&gt;   Id                 Email               </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000014B3IZAA0 rick.james@gmail.com</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0033s000014B3IaAAK rick.james@gmail.com</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000014B3IbAAK rick.james@gmail.com</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6FAAS jennyw@gmail.com    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 jennyw@gmail.com</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">this_soql</span> <span class="op">&lt;-</span> <span class="st">"SELECT Id, Email FROM Contact LIMIT 5"</span></span>
+<span></span>
+<span><span class="co"># the RForcecom way</span></span>
+<span><span class="co"># RForcecom::rforcecom.query(session, soqlQuery = this_soql)</span></span>
+<span></span>
+<span><span class="co"># the better way in salesforcer to query</span></span>
+<span><span class="va">salesforcer_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="va">this_soql</span><span class="op">)</span></span>
+<span><span class="va">salesforcer_results</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 1</span></span></span>
+<span><span class="co">#&gt;   Id                </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AYKTIA4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AYKSIA4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 003Kg000002AYHUIA4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 003Kg000002AYHVIA4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 003Kg000002AYHeIAO</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="describe">Describe<a class="anchor" aria-label="anchor" href="#describe"></a>
 </h2>
-<p>The {RForcecom} package has the function <code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code> which returns a <code>data.frame</code> with one row per field on an object. The same function in {salesforcer} is named <code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> and also has better printing and datatype casting by using tibbles.</p>
+<p>The {RForcecom} package has the function
+<code><a href="../reference/rforcecom.getObjectDescription.html">rforcecom.getObjectDescription()</a></code> which returns a
+<code>data.frame</code> with one row per field on an object. The same
+function in {salesforcer} is named
+<code><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields()</a></code> and also has better printing
+and datatype casting by using tibbles.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># the RForcecom way</span>
-<span class="co"># RForcecom::rforcecom.getObjectDescription(session, objectName='Account')</span>
-
-<span class="co"># the better way in salesforcer to get object fields</span>
-<span class="va">result2</span> <span class="op">&lt;-</span> <span class="fu">salesforcer</span><span class="fu">::</span><span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span><span class="op">(</span><span class="st">'Account'</span><span class="op">)</span>
-<span class="va">result2</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 68 × 39</span></span>
-<span class="co">#&gt;   aggregatable aiPredictionField autoNumber byteLength calculated caseSensitive</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> true         false             false      18         false      false        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> false        false             false      0          false      false        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> true         false             false      18         false      false        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> true         false             false      765        false      false        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> true         false             false      765        false      false        </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 63 more rows, and 33 more variables: compoundFieldName &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   createable &lt;chr&gt;, custom &lt;chr&gt;, defaultedOnCreate &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   defaultValue &lt;list&gt;, deprecatedAndHidden &lt;chr&gt;, digits &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   externalId &lt;chr&gt;, extraTypeInfo &lt;chr&gt;, filterable &lt;chr&gt;, groupable &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   idLookup &lt;chr&gt;, label &lt;chr&gt;, length &lt;chr&gt;, name &lt;chr&gt;, nameField &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   namePointing &lt;chr&gt;, nillable &lt;chr&gt;, permissionable &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   picklistValues &lt;list&gt;, polymorphicForeignKey &lt;chr&gt;, precision &lt;chr&gt;, …</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># the RForcecom way</span></span>
+<span><span class="co"># RForcecom::rforcecom.getObjectDescription(session, objectName='Account')</span></span>
+<span></span>
+<span><span class="co"># the better way in salesforcer to get object fields</span></span>
+<span><span class="va">result2</span> <span class="op">&lt;-</span> <span class="fu">salesforcer</span><span class="fu">::</span><span class="fu"><a href="../reference/sf_describe_object_fields.html">sf_describe_object_fields</a></span><span class="op">(</span><span class="st">'Account'</span><span class="op">)</span></span>
+<span><span class="va">result2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 68 × 39</span></span></span>
+<span><span class="co">#&gt;   aggregatable aiPredictionField autoNumber byteLength calculated caseSensitive</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> true         false             false      18         false      false        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> false        false             false      0          false      false        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> true         false             false      18         false      false        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> true         false             false      765        false      false        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> true         false             false      765        false      false        </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 63 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 33 more variables: compoundFieldName &lt;chr&gt;, createable &lt;chr&gt;, custom &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   defaultedOnCreate &lt;chr&gt;, defaultValue &lt;list&gt;, deprecatedAndHidden &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   digits &lt;chr&gt;, externalId &lt;chr&gt;, extraTypeInfo &lt;chr&gt;, filterable &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   groupable &lt;chr&gt;, idLookup &lt;chr&gt;, label &lt;chr&gt;, length &lt;chr&gt;, name &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   nameField &lt;chr&gt;, namePointing &lt;chr&gt;, nillable &lt;chr&gt;, permissionable &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   picklistValues &lt;list&gt;, polymorphicForeignKey &lt;chr&gt;, precision &lt;chr&gt;, …</span></span></span></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -275,17 +312,17 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
 </div>
 
       </footer>
 </div>
 
-  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
     appId: 'BBX5BTLUTL',
-    
+
     apiKey: 'f3a7c81cd6794f9050f32bfee2620882',
     indexName: 'salesforcer',
     inputSelector: 'input#search-input.form-control',

@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -20,8 +20,6 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Passing Control Args">
-<meta property="og:description" content="salesforcer">
-<meta property="og:image" content="https://stevenmmortimer.github.io/salesforcer/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -34,7 +32,7 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -48,18 +46,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">salesforcer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -92,14 +90,14 @@
 <li>
   <a href="../reference/index.html">
     <span class="fa fa-file-code-o"></span>
-     
+
     Reference
   </a>
 </li>
 <li>
   <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
-     
+
     News
   </a>
 </li>
@@ -108,7 +106,7 @@
 <li>
   <a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
     GitHub
   </a>
 </li>
@@ -118,7 +116,7 @@
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
       </form>
-      
+
     </div>
 <!--/.nav-collapse -->
   </div>
@@ -126,130 +124,234 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="passing-control-args_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Passing Control Args</h1>
-                        <h4 data-toc-skip class="author">Steven M. Mortimer</h4>
+                        <h4 data-toc-skip class="author">Steven M.
+Mortimer</h4>
             
             <h4 data-toc-skip class="date">2020-07-08</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/HEAD/vignettes/passing-control-args.Rmd" class="external-link"><code>vignettes/passing-control-args.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/StevenMMortimer/salesforcer/blob/main/vignettes/passing-control-args.Rmd" class="external-link"><code>vignettes/passing-control-args.Rmd</code></a></small>
       <div class="hidden name"><code>passing-control-args.Rmd</code></div>
 
     </div>
 
     
     
-<p>If you’re inserting records from R you may want to turn off the assignment rules or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of the {salesforcer} package many functions have a <code>control</code> argument that will allow you to fine tune the behavior of calls to the Salesforce APIs. This vignette will introduce the different options you can control and how to pass them into the {salesforcer} functions you’re already familiar with.</p>
+<p>If you’re inserting records from R you may want to turn off the
+assignment rules or even bypass duplicate rules and alerts to save
+records. Beginning in Version 0.1.3 of the {salesforcer} package many
+functions have a <code>control</code> argument that will allow you to
+fine tune the behavior of calls to the Salesforce APIs. This vignette
+will introduce the different options you can control and how to pass
+them into the {salesforcer} functions you’re already familiar with.</p>
 <div class="section level2">
 <h2 id="the-new-control-argument">The new control argument<a class="anchor" aria-label="anchor" href="#the-new-control-argument"></a>
 </h2>
-<p>This new feature can be seen in the <code>sf_create</code> (and many other functions) as <code>control=list(...)</code>. The dots mean that you can pass any number of controls directly into the function.</p>
-<p>First, authenticate and load any required packages for your analysis.</p>
+<p>This new feature can be seen in the <code>sf_create</code> (and many
+other functions) as <code>control=list(...)</code>. The dots mean that
+you can pass any number of controls directly into the function.</p>
+<p>First, authenticate and load any required packages for your
+analysis.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>In the example below, we demonstrate how to create a record, but use the control arguments to prevent its creation from showing up in the Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StevenMMortimer/salesforcer" class="external-link">salesforcer</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sf_auth.html">sf_auth</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>In the example below, we demonstrate how to create a record, but use
+the control arguments to prevent its creation from showing up in the
+Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="st">"Jenny"</span>, 
-                 LastName <span class="op">=</span> <span class="st">"Williams"</span>, 
-                 Email <span class="op">=</span> <span class="st">"jennyw@gmail.com"</span><span class="op">)</span>
-<span class="va">record1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,
-                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,
-                     DisableFeedTrackingHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>disableFeedTracking <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="va">record1</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="co">#&gt;   success errors    </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE   <span style="color: #949494;">&lt;list [1]&gt;</span></span></code></pre></div>
-<p>You will notice that the argument <code>DisableFeedTrackingHeader</code> can be included right into the function without any documentation existing for it in the <code>sf_create</code> function. This is because the dots (<code>...</code>) allow you to pass over a dozen different control parameters and that documentation would be tedious to create and maintain over multiple functions in the package. However, you will notice in the documentation entry for the <code>control</code> argument there is a link to a function called <code>sf_control</code> which you can use to directly to pass into <code>control</code> or simply to review its documentation of all the possible control parameters and their defaults. This is where you can review the various control options in more detail before trying to set them.</p>
-<p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank" class="external-link">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity.</p>
+<code class="sourceCode R"><span><span class="va">new_contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="st">"Jenny"</span>, </span>
+<span>                 LastName <span class="op">=</span> <span class="st">"Williams"</span>, </span>
+<span>                 Email <span class="op">=</span> <span class="st">"jennyw@gmail.com"</span><span class="op">)</span></span>
+<span><span class="va">record1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,</span>
+<span>                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,</span>
+<span>                     DisableFeedTrackingHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>disableFeedTracking <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">record1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
+<span><span class="co">#&gt;   success errors    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE   <span style="color: #949494;">&lt;list [1]&gt;</span></span></span></code></pre></div>
+<p>You will notice that the argument
+<code>DisableFeedTrackingHeader</code> can be included right into the
+function without any documentation existing for it in the
+<code>sf_create</code> function. This is because the dots
+(<code>...</code>) allow you to pass over a dozen different control
+parameters and that documentation would be tedious to create and
+maintain over multiple functions in the package. However, you will
+notice in the documentation entry for the <code>control</code> argument
+there is a link to a function called <code>sf_control</code> which you
+can use to directly to pass into <code>control</code> or simply to
+review its documentation of all the possible control parameters and
+their defaults. This is where you can review the various control options
+in more detail before trying to set them.</p>
+<p>You may have also noticed that the argument
+<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank" class="external-link">DisableFeedTrackingHeader</a>
+was formatted as a list with an element inside called
+<code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem
+redundant but there are two reasons for this. First, this is exactly how
+the Salesforce APIs documents these options, which are typically
+referred to as “headers” because they are passed as a named header of
+the HTTP request and then the header fields and values are provided for
+that header. Second, some headers have multiple fields and values so a
+list is the only way to provide multiple named fields and values under a
+single header entity.</p>
 </div>
 <div class="section level2">
 <h2 id="an-example-using-the-duplicateruleheader">An example using the <code>DuplicateRuleHeader</code><a class="anchor" aria-label="anchor" href="#an-example-using-the-duplicateruleheader"></a>
 </h2>
-<p>The <code>DuplicateRuleHeader</code> that controls whether the duplicate rules are followed when inserting records from the API, has three fields:</p>
+<p>The <code>DuplicateRuleHeader</code> that controls whether the
+duplicate rules are followed when inserting records from the API, has
+three fields:</p>
 <ol style="list-style-type: decimal">
-<li><p><code>allowSave</code> - For a duplicate rule, when the Alert option is enabled, bypass alerts and save duplicate records by setting this property to true. Prevent duplicate records from being saved by setting this property to false.</p></li>
-<li><p><code>includeRecordDetails</code> - Get fields and values for records detected as duplicates by setting this property to true. Get only record IDs for records detected as duplicates by setting this property to false.</p></li>
-<li><p><code>runAsCurrentUser</code> - Make sure that sharing rules for the current user are enforced when duplicate rules run by setting this property to true. Use the sharing rules specified in the class for the request by setting this property to false. If no sharing rules are specified, Apex code runs in system context and sharing rules for the current user are not enforced.</p></li>
+<li><p><code>allowSave</code> - For a duplicate rule, when the Alert
+option is enabled, bypass alerts and save duplicate records by setting
+this property to true. Prevent duplicate records from being saved by
+setting this property to false.</p></li>
+<li><p><code>includeRecordDetails</code> - Get fields and values for
+records detected as duplicates by setting this property to true. Get
+only record IDs for records detected as duplicates by setting this
+property to false.</p></li>
+<li><p><code>runAsCurrentUser</code> - Make sure that sharing rules for
+the current user are enforced when duplicate rules run by setting this
+property to true. Use the sharing rules specified in the class for the
+request by setting this property to false. If no sharing rules are
+specified, Apex code runs in system context and sharing rules for the
+current user are not enforced.</p></li>
 </ol>
-<p>Specifying these arguments requires a <code>list</code> structure in R, which may seem redundant in some cases, but is necessary to follow in order to build the API request correctly.</p>
+<p>Specifying these arguments requires a <code>list</code> structure in
+R, which may seem redundant in some cases, but is necessary to follow in
+order to build the API request correctly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># override the duplicate rules ...</span>
-<span class="va">record2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,
-                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,
-                     DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave <span class="op">=</span> <span class="cn">TRUE</span>, 
-                                                includeRecordDetails <span class="op">=</span> <span class="cn">FALSE</span>, 
-                                                runAsCurrentUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="va">record2</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="co">#&gt;   id                 success</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s00001BXoNiAAL TRUE</span>
-
-<span class="co"># ... or succumb to the duplicate rules</span>
-<span class="va">record3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,
-                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,
-                     DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave <span class="op">=</span> <span class="cn">FALSE</span>, 
-                                                includeRecordDetails <span class="op">=</span> <span class="cn">FALSE</span>, 
-                                                runAsCurrentUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="va">record3</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="co">#&gt;   success errors    </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE   <span style="color: #949494;">&lt;list [1]&gt;</span></span></code></pre></div>
-<p>Per the description above, note that setting <code>allowSave=TRUE</code> will not override rules where the “Action on Create” for a rule is set to “Block”. If the duplicate rule’s action is “Allow” with an alert, then setting <code>allowSave=TRUE</code> means the record will be created with no warning message. If <code>allowSave=FALSE</code>, then the record will be prevented from being created. For additional information on the <code>DuplicateRuleHeader</code>, please see the Salesforce documentation at: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" rel="noopener noreferrer" target="_blank" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a></p>
-<p>Finally, you may notice during your use that only certain control arguments are permitted based on the API. For example, the <code>DuplicateRuleHeader</code> is not implemented in the REST API like it is in the SOAP API. In the example below you should take note of two things:</p>
+<code class="sourceCode R"><span><span class="co"># override the duplicate rules ...</span></span>
+<span><span class="va">record2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,</span>
+<span>                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,</span>
+<span>                     DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                                                includeRecordDetails <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                                                runAsCurrentUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">record2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
+<span><span class="co">#&gt;   id                 success</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZDpIAO TRUE</span></span>
+<span></span>
+<span><span class="co"># ... or succumb to the duplicate rules</span></span>
+<span><span class="va">record3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,</span>
+<span>                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,</span>
+<span>                     DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                                                includeRecordDetails <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                                                runAsCurrentUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">record3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
+<span><span class="co">#&gt;   success errors    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE   <span style="color: #949494;">&lt;list [1]&gt;</span></span></span></code></pre></div>
+<p>Per the description above, note that setting
+<code>allowSave=TRUE</code> will not override rules where the “Action on
+Create” for a rule is set to “Block”. If the duplicate rule’s action is
+“Allow” with an alert, then setting <code>allowSave=TRUE</code> means
+the record will be created with no warning message. If
+<code>allowSave=FALSE</code>, then the record will be prevented from
+being created. For additional information on the
+<code>DuplicateRuleHeader</code>, please see the Salesforce
+documentation at:
+<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" rel="noopener noreferrer" target="_blank" class="external-link">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a></p>
+<p>Finally, you may notice during your use that only certain control
+arguments are permitted based on the API. For example, the
+<code>DuplicateRuleHeader</code> is not implemented in the REST API like
+it is in the SOAP API. In the example below you should take note of two
+things:</p>
 <ol style="list-style-type: decimal">
-<li><p>When using the REST API and setting the <code>DuplicateRuleHeader</code>, then you will notice a warning that the header was ignored. You will receive warnings when trying to set any control parameters for an API or operation that does not recognize that particular control.</p></li>
-<li><p>In this example, you cannot bypass the duplicate rule alert to create the record if using the REST API like you can with the SOAP API.</p></li>
+<li><p>When using the REST API and setting the
+<code>DuplicateRuleHeader</code>, then you will notice a warning that
+the header was ignored. You will receive warnings when trying to set any
+control parameters for an API or operation that does not recognize that
+particular control.</p></li>
+<li><p>In this example, you cannot bypass the duplicate rule alert to
+create the record if using the REST API like you can with the SOAP
+API.</p></li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">record4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,
-                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,
-                     DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave <span class="op">=</span> <span class="cn">FALSE</span>, 
-                                                includeRecordDetails <span class="op">=</span> <span class="cn">FALSE</span>, 
-                                                runAsCurrentUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-                     api_type <span class="op">=</span> <span class="st">"REST"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Ignoring the following controls which are not used in the REST API:</span>
-<span class="co">#&gt; DuplicateRuleHeader</span>
-<span class="va">record4</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="co">#&gt;   success errors    </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE   <span style="color: #949494;">&lt;list [1]&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">record4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>,</span>
+<span>                     object_name <span class="op">=</span> <span class="st">"Contact"</span>,</span>
+<span>                     DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                                                includeRecordDetails <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                                                runAsCurrentUser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                     api_type <span class="op">=</span> <span class="st">"REST"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Ignoring the following controls which are not used in the REST API:</span></span>
+<span><span class="co">#&gt; DuplicateRuleHeader</span></span>
+<span><span class="va">record4</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
+<span><span class="co">#&gt;   success errors    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE   <span style="color: #949494;">&lt;list [1]&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="creating-the-control-argument-with-sf_control">Creating the control argument with sf_control<a class="anchor" aria-label="anchor" href="#creating-the-control-argument-with-sf_control"></a>
 </h2>
-<p>If this type of control structure is new to you, take a look at the documentation for the <code>glm</code> and <code>glm.control</code> functions. The way these two functions behave is exactly how functions like <code>sf_create</code> and <code>sf_control</code> work with each other. As demonstrated above you can pass any number of arbitrary controls into the function and they are all gathered up into the control by <code>control = list(...)</code>. However, you can specify the control directly like this:</p>
+<p>If this type of control structure is new to you, take a look at the
+documentation for the <code>glm</code> and <code>glm.control</code>
+functions. The way these two functions behave is exactly how functions
+like <code>sf_create</code> and <code>sf_control</code> work with each
+other. As demonstrated above you can pass any number of arbitrary
+controls into the function and they are all gathered up into the control
+by <code>control = list(...)</code>. However, you can specify the
+control directly like this:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,
-         object_name <span class="op">=</span> <span class="st">"Account"</span>,
-         control <span class="op">=</span> <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span><span class="op">(</span>QueryOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>batchSize <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 2</span></span>
-<span class="co">#&gt;   Id                 Name                                </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s00000zFgA6AAK KEEP Test Account With Child Records</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFdugAAC KEEP Test Account With Child Records</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s000014jF2vAAE Test Account For Performance Test   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0016A0000035mJEQAY GenePoint                           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sf_query.html">sf_query</a></span><span class="op">(</span><span class="st">"SELECT Id, Name FROM Account LIMIT 1000"</span>,</span>
+<span>         object_name <span class="op">=</span> <span class="st">"Account"</span>,</span>
+<span>         control <span class="op">=</span> <span class="fu"><a href="../reference/sf_control.html">sf_control</a></span><span class="op">(</span>QueryOptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>batchSize <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 2</span></span></span>
+<span><span class="co">#&gt;   Id                 Name                                </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0013s00000zFgA6AAK KEEP Test Account With Child Records</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 0013s00000zFdugAAC KEEP Test Account With Child Records</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0013s000014jF2HAAU Test Account For Performance Test   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0016A0000035mJEQAY GenePoint                           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="backwards-compatibility-for-all_or_none-and-other-named-arguments">Backwards compatibility for all_or_none and other named arguments<a class="anchor" aria-label="anchor" href="#backwards-compatibility-for-all_or_none-and-other-named-arguments"></a>
+<h2 id="backwards-compatibility-for-all_or_none-and-other-named-arguments">Backwards compatibility for all_or_none and other named
+arguments<a class="anchor" aria-label="anchor" href="#backwards-compatibility-for-all_or_none-and-other-named-arguments"></a>
 </h2>
-<p>You may already be taking advantage of the <code>all_or_none</code> or <code>line_ending</code> arguments which are control arguments that were explicity included in functions. These argument essentially hard coded values to pass the <code>AllOrNoneHeader</code> and <code>LineEndingHeader</code> control parameters. Starting with the 0.1.3 release it is no longer necessary and preferable not to have an argument like <code>all_or_none</code> listed explicity as an argument since it can be provided in the <code>control</code> argument. Note: the <code>all_or_none</code> argument and other explicit control arguments will still be available in {salesforcer} 0.1.3 but will provide a deprecated warning. They will be removed in the next CRAN release of the package so it will be important to update your code now if you are explicitly passing these arguments and see a deprecation warning.</p>
+<p>You may already be taking advantage of the <code>all_or_none</code>
+or <code>line_ending</code> arguments which are control arguments that
+were explicity included in functions. These argument essentially hard
+coded values to pass the <code>AllOrNoneHeader</code> and
+<code>LineEndingHeader</code> control parameters. Starting with the
+0.1.3 release it is no longer necessary and preferable not to have an
+argument like <code>all_or_none</code> listed explicity as an argument
+since it can be provided in the <code>control</code> argument. Note: the
+<code>all_or_none</code> argument and other explicit control arguments
+will still be available in {salesforcer} 0.1.3 but will provide a
+deprecated warning. They will be removed in the next CRAN release of the
+package so it will be important to update your code now if you are
+explicitly passing these arguments and see a deprecation warning.</p>
 </div>
 <div class="section level2">
 <h2 id="reference-links">Reference Links<a class="anchor" aria-label="anchor" href="#reference-links"></a>
 </h2>
-<p>Below is a list of links that go directly to the control arguments (a.k.a headers) for the different APIs. I highly recommend reading this documentation before setting a control parameter in R so you know exactly what the behavior will be and how to specify it in R. You may notice that some controls are not included in the R package. Some may be added in the future if requested and some will not be added given the scope of the package. One final note is that some arguments in the REST API, like the “All or None” behavior is not a header, but a parameter in the API call. For this reason you will not see it listed in the REST API Headers section, but it is set in this R package using the <code>AllOrNoneHeader</code> argument in <code>sf_control</code> just to provide consistency between the SOAP and REST APIs. It would be confusing to have two arguments named differently, one for each API, but to do the exact same thing from R. For this reason, many of the control arguments match exactly as they are listed in the SOAP API, but can be used across other APIs even if not exactly written that way in the Salesforce documentation referenced below.</p>
+<p>Below is a list of links that go directly to the control arguments
+(a.k.a headers) for the different APIs. I highly recommend reading this
+documentation before setting a control parameter in R so you know
+exactly what the behavior will be and how to specify it in R. You may
+notice that some controls are not included in the R package. Some may be
+added in the future if requested and some will not be added given the
+scope of the package. One final note is that some arguments in the REST
+API, like the “All or None” behavior is not a header, but a parameter in
+the API call. For this reason you will not see it listed in the REST API
+Headers section, but it is set in this R package using the
+<code>AllOrNoneHeader</code> argument in <code>sf_control</code> just to
+provide consistency between the SOAP and REST APIs. It would be
+confusing to have two arguments named differently, one for each API, but
+to do the exact same thing from R. For this reason, many of the control
+arguments match exactly as they are listed in the SOAP API, but can be
+used across other APIs even if not exactly written that way in the
+Salesforce documentation referenced below.</p>
 <ul>
 <li>
 <p><strong>SOAP API Headers</strong>:</p>
@@ -276,16 +378,15 @@
 </ul>
 </li>
 <li><p><strong>Bulk 2.0 API Headers</strong>: None<br></p></li>
-<li><p><strong>Reports and Dashboards REST API Headers</strong>: None</p></li>
+<li><p><strong>Reports and Dashboards REST API Headers</strong>:
+None</p></li>
 </ul>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -298,17 +399,17 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
 </div>
 
       </footer>
 </div>
 
-  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
     appId: 'BBX5BTLUTL',
-    
+
     apiKey: 'f3a7c81cd6794f9050f32bfee2620882',
     indexName: 'salesforcer',
     inputSelector: 'input#search-input.form-control',

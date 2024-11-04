@@ -1,6 +1,6 @@
-pandoc: 2.7.3
-pkgdown: 2.0.2.9000
-pkgdown_sha: ae7363faac9040a473a54fb3d770decdfb8dfec1
+pandoc: 3.1.11
+pkgdown: 2.1.1.9000
+pkgdown_sha: ffe60d5f60934e95285d416dae12c05e24ed1dac
 articles:
   getting-started: getting-started.html
   passing-control-args: passing-control-args.html
@@ -10,8 +10,7 @@ articles:
   working-with-bulk-apis: working-with-bulk-apis.html
   working-with-metadata: working-with-metadata.html
   working-with-reports: working-with-reports.html
-last_built: 2022-03-02T15:54Z
+last_built: 2024-11-04T20:17Z
 urls:
   reference: https://stevenmmortimer.github.io/salesforcer/reference
   article: https://stevenmmortimer.github.io/salesforcer/articles
-
