@@ -28,5 +28,5 @@
 .state$instance_url <- NULL
 
 # add additional datetime formats to guess using anytime package
-addFormats("%m-%d-%Y %H:%M")
-addFormats("%d-%m-%Y %H:%M")
+anytime::addFormats("%m-%d-%Y %H:%M")
+anytime::addFormats("%d-%m-%Y %H:%M")
