@@ -3,9 +3,9 @@
 ## Test environments
 
 * Local Mac OS install, R-release 4.4.1
-* Ubuntu 18.04 (on GitHub Actions), R-release, R 4.4.2
-* Mac OS 10.15.5 (on GitHub Actions) R-release, R 4.4.2
-* Microsoft Windows Server 2019 10.0.17763 (on GitHub Actions) R-release, R 4.4.2
+* Ubuntu 22.04 (ubuntu-latest on GitHub Actions), R-release 4.4.2
+* macOS 14 Arm64 (macos-latest on GitHub Actions) R-release 4.4.2
+* Windows Server 2022 (windows-latest on GitHub Actions) R-release 4.4.2
 * win-builder (R-release 4.4.2)
 
 ## R CMD check results

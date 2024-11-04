@@ -29,7 +29,7 @@ Authors@R:
              role = c("ctb", "cph"),
              email = "joanna.zhao@alumni.ubc.ca"))
 License: MIT + file LICENSE
-URL: https://github.com/StevenMMortimer/salesforcer
+URL: https://github.com/StevenMMortimer/salesforcer, https://stevenmmortimer.github.io/salesforcer/
 BugReports: https://github.com/StevenMMortimer/salesforcer/issues
 Depends:
     R (>= 3.6.0)
