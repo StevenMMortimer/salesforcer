@@ -39,7 +39,7 @@ This function retrieves details about all Bulk query jobs in the org.
 }
 \note{
 parameterized_search_list elements that can be set to filter the results:
-\itemize{
+\describe{
 \item{isPkChunkingEnabled}{A logical either TRUE or FALSE. TRUE only returns
 information about jobs where PK Chunking has been enabled.}
 \item{jobType}{A character string to return jobs matching the specified type.

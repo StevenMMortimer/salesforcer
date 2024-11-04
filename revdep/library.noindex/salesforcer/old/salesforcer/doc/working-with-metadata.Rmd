@@ -1,0 +1,176 @@
+---
+title: "Working with Metadata"
+author: "Steven M. Mortimer"
+date: "2019-07-26"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Working with Metadata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+options(tibble.print_min = 5L, tibble.print_max = 5L)
+```
+
+Salesforce is a very flexible platform in that it provides the 
+[Metadata API](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_intro.htm) 
+for users to create, read, update and delete their entire Salesforce environment from 
+objects to page layouts and more. This makes it very easy to programmatically setup 
+and teardown the Salesforce environment.
+
+## Retrieving Object Metadata
+
+One common use case for the Metadata API is retrieving information about an object 
+(fields, permissions, etc.). First, load the {salesforcer}, {dplyr}, and {purrr} 
+packages and login, if needed.
+
+```{r auth, include = FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(purrr)))
+suppressWarnings(suppressMessages(library(here)))
+library(salesforcer)
+token_path <- Sys.getenv("SALESFORCER_TOKEN_PATH")
+sf_auth(token = paste0(token_path, "salesforcer_token.rds"))
+```
+
+```{r load-package, eval=FALSE}
+library(dplyr, warn.conflicts = FALSE)
+library(purrr)
+library(salesforcer)
+sf_auth()
+```
+
+You can use the `sf_read_metadata()` function to return a list of objects and 
+their metadata. In the example below we retrieve the metadata for the Account and 
+Contact objects. Note that the `metadata_type` argument is "CustomObject". Standard 
+Objects are an implementation of CustomObjects, so they are returned using that 
+metadata type.
+
+```{r metadata-read}
+read_obj_result <- sf_read_metadata(metadata_type = "CustomObject",
+                                    object_names = c("Account", "Contact"))
+
+read_obj_result[[1]][c("fullName", "label", "sharingModel", "enableHistory")]
+
+first_two_fields_idx <- head(which(names(read_obj_result[[1]]) == "fields"), 2)
+
+# show the first two returned fields of the Account object
+read_obj_result[[1]][first_two_fields_idx]
+```
+
+The data is returned as a list because object definitions are highly nested representations. 
+You may notice that we are missing some really specific details, such as, the picklist 
+values of a field with type "Picklist". You can get that information using  
+`sf_describe_object_fields()`. Here is an example using `sf_describe_object_fields()` 
+where we get a `tbl_df` with one row for each field on the Account object: 
+
+```{r soap-describe-object-fields}
+acct_fields <- sf_describe_object_fields("Account")
+acct_fields %>% select(name, label, length, soapType, type)
+
+# show the picklist selection options for the Account Type field
+acct_fields %>% 
+  filter(label == "Account Type") %>% 
+  .$picklistValues
+```
+
+If you prefer to be more precise about collecting and formatting the field data you 
+can work directly with the nested lists that the APIs return. In this example we 
+look at the picklist values of fields on the Account object.
+
+```{r rest-describe-objects}
+describe_obj_result <- sf_describe_objects(object_names=c('Account', 'Contact'))
+
+# confirm that the Account object is queryable
+describe_obj_result[[1]][c('label', 'queryable')]
+
+# now show the different picklist values for the Account Type field
+all_fields <- describe_obj_result[[1]][names(describe_obj_result[[1]]) == "fields"]
+
+acct_type_field_idx <- which(sapply(all_fields, 
+                                    FUN=function(x){x$label}) == "Account Type")
+acct_type_field <- all_fields[[acct_type_field_idx]]
+acct_type_field[which(names(acct_type_field) == "picklistValues")] %>% 
+  map_df(as_tibble)
+```
+
+It is recommended that you try out the various metadata functions `sf_read_metadata()`, 
+`sf_list_metadata()`, `sf_describe_metadata()`, and `sf_describe_objects()` in order 
+to see which information best suits your use case.
+
+## Modifying Metadata
+
+Where the Metadata API really shines is when it comes to CRUD operations on metadata. 
+In this example we will create an object, add fields to it, then delete that object.
+
+```{r metadata-crud}
+# create an object
+base_obj_name <- "Custom_Account1"
+custom_object <- list()
+custom_object$fullName <- paste0(base_obj_name, "__c")
+custom_object$label <- paste0(gsub("_", " ", base_obj_name))
+custom_object$pluralLabel <- paste0(base_obj_name, "s")
+custom_object$nameField <- list(displayFormat = 'AN-{0000}', 
+                                label = paste0(base_obj_name, ' Number'), 
+                                type = 'AutoNumber')
+custom_object$deploymentStatus <- 'Deployed'
+custom_object$sharingModel <- 'ReadWrite'
+custom_object$enableActivities <- 'true'
+custom_object$description <- paste0(base_obj_name, " created by the Metadata API")
+custom_object_result <- sf_create_metadata(metadata_type = 'CustomObject',
+                                           metadata = custom_object)
+
+# add fields to the object
+custom_fields <- tibble(fullName=c(paste0(base_obj_name, '__c.CustomField3__c'), 
+                                   paste0(base_obj_name, '__c.CustomField4__c')), 
+                        label=c('Test Field3', 'Test Field4'), 
+                        length=c(100, 100), 
+                        type=c('Text', 'Text'))
+create_fields_result <- sf_create_metadata(metadata_type = 'CustomField', 
+                                           metadata = custom_fields)
+
+# delete the object
+delete_obj_result <- sf_delete_metadata(metadata_type = 'CustomObject', 
+                                        object_names = c('Custom_Account1__c'))
+```
+
+Note that newly created custom fields are not editable by default, meaning that you 
+will not be able to insert records into them until updating the field level security 
+of your user profile. Run the following code to determine the user profiles in your 
+org and updating the field permissions on an object that you may have created with the 
+example code above.
+
+```{r metadata-crud-field-security, eval=FALSE}
+# get list of user proviles in order to get the "fullName" 
+# parameter correct in the next call
+my_queries <- list(list(type = 'Profile'))
+profiles_list <- sf_list_metadata(queries = my_queries)
+
+admin_editable <- list(fullName = 'Admin', 
+                       fieldPermissions=list(field=paste0(custom_object$fullName, 
+                                                          '.CustomField3__c'),
+                                             editable='true'), 
+                       fieldPermissions=list(field=paste0(custom_object$fullName, 
+                                                          '.CustomField4__c'),
+                                             editable='true'))
+
+# update the field level security to "editable" for your fields
+prof_update <- sf_update_metadata(metadata_type = 'Profile', 
+                                  metadata = admin_editable)
+
+# now try inserting values into that custom object's fields
+my_new_data = tibble(CustomField3__c = "Hello World", CustomField4__c = "Hello World")
+added_record <- sf_create(my_new_data, object_name = custom_object$fullName)
+```

@@ -1,46 +1,46 @@
 #' Metadata Data Type Validator
-#' 
+#'
 #' A function to create a variety of objects that are part of the Metadata API service
 #' Below is a list of objects and their required components to be created with this function:
-#' 
+#'
 #' \strong{AccessMapping}
-#' 
+#'
 #' \describe{
 #'  \item{accessLevel}{a character}
 #'  \item{object}{a character}
 #'  \item{objectField}{a character}
 #'  \item{userField}{a character}
 #' }
-#' 
+#'
 #' \strong{AccountSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableAccountOwnerReport}{a character either 'true' or 'false'}
 #'  \item{enableAccountTeams}{a character either 'true' or 'false'}
 #'  \item{showViewHierarchyLink}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{AccountSharingRuleSettings}
-#' 
+#'
 #' \describe{
 #'  \item{caseAccessLevel}{a character}
 #'  \item{contactAccessLevel}{a character}
 #'  \item{opportunityAccessLevel}{a character}
 #' }
-#' 
+#'
 #' \strong{ActionLinkGroupTemplate}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{actionLinkTemplates}{a ActionLinkTemplate}
-#'  \item{category}{a PlatformActionGroupCategory - which is a character taking one of the following values: 
+#'  \item{category}{a PlatformActionGroupCategory - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Primary}
 #'      \item{Overflow}
 #'    }
 #'   }
-#'  \item{executionsAllowed}{a ActionLinkExecutionsAllowed - which is a character taking one of the following values: 
+#'  \item{executionsAllowed}{a ActionLinkExecutionsAllowed - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Once}
 #'      \item{OncePerUser}
@@ -51,9 +51,9 @@
 #'  \item{isPublished}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{ActionLinkTemplate}
-#' 
+#'
 #' \describe{
 #'  \item{actionUrl}{a character}
 #'  \item{headers}{a character}
@@ -61,7 +61,7 @@
 #'  \item{isGroupDefault}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
 #'  \item{labelKey}{a character}
-#'  \item{linkType}{a ActionLinkType - which is a character taking one of the following values: 
+#'  \item{linkType}{a ActionLinkType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{API}
 #'      \item{APIAsync}
@@ -69,7 +69,7 @@
 #'      \item{UI}
 #'    }
 #'   }
-#'  \item{method}{a ActionLinkHttpMethod - which is a character taking one of the following values: 
+#'  \item{method}{a ActionLinkHttpMethod - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{HttpDelete}
 #'      \item{HttpHead}
@@ -82,7 +82,7 @@
 #'  \item{position}{an integer}
 #'  \item{requestBody}{a character}
 #'  \item{userAlias}{a character}
-#'  \item{userVisibility}{a ActionLinkUserVisibility - which is a character taking one of the following values: 
+#'  \item{userVisibility}{a ActionLinkUserVisibility - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Creator}
 #'      \item{Everyone}
@@ -93,14 +93,14 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ActionOverride}
-#' 
+#'
 #' \describe{
 #'  \item{actionName}{a character}
 #'  \item{comment}{a character}
 #'  \item{content}{a character}
-#'  \item{formFactor}{a FormFactor - which is a character taking one of the following values: 
+#'  \item{formFactor}{a FormFactor - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Small}
 #'      \item{Medium}
@@ -108,7 +108,7 @@
 #'    }
 #'   }
 #'  \item{skipRecordTypeSelect}{a character either 'true' or 'false'}
-#'  \item{type}{a ActionOverrideType - which is a character taking one of the following values: 
+#'  \item{type}{a ActionOverrideType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Default}
 #'      \item{Standard}
@@ -119,9 +119,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ActivitiesSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{allowUsersToRelateMultipleContactsToTasksAndEvents}{a character either 'true' or 'false'}
@@ -145,54 +145,54 @@
 #'  \item{showHomePageHoverLinksForEvents}{a character either 'true' or 'false'}
 #'  \item{showMyTasksHoverLinks}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{AddressSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{countriesAndStates}{a CountriesAndStates}
 #' }
-#' 
+#'
 #' \strong{AdjustmentsSettings}
-#' 
+#'
 #' \describe{
 #'  \item{enableAdjustments}{a character either 'true' or 'false'}
 #'  \item{enableOwnerAdjustments}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{AgentConfigAssignments}
-#' 
+#'
 #' \describe{
 #'  \item{profiles}{a AgentConfigProfileAssignments}
 #'  \item{users}{a AgentConfigUserAssignments}
 #' }
-#' 
+#'
 #' \strong{AgentConfigButtons}
-#' 
+#'
 #' \describe{
 #'  \item{button}{a character}
 #' }
-#' 
+#'
 #' \strong{AgentConfigProfileAssignments}
-#' 
+#'
 #' \describe{
 #'  \item{profile}{a character}
 #' }
-#' 
+#'
 #' \strong{AgentConfigSkills}
-#' 
+#'
 #' \describe{
 #'  \item{skill}{a character}
 #' }
-#' 
+#'
 #' \strong{AgentConfigUserAssignments}
-#' 
+#'
 #' \describe{
 #'  \item{user}{a character}
 #' }
-#' 
+#'
 #' \strong{AnalyticsCloudComponentLayoutItem}
-#' 
+#'
 #' \describe{
 #'  \item{assetType}{a character}
 #'  \item{devName}{a character}
@@ -205,9 +205,9 @@
 #'  \item{showTitle}{a character either 'true' or 'false'}
 #'  \item{width}{a character}
 #' }
-#' 
+#'
 #' \strong{AnalyticSnapshot}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -218,11 +218,11 @@
 #'  \item{sourceReport}{a character}
 #'  \item{targetObject}{a character}
 #' }
-#' 
+#'
 #' \strong{AnalyticSnapshotMapping}
-#' 
+#'
 #' \describe{
-#'  \item{aggregateType}{a ReportSummaryType - which is a character taking one of the following values: 
+#'  \item{aggregateType}{a ReportSummaryType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sum}
 #'      \item{Average}
@@ -232,7 +232,7 @@
 #'    }
 #'   }
 #'  \item{sourceField}{a character}
-#'  \item{sourceType}{a ReportJobSourceTypes - which is a character taking one of the following values: 
+#'  \item{sourceType}{a ReportJobSourceTypes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{tabular}
 #'      \item{summary}
@@ -241,14 +241,14 @@
 #'   }
 #'  \item{targetField}{a character}
 #' }
-#' 
+#'
 #' \strong{ApexClass}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{apiVersion}{a numeric}
 #'  \item{packageVersions}{a PackageVersion}
-#'  \item{status}{a ApexCodeUnitStatus - which is a character taking one of the following values: 
+#'  \item{status}{a ApexCodeUnitStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Inactive}
 #'      \item{Active}
@@ -256,9 +256,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ApexComponent}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{apiVersion}{a numeric}
@@ -266,9 +266,9 @@
 #'  \item{label}{a character}
 #'  \item{packageVersions}{a PackageVersion}
 #' }
-#' 
+#'
 #' \strong{ApexPage}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{apiVersion}{a numeric}
@@ -278,21 +278,21 @@
 #'  \item{label}{a character}
 #'  \item{packageVersions}{a PackageVersion}
 #' }
-#' 
+#'
 #' \strong{ApexTestSuite}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{testClassName}{a character}
 #' }
-#' 
+#'
 #' \strong{ApexTrigger}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{apiVersion}{a numeric}
 #'  \item{packageVersions}{a PackageVersion}
-#'  \item{status}{a ApexCodeUnitStatus - which is a character taking one of the following values: 
+#'  \item{status}{a ApexCodeUnitStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Inactive}
 #'      \item{Active}
@@ -300,9 +300,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{AppActionOverride}
-#' 
+#'
 #' \describe{
 #'  \item{actionName}{a character (inherited from ActionOverride)}
 #'  \item{comment}{a character (inherited from ActionOverride)}
@@ -312,9 +312,9 @@
 #'  \item{type}{a ActionOverrideType (inherited from ActionOverride)}
 #'  \item{pageOrSobjectType}{a character}
 #' }
-#' 
+#'
 #' \strong{AppBrand}
-#' 
+#'
 #' \describe{
 #'  \item{footerColor}{a character}
 #'  \item{headerColor}{a character}
@@ -322,30 +322,30 @@
 #'  \item{logoVersion}{an integer}
 #'  \item{shouldOverrideOrgTheme}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{AppComponentList}
-#' 
+#'
 #' \describe{
 #'  \item{alignment}{a character}
 #'  \item{components}{a character}
 #' }
-#' 
+#'
 #' \strong{AppMenu}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{appMenuItems}{a AppMenuItem}
 #' }
-#' 
+#'
 #' \strong{AppMenuItem}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{AppPreferences}
-#' 
+#'
 #' \describe{
 #'  \item{enableCustomizeMyTabs}{a character either 'true' or 'false'}
 #'  \item{enableKeyboardShortcuts}{a character either 'true' or 'false'}
@@ -357,9 +357,9 @@
 #'  \item{enableTabLimits}{a character either 'true' or 'false'}
 #'  \item{saveUserSessions}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{AppProfileActionOverride}
-#' 
+#'
 #' \describe{
 #'  \item{actionName}{a character (inherited from ProfileActionOverride)}
 #'  \item{content}{a character (inherited from ProfileActionOverride)}
@@ -369,29 +369,29 @@
 #'  \item{type}{a ActionOverrideType (inherited from ProfileActionOverride)}
 #'  \item{profile}{a character}
 #' }
-#' 
+#'
 #' \strong{ApprovalAction}
-#' 
+#'
 #' \describe{
 #'  \item{action}{a WorkflowActionReference}
 #' }
-#' 
+#'
 #' \strong{ApprovalEntryCriteria}
-#' 
+#'
 #' \describe{
 #'  \item{booleanFilter}{a character}
 #'  \item{criteriaItems}{a FilterItem}
 #'  \item{formula}{a character}
 #' }
-#' 
+#'
 #' \strong{ApprovalPageField}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #' }
-#' 
+#'
 #' \strong{ApprovalProcess}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -412,7 +412,7 @@
 #'  \item{nextAutomatedApprover}{a NextAutomatedApprover}
 #'  \item{postTemplate}{a character}
 #'  \item{recallActions}{a ApprovalAction}
-#'  \item{recordEditability}{a RecordEditabilityType - which is a character taking one of the following values: 
+#'  \item{recordEditability}{a RecordEditabilityType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AdminOnly}
 #'      \item{AdminOrCurrentApprover}
@@ -420,16 +420,16 @@
 #'   }
 #'  \item{showApprovalHistory}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ApprovalStep}
-#' 
+#'
 #' \describe{
 #'  \item{allowDelegate}{a character either 'true' or 'false'}
 #'  \item{approvalActions}{a ApprovalAction}
 #'  \item{assignedApprover}{a ApprovalStepApprover}
 #'  \item{description}{a character}
 #'  \item{entryCriteria}{a ApprovalEntryCriteria}
-#'  \item{ifCriteriaNotMet}{a StepCriteriaNotMetType - which is a character taking one of the following values: 
+#'  \item{ifCriteriaNotMet}{a StepCriteriaNotMetType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ApproveRecord}
 #'      \item{RejectRecord}
@@ -441,35 +441,35 @@
 #'  \item{rejectBehavior}{a ApprovalStepRejectBehavior}
 #'  \item{rejectionActions}{a ApprovalAction}
 #' }
-#' 
+#'
 #' \strong{ApprovalStepApprover}
-#' 
+#'
 #' \describe{
 #'  \item{approver}{a Approver}
-#'  \item{whenMultipleApprovers}{a RoutingType - which is a character taking one of the following values: 
+#'  \item{whenMultipleApprovers}{a RoutingType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Unanimous}
 #'      \item{FirstResponse}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ApprovalStepRejectBehavior}
-#' 
+#'
 #' \describe{
-#'  \item{type}{a StepRejectBehaviorType - which is a character taking one of the following values: 
+#'  \item{type}{a StepRejectBehaviorType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{RejectRequest}
 #'      \item{BackToPrevious}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ApprovalSubmitter}
-#' 
+#'
 #' \describe{
 #'  \item{submitter}{a character}
-#'  \item{type}{a ProcessSubmitterType - which is a character taking one of the following values: 
+#'  \item{type}{a ProcessSubmitterType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{group}
 #'      \item{role}
@@ -486,12 +486,12 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Approver}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
-#'  \item{type}{a NextOwnerType - which is a character taking one of the following values: 
+#'  \item{type}{a NextOwnerType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{adhoc}
 #'      \item{user}
@@ -501,23 +501,23 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{AppWorkspaceConfig}
-#' 
+#'
 #' \describe{
 #'  \item{mappings}{a WorkspaceMapping}
 #' }
-#' 
+#'
 #' \strong{ArticleTypeChannelDisplay}
-#' 
+#'
 #' \describe{
 #'  \item{articleTypeTemplates}{a ArticleTypeTemplate}
 #' }
-#' 
+#'
 #' \strong{ArticleTypeTemplate}
-#' 
+#'
 #' \describe{
-#'  \item{channel}{a Channel - which is a character taking one of the following values: 
+#'  \item{channel}{a Channel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AllChannels}
 #'      \item{App}
@@ -527,7 +527,7 @@
 #'    }
 #'   }
 #'  \item{page}{a character}
-#'  \item{template}{a Template - which is a character taking one of the following values: 
+#'  \item{template}{a Template - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Page}
 #'      \item{Tab}
@@ -535,24 +535,24 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{AssignmentRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{ruleEntry}{a RuleEntry}
 #' }
-#' 
+#'
 #' \strong{AssignmentRules}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{assignmentRule}{a AssignmentRule}
 #' }
-#' 
+#'
 #' \strong{AssistantRecommendationType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -561,16 +561,16 @@
 #'  \item{sobjectType}{a character}
 #'  \item{title}{a character}
 #' }
-#' 
+#'
 #' \strong{Attachment}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}}}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{AuraDefinitionBundle}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{SVGContent}{a character formed using \code{\link[base64enc]{base64encode}}}
@@ -586,7 +586,7 @@
 #'  \item{rendererContent}{a character formed using \code{\link[base64enc]{base64encode}}}
 #'  \item{styleContent}{a character formed using \code{\link[base64enc]{base64encode}}}
 #'  \item{testsuiteContent}{a character formed using \code{\link[base64enc]{base64encode}}}
-#'  \item{type}{a AuraBundleType - which is a character taking one of the following values: 
+#'  \item{type}{a AuraBundleType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Application}
 #'      \item{Component}
@@ -596,9 +596,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{AuthProvider}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{authorizeUrl}{a character}
@@ -615,7 +615,7 @@
 #'  \item{logoutUrl}{a character}
 #'  \item{plugin}{a character}
 #'  \item{portal}{a character}
-#'  \item{providerType}{a AuthProviderType - which is a character taking one of the following values: 
+#'  \item{providerType}{a AuthProviderType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Facebook}
 #'      \item{Janrain}
@@ -635,24 +635,24 @@
 #'  \item{tokenUrl}{a character}
 #'  \item{userInfoUrl}{a character}
 #' }
-#' 
+#'
 #' \strong{AutoResponseRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{ruleEntry}{a RuleEntry}
 #' }
-#' 
+#'
 #' \strong{AutoResponseRules}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{autoResponseRule}{a AutoResponseRule}
 #' }
-#' 
+#'
 #' \strong{BrandingSet}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{brandingSetProperty}{a BrandingSetProperty}
@@ -660,16 +660,16 @@
 #'  \item{masterLabel}{a character}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{BrandingSetProperty}
-#' 
+#'
 #' \describe{
 #'  \item{propertyName}{a character}
 #'  \item{propertyValue}{a character}
 #' }
-#' 
+#'
 #' \strong{BusinessHoursEntry}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -691,26 +691,26 @@
 #'  \item{wednesdayEndTime}{a character formatted as 'hh:mm:ssZ}
 #'  \item{wednesdayStartTime}{a character formatted as 'hh:mm:ssZ}
 #' }
-#' 
+#'
 #' \strong{BusinessHoursSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{businessHours}{a BusinessHoursEntry}
 #'  \item{holidays}{a Holiday}
 #' }
-#' 
+#'
 #' \strong{BusinessProcess}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
 #'  \item{isActive}{a character either 'true' or 'false'}
 #'  \item{values}{a PicklistValue}
 #' }
-#' 
+#'
 #' \strong{CallCenter}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{adapterUrl}{a character}
@@ -721,25 +721,25 @@
 #'  \item{sections}{a CallCenterSection}
 #'  \item{version}{a character}
 #' }
-#' 
+#'
 #' \strong{CallCenterItem}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{CallCenterSection}
-#' 
+#'
 #' \describe{
 #'  \item{items}{a CallCenterItem}
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{CampaignInfluenceModel}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{isActive}{a character either 'true' or 'false'}
@@ -749,9 +749,9 @@
 #'  \item{name}{a character}
 #'  \item{recordPreference}{a character}
 #' }
-#' 
+#'
 #' \strong{CaseSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{caseAssignNotificationTemplate}{a character}
@@ -785,14 +785,14 @@
 #'  \item{useSystemUserAsDefaultCaseUser}{a character either 'true' or 'false'}
 #'  \item{webToCase}{a WebToCaseSettings}
 #' }
-#' 
+#'
 #' \strong{CaseSubjectParticle}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{index}{an integer}
 #'  \item{textField}{a character}
-#'  \item{type}{a CaseSubjectParticleType - which is a character taking one of the following values: 
+#'  \item{type}{a CaseSubjectParticleType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ProvidedString}
 #'      \item{Source}
@@ -808,9 +808,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Certificate}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{caSigned}{a character either 'true' or 'false'}
@@ -820,9 +820,9 @@
 #'  \item{masterLabel}{a character}
 #'  \item{privateKeyExportable}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ChannelLayout}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enabledChannels}{a character}
@@ -830,17 +830,17 @@
 #'  \item{layoutItems}{a ChannelLayoutItem}
 #'  \item{recordType}{a character}
 #' }
-#' 
+#'
 #' \strong{ChannelLayoutItem}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #' }
-#' 
+#'
 #' \strong{ChartSummary}
-#' 
+#'
 #' \describe{
-#'  \item{aggregate}{a ReportSummaryType - which is a character taking one of the following values: 
+#'  \item{aggregate}{a ReportSummaryType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sum}
 #'      \item{Average}
@@ -849,7 +849,7 @@
 #'      \item{None}
 #'    }
 #'   }
-#'  \item{axisBinding}{a ChartAxis - which is a character taking one of the following values: 
+#'  \item{axisBinding}{a ChartAxis - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{x}
 #'      \item{y}
@@ -859,16 +859,16 @@
 #'   }
 #'  \item{column}{a character}
 #' }
-#' 
+#'
 #' \strong{ChatterAnswersReputationLevel}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{value}{an integer}
 #' }
-#' 
+#'
 #' \strong{ChatterAnswersSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{emailFollowersOnBestAnswer}{a character either 'true' or 'false'}
@@ -884,9 +884,9 @@
 #'  \item{facebookAuthProvider}{a character}
 #'  \item{showInPortals}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ChatterExtension}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{compositionComponent}{a character}
@@ -898,21 +898,21 @@
 #'  \item{isProtected}{a character either 'true' or 'false'}
 #'  \item{masterLabel}{a character}
 #'  \item{renderComponent}{a character}
-#'  \item{type}{a ChatterExtensionType - which is a character taking one of the following values: 
+#'  \item{type}{a ChatterExtensionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Lightning}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ChatterMobileSettings}
-#' 
+#'
 #' \describe{
 #'  \item{enablePushNotifications}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CleanDataService}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{cleanRules}{a CleanRule}
@@ -920,9 +920,9 @@
 #'  \item{masterLabel}{a character}
 #'  \item{matchEngine}{a character}
 #' }
-#' 
+#'
 #' \strong{CleanRule}
-#' 
+#'
 #' \describe{
 #'  \item{bulkEnabled}{a character either 'true' or 'false'}
 #'  \item{bypassTriggers}{a character either 'true' or 'false'}
@@ -933,7 +933,7 @@
 #'  \item{masterLabel}{a character}
 #'  \item{matchRule}{a character}
 #'  \item{sourceSobjectType}{a character}
-#'  \item{status}{a CleanRuleStatus - which is a character taking one of the following values: 
+#'  \item{status}{a CleanRuleStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Inactive}
 #'      \item{Active}
@@ -941,18 +941,18 @@
 #'   }
 #'  \item{targetSobjectType}{a character}
 #' }
-#' 
+#'
 #' \strong{CodeLocation}
-#' 
+#'
 #' \describe{
 #'  \item{column}{an integer}
 #'  \item{line}{an integer}
 #'  \item{numExecutions}{an integer}
 #'  \item{time}{a numeric}
 #' }
-#' 
+#'
 #' \strong{Community}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -971,48 +971,48 @@
 #'  \item{showInPortal}{a character either 'true' or 'false'}
 #'  \item{site}{a character}
 #' }
-#' 
+#'
 #' \strong{CommunityCustomThemeLayoutType}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{CommunityRoles}
-#' 
+#'
 #' \describe{
 #'  \item{customerUserRole}{a character}
 #'  \item{employeeUserRole}{a character}
 #'  \item{partnerUserRole}{a character}
 #' }
-#' 
+#'
 #' \strong{CommunityTemplateBundleInfo}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{image}{a character}
 #'  \item{order}{an integer}
 #'  \item{title}{a character}
-#'  \item{type}{a CommunityTemplateBundleInfoType - which is a character taking one of the following values: 
+#'  \item{type}{a CommunityTemplateBundleInfoType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Highlight}
 #'      \item{PreviewImage}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{CommunityTemplateDefinition}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{baseTemplate}{a CommunityBaseTemplate - which is a character taking one of the following values: 
+#'  \item{baseTemplate}{a CommunityBaseTemplate - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{c}
 #'    }
 #'   }
 #'  \item{bundlesInfo}{a CommunityTemplateBundleInfo}
-#'  \item{category}{a CommunityTemplateCategory - which is a character taking one of the following values: 
+#'  \item{category}{a CommunityTemplateCategory - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{IT}
 #'      \item{Marketing}
@@ -1028,16 +1028,16 @@
 #'  \item{navigationLinkSet}{a NavigationLinkSet}
 #'  \item{pageSetting}{a CommunityTemplatePageSetting}
 #' }
-#' 
+#'
 #' \strong{CommunityTemplatePageSetting}
-#' 
+#'
 #' \describe{
 #'  \item{page}{a character}
 #'  \item{themeLayout}{a character}
 #' }
-#' 
+#'
 #' \strong{CommunityThemeDefinition}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customThemeLayoutType}{a CommunityCustomThemeLayoutType}
@@ -1046,13 +1046,13 @@
 #'  \item{masterLabel}{a character}
 #'  \item{themeSetting}{a CommunityThemeSetting}
 #' }
-#' 
+#'
 #' \strong{CommunityThemeSetting}
-#' 
+#'
 #' \describe{
 #'  \item{customThemeLayoutType}{a character}
 #'  \item{themeLayout}{a character}
-#'  \item{themeLayoutType}{a CommunityThemeLayoutType - which is a character taking one of the following values: 
+#'  \item{themeLayoutType}{a CommunityThemeLayoutType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Login}
 #'      \item{Home}
@@ -1060,44 +1060,44 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{CompactLayout}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{fields}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{CompanySettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{fiscalYear}{a FiscalYearSettings}
 #' }
-#' 
+#'
 #' \strong{ComponentInstance}
-#' 
+#'
 #' \describe{
 #'  \item{componentInstanceProperties}{a ComponentInstanceProperty}
 #'  \item{componentName}{a character}
 #'  \item{visibilityRule}{a UiFormulaRule}
 #' }
-#' 
+#'
 #' \strong{ComponentInstanceProperty}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
-#'  \item{type}{a ComponentInstancePropertyTypeEnum - which is a character taking one of the following values: 
+#'  \item{type}{a ComponentInstancePropertyTypeEnum - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{decorator}
 #'    }
 #'   }
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{ConnectedApp}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{attributes}{a ConnectedAppAttribute}
@@ -1117,18 +1117,18 @@
 #'  \item{samlConfig}{a ConnectedAppSamlConfig}
 #'  \item{startUrl}{a character}
 #' }
-#' 
+#'
 #' \strong{ConnectedAppAttribute}
-#' 
+#'
 #' \describe{
 #'  \item{formula}{a character}
 #'  \item{key}{a character}
 #' }
-#' 
+#'
 #' \strong{ConnectedAppCanvasConfig}
-#' 
+#'
 #' \describe{
-#'  \item{accessMethod}{a AccessMethod - which is a character taking one of the following values: 
+#'  \item{accessMethod}{a AccessMethod - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Get}
 #'      \item{Post}
@@ -1136,7 +1136,7 @@
 #'   }
 #'  \item{canvasUrl}{a character}
 #'  \item{lifecycleClass}{a character}
-#'  \item{locations}{a CanvasLocationOptions - which is a character taking one of the following values: 
+#'  \item{locations}{a CanvasLocationOptions - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Chatter}
@@ -1152,14 +1152,14 @@
 #'      \item{PageLayout}
 #'    }
 #'   }
-#'  \item{options}{a CanvasOptions - which is a character taking one of the following values: 
+#'  \item{options}{a CanvasOptions - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{HideShare}
 #'      \item{HideHeader}
 #'      \item{PersonalEnabled}
 #'    }
 #'   }
-#'  \item{samlInitiationMethod}{a SamlInitiationMethod - which is a character taking one of the following values: 
+#'  \item{samlInitiationMethod}{a SamlInitiationMethod - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{IdpInitiated}
@@ -1167,17 +1167,17 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ConnectedAppIpRange}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{end}{a character}
 #'  \item{start}{a character}
 #' }
-#' 
+#'
 #' \strong{ConnectedAppMobileDetailConfig}
-#' 
+#'
 #' \describe{
 #'  \item{applicationBinaryFile}{a character formed using \code{\link[base64enc]{base64encode}}}
 #'  \item{applicationBinaryFileName}{a character}
@@ -1186,13 +1186,13 @@
 #'  \item{applicationIconFile}{a character}
 #'  \item{applicationIconFileName}{a character}
 #'  \item{applicationInstallUrl}{a character}
-#'  \item{devicePlatform}{a DevicePlatformType - which is a character taking one of the following values: 
+#'  \item{devicePlatform}{a DevicePlatformType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ios}
 #'      \item{android}
 #'    }
 #'   }
-#'  \item{deviceType}{a DeviceType - which is a character taking one of the following values: 
+#'  \item{deviceType}{a DeviceType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{phone}
 #'      \item{tablet}
@@ -1203,15 +1203,15 @@
 #'  \item{privateApp}{a character either 'true' or 'false'}
 #'  \item{version}{a character}
 #' }
-#' 
+#'
 #' \strong{ConnectedAppOauthConfig}
-#' 
+#'
 #' \describe{
 #'  \item{callbackUrl}{a character}
 #'  \item{certificate}{a character}
 #'  \item{consumerKey}{a character}
 #'  \item{consumerSecret}{a character}
-#'  \item{scopes}{a ConnectedAppOauthAccessScope - which is a character taking one of the following values: 
+#'  \item{scopes}{a ConnectedAppOauthAccessScope - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Basic}
 #'      \item{Api}
@@ -1233,14 +1233,14 @@
 #'   }
 #'  \item{singleLogoutUrl}{a character}
 #' }
-#' 
+#'
 #' \strong{ConnectedAppSamlConfig}
-#' 
+#'
 #' \describe{
 #'  \item{acsUrl}{a character}
 #'  \item{certificate}{a character}
 #'  \item{encryptionCertificate}{a character}
-#'  \item{encryptionType}{a SamlEncryptionType - which is a character taking one of the following values: 
+#'  \item{encryptionType}{a SamlEncryptionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AES_128}
 #'      \item{AES_256}
@@ -1249,13 +1249,13 @@
 #'   }
 #'  \item{entityUrl}{a character}
 #'  \item{issuer}{a character}
-#'  \item{samlIdpSLOBindingEnum}{a SamlIdpSLOBinding - which is a character taking one of the following values: 
+#'  \item{samlIdpSLOBindingEnum}{a SamlIdpSLOBinding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{RedirectBinding}
 #'      \item{PostBinding}
 #'    }
 #'   }
-#'  \item{samlNameIdFormat}{a SamlNameIdFormatType - which is a character taking one of the following values: 
+#'  \item{samlNameIdFormat}{a SamlNameIdFormatType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Unspecified}
 #'      \item{EmailAddress}
@@ -1265,7 +1265,7 @@
 #'   }
 #'  \item{samlSloUrl}{a character}
 #'  \item{samlSubjectCustomAttr}{a character}
-#'  \item{samlSubjectType}{a SamlSubjectType - which is a character taking one of the following values: 
+#'  \item{samlSubjectType}{a SamlSubjectType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Username}
 #'      \item{FederationId}
@@ -1276,9 +1276,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Container}
-#' 
+#'
 #' \describe{
 #'  \item{height}{an integer}
 #'  \item{isContainerAutoSizeEnabled}{a character either 'true' or 'false'}
@@ -1288,12 +1288,12 @@
 #'  \item{unit}{a character}
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{ContentAsset}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
-#'  \item{format}{a ContentAssetFormat - which is a character taking one of the following values: 
+#'  \item{format}{a ContentAssetFormat - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Original}
 #'      \item{ZippedVersions}
@@ -1305,11 +1305,11 @@
 #'  \item{relationships}{a ContentAssetRelationships}
 #'  \item{versions}{a ContentAssetVersions}
 #' }
-#' 
+#'
 #' \strong{ContentAssetLink}
-#' 
+#'
 #' \describe{
-#'  \item{access}{a ContentAssetAccess - which is a character taking one of the following values: 
+#'  \item{access}{a ContentAssetAccess - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{VIEWER}
 #'      \item{COLLABORATOR}
@@ -1319,32 +1319,32 @@
 #'  \item{isManagingWorkspace}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{ContentAssetRelationships}
-#' 
+#'
 #' \describe{
 #'  \item{insightsApplication}{a ContentAssetLink}
 #'  \item{network}{a ContentAssetLink}
 #'  \item{organization}{a ContentAssetLink}
 #'  \item{workspace}{a ContentAssetLink}
 #' }
-#' 
+#'
 #' \strong{ContentAssetVersion}
-#' 
+#'
 #' \describe{
 #'  \item{number}{a character}
 #'  \item{pathOnClient}{a character}
 #'  \item{zipEntry}{a character}
 #' }
-#' 
+#'
 #' \strong{ContentAssetVersions}
-#' 
+#'
 #' \describe{
 #'  \item{version}{a ContentAssetVersion}
 #' }
-#' 
+#'
 #' \strong{ContractSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{autoCalculateEndDate}{a character either 'true' or 'false'}
@@ -1354,22 +1354,22 @@
 #'  \item{enableContractHistoryTracking}{a character either 'true' or 'false'}
 #'  \item{notifyOwnersOnContractExpiration}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CorsWhitelistOrigin}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{urlPattern}{a character}
 #' }
-#' 
+#'
 #' \strong{CountriesAndStates}
-#' 
+#'
 #' \describe{
 #'  \item{countries}{a Country}
 #' }
-#' 
+#'
 #' \strong{Country}
-#' 
+#'
 #' \describe{
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{integrationValue}{a character}
@@ -1380,18 +1380,18 @@
 #'  \item{states}{a State}
 #'  \item{visible}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CspTrustedSite}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
 #'  \item{endpointUrl}{a character}
 #'  \item{isActive}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CustomApplication}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{actionOverrides}{a AppActionOverride}
@@ -1399,7 +1399,7 @@
 #'  \item{consoleConfig}{a ServiceCloudConsoleConfig}
 #'  \item{defaultLandingTab}{a character}
 #'  \item{description}{a character}
-#'  \item{formFactors}{a FormFactor - which is a character taking one of the following values: 
+#'  \item{formFactors}{a FormFactor - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Small}
 #'      \item{Medium}
@@ -1409,7 +1409,7 @@
 #'  \item{isServiceCloudConsole}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
 #'  \item{logo}{a character}
-#'  \item{navType}{a NavType - which is a character taking one of the following values: 
+#'  \item{navType}{a NavType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Standard}
 #'      \item{Console}
@@ -1420,7 +1420,7 @@
 #'  \item{setupExperience}{a character}
 #'  \item{subscriberTabs}{a character}
 #'  \item{tabs}{a character}
-#'  \item{uiType}{a UiType - which is a character taking one of the following values: 
+#'  \item{uiType}{a UiType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Aloha}
 #'      \item{Lightning}
@@ -1429,9 +1429,9 @@
 #'  \item{utilityBar}{a character}
 #'  \item{workspaceConfig}{a AppWorkspaceConfig}
 #' }
-#' 
+#'
 #' \strong{CustomApplicationComponent}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{buttonIconUrl}{a character}
@@ -1445,23 +1445,23 @@
 #'  \item{visualforcePage}{a character}
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{CustomApplicationTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomConsoleComponents}
-#' 
+#'
 #' \describe{
 #'  \item{primaryTabComponents}{a PrimaryTabComponents}
 #'  \item{subtabComponents}{a SubtabComponents}
 #' }
-#' 
+#'
 #' \strong{CustomDataType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customDataTypeComponents}{a CustomDataTypeComponent}
@@ -1472,9 +1472,9 @@
 #'  \item{rightAligned}{a character either 'true' or 'false'}
 #'  \item{supportComponentsInReports}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CustomDataTypeComponent}
-#' 
+#'
 #' \describe{
 #'  \item{developerSuffix}{a character}
 #'  \item{enforceFieldRequiredness}{a character either 'true' or 'false'}
@@ -1482,14 +1482,14 @@
 #'  \item{length}{an integer}
 #'  \item{precision}{an integer}
 #'  \item{scale}{an integer}
-#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values: 
+#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
 #'    }
 #'   }
 #'  \item{sortPriority}{an integer}
-#'  \item{type}{a FieldType - which is a character taking one of the following values: 
+#'  \item{type}{a FieldType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AutoNumber}
 #'      \item{Lookup}
@@ -1522,25 +1522,25 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{CustomDataTypeComponentTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{developerSuffix}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomDataTypeTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{components}{a CustomDataTypeComponentTranslation}
 #'  \item{customDataTypeName}{a character}
 #'  \item{description}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomExperience}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{allowInternalUserLogin}{a character either 'true' or 'false'}
@@ -1561,9 +1561,9 @@
 #'  \item{urlPathPrefix}{a character}
 #'  \item{welcomeEmailTemplate}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomExperienceBranding}
-#' 
+#'
 #' \describe{
 #'  \item{loginFooterText}{a character}
 #'  \item{loginLogo}{a character}
@@ -1579,17 +1579,17 @@
 #'  \item{zeronaryColor}{a character}
 #'  \item{zeronaryComplementColor}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomExperienceTabSet}
-#' 
+#'
 #' \describe{
 #'  \item{customTab}{a character}
 #'  \item{defaultTab}{a character}
 #'  \item{standardTab}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomFeedFilter}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{criteria}{a FeedFilterCriterion}
@@ -1597,9 +1597,9 @@
 #'  \item{isProtected}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomField}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{businessOwnerGroup}{a character}
@@ -1608,7 +1608,7 @@
 #'  \item{caseSensitive}{a character either 'true' or 'false'}
 #'  \item{customDataType}{a character}
 #'  \item{defaultValue}{a character}
-#'  \item{deleteConstraint}{a DeleteConstraint - which is a character taking one of the following values: 
+#'  \item{deleteConstraint}{a DeleteConstraint - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Cascade}
 #'      \item{Restrict}
@@ -1622,7 +1622,7 @@
 #'  \item{escapeMarkup}{a character either 'true' or 'false'}
 #'  \item{externalDeveloperName}{a character}
 #'  \item{externalId}{a character either 'true' or 'false'}
-#'  \item{fieldManageability}{a FieldManageability - which is a character taking one of the following values: 
+#'  \item{fieldManageability}{a FieldManageability - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{DeveloperControlled}
 #'      \item{SubscriberControlled}
@@ -1630,7 +1630,7 @@
 #'    }
 #'   }
 #'  \item{formula}{a character}
-#'  \item{formulaTreatBlanksAs}{a TreatBlanksAs - which is a character taking one of the following values: 
+#'  \item{formulaTreatBlanksAs}{a TreatBlanksAs - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{BlankAsBlank}
 #'      \item{BlankAsZero}
@@ -1644,13 +1644,13 @@
 #'  \item{label}{a character}
 #'  \item{length}{an integer}
 #'  \item{lookupFilter}{a LookupFilter}
-#'  \item{maskChar}{a EncryptedFieldMaskChar - which is a character taking one of the following values: 
+#'  \item{maskChar}{a EncryptedFieldMaskChar - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{asterisk}
 #'      \item{X}
 #'    }
 #'   }
-#'  \item{maskType}{a EncryptedFieldMaskType - which is a character taking one of the following values: 
+#'  \item{maskType}{a EncryptedFieldMaskType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{all}
 #'      \item{creditCard}
@@ -1672,7 +1672,7 @@
 #'  \item{required}{a character either 'true' or 'false'}
 #'  \item{restrictedAdminField}{a character either 'true' or 'false'}
 #'  \item{scale}{an integer}
-#'  \item{securityClassification}{a SecurityClassification - which is a character taking one of the following values: 
+#'  \item{securityClassification}{a SecurityClassification - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AccountInformation}
 #'      \item{ConfigurationAndUsageData}
@@ -1687,7 +1687,7 @@
 #'  \item{summarizedField}{a character}
 #'  \item{summaryFilterItems}{a FilterItem}
 #'  \item{summaryForeignKey}{a character}
-#'  \item{summaryOperation}{a SummaryOperations - which is a character taking one of the following values: 
+#'  \item{summaryOperation}{a SummaryOperations - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{count}
 #'      \item{sum}
@@ -1698,7 +1698,7 @@
 #'  \item{trackFeedHistory}{a character either 'true' or 'false'}
 #'  \item{trackHistory}{a character either 'true' or 'false'}
 #'  \item{trackTrending}{a character either 'true' or 'false'}
-#'  \item{type}{a FieldType - which is a character taking one of the following values: 
+#'  \item{type}{a FieldType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AutoNumber}
 #'      \item{Lookup}
@@ -1735,12 +1735,12 @@
 #'  \item{visibleLines}{an integer}
 #'  \item{writeRequiresMasterRead}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CustomFieldTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{caseValues}{a ObjectNameCaseValue}
-#'  \item{gender}{a Gender - which is a character taking one of the following values: 
+#'  \item{gender}{a Gender - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Neuter}
 #'      \item{Masculine}
@@ -1754,7 +1754,7 @@
 #'  \item{name}{a character}
 #'  \item{picklistValues}{a PicklistValueTranslation}
 #'  \item{relationshipLabel}{a character}
-#'  \item{startsWith}{a StartsWith - which is a character taking one of the following values: 
+#'  \item{startsWith}{a StartsWith - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Consonant}
 #'      \item{Vowel}
@@ -1762,9 +1762,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{CustomLabel}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{categories}{a character}
@@ -1773,23 +1773,23 @@
 #'  \item{shortDescription}{a character}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomLabels}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{labels}{a CustomLabel}
 #' }
-#' 
+#'
 #' \strong{CustomLabelTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomMetadata}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -1797,16 +1797,16 @@
 #'  \item{protected}{a character either 'true' or 'false'}
 #'  \item{values}{a CustomMetadataValue}
 #' }
-#' 
+#'
 #' \strong{CustomMetadataValue}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #'  \item{value}{a character that appears similar to any of the other accepted types (integer, numeric, date, datetime, boolean)}
 #' }
-#' 
+#'
 #' \strong{CustomNotificationType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customNotifTypeName}{a character}
@@ -1816,9 +1816,9 @@
 #'  \item{masterLabel}{a character}
 #'  \item{mobile}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CustomObject}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{actionOverrides}{a ActionOverride}
@@ -1829,7 +1829,7 @@
 #'  \item{compactLayouts}{a CompactLayout}
 #'  \item{customHelp}{a character}
 #'  \item{customHelpPage}{a character}
-#'  \item{customSettingsType}{a CustomSettingsType - which is a character taking one of the following values: 
+#'  \item{customSettingsType}{a CustomSettingsType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{List}
 #'      \item{Hierarchy}
@@ -1837,7 +1837,7 @@
 #'   }
 #'  \item{dataStewardGroup}{a character}
 #'  \item{dataStewardUser}{a character}
-#'  \item{deploymentStatus}{a DeploymentStatus - which is a character taking one of the following values: 
+#'  \item{deploymentStatus}{a DeploymentStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{InDevelopment}
 #'      \item{Deployed}
@@ -1856,7 +1856,7 @@
 #'  \item{enableSearch}{a character either 'true' or 'false'}
 #'  \item{enableSharing}{a character either 'true' or 'false'}
 #'  \item{enableStreamingApi}{a character either 'true' or 'false'}
-#'  \item{eventType}{a PlatformEventType - which is a character taking one of the following values: 
+#'  \item{eventType}{a PlatformEventType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{HighVolume}
 #'      \item{StandardVolume}
@@ -1865,7 +1865,7 @@
 #'  \item{externalDataSource}{a character}
 #'  \item{externalName}{a character}
 #'  \item{externalRepository}{a character}
-#'  \item{externalSharingModel}{a SharingModel - which is a character taking one of the following values: 
+#'  \item{externalSharingModel}{a SharingModel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Private}
 #'      \item{Read}
@@ -1878,7 +1878,7 @@
 #'   }
 #'  \item{fieldSets}{a FieldSet}
 #'  \item{fields}{a CustomField}
-#'  \item{gender}{a Gender - which is a character taking one of the following values: 
+#'  \item{gender}{a Gender - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Neuter}
 #'      \item{Masculine}
@@ -1897,7 +1897,7 @@
 #'  \item{recordTypeTrackHistory}{a character either 'true' or 'false'}
 #'  \item{recordTypes}{a RecordType}
 #'  \item{searchLayouts}{a SearchLayouts}
-#'  \item{sharingModel}{a SharingModel - which is a character taking one of the following values: 
+#'  \item{sharingModel}{a SharingModel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Private}
 #'      \item{Read}
@@ -1910,7 +1910,7 @@
 #'   }
 #'  \item{sharingReasons}{a SharingReason}
 #'  \item{sharingRecalculations}{a SharingRecalculation}
-#'  \item{startsWith}{a StartsWith - which is a character taking one of the following values: 
+#'  \item{startsWith}{a StartsWith - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Consonant}
 #'      \item{Vowel}
@@ -1918,7 +1918,7 @@
 #'    }
 #'   }
 #'  \item{validationRules}{a ValidationRule}
-#'  \item{visibility}{a SetupObjectVisibility - which is a character taking one of the following values: 
+#'  \item{visibility}{a SetupObjectVisibility - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Protected}
 #'      \item{Public}
@@ -1926,15 +1926,15 @@
 #'   }
 #'  \item{webLinks}{a WebLink}
 #' }
-#' 
+#'
 #' \strong{CustomObjectTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{caseValues}{a ObjectNameCaseValue}
 #'  \item{fieldSets}{a FieldSetTranslation}
 #'  \item{fields}{a CustomFieldTranslation}
-#'  \item{gender}{a Gender - which is a character taking one of the following values: 
+#'  \item{gender}{a Gender - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Neuter}
 #'      \item{Masculine}
@@ -1948,7 +1948,7 @@
 #'  \item{recordTypes}{a RecordTypeTranslation}
 #'  \item{sharingReasons}{a SharingReasonTranslation}
 #'  \item{standardFields}{a StandardFieldTranslation}
-#'  \item{startsWith}{a StartsWith - which is a character taking one of the following values: 
+#'  \item{startsWith}{a StartsWith - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Consonant}
 #'      \item{Vowel}
@@ -1959,26 +1959,26 @@
 #'  \item{webLinks}{a WebLinkTranslation}
 #'  \item{workflowTasks}{a WorkflowTaskTranslation}
 #' }
-#' 
+#'
 #' \strong{CustomPageWebLink}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{availability}{a WebLinkAvailability - which is a character taking one of the following values: 
+#'  \item{availability}{a WebLinkAvailability - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{online}
 #'      \item{offline}
 #'    }
 #'   }
 #'  \item{description}{a character}
-#'  \item{displayType}{a WebLinkDisplayType - which is a character taking one of the following values: 
+#'  \item{displayType}{a WebLinkDisplayType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{link}
 #'      \item{button}
 #'      \item{massActionButton}
 #'    }
 #'   }
-#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values: 
+#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UTF-8}
 #'      \item{ISO-8859-1}
@@ -1997,7 +1997,7 @@
 #'  \item{hasToolbar}{a character either 'true' or 'false'}
 #'  \item{height}{an integer}
 #'  \item{isResizable}{a character either 'true' or 'false'}
-#'  \item{linkType}{a WebLinkType - which is a character taking one of the following values: 
+#'  \item{linkType}{a WebLinkType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{url}
 #'      \item{sControl}
@@ -2007,7 +2007,7 @@
 #'    }
 #'   }
 #'  \item{masterLabel}{a character}
-#'  \item{openType}{a WebLinkWindowType - which is a character taking one of the following values: 
+#'  \item{openType}{a WebLinkWindowType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{newWindow}
 #'      \item{sidebar}
@@ -2017,7 +2017,7 @@
 #'    }
 #'   }
 #'  \item{page}{a character}
-#'  \item{position}{a WebLinkPosition - which is a character taking one of the following values: 
+#'  \item{position}{a WebLinkPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{fullScreen}
 #'      \item{none}
@@ -2032,16 +2032,16 @@
 #'  \item{url}{a character}
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{CustomPageWebLinkTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomPermission}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{connectedApp}{a character}
@@ -2049,16 +2049,16 @@
 #'  \item{label}{a character}
 #'  \item{requiredPermission}{a CustomPermissionDependencyRequired}
 #' }
-#' 
+#'
 #' \strong{CustomPermissionDependencyRequired}
-#' 
+#'
 #' \describe{
 #'  \item{customPermission}{a character}
 #'  \item{dependency}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{CustomShortcut}
-#' 
+#'
 #' \describe{
 #'  \item{action}{a character (inherited from DefaultShortcut)}
 #'  \item{active}{a character either 'true' or 'false' (inherited from DefaultShortcut)}
@@ -2066,9 +2066,9 @@
 #'  \item{description}{a character}
 #'  \item{eventName}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomSite}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -2088,7 +2088,7 @@
 #'  \item{chatterAnswersHelpPage}{a character}
 #'  \item{chatterAnswersLoginPage}{a character}
 #'  \item{chatterAnswersRegistrationPage}{a character}
-#'  \item{clickjackProtectionLevel}{a SiteClickjackProtectionLevel - which is a character taking one of the following values: 
+#'  \item{clickjackProtectionLevel}{a SiteClickjackProtectionLevel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AllowAllFraming}
 #'      \item{SameOriginOnly}
@@ -2120,7 +2120,7 @@
 #'  \item{siteAdmin}{a character}
 #'  \item{siteRedirectMappings}{a SiteRedirectMapping}
 #'  \item{siteTemplate}{a character}
-#'  \item{siteType}{a SiteType - which is a character taking one of the following values: 
+#'  \item{siteType}{a SiteType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Siteforce}
 #'      \item{Visualforce}
@@ -2130,9 +2130,9 @@
 #'  \item{subdomain}{a character}
 #'  \item{urlPathPrefix}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomTab}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{actionOverrides}{a ActionOverride}
@@ -2150,7 +2150,7 @@
 #'  \item{scontrol}{a character}
 #'  \item{splashPageLink}{a character}
 #'  \item{url}{a character}
-#'  \item{urlEncodingKey}{a Encoding - which is a character taking one of the following values: 
+#'  \item{urlEncodingKey}{a Encoding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UTF-8}
 #'      \item{ISO-8859-1}
@@ -2165,16 +2165,16 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{CustomTabTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{CustomValue}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{color}{a character}
@@ -2183,13 +2183,13 @@
 #'  \item{isActive}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{Dashboard}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{backgroundEndColor}{a character}
-#'  \item{backgroundFadeDirection}{a ChartBackgroundDirection - which is a character taking one of the following values: 
+#'  \item{backgroundFadeDirection}{a ChartBackgroundDirection - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TopToBottom}
 #'      \item{LeftToRight}
@@ -2197,13 +2197,13 @@
 #'    }
 #'   }
 #'  \item{backgroundStartColor}{a character}
-#'  \item{chartTheme}{a ChartTheme - which is a character taking one of the following values: 
+#'  \item{chartTheme}{a ChartTheme - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{light}
 #'      \item{dark}
 #'    }
 #'   }
-#'  \item{colorPalette}{a ChartColorPalettes - which is a character taking one of the following values: 
+#'  \item{colorPalette}{a ChartColorPalettes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Default}
 #'      \item{gray}
@@ -2224,13 +2224,13 @@
 #'      \item{accessible}
 #'    }
 #'   }
-#'  \item{dashboardChartTheme}{a ChartTheme - which is a character taking one of the following values: 
+#'  \item{dashboardChartTheme}{a ChartTheme - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{light}
 #'      \item{dark}
 #'    }
 #'   }
-#'  \item{dashboardColorPalette}{a ChartColorPalettes - which is a character taking one of the following values: 
+#'  \item{dashboardColorPalette}{a ChartColorPalettes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Default}
 #'      \item{gray}
@@ -2255,7 +2255,7 @@
 #'  \item{dashboardGridLayout}{a DashboardGridLayout}
 #'  \item{dashboardResultRefreshedDate}{a character}
 #'  \item{dashboardResultRunningUser}{a character}
-#'  \item{dashboardType}{a DashboardType - which is a character taking one of the following values: 
+#'  \item{dashboardType}{a DashboardType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{SpecifiedUser}
 #'      \item{LoggedInUser}
@@ -2275,12 +2275,12 @@
 #'  \item{titleColor}{a character}
 #'  \item{titleSize}{an integer}
 #' }
-#' 
+#'
 #' \strong{DashboardComponent}
-#' 
+#'
 #' \describe{
 #'  \item{autoselectColumnsFromReport}{a character either 'true' or 'false'}
-#'  \item{chartAxisRange}{a ChartRangeType - which is a character taking one of the following values: 
+#'  \item{chartAxisRange}{a ChartRangeType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Auto}
 #'      \item{Manual}
@@ -2289,13 +2289,13 @@
 #'  \item{chartAxisRangeMax}{a numeric}
 #'  \item{chartAxisRangeMin}{a numeric}
 #'  \item{chartSummary}{a ChartSummary}
-#'  \item{componentChartTheme}{a ChartTheme - which is a character taking one of the following values: 
+#'  \item{componentChartTheme}{a ChartTheme - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{light}
 #'      \item{dark}
 #'    }
 #'   }
-#'  \item{componentType}{a DashboardComponentType - which is a character taking one of the following values: 
+#'  \item{componentType}{a DashboardComponentType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Bar}
 #'      \item{BarGrouped}
@@ -2328,7 +2328,7 @@
 #'   }
 #'  \item{dashboardFilterColumns}{a DashboardFilterColumn}
 #'  \item{dashboardTableColumn}{a DashboardTableColumn}
-#'  \item{displayUnits}{a ChartUnits - which is a character taking one of the following values: 
+#'  \item{displayUnits}{a ChartUnits - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Auto}
 #'      \item{Integer}
@@ -2355,7 +2355,7 @@
 #'  \item{indicatorHighColor}{a character}
 #'  \item{indicatorLowColor}{a character}
 #'  \item{indicatorMiddleColor}{a character}
-#'  \item{legendPosition}{a ChartLegendPosition - which is a character taking one of the following values: 
+#'  \item{legendPosition}{a ChartLegendPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Right}
 #'      \item{Bottom}
@@ -2375,7 +2375,7 @@
 #'  \item{showRange}{a character either 'true' or 'false'}
 #'  \item{showTotal}{a character either 'true' or 'false'}
 #'  \item{showValues}{a character either 'true' or 'false'}
-#'  \item{sortBy}{a DashboardComponentFilter - which is a character taking one of the following values: 
+#'  \item{sortBy}{a DashboardComponentFilter - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{RowLabelAscending}
 #'      \item{RowLabelDescending}
@@ -2386,9 +2386,9 @@
 #'  \item{title}{a character}
 #'  \item{useReportChart}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{DashboardComponentColumn}
-#' 
+#'
 #' \describe{
 #'  \item{breakPoint1}{a numeric}
 #'  \item{breakPoint2}{a numeric}
@@ -2398,17 +2398,17 @@
 #'  \item{midRangeColor}{an integer}
 #'  \item{reportColumn}{a character}
 #'  \item{showTotal}{a character either 'true' or 'false'}
-#'  \item{type}{a DashboardComponentColumnType - which is a character taking one of the following values: 
+#'  \item{type}{a DashboardComponentColumnType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{NA}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{DashboardComponentSection}
-#' 
+#'
 #' \describe{
-#'  \item{columnSize}{a DashboardComponentSize - which is a character taking one of the following values: 
+#'  \item{columnSize}{a DashboardComponentSize - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Narrow}
 #'      \item{Medium}
@@ -2417,31 +2417,31 @@
 #'   }
 #'  \item{components}{a DashboardComponent}
 #' }
-#' 
+#'
 #' \strong{DashboardComponentSortInfo}
-#' 
+#'
 #' \describe{
 #'  \item{sortColumn}{a character}
 #'  \item{sortOrder}{a character}
 #' }
-#' 
+#'
 #' \strong{DashboardFilter}
-#' 
+#'
 #' \describe{
 #'  \item{dashboardFilterOptions}{a DashboardFilterOption}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{DashboardFilterColumn}
-#' 
+#'
 #' \describe{
 #'  \item{column}{a character}
 #' }
-#' 
+#'
 #' \strong{DashboardFilterOption}
-#' 
+#'
 #' \describe{
-#'  \item{operator}{a DashboardFilterOperation - which is a character taking one of the following values: 
+#'  \item{operator}{a DashboardFilterOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{equals}
 #'      \item{notEqual}
@@ -2459,17 +2459,17 @@
 #'   }
 #'  \item{values}{a character}
 #' }
-#' 
+#'
 #' \strong{DashboardFlexTableComponentProperties}
-#' 
+#'
 #' \describe{
 #'  \item{flexTableColumn}{a DashboardComponentColumn}
 #'  \item{flexTableSortInfo}{a DashboardComponentSortInfo}
 #'  \item{hideChatterPhotos}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{DashboardFolder}
-#' 
+#'
 #' \describe{
 #'  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
 #'  \item{folderShares}{a FolderShare (inherited from Folder)}
@@ -2477,9 +2477,9 @@
 #'  \item{publicFolderAccess}{a PublicFolderAccess (inherited from Folder)}
 #'  \item{sharedTo}{a SharedTo (inherited from Folder)}
 #' }
-#' 
+#'
 #' \strong{DashboardGridComponent}
-#' 
+#'
 #' \describe{
 #'  \item{colSpan}{an integer}
 #'  \item{columnIndex}{an integer}
@@ -2487,25 +2487,25 @@
 #'  \item{rowIndex}{an integer}
 #'  \item{rowSpan}{an integer}
 #' }
-#' 
+#'
 #' \strong{DashboardGridLayout}
-#' 
+#'
 #' \describe{
 #'  \item{dashboardGridComponents}{a DashboardGridComponent}
 #'  \item{numberOfColumns}{an integer}
 #'  \item{rowHeight}{an integer}
 #' }
-#' 
+#'
 #' \strong{DashboardMobileSettings}
-#' 
+#'
 #' \describe{
 #'  \item{enableDashboardIPadApp}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{DashboardTableColumn}
-#' 
+#'
 #' \describe{
-#'  \item{aggregateType}{a ReportSummaryType - which is a character taking one of the following values: 
+#'  \item{aggregateType}{a ReportSummaryType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sum}
 #'      \item{Average}
@@ -2518,7 +2518,7 @@
 #'  \item{column}{a character}
 #'  \item{decimalPlaces}{an integer}
 #'  \item{showTotal}{a character either 'true' or 'false'}
-#'  \item{sortBy}{a DashboardComponentFilter - which is a character taking one of the following values: 
+#'  \item{sortBy}{a DashboardComponentFilter - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{RowLabelAscending}
 #'      \item{RowLabelDescending}
@@ -2527,17 +2527,17 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{DataCategory}
-#' 
+#'
 #' \describe{
 #'  \item{dataCategory}{a DataCategory}
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{DataCategoryGroup}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -2546,30 +2546,30 @@
 #'  \item{label}{a character}
 #'  \item{objectUsage}{a ObjectUsage}
 #' }
-#' 
+#'
 #' \strong{DataPipeline}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{apiVersion}{a numeric}
 #'  \item{label}{a character}
-#'  \item{scriptType}{a DataPipelineType - which is a character taking one of the following values: 
+#'  \item{scriptType}{a DataPipelineType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Pig}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{DefaultShortcut}
-#' 
+#'
 #' \describe{
 #'  \item{action}{a character}
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{keyCommand}{a character}
 #' }
-#' 
+#'
 #' \strong{DelegateGroup}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customObjects}{a character}
@@ -2580,18 +2580,18 @@
 #'  \item{profiles}{a character}
 #'  \item{roles}{a character}
 #' }
-#' 
+#'
 #' \strong{DeployDetails}
-#' 
+#'
 #' \describe{
 #'  \item{componentFailures}{a DeployMessage}
 #'  \item{componentSuccesses}{a DeployMessage}
 #'  \item{retrieveResult}{a RetrieveResult}
 #'  \item{runTestResult}{a RunTestsResult}
 #' }
-#' 
+#'
 #' \strong{DeployOptions}
-#' 
+#'
 #' \describe{
 #'  \item{allowMissingFiles}{a character either 'true' or 'false'}
 #'  \item{autoUpdatePackage}{a character either 'true' or 'false'}
@@ -2602,7 +2602,7 @@
 #'  \item{rollbackOnError}{a character either 'true' or 'false'}
 #'  \item{runTests}{a character}
 #'  \item{singlePackage}{a character either 'true' or 'false'}
-#'  \item{testLevel}{a TestLevel - which is a character taking one of the following values: 
+#'  \item{testLevel}{a TestLevel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{NoTestRun}
 #'      \item{RunSpecifiedTests}
@@ -2611,9 +2611,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{DescribeMetadataObject}
-#' 
+#'
 #' \describe{
 #'  \item{childXmlNames}{a character}
 #'  \item{directoryName}{a character}
@@ -2622,9 +2622,9 @@
 #'  \item{suffix}{a character}
 #'  \item{xmlName}{a character}
 #' }
-#' 
+#'
 #' \strong{Document}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{description}{a character}
@@ -2633,9 +2633,9 @@
 #'  \item{name}{a character}
 #'  \item{public}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{DocumentFolder}
-#' 
+#'
 #' \describe{
 #'  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
 #'  \item{folderShares}{a FolderShare (inherited from Folder)}
@@ -2643,18 +2643,18 @@
 #'  \item{publicFolderAccess}{a PublicFolderAccess (inherited from Folder)}
 #'  \item{sharedTo}{a SharedTo (inherited from Folder)}
 #' }
-#' 
+#'
 #' \strong{DuplicateRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{actionOnInsert}{a DupeActionType - which is a character taking one of the following values: 
+#'  \item{actionOnInsert}{a DupeActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Allow}
 #'      \item{Block}
 #'    }
 #'   }
-#'  \item{actionOnUpdate}{a DupeActionType - which is a character taking one of the following values: 
+#'  \item{actionOnUpdate}{a DupeActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Allow}
 #'      \item{Block}
@@ -2668,7 +2668,7 @@
 #'  \item{masterLabel}{a character}
 #'  \item{operationsOnInsert}{a character}
 #'  \item{operationsOnUpdate}{a character}
-#'  \item{securityOption}{a DupeSecurityOptionType - which is a character taking one of the following values: 
+#'  \item{securityOption}{a DupeSecurityOptionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{EnforceSharingRules}
 #'      \item{BypassSharingRules}
@@ -2676,16 +2676,16 @@
 #'   }
 #'  \item{sortOrder}{an integer}
 #' }
-#' 
+#'
 #' \strong{DuplicateRuleFilter}
-#' 
+#'
 #' \describe{
 #'  \item{booleanFilter}{a character}
 #'  \item{duplicateRuleFilterItems}{a DuplicateRuleFilterItem}
 #' }
-#' 
+#'
 #' \strong{DuplicateRuleFilterItem}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character (inherited from FilterItem)}
 #'  \item{operation}{a FilterOperation (inherited from FilterItem)}
@@ -2694,25 +2694,25 @@
 #'  \item{sortOrder}{an integer}
 #'  \item{table}{a character}
 #' }
-#' 
+#'
 #' \strong{DuplicateRuleMatchRule}
-#' 
+#'
 #' \describe{
 #'  \item{matchRuleSObjectType}{a character}
 #'  \item{matchingRule}{a character}
 #'  \item{objectMapping}{a ObjectMapping}
 #' }
-#' 
+#'
 #' \strong{EclairGeoData}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{maps}{a EclairMap}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{EclairMap}
-#' 
+#'
 #' \describe{
 #'  \item{boundingBoxBottom}{a numeric}
 #'  \item{boundingBoxLeft}{a numeric}
@@ -2722,9 +2722,9 @@
 #'  \item{mapName}{a character}
 #'  \item{projection}{a character}
 #' }
-#' 
+#'
 #' \strong{EmailFolder}
-#' 
+#'
 #' \describe{
 #'  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
 #'  \item{folderShares}{a FolderShare (inherited from Folder)}
@@ -2732,9 +2732,9 @@
 #'  \item{publicFolderAccess}{a PublicFolderAccess (inherited from Folder)}
 #'  \item{sharedTo}{a SharedTo (inherited from Folder)}
 #' }
-#' 
+#'
 #' \strong{EmailServicesAddress}
-#' 
+#'
 #' \describe{
 #'  \item{authorizedSenders}{a character}
 #'  \item{developerName}{a character}
@@ -2742,13 +2742,13 @@
 #'  \item{localPart}{a character}
 #'  \item{runAsUser}{a character}
 #' }
-#' 
+#'
 #' \strong{EmailServicesFunction}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{apexClass}{a character}
-#'  \item{attachmentOption}{a EmailServicesAttOptions - which is a character taking one of the following values: 
+#'  \item{attachmentOption}{a EmailServicesAttOptions - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{TextOnly}
@@ -2757,7 +2757,7 @@
 #'      \item{NoContent}
 #'    }
 #'   }
-#'  \item{authenticationFailureAction}{a EmailServicesErrorAction - which is a character taking one of the following values: 
+#'  \item{authenticationFailureAction}{a EmailServicesErrorAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UseSystemDefault}
 #'      \item{Bounce}
@@ -2765,7 +2765,7 @@
 #'      \item{Requeue}
 #'    }
 #'   }
-#'  \item{authorizationFailureAction}{a EmailServicesErrorAction - which is a character taking one of the following values: 
+#'  \item{authorizationFailureAction}{a EmailServicesErrorAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UseSystemDefault}
 #'      \item{Bounce}
@@ -2776,7 +2776,7 @@
 #'  \item{authorizedSenders}{a character}
 #'  \item{emailServicesAddresses}{a EmailServicesAddress}
 #'  \item{errorRoutingAddress}{a character}
-#'  \item{functionInactiveAction}{a EmailServicesErrorAction - which is a character taking one of the following values: 
+#'  \item{functionInactiveAction}{a EmailServicesErrorAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UseSystemDefault}
 #'      \item{Bounce}
@@ -2790,7 +2790,7 @@
 #'  \item{isErrorRoutingEnabled}{a character either 'true' or 'false'}
 #'  \item{isTextAttachmentsAsBinary}{a character either 'true' or 'false'}
 #'  \item{isTlsRequired}{a character either 'true' or 'false'}
-#'  \item{overLimitAction}{a EmailServicesErrorAction - which is a character taking one of the following values: 
+#'  \item{overLimitAction}{a EmailServicesErrorAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UseSystemDefault}
 #'      \item{Bounce}
@@ -2799,9 +2799,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{EmailTemplate}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{apiVersion}{a numeric}
@@ -2809,7 +2809,7 @@
 #'  \item{attachments}{a Attachment}
 #'  \item{available}{a character either 'true' or 'false'}
 #'  \item{description}{a character}
-#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values: 
+#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UTF-8}
 #'      \item{ISO-8859-1}
@@ -2827,7 +2827,7 @@
 #'  \item{name}{a character}
 #'  \item{packageVersions}{a PackageVersion}
 #'  \item{relatedEntityType}{a character}
-#'  \item{style}{a EmailTemplateStyle - which is a character taking one of the following values: 
+#'  \item{style}{a EmailTemplateStyle - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{none}
 #'      \item{freeForm}
@@ -2840,7 +2840,7 @@
 #'   }
 #'  \item{subject}{a character}
 #'  \item{textOnly}{a character}
-#'  \item{type}{a EmailTemplateType - which is a character taking one of the following values: 
+#'  \item{type}{a EmailTemplateType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{text}
 #'      \item{html}
@@ -2848,7 +2848,7 @@
 #'      \item{visualforce}
 #'    }
 #'   }
-#'  \item{uiType}{a EmailTemplateUiType - which is a character taking one of the following values: 
+#'  \item{uiType}{a EmailTemplateUiType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Aloha}
 #'      \item{SFX}
@@ -2856,11 +2856,11 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{EmailToCaseRoutingAddress}
-#' 
+#'
 #' \describe{
-#'  \item{addressType}{a EmailToCaseRoutingAddressType - which is a character taking one of the following values: 
+#'  \item{addressType}{a EmailToCaseRoutingAddressType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{EmailToCase}
 #'      \item{Outlook}
@@ -2879,9 +2879,9 @@
 #'  \item{saveEmailHeaders}{a character either 'true' or 'false'}
 #'  \item{taskStatus}{a character}
 #' }
-#' 
+#'
 #' \strong{EmailToCaseSettings}
-#' 
+#'
 #' \describe{
 #'  \item{enableE2CSourceTracking}{a character either 'true' or 'false'}
 #'  \item{enableEmailToCase}{a character either 'true' or 'false'}
@@ -2890,7 +2890,7 @@
 #'  \item{enableThreadIDInBody}{a character either 'true' or 'false'}
 #'  \item{enableThreadIDInSubject}{a character either 'true' or 'false'}
 #'  \item{notifyOwnerOnNewCaseEmail}{a character either 'true' or 'false'}
-#'  \item{overEmailLimitAction}{a EmailToCaseOnFailureActionType - which is a character taking one of the following values: 
+#'  \item{overEmailLimitAction}{a EmailToCaseOnFailureActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Bounce}
 #'      \item{Discard}
@@ -2899,7 +2899,7 @@
 #'   }
 #'  \item{preQuoteSignature}{a character either 'true' or 'false'}
 #'  \item{routingAddresses}{a EmailToCaseRoutingAddress}
-#'  \item{unauthorizedSenderAction}{a EmailToCaseOnFailureActionType - which is a character taking one of the following values: 
+#'  \item{unauthorizedSenderAction}{a EmailToCaseOnFailureActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Bounce}
 #'      \item{Discard}
@@ -2907,9 +2907,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{EmbeddedServiceBranding}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{contrastInvertedColor}{a character}
@@ -2921,17 +2921,17 @@
 #'  \item{primaryColor}{a character}
 #'  \item{secondaryColor}{a character}
 #' }
-#' 
+#'
 #' \strong{EmbeddedServiceConfig}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{masterLabel}{a character}
 #'  \item{site}{a character}
 #' }
-#' 
+#'
 #' \strong{EmbeddedServiceFieldService}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{appointmentBookingFlowName}{a character}
@@ -2946,9 +2946,9 @@
 #'  \item{shouldShowExistingAppointment}{a character either 'true' or 'false'}
 #'  \item{shouldShowNewAppointment}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{EmbeddedServiceLiveAgent}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{avatarImg}{a character}
@@ -2956,7 +2956,7 @@
 #'  \item{embeddedServiceConfig}{a character}
 #'  \item{embeddedServiceQuickActions}{a EmbeddedServiceQuickAction}
 #'  \item{enabled}{a character either 'true' or 'false'}
-#'  \item{fontSize}{a EmbeddedServiceFontSize - which is a character taking one of the following values: 
+#'  \item{fontSize}{a EmbeddedServiceFontSize - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Small}
 #'      \item{Medium}
@@ -2972,7 +2972,7 @@
 #'  \item{prechatBackgroundImg}{a character}
 #'  \item{prechatEnabled}{a character either 'true' or 'false'}
 #'  \item{prechatJson}{a character}
-#'  \item{scenario}{a EmbeddedServiceScenario - which is a character taking one of the following values: 
+#'  \item{scenario}{a EmbeddedServiceScenario - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sales}
 #'      \item{Service}
@@ -2982,17 +2982,17 @@
 #'  \item{smallCompanyLogoImg}{a character}
 #'  \item{waitingStateBackgroundImg}{a character}
 #' }
-#' 
+#'
 #' \strong{EmbeddedServiceQuickAction}
-#' 
+#'
 #' \describe{
 #'  \item{embeddedServiceLiveAgent}{a character}
 #'  \item{order}{an integer}
 #'  \item{quickActionDefinition}{a character}
 #' }
-#' 
+#'
 #' \strong{EntitlementProcess}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{SObjectType}{a character}
@@ -3012,9 +3012,9 @@
 #'  \item{versionNotes}{a character}
 #'  \item{versionNumber}{an integer}
 #' }
-#' 
+#'
 #' \strong{EntitlementProcessMilestoneItem}
-#' 
+#'
 #' \describe{
 #'  \item{businessHours}{a character}
 #'  \item{criteriaBooleanFilter}{a character}
@@ -3027,13 +3027,13 @@
 #'  \item{timeTriggers}{a EntitlementProcessMilestoneTimeTrigger}
 #'  \item{useCriteriaStartTime}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{EntitlementProcessMilestoneTimeTrigger}
-#' 
+#'
 #' \describe{
 #'  \item{actions}{a WorkflowActionReference}
 #'  \item{timeLength}{an integer}
-#'  \item{workflowTimeTriggerUnit}{a MilestoneTimeUnits - which is a character taking one of the following values: 
+#'  \item{workflowTimeTriggerUnit}{a MilestoneTimeUnits - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Minutes}
 #'      \item{Hours}
@@ -3041,9 +3041,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{EntitlementSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{assetLookupLimitedToActiveEntitlementsOnAccount}{a character either 'true' or 'false'}
@@ -3057,9 +3057,9 @@
 #'  \item{entitlementLookupLimitedToSameAsset}{a character either 'true' or 'false'}
 #'  \item{entitlementLookupLimitedToSameContact}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{EntitlementTemplate}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{businessHours}{a character}
@@ -3069,13 +3069,13 @@
 #'  \item{term}{an integer}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{EscalationAction}
-#' 
+#'
 #' \describe{
 #'  \item{assignedTo}{a character}
 #'  \item{assignedToTemplate}{a character}
-#'  \item{assignedToType}{a AssignToLookupValueType - which is a character taking one of the following values: 
+#'  \item{assignedToType}{a AssignToLookupValueType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{User}
 #'      \item{Queue}
@@ -3087,46 +3087,46 @@
 #'  \item{notifyTo}{a character}
 #'  \item{notifyToTemplate}{a character}
 #' }
-#' 
+#'
 #' \strong{EscalationRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{ruleEntry}{a RuleEntry}
 #' }
-#' 
+#'
 #' \strong{EscalationRules}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{escalationRule}{a EscalationRule}
 #' }
-#' 
+#'
 #' \strong{EventDelivery}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{eventParameters}{a EventParameterMap}
 #'  \item{eventSubscription}{a character}
 #'  \item{referenceData}{a character}
-#'  \item{type}{a EventDeliveryType - which is a character taking one of the following values: 
+#'  \item{type}{a EventDeliveryType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{StartFlow}
 #'      \item{ResumeFlow}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{EventParameterMap}
-#' 
+#'
 #' \describe{
 #'  \item{parameterName}{a character}
 #'  \item{parameterValue}{a character}
 #' }
-#' 
+#'
 #' \strong{EventSubscription}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -3134,11 +3134,11 @@
 #'  \item{eventType}{a character}
 #'  \item{referenceData}{a character}
 #' }
-#' 
+#'
 #' \strong{ExtendedErrorDetails}
-#' 
+#'
 #' \describe{
-#'  \item{extendedErrorCode}{a ExtendedErrorCode - which is a character taking one of the following values: 
+#'  \item{extendedErrorCode}{a ExtendedErrorCode - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ACTIONCALL_DUPLICATE_INPUT_PARAM - Errors with this extended error code have the following properties:
 #' actionCallName, parameterName}
@@ -3653,9 +3653,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ExternalDataSource}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{authProvider}{a character}
@@ -3668,14 +3668,14 @@
 #'  \item{oauthScope}{a character}
 #'  \item{oauthToken}{a character}
 #'  \item{password}{a character}
-#'  \item{principalType}{a ExternalPrincipalType - which is a character taking one of the following values: 
+#'  \item{principalType}{a ExternalPrincipalType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Anonymous}
 #'      \item{PerUser}
 #'      \item{NamedUser}
 #'    }
 #'   }
-#'  \item{protocol}{a AuthenticationProtocol - which is a character taking one of the following values: 
+#'  \item{protocol}{a AuthenticationProtocol - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{NoAuthentication}
 #'      \item{Oauth}
@@ -3683,7 +3683,7 @@
 #'    }
 #'   }
 #'  \item{repository}{a character}
-#'  \item{type}{a ExternalDataSourceType - which is a character taking one of the following values: 
+#'  \item{type}{a ExternalDataSourceType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Datacloud}
 #'      \item{Datajourney}
@@ -3701,9 +3701,9 @@
 #'  \item{username}{a character}
 #'  \item{version}{a character}
 #' }
-#' 
+#'
 #' \strong{ExternalServiceRegistration}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -3714,11 +3714,11 @@
 #'  \item{schemaUrl}{a character}
 #'  \item{status}{a character}
 #' }
-#' 
+#'
 #' \strong{FeedFilterCriterion}
-#' 
+#'
 #' \describe{
-#'  \item{feedItemType}{a FeedItemType - which is a character taking one of the following values: 
+#'  \item{feedItemType}{a FeedItemType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TrackedChange}
 #'      \item{UserStatus}
@@ -3751,7 +3751,7 @@
 #'      \item{AnnouncementPost}
 #'    }
 #'   }
-#'  \item{feedItemVisibility}{a FeedItemVisibility - which is a character taking one of the following values: 
+#'  \item{feedItemVisibility}{a FeedItemVisibility - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AllUsers}
 #'      \item{InternalUsers}
@@ -3759,19 +3759,19 @@
 #'   }
 #'  \item{relatedSObjectType}{a character}
 #' }
-#' 
+#'
 #' \strong{FeedItemSettings}
-#' 
+#'
 #' \describe{
 #'  \item{characterLimit}{an integer}
 #'  \item{collapseThread}{a character either 'true' or 'false'}
-#'  \item{displayFormat}{a FeedItemDisplayFormat - which is a character taking one of the following values: 
+#'  \item{displayFormat}{a FeedItemDisplayFormat - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Default}
 #'      \item{HideBlankLines}
 #'    }
 #'   }
-#'  \item{feedItemType}{a FeedItemType - which is a character taking one of the following values: 
+#'  \item{feedItemType}{a FeedItemType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TrackedChange}
 #'      \item{UserStatus}
@@ -3805,13 +3805,13 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{FeedLayout}
-#' 
+#'
 #' \describe{
 #'  \item{autocollapsePublisher}{a character either 'true' or 'false'}
 #'  \item{compactFeed}{a character either 'true' or 'false'}
-#'  \item{feedFilterPosition}{a FeedLayoutFilterPosition - which is a character taking one of the following values: 
+#'  \item{feedFilterPosition}{a FeedLayoutFilterPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CenterDropDown}
 #'      \item{LeftFixed}
@@ -3826,11 +3826,11 @@
 #'  \item{rightComponents}{a FeedLayoutComponent}
 #'  \item{useInlineFiltersInConsole}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{FeedLayoutComponent}
-#' 
+#'
 #' \describe{
-#'  \item{componentType}{a FeedLayoutComponentType - which is a character taking one of the following values: 
+#'  \item{componentType}{a FeedLayoutComponentType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{HelpAndToolLinks}
 #'      \item{CustomButtons}
@@ -3846,19 +3846,19 @@
 #'  \item{height}{an integer}
 #'  \item{page}{a character}
 #' }
-#' 
+#'
 #' \strong{FeedLayoutFilter}
-#' 
+#'
 #' \describe{
 #'  \item{feedFilterName}{a character}
-#'  \item{feedFilterType}{a FeedLayoutFilterType - which is a character taking one of the following values: 
+#'  \item{feedFilterType}{a FeedLayoutFilterType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AllUpdates}
 #'      \item{FeedItemType}
 #'      \item{Custom}
 #'    }
 #'   }
-#'  \item{feedItemType}{a FeedItemType - which is a character taking one of the following values: 
+#'  \item{feedItemType}{a FeedItemType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TrackedChange}
 #'      \item{UserStatus}
@@ -3892,48 +3892,48 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{FieldMapping}
-#' 
+#'
 #' \describe{
 #'  \item{SObjectType}{a character}
 #'  \item{developerName}{a character}
 #'  \item{fieldMappingRows}{a FieldMappingRow}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{FieldMappingField}
-#' 
+#'
 #' \describe{
 #'  \item{dataServiceField}{a character}
 #'  \item{dataServiceObjectName}{a character}
 #'  \item{priority}{an integer}
 #' }
-#' 
+#'
 #' \strong{FieldMappingRow}
-#' 
+#'
 #' \describe{
 #'  \item{SObjectType}{a character}
 #'  \item{fieldMappingFields}{a FieldMappingField}
 #'  \item{fieldName}{a character}
-#'  \item{mappingOperation}{a MappingOperation - which is a character taking one of the following values: 
+#'  \item{mappingOperation}{a MappingOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Autofill}
 #'      \item{Overwrite}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{FieldOverride}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #'  \item{formula}{a character}
 #'  \item{literalValue}{a character}
 #' }
-#' 
+#'
 #' \strong{FieldServiceSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{fieldServiceNotificationsOrgPref}{a character either 'true' or 'false'}
@@ -3942,9 +3942,9 @@
 #'  \item{workOrderLineItemSearchFields}{a character}
 #'  \item{workOrderSearchFields}{a character}
 #' }
-#' 
+#'
 #' \strong{FieldSet}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{availableFields}{a FieldSetItem}
@@ -3952,31 +3952,31 @@
 #'  \item{displayedFields}{a FieldSetItem}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{FieldSetItem}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #'  \item{isFieldManaged}{a character either 'true' or 'false'}
 #'  \item{isRequired}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{FieldSetTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{FieldValue}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{value}{a character that appears similar to any of the other accepted types (integer, numeric, date, datetime, boolean)}
 #' }
-#' 
+#'
 #' \strong{FileProperties}
-#' 
+#'
 #' \describe{
 #'  \item{createdById}{a character}
 #'  \item{createdByName}{a character}
@@ -3987,7 +3987,7 @@
 #'  \item{lastModifiedById}{a character}
 #'  \item{lastModifiedByName}{a character}
 #'  \item{lastModifiedDate}{a character formatted as 'yyyy-mm-ddThh:mm:ssZ'}
-#'  \item{manageableState}{a ManageableState - which is a character taking one of the following values: 
+#'  \item{manageableState}{a ManageableState - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{released}
 #'      \item{deleted}
@@ -4000,18 +4000,18 @@
 #'  \item{namespacePrefix}{a character}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{FileTypeDispositionAssignmentBean}
-#' 
+#'
 #' \describe{
-#'  \item{behavior}{a FileDownloadBehavior - which is a character taking one of the following values: 
+#'  \item{behavior}{a FileDownloadBehavior - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{DOWNLOAD}
 #'      \item{EXECUTE_IN_BROWSER}
 #'      \item{HYBRID}
 #'    }
 #'   }
-#'  \item{fileType}{a FileType - which is a character taking one of the following values: 
+#'  \item{fileType}{a FileType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UNKNOWN}
 #'      \item{PDF}
@@ -4128,20 +4128,20 @@
 #'   }
 #'  \item{securityRiskFileType}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{FileUploadAndDownloadSecuritySettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{dispositions}{a FileTypeDispositionAssignmentBean}
 #'  \item{noHtmlUploadAsAttachment}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{FilterItem}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
-#'  \item{operation}{a FilterOperation - which is a character taking one of the following values: 
+#'  \item{operation}{a FilterOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{equals}
 #'      \item{notEqual}
@@ -4160,23 +4160,23 @@
 #'  \item{value}{a character}
 #'  \item{valueField}{a character}
 #' }
-#' 
+#'
 #' \strong{FindSimilarOppFilter}
-#' 
+#'
 #' \describe{
 #'  \item{similarOpportunitiesDisplayColumns}{a character}
 #'  \item{similarOpportunitiesMatchFields}{a character}
 #' }
-#' 
+#'
 #' \strong{FiscalYearSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fiscalYearNameBasedOn}{a character}
 #'  \item{startMonth}{a character}
 #' }
-#' 
+#'
 #' \strong{FlexiPage}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -4187,7 +4187,7 @@
 #'  \item{quickActionList}{a QuickActionList}
 #'  \item{sobjectType}{a character}
 #'  \item{template}{a FlexiPageTemplateInstance}
-#'  \item{type}{a FlexiPageType - which is a character taking one of the following values: 
+#'  \item{type}{a FlexiPageType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AppPage}
 #'      \item{ObjectPage}
@@ -4210,18 +4210,18 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{FlexiPageRegion}
-#' 
+#'
 #' \describe{
-#'  \item{appendable}{a RegionFlagStatus - which is a character taking one of the following values: 
+#'  \item{appendable}{a RegionFlagStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{disabled}
 #'      \item{enabled}
 #'    }
 #'   }
 #'  \item{componentInstances}{a ComponentInstance}
-#'  \item{mode}{a FlexiPageRegionMode - which is a character taking one of the following values: 
+#'  \item{mode}{a FlexiPageRegionMode - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Append}
 #'      \item{Prepend}
@@ -4229,35 +4229,35 @@
 #'    }
 #'   }
 #'  \item{name}{a character}
-#'  \item{prependable}{a RegionFlagStatus - which is a character taking one of the following values: 
+#'  \item{prependable}{a RegionFlagStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{disabled}
 #'      \item{enabled}
 #'    }
 #'   }
-#'  \item{replaceable}{a RegionFlagStatus - which is a character taking one of the following values: 
+#'  \item{replaceable}{a RegionFlagStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{disabled}
 #'      \item{enabled}
 #'    }
 #'   }
-#'  \item{type}{a FlexiPageRegionType - which is a character taking one of the following values: 
+#'  \item{type}{a FlexiPageRegionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Region}
 #'      \item{Facet}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{FlexiPageTemplateInstance}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{properties}{a ComponentInstanceProperty}
 #' }
-#' 
+#'
 #' \strong{Flow}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{actionCalls}{a FlowActionCall}
@@ -4273,7 +4273,7 @@
 #'  \item{label}{a character}
 #'  \item{loops}{a FlowLoop}
 #'  \item{processMetadataValues}{a FlowMetadataValue}
-#'  \item{processType}{a FlowProcessType - which is a character taking one of the following values: 
+#'  \item{processType}{a FlowProcessType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AutoLaunchedFlow}
 #'      \item{Flow}
@@ -4304,15 +4304,15 @@
 #'  \item{variables}{a FlowVariable}
 #'  \item{waits}{a FlowWait}
 #' }
-#' 
+#'
 #' \strong{FlowActionCall}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
 #'  \item{locationY}{an integer (inherited from FlowNode)}
 #'  \item{actionName}{a character}
-#'  \item{actionType}{a InvocableActionType - which is a character taking one of the following values: 
+#'  \item{actionType}{a InvocableActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{apex}
 #'      \item{chatterPost}
@@ -4343,25 +4343,25 @@
 #'  \item{inputParameters}{a FlowActionCallInputParameter}
 #'  \item{outputParameters}{a FlowActionCallOutputParameter}
 #' }
-#' 
+#'
 #' \strong{FlowActionCallInputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{name}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowActionCallOutputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowApexPluginCall}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4372,25 +4372,25 @@
 #'  \item{inputParameters}{a FlowApexPluginCallInputParameter}
 #'  \item{outputParameters}{a FlowApexPluginCallOutputParameter}
 #' }
-#' 
+#'
 #' \strong{FlowApexPluginCallInputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{name}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowApexPluginCallOutputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowAssignment}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4398,13 +4398,13 @@
 #'  \item{assignmentItems}{a FlowAssignmentItem}
 #'  \item{connector}{a FlowConnector}
 #' }
-#' 
+#'
 #' \strong{FlowAssignmentItem}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
-#'  \item{operator}{a FlowAssignmentOperator - which is a character taking one of the following values: 
+#'  \item{operator}{a FlowAssignmentOperator - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Assign}
 #'      \item{Add}
@@ -4414,35 +4414,35 @@
 #'   }
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowBaseElement}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue}
 #' }
-#' 
+#'
 #' \strong{FlowCategory}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
 #'  \item{flowCategoryItems}{a FlowCategoryItems}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowCategoryItems}
-#' 
+#'
 #' \describe{
 #'  \item{flow}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowChoice}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
 #'  \item{choiceText}{a character}
-#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values: 
+#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Currency}
 #'      \item{Date}
@@ -4458,37 +4458,37 @@
 #'  \item{userInput}{a FlowChoiceUserInput}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowChoiceTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{choiceText}{a character}
 #'  \item{name}{a character}
 #'  \item{userInput}{a FlowChoiceUserInputTranslation}
 #' }
-#' 
+#'
 #' \strong{FlowChoiceUserInput}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{isRequired}{a character either 'true' or 'false'}
 #'  \item{promptText}{a character}
 #'  \item{validationRule}{a FlowInputValidationRule}
 #' }
-#' 
+#'
 #' \strong{FlowChoiceUserInputTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{promptText}{a character}
 #'  \item{validationRule}{a FlowInputValidationRuleTranslation}
 #' }
-#' 
+#'
 #' \strong{FlowCondition}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{leftValueReference}{a character}
-#'  \item{operator}{a FlowComparisonOperator - which is a character taking one of the following values: 
+#'  \item{operator}{a FlowComparisonOperator - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{EqualTo}
 #'      \item{NotEqualTo}
@@ -4507,20 +4507,20 @@
 #'   }
 #'  \item{rightValue}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowConnector}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{targetReference}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowConstant}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
-#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values: 
+#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Currency}
 #'      \item{Date}
@@ -4535,9 +4535,9 @@
 #'   }
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowDecision}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4546,30 +4546,30 @@
 #'  \item{defaultConnectorLabel}{a character}
 #'  \item{rules}{a FlowRule}
 #' }
-#' 
+#'
 #' \strong{FlowDefinition}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{activeVersionNumber}{an integer}
 #'  \item{description}{a character}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowDefinitionTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{flows}{a FlowTranslation}
 #'  \item{fullName}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowDynamicChoiceSet}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
-#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values: 
+#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Currency}
 #'      \item{Date}
@@ -4590,7 +4590,7 @@
 #'  \item{picklistField}{a character}
 #'  \item{picklistObject}{a character}
 #'  \item{sortField}{a character}
-#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values: 
+#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
@@ -4598,17 +4598,17 @@
 #'   }
 #'  \item{valueField}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowElement}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{description}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowElementReferenceOrValue}
-#' 
+#'
 #' \describe{
 #'  \item{booleanValue}{a character either 'true' or 'false'}
 #'  \item{dateTimeValue}{a character formatted as 'yyyy-mm-ddThh:mm:ssZ'}
@@ -4617,13 +4617,13 @@
 #'  \item{numberValue}{a numeric}
 #'  \item{stringValue}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowFormula}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
-#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values: 
+#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Currency}
 #'      \item{Date}
@@ -4639,37 +4639,37 @@
 #'  \item{expression}{a character}
 #'  \item{scale}{an integer}
 #' }
-#' 
+#'
 #' \strong{FlowInputFieldAssignment}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{field}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowInputValidationRule}
-#' 
+#'
 #' \describe{
 #'  \item{errorMessage}{a character}
 #'  \item{formulaExpression}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowInputValidationRuleTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{errorMessage}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowLoop}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
 #'  \item{locationY}{an integer (inherited from FlowNode)}
 #'  \item{assignNextValueToReference}{a character}
 #'  \item{collectionReference}{a character}
-#'  \item{iterationOrder}{a IterationOrder - which is a character taking one of the following values: 
+#'  \item{iterationOrder}{a IterationOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
@@ -4678,16 +4678,16 @@
 #'  \item{nextValueConnector}{a FlowConnector}
 #'  \item{noMoreValuesConnector}{a FlowConnector}
 #' }
-#' 
+#'
 #' \strong{FlowMetadataValue}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowNode}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
@@ -4695,17 +4695,17 @@
 #'  \item{locationX}{an integer}
 #'  \item{locationY}{an integer}
 #' }
-#' 
+#'
 #' \strong{FlowOutputFieldAssignment}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
 #'  \item{field}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowRecordCreate}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4717,9 +4717,9 @@
 #'  \item{inputReference}{a character}
 #'  \item{object}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowRecordDelete}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4730,13 +4730,13 @@
 #'  \item{inputReference}{a character}
 #'  \item{object}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowRecordFilter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{field}{a character}
-#'  \item{operator}{a FlowRecordFilterOperator - which is a character taking one of the following values: 
+#'  \item{operator}{a FlowRecordFilterOperator - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{EqualTo}
 #'      \item{NotEqualTo}
@@ -4752,9 +4752,9 @@
 #'   }
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowRecordLookup}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4768,16 +4768,16 @@
 #'  \item{outputReference}{a character}
 #'  \item{queriedFields}{a character}
 #'  \item{sortField}{a character}
-#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values: 
+#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{FlowRecordUpdate}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4789,9 +4789,9 @@
 #'  \item{inputReference}{a character}
 #'  \item{object}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowRule}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
@@ -4800,9 +4800,9 @@
 #'  \item{connector}{a FlowConnector}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowScreen}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4818,14 +4818,14 @@
 #'  \item{showFooter}{a character either 'true' or 'false'}
 #'  \item{showHeader}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{FlowScreenField}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
 #'  \item{choiceReferences}{a character}
-#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values: 
+#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Currency}
 #'      \item{Date}
@@ -4842,7 +4842,7 @@
 #'  \item{defaultValue}{a FlowElementReferenceOrValue}
 #'  \item{extensionName}{a character}
 #'  \item{fieldText}{a character}
-#'  \item{fieldType}{a FlowScreenFieldType - which is a character taking one of the following values: 
+#'  \item{fieldType}{a FlowScreenFieldType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{DisplayText}
 #'      \item{InputField}
@@ -4863,34 +4863,34 @@
 #'  \item{scale}{an integer}
 #'  \item{validationRule}{a FlowInputValidationRule}
 #' }
-#' 
+#'
 #' \strong{FlowScreenFieldInputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{name}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowScreenFieldOutputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowScreenFieldTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{fieldText}{a character}
 #'  \item{helpText}{a character}
 #'  \item{name}{a character}
 #'  \item{validationRule}{a FlowInputValidationRuleTranslation}
 #' }
-#' 
+#'
 #' \strong{FlowScreenRule}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{conditionLogic}{a character}
@@ -4898,27 +4898,27 @@
 #'  \item{label}{a character}
 #'  \item{ruleActions}{a FlowScreenRuleAction}
 #' }
-#' 
+#'
 #' \strong{FlowScreenRuleAction}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{attribute}{a character}
 #'  \item{fieldReference}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowScreenTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{fields}{a FlowScreenFieldTranslation}
 #'  \item{helpText}{a character}
 #'  \item{name}{a character}
 #'  \item{pausedText}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowStage}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
@@ -4926,18 +4926,18 @@
 #'  \item{label}{a character}
 #'  \item{stageOrder}{an integer}
 #' }
-#' 
+#'
 #' \strong{FlowStep}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
 #'  \item{locationY}{an integer (inherited from FlowNode)}
 #'  \item{connectors}{a FlowConnector}
 #' }
-#' 
+#'
 #' \strong{FlowSubflow}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -4947,46 +4947,46 @@
 #'  \item{inputAssignments}{a FlowSubflowInputAssignment}
 #'  \item{outputAssignments}{a FlowSubflowOutputAssignment}
 #' }
-#' 
+#'
 #' \strong{FlowSubflowInputAssignment}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{name}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowSubflowOutputAssignment}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowTextTemplate}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
 #'  \item{text}{a character}
 #' }
-#' 
+#'
 #' \strong{FlowTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{choices}{a FlowChoiceTranslation}
 #'  \item{fullName}{a character}
 #'  \item{label}{a character}
 #'  \item{screens}{a FlowScreenTranslation}
 #' }
-#' 
+#'
 #' \strong{FlowVariable}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
-#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values: 
+#'  \item{dataType}{a FlowDataType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Currency}
 #'      \item{Date}
@@ -5006,9 +5006,9 @@
 #'  \item{scale}{an integer}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowWait}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character (inherited from FlowNode)}
 #'  \item{locationX}{an integer (inherited from FlowNode)}
@@ -5018,9 +5018,9 @@
 #'  \item{faultConnector}{a FlowConnector}
 #'  \item{waitEvents}{a FlowWaitEvent}
 #' }
-#' 
+#'
 #' \strong{FlowWaitEvent}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character (inherited from FlowElement)}
 #'  \item{name}{a character (inherited from FlowElement)}
@@ -5032,28 +5032,28 @@
 #'  \item{label}{a character}
 #'  \item{outputParameters}{a FlowWaitEventOutputParameter}
 #' }
-#' 
+#'
 #' \strong{FlowWaitEventInputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{name}{a character}
 #'  \item{value}{a FlowElementReferenceOrValue}
 #' }
-#' 
+#'
 #' \strong{FlowWaitEventOutputParameter}
-#' 
+#'
 #' \describe{
 #'  \item{processMetadataValues}{a FlowMetadataValue (inherited from FlowBaseElement)}
 #'  \item{assignToReference}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{Folder}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{accessType}{a FolderAccessTypes - which is a character taking one of the following values: 
+#'  \item{accessType}{a FolderAccessTypes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Shared}
 #'      \item{Public}
@@ -5063,7 +5063,7 @@
 #'   }
 #'  \item{folderShares}{a FolderShare}
 #'  \item{name}{a character}
-#'  \item{publicFolderAccess}{a PublicFolderAccess - which is a character taking one of the following values: 
+#'  \item{publicFolderAccess}{a PublicFolderAccess - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ReadOnly}
 #'      \item{ReadWrite}
@@ -5071,11 +5071,11 @@
 #'   }
 #'  \item{sharedTo}{a SharedTo}
 #' }
-#' 
+#'
 #' \strong{FolderShare}
-#' 
+#'
 #' \describe{
-#'  \item{accessLevel}{a FolderShareAccessLevel - which is a character taking one of the following values: 
+#'  \item{accessLevel}{a FolderShareAccessLevel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{View}
 #'      \item{EditAllContents}
@@ -5083,7 +5083,7 @@
 #'    }
 #'   }
 #'  \item{sharedTo}{a character}
-#'  \item{sharedToType}{a FolderSharedToType - which is a character taking one of the following values: 
+#'  \item{sharedToType}{a FolderSharedToType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Group}
 #'      \item{Role}
@@ -5105,25 +5105,25 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ForecastingCategoryMapping}
-#' 
+#'
 #' \describe{
 #'  \item{forecastingItemCategoryApiName}{a character}
 #'  \item{weightedSourceCategories}{a WeightedSourceCategory}
 #' }
-#' 
+#'
 #' \strong{ForecastingDisplayedFamilySettings}
-#' 
+#'
 #' \describe{
 #'  \item{productFamily}{a character}
 #' }
-#' 
+#'
 #' \strong{ForecastingSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{displayCurrency}{a DisplayCurrency - which is a character taking one of the following values: 
+#'  \item{displayCurrency}{a DisplayCurrency - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CORPORATE}
 #'      \item{PERSONAL}
@@ -5134,16 +5134,16 @@
 #'  \item{forecastingDisplayedFamilySettings}{a ForecastingDisplayedFamilySettings}
 #'  \item{forecastingTypeSettings}{a ForecastingTypeSettings}
 #' }
-#' 
+#'
 #' \strong{ForecastingTypeSettings}
-#' 
+#'
 #' \describe{
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{adjustmentsSettings}{a AdjustmentsSettings}
 #'  \item{displayedCategoryApiNames}{a character}
 #'  \item{forecastRangeSettings}{a ForecastRangeSettings}
 #'  \item{forecastedCategoryApiNames}{a character}
-#'  \item{forecastingDateType}{a ForecastingDateType - which is a character taking one of the following values: 
+#'  \item{forecastingDateType}{a ForecastingDateType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{OpportunityCloseDate}
 #'      \item{ProductDate}
@@ -5165,13 +5165,13 @@
 #'  \item{quotasSettings}{a QuotasSettings}
 #'  \item{territory2ModelName}{a character}
 #' }
-#' 
+#'
 #' \strong{ForecastRangeSettings}
-#' 
+#'
 #' \describe{
 #'  \item{beginning}{an integer}
 #'  \item{displaying}{an integer}
-#'  \item{periodType}{a PeriodTypes - which is a character taking one of the following values: 
+#'  \item{periodType}{a PeriodTypes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Month}
 #'      \item{Quarter}
@@ -5180,9 +5180,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{GlobalPicklistValue}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{color}{a character}
@@ -5190,16 +5190,16 @@
 #'  \item{description}{a character}
 #'  \item{isActive}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{GlobalQuickActionTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{GlobalValueSet}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customValue}{a CustomValue}
@@ -5207,32 +5207,32 @@
 #'  \item{masterLabel}{a character}
 #'  \item{sorted}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{GlobalValueSetTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{valueTranslation}{a ValueTranslation}
 #' }
-#' 
+#'
 #' \strong{Group}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{doesIncludeBosses}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{HistoryRetentionPolicy}
-#' 
+#'
 #' \describe{
 #'  \item{archiveAfterMonths}{an integer}
 #'  \item{archiveRetentionYears}{an integer}
 #'  \item{description}{a character}
 #' }
-#' 
+#'
 #' \strong{Holiday}
-#' 
+#'
 #' \describe{
 #'  \item{activityDate}{a character formatted as 'yyyy-mm-dd'}
 #'  \item{businessHours}{a character}
@@ -5251,16 +5251,16 @@
 #'  \item{recurrenceType}{a character}
 #'  \item{startTime}{a character formatted as 'hh:mm:ssZ}
 #' }
-#' 
+#'
 #' \strong{HomePageComponent}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{body}{a character}
 #'  \item{height}{an integer}
 #'  \item{links}{a character}
 #'  \item{page}{a character}
-#'  \item{pageComponentType}{a PageComponentType - which is a character taking one of the following values: 
+#'  \item{pageComponentType}{a PageComponentType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{links}
 #'      \item{htmlArea}
@@ -5270,31 +5270,31 @@
 #'   }
 #'  \item{showLabel}{a character either 'true' or 'false'}
 #'  \item{showScrollbars}{a character either 'true' or 'false'}
-#'  \item{width}{a PageComponentWidth - which is a character taking one of the following values: 
+#'  \item{width}{a PageComponentWidth - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{narrow}
 #'      \item{wide}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{HomePageLayout}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{narrowComponents}{a character}
 #'  \item{wideComponents}{a character}
 #' }
-#' 
+#'
 #' \strong{IdeaReputationLevel}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{value}{an integer}
 #' }
-#' 
+#'
 #' \strong{IdeasSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableChatterProfile}{a character either 'true' or 'false'}
@@ -5304,27 +5304,27 @@
 #'  \item{halfLife}{a numeric}
 #'  \item{ideasProfilePage}{a character}
 #' }
-#' 
+#'
 #' \strong{Index}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{fields}{a IndexField}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{IndexField}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{sortDirection}{a character}
 #' }
-#' 
+#'
 #' \strong{InsightType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{defaultTrendType}{a InsightTrendType - which is a character taking one of the following values: 
+#'  \item{defaultTrendType}{a InsightTrendType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Positive}
 #'      \item{Negative}
@@ -5335,7 +5335,7 @@
 #'  \item{description}{a character}
 #'  \item{isProtected}{a character either 'true' or 'false'}
 #'  \item{masterLabel}{a character}
-#'  \item{parentType}{a InsightParentType - which is a character taking one of the following values: 
+#'  \item{parentType}{a InsightParentType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Opportunity}
 #'      \item{Account}
@@ -5343,17 +5343,17 @@
 #'   }
 #'  \item{title}{a character}
 #' }
-#' 
+#'
 #' \strong{InstalledPackage}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{password}{a character}
 #'  \item{versionNumber}{a character}
 #' }
-#' 
+#'
 #' \strong{IntegrationHubSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{canonicalName}{a character}
@@ -5372,9 +5372,9 @@
 #'  \item{versionMajor}{an integer}
 #'  \item{versionMinor}{an integer}
 #' }
-#' 
+#'
 #' \strong{IntegrationHubSettingsType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{canonicalName}{a character}
@@ -5391,59 +5391,59 @@
 #'  \item{versionMajor}{an integer}
 #'  \item{versionMinor}{an integer}
 #' }
-#' 
+#'
 #' \strong{IpRange}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{end}{a character}
 #'  \item{start}{a character}
 #' }
-#' 
+#'
 #' \strong{KeyboardShortcuts}
-#' 
+#'
 #' \describe{
 #'  \item{customShortcuts}{a CustomShortcut}
 #'  \item{defaultShortcuts}{a DefaultShortcut}
 #' }
-#' 
+#'
 #' \strong{Keyword}
-#' 
+#'
 #' \describe{
 #'  \item{keyword}{a character}
 #' }
-#' 
+#'
 #' \strong{KeywordList}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
 #'  \item{keywords}{a Keyword}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeAnswerSettings}
-#' 
+#'
 #' \describe{
 #'  \item{assignTo}{a character}
 #'  \item{defaultArticleType}{a character}
 #'  \item{enableArticleCreation}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{KnowledgeCaseField}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeCaseFieldsSettings}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a KnowledgeCaseField}
 #' }
-#' 
+#'
 #' \strong{KnowledgeCaseSettings}
-#' 
+#'
 #' \describe{
 #'  \item{articlePDFCreationProfile}{a character}
 #'  \item{articlePublicSharingCommunities}{a KnowledgeCommunitiesSettings}
@@ -5452,7 +5452,7 @@
 #'  \item{assignTo}{a character}
 #'  \item{customizationClass}{a character}
 #'  \item{defaultContributionArticleType}{a character}
-#'  \item{editor}{a KnowledgeCaseEditor - which is a character taking one of the following values: 
+#'  \item{editor}{a KnowledgeCaseEditor - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{simple}
 #'      \item{standard}
@@ -5463,26 +5463,26 @@
 #'  \item{enableCaseDataCategoryMapping}{a character either 'true' or 'false'}
 #'  \item{useProfileForPDFCreation}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{KnowledgeCommunitiesSettings}
-#' 
+#'
 #' \describe{
 #'  \item{community}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeLanguage}
-#' 
+#'
 #' \describe{
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{defaultAssignee}{a character}
-#'  \item{defaultAssigneeType}{a KnowledgeLanguageLookupValueType - which is a character taking one of the following values: 
+#'  \item{defaultAssigneeType}{a KnowledgeLanguageLookupValueType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{User}
 #'      \item{Queue}
 #'    }
 #'   }
 #'  \item{defaultReviewer}{a character}
-#'  \item{defaultReviewerType}{a KnowledgeLanguageLookupValueType - which is a character taking one of the following values: 
+#'  \item{defaultReviewerType}{a KnowledgeLanguageLookupValueType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{User}
 #'      \item{Queue}
@@ -5490,15 +5490,15 @@
 #'   }
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeLanguageSettings}
-#' 
+#'
 #' \describe{
 #'  \item{language}{a KnowledgeLanguage}
 #' }
-#' 
+#'
 #' \strong{KnowledgeSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{answers}{a KnowledgeAnswerSettings}
@@ -5516,48 +5516,48 @@
 #'  \item{showValidationStatusField}{a character either 'true' or 'false'}
 #'  \item{suggestedArticles}{a KnowledgeSuggestedArticlesSettings}
 #' }
-#' 
+#'
 #' \strong{KnowledgeSitesSettings}
-#' 
+#'
 #' \describe{
 #'  \item{site}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeSuggestedArticlesSettings}
-#' 
+#'
 #' \describe{
 #'  \item{caseFields}{a KnowledgeCaseFieldsSettings}
 #'  \item{useSuggestedArticlesForCase}{a character either 'true' or 'false'}
 #'  \item{workOrderFields}{a KnowledgeWorkOrderFieldsSettings}
 #'  \item{workOrderLineItemFields}{a KnowledgeWorkOrderLineItemFieldsSettings}
 #' }
-#' 
+#'
 #' \strong{KnowledgeWorkOrderField}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeWorkOrderFieldsSettings}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a KnowledgeWorkOrderField}
 #' }
-#' 
+#'
 #' \strong{KnowledgeWorkOrderLineItemField}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{KnowledgeWorkOrderLineItemFieldsSettings}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a KnowledgeWorkOrderLineItemField}
 #' }
-#' 
+#'
 #' \strong{Layout}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customButtons}{a character}
@@ -5565,7 +5565,7 @@
 #'  \item{emailDefault}{a character either 'true' or 'false'}
 #'  \item{excludeButtons}{a character}
 #'  \item{feedLayout}{a FeedLayout}
-#'  \item{headers}{a LayoutHeader - which is a character taking one of the following values: 
+#'  \item{headers}{a LayoutHeader - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{PersonalTagging}
 #'      \item{PublicTagging}
@@ -5589,19 +5589,19 @@
 #'  \item{showSubmitAndAttachButton}{a character either 'true' or 'false'}
 #'  \item{summaryLayout}{a SummaryLayout}
 #' }
-#' 
+#'
 #' \strong{LayoutColumn}
-#' 
+#'
 #' \describe{
 #'  \item{layoutItems}{a LayoutItem}
 #'  \item{reserved}{a character}
 #' }
-#' 
+#'
 #' \strong{LayoutItem}
-#' 
+#'
 #' \describe{
 #'  \item{analyticsCloudComponent}{a AnalyticsCloudComponentLayoutItem}
-#'  \item{behavior}{a UiBehavior - which is a character taking one of the following values: 
+#'  \item{behavior}{a UiBehavior - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Edit}
 #'      \item{Required}
@@ -5621,16 +5621,16 @@
 #'  \item{showScrollbars}{a character either 'true' or 'false'}
 #'  \item{width}{a character}
 #' }
-#' 
+#'
 #' \strong{LayoutSection}
-#' 
+#'
 #' \describe{
 #'  \item{customLabel}{a character either 'true' or 'false'}
 #'  \item{detailHeading}{a character either 'true' or 'false'}
 #'  \item{editHeading}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
 #'  \item{layoutColumns}{a LayoutColumn}
-#'  \item{style}{a LayoutSectionStyle - which is a character taking one of the following values: 
+#'  \item{style}{a LayoutSectionStyle - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TwoColumnsTopToBottom}
 #'      \item{TwoColumnsLeftToRight}
@@ -5639,29 +5639,29 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{LayoutSectionTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{section}{a character}
 #' }
-#' 
+#'
 #' \strong{LayoutTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{layout}{a character}
 #'  \item{layoutType}{a character}
 #'  \item{sections}{a LayoutSectionTranslation}
 #' }
-#' 
+#'
 #' \strong{LeadConvertSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{allowOwnerChange}{a character either 'true' or 'false'}
 #'  \item{objectMapping}{a ObjectMapping}
-#'  \item{opportunityCreationOptions}{a VisibleOrRequired - which is a character taking one of the following values: 
+#'  \item{opportunityCreationOptions}{a VisibleOrRequired - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{VisibleOptional}
 #'      \item{VisibleRequired}
@@ -5669,9 +5669,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Letterhead}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{available}{a character either 'true' or 'false'}
@@ -5685,13 +5685,13 @@
 #'  \item{name}{a character}
 #'  \item{topLine}{a LetterheadLine}
 #' }
-#' 
+#'
 #' \strong{LetterheadHeaderFooter}
-#' 
+#'
 #' \describe{
 #'  \item{backgroundColor}{a character}
 #'  \item{height}{an integer}
-#'  \item{horizontalAlignment}{a LetterheadHorizontalAlignment - which is a character taking one of the following values: 
+#'  \item{horizontalAlignment}{a LetterheadHorizontalAlignment - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Left}
@@ -5700,7 +5700,7 @@
 #'    }
 #'   }
 #'  \item{logo}{a character}
-#'  \item{verticalAlignment}{a LetterheadVerticalAlignment - which is a character taking one of the following values: 
+#'  \item{verticalAlignment}{a LetterheadVerticalAlignment - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Top}
@@ -5709,23 +5709,23 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{LetterheadLine}
-#' 
+#'
 #' \describe{
 #'  \item{color}{a character}
 #'  \item{height}{an integer}
 #' }
-#' 
+#'
 #' \strong{LicensedCustomPermissions}
-#' 
+#'
 #' \describe{
 #'  \item{customPermission}{a character}
 #'  \item{licenseDefinition}{a character}
 #' }
-#' 
+#'
 #' \strong{LicenseDefinition}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{aggregationGroup}{a character}
@@ -5741,12 +5741,12 @@
 #'  \item{trialLicenseDuration}{an integer}
 #'  \item{trialLicenseQuantity}{an integer}
 #' }
-#' 
+#'
 #' \strong{LightningBolt}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{category}{a LightningBoltCategory - which is a character taking one of the following values: 
+#'  \item{category}{a LightningBoltCategory - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{IT}
 #'      \item{Marketing}
@@ -5761,39 +5761,39 @@
 #'  \item{publisher}{a character}
 #'  \item{summary}{a character}
 #' }
-#' 
+#'
 #' \strong{LightningBoltFeatures}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{order}{an integer}
 #'  \item{title}{a character}
 #' }
-#' 
+#'
 #' \strong{LightningBoltImages}
-#' 
+#'
 #' \describe{
 #'  \item{image}{a character}
 #'  \item{order}{an integer}
 #' }
-#' 
+#'
 #' \strong{LightningBoltItems}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{LightningComponentBundle}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{apiVersion}{a numeric}
 #'  \item{isExposed}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{LightningExperienceTheme}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{defaultBrandingSet}{a character}
@@ -5801,31 +5801,31 @@
 #'  \item{masterLabel}{a character}
 #'  \item{shouldOverrideLoadingImage}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ListMetadataQuery}
-#' 
+#'
 #' \describe{
 #'  \item{folder}{a character}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{ListPlacement}
-#' 
+#'
 #' \describe{
 #'  \item{height}{an integer}
 #'  \item{location}{a character}
 #'  \item{units}{a character}
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{ListView}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{booleanFilter}{a character}
 #'  \item{columns}{a character}
 #'  \item{division}{a character}
-#'  \item{filterScope}{a FilterScope - which is a character taking one of the following values: 
+#'  \item{filterScope}{a FilterScope - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Everything}
 #'      \item{Mine}
@@ -5839,7 +5839,7 @@
 #'   }
 #'  \item{filters}{a ListViewFilter}
 #'  \item{label}{a character}
-#'  \item{language}{a Language - which is a character taking one of the following values: 
+#'  \item{language}{a Language - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{en_US}
 #'      \item{de}
@@ -5965,12 +5965,12 @@
 #'  \item{queue}{a character}
 #'  \item{sharedTo}{a SharedTo}
 #' }
-#' 
+#'
 #' \strong{ListViewFilter}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
-#'  \item{operation}{a FilterOperation - which is a character taking one of the following values: 
+#'  \item{operation}{a FilterOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{equals}
 #'      \item{notEqual}
@@ -5988,9 +5988,9 @@
 #'   }
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{LiveAgentConfig}
-#' 
+#'
 #' \describe{
 #'  \item{enableLiveChat}{a character either 'true' or 'false'}
 #'  \item{openNewAccountSubtab}{a character either 'true' or 'false'}
@@ -6001,16 +6001,16 @@
 #'  \item{pageNamesToOpen}{a character}
 #'  \item{showKnowledgeArticles}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{LiveAgentSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableLiveAgent}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{LiveChatAgentConfig}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{assignments}{a AgentConfigAssignments}
@@ -6035,7 +6035,7 @@
 #'  \item{enableVisitorBlocking}{a character either 'true' or 'false'}
 #'  \item{enableWhisperMessage}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
-#'  \item{supervisorDefaultAgentStatusFilter}{a SupervisorAgentStatusFilter - which is a character taking one of the following values: 
+#'  \item{supervisorDefaultAgentStatusFilter}{a SupervisorAgentStatusFilter - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Online}
 #'      \item{Away}
@@ -6048,12 +6048,12 @@
 #'  \item{transferableButtons}{a AgentConfigButtons}
 #'  \item{transferableSkills}{a AgentConfigSkills}
 #' }
-#' 
+#'
 #' \strong{LiveChatButton}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{animation}{a LiveChatButtonPresentation - which is a character taking one of the following values: 
+#'  \item{animation}{a LiveChatButtonPresentation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Slide}
 #'      \item{Fade}
@@ -6068,7 +6068,7 @@
 #'  \item{customAgentName}{a character}
 #'  \item{deployments}{a LiveChatButtonDeployments}
 #'  \item{enableQueue}{a character either 'true' or 'false'}
-#'  \item{inviteEndPosition}{a LiveChatButtonInviteEndPosition - which is a character taking one of the following values: 
+#'  \item{inviteEndPosition}{a LiveChatButtonInviteEndPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TopLeft}
 #'      \item{Top}
@@ -6082,7 +6082,7 @@
 #'    }
 #'   }
 #'  \item{inviteImage}{a character}
-#'  \item{inviteStartPosition}{a LiveChatButtonInviteStartPosition - which is a character taking one of the following values: 
+#'  \item{inviteStartPosition}{a LiveChatButtonInviteStartPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TopLeft}
 #'      \item{TopLeftTop}
@@ -6121,7 +6121,7 @@
 #'  \item{preChatFormPage}{a character}
 #'  \item{preChatFormUrl}{a character}
 #'  \item{pushTimeOut}{an integer}
-#'  \item{routingType}{a LiveChatButtonRoutingType - which is a character taking one of the following values: 
+#'  \item{routingType}{a LiveChatButtonRoutingType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Choice}
 #'      \item{LeastActive}
@@ -6131,13 +6131,13 @@
 #'  \item{site}{a character}
 #'  \item{skills}{a LiveChatButtonSkills}
 #'  \item{timeToRemoveInvite}{an integer}
-#'  \item{type}{a LiveChatButtonType - which is a character taking one of the following values: 
+#'  \item{type}{a LiveChatButtonType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Standard}
 #'      \item{Invite}
 #'    }
 #'   }
-#'  \item{windowLanguage}{a Language - which is a character taking one of the following values: 
+#'  \item{windowLanguage}{a Language - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{en_US}
 #'      \item{de}
@@ -6261,21 +6261,21 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{LiveChatButtonDeployments}
-#' 
+#'
 #' \describe{
 #'  \item{deployment}{a character}
 #' }
-#' 
+#'
 #' \strong{LiveChatButtonSkills}
-#' 
+#'
 #' \describe{
 #'  \item{skill}{a character}
 #' }
-#' 
+#'
 #' \strong{LiveChatDeployment}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{brandingImage}{a character}
@@ -6290,18 +6290,18 @@
 #'  \item{site}{a character}
 #'  \item{windowTitle}{a character}
 #' }
-#' 
+#'
 #' \strong{LiveChatDeploymentDomainWhitelist}
-#' 
+#'
 #' \describe{
 #'  \item{domain}{a character}
 #' }
-#' 
+#'
 #' \strong{LiveChatSensitiveDataRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{actionType}{a SensitiveDataActionType - which is a character taking one of the following values: 
+#'  \item{actionType}{a SensitiveDataActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Remove}
 #'      \item{Replace}
@@ -6313,18 +6313,18 @@
 #'  \item{pattern}{a character}
 #'  \item{replacement}{a character}
 #' }
-#' 
+#'
 #' \strong{LiveMessageSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableLiveMessage}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{LogInfo}
-#' 
+#'
 #' \describe{
-#'  \item{category}{a LogCategory - which is a character taking one of the following values: 
+#'  \item{category}{a LogCategory - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Db}
 #'      \item{Workflow}
@@ -6338,7 +6338,7 @@
 #'      \item{All}
 #'    }
 #'   }
-#'  \item{level}{a LogCategoryLevel - which is a character taking one of the following values: 
+#'  \item{level}{a LogCategoryLevel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Finest}
@@ -6351,9 +6351,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{LookupFilter}
-#' 
+#'
 #' \describe{
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{booleanFilter}{a character}
@@ -6363,23 +6363,23 @@
 #'  \item{infoMessage}{a character}
 #'  \item{isOptional}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{LookupFilterTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{errorMessage}{a character}
 #'  \item{informationalMessage}{a character}
 #' }
-#' 
+#'
 #' \strong{MacroSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableAdvancedSearch}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ManagedTopic}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{managedTopicType}{a character}
@@ -6388,23 +6388,23 @@
 #'  \item{position}{an integer}
 #'  \item{topicDescription}{a character}
 #' }
-#' 
+#'
 #' \strong{ManagedTopics}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{managedTopic}{a ManagedTopic}
 #' }
-#' 
+#'
 #' \strong{MarketingActionSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableMarketingAction}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{MarketingResourceType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -6412,16 +6412,16 @@
 #'  \item{object}{a character}
 #'  \item{provider}{a character}
 #' }
-#' 
+#'
 #' \strong{MatchingRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{booleanFilter}{a character}
 #'  \item{description}{a character}
 #'  \item{label}{a character}
 #'  \item{matchingRuleItems}{a MatchingRuleItem}
-#'  \item{ruleStatus}{a MatchingRuleStatus - which is a character taking one of the following values: 
+#'  \item{ruleStatus}{a MatchingRuleStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Inactive}
 #'      \item{DeactivationFailed}
@@ -6432,18 +6432,18 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{MatchingRuleItem}
-#' 
+#'
 #' \describe{
-#'  \item{blankValueBehavior}{a BlankValueBehavior - which is a character taking one of the following values: 
+#'  \item{blankValueBehavior}{a BlankValueBehavior - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{MatchBlanks}
 #'      \item{NullNotAllowed}
 #'    }
 #'   }
 #'  \item{fieldName}{a character}
-#'  \item{matchingMethod}{a MatchingMethod - which is a character taking one of the following values: 
+#'  \item{matchingMethod}{a MatchingMethod - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Exact}
 #'      \item{FirstName}
@@ -6457,33 +6457,33 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{MatchingRules}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{matchingRules}{a MatchingRule}
 #' }
-#' 
+#'
 #' \strong{Metadata}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character}
 #' }
-#' 
+#'
 #' \strong{MetadataWithContent}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}}}
 #' }
-#' 
+#'
 #' \strong{MilestoneType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
-#'  \item{recurrenceType}{a MilestoneTypeRecurrenceType - which is a character taking one of the following values: 
+#'  \item{recurrenceType}{a MilestoneTypeRecurrenceType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{none}
 #'      \item{recursIndependently}
@@ -6491,16 +6491,16 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{MiniLayout}
-#' 
+#'
 #' \describe{
 #'  \item{fields}{a character}
 #'  \item{relatedLists}{a RelatedListItem}
 #' }
-#' 
+#'
 #' \strong{MobileSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{chatterMobile}{a ChatterMobileSettings}
@@ -6508,20 +6508,20 @@
 #'  \item{salesforceMobile}{a SFDCMobileSettings}
 #'  \item{touchMobile}{a TouchMobileSettings}
 #' }
-#' 
+#'
 #' \strong{ModeratedEntityField}
-#' 
+#'
 #' \describe{
 #'  \item{entityName}{a character}
 #'  \item{fieldName}{a character}
 #'  \item{keywordList}{a character}
 #' }
-#' 
+#'
 #' \strong{ModerationRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{action}{a ModerationRuleAction - which is a character taking one of the following values: 
+#'  \item{action}{a ModerationRuleAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Block}
 #'      \item{FreezeAndNotify}
@@ -6536,13 +6536,13 @@
 #'  \item{entitiesAndFields}{a ModeratedEntityField}
 #'  \item{masterLabel}{a character}
 #'  \item{notifyLimit}{an integer}
-#'  \item{timePeriod}{a RateLimitTimePeriod - which is a character taking one of the following values: 
+#'  \item{timePeriod}{a RateLimitTimePeriod - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Short}
 #'      \item{Medium}
 #'    }
 #'   }
-#'  \item{type}{a ModerationRuleType - which is a character taking one of the following values: 
+#'  \item{type}{a ModerationRuleType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Content}
 #'      \item{Rate}
@@ -6551,9 +6551,9 @@
 #'  \item{userCriteria}{a character}
 #'  \item{userMessage}{a character}
 #' }
-#' 
+#'
 #' \strong{NamedCredential}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{allowMergeFieldsInBody}{a character either 'true' or 'false'}
@@ -6567,14 +6567,14 @@
 #'  \item{oauthScope}{a character}
 #'  \item{oauthToken}{a character}
 #'  \item{password}{a character}
-#'  \item{principalType}{a ExternalPrincipalType - which is a character taking one of the following values: 
+#'  \item{principalType}{a ExternalPrincipalType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Anonymous}
 #'      \item{PerUser}
 #'      \item{NamedUser}
 #'    }
 #'   }
-#'  \item{protocol}{a AuthenticationProtocol - which is a character taking one of the following values: 
+#'  \item{protocol}{a AuthenticationProtocol - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{NoAuthentication}
 #'      \item{Oauth}
@@ -6583,23 +6583,23 @@
 #'   }
 #'  \item{username}{a character}
 #' }
-#' 
+#'
 #' \strong{NameSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableMiddleName}{a character either 'true' or 'false'}
 #'  \item{enableNameSuffix}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{NavigationLinkSet}
-#' 
+#'
 #' \describe{
 #'  \item{navigationMenuItem}{a NavigationMenuItem}
 #' }
-#' 
+#'
 #' \strong{NavigationMenuItem}
-#' 
+#'
 #' \describe{
 #'  \item{defaultListViewId}{a character}
 #'  \item{label}{a character}
@@ -6610,15 +6610,15 @@
 #'  \item{targetPreference}{a character}
 #'  \item{type}{a character}
 #' }
-#' 
+#'
 #' \strong{NavigationSubMenu}
-#' 
+#'
 #' \describe{
 #'  \item{navigationMenuItem}{a NavigationMenuItem}
 #' }
-#' 
+#'
 #' \strong{Network}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{allowInternalUserLogin}{a character either 'true' or 'false'}
@@ -6666,7 +6666,7 @@
 #'  \item{selfRegistration}{a character either 'true' or 'false'}
 #'  \item{sendWelcomeEmail}{a character either 'true' or 'false'}
 #'  \item{site}{a character}
-#'  \item{status}{a NetworkStatus - which is a character taking one of the following values: 
+#'  \item{status}{a NetworkStatus - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UnderConstruction}
 #'      \item{Live}
@@ -6677,15 +6677,15 @@
 #'  \item{urlPathPrefix}{a character}
 #'  \item{welcomeTemplate}{a character}
 #' }
-#' 
+#'
 #' \strong{NetworkAccess}
-#' 
+#'
 #' \describe{
 #'  \item{ipRanges}{a IpRange}
 #' }
-#' 
+#'
 #' \strong{NetworkBranding}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{loginFooterText}{a character}
@@ -6708,46 +6708,46 @@
 #'  \item{zeronaryColor}{a character}
 #'  \item{zeronaryComplementColor}{a character}
 #' }
-#' 
+#'
 #' \strong{NetworkMemberGroup}
-#' 
+#'
 #' \describe{
 #'  \item{permissionSet}{a character}
 #'  \item{profile}{a character}
 #' }
-#' 
+#'
 #' \strong{NetworkPageOverride}
-#' 
+#'
 #' \describe{
-#'  \item{changePasswordPageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values: 
+#'  \item{changePasswordPageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Designer}
 #'      \item{VisualForce}
 #'      \item{Standard}
 #'    }
 #'   }
-#'  \item{forgotPasswordPageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values: 
+#'  \item{forgotPasswordPageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Designer}
 #'      \item{VisualForce}
 #'      \item{Standard}
 #'    }
 #'   }
-#'  \item{homePageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values: 
+#'  \item{homePageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Designer}
 #'      \item{VisualForce}
 #'      \item{Standard}
 #'    }
 #'   }
-#'  \item{loginPageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values: 
+#'  \item{loginPageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Designer}
 #'      \item{VisualForce}
 #'      \item{Standard}
 #'    }
 #'   }
-#'  \item{selfRegProfilePageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values: 
+#'  \item{selfRegProfilePageOverrideSetting}{a NetworkPageOverrideSetting - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Designer}
 #'      \item{VisualForce}
@@ -6755,48 +6755,48 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{NetworkTabSet}
-#' 
+#'
 #' \describe{
 #'  \item{customTab}{a character}
 #'  \item{defaultTab}{a character}
 #'  \item{standardTab}{a character}
 #' }
-#' 
+#'
 #' \strong{NextAutomatedApprover}
-#' 
+#'
 #' \describe{
 #'  \item{useApproverFieldOfRecordOwner}{a character either 'true' or 'false'}
 #'  \item{userHierarchyField}{a character}
 #' }
-#' 
+#'
 #' \strong{ObjectMapping}
-#' 
+#'
 #' \describe{
 #'  \item{inputObject}{a character}
 #'  \item{mappingFields}{a ObjectMappingField}
 #'  \item{outputObject}{a character}
 #' }
-#' 
+#'
 #' \strong{ObjectMappingField}
-#' 
+#'
 #' \describe{
 #'  \item{inputField}{a character}
 #'  \item{outputField}{a character}
 #' }
-#' 
+#'
 #' \strong{ObjectNameCaseValue}
-#' 
+#'
 #' \describe{
-#'  \item{article}{a Article - which is a character taking one of the following values: 
+#'  \item{article}{a Article - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Indefinite}
 #'      \item{Definite}
 #'    }
 #'   }
-#'  \item{caseType}{a CaseType - which is a character taking one of the following values: 
+#'  \item{caseType}{a CaseType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Nominative}
 #'      \item{Accusative}
@@ -6831,7 +6831,7 @@
 #'    }
 #'   }
 #'  \item{plural}{a character either 'true' or 'false'}
-#'  \item{possessive}{a Possessive - which is a character taking one of the following values: 
+#'  \item{possessive}{a Possessive - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{First}
@@ -6840,51 +6840,51 @@
 #'   }
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{ObjectRelationship}
-#' 
+#'
 #' \describe{
 #'  \item{join}{a ObjectRelationship}
 #'  \item{outerJoin}{a character either 'true' or 'false'}
 #'  \item{relationship}{a character}
 #' }
-#' 
+#'
 #' \strong{ObjectSearchSetting}
-#' 
+#'
 #' \describe{
 #'  \item{enhancedLookupEnabled}{a character either 'true' or 'false'}
 #'  \item{lookupAutoCompleteEnabled}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #'  \item{resultsPerPageCount}{an integer}
 #' }
-#' 
+#'
 #' \strong{ObjectUsage}
-#' 
+#'
 #' \describe{
 #'  \item{object}{a character}
 #' }
-#' 
+#'
 #' \strong{OpportunityListFieldsLabelMapping}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{OpportunityListFieldsSelectedSettings}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #' }
-#' 
+#'
 #' \strong{OpportunityListFieldsUnselectedSettings}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #' }
-#' 
+#'
 #' \strong{OpportunitySettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{autoActivateNewReminders}{a character either 'true' or 'false'}
@@ -6894,17 +6894,17 @@
 #'  \item{findSimilarOppFilter}{a FindSimilarOppFilter}
 #'  \item{promptToAddProducts}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{Orchestration}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{context}{a character}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{OrchestrationContext}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -6914,18 +6914,18 @@
 #'  \item{salesforceObject}{a character}
 #'  \item{salesforceObjectPrimaryKey}{a character}
 #' }
-#' 
+#'
 #' \strong{OrchestrationContextEvent}
-#' 
+#'
 #' \describe{
 #'  \item{eventType}{a character}
 #'  \item{orchestrationEvent}{a character}
 #'  \item{platformEvent}{a character}
 #'  \item{platformEventPrimaryKey}{a character}
 #' }
-#' 
+#'
 #' \strong{OrderSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableNegativeQuantity}{a character either 'true' or 'false'}
@@ -6933,26 +6933,26 @@
 #'  \item{enableReductionOrders}{a character either 'true' or 'false'}
 #'  \item{enableZeroQuantity}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{OrganizationSettingsDetail}
-#' 
+#'
 #' \describe{
 #'  \item{settingName}{a character}
 #'  \item{settingValue}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{OrgPreferenceSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{preferences}{a OrganizationSettingsDetail}
 #' }
-#' 
+#'
 #' \strong{Package}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{apiAccessLevel}{a APIAccessLevel - which is a character taking one of the following values: 
+#'  \item{apiAccessLevel}{a APIAccessLevel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Unrestricted}
 #'      \item{Restricted}
@@ -6968,27 +6968,27 @@
 #'  \item{uninstallClass}{a character}
 #'  \item{version}{a character}
 #' }
-#' 
+#'
 #' \strong{PackageTypeMembers}
-#' 
+#'
 #' \describe{
 #'  \item{members}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{PackageVersion}
-#' 
+#'
 #' \describe{
 #'  \item{majorNumber}{an integer}
 #'  \item{minorNumber}{an integer}
 #'  \item{namespace}{a character}
 #' }
-#' 
+#'
 #' \strong{PasswordPolicies}
-#' 
+#'
 #' \describe{
 #'  \item{apiOnlyUserHomePageURL}{a character}
-#'  \item{complexity}{a Complexity - which is a character taking one of the following values: 
+#'  \item{complexity}{a Complexity - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{NoRestriction}
 #'      \item{AlphaNumeric}
@@ -6997,7 +6997,7 @@
 #'      \item{UpperLowerCaseNumericSpecialCharacters}
 #'    }
 #'   }
-#'  \item{expiration}{a Expiration - which is a character taking one of the following values: 
+#'  \item{expiration}{a Expiration - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ThirtyDays}
 #'      \item{SixtyDays}
@@ -7008,7 +7008,7 @@
 #'    }
 #'   }
 #'  \item{historyRestriction}{a character}
-#'  \item{lockoutInterval}{a LockoutInterval - which is a character taking one of the following values: 
+#'  \item{lockoutInterval}{a LockoutInterval - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{FifteenMinutes}
 #'      \item{ThirtyMinutes}
@@ -7016,7 +7016,7 @@
 #'      \item{Forever}
 #'    }
 #'   }
-#'  \item{maxLoginAttempts}{a MaxLoginAttempts - which is a character taking one of the following values: 
+#'  \item{maxLoginAttempts}{a MaxLoginAttempts - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ThreeAttempts}
 #'      \item{FiveAttempts}
@@ -7029,16 +7029,16 @@
 #'  \item{obscureSecretAnswer}{a character either 'true' or 'false'}
 #'  \item{passwordAssistanceMessage}{a character}
 #'  \item{passwordAssistanceURL}{a character}
-#'  \item{questionRestriction}{a QuestionRestriction - which is a character taking one of the following values: 
+#'  \item{questionRestriction}{a QuestionRestriction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{DoesNotContainPassword}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{PathAssistant}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -7048,24 +7048,24 @@
 #'  \item{pathAssistantSteps}{a PathAssistantStep}
 #'  \item{recordTypeName}{a character}
 #' }
-#' 
+#'
 #' \strong{PathAssistantSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{pathAssistantEnabled}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PathAssistantStep}
-#' 
+#'
 #' \describe{
 #'  \item{fieldNames}{a character}
 #'  \item{info}{a character}
 #'  \item{picklistValueName}{a character}
 #' }
-#' 
+#'
 #' \strong{PermissionSet}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{applicationVisibilities}{a PermissionSetApplicationVisibility}
@@ -7083,52 +7083,52 @@
 #'  \item{tabSettings}{a PermissionSetTabSetting}
 #'  \item{userPermissions}{a PermissionSetUserPermission}
 #' }
-#' 
+#'
 #' \strong{PermissionSetApexClassAccess}
-#' 
+#'
 #' \describe{
 #'  \item{apexClass}{a character}
 #'  \item{enabled}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PermissionSetApexPageAccess}
-#' 
+#'
 #' \describe{
 #'  \item{apexPage}{a character}
 #'  \item{enabled}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PermissionSetApplicationVisibility}
-#' 
+#'
 #' \describe{
 #'  \item{application}{a character}
 #'  \item{visible}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PermissionSetCustomPermissions}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{PermissionSetExternalDataSourceAccess}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{externalDataSource}{a character}
 #' }
-#' 
+#'
 #' \strong{PermissionSetFieldPermissions}
-#' 
+#'
 #' \describe{
 #'  \item{editable}{a character either 'true' or 'false'}
 #'  \item{field}{a character}
 #'  \item{readable}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PermissionSetGroup}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -7136,9 +7136,9 @@
 #'  \item{label}{a character}
 #'  \item{permissionSets}{a character}
 #' }
-#' 
+#'
 #' \strong{PermissionSetObjectPermissions}
-#' 
+#'
 #' \describe{
 #'  \item{allowCreate}{a character either 'true' or 'false'}
 #'  \item{allowDelete}{a character either 'true' or 'false'}
@@ -7148,19 +7148,19 @@
 #'  \item{object}{a character}
 #'  \item{viewAllRecords}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PermissionSetRecordTypeVisibility}
-#' 
+#'
 #' \describe{
 #'  \item{recordType}{a character}
 #'  \item{visible}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PermissionSetTabSetting}
-#' 
+#'
 #' \describe{
 #'  \item{tab}{a character}
-#'  \item{visibility}{a PermissionSetTabVisibility - which is a character taking one of the following values: 
+#'  \item{visibility}{a PermissionSetTabVisibility - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Available}
@@ -7168,30 +7168,30 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{PermissionSetUserPermission}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{PersonalJourneySettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableExactTargetForSalesforceApps}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PersonListSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enablePersonList}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PicklistEntry}
-#' 
+#'
 #' \describe{
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{defaultValue}{a character either 'true' or 'false'}
@@ -7199,9 +7199,9 @@
 #'  \item{validFor}{a character}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{PicklistValue}
-#' 
+#'
 #' \describe{
 #'  \item{color}{a character (inherited from GlobalPicklistValue)}
 #'  \item{default}{a character either 'true' or 'false' (inherited from GlobalPicklistValue)}
@@ -7212,7 +7212,7 @@
 #'  \item{controllingFieldValues}{a character}
 #'  \item{converted}{a character either 'true' or 'false'}
 #'  \item{cssExposed}{a character either 'true' or 'false'}
-#'  \item{forecastCategory}{a ForecastCategories - which is a character taking one of the following values: 
+#'  \item{forecastCategory}{a ForecastCategories - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Omitted}
 #'      \item{Pipeline}
@@ -7227,19 +7227,19 @@
 #'  \item{reviewed}{a character either 'true' or 'false'}
 #'  \item{won}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{PicklistValueTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{masterLabel}{a character}
 #'  \item{translation}{a character}
 #' }
-#' 
+#'
 #' \strong{PlatformActionList}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{actionListContext}{a PlatformActionListContext - which is a character taking one of the following values: 
+#'  \item{actionListContext}{a PlatformActionListContext - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ListView}
 #'      \item{RelatedList}
@@ -7265,12 +7265,12 @@
 #'  \item{platformActionListItems}{a PlatformActionListItem}
 #'  \item{relatedSourceEntity}{a character}
 #' }
-#' 
+#'
 #' \strong{PlatformActionListItem}
-#' 
+#'
 #' \describe{
 #'  \item{actionName}{a character}
-#'  \item{actionType}{a PlatformActionType - which is a character taking one of the following values: 
+#'  \item{actionType}{a PlatformActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{QuickAction}
 #'      \item{StandardButton}
@@ -7283,9 +7283,9 @@
 #'  \item{sortOrder}{an integer}
 #'  \item{subtype}{a character}
 #' }
-#' 
+#'
 #' \strong{PlatformCachePartition}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -7293,23 +7293,23 @@
 #'  \item{masterLabel}{a character}
 #'  \item{platformCachePartitionTypes}{a PlatformCachePartitionType}
 #' }
-#' 
+#'
 #' \strong{PlatformCachePartitionType}
-#' 
+#'
 #' \describe{
 #'  \item{allocatedCapacity}{an integer}
 #'  \item{allocatedPurchasedCapacity}{an integer}
 #'  \item{allocatedTrialCapacity}{an integer}
-#'  \item{cacheType}{a PlatformCacheType - which is a character taking one of the following values: 
+#'  \item{cacheType}{a PlatformCacheType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Session}
 #'      \item{Organization}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Portal}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -7332,7 +7332,7 @@
 #'  \item{ownerNotifyTemplate}{a character}
 #'  \item{selfRegNewUserUrl}{a character}
 #'  \item{selfRegUserDefaultProfile}{a character}
-#'  \item{selfRegUserDefaultRole}{a PortalRoles - which is a character taking one of the following values: 
+#'  \item{selfRegUserDefaultRole}{a PortalRoles - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Executive}
 #'      \item{Manager}
@@ -7343,7 +7343,7 @@
 #'  \item{selfRegUserTemplate}{a character}
 #'  \item{showActionConfirmation}{a character either 'true' or 'false'}
 #'  \item{stylesheetDocument}{a character}
-#'  \item{type}{a PortalType - which is a character taking one of the following values: 
+#'  \item{type}{a PortalType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CustomerSuccess}
 #'      \item{Partner}
@@ -7351,9 +7351,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{PostTemplate}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{default}{a character either 'true' or 'false'}
@@ -7361,24 +7361,24 @@
 #'  \item{fields}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{PrimaryTabComponents}
-#' 
+#'
 #' \describe{
 #'  \item{containers}{a Container}
 #' }
-#' 
+#'
 #' \strong{ProductSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableCascadeActivateToRelatedPrices}{a character either 'true' or 'false'}
 #'  \item{enableQuantitySchedule}{a character either 'true' or 'false'}
 #'  \item{enableRevenueSchedule}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{Profile}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{applicationVisibilities}{a ProfileApplicationVisibility}
@@ -7400,13 +7400,13 @@
 #'  \item{userLicense}{a character}
 #'  \item{userPermissions}{a ProfileUserPermission}
 #' }
-#' 
+#'
 #' \strong{ProfileActionOverride}
-#' 
+#'
 #' \describe{
 #'  \item{actionName}{a character}
 #'  \item{content}{a character}
-#'  \item{formFactor}{a FormFactor - which is a character taking one of the following values: 
+#'  \item{formFactor}{a FormFactor - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Small}
 #'      \item{Medium}
@@ -7415,7 +7415,7 @@
 #'   }
 #'  \item{pageOrSobjectType}{a character}
 #'  \item{recordType}{a character}
-#'  \item{type}{a ActionOverrideType - which is a character taking one of the following values: 
+#'  \item{type}{a ActionOverrideType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Default}
 #'      \item{Standard}
@@ -7426,35 +7426,35 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ProfileApexClassAccess}
-#' 
+#'
 #' \describe{
 #'  \item{apexClass}{a character}
 #'  \item{enabled}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfileApexPageAccess}
-#' 
+#'
 #' \describe{
 #'  \item{apexPage}{a character}
 #'  \item{enabled}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfileApplicationVisibility}
-#' 
+#'
 #' \describe{
 #'  \item{application}{a character}
 #'  \item{default}{a character either 'true' or 'false'}
 #'  \item{visible}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfileCategoryGroupVisibility}
-#' 
+#'
 #' \describe{
 #'  \item{dataCategories}{a character}
 #'  \item{dataCategoryGroup}{a character}
-#'  \item{visibility}{a CategoryGroupVisibility - which is a character taking one of the following values: 
+#'  \item{visibility}{a CategoryGroupVisibility - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ALL}
 #'      \item{NONE}
@@ -7462,38 +7462,38 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ProfileCustomPermissions}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{ProfileExternalDataSourceAccess}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{externalDataSource}{a character}
 #' }
-#' 
+#'
 #' \strong{ProfileFieldLevelSecurity}
-#' 
+#'
 #' \describe{
 #'  \item{editable}{a character either 'true' or 'false'}
 #'  \item{field}{a character}
 #'  \item{readable}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfileLayoutAssignment}
-#' 
+#'
 #' \describe{
 #'  \item{layout}{a character}
 #'  \item{recordType}{a character}
 #' }
-#' 
+#'
 #' \strong{ProfileLoginHours}
-#' 
+#'
 #' \describe{
 #'  \item{fridayEnd}{a character}
 #'  \item{fridayStart}{a character}
@@ -7510,17 +7510,17 @@
 #'  \item{wednesdayEnd}{a character}
 #'  \item{wednesdayStart}{a character}
 #' }
-#' 
+#'
 #' \strong{ProfileLoginIpRange}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{endAddress}{a character}
 #'  \item{startAddress}{a character}
 #' }
-#' 
+#'
 #' \strong{ProfileObjectPermissions}
-#' 
+#'
 #' \describe{
 #'  \item{allowCreate}{a character either 'true' or 'false'}
 #'  \item{allowDelete}{a character either 'true' or 'false'}
@@ -7530,9 +7530,9 @@
 #'  \item{object}{a character}
 #'  \item{viewAllRecords}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfilePasswordPolicy}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{lockoutInterval}{an integer}
@@ -7546,24 +7546,24 @@
 #'  \item{passwordQuestion}{an integer}
 #'  \item{profile}{a character}
 #' }
-#' 
+#'
 #' \strong{ProfileRecordTypeVisibility}
-#' 
+#'
 #' \describe{
 #'  \item{default}{a character either 'true' or 'false'}
 #'  \item{personAccountDefault}{a character either 'true' or 'false'}
 #'  \item{recordType}{a character}
 #'  \item{visible}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfileSessionSetting}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{externalCommunityUserIdentityVerif}{a character either 'true' or 'false'}
 #'  \item{forceLogout}{a character either 'true' or 'false'}
 #'  \item{profile}{a character}
-#'  \item{requiredSessionLevel}{a SessionSecurityLevel - which is a character taking one of the following values: 
+#'  \item{requiredSessionLevel}{a SessionSecurityLevel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{LOW}
 #'      \item{STANDARD}
@@ -7574,12 +7574,12 @@
 #'  \item{sessionTimeout}{an integer}
 #'  \item{sessionTimeoutWarning}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ProfileTabVisibility}
-#' 
+#'
 #' \describe{
 #'  \item{tab}{a character}
-#'  \item{visibility}{a TabVisibility - which is a character taking one of the following values: 
+#'  \item{visibility}{a TabVisibility - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Hidden}
 #'      \item{DefaultOff}
@@ -7587,29 +7587,29 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ProfileUserPermission}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{PublicGroups}
-#' 
+#'
 #' \describe{
 #'  \item{publicGroup}{a character}
 #' }
-#' 
+#'
 #' \strong{PushNotification}
-#' 
+#'
 #' \describe{
 #'  \item{fieldNames}{a character}
 #'  \item{objectName}{a character}
 #' }
-#' 
+#'
 #' \strong{Queue}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{doesSendEmailToMembers}{a character either 'true' or 'false'}
@@ -7619,9 +7619,9 @@
 #'  \item{queueRoutingConfig}{a character}
 #'  \item{queueSobject}{a QueueSobject}
 #' }
-#' 
+#'
 #' \strong{QueueMembers}
-#' 
+#'
 #' \describe{
 #'  \item{publicGroups}{a PublicGroups}
 #'  \item{roleAndSubordinates}{a RoleAndSubordinates}
@@ -7629,15 +7629,15 @@
 #'  \item{roles}{a Roles}
 #'  \item{users}{a Users}
 #' }
-#' 
+#'
 #' \strong{QueueSobject}
-#' 
+#'
 #' \describe{
 #'  \item{sobjectType}{a character}
 #' }
-#' 
+#'
 #' \strong{QuickAction}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{canvas}{a character}
@@ -7653,7 +7653,7 @@
 #'  \item{page}{a character}
 #'  \item{quickActionLayout}{a QuickActionLayout}
 #'  \item{quickActionSendEmailOptions}{a QuickActionSendEmailOptions}
-#'  \item{standardLabel}{a QuickActionLabel - which is a character taking one of the following values: 
+#'  \item{standardLabel}{a QuickActionLabel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{LogACall}
 #'      \item{LogANote}
@@ -7688,7 +7688,7 @@
 #'  \item{targetObject}{a character}
 #'  \item{targetParentField}{a character}
 #'  \item{targetRecordType}{a character}
-#'  \item{type}{a QuickActionType - which is a character taking one of the following values: 
+#'  \item{type}{a QuickActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Create}
 #'      \item{VisualforcePage}
@@ -7704,11 +7704,11 @@
 #'   }
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{QuickActionLayout}
-#' 
+#'
 #' \describe{
-#'  \item{layoutSectionStyle}{a LayoutSectionStyle - which is a character taking one of the following values: 
+#'  \item{layoutSectionStyle}{a LayoutSectionStyle - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TwoColumnsTopToBottom}
 #'      \item{TwoColumnsLeftToRight}
@@ -7718,19 +7718,19 @@
 #'   }
 #'  \item{quickActionLayoutColumns}{a QuickActionLayoutColumn}
 #' }
-#' 
+#'
 #' \strong{QuickActionLayoutColumn}
-#' 
+#'
 #' \describe{
 #'  \item{quickActionLayoutItems}{a QuickActionLayoutItem}
 #' }
-#' 
+#'
 #' \strong{QuickActionLayoutItem}
-#' 
+#'
 #' \describe{
 #'  \item{emptySpace}{a character either 'true' or 'false'}
 #'  \item{field}{a character}
-#'  \item{uiBehavior}{a UiBehavior - which is a character taking one of the following values: 
+#'  \item{uiBehavior}{a UiBehavior - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Edit}
 #'      \item{Required}
@@ -7738,56 +7738,56 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{QuickActionList}
-#' 
+#'
 #' \describe{
 #'  \item{quickActionListItems}{a QuickActionListItem}
 #' }
-#' 
+#'
 #' \strong{QuickActionListItem}
-#' 
+#'
 #' \describe{
 #'  \item{quickActionName}{a character}
 #' }
-#' 
+#'
 #' \strong{QuickActionSendEmailOptions}
-#' 
+#'
 #' \describe{
 #'  \item{defaultEmailTemplateName}{a character}
 #'  \item{ignoreDefaultEmailTemplateSubject}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{QuickActionTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{QuotasSettings}
-#' 
+#'
 #' \describe{
 #'  \item{showQuotas}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{QuoteSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableQuote}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{RecommendationAudience}
-#' 
+#'
 #' \describe{
 #'  \item{recommendationAudienceDetails}{a RecommendationAudienceDetail}
 #' }
-#' 
+#'
 #' \strong{RecommendationAudienceDetail}
-#' 
+#'
 #' \describe{
-#'  \item{audienceCriteriaType}{a AudienceCriteriaType - which is a character taking one of the following values: 
+#'  \item{audienceCriteriaType}{a AudienceCriteriaType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CustomList}
 #'      \item{MaxDaysInCommunity}
@@ -7796,15 +7796,15 @@
 #'  \item{audienceCriteriaValue}{a character}
 #'  \item{setupName}{a character}
 #' }
-#' 
+#'
 #' \strong{RecommendationDefinition}
-#' 
+#'
 #' \describe{
 #'  \item{recommendationDefinitionDetails}{a RecommendationDefinitionDetail}
 #' }
-#' 
+#'
 #' \strong{RecommendationDefinitionDetail}
-#' 
+#'
 #' \describe{
 #'  \item{actionUrl}{a character}
 #'  \item{description}{a character}
@@ -7813,9 +7813,9 @@
 #'  \item{setupName}{a character}
 #'  \item{title}{a character}
 #' }
-#' 
+#'
 #' \strong{RecommendationStrategy}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -7823,9 +7823,9 @@
 #'  \item{recommendationStrategyName}{a character}
 #'  \item{strategyNode}{a StrategyNode}
 #' }
-#' 
+#'
 #' \strong{RecordType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -7835,59 +7835,59 @@
 #'  \item{label}{a character}
 #'  \item{picklistValues}{a RecordTypePicklistValue}
 #' }
-#' 
+#'
 #' \strong{RecordTypePicklistValue}
-#' 
+#'
 #' \describe{
 #'  \item{picklist}{a character}
 #'  \item{values}{a PicklistValue}
 #' }
-#' 
+#'
 #' \strong{RecordTypeTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{RelatedContent}
-#' 
+#'
 #' \describe{
 #'  \item{relatedContentItems}{a RelatedContentItem}
 #' }
-#' 
+#'
 #' \strong{RelatedContentItem}
-#' 
+#'
 #' \describe{
 #'  \item{layoutItem}{a LayoutItem}
 #' }
-#' 
+#'
 #' \strong{RelatedList}
-#' 
+#'
 #' \describe{
 #'  \item{hideOnDetail}{a character either 'true' or 'false'}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{RelatedListItem}
-#' 
+#'
 #' \describe{
 #'  \item{customButtons}{a character}
 #'  \item{excludeButtons}{a character}
 #'  \item{fields}{a character}
 #'  \item{relatedList}{a character}
 #'  \item{sortField}{a character}
-#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values: 
+#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{RemoteSiteSetting}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -7895,9 +7895,9 @@
 #'  \item{isActive}{a character either 'true' or 'false'}
 #'  \item{url}{a character}
 #' }
-#' 
+#'
 #' \strong{Report}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{aggregates}{a ReportAggregate}
@@ -7908,7 +7908,7 @@
 #'  \item{colorRanges}{a ReportColorRange}
 #'  \item{columns}{a ReportColumn}
 #'  \item{crossFilters}{a ReportCrossFilter}
-#'  \item{currency}{a CurrencyIsoCode - which is a character taking one of the following values: 
+#'  \item{currency}{a CurrencyIsoCode - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ADP}
 #'      \item{AED}
@@ -8124,7 +8124,7 @@
 #'  \item{division}{a character}
 #'  \item{filter}{a ReportFilter}
 #'  \item{folderName}{a character}
-#'  \item{format}{a ReportFormat - which is a character taking one of the following values: 
+#'  \item{format}{a ReportFormat - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{MultiBlock}
 #'      \item{Matrix}
@@ -8145,7 +8145,7 @@
 #'  \item{showCurrentDate}{a character either 'true' or 'false'}
 #'  \item{showDetails}{a character either 'true' or 'false'}
 #'  \item{sortColumn}{a character}
-#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values: 
+#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
@@ -8155,13 +8155,13 @@
 #'  \item{timeFrameFilter}{a ReportTimeFrameFilter}
 #'  \item{userFilter}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportAggregate}
-#' 
+#'
 #' \describe{
 #'  \item{acrossGroupingContext}{a character}
 #'  \item{calculatedFormula}{a character}
-#'  \item{datatype}{a ReportAggregateDatatype - which is a character taking one of the following values: 
+#'  \item{datatype}{a ReportAggregateDatatype - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{currency}
 #'      \item{percent}
@@ -8177,25 +8177,25 @@
 #'  \item{reportType}{a character}
 #'  \item{scale}{an integer}
 #' }
-#' 
+#'
 #' \strong{ReportAggregateReference}
-#' 
+#'
 #' \describe{
 #'  \item{aggregate}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportBlockInfo}
-#' 
+#'
 #' \describe{
 #'  \item{aggregateReferences}{a ReportAggregateReference}
 #'  \item{blockId}{a character}
 #'  \item{joinTable}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportBucketField}
-#' 
+#'
 #' \describe{
-#'  \item{bucketType}{a ReportBucketFieldType - which is a character taking one of the following values: 
+#'  \item{bucketType}{a ReportBucketFieldType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{text}
 #'      \item{number}
@@ -8204,7 +8204,7 @@
 #'   }
 #'  \item{developerName}{a character}
 #'  \item{masterLabel}{a character}
-#'  \item{nullTreatment}{a ReportFormulaNullTreatment - which is a character taking one of the following values: 
+#'  \item{nullTreatment}{a ReportFormulaNullTreatment - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{n}
 #'      \item{z}
@@ -8215,28 +8215,28 @@
 #'  \item{useOther}{a character either 'true' or 'false'}
 #'  \item{values}{a ReportBucketFieldValue}
 #' }
-#' 
+#'
 #' \strong{ReportBucketFieldSourceValue}
-#' 
+#'
 #' \describe{
 #'  \item{from}{a character}
 #'  \item{sourceValue}{a character}
 #'  \item{to}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportBucketFieldValue}
-#' 
+#'
 #' \describe{
 #'  \item{sourceValues}{a ReportBucketFieldSourceValue}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportChart}
-#' 
+#'
 #' \describe{
 #'  \item{backgroundColor1}{a character}
 #'  \item{backgroundColor2}{a character}
-#'  \item{backgroundFadeDir}{a ChartBackgroundDirection - which is a character taking one of the following values: 
+#'  \item{backgroundFadeDir}{a ChartBackgroundDirection - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TopToBottom}
 #'      \item{LeftToRight}
@@ -8244,7 +8244,7 @@
 #'    }
 #'   }
 #'  \item{chartSummaries}{a ChartSummary}
-#'  \item{chartType}{a ChartType - which is a character taking one of the following values: 
+#'  \item{chartType}{a ChartType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Scatter}
@@ -8275,14 +8275,14 @@
 #'  \item{enableHoverLabels}{a character either 'true' or 'false'}
 #'  \item{expandOthers}{a character either 'true' or 'false'}
 #'  \item{groupingColumn}{a character}
-#'  \item{legendPosition}{a ChartLegendPosition - which is a character taking one of the following values: 
+#'  \item{legendPosition}{a ChartLegendPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Right}
 #'      \item{Bottom}
 #'      \item{OnChart}
 #'    }
 #'   }
-#'  \item{location}{a ChartPosition - which is a character taking one of the following values: 
+#'  \item{location}{a ChartPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CHART_TOP}
 #'      \item{CHART_BOTTOM}
@@ -8293,7 +8293,7 @@
 #'  \item{showPercentage}{a character either 'true' or 'false'}
 #'  \item{showTotal}{a character either 'true' or 'false'}
 #'  \item{showValues}{a character either 'true' or 'false'}
-#'  \item{size}{a ReportChartSize - which is a character taking one of the following values: 
+#'  \item{size}{a ReportChartSize - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Tiny}
 #'      \item{Small}
@@ -8304,7 +8304,7 @@
 #'   }
 #'  \item{summaryAxisManualRangeEnd}{a numeric}
 #'  \item{summaryAxisManualRangeStart}{a numeric}
-#'  \item{summaryAxisRange}{a ChartRangeType - which is a character taking one of the following values: 
+#'  \item{summaryAxisRange}{a ChartRangeType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Auto}
 #'      \item{Manual}
@@ -8316,9 +8316,9 @@
 #'  \item{titleColor}{a character}
 #'  \item{titleSize}{an integer}
 #' }
-#' 
+#'
 #' \strong{ReportChartComponentLayoutItem}
-#' 
+#'
 #' \describe{
 #'  \item{cacheData}{a character either 'true' or 'false'}
 #'  \item{contextFilterableField}{a character}
@@ -8327,7 +8327,7 @@
 #'  \item{includeContext}{a character either 'true' or 'false'}
 #'  \item{reportName}{a character}
 #'  \item{showTitle}{a character either 'true' or 'false'}
-#'  \item{size}{a ReportChartComponentSize - which is a character taking one of the following values: 
+#'  \item{size}{a ReportChartComponentSize - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{SMALL}
 #'      \item{MEDIUM}
@@ -8335,11 +8335,11 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ReportColorRange}
-#' 
+#'
 #' \describe{
-#'  \item{aggregate}{a ReportSummaryType - which is a character taking one of the following values: 
+#'  \item{aggregate}{a ReportSummaryType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sum}
 #'      \item{Average}
@@ -8355,11 +8355,11 @@
 #'  \item{lowColor}{a character}
 #'  \item{midColor}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportColumn}
-#' 
+#'
 #' \describe{
-#'  \item{aggregateTypes}{a ReportSummaryType - which is a character taking one of the following values: 
+#'  \item{aggregateTypes}{a ReportSummaryType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sum}
 #'      \item{Average}
@@ -8372,12 +8372,12 @@
 #'  \item{reverseColors}{a character either 'true' or 'false'}
 #'  \item{showChanges}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ReportCrossFilter}
-#' 
+#'
 #' \describe{
 #'  \item{criteriaItems}{a ReportFilterItem}
-#'  \item{operation}{a ObjectFilterOperator - which is a character taking one of the following values: 
+#'  \item{operation}{a ObjectFilterOperator - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{with}
 #'      \item{without}
@@ -8387,13 +8387,13 @@
 #'  \item{relatedTable}{a character}
 #'  \item{relatedTableJoinColumn}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportDataCategoryFilter}
-#' 
+#'
 #' \describe{
 #'  \item{dataCategory}{a character}
 #'  \item{dataCategoryGroup}{a character}
-#'  \item{operator}{a DataCategoryFilterOperation - which is a character taking one of the following values: 
+#'  \item{operator}{a DataCategoryFilterOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{above}
 #'      \item{below}
@@ -8402,13 +8402,13 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ReportFilter}
-#' 
+#'
 #' \describe{
 #'  \item{booleanFilter}{a character}
 #'  \item{criteriaItems}{a ReportFilterItem}
-#'  \item{language}{a Language - which is a character taking one of the following values: 
+#'  \item{language}{a Language - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{en_US}
 #'      \item{de}
@@ -8532,14 +8532,14 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ReportFilterItem}
-#' 
+#'
 #' \describe{
 #'  \item{column}{a character}
 #'  \item{columnToColumn}{a character either 'true' or 'false'}
 #'  \item{isUnlocked}{a character either 'true' or 'false'}
-#'  \item{operator}{a FilterOperation - which is a character taking one of the following values: 
+#'  \item{operator}{a FilterOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{equals}
 #'      \item{notEqual}
@@ -8558,9 +8558,9 @@
 #'  \item{snapshot}{a character}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportFolder}
-#' 
+#'
 #' \describe{
 #'  \item{accessType}{a FolderAccessTypes (inherited from Folder)}
 #'  \item{folderShares}{a FolderShare (inherited from Folder)}
@@ -8568,11 +8568,11 @@
 #'  \item{publicFolderAccess}{a PublicFolderAccess (inherited from Folder)}
 #'  \item{sharedTo}{a SharedTo (inherited from Folder)}
 #' }
-#' 
+#'
 #' \strong{ReportGrouping}
-#' 
+#'
 #' \describe{
-#'  \item{aggregateType}{a ReportAggrType - which is a character taking one of the following values: 
+#'  \item{aggregateType}{a ReportAggrType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Sum}
 #'      \item{Average}
@@ -8581,7 +8581,7 @@
 #'      \item{RowCount}
 #'    }
 #'   }
-#'  \item{dateGranularity}{a UserDateGranularity - which is a character taking one of the following values: 
+#'  \item{dateGranularity}{a UserDateGranularity - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Day}
@@ -8599,13 +8599,13 @@
 #'   }
 #'  \item{field}{a character}
 #'  \item{sortByName}{a character}
-#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values: 
+#'  \item{sortOrder}{a SortOrder - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Asc}
 #'      \item{Desc}
 #'    }
 #'   }
-#'  \item{sortType}{a ReportSortType - which is a character taking one of the following values: 
+#'  \item{sortType}{a ReportSortType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Column}
 #'      \item{Aggregate}
@@ -8613,33 +8613,33 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{ReportHistoricalSelector}
-#' 
+#'
 #' \describe{
 #'  \item{snapshot}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportLayoutSection}
-#' 
+#'
 #' \describe{
 #'  \item{columns}{a ReportTypeColumn}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportParam}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportTimeFrameFilter}
-#' 
+#'
 #' \describe{
 #'  \item{dateColumn}{a character}
 #'  \item{endDate}{a character formatted as 'yyyy-mm-dd'}
-#'  \item{interval}{a UserDateInterval - which is a character taking one of the following values: 
+#'  \item{interval}{a UserDateInterval - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{INTERVAL_CURRENT}
 #'      \item{INTERVAL_CURNEXT1}
@@ -8709,14 +8709,14 @@
 #'   }
 #'  \item{startDate}{a character formatted as 'yyyy-mm-dd'}
 #' }
-#' 
+#'
 #' \strong{ReportType}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{autogenerated}{a character either 'true' or 'false'}
 #'  \item{baseObject}{a character}
-#'  \item{category}{a ReportTypeCategory - which is a character taking one of the following values: 
+#'  \item{category}{a ReportTypeCategory - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{accounts}
 #'      \item{opportunities}
@@ -8743,82 +8743,82 @@
 #'  \item{label}{a character}
 #'  \item{sections}{a ReportLayoutSection}
 #' }
-#' 
+#'
 #' \strong{ReportTypeColumn}
-#' 
+#'
 #' \describe{
 #'  \item{checkedByDefault}{a character either 'true' or 'false'}
 #'  \item{displayNameOverride}{a character}
 #'  \item{field}{a character}
 #'  \item{table}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportTypeColumnTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportTypeSectionTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{columns}{a ReportTypeColumnTranslation}
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{ReportTypeTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #'  \item{sections}{a ReportTypeSectionTranslation}
 #' }
-#' 
+#'
 #' \strong{ReputationBranding}
-#' 
+#'
 #' \describe{
 #'  \item{smallImage}{a character}
 #' }
-#' 
+#'
 #' \strong{ReputationLevel}
-#' 
+#'
 #' \describe{
 #'  \item{branding}{a ReputationBranding}
 #'  \item{label}{a character}
 #'  \item{lowerThreshold}{a numeric}
 #' }
-#' 
+#'
 #' \strong{ReputationLevelDefinitions}
-#' 
+#'
 #' \describe{
 #'  \item{level}{a ReputationLevel}
 #' }
-#' 
+#'
 #' \strong{ReputationLevels}
-#' 
+#'
 #' \describe{
 #'  \item{chatterAnswersReputationLevels}{a ChatterAnswersReputationLevel}
 #'  \item{ideaReputationLevels}{a IdeaReputationLevel}
 #' }
-#' 
+#'
 #' \strong{ReputationPointsRule}
-#' 
+#'
 #' \describe{
 #'  \item{eventType}{a character}
 #'  \item{points}{an integer}
 #' }
-#' 
+#'
 #' \strong{ReputationPointsRules}
-#' 
+#'
 #' \describe{
 #'  \item{pointsRule}{a ReputationPointsRule}
 #' }
-#' 
+#'
 #' \strong{RetrieveRequest}
-#' 
+#'
 #' \describe{
 #'  \item{apiVersion}{a numeric}
 #'  \item{packageNames}{a character}
@@ -8826,9 +8826,9 @@
 #'  \item{specificFiles}{a character}
 #'  \item{unpackaged}{a Package}
 #' }
-#' 
+#'
 #' \strong{Role}
-#' 
+#'
 #' \describe{
 #'  \item{caseAccessLevel}{a character (inherited from RoleOrTerritory)}
 #'  \item{contactAccessLevel}{a character (inherited from RoleOrTerritory)}
@@ -8838,21 +8838,21 @@
 #'  \item{opportunityAccessLevel}{a character (inherited from RoleOrTerritory)}
 #'  \item{parentRole}{a character}
 #' }
-#' 
+#'
 #' \strong{RoleAndSubordinates}
-#' 
+#'
 #' \describe{
 #'  \item{roleAndSubordinate}{a character}
 #' }
-#' 
+#'
 #' \strong{RoleAndSubordinatesInternal}
-#' 
+#'
 #' \describe{
 #'  \item{roleAndSubordinateInternal}{a character}
 #' }
-#' 
+#'
 #' \strong{RoleOrTerritory}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{caseAccessLevel}{a character}
@@ -8862,18 +8862,18 @@
 #'  \item{name}{a character}
 #'  \item{opportunityAccessLevel}{a character}
 #' }
-#' 
+#'
 #' \strong{Roles}
-#' 
+#'
 #' \describe{
 #'  \item{role}{a character}
 #' }
-#' 
+#'
 #' \strong{RuleEntry}
-#' 
+#'
 #' \describe{
 #'  \item{assignedTo}{a character}
-#'  \item{assignedToType}{a AssignToLookupValueType - which is a character taking one of the following values: 
+#'  \item{assignedToType}{a AssignToLookupValueType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{User}
 #'      \item{Queue}
@@ -8881,7 +8881,7 @@
 #'   }
 #'  \item{booleanFilter}{a character}
 #'  \item{businessHours}{a character}
-#'  \item{businessHoursSource}{a BusinessHoursSourceType - which is a character taking one of the following values: 
+#'  \item{businessHoursSource}{a BusinessHoursSourceType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{None}
 #'      \item{Case}
@@ -8891,7 +8891,7 @@
 #'  \item{criteriaItems}{a FilterItem}
 #'  \item{disableEscalationWhenModified}{a character either 'true' or 'false'}
 #'  \item{escalationAction}{a EscalationAction}
-#'  \item{escalationStartTime}{a EscalationStartTimeType - which is a character taking one of the following values: 
+#'  \item{escalationStartTime}{a EscalationStartTimeType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CaseCreation}
 #'      \item{CaseLastModified}
@@ -8906,9 +8906,9 @@
 #'  \item{team}{a character}
 #'  \item{template}{a character}
 #' }
-#' 
+#'
 #' \strong{SamlSsoConfig}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{attributeName}{a character}
@@ -8916,13 +8916,13 @@
 #'  \item{decryptionCertificate}{a character}
 #'  \item{errorUrl}{a character}
 #'  \item{executionUserId}{a character}
-#'  \item{identityLocation}{a SamlIdentityLocationType - which is a character taking one of the following values: 
+#'  \item{identityLocation}{a SamlIdentityLocationType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{SubjectNameId}
 #'      \item{Attribute}
 #'    }
 #'   }
-#'  \item{identityMapping}{a SamlIdentityType - which is a character taking one of the following values: 
+#'  \item{identityMapping}{a SamlIdentityType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Username}
 #'      \item{FederationId}
@@ -8940,13 +8940,13 @@
 #'  \item{salesforceLoginUrl}{a character}
 #'  \item{samlEntityId}{a character}
 #'  \item{samlJitHandlerId}{a character}
-#'  \item{samlVersion}{a SamlType - which is a character taking one of the following values: 
+#'  \item{samlVersion}{a SamlType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{SAML1_1}
 #'      \item{SAML2_0}
 #'    }
 #'   }
-#'  \item{singleLogoutBinding}{a SamlSpSLOBinding - which is a character taking one of the following values: 
+#'  \item{singleLogoutBinding}{a SamlSpSLOBinding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{RedirectBinding}
 #'      \item{PostBinding}
@@ -8956,17 +8956,17 @@
 #'  \item{userProvisioning}{a character either 'true' or 'false'}
 #'  \item{validationCert}{a character}
 #' }
-#' 
+#'
 #' \strong{ScheduledRecommendation}
-#' 
+#'
 #' \describe{
 #'  \item{scheduledRecommendationDetails}{a ScheduledRecommendationDetail}
 #' }
-#' 
+#'
 #' \strong{ScheduledRecommendationDetail}
-#' 
+#'
 #' \describe{
-#'  \item{channel}{a RecommendationChannel - which is a character taking one of the following values: 
+#'  \item{channel}{a RecommendationChannel - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{DefaultChannel}
 #'      \item{CustomChannel1}
@@ -8980,12 +8980,12 @@
 #'  \item{rank}{an integer}
 #'  \item{recommendationAudience}{a character}
 #' }
-#' 
+#'
 #' \strong{Scontrol}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
-#'  \item{contentSource}{a SControlContentSource - which is a character taking one of the following values: 
+#'  \item{contentSource}{a SControlContentSource - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{HTML}
 #'      \item{URL}
@@ -8993,7 +8993,7 @@
 #'    }
 #'   }
 #'  \item{description}{a character}
-#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values: 
+#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UTF-8}
 #'      \item{ISO-8859-1}
@@ -9012,16 +9012,16 @@
 #'  \item{name}{a character}
 #'  \item{supportsCaching}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{ScontrolTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{SearchLayouts}
-#' 
+#'
 #' \describe{
 #'  \item{customTabListAdditionalFields}{a character}
 #'  \item{excludedStandardButtons}{a character}
@@ -9033,9 +9033,9 @@
 #'  \item{searchResultsAdditionalFields}{a character}
 #'  \item{searchResultsCustomButtons}{a character}
 #' }
-#' 
+#'
 #' \strong{SearchSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{documentContentSearchEnabled}{a character either 'true' or 'false'}
@@ -9048,24 +9048,24 @@
 #'  \item{singleSearchResultShortcutEnabled}{a character either 'true' or 'false'}
 #'  \item{spellCorrectKnowledgeSearchEnabled}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{SearchSettingsByObject}
-#' 
+#'
 #' \describe{
 #'  \item{searchSettingsByObject}{a ObjectSearchSetting}
 #' }
-#' 
+#'
 #' \strong{SecuritySettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{networkAccess}{a NetworkAccess}
 #'  \item{passwordPolicies}{a PasswordPolicies}
 #'  \item{sessionSettings}{a SessionSettings}
 #' }
-#' 
+#'
 #' \strong{ServiceCloudConsoleConfig}
-#' 
+#'
 #' \describe{
 #'  \item{componentList}{a AppComponentList}
 #'  \item{detailPageRefreshMethod}{a character}
@@ -9080,9 +9080,9 @@
 #'  \item{tabLimitConfig}{a TabLimitConfig}
 #'  \item{whitelistedDomains}{a character}
 #' }
-#' 
+#'
 #' \strong{SessionSettings}
-#' 
+#'
 #' \describe{
 #'  \item{disableTimeoutWarning}{a character either 'true' or 'false'}
 #'  \item{enableCSPOnEmail}{a character either 'true' or 'false'}
@@ -9112,7 +9112,7 @@
 #'  \item{requireHttpOnly}{a character either 'true' or 'false'}
 #'  \item{requireHttps}{a character either 'true' or 'false'}
 #'  \item{securityCentralKillSession}{a character either 'true' or 'false'}
-#'  \item{sessionTimeout}{a SessionTimeout - which is a character taking one of the following values: 
+#'  \item{sessionTimeout}{a SessionTimeout - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{TwentyFourHours}
 #'      \item{TwelveHours}
@@ -9125,16 +9125,16 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{SFDCMobileSettings}
-#' 
+#'
 #' \describe{
 #'  \item{enableMobileLite}{a character either 'true' or 'false'}
 #'  \item{enableUserToDeviceLinking}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{SharedTo}
-#' 
+#'
 #' \describe{
 #'  \item{allCustomerPortalUsers}{a character}
 #'  \item{allInternalUsers}{a character}
@@ -9158,9 +9158,9 @@
 #'  \item{territory}{a character}
 #'  \item{territoryAndSubordinates}{a character}
 #' }
-#' 
+#'
 #' \strong{SharingBaseRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{accessLevel}{a character}
@@ -9169,9 +9169,9 @@
 #'  \item{label}{a character}
 #'  \item{sharedTo}{a SharedTo}
 #' }
-#' 
+#'
 #' \strong{SharingCriteriaRule}
-#' 
+#'
 #' \describe{
 #'  \item{accessLevel}{a character (inherited from SharingBaseRule)}
 #'  \item{accountSettings}{a AccountSharingRuleSettings (inherited from SharingBaseRule)}
@@ -9181,9 +9181,9 @@
 #'  \item{booleanFilter}{a character}
 #'  \item{criteriaItems}{a FilterItem}
 #' }
-#' 
+#'
 #' \strong{SharingOwnerRule}
-#' 
+#'
 #' \describe{
 #'  \item{accessLevel}{a character (inherited from SharingBaseRule)}
 #'  \item{accountSettings}{a AccountSharingRuleSettings (inherited from SharingBaseRule)}
@@ -9192,38 +9192,38 @@
 #'  \item{sharedTo}{a SharedTo (inherited from SharingBaseRule)}
 #'  \item{sharedFrom}{a SharedTo}
 #' }
-#' 
+#'
 #' \strong{SharingReason}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{SharingReasonTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{SharingRecalculation}
-#' 
+#'
 #' \describe{
 #'  \item{className}{a character}
 #' }
-#' 
+#'
 #' \strong{SharingRules}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{sharingCriteriaRules}{a SharingCriteriaRule}
 #'  \item{sharingOwnerRules}{a SharingOwnerRule}
 #'  \item{sharingTerritoryRules}{a SharingTerritoryRule}
 #' }
-#' 
+#'
 #' \strong{SharingSet}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{accessMappings}{a AccessMapping}
@@ -9231,15 +9231,15 @@
 #'  \item{name}{a character}
 #'  \item{profiles}{a character}
 #' }
-#' 
+#'
 #' \strong{SharingTerritoryRule}
-#' 
+#'
 #' \describe{
 #'  \item{sharedFrom}{a SharedTo (inherited from SharingOwnerRule)}
 #' }
-#' 
+#'
 #' \strong{SidebarComponent}
-#' 
+#'
 #' \describe{
 #'  \item{componentType}{a character}
 #'  \item{createAction}{a character}
@@ -9253,13 +9253,13 @@
 #'  \item{updateAction}{a character}
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{SiteDotCom}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{label}{a character}
-#'  \item{siteType}{a SiteType - which is a character taking one of the following values: 
+#'  \item{siteType}{a SiteType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Siteforce}
 #'      \item{Visualforce}
@@ -9267,11 +9267,11 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{SiteRedirectMapping}
-#' 
+#'
 #' \describe{
-#'  \item{action}{a SiteRedirect - which is a character taking one of the following values: 
+#'  \item{action}{a SiteRedirect - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Permanent}
 #'      \item{Temporary}
@@ -9281,48 +9281,48 @@
 #'  \item{source}{a character}
 #'  \item{target}{a character}
 #' }
-#' 
+#'
 #' \strong{SiteWebAddress}
-#' 
+#'
 #' \describe{
 #'  \item{certificate}{a character}
 #'  \item{domainName}{a character}
 #'  \item{primary}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{Skill}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{assignments}{a SkillAssignments}
 #'  \item{description}{a character}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{SkillAssignments}
-#' 
+#'
 #' \describe{
 #'  \item{profiles}{a SkillProfileAssignments}
 #'  \item{users}{a SkillUserAssignments}
 #' }
-#' 
+#'
 #' \strong{SkillProfileAssignments}
-#' 
+#'
 #' \describe{
 #'  \item{profile}{a character}
 #' }
-#' 
+#'
 #' \strong{SkillUserAssignments}
-#' 
+#'
 #' \describe{
 #'  \item{user}{a character}
 #' }
-#' 
+#'
 #' \strong{SocialCustomerServiceSettings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{caseSubjectOption}{a CaseSubjectOption - which is a character taking one of the following values: 
+#'  \item{caseSubjectOption}{a CaseSubjectOption - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{SocialPostSource}
 #'      \item{SocialPostContent}
@@ -9330,16 +9330,16 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{StandardFieldTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{StandardValue}
-#' 
+#'
 #' \describe{
 #'  \item{color}{a character (inherited from CustomValue)}
 #'  \item{default}{a character either 'true' or 'false' (inherited from CustomValue)}
@@ -9350,7 +9350,7 @@
 #'  \item{closed}{a character either 'true' or 'false'}
 #'  \item{converted}{a character either 'true' or 'false'}
 #'  \item{cssExposed}{a character either 'true' or 'false'}
-#'  \item{forecastCategory}{a ForecastCategories - which is a character taking one of the following values: 
+#'  \item{forecastCategory}{a ForecastCategories - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Omitted}
 #'      \item{Pipeline}
@@ -9366,25 +9366,25 @@
 #'  \item{reviewed}{a character either 'true' or 'false'}
 #'  \item{won}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{StandardValueSet}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{groupingStringEnum}{a character}
 #'  \item{sorted}{a character either 'true' or 'false'}
 #'  \item{standardValue}{a StandardValue}
 #' }
-#' 
+#'
 #' \strong{StandardValueSetTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{valueTranslation}{a ValueTranslation}
 #' }
-#' 
+#'
 #' \strong{State}
-#' 
+#'
 #' \describe{
 #'  \item{active}{a character either 'true' or 'false'}
 #'  \item{integrationValue}{a character}
@@ -9393,12 +9393,12 @@
 #'  \item{standard}{a character either 'true' or 'false'}
 #'  \item{visible}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{StaticResource}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
-#'  \item{cacheControl}{a StaticResourceCacheControl - which is a character taking one of the following values: 
+#'  \item{cacheControl}{a StaticResourceCacheControl - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Private}
 #'      \item{Public}
@@ -9407,9 +9407,9 @@
 #'  \item{contentType}{a character}
 #'  \item{description}{a character}
 #' }
-#' 
+#'
 #' \strong{StrategyNode}
-#' 
+#'
 #' \describe{
 #'  \item{definition}{a character}
 #'  \item{description}{a character}
@@ -9417,22 +9417,22 @@
 #'  \item{parentNode}{a character}
 #'  \item{type}{an integer}
 #' }
-#' 
+#'
 #' \strong{SubtabComponents}
-#' 
+#'
 #' \describe{
 #'  \item{containers}{a Container}
 #' }
-#' 
+#'
 #' \strong{SummaryLayout}
-#' 
+#'
 #' \describe{
 #'  \item{masterLabel}{a character}
 #'  \item{sizeX}{an integer}
 #'  \item{sizeY}{an integer}
 #'  \item{sizeZ}{an integer}
 #'  \item{summaryLayoutItems}{a SummaryLayoutItem}
-#'  \item{summaryLayoutStyle}{a SummaryLayoutStyle - which is a character taking one of the following values: 
+#'  \item{summaryLayoutStyle}{a SummaryLayoutStyle - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Default}
 #'      \item{QuoteTemplate}
@@ -9447,9 +9447,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{SummaryLayoutItem}
-#' 
+#'
 #' \describe{
 #'  \item{customLink}{a character}
 #'  \item{field}{a character}
@@ -9457,26 +9457,26 @@
 #'  \item{posY}{an integer}
 #'  \item{posZ}{an integer}
 #' }
-#' 
+#'
 #' \strong{SupervisorAgentConfigSkills}
-#' 
+#'
 #' \describe{
 #'  \item{skill}{a character}
 #' }
-#' 
+#'
 #' \strong{SynonymDictionary}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{groups}{a SynonymGroup}
 #'  \item{isProtected}{a character either 'true' or 'false'}
 #'  \item{label}{a character}
 #' }
-#' 
+#'
 #' \strong{SynonymGroup}
-#' 
+#'
 #' \describe{
-#'  \item{languages}{a Language - which is a character taking one of the following values: 
+#'  \item{languages}{a Language - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{en_US}
 #'      \item{de}
@@ -9601,16 +9601,16 @@
 #'   }
 #'  \item{terms}{a character}
 #' }
-#' 
+#'
 #' \strong{TabLimitConfig}
-#' 
+#'
 #' \describe{
 #'  \item{maxNumberOfPrimaryTabs}{a character}
 #'  \item{maxNumberOfSubTabs}{a character}
 #' }
-#' 
+#'
 #' \strong{Territory}
-#' 
+#'
 #' \describe{
 #'  \item{caseAccessLevel}{a character (inherited from RoleOrTerritory)}
 #'  \item{contactAccessLevel}{a character (inherited from RoleOrTerritory)}
@@ -9621,9 +9621,9 @@
 #'  \item{accountAccessLevel}{a character}
 #'  \item{parentTerritory}{a character}
 #' }
-#' 
+#'
 #' \strong{Territory2}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{accountAccessLevel}{a character}
@@ -9637,18 +9637,18 @@
 #'  \item{ruleAssociations}{a Territory2RuleAssociation}
 #'  \item{territory2Type}{a character}
 #' }
-#' 
+#'
 #' \strong{Territory2Model}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customFields}{a FieldValue}
 #'  \item{description}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{Territory2Rule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -9657,19 +9657,19 @@
 #'  \item{objectType}{a character}
 #'  \item{ruleItems}{a Territory2RuleItem}
 #' }
-#' 
+#'
 #' \strong{Territory2RuleAssociation}
-#' 
+#'
 #' \describe{
 #'  \item{inherited}{a character either 'true' or 'false'}
 #'  \item{ruleName}{a character}
 #' }
-#' 
+#'
 #' \strong{Territory2RuleItem}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
-#'  \item{operation}{a FilterOperation - which is a character taking one of the following values: 
+#'  \item{operation}{a FilterOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{equals}
 #'      \item{notEqual}
@@ -9687,9 +9687,9 @@
 #'   }
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{Territory2Settings}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{defaultAccountAccessLevel}{a character}
@@ -9698,34 +9698,34 @@
 #'  \item{defaultOpportunityAccessLevel}{a character}
 #'  \item{opportunityFilterSettings}{a Territory2SettingsOpportunityFilter}
 #' }
-#' 
+#'
 #' \strong{Territory2SettingsOpportunityFilter}
-#' 
+#'
 #' \describe{
 #'  \item{apexClassName}{a character}
 #'  \item{enableFilter}{a character either 'true' or 'false'}
 #'  \item{runOnCreate}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{Territory2Type}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
 #'  \item{name}{a character}
 #'  \item{priority}{an integer}
 #' }
-#' 
+#'
 #' \strong{TopicsForObjects}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{enableTopics}{a character either 'true' or 'false'}
 #'  \item{entityApiName}{a character}
 #' }
-#' 
+#'
 #' \strong{TouchMobileSettings}
-#' 
+#'
 #' \describe{
 #'  \item{enableTouchAppIPad}{a character either 'true' or 'false'}
 #'  \item{enableTouchAppIPhone}{a character either 'true' or 'false'}
@@ -9733,9 +9733,9 @@
 #'  \item{enableTouchIosPhone}{a character either 'true' or 'false'}
 #'  \item{enableVisualforceInTouch}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{TransactionSecurityAction}
-#' 
+#'
 #' \describe{
 #'  \item{block}{a character either 'true' or 'false'}
 #'  \item{endSession}{a character either 'true' or 'false'}
@@ -9743,17 +9743,17 @@
 #'  \item{notifications}{a TransactionSecurityNotification}
 #'  \item{twoFactorAuthentication}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{TransactionSecurityNotification}
-#' 
+#'
 #' \describe{
 #'  \item{inApp}{a character either 'true' or 'false'}
 #'  \item{sendEmail}{a character either 'true' or 'false'}
 #'  \item{user}{a character}
 #' }
-#' 
+#'
 #' \strong{TransactionSecurityPolicy}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{action}{a TransactionSecurityAction}
@@ -9761,7 +9761,7 @@
 #'  \item{apexClass}{a character}
 #'  \item{description}{a character}
 #'  \item{developerName}{a character}
-#'  \item{eventName}{a TransactionSecurityEventName - which is a character taking one of the following values: 
+#'  \item{eventName}{a TransactionSecurityEventName - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{ReportEvent}
 #'      \item{ApiEvent}
@@ -9769,7 +9769,7 @@
 #'      \item{LoginEvent}
 #'    }
 #'   }
-#'  \item{eventType}{a MonitoredEvents - which is a character taking one of the following values: 
+#'  \item{eventType}{a MonitoredEvents - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{AuditTrail}
 #'      \item{Login}
@@ -9782,16 +9782,16 @@
 #'  \item{flow}{a character}
 #'  \item{masterLabel}{a character}
 #'  \item{resourceName}{a character}
-#'  \item{type}{a TxnSecurityPolicyType - which is a character taking one of the following values: 
+#'  \item{type}{a TxnSecurityPolicyType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CustomApexPolicy}
 #'      \item{CustomConditionBuilderPolicy}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Translations}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{customApplications}{a CustomApplicationTranslation}
@@ -9804,24 +9804,24 @@
 #'  \item{reportTypes}{a ReportTypeTranslation}
 #'  \item{scontrols}{a ScontrolTranslation}
 #' }
-#' 
+#'
 #' \strong{UiFormulaCriterion}
-#' 
+#'
 #' \describe{
 #'  \item{leftValue}{a character}
 #'  \item{operator}{a character}
 #'  \item{rightValue}{a character}
 #' }
-#' 
+#'
 #' \strong{UiFormulaRule}
-#' 
+#'
 #' \describe{
 #'  \item{booleanFilter}{a character}
 #'  \item{criteria}{a UiFormulaCriterion}
 #' }
-#' 
+#'
 #' \strong{UiPlugin}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{description}{a character}
@@ -9830,9 +9830,9 @@
 #'  \item{language}{a character}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{UserCriteria}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{creationAgeInSeconds}{an integer}
@@ -9840,7 +9840,7 @@
 #'  \item{lastChatterActivityAgeInSeconds}{an integer}
 #'  \item{masterLabel}{a character}
 #'  \item{profiles}{a character}
-#'  \item{userTypes}{a NetworkUserType - which is a character taking one of the following values: 
+#'  \item{userTypes}{a NetworkUserType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Internal}
 #'      \item{Customer}
@@ -9848,15 +9848,15 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{Users}
-#' 
+#'
 #' \describe{
 #'  \item{user}{a character}
 #' }
-#' 
+#'
 #' \strong{ValidationRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{active}{a character either 'true' or 'false'}
@@ -9865,16 +9865,16 @@
 #'  \item{errorDisplayField}{a character}
 #'  \item{errorMessage}{a character}
 #' }
-#' 
+#'
 #' \strong{ValidationRuleTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{errorMessage}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{ValueSet}
-#' 
+#'
 #' \describe{
 #'  \item{controllingField}{a character}
 #'  \item{restricted}{a character either 'true' or 'false'}
@@ -9882,30 +9882,30 @@
 #'  \item{valueSetName}{a character}
 #'  \item{valueSettings}{a ValueSettings}
 #' }
-#' 
+#'
 #' \strong{ValueSettings}
-#' 
+#'
 #' \describe{
 #'  \item{controllingFieldValue}{a character}
 #'  \item{valueName}{a character}
 #' }
-#' 
+#'
 #' \strong{ValueSetValuesDefinition}
-#' 
+#'
 #' \describe{
 #'  \item{sorted}{a character either 'true' or 'false'}
 #'  \item{value}{a CustomValue}
 #' }
-#' 
+#'
 #' \strong{ValueTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{masterLabel}{a character}
 #'  \item{translation}{a character}
 #' }
-#' 
+#'
 #' \strong{ValueTypeField}
-#' 
+#'
 #' \describe{
 #'  \item{fields}{a ValueTypeField}
 #'  \item{foreignKeyDomain}{a character}
@@ -9917,9 +9917,9 @@
 #'  \item{soapType}{a character}
 #'  \item{valueRequired}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{VisualizationPlugin}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{description}{a character}
@@ -9929,23 +9929,23 @@
 #'  \item{visualizationResources}{a VisualizationResource}
 #'  \item{visualizationTypes}{a VisualizationType}
 #' }
-#' 
+#'
 #' \strong{VisualizationResource}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{file}{a character}
 #'  \item{rank}{an integer}
-#'  \item{type}{a VisualizationResourceType - which is a character taking one of the following values: 
+#'  \item{type}{a VisualizationResourceType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{js}
 #'      \item{css}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{VisualizationType}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{developerName}{a character}
@@ -9953,9 +9953,9 @@
 #'  \item{masterLabel}{a character}
 #'  \item{scriptBootstrapMethod}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveApplication}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{assetIcon}{a character}
@@ -9966,9 +9966,9 @@
 #'  \item{templateOrigin}{a character}
 #'  \item{templateVersion}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveDashboard}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{application}{a character}
@@ -9976,18 +9976,18 @@
 #'  \item{masterLabel}{a character}
 #'  \item{templateAssetSourceName}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveDataflow}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{dataflowType}{a character}
 #'  \item{description}{a character}
 #'  \item{masterLabel}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveDataset}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{application}{a character}
@@ -9995,9 +9995,9 @@
 #'  \item{masterLabel}{a character}
 #'  \item{templateAssetSourceName}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveLens}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{application}{a character}
@@ -10007,9 +10007,9 @@
 #'  \item{templateAssetSourceName}{a character}
 #'  \item{visualizationType}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveRecipe}
-#' 
+#'
 #' \describe{
 #'  \item{content}{a character formed using \code{\link[base64enc]{base64encode}} (inherited from MetadataWithContent)}
 #'  \item{dataflow}{a character}
@@ -10017,9 +10017,9 @@
 #'  \item{securityPredicate}{a character}
 #'  \item{targetDatasetAlias}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveTemplateBundle}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{assetIcon}{a character}
@@ -10030,9 +10030,9 @@
 #'  \item{templateDetailIcon}{a character}
 #'  \item{templateType}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveXmd}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{application}{a character}
@@ -10047,9 +10047,9 @@
 #'  \item{type}{a character}
 #'  \item{waveVisualization}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveXmdDate}
-#' 
+#'
 #' \describe{
 #'  \item{alias}{a character}
 #'  \item{compact}{a character either 'true' or 'false'}
@@ -10076,9 +10076,9 @@
 #'  \item{showInExplorer}{a character either 'true' or 'false'}
 #'  \item{sortIndex}{an integer}
 #' }
-#' 
+#'
 #' \strong{WaveXmdDimension}
-#' 
+#'
 #' \describe{
 #'  \item{customActions}{a WaveXmdDimensionCustomAction}
 #'  \item{customActionsEnabled}{a character either 'true' or 'false'}
@@ -10104,9 +10104,9 @@
 #'  \item{showInExplorer}{a character either 'true' or 'false'}
 #'  \item{sortIndex}{an integer}
 #' }
-#' 
+#'
 #' \strong{WaveXmdDimensionCustomAction}
-#' 
+#'
 #' \describe{
 #'  \item{customActionName}{a character}
 #'  \item{enabled}{a character either 'true' or 'false'}
@@ -10117,26 +10117,26 @@
 #'  \item{tooltip}{a character}
 #'  \item{url}{a character}
 #' }
-#' 
+#'
 #' \strong{WaveXmdDimensionMember}
-#' 
+#'
 #' \describe{
 #'  \item{color}{a character}
 #'  \item{label}{a character}
 #'  \item{member}{a character}
 #'  \item{sortIndex}{an integer}
 #' }
-#' 
+#'
 #' \strong{WaveXmdDimensionSalesforceAction}
-#' 
+#'
 #' \describe{
 #'  \item{enabled}{a character either 'true' or 'false'}
 #'  \item{salesforceActionName}{a character}
 #'  \item{sortIndex}{an integer}
 #' }
-#' 
+#'
 #' \strong{WaveXmdMeasure}
-#' 
+#'
 #' \describe{
 #'  \item{dateFormat}{a character}
 #'  \item{description}{a character}
@@ -10156,41 +10156,41 @@
 #'  \item{showInExplorer}{a character either 'true' or 'false'}
 #'  \item{sortIndex}{an integer}
 #' }
-#' 
+#'
 #' \strong{WaveXmdOrganization}
-#' 
+#'
 #' \describe{
 #'  \item{instanceUrl}{a character}
 #'  \item{label}{a character}
 #'  \item{organizationIdentifier}{a character}
 #'  \item{sortIndex}{an integer}
 #' }
-#' 
+#'
 #' \strong{WaveXmdRecordDisplayLookup}
-#' 
+#'
 #' \describe{
 #'  \item{recordDisplayField}{a character}
 #' }
-#' 
+#'
 #' \strong{WebLink}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
-#'  \item{availability}{a WebLinkAvailability - which is a character taking one of the following values: 
+#'  \item{availability}{a WebLinkAvailability - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{online}
 #'      \item{offline}
 #'    }
 #'   }
 #'  \item{description}{a character}
-#'  \item{displayType}{a WebLinkDisplayType - which is a character taking one of the following values: 
+#'  \item{displayType}{a WebLinkDisplayType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{link}
 #'      \item{button}
 #'      \item{massActionButton}
 #'    }
 #'   }
-#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values: 
+#'  \item{encodingKey}{a Encoding - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{UTF-8}
 #'      \item{ISO-8859-1}
@@ -10209,7 +10209,7 @@
 #'  \item{hasToolbar}{a character either 'true' or 'false'}
 #'  \item{height}{an integer}
 #'  \item{isResizable}{a character either 'true' or 'false'}
-#'  \item{linkType}{a WebLinkType - which is a character taking one of the following values: 
+#'  \item{linkType}{a WebLinkType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{url}
 #'      \item{sControl}
@@ -10219,7 +10219,7 @@
 #'    }
 #'   }
 #'  \item{masterLabel}{a character}
-#'  \item{openType}{a WebLinkWindowType - which is a character taking one of the following values: 
+#'  \item{openType}{a WebLinkWindowType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{newWindow}
 #'      \item{sidebar}
@@ -10229,7 +10229,7 @@
 #'    }
 #'   }
 #'  \item{page}{a character}
-#'  \item{position}{a WebLinkPosition - which is a character taking one of the following values: 
+#'  \item{position}{a WebLinkPosition - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{fullScreen}
 #'      \item{none}
@@ -10244,31 +10244,31 @@
 #'  \item{url}{a character}
 #'  \item{width}{an integer}
 #' }
-#' 
+#'
 #' \strong{WebLinkTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{label}{a character}
 #'  \item{name}{a character}
 #' }
-#' 
+#'
 #' \strong{WebToCaseSettings}
-#' 
+#'
 #' \describe{
 #'  \item{caseOrigin}{a character}
 #'  \item{defaultResponseTemplate}{a character}
 #'  \item{enableWebToCase}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{WeightedSourceCategory}
-#' 
+#'
 #' \describe{
 #'  \item{sourceCategoryApiName}{a character}
 #'  \item{weight}{a numeric}
 #' }
-#' 
+#'
 #' \strong{Workflow}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{alerts}{a WorkflowAlert}
@@ -10280,18 +10280,18 @@
 #'  \item{send}{a WorkflowSend}
 #'  \item{tasks}{a WorkflowTask}
 #' }
-#' 
+#'
 #' \strong{WorkflowAction}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #' }
-#' 
+#'
 #' \strong{WorkflowActionReference}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
-#'  \item{type}{a WorkflowActionType - which is a character taking one of the following values: 
+#'  \item{type}{a WorkflowActionType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{FieldUpdate}
 #'      \item{KnowledgePublish}
@@ -10303,9 +10303,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{WorkflowAlert}
-#' 
+#'
 #' \describe{
 #'  \item{extends WorkflowAction}{see documentation for WorkflowAction}
 #'  \item{ccEmails}{a character}
@@ -10313,7 +10313,7 @@
 #'  \item{protected}{a character either 'true' or 'false'}
 #'  \item{recipients}{a WorkflowEmailRecipient}
 #'  \item{senderAddress}{a character}
-#'  \item{senderType}{a ActionEmailSenderType - which is a character taking one of the following values: 
+#'  \item{senderType}{a ActionEmailSenderType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{CurrentUser}
 #'      \item{OrgWideEmailAddress}
@@ -10322,13 +10322,13 @@
 #'   }
 #'  \item{template}{a character}
 #' }
-#' 
+#'
 #' \strong{WorkflowEmailRecipient}
-#' 
+#'
 #' \describe{
 #'  \item{field}{a character}
 #'  \item{recipient}{a character}
-#'  \item{type}{a ActionEmailRecipientTypes - which is a character taking one of the following values: 
+#'  \item{type}{a ActionEmailRecipientTypes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{group}
 #'      \item{role}
@@ -10352,9 +10352,9 @@
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{WorkflowFieldUpdate}
-#' 
+#'
 #' \describe{
 #'  \item{extends WorkflowAction}{see documentation for WorkflowAction}
 #'  \item{description}{a character}
@@ -10362,7 +10362,7 @@
 #'  \item{formula}{a character}
 #'  \item{literalValue}{a character}
 #'  \item{lookupValue}{a character}
-#'  \item{lookupValueType}{a LookupValueType - which is a character taking one of the following values: 
+#'  \item{lookupValueType}{a LookupValueType - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{User}
 #'      \item{Queue}
@@ -10371,7 +10371,7 @@
 #'   }
 #'  \item{name}{a character}
 #'  \item{notifyAssignee}{a character either 'true' or 'false'}
-#'  \item{operation}{a FieldUpdateOperation - which is a character taking one of the following values: 
+#'  \item{operation}{a FieldUpdateOperation - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Formula}
 #'      \item{Literal}
@@ -10385,9 +10385,9 @@
 #'  \item{reevaluateOnChange}{a character either 'true' or 'false'}
 #'  \item{targetObject}{a character}
 #' }
-#' 
+#'
 #' \strong{WorkflowFlowAction}
-#' 
+#'
 #' \describe{
 #'  \item{extends WorkflowAction}{see documentation for WorkflowAction}
 #'  \item{description}{a character}
@@ -10397,19 +10397,19 @@
 #'  \item{language}{a character}
 #'  \item{protected}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{WorkflowFlowActionParameter}
-#' 
+#'
 #' \describe{
 #'  \item{name}{a character}
 #'  \item{value}{a character}
 #' }
-#' 
+#'
 #' \strong{WorkflowKnowledgePublish}
-#' 
+#'
 #' \describe{
 #'  \item{extends WorkflowAction}{see documentation for WorkflowAction}
-#'  \item{action}{a KnowledgeWorkflowAction - which is a character taking one of the following values: 
+#'  \item{action}{a KnowledgeWorkflowAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{PublishAsNew}
 #'      \item{Publish}
@@ -10420,9 +10420,9 @@
 #'  \item{language}{a character}
 #'  \item{protected}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{WorkflowRule}
-#' 
+#'
 #' \describe{
 #'  \item{fullName}{a character (inherited from Metadata)}
 #'  \item{actions}{a WorkflowActionReference}
@@ -10431,7 +10431,7 @@
 #'  \item{criteriaItems}{a FilterItem}
 #'  \item{description}{a character}
 #'  \item{formula}{a character}
-#'  \item{triggerType}{a WorkflowTriggerTypes - which is a character taking one of the following values: 
+#'  \item{triggerType}{a WorkflowTriggerTypes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{onCreateOnly}
 #'      \item{onCreateOrTriggeringUpdate}
@@ -10441,12 +10441,12 @@
 #'   }
 #'  \item{workflowTimeTriggers}{a WorkflowTimeTrigger}
 #' }
-#' 
+#'
 #' \strong{WorkflowSend}
-#' 
+#'
 #' \describe{
 #'  \item{extends WorkflowAction}{see documentation for WorkflowAction}
-#'  \item{action}{a SendAction - which is a character taking one of the following values: 
+#'  \item{action}{a SendAction - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Send}
 #'    }
@@ -10456,13 +10456,13 @@
 #'  \item{language}{a character}
 #'  \item{protected}{a character either 'true' or 'false'}
 #' }
-#' 
+#'
 #' \strong{WorkflowTask}
-#' 
+#'
 #' \describe{
 #'  \item{extends WorkflowAction}{see documentation for WorkflowAction}
 #'  \item{assignedTo}{a character}
-#'  \item{assignedToType}{a ActionTaskAssignedToTypes - which is a character taking one of the following values: 
+#'  \item{assignedToType}{a ActionTaskAssignedToTypes - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{user}
 #'      \item{role}
@@ -10485,36 +10485,36 @@
 #'  \item{status}{a character}
 #'  \item{subject}{a character}
 #' }
-#' 
+#'
 #' \strong{WorkflowTaskTranslation}
-#' 
+#'
 #' \describe{
 #'  \item{description}{a character}
 #'  \item{name}{a character}
 #'  \item{subject}{a character}
 #' }
-#' 
+#'
 #' \strong{WorkflowTimeTrigger}
-#' 
+#'
 #' \describe{
 #'  \item{actions}{a WorkflowActionReference}
 #'  \item{offsetFromField}{a character}
 #'  \item{timeLength}{a character}
-#'  \item{workflowTimeTriggerUnit}{a WorkflowTimeUnits - which is a character taking one of the following values: 
+#'  \item{workflowTimeTriggerUnit}{a WorkflowTimeUnits - which is a character taking one of the following values:
 #'    \itemize{
 #'      \item{Hours}
 #'      \item{Days}
 #'    }
 #'   }
 #' }
-#' 
+#'
 #' \strong{WorkspaceMapping}
-#' 
+#'
 #' \describe{
 #'  \item{fieldName}{a character}
 #'  \item{tab}{a character}
 #' }
-#' 
+#'
 #' @param obj_type a string from one of the object types described above
 #' @param obj_data a \code{list} of \code{lists} or a \code{data.frame} with the required inputs to create the
 #' the obj_type specified.
@@ -10545,8 +10545,8 @@ metadata_type_validator <- function(obj_type, obj_data){
     matched_order <- order(match(names(obj_data[[e]]), acceptable_inputs))
 
     if(all(is.na(matched_order))){
-      message(sprintf(paste0("Some of the records were dropped because their ", 
-                             "inputs did not match the acceptable inputs for ", 
+      message(sprintf(paste0("Some of the records were dropped because their ",
+                             "inputs did not match the acceptable inputs for ",
                              "the specified data type: %s", obj_type)))
     }
 
@@ -10558,18 +10558,18 @@ metadata_type_validator <- function(obj_type, obj_data){
       counter <- counter + 1
     }
  }
- 
+
  return(new_obj_data)
 }
 
 #' List of Valid Data Types
-#' 
+#'
 #' A list of data types that are valid for the Metadata API service.
-#' 
-#' @return code{list}; contains name and valid inputs for data types
+#'
+#' @return \code{list}; contains name and valid inputs for data types
 #' @export
 valid_metadata_list <- function(){
-  
+
   reference_list <- list(
     "AccessMapping"=c('accessLevel','object','objectField','userField'),
     "AccountSettings"=c('fullName','enableAccountOwnerReport','enableAccountTeams','showViewHierarchyLink'),
@@ -11188,6 +11188,6 @@ valid_metadata_list <- function(){
     "WorkflowTimeTrigger"=c('actions','offsetFromField','timeLength','workflowTimeTriggerUnit'),
     "WorkspaceMapping"=c('fieldName','tab')
   )
-  
+
   return(reference_list)
 }

@@ -20,7 +20,7 @@ flatten_tbl_df <- function(x){
   x_tbl <- x %>% 
     list_modify("errors" = NULL) %>% 
     list.flatten() %>% 
-    as_tibble_row()
+    as_tibble_row(.name_repair = "unique")
   
   # convert errors to list column (since it can have multiple elements)
   if(!is.null(errors)){
@@ -360,7 +360,7 @@ extract_records_from_xml_node <- function(node,
       as_list() %>%
       xml_drop_and_unlist_recursively() %>%
       drop_empty_recursively() %>%
-      as_tibble_row()
+      as_tibble_row(.name_repair = "unique")
     if(object_name_append){
       colnames(x) <- paste(object_name, colnames(x), sep='.')
     }
@@ -443,7 +443,7 @@ extract_records_from_xml_nodeset_of_records <- function(x,
       map(drop_empty_recursively)
     x <- x_list %>% 
       map_df(.f=function(x, nms, obj_name_append, obj_name_as_col){
-        y <- as_tibble_row(x)
+        y <- as_tibble_row(x, .name_repair = "unique")
         if(!is.null(nms) && !any(sapply(nms, is.null))){
           if(obj_name_append){
             colnames(y) <- paste(nms, colnames(y), sep='.')  
@@ -511,7 +511,7 @@ extract_nested_child_records <- function(x){
     map_depth(2, flatten_tbl_df) %>%
     pluck(1) %>%
     safe_bind_rows() %>%
-    as_tibble()
+    as_tibble(.name_repair = "unique")
   
   return(child_records)
 }
@@ -630,7 +630,7 @@ combine_parent_and_child_resultsets <- function(parents_df, child_df_list){
 #' @export
 safe_bind_rows <- function(l, fill=TRUE, idcol=NULL, ...){
   rbindlist(l = l, fill = fill, idcol = idcol, ...) %>%
-    as_tibble()
+    as_tibble(.name_repair = "unique")
 }
 
 #' Extract tibble based on the "records" element of a list
@@ -750,9 +750,6 @@ sf_reorder_cols <- function(df){
 #' @keywords internal
 #' @export
 sf_guess_cols <- function(df, guess_types=TRUE, dataType=NULL){
-
-  
-
   
   if(guess_types){
     if(is.null(dataType) || any(is.na(dataType)) || (length(dataType) == 0)){

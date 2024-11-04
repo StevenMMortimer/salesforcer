@@ -183,7 +183,8 @@ sf_retrieve_metadata_check_status <- function(id,
     xml_ns_strip() %>%
     xml_find_all('.//result/id|.//result/status|.//result/success|.//result/done') %>%
     map_dfc(.f=function(x){
-      as_tibble(t(unlist(as_list(read_xml(as(object=x, Class="character"))))))
+      as_tibble(t(unlist(as_list(read_xml(as(object=x, Class="character"))))), 
+                .name_repair = "unique")
     })
   summary_elements$fileProperties <- list(file_properties)
   

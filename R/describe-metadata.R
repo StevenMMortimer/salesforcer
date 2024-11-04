@@ -57,7 +57,8 @@ sf_describe_metadata <- function(verbose=FALSE){
     xml_ns_strip() %>%
     xml_find_all('.//result/partialSaveAllowed|.//result/testRequired') %>%
     map_dfc(.f=function(x){
-      as_tibble(t(unlist(as_list(read_xml(as(object=x, Class="character"))))))
+      as_tibble(t(unlist(as_list(read_xml(as(object=x, Class="character"))))), 
+                .name_repair = "unique")
     })
   # add the organizationNamespace separately since it may be null
   organization_namespace <- response_parsed %>%

@@ -12,19 +12,19 @@ on:
   schedule:
     # Execute monthly at 9AM UTC (5AM ET during daylight savings, otherwise 4AM)
     - cron: '0 9 1 * *'
-    
+
 jobs:
   test-coverage:
-  
+
     runs-on: macOS-latest
-    
+
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
       SALESFORCER_TOKEN_PATH: ${{ github.workspace }}/tests/testthat/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.client_payload.sha }}
       - name: Decrypt OAuth Token
@@ -32,7 +32,7 @@ jobs:
           ./.github/scripts/decrypt_secret.sh
         env:
           SALESFORCER_TOKEN_PASSPHRASE: ${{ secrets.SALESFORCER_TOKEN_PASSPHRASE }}
-      
+
       - name: Reveal env vars
         run: |
           echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
@@ -46,11 +46,14 @@ jobs:
           echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
-          
-      - uses: r-lib/actions/setup-r@v1
-      
-      - uses: r-lib/actions/setup-pandoc@v1
-      
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
       - name: Query dependencies
         run: |
           install.packages("remotes")
@@ -58,29 +61,29 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.0-2-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.0-2-
+          key: macOS-r-4.4-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: macOS-r-4.4-1-
 
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
         shell: Rscript {0}
-        
+
       - name: Session info
         run: |
           options(width = 100)
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
-        
+
       - name: Test coverage
         run: covr::codecov(quiet=FALSE)
         shell: Rscript {0}
-        
+
       - name: Trigger next workflow
         if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}
         uses: peter-evans/repository-dispatch@v1
@@ -89,7 +92,7 @@ jobs:
           repository: StevenMMortimer/salesforcer
           event-type: main-03-R-CMD-check-mac
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-          
+
       - name: Set final R-CMD-check status
         if: ${{ (github.event_name != 'workflow_dispatch' && failure()) }}
         uses: peter-evans/repository-dispatch@v1

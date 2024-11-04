@@ -21,7 +21,8 @@ sf_control(
     "KeepSalesTeamGrantCurrentOwnerReadWriteAccess"), list(execute = FALSE, type =
     "SendEmail"), list(execute = FALSE, type = "TransferAllOwnedCases"), list(execute =
     TRUE, type = "TransferContacts"), list(execute = TRUE, type = "TransferContracts"),
-    list(execute = FALSE, type = "TransferNotesAndAttachments"),      list(execute =
+    list(execute = FALSE, type = "TransferNotesAndAttachments"), 
+     list(execute =
     TRUE, type = "TransferOpenActivities"), list(execute = TRUE, type =
     "TransferOrders"), list(execute = FALSE, type = "TransferOtherOpenOpportunities"),
     list(execute = FALSE, type = "TransferOwnedClosedOpportunities"), list(execute =

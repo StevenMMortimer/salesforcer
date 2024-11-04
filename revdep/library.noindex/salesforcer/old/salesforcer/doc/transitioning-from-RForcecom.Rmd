@@ -1,0 +1,157 @@
+---
+title: "Transitioning from RForcecom"
+author: "Steven M. Mortimer"
+date: "2021-07-03"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Transitioning from RForcecom}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+options(tibble.print_min = 5L, tibble.print_max = 5L)
+```
+
+While writing the {salesforcer} package we were keenly aware that many folks 
+were already using the {RForcecom} package to connect to Salesforce. In order 
+to foster adoption and switching between the packages {salesforcer} replicates 
+the functionality of many {RForcecom} functions so that you will only need to swap 
+out `library(RForcecom)` for `library(salesforcer)` and still have 
+production scripts perform as expected.
+
+## RForcecom Removed from CRAN
+
+As of June 9, 2021, the {RForcecom} package was removed from CRAN. You can still 
+use it by installing from the archive, but we strongly recommend using 
+{salesforcer} instead. The existing functionality in {RForcecom} has been further 
+optimized within {salesforcer} and new functionality has been added too.
+
+## Salesforce Requires MFA Which Prevents RForcecom Basic Auth Log in
+
+Basic authentication (password and security token) will no longer work since
+Salesforce announced that all customers will be migrated to MFA beginning
+February 1st, 2022
+([link](https://admin.salesforce.com/blog/2021/everything-admins-need-to-know-about-the-mfa-requirement)).
+As a result, the basic authentication routine used {RForcecom} and the legacy, 
+compatibility method written into {salesforcer} will no longer work. Please migrate
+to {salesforcer} and use `sf_auth()` to generate an OAuth 2.0 token. The examples
+below will no longer work.
+
+## Authentication
+
+{salesforcer} supports OAuth 2.0 authentication which is preferred, but for 
+backward compatibility provides the username-password authentication routine 
+implemented by {RForcecom}. Here is an example running the function from 
+each of the packages side-by-side and producing the same result.
+
+First, authenticate and load any required packages for your analysis.
+
+```{r auth-background, include = FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(here)))
+library(salesforcer)
+token_path <- Sys.getenv("SALESFORCER_TOKEN_PATH")
+sf_auth(token = paste0(token_path, "salesforcer_token.rds"))
+```
+
+```{r load-package, eval=FALSE}
+library(salesforcer)
+sf_auth()
+```
+
+```{r, warning=FALSE, eval=FALSE}
+
+# Beginning February 1, 2022, basic authentication will no longer work. You must
+# log in to Salesforce using MFA (generating an OAuth 2.0 token typically from 
+# the browser).
+
+# the RForcecom way
+# RForcecom::rforcecom.login(username, paste0(password, security_token), 
+#                            apiVersion=getOption("salesforcer.api_version"))
+# replicated in salesforcer package
+session <- salesforcer::rforcecom.login(username, 
+                                         paste0(password, security_token), 
+                                         apiVersion = getOption("salesforcer.api_version"))
+session['sessionID'] <- "{MASKED}"
+session
+```
+
+Note that we must set the API version here because calls to session will not
+create a new `sessionId` and then we are stuck with version 35.0 (the default from
+`RForcecom::rforcecom.login()`). Some functions in {salesforcer} implement API
+calls that are only available after version 35.0.
+
+## CRUD Operations
+
+"CRUD" operations (Create, Retrieve, Update, Delete) in the {RForcecom} package
+only operate on one record at a time. One benefit to using the {salesforcer}
+package is that these operations will accept a named vector (one record) or an
+entire `data.frame` or `tbl_df` of records to churn through. However, rest
+assured that the replicated functions behave exactly the same way if you are
+hesitant to making the switch.
+
+Here is an example showing the reduction in code of using {salesforcer} if you 
+would like to create multiple records.
+
+```{r, warning=FALSE}
+n <- 2
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Contact-Create-", 1:n))
+
+# the RForcecom way (requires a loop)
+# rforcecom_results <- NULL
+# for(i in 1:nrow(new_contacts)){
+#   temp <- RForcecom::rforcecom.create(session, 
+#                                       objectName = "Contact", 
+#                                       fields = unlist(slice(new_contacts,i)))
+#   rforcecom_results <- bind_rows(rforcecom_results, temp)
+# }
+
+# the better way in salesforcer to do multiple records
+salesforcer_results <- sf_create(new_contacts, object_name="Contact")
+salesforcer_results
+```
+
+## Query
+
+{salesforcer} also has better printing and type-casting when returning query
+result thanks to features of the {readr} package.
+
+```{r, warning=FALSE}
+this_soql <- "SELECT Id, Email FROM Contact LIMIT 5"
+
+# the RForcecom way
+# RForcecom::rforcecom.query(session, soqlQuery = this_soql)
+
+# the better way in salesforcer to query
+salesforcer_results <- sf_query(this_soql)
+salesforcer_results
+```
+
+## Describe
+
+The {RForcecom} package has the function `rforcecom.getObjectDescription()`
+which returns a `data.frame` with one row per field on an object. The same
+function in {salesforcer} is named `sf_describe_object_fields()` and also has
+better printing and datatype casting by using tibbles.
+
+```{r, warning=FALSE}
+# the RForcecom way
+# RForcecom::rforcecom.getObjectDescription(session, objectName='Account')
+
+# the better way in salesforcer to get object fields
+result2 <- salesforcer::sf_describe_object_fields('Account')
+result2
+```

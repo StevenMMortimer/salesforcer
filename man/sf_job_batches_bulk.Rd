@@ -36,7 +36,7 @@ soql <- "SELECT Id, Name FROM Account LIMIT 10"
 batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = soql)
 submitted_batches <- sf_job_batches_bulk(job_id=batch_query_info$jobId)
 job_close_ind <- sf_close_job_bulk(job_info$id)
-sf_get_job_bulk(job_info$id)                               
+sf_get_job_bulk(job_info$id)
 }
 }
 \references{

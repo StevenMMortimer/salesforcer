@@ -1,8 +1,8 @@
 .onLoad <- function(libname, pkgname) {
-  
+
   op <- options()
   op.salesforcer <- list(
-    salesforcer.api_version = "54.0",
+    salesforcer.api_version = "61.0",
     salesforcer.login_url = "https://login.salesforce.com",
     salesforcer.proxy_url = "",
     salesforcer.proxy_port = NULL,
@@ -16,9 +16,9 @@
   )
   toset <- !(names(op.salesforcer) %in% names(op))
   if(any(toset)) options(op.salesforcer[toset])
-  
+
   invisible()
-  
+
 }
 
 # store state variables in the '.state' internal environment (created in sf_auth.R)
@@ -26,3 +26,7 @@
 .state$token <- NULL
 .state$session_id <- NULL
 .state$instance_url <- NULL
+
+# add additional datetime formats to guess using anytime package
+anytime::addFormats("%m-%d-%Y %H:%M")
+anytime::addFormats("%d-%m-%Y %H:%M")

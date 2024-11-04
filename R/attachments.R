@@ -303,7 +303,7 @@ sf_create_attachment_rest <- function(attachment_input_data,
     resultset <- safe_bind_rows(list(resultset, fromJSON(sprintf("[%s]", response_parsed))))
   }
   resultset <- resultset %>%
-    as_tibble() %>%
+    as_tibble(.name_repair = "unique") %>%
     sf_reorder_cols() %>% 
     sf_guess_cols()
   return(resultset)
@@ -553,7 +553,7 @@ sf_update_attachment_rest <- function(attachment_input_data,
     resultset <- safe_bind_rows(list(resultset, this_resultset))
   }
   resultset <- resultset %>%
-    as_tibble() %>%
+    as_tibble(.name_repair = "unique") %>%
     sf_reorder_cols() %>% 
     sf_guess_cols()
   return(resultset)

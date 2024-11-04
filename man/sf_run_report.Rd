@@ -68,10 +68,11 @@ async report has finished.}
 
 \item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
 to try and cast the data returned in the recordset. If \code{TRUE} then
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
-as character. This is helpful when \code{col_guess()} will mangle field values
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
-like numeric looking values that must be preserved as strings ("48.0").}
+\code{col_guess()} is used along with \code{anytime()} and \code{anydate()}.
+If \code{FALSE} then all fields will be returned as character. Specifying
+\code{FALSE} helpful when guessing the column data type will result in NA
+values and you would like to return the results as strings and then cast in
+your script according to your unique specifications.}
 
 \item{bind_using_character_cols}{\code{logical}; an indicator of whether to
 cast the data to all character columns to ensure that \code{\link[dplyr:bind]{bind_rows}}
@@ -184,8 +185,8 @@ Other Report functions:
 \code{\link{sf_copy_report}()},
 \code{\link{sf_create_report}()},
 \code{\link{sf_delete_report}()},
-\code{\link{sf_describe_report_type}()},
 \code{\link{sf_describe_report}()},
+\code{\link{sf_describe_report_type}()},
 \code{\link{sf_execute_report}()},
 \code{\link{sf_list_report_fields}()},
 \code{\link{sf_list_report_filter_operators}()},

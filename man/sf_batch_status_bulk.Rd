@@ -45,7 +45,7 @@ batch_query_info <- sf_submit_query_bulk(job_id = job_info$id, soql = soql)
 batch_status <- sf_batch_status_bulk(job_id = batch_query_info$jobId,
                                      batch_id = batch_query_info$id)
 job_close_ind <- sf_close_job_bulk(job_info$id)
-sf_get_job_bulk(job_info$id)                               
+sf_get_job_bulk(job_info$id)
 }
 }
 \references{

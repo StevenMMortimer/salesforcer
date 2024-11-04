@@ -9,12 +9,12 @@ on:
         default: false
   repository_dispatch:
     types: [main-05-R-CMD-check-linux]
-      
+
 jobs:
   R-CMD-check-linux:
 
     runs-on: ${{ matrix.config.os }}
-    
+
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
@@ -23,16 +23,16 @@ jobs:
       matrix:
         config:
           - {os: ubuntu-18.04, r: 'release'}
-          
+
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SALESFORCER_USERNAME: ${{ secrets.SALESFORCER_USERNAME }}
-      SALESFORCER_TOKEN_PATH: ${{ github.workspace }}/tests/testthat/ 
+      SALESFORCER_TOKEN_PATH: ${{ github.workspace }}/tests/testthat/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.client_payload.sha }}
       - name: Decrypt OAuth Token
@@ -40,27 +40,27 @@ jobs:
           ./.github/scripts/decrypt_secret.sh
         env:
           SALESFORCER_TOKEN_PASSPHRASE: ${{ secrets.SALESFORCER_TOKEN_PASSPHRASE }}
-      
-      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
-          
-      - uses: r-lib/actions/setup-pandoc@v1
-      
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
       - name: Query dependencies
         run: |
           install.packages("remotes")
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
         shell: Rscript {0}
-        
+
       - name: Cache R packages
         if: runner.os != 'Windows'
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-3-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-3-
-          
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         env:
@@ -69,7 +69,7 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
-          
+
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
@@ -85,7 +85,7 @@ jobs:
 
       - name: Check
         env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false       
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
@@ -96,14 +96,14 @@ jobs:
 
       - name: Upload check results
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-r-${{ matrix.config.r }}-results
           path: check
-          
+
       - name: Set final R-CMD-check status
         if: ${{ (github.event_name != 'workflow_dispatch') || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next) }}
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
           repository: StevenMMortimer/salesforcer

@@ -734,7 +734,7 @@ sf_execute_report <- function(report_id,
     if(async){
       response_parsed <- response_parsed %>% 
         set_null_elements_to_na_recursively() %>%
-        as_tibble_row() %>% 
+        as_tibble_row(.name_repair = "unique") %>% 
         mutate(across(any_of(c("completionDate", "requestDate")), 
                       ~parse_datetime(as.character(.x)))) %>% 
         type_convert(col_types = cols(.default = col_guess())) %>% 

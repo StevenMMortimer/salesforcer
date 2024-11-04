@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Steven M. Mortimer" />
+
+<meta name="date" content="2020-07-08" />
+
+<title>Passing Control Args</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Passing Control Args</h1>
+<h4 class="author">Steven M. Mortimer</h4>
+<h4 class="date">2020-07-08</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#the-new-control-argument">The new control argument</a></li>
+<li><a href="#an-example-using-the-duplicateruleheader">An example using the <code>DuplicateRuleHeader</code></a></li>
+<li><a href="#creating-the-control-argument-with-sf_control">Creating the control argument with sf_control</a></li>
+<li><a href="#backwards-compatibility-for-all_or_none-and-other-named-arguments">Backwards compatibility for all_or_none and other named arguments</a></li>
+<li><a href="#reference-links">Reference Links</a></li>
+</ul>
+</div>
+
+<p>If you’re inserting records from R you may want to turn off the assignment rules or even bypass duplicate rules and alerts to save records. Beginning in Version 0.1.3 of the {salesforcer} package many functions have a <code>control</code> argument that will allow you to fine tune the behavior of calls to the Salesforce APIs. This vignette will introduce the different options you can control and how to pass them into the {salesforcer} functions you’re already familiar with.</p>
+<div id="the-new-control-argument" class="section level2">
+<h2>The new control argument</h2>
+<p>This new feature can be seen in the <code>sf_create</code> (and many other functions) as <code>control=list(...)</code>. The dots mean that you can pass any number of controls directly into the function.</p>
+<p>First, authenticate and load any required packages for your analysis.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(salesforcer)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_auth</span>()</span></code></pre></div>
+<p>In the example below, we demonstrate how to create a record, but use the control arguments to prevent its creation from showing up in the Chatter feeds by setting the <code>DisableFeedTrackingHeader</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>new_contact <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">FirstName =</span> <span class="st">&quot;Jenny&quot;</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">LastName =</span> <span class="st">&quot;Williams&quot;</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Email =</span> <span class="st">&quot;jennyw@gmail.com&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>record1 <span class="ot">&lt;-</span> <span class="fu">sf_create</span>(new_contact,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">object_name =</span> <span class="st">&quot;Contact&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">DisableFeedTrackingHeader =</span> <span class="fu">list</span>(<span class="at">disableFeedTracking =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>record1</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   success errors    </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;lgl&gt;   &lt;list&gt;    </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 FALSE   &lt;list [1]&gt;</span></span></code></pre></div>
+<p>You will notice that the argument <code>DisableFeedTrackingHeader</code> can be included right into the function without any documentation existing for it in the <code>sf_create</code> function. This is because the dots (<code>...</code>) allow you to pass over a dozen different control parameters and that documentation would be tedious to create and maintain over multiple functions in the package. However, you will notice in the documentation entry for the <code>control</code> argument there is a link to a function called <code>sf_control</code> which you can use to directly to pass into <code>control</code> or simply to review its documentation of all the possible control parameters and their defaults. This is where you can review the various control options in more detail before trying to set them.</p>
+<p>You may have also noticed that the argument <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_disablefeedtracking.htm" rel="noopener noreferrer" target="_blank">DisableFeedTrackingHeader</a> was formatted as a list with an element inside called <code>disableFeedTracking</code> set to <code>TRUE</code>. This may seem redundant but there are two reasons for this. First, this is exactly how the Salesforce APIs documents these options, which are typically referred to as “headers” because they are passed as a named header of the HTTP request and then the header fields and values are provided for that header. Second, some headers have multiple fields and values so a list is the only way to provide multiple named fields and values under a single header entity.</p>
+</div>
+<div id="an-example-using-the-duplicateruleheader" class="section level2">
+<h2>An example using the <code>DuplicateRuleHeader</code></h2>
+<p>The <code>DuplicateRuleHeader</code> that controls whether the duplicate rules are followed when inserting records from the API, has three fields:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>allowSave</code> - For a duplicate rule, when the Alert option is enabled, bypass alerts and save duplicate records by setting this property to true. Prevent duplicate records from being saved by setting this property to false.</p></li>
+<li><p><code>includeRecordDetails</code> - Get fields and values for records detected as duplicates by setting this property to true. Get only record IDs for records detected as duplicates by setting this property to false.</p></li>
+<li><p><code>runAsCurrentUser</code> - Make sure that sharing rules for the current user are enforced when duplicate rules run by setting this property to true. Use the sharing rules specified in the class for the request by setting this property to false. If no sharing rules are specified, Apex code runs in system context and sharing rules for the current user are not enforced.</p></li>
+</ol>
+<p>Specifying these arguments requires a <code>list</code> structure in R, which may seem redundant in some cases, but is necessary to follow in order to build the API request correctly.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># override the duplicate rules ...</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>record2 <span class="ot">&lt;-</span> <span class="fu">sf_create</span>(new_contact,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">object_name =</span> <span class="st">&quot;Contact&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">DuplicateRuleHeader =</span> <span class="fu">list</span>(<span class="at">allowSave =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">includeRecordDetails =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">runAsCurrentUser =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>record2</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0033s00001BXfB1AAL TRUE</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ... or succumb to the duplicate rules</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>record3 <span class="ot">&lt;-</span> <span class="fu">sf_create</span>(new_contact,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">object_name =</span> <span class="st">&quot;Contact&quot;</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">DuplicateRuleHeader =</span> <span class="fu">list</span>(<span class="at">allowSave =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">includeRecordDetails =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">runAsCurrentUser =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>record3</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   success errors    </span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;lgl&gt;   &lt;list&gt;    </span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 FALSE   &lt;list [1]&gt;</span></span></code></pre></div>
+<p>Per the description above, note that setting <code>allowSave=TRUE</code> will not override rules where the “Action on Create” for a rule is set to “Block”. If the duplicate rule’s action is “Allow” with an alert, then setting <code>allowSave=TRUE</code> means the record will be created with no warning message. If <code>allowSave=FALSE</code>, then the record will be prevented from being created. For additional information on the <code>DuplicateRuleHeader</code>, please see the Salesforce documentation at: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_duplicateruleheader.htm</a></p>
+<p>Finally, you may notice during your use that only certain control arguments are permitted based on the API. For example, the <code>DuplicateRuleHeader</code> is not implemented in the REST API like it is in the SOAP API. In the example below you should take note of two things:</p>
+<ol style="list-style-type: decimal">
+<li><p>When using the REST API and setting the <code>DuplicateRuleHeader</code>, then you will notice a warning that the header was ignored. You will receive warnings when trying to set any control parameters for an API or operation that does not recognize that particular control.</p></li>
+<li><p>In this example, you cannot bypass the duplicate rule alert to create the record if using the REST API like you can with the SOAP API.</p></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>record4 <span class="ot">&lt;-</span> <span class="fu">sf_create</span>(new_contact,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">object_name =</span> <span class="st">&quot;Contact&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">DuplicateRuleHeader =</span> <span class="fu">list</span>(<span class="at">allowSave =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">includeRecordDetails =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">runAsCurrentUser =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">api_type =</span> <span class="st">&quot;REST&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Ignoring the following controls which are not used in the REST API:</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; DuplicateRuleHeader</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>record4</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   success errors    </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;lgl&gt;   &lt;list&gt;    </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 FALSE   &lt;list [1]&gt;</span></span></code></pre></div>
+</div>
+<div id="creating-the-control-argument-with-sf_control" class="section level2">
+<h2>Creating the control argument with sf_control</h2>
+<p>If this type of control structure is new to you, take a look at the documentation for the <code>glm</code> and <code>glm.control</code> functions. The way these two functions behave is exactly how functions like <code>sf_create</code> and <code>sf_control</code> work with each other. As demonstrated above you can pass any number of arbitrary controls into the function and they are all gathered up into the control by <code>control = list(...)</code>. However, you can specify the control directly like this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_query</span>(<span class="st">&quot;SELECT Id, Name FROM Account LIMIT 1000&quot;</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">object_name =</span> <span class="st">&quot;Account&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">control =</span> <span class="fu">sf_control</span>(<span class="at">QueryOptions =</span> <span class="fu">list</span>(<span class="at">batchSize =</span> <span class="dv">200</span>)))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 15 × 2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Id                 Name                                </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                               </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0013s00000zFgA6AAK KEEP Test Account With Child Records</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0013s00000zFdugAAC KEEP Test Account With Child Records</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0013s000014jF2vAAE Test Account For Performance Test   </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0016A0000035mJEQAY GenePoint                           </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0016A0000035mJCQAY United Oil &amp; Gas, UK                </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 10 more rows</span></span></code></pre></div>
+</div>
+<div id="backwards-compatibility-for-all_or_none-and-other-named-arguments" class="section level2">
+<h2>Backwards compatibility for all_or_none and other named arguments</h2>
+<p>You may already be taking advantage of the <code>all_or_none</code> or <code>line_ending</code> arguments which are control arguments that were explicity included in functions. These argument essentially hard coded values to pass the <code>AllOrNoneHeader</code> and <code>LineEndingHeader</code> control parameters. Starting with the 0.1.3 release it is no longer necessary and preferable not to have an argument like <code>all_or_none</code> listed explicity as an argument since it can be provided in the <code>control</code> argument. Note: the <code>all_or_none</code> argument and other explicit control arguments will still be available in {salesforcer} 0.1.3 but will provide a deprecated warning. They will be removed in the next CRAN release of the package so it will be important to update your code now if you are explicitly passing these arguments and see a deprecation warning.</p>
+</div>
+<div id="reference-links" class="section level2">
+<h2>Reference Links</h2>
+<p>Below is a list of links that go directly to the control arguments (a.k.a headers) for the different APIs. I highly recommend reading this documentation before setting a control parameter in R so you know exactly what the behavior will be and how to specify it in R. You may notice that some controls are not included in the R package. Some may be added in the future if requested and some will not be added given the scope of the package. One final note is that some arguments in the REST API, like the “All or None” behavior is not a header, but a parameter in the API call. For this reason you will not see it listed in the REST API Headers section, but it is set in this R package using the <code>AllOrNoneHeader</code> argument in <code>sf_control</code> just to provide consistency between the SOAP and REST APIs. It would be confusing to have two arguments named differently, one for each API, but to do the exact same thing from R. For this reason, many of the control arguments match exactly as they are listed in the SOAP API, but can be used across other APIs even if not exactly written that way in the Salesforce documentation referenced below.</p>
+<ul>
+<li><p><strong>SOAP API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/soap_headers.htm</a></li>
+</ul></li>
+<li><p><strong>REST API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm</a></li>
+</ul></li>
+<li><p><strong>Bulk 1.0 API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/async_api_headers.htm</a></li>
+</ul></li>
+<li><p><strong>Metadata API Headers</strong>:</p>
+<ul>
+<li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_headers.htm</a></li>
+</ul></li>
+<li><p><strong>Bulk 2.0 API Headers</strong>: None<br />
+</p></li>
+<li><p><strong>Reports and Dashboards REST API Headers</strong>: None</p></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

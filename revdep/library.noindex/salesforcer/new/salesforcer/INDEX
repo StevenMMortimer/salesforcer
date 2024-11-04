@@ -1,0 +1,191 @@
+collapse_list_with_dupe_names
+                        Collapse Elements in List with Same Name
+metadata_type_validator
+                        Metadata Data Type Validator
+parameterized_search_control
+                        Auxiliary for Controlling Parametrized Searches
+rforcecom.bulkAction    The 'salesforcer' backwards compatible version
+                        of the RForcecom function
+                        'rforcecom.bulkAction'
+rforcecom.bulkQuery     The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.bulkQuery'
+rforcecom.create        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.create'
+rforcecom.delete        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.delete'
+rforcecom.getObjectDescription
+                        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.getObjectDescription'
+rforcecom.getServerTimestamp
+                        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.getServerTimestamp'
+rforcecom.login         The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.login'
+rforcecom.query         The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.query'
+rforcecom.retrieve      The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.retrieve'
+rforcecom.search        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.search'
+rforcecom.update        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.update'
+rforcecom.upsert        The 'salesforcer' backwards compatible version
+                        of 'RForcecom::rforcecom.upsert'
+sf_abort_job_bulk       Abort Bulk API Job
+sf_analytics_notification_create
+                        Create an analytics notification
+sf_analytics_notification_delete
+                        Delete an analytics notification
+sf_analytics_notification_describe
+                        Describe an analytics notification
+sf_analytics_notification_update
+                        Update an analytics notification
+sf_analytics_notifications_limits
+                        Return limits of analytics notifications
+sf_analytics_notifications_list
+                        List analytics notifications
+sf_auth                 Log in to Salesforce
+sf_batch_details_bulk   Returning the Details of a Batch in a Bulk API
+                        Job
+sf_batch_status_bulk    Checking the Status of a Batch in a Bulk API
+                        Job
+sf_close_job_bulk       Close Bulk API Job
+sf_control              Auxiliary for Controlling Calls to Salesforce
+                        APIs
+sf_convert_lead         Convert Leads
+sf_copy_dashboard       Copy a dashboard
+sf_copy_report          Copy a report
+sf_create               Create Records
+sf_create_attachment    Create Attachments
+sf_create_batches_bulk
+                        Add Batches to a Bulk API Job
+sf_create_job_bulk      Create Bulk API Job
+sf_create_metadata      Create Object or Field Metadata in Salesforce
+sf_create_report        Create a report
+sf_delete               Delete Records
+sf_delete_attachment    Delete Attachments
+sf_delete_dashboard     Delete a dashboard
+sf_delete_job_bulk      Delete Bulk API Job
+sf_delete_metadata      Delete Object or Field Metadata in Salesforce
+sf_delete_report        Delete a report
+sf_delete_report_instance
+                        Delete a report instance
+sf_describe_dashboard   Describe a dashboard
+sf_describe_dashboard_components
+                        Describe dashboard components
+sf_describe_metadata    Describe the Metadata in an Organization
+sf_describe_object_fields
+                        Describe Object Fields
+sf_describe_objects     SObject Basic Information
+sf_describe_report      Describe a report
+sf_describe_report_type
+                        Describe a report type
+sf_download_attachment
+                        Download an Attachment
+sf_empty_recycle_bin    Empty Recycle Bin
+sf_execute_report       Execute a report
+sf_filter_dashboard_operators_list
+                        List dashboard filter operators
+sf_filter_dashboard_options_analysis
+                        Get an analysis of the filter options for a
+                        dashboard
+sf_find_duplicates      Find Duplicate Records
+sf_find_duplicates_by_id
+                        Find Duplicate Records By Id
+sf_get_all_jobs_bulk    Get All Bulk API Jobs
+sf_get_all_query_jobs_bulk
+                        Get All Bulk API Query Jobs
+sf_get_dashboard_data   Get dashboard data in a tabular format
+sf_get_dashboard_results
+                        Get the results of an existing dashboard
+sf_get_dashboard_status
+                        Get the status of a dashboard
+sf_get_deleted          Get Deleted Records from a Timeframe
+sf_get_job_bulk         Get Bulk API Job
+sf_get_job_records_bulk
+                        Returning the Details of a Bulk API Job
+sf_get_report_instance_results
+                        Get report instance results
+sf_get_updated          Get Updated Records from a Timeframe
+sf_job_batches_bulk     Checking the Status of a Batch in a Bulk API
+                        Job
+sf_list_api_limits      List the Limits for an API
+sf_list_dashboards      List dashboards
+sf_list_metadata        List All Objects of a Certain Metadata Type in
+                        Salesforce
+sf_list_objects         List Organization Objects and their Metadata
+sf_list_report_fields   Get a list of report fields
+sf_list_report_filter_operators
+                        List report filter operators
+sf_list_report_instances
+                        List report instances
+sf_list_report_types    List report types
+sf_list_reports         List reports
+sf_list_resources       List the Resources for an API
+sf_list_rest_api_versions
+                        List REST API Versions
+sf_merge                Merge Records
+sf_query                Perform SOQL Query
+sf_query_bulk_v1        Run Bulk 1.0 query
+sf_query_bulk_v2        Run Bulk 2.0 query
+sf_query_report         Get Report Data without Saving Changes to or
+                        Creating a Report
+sf_query_result_bulk    Retrieve the results of a completed bulk query
+sf_query_result_bulk_v1
+                        Retrieve the results of a Bulk 1.0 query
+sf_query_result_bulk_v2
+                        Retrieve the results of a Bulk 2.0 query
+sf_read_metadata        Read Object or Field Metadata from Salesforce
+sf_refresh_dashboard    Refresh an existing dashboard
+sf_rename_metadata      Rename Metadata Elements in Salesforce
+sf_report_folder_children
+                        Get the subfolders (children) of a report
+                        folder
+sf_report_folder_create
+                        Create report folder
+sf_report_folder_delete
+                        Delete a report folder
+sf_report_folder_describe
+                        Describe a report folder
+sf_report_folder_share_delete
+                        Delete a report folder share
+sf_report_folder_share_describe
+                        Describe a report folder share
+sf_report_folder_share_recipients
+                        Get report folder share recipients
+sf_report_folder_share_update
+                        Update a report folder share
+sf_report_folder_shares_add
+                        Add shares to a report folder
+sf_report_folder_shares_list
+                        List the shares in a report folder
+sf_report_folder_shares_update
+                        Update the shares for a report folder
+sf_report_folder_update
+                        Update a report folder
+sf_report_folders_list
+                        List report folders
+sf_reset_password       Reset User Password
+sf_retrieve             Retrieve Records By Id
+sf_retrieve_metadata    Make A Request to Retrieve the Metadata
+sf_run_bulk_operation   Run Bulk Operation
+sf_run_bulk_query       Run bulk query
+sf_run_report           Get a report's data in tabular format
+sf_search               Perform SOSL Search
+sf_server_timestamp     Salesforce Server Timestamp
+sf_set_dashboard_sticky_filter
+                        Set a sticky dashboard filter
+sf_set_password         Set User Password
+sf_submit_query_bulk    Submit Bulk Query Batch to a Bulk API Job
+sf_undelete             Undelete Records
+sf_update               Update Records
+sf_update_attachment    Update Attachments
+sf_update_dashboard     Update a dashboard
+sf_update_metadata      Update Object or Field Metadata in Salesforce
+sf_update_report        Update a report
+sf_upload_complete_bulk
+                        Signal Upload Complete to Bulk API Job
+sf_upsert               Upsert Records
+sf_upsert_metadata      Upsert Object or Field Metadata in Salesforce
+sf_user_info            Return Current User Info
+valid_metadata_list     List of Valid Data Types

@@ -66,8 +66,8 @@ report_details <- sf_copy_report(this_report_id, "My New Copy of Report ABC")
 Other Report functions: 
 \code{\link{sf_create_report}()},
 \code{\link{sf_delete_report}()},
-\code{\link{sf_describe_report_type}()},
 \code{\link{sf_describe_report}()},
+\code{\link{sf_describe_report_type}()},
 \code{\link{sf_execute_report}()},
 \code{\link{sf_list_report_fields}()},
 \code{\link{sf_list_report_filter_operators}()},
