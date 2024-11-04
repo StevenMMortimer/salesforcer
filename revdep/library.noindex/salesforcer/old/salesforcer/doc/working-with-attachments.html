@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Steven M. Mortimer" />
+
+<meta name="date" content="2020-08-16" />
+
+<title>Working with Attachments</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Working with Attachments</h1>
+<h4 class="author">Steven M. Mortimer</h4>
+<h4 class="date">2020-08-16</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#attachments-in-salesforce">Attachments in Salesforce</a></li>
+<li><a href="#creating-uploading-attachments">Creating (Uploading) Attachments</a></li>
+<li><a href="#downloading-attachments">Downloading Attachments</a></li>
+<li><a href="#updating-attachments">Updating Attachments</a></li>
+<li><a href="#extending-to-documents-and-other-blob-data">Extending to Documents and Other Blob Data</a></li>
+<li><a href="#reference-links">Reference Links</a></li>
+</ul>
+</div>
+
+<div id="attachments-in-salesforce" class="section level2">
+<h2>Attachments in Salesforce</h2>
+<p>Almost all records in Salesforce support attachments. Attachments are just blob data storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id of the record that the attachment belongs to. To get started creating and updating attachments, first, load the {salesforcer} and {dplyr} packages and login, if needed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(salesforcer)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_auth</span>()</span></code></pre></div>
+<p>The Attachment data, for example, the attachment’s Id, ParentId, Name, Body, ModifiedDate, and other attributes are stored in the Attachment object, a Standard Object in Salesforce.</p>
+</div>
+<div id="creating-uploading-attachments" class="section level2">
+<h2>Creating (Uploading) Attachments</h2>
+<p>Below we will cover 2 different methods of creating attachments:</p>
+<ol style="list-style-type: decimal">
+<li>Uploading local files as Attachments one at a time using the SOAP and REST API (most common usage)</li>
+<li>Uploading large batches of files using the Bulk API, which zips the files before upload</li>
+</ol>
+<p><strong>Uploading local files as Attachments (SOAP and REST)</strong></p>
+<p>When uploading an attachment stored locally (i.e. on your computer), you can provide an absolute or relative path to the current working directory. If the <code>Name</code> column is omitted, then the name of the attachment as it appears in Salesforce will be the same as the base file name and extension. For example, if the path provided is “/Documents/attachments/doc1.pdf”, then the <code>Name</code> field will be set to “doc1.pdf”.</p>
+<p>In the example below, we upload three attachments to two different parent records. Note: Make sure to replace the paths and ParentIds in the example below with file paths that exist on your local machine and Ids of records in your Salesforce org.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define the ParentIds where the attachments will be shown in Salesforce</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>parent_record_id1 <span class="ot">&lt;-</span> <span class="st">&quot;0016A0000035mJ4&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>parent_record_id2 <span class="ot">&lt;-</span> <span class="st">&quot;0016A0000035mJ5&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># provide the file paths of where the attachments exist locally on your machine</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># in this case we are referencing images included within the salesforcer package, </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># but any absolute or relative path locally will work</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>file_path1 <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;cloud.png&quot;</span>, <span class="at">package=</span><span class="st">&quot;salesforcer&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>file_path2 <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;logo.png&quot;</span>, <span class="at">package=</span><span class="st">&quot;salesforcer&quot;</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>file_path3 <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;old-logo.png&quot;</span>, <span class="at">package=</span><span class="st">&quot;salesforcer&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># create a data.frame or tbl_df out of this information</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>attachment_details <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Body =</span> <span class="fu">rep</span>(<span class="fu">c</span>(file_path1, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                                          file_path2, </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                                          file_path3), </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">times=</span><span class="dv">2</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                             <span class="at">ParentId =</span> <span class="fu">rep</span>(<span class="fu">c</span>(parent_record_id1, </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                                              parent_record_id2), </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">each=</span><span class="dv">3</span>))</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># create the attachments!</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sf_create_attachment</span>(attachment_details)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>result</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 00P3s00000gWuEqEAK TRUE   </span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 00P3s00000gWuEvEAK TRUE   </span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 00P3s00000gWuF0EAK TRUE   </span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 00P3s00000gWuF5EAK TRUE   </span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 00P3s00000gWuFAEA0 TRUE   </span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1 more row</span></span></code></pre></div>
+</div>
+<div id="downloading-attachments" class="section level2">
+<h2>Downloading Attachments</h2>
+<p>After uploading attachments to Salesforce you can download them by first querying the metadata in the Attachment object. This metadata provides the Id for the blob data attachment for download. A convenience function, <code>sf_download_attachment()</code>, has been created to download attachments quickly. The example below shows how to query the metadata of attachments belonging to particular ParentId.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pull down all attachments associated with a particular record</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>queried_attachments <span class="ot">&lt;-</span> <span class="fu">sf_query</span>(<span class="fu">sprintf</span>(<span class="st">&quot;SELECT Id, Body, Name, ParentId</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">                                         FROM Attachment</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">                                         WHERE ParentId IN (&#39;%s&#39;, &#39;%s&#39;)&quot;</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                         parent_record_id1, parent_record_id2))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>queried_attachments</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Id                 Body                                         Name  ParentId</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                                        &lt;chr&gt; &lt;chr&gt;   </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 00P3s00000gWuEvEAK /services/data/v54.0/sobjects/Attachment/00… logo… 0016A00…</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 00P3s00000gWuF0EAK /services/data/v54.0/sobjects/Attachment/00… old-… 0016A00…</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 00P3s00000gWuEqEAK /services/data/v54.0/sobjects/Attachment/00… clou… 0016A00…</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 00P3s00000gWuFFEA0 /services/data/v54.0/sobjects/Attachment/00… old-… 0016A00…</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 00P3s00000gWuF5EAK /services/data/v54.0/sobjects/Attachment/00… clou… 0016A00…</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1 more row</span></span></code></pre></div>
+<p>Before downloading the attachments using the Body it is important to consider whether the attachment names are repeated or duplicates. If so, then the attachments with the same exact name will be overwritten on the local filesystem as they are downloaded. To avoid this problem there are two common strategies:</p>
+<ol style="list-style-type: decimal">
+<li>Create a new column (e.g. <code>unique_name</code>) that is the concatenation of the Attachment Id and the Attachment’s name which is guaranteed to be unique.</li>
+<li>Save the attachments in separate folders for each ParentId record.</li>
+</ol>
+<p>As long as the same ParentId record doesn’t name attachments with the same name, then Strategy #2 above will work. In addition, it may help better organize the documents if you are planning to download many and then upload again to Salesforce using the Bulk API as demonstrated later in this script.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new folder for each ParentId in the dataset</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>temp_dir <span class="ot">&lt;-</span> <span class="fu">tempdir</span>()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pid <span class="cf">in</span> <span class="fu">unique</span>(queried_attachments<span class="sc">$</span>ParentId)){</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(temp_dir, pid), <span class="at">showWarnings =</span> <span class="cn">FALSE</span>) <span class="co"># ignore if already exists</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new columns in the queried data so that we can pass this information </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># on to the function `sf_download_attachment()` that will actually perform the download</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>queried_attachments <span class="ot">&lt;-</span> queried_attachments <span class="sc">%&gt;%</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Strategy 1: Unique file names (ununsed here, but shown as an example)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unique_name =</span> <span class="fu">paste</span>(Id, Name, <span class="at">sep=</span><span class="st">&#39;___&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Strategy 2: Separate folders per parent</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Path =</span> <span class="fu">file.path</span>(temp_dir, ParentId))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># download all of the attachments for a single ParentId record to their own folder</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>download_result <span class="ot">&lt;-</span> <span class="fu">mapply</span>(sf_download_attachment, </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                          <span class="at">body =</span> queried_attachments<span class="sc">$</span>Body, </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">name =</span> queried_attachments<span class="sc">$</span>Name, </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                          <span class="at">path =</span> queried_attachments<span class="sc">$</span>Path)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>download_result</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWuEvEAK/Body </span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &quot;/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpFlHRfy/0016A0000035mJ4QAI/logo.png&quot; </span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWuF0EAK/Body </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &quot;/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpFlHRfy/0016A0000035mJ4QAI/old-logo.png&quot; </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWuEqEAK/Body </span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &quot;/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpFlHRfy/0016A0000035mJ4QAI/cloud.png&quot; </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWuFFEA0/Body </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &quot;/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpFlHRfy/0016A0000035mJ5QAI/old-logo.png&quot; </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWuF5EAK/Body </span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &quot;/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpFlHRfy/0016A0000035mJ5QAI/cloud.png&quot; </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                               /services/data/v54.0/sobjects/Attachment/00P3s00000gWuFAEA0/Body </span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &quot;/var/folders/s2/1mxmzrg52tx7l0pg8lq1320w0000gn/T//RtmpFlHRfy/0016A0000035mJ5QAI/logo.png&quot;</span></span></code></pre></div>
+</div>
+<div id="updating-attachments" class="section level2">
+<h2>Updating Attachments</h2>
+<p>Once an Attachment record is created, you are still able to update the content and metadata (<code>Name</code>, <code>IsPrivate</code>, and <code>OwnerId</code>) for the record. The <code>sf_update_attachment()</code> function works just like <code>sf_update()</code> except that you will need to include the <code>Body</code> column where the content of the attachment is help. <strong>NOTE</strong>: If you just want to update the metadata and not the Attachment content itself, you can simply use <code>sf_update()</code> to modify fields other than the <code>Body</code> field on the record.</p>
+<p>The example below demonstrates how to add an attachment to a record, then download it, zip it, re-upload to the record in order to save disk space in your Org.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># upload a PDF to a particular record as an Attachment</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;data-wrangling-cheatsheet.pdf&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">package =</span> <span class="st">&quot;salesforcer&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>parent_record_id <span class="ot">&lt;-</span> <span class="st">&quot;0036A000002C6MmQAK&quot;</span> <span class="co"># replace with your own ParentId!</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>attachment_details <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Body =</span> file_path, <span class="at">ParentId =</span> parent_record_id)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>create_result <span class="ot">&lt;-</span> <span class="fu">sf_create_attachment</span>(attachment_details)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># download, zip, and re-upload the PDF</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>pdf_path <span class="ot">&lt;-</span> <span class="fu">sf_download_attachment</span>(<span class="at">sf_id =</span> create_result<span class="sc">$</span>id[<span class="dv">1</span>])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>zipped_path <span class="ot">&lt;-</span> <span class="fu">paste0</span>(pdf_path, <span class="st">&quot;.zip&quot;</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">zip</span>(zipped_path, pdf_path, <span class="at">flags =</span> <span class="st">&quot;-qq&quot;</span>) <span class="co"># quiet zipping messages</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>attachment_details <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Id =</span> create_result<span class="sc">$</span>id, <span class="at">Body =</span> zipped_path)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_update_attachment</span>(attachment_details)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 00P3s00000gWuFKEA0 TRUE</span></span></code></pre></div>
+<p>There is a function <code>sf_delete_attachment()</code>, which simply wraps <code>sf_delete()</code> so feel free to use for clarity in your code that you’re working with attachments use <code>sf_delete()</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_delete_attachment</span>(<span class="at">ids =</span> create_result<span class="sc">$</span>id)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 00P3s00000gWuFKEA0 TRUE</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sf_delete(ids = create_result$id) # would also work</span></span></code></pre></div>
+<p><strong>Uploading large batches of attachments using the Bulk API</strong></p>
+<p>The SOAP and REST APIs are good for working with a few attachments at a time. However, the Bulk API can be invoked using api_type=“Bulk 1.0” to automatically take a <code>data.frame</code> or <code>tbl_df</code> of Attachment field data and create a ZIP file with CSV manifest that is required by that API to upload. In the example above, we downloaded the three attachments each belonging to two different parent records. Assuming that I have run that code and the files are in that my computer I can demonstrate that all of them can be uploaded at once using the Bulk 1.0 API.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the attachment metadata required (Name, Body, ParentId)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>attachment_details <span class="ot">&lt;-</span> queried_attachments <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Body =</span> <span class="fu">file.path</span>(Path, Name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Name, Body, ParentId) </span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sf_create_attachment</span>(attachment_details, <span class="at">api_type=</span><span class="st">&quot;Bulk 1.0&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>result</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Id                 Success Created Error</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 00P3s00000gWuFPEA0 TRUE    TRUE    NA   </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 00P3s00000gWuFQEA0 TRUE    TRUE    NA   </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 00P3s00000gWuFREA0 TRUE    TRUE    NA   </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 00P3s00000gWuFSEA0 TRUE    TRUE    NA   </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 00P3s00000gWuFTEA0 TRUE    TRUE    NA   </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1 more row</span></span></code></pre></div>
+<p><strong>NOTE</strong>: As of v48.0 (Spring ’20), it does not appear that the Bulk 2.0 API supports working with Attachments, so the Bulk 1.0 API must be used for bulk functionality.</p>
+<p>Finally, you are able to update Attachments with the Bulk API just as shown above in the REST/SOAP API examples.</p>
+</div>
+<div id="extending-to-documents-and-other-blob-data" class="section level2">
+<h2>Extending to Documents and Other Blob Data</h2>
+<p>The commands for working with Attachments also work for uploading documents and other blob data as well. Documents are just like Attachments in Salesforce except instead of having an associated ParentId they have an associated FolderId where the blob will be associated with upon creation. Here is a brief example of uploading a PDF (“Document”) to a Folder</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the function supports inserting all types of blob content, just update the </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># object_name argument to add the PDF as a Document instead of an Attachment</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>document_details <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Name =</span> <span class="st">&quot;Data Wrangling Cheatsheet - Test 1&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Description =</span> <span class="st">&quot;RStudio cheatsheet covering dplyr and tidyr.&quot;</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Body =</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">&quot;data-wrangling-cheatsheet.pdf&quot;</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">package=</span><span class="st">&quot;salesforcer&quot;</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">FolderId =</span> <span class="st">&quot;00l6A000001EgIwQAK&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Keywords =</span> <span class="st">&quot;test,cheatsheet,document&quot;</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sf_create_attachment</span>(document_details, <span class="at">object_name =</span> <span class="st">&quot;Document&quot;</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>result</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0153s000002btxkAAA TRUE</span></span></code></pre></div>
+<p>With Documents, users are also able to save storage by specifying a <code>Url</code> instead of a a file path where the <code>Body</code> content is stored locally. Specifying the <code>Url</code> field will reference the URL instead of uploading into the Salesforce org, thereby saving space if limited in your organization.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cheatsheet_url <span class="ot">&lt;-</span> <span class="st">&quot;https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>document_details <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Name =</span> <span class="st">&quot;Data Wrangling Cheatsheet - Test 2&quot;</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Description =</span> <span class="st">&quot;RStudio cheatsheet covering dplyr and tidyr.&quot;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Url =</span> cheatsheet_url,  </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">FolderId =</span> <span class="st">&quot;00l6A000001EgIwQAK&quot;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Keywords =</span> <span class="st">&quot;test,cheatsheet,document&quot;</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sf_create_attachment</span>(document_details, <span class="at">object_name =</span> <span class="st">&quot;Document&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>result</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0153s000002btxpAAA TRUE</span></span></code></pre></div>
+</div>
+<div id="reference-links" class="section level2">
+<h2>Reference Links</h2>
+<p>Below is a list of links to existing Salesforce documentation that provide more detail into how Attachments, Documents, and other blob data are handled via their APIs. As with many functions in {salesforcer}, we have tried to translate these functions exactly as they are described in the Salesforce documentation so that they are flexible enough to handle most all cases that the APIs were intended to support.</p>
+<ul>
+<li><p><strong>Attachment Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a></p></li>
+<li><p><strong>Document Object</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a></p></li>
+<li><p><strong>REST API Upload Attachment</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a></p></li>
+<li><p><strong>Bulk API Upload Attachments</strong>: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a></p></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

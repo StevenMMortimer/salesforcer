@@ -84,8 +84,8 @@ my_new_report <- sf_create_report(report_metadata=report_describe_list)
 Other Report functions: 
 \code{\link{sf_copy_report}()},
 \code{\link{sf_delete_report}()},
-\code{\link{sf_describe_report_type}()},
 \code{\link{sf_describe_report}()},
+\code{\link{sf_describe_report_type}()},
 \code{\link{sf_execute_report}()},
 \code{\link{sf_list_report_fields}()},
 \code{\link{sf_list_report_filter_operators}()},

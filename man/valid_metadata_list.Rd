@@ -7,7 +7,7 @@
 valid_metadata_list()
 }
 \value{
-code{list}; contains name and valid inputs for data types
+\code{list}; contains name and valid inputs for data types
 }
 \description{
 A list of data types that are valid for the Metadata API service.

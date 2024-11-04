@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Steven M. Mortimer" />
+
+<meta name="date" content="2020-08-16" />
+
+<title>Getting Started</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Getting Started</h1>
+<h4 class="author">Steven M. Mortimer</h4>
+<h4 class="date">2020-08-16</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#creating-records">Creating records</a></li>
+<li><a href="#retrieving-records">Retrieving records</a></li>
+<li><a href="#querying-records">Querying records</a></li>
+<li><a href="#updating-records">Updating records</a></li>
+<li><a href="#deleting-records">Deleting records</a></li>
+<li><a href="#upserting-records">Upserting records</a></li>
+<li><a href="#check-out-the-tests">Check out the Tests</a></li>
+</ul>
+</div>
+
+<div id="authentication" class="section level2">
+<h2>Authentication</h2>
+<p>First, load the {salesforcer} package and log in. There are two ways to authenticate:</p>
+<ol style="list-style-type: decimal">
+<li>OAuth 2.0</li>
+<li><del>Basic Username-Password</del></li>
+</ol>
+<p><strong>NOTE</strong>: Beginning February 1st, 2022, Salesforce will be requiring customers to enable multi-factor authentication, which means that basic authentication using password and security token will no longer work. The function <code>sf_auth()</code> will return the error message:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">INVALID_LOGIN:</span> Invalid username, password, security token<span class="kw">;</span> <span class="ex">or</span> user locked out.</span></code></pre></div>
+<p>Also, it is a best practice to use OAuth 2.0 so that passwords do not have to be embedded within scripts. OAuth 2.0 credentials are stored locally in a cached file titled <code>.httr-oauth-salesforcer</code> in the current working directory. The package will automatically refresh this cached token when it expires so you will not have to call <code>sf_auth()</code> during every R session if the <code>.httr-oauth-salesforcer</code> file is present in the working directory.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(salesforcer)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_auth</span>()</span></code></pre></div>
+<p><strong>Setting up your own Connected App for OAuth</strong></p>
+<p>Just a note, that it’s not necessary to setup your own Connected App in Salesforce to use OAuth 2.0 authentication. The only difference is that the authentication will be run through the client created and associated with the {salesforcer} package. By using the package client, you will <strong>NOT</strong> be giving access to Salesforce to anyone, the package is just the medium for you to connect to your own data. If you wanted more control you would specify those options like so:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.consumer_key =</span> <span class="st">&quot;012345678901-99thisisatest99connected33app22key&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.consumer_secret =</span> <span class="st">&quot;Th1s1sMyConsumerS3cr3t&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_auth</span>()</span></code></pre></div>
+<p><strong>Using a proxy connection</strong></p>
+<p>If you are required to connect to Salesforce via proxy you are able to specify all of those parameters as options, as well. For each call via <strong>httr</strong> these proxy settings will be passed along with the Salesforce authentication.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.proxy_url =</span> <span class="st">&quot;64.251.21.73&quot;</span>) <span class="co"># IP or a named domain</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.proxy_port =</span> <span class="dv">8080</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.proxy_username =</span> <span class="st">&quot;user&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.proxy_password =</span> <span class="st">&quot;pass&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">salesforcer.proxy_auth =</span> <span class="st">&quot;ntlm&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_auth</span>()</span></code></pre></div>
+<p>After logging in with <code>sf_auth()</code>, you can check your connectivity by looking at the information returned about the current user. It should be information about you!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pull down information of person logged in</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># it&#39;s a simple easy call to get started </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and confirm a connection to the APIs</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>user_info <span class="ot">&lt;-</span> <span class="fu">sf_user_info</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;Organization Id: %s&quot;</span>, user_info<span class="sc">$</span>organizationId)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Organization Id: 00D6A0000003dN3UAI&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;User Id: %s&quot;</span>, user_info<span class="sc">$</span>userId)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;User Id: 0056A000000MPRjQAO&quot;</span></span></code></pre></div>
+</div>
+<div id="creating-records" class="section level2">
+<h2>Creating records</h2>
+<p>Salesforce has objects and those objects contain records. One default object is the “Contact” object. This example shows how to create two records in the Contact object.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>new_contacts <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">FirstName =</span> <span class="fu">rep</span>(<span class="st">&quot;Test&quot;</span>, n),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">LastName =</span> <span class="fu">paste0</span>(<span class="st">&quot;Contact-Create-&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>created_records <span class="ot">&lt;-</span> <span class="fu">sf_create</span>(new_contacts, <span class="st">&quot;Contact&quot;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>created_records</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0033s00001BXetGAAT TRUE   </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0033s00001BXetHAAT TRUE</span></span></code></pre></div>
+</div>
+<div id="retrieving-records" class="section level2">
+<h2>Retrieving records</h2>
+<p>Retrieve pulls down a specific set of records and fields. It’s very similar to running a query, but doesn’t use SOQL. Here is an example where we retrieve the data we just created.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>retrieved_records <span class="ot">&lt;-</span> <span class="fu">sf_retrieve</span>(<span class="at">ids=</span>created_records<span class="sc">$</span>id, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">fields=</span><span class="fu">c</span>(<span class="st">&quot;FirstName&quot;</span>, <span class="st">&quot;LastName&quot;</span>), </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">object_name=</span><span class="st">&quot;Contact&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>retrieved_records</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   sObject Id                 FirstName LastName        </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Contact 0033s00001BXetGAAT Test      Contact-Create-1</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Contact 0033s00001BXetHAAT Test      Contact-Create-2</span></span></code></pre></div>
+</div>
+<div id="querying-records" class="section level2">
+<h2>Querying records</h2>
+<p>Salesforce has proprietary form of SQL called SOQL (Salesforce Object Query Language). SOQL is a powerful tool that allows you to return the fields of records in almost any object in Salesforce including Accounts, Contacts, Tasks, Opportunities, even Attachments! Below is an example where we grab the data we just created including Account object information for which the Contact record is associated with.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>my_soql <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;SELECT Id, </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">                           Account.Name, </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">                           FirstName, </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">                           LastName </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">                    FROM Contact </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">                    WHERE Id in (&#39;%s&#39;)&quot;</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">paste0</span>(created_records<span class="sc">$</span>id , <span class="at">collapse=</span><span class="st">&quot;&#39;,&#39;&quot;</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>queried_records <span class="ot">&lt;-</span> <span class="fu">sf_query</span>(my_soql)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>queried_records</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Id                 FirstName LastName        </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;           </span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0033s00001BXetGAAT Test      Contact-Create-1</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0033s00001BXetHAAT Test      Contact-Create-2</span></span></code></pre></div>
+<p><strong>NOTE</strong>: In the example above, you’ll notice that the <code>&quot;Account.Name&quot;</code> column does not appear in the results. This is because the SOAP and REST APIs only return an empty Account object for the record if there is no relationship to an account ( see <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues/78">#78</a>). There is no reliable way to extract and rebuild the empty columns based on the query string. If there were Account information, an additional column titled <code>&quot;Account.Name&quot;</code> would appear in the results. Note, that the Bulk 1.0 and Bulk 2.0 APIs will return <code>&quot;Account.Name&quot;</code> as a column of all <code>NA</code> values for this query because they return results differently.</p>
+</div>
+<div id="updating-records" class="section level2">
+<h2>Updating records</h2>
+<p>After creating records you can update them using <code>sf_update()</code>. Updating a record requires you to pass the Salesforce <code>Id</code> of the record. Salesforce creates a unique 18-character identifier on each record and uses that to know which record to attach the update information you provide. Simply include a field or column in your update dataset called “Id” and the information will be matched. Here is an example where we update each of the records we created earlier with a new first name called “TestTest”.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update some of those records</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>queried_records <span class="ot">&lt;-</span> queried_records <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FirstName =</span> <span class="st">&quot;TestTest&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>updated_records <span class="ot">&lt;-</span> <span class="fu">sf_update</span>(queried_records, <span class="at">object_name=</span><span class="st">&quot;Contact&quot;</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>updated_records</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0033s00001BXetGAAT TRUE   </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0033s00001BXetHAAT TRUE</span></span></code></pre></div>
+</div>
+<div id="deleting-records" class="section level2">
+<h2>Deleting records</h2>
+<p>You can also delete records in Salesforce. The method implements a “soft” delete meaning that the deleted records go to the Recycle Bin which can be emptied or queried against later in the event that the record needed.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>deleted_records <span class="ot">&lt;-</span> <span class="fu">sf_delete</span>(updated_records<span class="sc">$</span>id)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>deleted_records</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;  </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0033s00001BXetGAAT TRUE   </span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0033s00001BXetHAAT TRUE</span></span></code></pre></div>
+</div>
+<div id="upserting-records" class="section level2">
+<h2>Upserting records</h2>
+<p>Finally, Salesforce has a unique method called “upsert” that allows you to create and/or update records at the same time. More specifically, if the record is not found based an an “External Id” field, then Salesforce will create the record instead of updating one. Below is an example where we create 2 records, then upsert 3, where 2 are matched and updated and one is created. <strong>NOTE</strong>: You will need to create a custom field on the target object and ensure it is labeled as an “External Id” field. Read more at: <a rel="noopener noreferrer" target="_blank" href="https://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">https://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>new_contacts <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">FirstName =</span> <span class="fu">rep</span>(<span class="st">&quot;Test&quot;</span>, n),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">LastName =</span> <span class="fu">paste0</span>(<span class="st">&quot;Contact-Create-&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="sc">:</span>n])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>created_records <span class="ot">&lt;-</span> <span class="fu">sf_create</span>(new_contacts, <span class="st">&quot;Contact&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>upserted_contacts <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">FirstName =</span> <span class="fu">rep</span>(<span class="st">&quot;Test&quot;</span>, n),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">LastName =</span> <span class="fu">paste0</span>(<span class="st">&quot;Contact-Upsert-&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n), </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">My_External_Id__c=</span>letters[<span class="dv">1</span><span class="sc">:</span>n])</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>new_record <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">FirstName =</span> <span class="st">&quot;Test&quot;</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">LastName =</span> <span class="fu">paste0</span>(<span class="st">&quot;Contact-Upsert-&quot;</span>, n<span class="sc">+</span><span class="dv">1</span>), </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">My_External_Id__c=</span>letters[n<span class="sc">+</span><span class="dv">1</span>])</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>upserted_contacts <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(upserted_contacts, new_record)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>upserted_records <span class="ot">&lt;-</span> <span class="fu">sf_upsert</span>(<span class="at">input_data=</span>upserted_contacts, </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">object_name=</span><span class="st">&quot;Contact&quot;</span>, </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">external_id_fieldname=</span><span class="st">&quot;My_External_Id__c&quot;</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>upserted_records</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id                 success created</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;lgl&gt;   &lt;lgl&gt;  </span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0033s00001BXdbvAAD TRUE    FALSE  </span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0033s00001BXdbwAAD TRUE    FALSE  </span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0033s00001BXenmAAD TRUE    TRUE</span></span></code></pre></div>
+</div>
+<div id="check-out-the-tests" class="section level2">
+<h2>Check out the Tests</h2>
+<p>The {salesforcer} package has quite a bit of unit test coverage to track any changes made between newly released versions of the Salesforce API (typically 4 each year). These tests are an excellent source of examples because they cover most all cases of utilizing the package functions. You can access them here: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/tree/main/tests/testthat/"><a href="https://github.com/StevenMMortimer/salesforcer/tree/main/tests/testthat/" class="uri">https://github.com/StevenMMortimer/salesforcer/tree/main/tests/testthat/</a><a></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

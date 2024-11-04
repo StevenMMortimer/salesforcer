@@ -1,0 +1,432 @@
+---
+title: "Supported Queries"
+author: "Steven M. Mortimer"
+date: "2020-07-11"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Supported Queries}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+options(tibble.print_min = 5L, tibble.print_max = 5L)
+```
+
+## Overview
+
+The following vignette outlines the different types of queries that have been 
+documented and tested. These are the "supported" query types that the {salesforcer} 
+package currently handles. If you run into an issue, please submit the issue 
+[HERE](https://github.com/StevenMMortimer/salesforcer/issues/new?assignees=StevenMMortimer&labels=&template=query-issue-template.md&title=) 
+in the GitHub repository so that we can fix or add your query type to this list. 
+Thank you!
+  
+**Note**: Salesforce's proprietary form of SQL called SOQL (Salesforce Object
+Query Language) is a powerful tool that allows you to return the fields of
+records in almost any object in Salesforce. This includes standard objects like
+Accounts, Contacts, and Tasks along with any custom objects and custom fields
+created in your Org. You are encouraged to use Bulk APIs when:
+
+  - You anticipate returning 10,000 records or more
+  - Your query does not involve a parent-to-child nested relationship query
+  - You would like to reduce the overall number of API calls to your Org
+  
+If you are not familiar with SOQL, then please consider reading the following 
+resources:
+
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_sosl_intro.htm">Introduction to SOQL and SOSL</a>  
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_select.htm">SOQL SELECT Syntax</a>  
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql_relationships.htm">Relationship Queries</a>  
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/async_query_overview.htm">Async SOQL</a> 
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_bulk_query_intro.htm">Overview of queries in Bulk 1.0 API</a> 
+ - <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/queries.htm">Overview of queries in Bulk 2.0 API</a>
+
+----  
+
+## Authentication
+
+First, load the {salesforcer} package and login. There are two ways to authenticate: 
+1) OAuth 2.0 (SSO) and 2) Basic Username-Password. It is recommended to use OAuth 
+2.0 so that passwords do not have to be embedded in scripts or environment variables. 
+By default, OAuth 2.0 stores the user's credentials in a locally cached file 
+entitled ".httr-oauth-salesforcer" in the current working directory and will be 
+refreshed automatically when the session expires.
+
+```{r auth, include = FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(here)))
+library(salesforcer)
+token_path <- Sys.getenv("SALESFORCER_TOKEN_PATH")
+sf_auth(token = paste0(token_path, "salesforcer_token.rds"))
+```
+
+```{r load-package, eval=FALSE}
+library(dplyr, warn.conflicts = FALSE)
+library(salesforcer)
+sf_auth()
+```
+
+## Default query behavior
+
+The default API for the `sf_query()` function is the REST API because it is both
+fast and flexible. Every effort has been made so that the format of the results
+from the REST and SOAP APIs is exactly the same. The only difference will be
+speed. The REST API uses JSON, which can generally be processed more quickly
+than XML used in the SOAP API.
+
+```{r query-records}
+soql <- "SELECT Id,
+                FirstName, 
+                LastName
+         FROM Contact
+         LIMIT 10"
+
+queried_records <- sf_query(soql) # REST API is the default api_type
+queried_records
+
+queried_records <- sf_query(soql, api_type = "SOAP")
+queried_records
+```
+
+## REST vs. SOAP API query performance test 
+
+Below is a small example to roughly demonstrate the magnitude of the performance 
+difference between the REST and SOAP APIs when querying 1,000 records.
+
+**Setup performance test**
+
+```{r setup-performance-test}
+# create a new account 
+# (if replicating, you may or may not have an external id field in your Org)
+prefix <- paste0("APerfTest-", as.integer(runif(1,1,99999)))
+new_account <- sf_create(
+  tibble(
+    Name = "Test Account For Performance Test", 
+    My_External_Id__c = prefix,
+    Description = paste0("This is a test account with 1,000 records for ", 
+                         "testing the performance differences between the ", 
+                         "SOAP and REST APIs.")
+  ), 
+  object_name = "Account"
+)
+
+# create and associate a thousand new contacts with that account
+# (again, you may or may not have an external id field in your Org)
+n <- 1000
+prefix <- paste0("CPerfTest-", as.integer(runif(1,1,99999)), "-")
+new_contacts <- tibble(FirstName = rep("Test", n),
+                       LastName = paste0("Query-Vignette", 1:n), 
+                       test_number__c = 999.9,
+                       AccountId = rep(new_account$id, n),
+                       My_External_Id__c=paste0(prefix, 1:n))
+new_contacts_res <- sf_create(new_contacts, "Contact", api_type = "Bulk 2.0")
+```
+
+**Performance test**
+
+```{r run-performance-test, message=FALSE}
+qry <- function(api_type){
+  sf_query(
+    sprintf("SELECT Id, Name, Owner.Id, 
+               (SELECT Id, LastName, Owner.Id FROM Contacts) 
+            FROM Account
+            WHERE Id = '%s'", 
+            new_account$id), 
+    api_type = api_type
+  )
+}
+res <- microbenchmark::microbenchmark(
+  qry("REST"),
+  qry("SOAP"),
+  times = 5, 
+  unit = "s"
+)
+res
+
+suppressWarnings(suppressMessages(
+  ggplot2::autoplot(res) + 
+    ggplot2::scale_y_continuous(name="Time [seconds]", n.breaks=6)
+))
+```
+
+As seen in the limited test above, the REST API can be anywhere from **4-6x** 
+faster than the SOAP API for a query on 1,000 contact records associated with a 
+single Account. Breaking up the number of records returned into smaller batches by setting 
+`QueryOptions = list(batchSize = 200)` typically does not affect this result very 
+much but it also depends on the number of fields in the query. For the REST API the 
+default is 2,000 records per batch with a minimum of 200 and maximum of 2,000. 
+For the SOAP API the default is 500 records per batch. For both APIs it is important 
+to note that there is no guarantee that the requested batch size is the actual 
+batch size. Changes are made as necessary to maximize performance. For example, 
+the SOAP API states "batch size will be no more than 200 if the SOQL statement 
+selects two or more custom fields of type long text". The REST API mentions that 
+the limit imposed by Salesforce's app servers is around 20,000 characters which 
+can cause batches to be smaller. In short, it's generally okay to use the default 
+batch sizes since Salesforce may optimize over your specified batch size anyways.
+
+## When to use the Bulk APIs for queries
+
+A general rule of thumb for using the Bulk APIs (Bulk 1.0 and Bulk 2.0) for 
+queries is anytime you need to retrieve more than 10,000 records. The main reasons 
+to not use the Bulk APIs are twofold. First, they do not support complex 
+relationship queries or aggregate queries. If you need to write a nested relationship 
+or aggregate query involving a large number of records you may be tempted to use 
+the REST API. However, it is recommended to perform two or more separate bulk 
+queries that retrieve the records you need and then join or aggregate the results 
+in R.
+
+```{r unsupported-bulk-queries}
+# nested relationship query 
+# (supposed to return the id and first name of all contacts on each account)
+try(
+  sf_query(
+    "SELECT Id, Name, 
+      (SELECT Id, FirstName FROM Contacts)
+    FROM Account",
+    api_type = "Bulk 2.0"
+  )
+)
+
+# aggregate query
+# (supposed to return the count of contacts per account)
+try(
+  sf_query(
+    "SELECT Account.Id, Count(Name) contacts_n
+    FROM Contact
+    GROUP BY Account.Id",  
+    api_type = "Bulk 2.0"
+  )
+)
+```
+
+The two queries above were trying to pull all the contacts for each account and 
+then get a count of how many contacts there are per account. If you have a lot 
+of records, using the REST API to return these results may not be feasible. Even 
+though the Bulk APIs cannot handle the same query, they can pull down massive 
+amounts of data quickly. In this case you can pull down all of the Contact records 
+and all of the Account records and then perform the calculation using **dplyr**, 
+like so:
+
+```{r}
+contacts <- sf_query("SELECT Id, FirstName, Account.Id
+                     FROM Contact", 
+                     api_type = "Bulk 2.0")
+
+accounts <- sf_query("SELECT Id, Name 
+                     FROM Account", 
+                     api_type = "Bulk 2.0")
+
+nested_query_recs <- accounts %>% 
+  left_join(contacts %>% 
+              rename(`Contact.Id` = Id, 
+                     `Contact.FirstName` = FirstName), 
+            by = c("Id" = "Account.Id"))
+nested_query_recs
+
+aggregate_query_recs <- nested_query_recs %>% 
+  group_by(Id) %>%
+  summarize(.groups = 'drop', 
+            contacts_n = sum(!is.na(Contact.Id)))
+aggregate_query_recs
+```
+  
+The second reason to not use the Bulk APIs is that there is a performance overhead 
+associated with every bulk (asynchronous) job that involves checking the status 
+of the job until it succeeds or fails before retrieving the results. 
+
+The example below is provided so that you can take this code as an example to 
+run your own performance test of queries that return 10K, 100K, 1M+ records to 
+see where the Bulk APIs outperform the REST API.
+
+```{r run-performance-test2, eval=FALSE}
+qry_compare <- function(api_type){
+  soql <- sprintf("SELECT Id, LastName, Account.Id, Account.Name, Owner.Id
+                   FROM Contact
+                   WHERE Account.Id = '%s'", 
+                   new_account$id)
+  sf_query(soql, api_type = api_type)
+}
+
+res <- microbenchmark::microbenchmark(
+  qry_compare("REST"),
+  qry_compare("Bulk 1.0"),
+  qry_compare("Bulk 2.0"),
+  times = 5, 
+  unit = "s"
+)
+```
+
+Note that the Bulk 1.0 API requires users to specify the target object along with 
+their submitted SOQL. This is because it is needed when creating the bulk job that 
+will manage and execute the query. 
+
+```{r}
+queried_records <- sf_query(soql, api_type = "Bulk 1.0")
+```
+
+As you can see above the {salesforcer} package will try to infer the object in 
+the query if not explicitly provided. If it does not guess correctly, then please 
+specify.
+
+**Cleanup after performance tests**
+
+By keeping track of the account ids used in our tests, it is fairly easy to find 
+and delete these test records from our Org to save space.
+
+```{r cleanup-performance-test}
+# cleanup performance test Contact records ...
+contacts_to_delete <- sf_query(
+  sprintf("SELECT Id 
+          FROM Contact 
+          WHERE Account.Id = '%s'",
+          new_account$id)
+)
+sf_delete(contacts_to_delete$Id, "Contact", api_type="Bulk 2.0")
+
+# ... and finally delete the account
+sf_delete(new_account$id)
+```
+
+## Relationship queries
+
+Salesforce supports retrieving fields from related objects when querying another 
+object. This is similar to performing a JOIN in SQL, but without having to specify 
+the join keys because Salesforce already knows the relationship between the two 
+objects. There are two types of relationship queries (1. child-to-parent lookups 
+and 2. parent-to-child nested queries) detailed in the sections below.
+
+### child-to-parent "lookup" queries
+
+The first type of relationship query and the most common is child to parent. For 
+example, the Contact object (child) to their parent, the Account object. In order 
+to pull down parent object fields with your child record query, you just need to 
+prefix any fields from the related object by concatenating the name of the 
+object with the field name separated by a period. In the example below we are 
+retrieving all Contact object records that have a relationship to an Account.
+
+```{r}
+# child-to-parent relationship (e.g. Account.Name from Contact record)
+sf_query(
+  "SELECT Id, FirstName, Account.Name
+  FROM Contact
+  WHERE Account.Id != null"
+)
+```
+
+Sometimes you may notice that the requested relationship fields do not appear in
+the query results. This is because the SOAP and REST APIs do not return any
+related object information if it does not exist on the record and there is no
+reliable way to extract and rebuild the empty columns based on the query string. 
+In the example below, if there were Account information an additional column
+titled `"Account.Name"` would appear in the results. 
+
+```{r}
+# child-to-parent relationship (e.g. Account.Name from Contact record)
+sf_query(
+  "SELECT Id, FirstName, Account.Name
+  FROM Contact
+  WHERE Account.Id = null"
+)
+```
+
+Note, that the Bulk 1.0 and Bulk 2.0 APIs will return `"Account.Name"` as a
+column of all `NA` values for this query because they return results
+differently. 
+
+Finally, one aspect to note is that the Bulk 2.0 API does not support 
+child-to-parent-grandparent relationships as seen in the example below:
+
+```{r}
+try(
+  sf_query("SELECT Id, FirstName, Account.Owner.Id
+            FROM Contact", 
+           api_type = "Bulk 2.0")
+)
+```
+
+### parent-to-child "nested" queries
+
+Instead of "looking up" a related field, users can write queries that retrieve the 
+individual records related to a parent. For example, if you would like all of the 
+Accounts and their Contacts you can write the query like so: 
+
+```{r}
+sf_query(
+  "SELECT Id, Name, 
+    (SELECT Id, FirstName FROM Contacts)
+  FROM Account"
+)
+```
+
+At first glance this query may appear the same as a lookup query on the Contact object 
+that includes the account id and name. However, the small difference is that every 
+Account is included, regardless of whether or not they have a Contact. This can be 
+helpful when you want to ensure a query contains all of the parent records and their
+child records, if they exist. Also, note that the plural object name is used inside 
+the nested query ("Contacts" instead of "Contact"). 
+
+Finally, a parent-to-child nested query can also contain a child-to-parent lookup 
+relationship within it. Below is an example where the Owner Id on the Contact is 
+included so you can know who is responsible for the Contacts under each Account.
+
+```{r}
+sf_query(
+  "SELECT Name, Owner.Id, 
+    (SELECT Id, FirstName, Owner.Id FROM Contacts)
+   FROM Account"
+)
+```
+
+## Troubleshooting
+
+If you are having an issue with a query please submit in the {salesforcer} GitHub 
+repository at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/issues">https://github.com/StevenMMortimer/salesforcer/issues</a>. As a maintainer, queries are tough to debug because every Salesforce 
+Org is unique. Custom objects or relationships created in your Salesforce Org may 
+be different or even impossible to test in another Org. When filing your issue please 
+make an attempt to understand the query and debug a little bit on your own. Here 
+are a few suggestions:  
+
+  1. Slightly modify your function call to `sf_query()` to observe the results. Here 
+  are a few prompting questions that may assist you:  
+  
+      - What do you see when you set `verbose=TRUE` argument?
+      
+      - What happens if you change the `control` argument, specifically the batch size? 
+      
+      - What happens if you try using a different API (e.g. "SOAP" vs "REST" or "Bulk 1.0" vs "Bulk 2.0")?
+      
+      - What happens if you change your query slightly? 
+      
+      - Do you need a parent-to-child nested relationship query or will a child-to-parent lookup suffice? 
+    
+  2. Check out Salesforce's Workbench tool to see how it constructs specific 
+     queries that you are debugging. The tool is available at
+     `https://workbench.developerforce.com` and requires a Salesforce login 
+     (the same credentials as you normally would use).
+  
+  3. Double check Salesforce's <a rel="noopener noreferrer" target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">SOQL reference guide</a> to see whether your query is supported or limited in some way.
+  
+  4. Review query unit tests at: <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/tests/testthat/test-query.R</a>. 
+  These unit tests were written to cover a variety of use cases and to track any 
+  changes made between newly released versions of the Salesforce API (typically 
+  4 each year). These tests are an excellent source of examples that may be 
+  helpful in troubleshooting your own query.
+  
+  5. Roll up your sleeves and dive into the source code for the {salesforcer} 
+  package. The main scripts to review are:  
+  
+      - <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/query.R</a>
+      
+      - <a rel="noopener noreferrer" target="_blank" href="https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-query.R">https://github.com/StevenMMortimer/salesforcer/blob/main/R/utils-query.R</a>

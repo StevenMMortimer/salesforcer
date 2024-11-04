@@ -56,10 +56,11 @@ objects during upserts to determine if the record already exists in Salesforce o
 
 \item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
 to try and cast the data returned in the recordset. If \code{TRUE} then
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
-as character. This is helpful when \code{col_guess()} will mangle field values
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
-like numeric looking values that must be preserved as strings ("48.0").}
+\code{col_guess()} is used along with \code{anytime()} and \code{anydate()}.
+If \code{FALSE} then all fields will be returned as character. Specifying
+\code{FALSE} helpful when guessing the column data type will result in NA
+values and you would like to return the results as strings and then cast in
+your script according to your unique specifications.}
 
 \item{api_type}{\code{character}; one of \code{"REST"}, \code{"SOAP"},
 \code{"Bulk 1.0"}, or \code{"Bulk 2.0"} indicating which API to use when
@@ -111,11 +112,11 @@ match the ordering of records in the original job data.
 \examples{
 \dontrun{
 n <- 20
-new_contacts <- tibble(FirstName = rep("Test", n), 
+new_contacts <- tibble(FirstName = rep("Test", n),
                        LastName = paste0("Contact", 1:n))
 # insert new records into the Contact object
-inserts <- sf_bulk_operation(input_data = new_contacts, 
-                             object_name = "Contact", 
+inserts <- sf_bulk_operation(input_data = new_contacts,
+                             object_name = "Contact",
                              operation = "insert")
 }
 }

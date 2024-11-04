@@ -1,0 +1,286 @@
+---
+title: "Working with Attachments"
+author: "Steven M. Mortimer"
+date: "2020-08-16"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{Working with Attachments}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+options(tibble.print_min = 5L, tibble.print_max = 5L)
+```
+
+## Attachments in Salesforce
+
+Almost all records in Salesforce support attachments. Attachments are just blob data 
+storage for an associated ParentId. A ParentId is the 18-character Salesforcer Id 
+of the record that the attachment belongs to. To get started creating and updating 
+attachments, first, load the {salesforcer} and {dplyr} packages and login, if needed.
+
+```{r auth, include = FALSE}
+suppressWarnings(suppressMessages(library(dplyr)))
+suppressWarnings(suppressMessages(library(here)))
+library(salesforcer)
+token_path <- Sys.getenv("SALESFORCER_TOKEN_PATH")
+sf_auth(token = paste0(token_path, "salesforcer_token.rds"))
+```
+
+```{r load-package, eval=FALSE}
+library(dplyr, warn.conflicts = FALSE)
+library(salesforcer)
+sf_auth()
+```
+
+The Attachment data, for example, the attachment's Id, ParentId, Name, Body, ModifiedDate, 
+and other attributes are stored in the Attachment object, a Standard Object in Salesforce.
+
+## Creating (Uploading) Attachments
+
+Below we will cover 2 different methods of creating attachments: 
+
+1. Uploading local files as Attachments one at a time using the SOAP and REST API (most common usage)
+2. Uploading large batches of files using the Bulk API, which zips the files before upload
+
+**Uploading local files as Attachments (SOAP and REST)**
+
+When uploading an attachment stored locally (i.e. on your computer), you can provide 
+an absolute or relative path to the current working directory. If the `Name` column 
+is omitted, then the name of the attachment as it appears in Salesforce will be 
+the same as the base file name and extension. For example, if the path provided is 
+"/Documents/attachments/doc1.pdf", then the `Name` field will be set to "doc1.pdf".
+
+In the example below, we upload three attachments to two different parent records. 
+Note: Make sure to replace the paths and ParentIds in the example below with file 
+paths that exist on your local machine and Ids of records in your Salesforce org.
+
+```{r}
+# define the ParentIds where the attachments will be shown in Salesforce
+parent_record_id1 <- "0016A0000035mJ4"
+parent_record_id2 <- "0016A0000035mJ5"
+
+# provide the file paths of where the attachments exist locally on your machine
+# in this case we are referencing images included within the salesforcer package, 
+# but any absolute or relative path locally will work
+file_path1 <- system.file("extdata", "cloud.png", package="salesforcer")
+file_path2 <- system.file("extdata", "logo.png", package="salesforcer")
+file_path3 <- system.file("extdata", "old-logo.png", package="salesforcer")
+
+# create a data.frame or tbl_df out of this information
+attachment_details <- tibble(Body = rep(c(file_path1, 
+                                          file_path2, 
+                                          file_path3), 
+                                        times=2),
+                             ParentId = rep(c(parent_record_id1, 
+                                              parent_record_id2), 
+                                            each=3))
+
+# create the attachments!
+result <- sf_create_attachment(attachment_details)
+result
+```
+
+## Downloading Attachments
+
+After uploading attachments to Salesforce you can download them by first querying 
+the metadata in the Attachment object. This metadata provides the Id for the blob 
+data attachment for download. A convenience function, `sf_download_attachment()`, 
+has been created to download attachments quickly. The example below shows how to 
+query the metadata of attachments belonging to particular ParentId.
+
+```{r}
+# pull down all attachments associated with a particular record
+queried_attachments <- sf_query(sprintf("SELECT Id, Body, Name, ParentId
+                                         FROM Attachment
+                                         WHERE ParentId IN ('%s', '%s')", 
+                                         parent_record_id1, parent_record_id2))
+queried_attachments
+```
+
+Before downloading the attachments using the Body it is important to consider 
+whether the attachment names are repeated or duplicates. If so, then the attachments 
+with the same exact name will be overwritten on the local filesystem as they are 
+downloaded. To avoid this problem there are two common strategies:  
+
+1. Create a new column (e.g. `unique_name`) that is the concatenation of the 
+Attachment Id and the Attachment's name which is guaranteed to be unique.
+2. Save the attachments in separate folders for each ParentId record.
+
+As long as the same ParentId record doesn't name attachments with the same name, then 
+Strategy #2 above will work. In addition, it may help better organize the documents 
+if you are planning to download many and then upload again to Salesforce using the 
+Bulk API as demonstrated later in this script.
+
+```{r}
+# create a new folder for each ParentId in the dataset
+temp_dir <- tempdir()
+for (pid in unique(queried_attachments$ParentId)){
+  dir.create(file.path(temp_dir, pid), showWarnings = FALSE) # ignore if already exists
+}
+
+# create a new columns in the queried data so that we can pass this information 
+# on to the function `sf_download_attachment()` that will actually perform the download
+queried_attachments <- queried_attachments %>% 
+  # Strategy 1: Unique file names (ununsed here, but shown as an example)
+  mutate(unique_name = paste(Id, Name, sep='___')) %>% 
+  # Strategy 2: Separate folders per parent
+  mutate(Path = file.path(temp_dir, ParentId))
+
+# download all of the attachments for a single ParentId record to their own folder
+download_result <- mapply(sf_download_attachment, 
+                          body = queried_attachments$Body, 
+                          name = queried_attachments$Name, 
+                          path = queried_attachments$Path)
+download_result
+```
+```{r cleanup-1, include = FALSE}
+sf_delete(queried_attachments$Id)
+```
+
+## Updating Attachments
+
+Once an Attachment record is created, you are still able to update the content
+and metadata (`Name`, `IsPrivate`, and `OwnerId`) for the record. The
+`sf_update_attachment()` function works just like `sf_update()` except that you
+will need to include the `Body` column where the content of the attachment is
+help. **NOTE**: If you just want to update the metadata and not the Attachment
+content itself, you can simply use `sf_update()` to modify fields other than the
+`Body` field on the record.
+
+The example below demonstrates how to add an attachment to a record, then 
+download it, zip it, re-upload to the record in order to save disk space in your 
+Org.
+
+```{r}
+# upload a PDF to a particular record as an Attachment
+file_path <- system.file("extdata",
+                         "data-wrangling-cheatsheet.pdf",
+                         package = "salesforcer")
+parent_record_id <- "0036A000002C6MmQAK" # replace with your own ParentId!
+attachment_details <- tibble(Body = file_path, ParentId = parent_record_id)
+create_result <- sf_create_attachment(attachment_details)
+
+# download, zip, and re-upload the PDF
+pdf_path <- sf_download_attachment(sf_id = create_result$id[1])
+zipped_path <- paste0(pdf_path, ".zip")
+zip(zipped_path, pdf_path, flags = "-qq") # quiet zipping messages
+attachment_details <- tibble(Id = create_result$id, Body = zipped_path)
+sf_update_attachment(attachment_details)
+```
+
+There is a function `sf_delete_attachment()`, which simply wraps `sf_delete()` 
+so feel free to use for clarity in your code that you're working with attachments 
+use `sf_delete()`.
+
+```{r cleanup-2}
+sf_delete_attachment(ids = create_result$id)
+# sf_delete(ids = create_result$id) # would also work
+```
+
+**Uploading large batches of attachments using the Bulk API**
+
+The SOAP and REST APIs are good for working with a few attachments at a time.
+However, the Bulk API can be invoked using api_type="Bulk 1.0" to automatically
+take a `data.frame` or `tbl_df` of Attachment field data and create a ZIP file
+with CSV manifest that is required by that API to upload. In the example above, 
+we downloaded the three attachments each belonging to two different parent
+records. Assuming that I have run that code and the files are in that my computer 
+I can demonstrate that all of them can be uploaded at once using the Bulk 1.0 API.
+
+```{r}
+# create the attachment metadata required (Name, Body, ParentId)
+attachment_details <- queried_attachments %>% 
+  mutate(Body = file.path(Path, Name)) %>% 
+  select(Name, Body, ParentId) 
+```
+```{r}
+result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
+result
+```
+```{r cleanup-3, include = FALSE}
+for (pid in unique(queried_attachments$ParentId)){
+  unlink(file.path(temp_dir, pid), recursive=TRUE) # remove directories...
+}
+sf_delete(result$Id) #... and records in Salesforce
+```
+
+**NOTE**: As of v48.0 (Spring '20), it does not appear that the Bulk 2.0 API 
+supports working with Attachments, so the Bulk 1.0 API must be used for bulk 
+functionality.
+
+Finally, you are able to update Attachments with the Bulk API just as shown 
+above in the REST/SOAP API examples.
+
+## Extending to Documents and Other Blob Data
+
+The commands for working with Attachments also work for uploading documents and 
+other blob data as well. Documents are just like Attachments in Salesforce except 
+instead of having an associated ParentId they have an associated FolderId where 
+the blob will be associated with upon creation. Here is a brief example of uploading 
+a PDF ("Document") to a Folder 
+
+```{r}
+# the function supports inserting all types of blob content, just update the 
+# object_name argument to add the PDF as a Document instead of an Attachment
+document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 1",
+                           Description = "RStudio cheatsheet covering dplyr and tidyr.",
+                           Body = system.file("extdata", 
+                                              "data-wrangling-cheatsheet.pdf",
+                                              package="salesforcer"),
+                           FolderId = "00l6A000001EgIwQAK",
+                           Keywords = "test,cheatsheet,document")
+result <- sf_create_attachment(document_details, object_name = "Document")
+result
+```
+```{r cleanup-4, include = FALSE}
+sf_delete(result$id)
+```
+
+With Documents, users are also able to save storage by specifying a `Url` instead 
+of a a file path where the `Body` content is stored locally. Specifying the `Url` 
+field will reference the URL instead of uploading into the Salesforce org, thereby 
+saving space if limited in your organization.
+
+```{r}
+cheatsheet_url <- "https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"
+document_details <- tibble(Name = "Data Wrangling Cheatsheet - Test 2",
+                           Description = "RStudio cheatsheet covering dplyr and tidyr.",
+                           Url = cheatsheet_url,  
+                           FolderId = "00l6A000001EgIwQAK",
+                           Keywords = "test,cheatsheet,document")
+result <- sf_create_attachment(document_details, object_name = "Document")
+result
+```
+```{r cleanup-5, include = FALSE}
+sf_delete(result$id)
+```
+
+## Reference Links
+
+Below is a list of links to existing Salesforce documentation that provide more 
+detail into how Attachments, Documents, and other blob data are handled via their 
+APIs. As with many functions in {salesforcer}, we have tried to translate these 
+functions exactly as they are described in the Salesforce documentation so that 
+they are flexible enough to handle most all cases that the APIs were intended to 
+support.
+
+ * **Attachment Object**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm</a>
+ 
+ * **Document Object**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm</a>
+ 
+ * **REST API Upload Attachment**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm</a> 
+ 
+ * **Bulk API Upload Attachments**: <a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm" rel="noopener noreferrer" target="_blank">https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/binary_intro.htm</a>

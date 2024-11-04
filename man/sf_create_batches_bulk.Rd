@@ -40,7 +40,7 @@ an already existing Bulk API Job by chunking into temp files
 }
 \examples{
 \dontrun{
-# NOTE THAT YOU MUST FIRST CREATE AN EXTERNAL ID FIELD CALLED My_External_Id 
+# NOTE THAT YOU MUST FIRST CREATE AN EXTERNAL ID FIELD CALLED My_External_Id
 # BEFORE RUNNING THIS EXAMPLE
 # inserting 2 records
 my_data <- tibble(Name=c('New Record 1', 'New Record 2'),
@@ -50,14 +50,14 @@ job_info <- sf_create_job_bulk(operation='insert',
 batches_ind <- sf_create_batches_bulk(job_id = job_info$id,
                                       input_data = my_data)
 # upserting 3 records
-my_data2 <- tibble(My_External_Id__c=c('11111','22222', '99999'), 
-                  Name=c('Updated_Name1', 'Updated_Name2', 'Upserted_Record')) 
+my_data2 <- tibble(My_External_Id__c=c('11111','22222', '99999'),
+                  Name=c('Updated_Name1', 'Updated_Name2', 'Upserted_Record'))
 job_info <- sf_create_job_bulk(operation='upsert',
                                externalIdFieldName='My_External_Id__c',
                                object='Account')
 batches_ind <- sf_create_batches_bulk(job_id = job_info$id,
                                       input_data = my_data2)
-sf_get_job_bulk(job_info$id)                                     
+sf_get_job_bulk(job_info$id)
 }
 }
 \references{

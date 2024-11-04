@@ -35,10 +35,11 @@ making the request.}
 
 \item{guess_types}{\code{logical}; indicating whether or not to use \code{col_guess()}
 to try and cast the data returned in the recordset. If \code{TRUE} then
-\code{col_guess()} is used, if \code{FALSE} then all fields will be returned
-as character. This is helpful when \code{col_guess()} will mangle field values
-in Salesforce that you'd like to preserve during translation into a \code{tbl_df},
-like numeric looking values that must be preserved as strings ("48.0").}
+\code{col_guess()} is used along with \code{anytime()} and \code{anydate()}.
+If \code{FALSE} then all fields will be returned as character. Specifying
+\code{FALSE} helpful when guessing the column data type will result in NA
+values and you would like to return the results as strings and then cast in
+your script according to your unique specifications.}
 
 \item{control}{\code{list}; a list of parameters for controlling the behavior of
 the API call being used. For more information of what parameters are available
