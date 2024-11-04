@@ -7,7 +7,12 @@
   * Remove deprecation warning for basic authentication (password and 
     security token) because many users have found that it's still possible to
     use for programmatic (API-based) access even if their org requires users to
-    log in via multi-factor authentication.
+    log in via multi-factor authentication. (#128)
+
+## Features
+
+  * Add two new datetime formats that will automatically be parsed if they appear
+    in the query recordset `"%m-%d-%Y %H:%M"` and `"%d-%m-%Y %H:%M"`. (#127)
     
 ## Bug fixes
 
