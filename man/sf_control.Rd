@@ -89,7 +89,7 @@ function using the SOAP API. The value must be a valid user locale (language and
 \code{de_DE} or \code{en_GB}. For more information, read the Salesforce documentation
 \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_localeheader.htm}{here}.
 The list of valid user locales is available
-\href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_categorynodelocalization.htm#languagelocalekey_desc}{here}.}
+\href{https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/api/sforce_api_objects_categorynodelocalization.htm#languagelocalekey_desc}{here}.}
 
 \item{MruHeader}{\code{list}; containing the \code{updateMru} element with a value
 of \code{TRUE} or \code{FALSE}. This control indicates whether to update the list
@@ -159,16 +159,16 @@ for the \code{\link[stats]{glm}} function.
 }
 \examples{
 \dontrun{
-this_control <- sf_control(DuplicateRuleHeader=list(allowSave=TRUE, 
-                                                    includeRecordDetails=FALSE, 
+this_control <- sf_control(DuplicateRuleHeader=list(allowSave=TRUE,
+                                                    includeRecordDetails=FALSE,
                                                     runAsCurrentUser=TRUE))
 new_contact <- c(FirstName = "Test", LastName = "Contact-Create")
 new_record <- sf_create(new_contact, "Contact", control = this_control)
 
 # specifying the controls directly and are picked up by dots
-new_record <- sf_create(new_contact, "Contact", 
-                        DuplicateRuleHeader = list(allowSave=TRUE, 
-                                                   includeRecordDetails=FALSE, 
+new_record <- sf_create(new_contact, "Contact",
+                        DuplicateRuleHeader = list(allowSave=TRUE,
+                                                   includeRecordDetails=FALSE,
                                                    runAsCurrentUser=TRUE))
 }
 }
