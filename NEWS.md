@@ -1,4 +1,4 @@
-# salesforcer 1.0.1.9999
+# salesforcer 1.0.2
 
 ## Dependencies
 
