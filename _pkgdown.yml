@@ -2,6 +2,10 @@ title: salesforcer
 url: https://stevenmmortimer.github.io/salesforcer/
 template:
   bootstrap: 5
+  opengraph:
+    image:
+      src: man/figures/salesforcer.png
+      alt: "salesforcer package logo"
   params:
     bootswatch: spacelab
     ganalytics: UA-98603021-2
@@ -12,12 +16,6 @@ template:
 
 home:
   strip_header: true
-
-template:
-  opengraph:
-    image:
-      src: man/figures/salesforcer.png
-      alt: "salesforcer package logo"
 
 navbar:
   type: default
