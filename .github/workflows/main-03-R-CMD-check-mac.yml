@@ -104,7 +104,7 @@ jobs:
 
       - name: Trigger next workflow
         if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
           repository: StevenMMortimer/salesforcer
@@ -113,7 +113,7 @@ jobs:
 
       - name: Set final R-CMD-check status
         if: ${{ (github.event_name != 'workflow_dispatch' && failure()) }}
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
           repository: StevenMMortimer/salesforcer
