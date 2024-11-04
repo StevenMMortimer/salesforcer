@@ -32,7 +32,7 @@ jobs:
       SALESFORCER_TOKEN_PATH: ${{ github.workspace }}\tests\testthat\
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.client_payload.sha }}
       - name: Decrypt OAuth Token
@@ -46,7 +46,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
       
       - name: Query dependencies
         run: |
@@ -56,7 +56,7 @@ jobs:
         
       - name: Cache R packages
         if: runner.os != 'Windows'
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-3-${{ hashFiles('.github/depends.Rds') }}
@@ -97,7 +97,7 @@ jobs:
 
       - name: Upload check results
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-r-${{ matrix.config.r }}-results
           path: check

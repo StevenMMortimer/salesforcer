@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-  * Increment the package's default Salesforce API version to 55.0 (Summer '22).
+  * Increment the package's default Salesforce API version to 61.0 (Summer '24).
   
   * Remove deprecation warning for basic authentication (password and 
     security token) because many users have found that it's still possible to
