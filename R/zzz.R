@@ -26,3 +26,7 @@
 .state$token <- NULL
 .state$session_id <- NULL
 .state$instance_url <- NULL
+
+# add additional datetime formats to guess using anytime package
+addFormats("%m-%d-%Y %H:%M")
+addFormats("%d-%m-%Y %H:%M")
