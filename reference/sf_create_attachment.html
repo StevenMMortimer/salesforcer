@@ -184,8 +184,8 @@ of base64–encoded data.</p>
     <h2>Salesforce Documentation</h2>
 
 
-<ul><li><p><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm" class="external-link">Attachment Object (SOAP)</a></p></li>
-<li><p><a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm" class="external-link">Document Object (SOAP)</a></p></li>
+<ul><li><p><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_attachment.htm" class="external-link">Attachment Object (SOAP)</a></p></li>
+<li><p><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_document.htm" class="external-link">Document Object (SOAP)</a></p></li>
 <li><p><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm" class="external-link">Insert or Update Blob Data</a></p></li>
 </ul></div>
     <div id="see-also">
@@ -204,21 +204,21 @@ of base64–encoded data.</p>
 <span class="r-in"><span><span class="va">file_path1</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"doc1.pdf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">file_path2</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"doc2.pdf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">parent_record_id</span> <span class="op">&lt;-</span> <span class="st">"0036A000002C6MmQAK"</span></span></span>
-<span class="r-in"><span><span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">file_path1</span>, <span class="va">file_path2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span><span class="va">attachment_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Body <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">file_path1</span>, <span class="va">file_path2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                             ParentId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">parent_record_id</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">sf_create_attachment</span><span class="op">(</span><span class="va">attachment_details</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># the function supports inserting all blob content, just update the </span></span></span>
+<span class="r-in"><span><span class="co"># the function supports inserting all blob content, just update the</span></span></span>
 <span class="r-in"><span><span class="co"># object_name argument to add the PDF as a Document instead of an Attachment</span></span></span>
-<span class="r-in"><span><span class="va">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Name <span class="op">=</span> <span class="st">"doc1.pdf"</span>, </span></span>
-<span class="r-in"><span>                           Description <span class="op">=</span> <span class="st">"Test Document 1"</span>, </span></span>
+<span class="r-in"><span><span class="va">document_details</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Name <span class="op">=</span> <span class="st">"doc1.pdf"</span>,</span></span>
+<span class="r-in"><span>                           Description <span class="op">=</span> <span class="st">"Test Document 1"</span>,</span></span>
 <span class="r-in"><span>                           Body <span class="op">=</span> <span class="va">file_path1</span>,</span></span>
 <span class="r-in"><span>                           FolderId <span class="op">=</span> <span class="st">"00l6A000001EgIwQAK"</span>, <span class="co"># replace with your FolderId!</span></span></span>
 <span class="r-in"><span>                           Keywords <span class="op">=</span> <span class="st">"example,test,document"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">sf_create_attachment</span><span class="op">(</span><span class="va">document_details</span>, object_name <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically </span></span></span>
-<span class="r-in"><span><span class="co"># take a data.frame of Attachment info and create a ZIP file with CSV manifest </span></span></span>
+<span class="r-in"><span><span class="co"># the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically</span></span></span>
+<span class="r-in"><span><span class="co"># take a data.frame of Attachment info and create a ZIP file with CSV manifest</span></span></span>
 <span class="r-in"><span><span class="co"># that is required for that API</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">sf_create_attachment</span><span class="op">(</span><span class="va">attachment_details</span>, api_type<span class="op">=</span><span class="st">"Bulk 1.0"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>

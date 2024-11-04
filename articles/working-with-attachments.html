@@ -208,11 +208,11 @@ Ids of records in your Salesforce org.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgIQMA0 TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00PKg000001EgJ3MAK TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00PKg000001Eg8YMAS TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00PKg000001EgJ8MAK TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00PKg000001EgJDMA0 TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgM6MAK TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00PKg000001EgMBMA0 TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00PKg000001EgJ9MAK TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00PKg000001EgMGMA0 TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00PKg000001EgMLMA0 TRUE   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more row</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -231,15 +231,15 @@ metadata of attachments belonging to particular ParentId.</p>
 <span><span class="st">                                         WHERE ParentId IN ('%s', '%s')"</span>, </span>
 <span>                                         <span class="va">parent_record_id1</span>, <span class="va">parent_record_id2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">queried_attachments</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 4</span></span></span>
 <span><span class="co">#&gt;   Id                 Body                                         Name  ParentId</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001Eg8YMAS /services/data/v61.0/sobjects/Attachment/00… old-… 0016A00…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00PKg000001EgJ3MAK /services/data/v61.0/sobjects/Attachment/00… logo… 0016A00…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00PKg000001EgIQMA0 /services/data/v61.0/sobjects/Attachment/00… clou… 0016A00…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00PKg000001EgJIMA0 /services/data/v61.0/sobjects/Attachment/00… old-… 0016A00…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00PKg000001EgJ8MAK /services/data/v61.0/sobjects/Attachment/00… clou… 0016A00…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more row</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgMBMA0 /services/data/v61.0/sobjects/Attachment/00… logo… 0016A00…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00PKg000001EgJOMA0 /services/data/v61.0/sobjects/Attachment/00… clou… 0016A00…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00PKg000001EgJPMA0 /services/data/v61.0/sobjects/Attachment/00… logo… 0016A00…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00PKg000001EgJQMA0 /services/data/v61.0/sobjects/Attachment/00… old-… 0016A00…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00PKg000001EgJ9MAK /services/data/v61.0/sobjects/Attachment/00… old-… 0016A00…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7 more rows</span></span></span></code></pre></div>
 <p>Before downloading the attachments using the Body it is important to
 consider whether the attachment names are repeated or duplicates. If so,
 then the attachments with the same exact name will be overwritten on the
@@ -278,18 +278,30 @@ in this script.</p>
 <span>                          name <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Name</span>, </span>
 <span>                          path <span class="op">=</span> <span class="va">queried_attachments</span><span class="op">$</span><span class="va">Path</span><span class="op">)</span></span>
 <span><span class="va">download_result</span></span>
-<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001Eg8YMAS/Body </span></span>
-<span><span class="co">#&gt; "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//RtmpeilJ05/0016A0000035mJ4QAI/old-logo.png" </span></span>
-<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJ3MAK/Body </span></span>
-<span><span class="co">#&gt;     "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//RtmpeilJ05/0016A0000035mJ4QAI/logo.png" </span></span>
-<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgIQMA0/Body </span></span>
-<span><span class="co">#&gt;    "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//RtmpeilJ05/0016A0000035mJ4QAI/cloud.png" </span></span>
-<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJIMA0/Body </span></span>
-<span><span class="co">#&gt; "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//RtmpeilJ05/0016A0000035mJ5QAI/old-logo.png" </span></span>
-<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJ8MAK/Body </span></span>
-<span><span class="co">#&gt;    "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//RtmpeilJ05/0016A0000035mJ5QAI/cloud.png" </span></span>
-<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJDMA0/Body </span></span>
-<span><span class="co">#&gt;     "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//RtmpeilJ05/0016A0000035mJ5QAI/logo.png"</span></span></code></pre></div>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgMBMA0/Body </span></span>
+<span><span class="co">#&gt;     "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ4QAI/logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJOMA0/Body </span></span>
+<span><span class="co">#&gt;    "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ4QAI/cloud.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJPMA0/Body </span></span>
+<span><span class="co">#&gt;     "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ4QAI/logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJQMA0/Body </span></span>
+<span><span class="co">#&gt; "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ4QAI/old-logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJ9MAK/Body </span></span>
+<span><span class="co">#&gt; "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ4QAI/old-logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgM6MAK/Body </span></span>
+<span><span class="co">#&gt;    "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ4QAI/cloud.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgJRMA0/Body </span></span>
+<span><span class="co">#&gt;     "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ5QAI/logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgLLMA0/Body </span></span>
+<span><span class="co">#&gt; "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ5QAI/old-logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgLMMA0/Body </span></span>
+<span><span class="co">#&gt;    "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ5QAI/cloud.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgMGMA0/Body </span></span>
+<span><span class="co">#&gt;    "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ5QAI/cloud.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgMLMA0/Body </span></span>
+<span><span class="co">#&gt;     "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ5QAI/logo.png" </span></span>
+<span><span class="co">#&gt;                               /services/data/v61.0/sobjects/Attachment/00PKg000001EgMQMA0/Body </span></span>
+<span><span class="co">#&gt; "/var/folders/g6/rgtlsw6n123b0gt5483s5_cm0000gn/T//Rtmp9D8V9y/0016A0000035mJ5QAI/old-logo.png"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="updating-attachments">Updating Attachments<a class="anchor" aria-label="anchor" href="#updating-attachments"></a>
@@ -325,7 +337,7 @@ space in your Org.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgJNMA0 TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgMVMA0 TRUE</span></span></code></pre></div>
 <p>There is a function <code><a href="../reference/sf_delete_attachment.html">sf_delete_attachment()</a></code>, which simply
 wraps <code><a href="../reference/sf_delete.html">sf_delete()</a></code> so feel free to use for clarity in your
 code that you’re working with attachments use
@@ -335,7 +347,7 @@ code that you’re working with attachments use
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgJNMA0 TRUE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgMVMA0 TRUE</span></span>
 <span><span class="co"># sf_delete(ids = create_result$id) # would also work</span></span></code></pre></div>
 <p><strong>Uploading large batches of attachments using the Bulk
 API</strong></p>
@@ -356,15 +368,15 @@ Bulk 1.0 API.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sf_create_attachment.html">sf_create_attachment</a></span><span class="op">(</span><span class="va">attachment_details</span>, api_type<span class="op">=</span><span class="st">"Bulk 1.0"</span><span class="op">)</span></span>
 <span><span class="va">result</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 4</span></span></span>
 <span><span class="co">#&gt;   Id                 Success Created Error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgJSMA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00PKg000001EgJTMA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00PKg000001EgJUMA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00PKg000001EgJVMA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00PKg000001EgJWMA0 TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more row</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 00PKg000001EgMaMAK TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 00PKg000001EgMbMAK TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 00PKg000001EgMcMAK TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 00PKg000001EgMdMAK TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 00PKg000001EgMeMAK TRUE    TRUE    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7 more rows</span></span></span></code></pre></div>
 <p><strong>NOTE</strong>: As of v48.0 (Spring ’20), it does not appear
 that the Bulk 2.0 API supports working with Attachments, so the Bulk 1.0
 API must be used for bulk functionality.</p>
@@ -395,7 +407,7 @@ PDF (“Document”) to a Folder</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 015Kg000000x3XbIAI TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 015Kg000000x3XlIAI TRUE</span></span></code></pre></div>
 <p>With Documents, users are also able to save storage by specifying a
 <code>Url</code> instead of a a file path where the <code>Body</code>
 content is stored locally. Specifying the <code>Url</code> field will
@@ -413,7 +425,7 @@ saving space if limited in your organization.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 015Kg000000x3XgIAI TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 015Kg000000x3XqIAI TRUE</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="reference-links">Reference Links<a class="anchor" aria-label="anchor" href="#reference-links"></a>

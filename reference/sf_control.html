@@ -214,7 +214,7 @@ function using the SOAP API. The value must be a valid user locale (language and
 <code>de_DE</code> or <code>en_GB</code>. For more information, read the Salesforce documentation
 <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_header_localeheader.htm" class="external-link">here</a>.
 The list of valid user locales is available
-<a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_categorynodelocalization.htm#languagelocalekey_desc" class="external-link">here</a>.</p></dd>
+<a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/api/sforce_api_objects_categorynodelocalization.htm#languagelocalekey_desc" class="external-link">here</a>.</p></dd>
 
 
 <dt id="arg-mruheader">MruHeader<a class="anchor" aria-label="anchor" href="#arg-mruheader"></a></dt>
@@ -299,16 +299,16 @@ performed (e.g. "insert", "update", "upsert", "delete", "hardDelete",
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">this_control</span> <span class="op">&lt;-</span> <span class="fu">sf_control</span><span class="op">(</span>DuplicateRuleHeader<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave<span class="op">=</span><span class="cn">TRUE</span>, </span></span>
-<span class="r-in"><span>                                                    includeRecordDetails<span class="op">=</span><span class="cn">FALSE</span>, </span></span>
+<span class="r-in"><span><span class="va">this_control</span> <span class="op">&lt;-</span> <span class="fu">sf_control</span><span class="op">(</span>DuplicateRuleHeader<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                                                    includeRecordDetails<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                                                    runAsCurrentUser<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">new_contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FirstName <span class="op">=</span> <span class="st">"Test"</span>, LastName <span class="op">=</span> <span class="st">"Contact-Create"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">new_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>, <span class="st">"Contact"</span>, control <span class="op">=</span> <span class="va">this_control</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># specifying the controls directly and are picked up by dots</span></span></span>
-<span class="r-in"><span><span class="va">new_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>, <span class="st">"Contact"</span>, </span></span>
-<span class="r-in"><span>                        DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave<span class="op">=</span><span class="cn">TRUE</span>, </span></span>
-<span class="r-in"><span>                                                   includeRecordDetails<span class="op">=</span><span class="cn">FALSE</span>, </span></span>
+<span class="r-in"><span><span class="va">new_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="sf_create.html">sf_create</a></span><span class="op">(</span><span class="va">new_contact</span>, <span class="st">"Contact"</span>,</span></span>
+<span class="r-in"><span>                        DuplicateRuleHeader <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allowSave<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                                                   includeRecordDetails<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                                                   runAsCurrentUser<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
