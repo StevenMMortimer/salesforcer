@@ -7,13 +7,14 @@
 * macOS 14 Arm64 (macos-latest on GitHub Actions) R-release 4.4.2
 * Windows Server 2022 (windows-latest on GitHub Actions) R-release 4.4.2
 * win-builder (Windows Server 2022 x64 (build 20348)), R-devel (2024-11-03 r87286 ucrt)
+* win-builder (Windows Server 2022 x64 (build 20348)), R-release 4.4.1
 
 ## R CMD check results
 
-* checking CRAN incoming feasibility ... [17s] NOTE
+* checking CRAN incoming feasibility ... [14s] Note_to_CRAN_maintainers
 Maintainer: 'Steven M. Mortimer <mortimer.steven.m@gmail.com>'
 
-0 errors ✓ | 0 warnings ✓ | 1 notes ✖
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
 ## revdepcheck results
 
