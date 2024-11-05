@@ -240,8 +240,8 @@ performance difference between the REST and SOAP APIs when querying
 <span><span class="va">res</span></span>
 <span><span class="co">#&gt; Unit: seconds</span></span>
 <span><span class="co">#&gt;         expr       min        lq      mean    median        uq       max neval</span></span>
-<span><span class="co">#&gt;  qry("REST") 0.1909498 0.2000438 0.2033897 0.2010082 0.2052025 0.2197440     5</span></span>
-<span><span class="co">#&gt;  qry("SOAP") 0.5724257 0.5747851 0.6009210 0.5979982 0.6195581 0.6398377     5</span></span>
+<span><span class="co">#&gt;  qry("REST") 0.1812047 0.1930219 0.2064439 0.2002970 0.2056122 0.2520838     5</span></span>
+<span><span class="co">#&gt;  qry("SOAP") 0.5370357 0.5637340 0.5953477 0.5979761 0.6085665 0.6694263     5</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -403,11 +403,11 @@ space.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 99 × 4</span></span></span>
 <span><span class="co">#&gt;   Id                 sf__Id             sf__Created sf__Error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZYCIA4 003Kg000002AZYCIA4 FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZYDIA4 003Kg000002AZYDIA4 FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 003Kg000002AZYEIA4 003Kg000002AZYEIA4 FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 003Kg000002AZYFIA4 003Kg000002AZYFIA4 FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 003Kg000002AZYGIA4 003Kg000002AZYGIA4 FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZhuIAG 003Kg000002AZhuIAG FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZhvIAG 003Kg000002AZhvIAG FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 003Kg000002AZhwIAG 003Kg000002AZhwIAG FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 003Kg000002AZhxIAG 003Kg000002AZhxIAG FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 003Kg000002AZhyIAG 003Kg000002AZhyIAG FALSE       <span style="color: #BB0000;">NA</span>       </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 94 more rows</span></span></span>
 <span></span>
 <span><span class="co"># ... and finally delete the account</span></span>
@@ -415,7 +415,7 @@ space.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
 <span><span class="co">#&gt;   id                 success errors    </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 001Kg0000034pCtIAI TRUE    <span style="color: #949494;">&lt;list [0]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 001Kg0000034pDIIAY TRUE    <span style="color: #949494;">&lt;list [0]&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="relationship-queries">Relationship queries<a class="anchor" aria-label="anchor" href="#relationship-queries"></a>
@@ -466,7 +466,7 @@ Account information an additional column titled
 <span><span class="st">  FROM Contact</span></span>
 <span><span class="st">  WHERE Account.Id = null"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 368 × 2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 386 × 2</span></span></span>
 <span><span class="co">#&gt;   Id                 FirstName</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AYKTIA4 Test     </span></span>
@@ -474,7 +474,7 @@ Account information an additional column titled
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 003Kg000002AYHUIA4 Test     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 003Kg000002AYHVIA4 Test     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 003Kg000002AYHeIAO Test     </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 363 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 381 more rows</span></span></span></code></pre></div>
 <p>Note, that the Bulk 1.0 and Bulk 2.0 APIs will return
 <code>"Account.Name"</code> as a column of all <code>NA</code> values
 for this query because they return results differently.</p>
@@ -487,7 +487,7 @@ below:</p>
 <span><span class="st">            FROM Contact"</span>, </span>
 <span>           api_type <span class="op">=</span> <span class="st">"Bulk 2.0"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 782 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 800 × 3</span></span></span>
 <span><span class="co">#&gt;   Id                 FirstName Account.Owner.Id</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 0033s000012Nd60AAC Jenny     <span style="color: #BB0000;">NA</span>              </span></span>
@@ -495,7 +495,7 @@ below:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 0033s000012Nd6FAAS Jenny     <span style="color: #BB0000;">NA</span>              </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 0033s000012Nd6UAAS Jenny     <span style="color: #BB0000;">NA</span>              </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 0033s000012NdARAA0 Jenny     <span style="color: #BB0000;">NA</span>              </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 777 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 795 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="parent-to-child-nested-queries">parent-to-child “nested” queries<a class="anchor" aria-label="anchor" href="#parent-to-child-nested-queries"></a>

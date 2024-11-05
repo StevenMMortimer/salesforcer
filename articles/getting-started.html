@@ -165,8 +165,8 @@ records in the Contact object.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZXsIAO TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZXtIAO TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZhfIAG TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZhgIAG TRUE</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="retrieving-records">Retrieving records<a class="anchor" aria-label="anchor" href="#retrieving-records"></a>
@@ -182,8 +182,8 @@ where we retrieve the data we just created.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
 <span><span class="co">#&gt;   sObject Id                 FirstName LastName        </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contact 003Kg000002AZXsIAO Test      Contact-Create-1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Contact 003Kg000002AZXtIAO Test      Contact-Create-2</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Contact 003Kg000002AZhfIAG Test      Contact-Create-1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Contact 003Kg000002AZhgIAG Test      Contact-Create-2</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="querying-records">Querying records<a class="anchor" aria-label="anchor" href="#querying-records"></a>
@@ -208,8 +208,8 @@ information for which the Contact record is associated with.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   Id                 FirstName LastName        </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZXsIAO Test      Contact-Create-1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZXtIAO Test      Contact-Create-2</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZhfIAG Test      Contact-Create-1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZhgIAG Test      Contact-Create-2</span></span></code></pre></div>
 <p><strong>NOTE</strong>: In the example above, you’ll notice that the
 <code>"Account.Name"</code> column does not appear in the results. This
 is because the SOAP and REST APIs only return an empty Account object
@@ -243,8 +243,8 @@ we created earlier with a new first name called “TestTest”.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
 <span><span class="co">#&gt;   id                 success</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZXsIAO TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZXtIAO TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZhfIAG TRUE   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZhgIAG TRUE</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="deleting-records">Deleting records<a class="anchor" aria-label="anchor" href="#deleting-records"></a>
@@ -259,8 +259,8 @@ record needed.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   id                 success errors    </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZXsIAO TRUE    <span style="color: #949494;">&lt;list [0]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZXtIAO TRUE    <span style="color: #949494;">&lt;list [0]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZhfIAG TRUE    <span style="color: #949494;">&lt;list [0]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZhgIAG TRUE    <span style="color: #949494;">&lt;list [0]&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="upserting-records">Upserting records<a class="anchor" aria-label="anchor" href="#upserting-records"></a>
@@ -295,9 +295,9 @@ an “External Id” field.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
 <span><span class="co">#&gt;   id                 success created</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZXxIAO TRUE    FALSE  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZXyIAO TRUE    FALSE  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 003Kg000002AZY2IAO TRUE    TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 003Kg000002AZhkIAG TRUE    FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 003Kg000002AZhlIAG TRUE    FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 003Kg000002AZhpIAG TRUE    TRUE</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="check-out-the-tests">Check out the Tests<a class="anchor" aria-label="anchor" href="#check-out-the-tests"></a>
