@@ -16,7 +16,7 @@ on:
 jobs:
   test-coverage:
 
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -52,37 +52,42 @@ jobs:
           r-version: 'release'
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@v2
-
-      - name: Query dependencies
-        run: |
-          install.packages("remotes")
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@v4
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.4-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.4-1-
-
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("covr")
-        shell: Rscript {0}
-
-      - name: Session info
-        run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
-        shell: Rscript {0}
+          extra-packages: any::covr, any::xml2
+          needs: coverage
 
       - name: Test coverage
-        run: covr::codecov(quiet=FALSE)
+        run: |
+          cov <- covr::package_coverage(
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+          )
+          covr::to_cobertura(cov)
         shell: Rscript {0}
+
+      - uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
+          file: ./cobertura.xml
+          plugin: noop
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Show testthat output
+        if: always()
+        run: |
+          ## --------------------------------------------------------------------
+          find '${{ runner.temp }}/package' -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-test-failures
+          path: ${{ runner.temp }}/package
 
       - name: Trigger next workflow
         if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}

@@ -46,47 +46,29 @@ jobs:
           echo GITHUB_SHA        = $GITHUB_SHA
           echo GITHUB_REF        = $GITHUB_REF
 
+      - uses: r-lib/actions/setup-pandoc@v2
+
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: 'release'
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@v2
-
-      - name: Query dependencies
-        run: |
-          install.packages("remotes")
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@v4
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.4-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.4-1-
+          extra-packages: any::pkgdown, local::.
+          needs: website
 
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_dev("pkgdown")
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Session info
-        run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
-        shell: Rscript {0}
-
-      - name: Install package
-        run: R CMD INSTALL .
-
-      - name: Deploy package
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+      - name: Deploy to GitHub pages
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs
 
       - name: Trigger next workflow
         if: ${{ (github.event_name != 'workflow_dispatch' && success()) || (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_next && success()) }}
