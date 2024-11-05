@@ -1,957 +1,319 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/404.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/SECURITY.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/VERB_n.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_api.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_operation.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/bind_query_resultsets.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_manifest_xml_from_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_metadata_xml_from_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_proxy.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/build_soap_xml_from_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/catch_errors.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/catch_unknown_api.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/check_and_encode_files.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/collapse_list_with_dupe_names.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/combine_parent_and_child_resultsets.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/compact2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_attributes.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_attributes_recursively.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_empty_recursively.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_nested_child_records.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_nested_child_records.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_node.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_nodeset.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_nodeset_of_records.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/filter_valid_controls.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/flatten_tbl_df.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/format_headers_for_verbose.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/format_report_row.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/get_os.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/guess_object_name_from_soql.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/is_legit_token.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/list_extract_parent_and_child_result.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_child_operations_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_collections_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_operations_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_share_by_id_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_share_recipients_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_shares_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_notification_operations_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_notifications_limits_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_notifications_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_base_metadata_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_base_rest_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_base_soap_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_batch_details_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_batch_status_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_batches_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_create_job_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_delete_job_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_end_job_generic_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_jobs_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_query_jobs_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_job_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_job_records_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_query_result_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_query_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_chatter_users_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_composite_batch_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_composite_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_copy_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_describe_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_filter_operators_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_filter_options_analysis_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_status_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboards_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_login_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_parameterized_search_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_query_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_copy_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_create_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_describe_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_execute_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_fields_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_filter_operators_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_instance_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_instances_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_query_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_type_describe_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_types_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_reports_list_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_describe_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_objects_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_record_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_search_url.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_soap_xml_skeleton.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/make_verbose_httr_message.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/map_sf_type_to_r_type.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/merge_null_to_na.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/message_w_errors_listed.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/metadata_type_validator.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/parameterized_search_control.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/parse_error_code_and_message.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/parse_report_detail_rows.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/patched_tempdir.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rDELETE.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rGET.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rPATCH.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rPOST.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rPUT.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/records_list_to_tbl.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/remove_empty_linked_object_cols.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/return_matching_controls.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.bulkAction.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.bulkQuery.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.create.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.delete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.getObjectDescription.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.getServerTimestamp.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.login.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.query.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.retrieve.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.search.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.upsert.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/safe_bind_rows.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer-package.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer_state.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/session_id_available.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/set_null_elements_to_na.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/set_null_elements_to_na_recursively.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_abort_job_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_access_token.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_create.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_delete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_describe.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notifications_limits.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notifications_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_auth.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_auth_check.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_auth_refresh.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_batch_details_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_batch_status_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_build_cols_spec.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_close_job_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_control.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_convert_lead.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_copy_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_copy_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_batches_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_job_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_job_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_job_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_components_describe.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_copy.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_delete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_describe.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_filter_operators_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_filter_options_analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_refresh.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_results.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_set_sticky_filter.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_status.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboards_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_attachment.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_job_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_report_instance.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_dashboard_components.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_object_fields.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_objects.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_report_type.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_download_attachment.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_empty_recycle_bin.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_end_job_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_execute_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_filter_dashboard_operators_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_filter_dashboard_options_analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_find_duplicates.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_find_duplicates_by_id.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_date.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_datetime.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time.data.frame.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time.list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_jobs_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_query_jobs_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_dashboard_data.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_dashboard_results.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_dashboard_status.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_deleted.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_job_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_job_records_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_report_instance_results.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_updated.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_guess_cols.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_input_data_validation.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_job_batches_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_api_limits.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_dashboards.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_objects.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_fields.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_filter_operators.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_instances.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_types.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_reports.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_resources.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_rest_api_versions.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_merge.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_result_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_result_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_result_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_read_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_refresh_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_rename_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_reorder_cols.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_children.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_create.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_delete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_describe.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_delete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_describe.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_recipients.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_shares_add.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_shares_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_shares_update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folders_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_reset_password.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_rest_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_metadata_check_status.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_run_bulk_operation.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_run_bulk_query.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_run_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_search.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_server_timestamp.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_session_id.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_set_dashboard_sticky_filter.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_set_password.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_submit_query_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_undelete.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_report.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upload_complete_bulk.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_bulk_v1.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_bulk_v2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_rest.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_soap.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_user_info.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_write_csv.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/simplify_report_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/stop_w_errors_listed.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/token_available.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/unbox_list_elements.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/unbox_list_elements_recursively.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/unnest_col.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/valid_metadata_list.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/validate_get_all_jobs_params.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/warn_w_errors_listed.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xmlToList2.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_drop_and_unlist.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_drop_and_unlist_recursively.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_extract_parent_and_child_result.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_nodeset_to_df.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/404.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/CONTRIBUTING.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/LICENSE-text.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/LICENSE.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/SECURITY.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/SUPPORT.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/getting-started.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/index.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/passing-control-args.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/supported-queries.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/transitioning-from-RForcecom.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-attachments.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-bulk-apis.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/articles/working-with-reports.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/authors.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/index.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/news/index.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/VERB_n.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_api.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/accepted_controls_by_operation.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/bind_query_resultsets.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/build_manifest_xml_from_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/build_metadata_xml_from_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/build_proxy.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/build_soap_xml_from_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/catch_errors.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/catch_unknown_api.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/check_and_encode_files.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/collapse_list_with_dupe_names.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/combine_parent_and_child_resultsets.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/compact2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_attributes.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_attributes_recursively.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_empty_recursively.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/drop_nested_child_records.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_nested_child_records.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_node.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_nodeset.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/extract_records_from_xml_nodeset_of_records.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/filter_valid_controls.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/flatten_tbl_df.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/format_headers_for_verbose.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/format_report_row.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/get_os.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/guess_object_name_from_soql.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/index.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/is_legit_token.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/list_extract_parent_and_child_result.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_child_operations_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_collections_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_operations_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_share_by_id_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_share_recipients_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_folder_shares_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_notification_operations_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_notifications_limits_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_analytics_notifications_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_base_metadata_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_base_rest_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_base_soap_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_batch_details_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_batch_status_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_batches_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_create_job_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_delete_job_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_end_job_generic_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_jobs_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_all_query_jobs_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_get_job_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_job_records_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_query_result_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_bulk_query_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_chatter_users_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_composite_batch_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_composite_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_copy_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_describe_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_filter_operators_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_filter_options_analysis_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_status_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboard_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_dashboards_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_login_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_parameterized_search_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_query_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_copy_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_create_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_describe_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_execute_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_fields_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_filter_operators_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_instance_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_instances_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_query_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_type_describe_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_types_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_report_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_reports_list_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_describe_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_objects_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_rest_record_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_search_url.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_soap_xml_skeleton.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/make_verbose_httr_message.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/map_sf_type_to_r_type.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/merge_null_to_na.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/message_w_errors_listed.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/metadata_type_validator.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/parameterized_search_control.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/parse_error_code_and_message.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/parse_report_detail_rows.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/patched_tempdir.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rDELETE.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rGET.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rPATCH.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rPOST.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rPUT.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/records_list_to_tbl.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/remove_empty_linked_object_cols.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/return_matching_controls.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.bulkAction.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.bulkQuery.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.create.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.delete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.getObjectDescription.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.getServerTimestamp.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.login.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.query.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.retrieve.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.search.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/rforcecom.upsert.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/safe_bind_rows.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer-package.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/salesforcer_state.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/session_id_available.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/set_null_elements_to_na.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/set_null_elements_to_na_recursively.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_abort_job_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_access_token.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_create.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_delete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_describe.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notification_update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notifications_limits.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_analytics_notifications_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_auth.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_auth_check.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_auth_refresh.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_batch_details_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_batch_status_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_build_cols_spec.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_close_job_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_control.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_convert_lead.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_copy_dashboard.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_copy_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_attachment_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_batches_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_job_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_job_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_job_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_create_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_components_describe.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_copy.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_delete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_describe.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_filter_operators_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_filter_options_analysis.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_refresh.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_results.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_set_sticky_filter.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_status.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboard_update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_dashboards_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_attachment.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_dashboard.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_job_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_report_instance.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_delete_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_dashboard.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_dashboard_components.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_object_fields.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_objects.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_describe_report_type.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_download_attachment.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_empty_recycle_bin.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_end_job_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_execute_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_filter_dashboard_operators_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_filter_dashboard_options_analysis.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_find_duplicates.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_find_duplicates_by_id.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_date.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_datetime.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_format_time.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_jobs_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_all_query_jobs_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_dashboard_data.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_dashboard_results.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_dashboard_status.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_deleted.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_job_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_job_records_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_report_instance_results.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_get_updated.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_guess_cols.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_input_data_validation.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_job_batches_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_api_limits.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_dashboards.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_objects.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_fields.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_filter_operators.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_instances.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_report_types.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_reports.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_resources.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_list_rest_api_versions.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_merge.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_result_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_result_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_query_result_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_read_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_refresh_dashboard.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_rename_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_reorder_cols.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_children.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_create.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_delete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_describe.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_delete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_describe.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_recipients.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_share_update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_shares_add.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_shares_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_shares_update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folder_update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_report_folders_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_reset_password.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_rest_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_metadata_check_status.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_retrieve_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_run_bulk_operation.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_run_bulk_query.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_run_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_search.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_server_timestamp.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_session_id.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_set_dashboard_sticky_filter.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_set_password.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_submit_query_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_undelete.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_attachment_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_dashboard.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_report.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_update_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upload_complete_bulk.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_bulk_v1.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_bulk_v2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_rest.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_upsert_soap.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_user_info.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/sf_write_csv.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/simplify_report_metadata.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/stop_w_errors_listed.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/token_available.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/unbox_list_elements.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/unbox_list_elements_recursively.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/unnest_col.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/valid_metadata_list.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/validate_get_all_jobs_params.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/warn_w_errors_listed.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/xmlToList2.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_drop_and_unlist.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_drop_and_unlist_recursively.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_extract_parent_and_child_result.html</loc></url>
+<url><loc>https://stevenmmortimer.github.io/salesforcer/reference/xml_nodeset_to_df.html</loc></url>
 </urlset>
+
