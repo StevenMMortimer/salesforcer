@@ -137,6 +137,8 @@ new_contacts_res <- sf_create(new_contacts, "Contact", api_type = "Bulk 2.0")
 **Performance test**
 
 ```{r run-performance-test, message=FALSE}
+#| fig.alt: >
+#|   A violin plot showing the distribution of latency times for REST API and SOAP API
 qry <- function(api_type){
   sf_query(
     sprintf("SELECT Id, Name, Owner.Id, 

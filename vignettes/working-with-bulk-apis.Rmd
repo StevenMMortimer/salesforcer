@@ -170,6 +170,8 @@ at a time). I would encourage users to experiment to see what works best in thei
 Salesforce Org.
 
 ```{r, warning=FALSE, message=FALSE}
+#| fig.alt: >
+#|   A violin plot showing the distribution of latency times for Bulk API and Bulk 2.0 API
 soql <- "SELECT Id, Name FROM Contact"
 bulk1_query <- function(){sf_query(soql, "Contact", api_type="Bulk 1.0")}
 bulk2_query <- function(){sf_query(soql, api_type="Bulk 2.0")} # Bulk 2.0 doesn't need object name

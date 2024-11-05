@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (1.0.2)
+# install the current CRAN version
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -410,7 +410,7 @@ Future APIs to support (roughly in priority order):
 -   [Industries
     API](https://developer.salesforce.com/docs/atlas.en-us.api_rest_industries.meta/api_rest_industries/intro.htm)
 -   [Data.com
-    API](https://developer.salesforce.com/docs/atlas.en-us.datadotcom_api_dev_guide.meta/datadotcom_api_dev_guide/datadotcom_api_dev_guide_intro.htm)
+    API](https://developer.salesforce.com/docs/sales/datadotcom-api/guide/datadotcom_api_dev_guide_intro.html)
 
 ## Credits
 
@@ -432,13 +432,13 @@ requests best formatted to match what the APIs require as input. This
 articulation is not perfect and continued progress will be made to add
 and improve functionality. For details on formatting, attributes, and
 methods please refer to [Salesforce’s
-documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview)
+documentation](https://trailhead.salesforce.com/content/learn/modules/api_basics/api_basics_overview)
 as they are explained better there. More information is also available
 on the {salesforcer} pkgdown website at
 <https://stevenmmortimer.github.io/salesforcer/>.
 
 [Get supported salesforcer with the Tidelift
-Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
+Subscription](https://tidelift.com?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
 
 ------------------------------------------------------------------------
 

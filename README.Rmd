@@ -69,7 +69,7 @@ Package features include:
 ## Installation
 
 ```{r, eval = FALSE}
-# install the current CRAN version (1.0.2)
+# install the current CRAN version
 install.packages("salesforcer")
 
 # or get the development version on GitHub
@@ -327,10 +327,10 @@ most all operations supported by the Salesforce APIs are available via this pack
 This package makes requests best formatted to match what the APIs require as input. 
 This articulation is not perfect and continued progress will be made to add and improve 
 functionality. For details on formatting, attributes, and methods please refer to 
-[Salesforce's documentation](https://trailhead.salesforce.com/en/content/learn/modules/api_basics/api_basics_overview) as they are explained better there. More information 
+[Salesforce's documentation](https://trailhead.salesforce.com/content/learn/modules/api_basics/api_basics_overview) as they are explained better there. More information 
 is also available on the {salesforcer} pkgdown website at https://stevenmmortimer.github.io/salesforcer/.  
 
-[Get supported salesforcer with the Tidelift Subscription](https://tidelift.com/subscription/pkg/cran-salesforcer?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
+[Get supported salesforcer with the Tidelift Subscription](https://tidelift.com?utm_source=cran-salesforcer&utm_medium=referral&utm_campaign=readme)
 
 ---
 Please note that this project is released with a [Contributor Code of Conduct](https://github.com/stevenmmortimer/salesforcer/blob/main/.github/CODE_OF_CONDUCT.md). 

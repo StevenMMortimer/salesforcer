@@ -63,8 +63,8 @@ of base64–encoded data.
 \section{Salesforce Documentation}{
 
 \itemize{
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
-\item \href{https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm}{Document Object (SOAP)}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_attachment.htm}{Attachment Object (SOAP)}
+\item \href{https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_document.htm}{Document Object (SOAP)}
 \item \href{https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm}{Insert or Update Blob Data}
 }
 }
@@ -75,21 +75,21 @@ of base64–encoded data.
 file_path1 <- here::here("doc1.pdf")
 file_path2 <- here::here("doc2.pdf")
 parent_record_id <- "0036A000002C6MmQAK"
-attachment_details <- tibble(Body = c(file_path1, file_path2), 
+attachment_details <- tibble(Body = c(file_path1, file_path2),
                              ParentId = rep(parent_record_id, 2))
 result <- sf_create_attachment(attachment_details)
 
-# the function supports inserting all blob content, just update the 
+# the function supports inserting all blob content, just update the
 # object_name argument to add the PDF as a Document instead of an Attachment
-document_details <- tibble(Name = "doc1.pdf", 
-                           Description = "Test Document 1", 
+document_details <- tibble(Name = "doc1.pdf",
+                           Description = "Test Document 1",
                            Body = file_path1,
                            FolderId = "00l6A000001EgIwQAK", # replace with your FolderId!
                            Keywords = "example,test,document")
 result <- sf_create_attachment(document_details, object_name = "Document")
 
-# the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically 
-# take a data.frame of Attachment info and create a ZIP file with CSV manifest 
+# the Bulk API can be invoked using api_type="Bulk 1.0" which will automatically
+# take a data.frame of Attachment info and create a ZIP file with CSV manifest
 # that is required for that API
 result <- sf_create_attachment(attachment_details, api_type="Bulk 1.0")
 }

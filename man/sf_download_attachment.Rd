@@ -53,10 +53,10 @@ attachment body, file name, and path.
 \examples{
 \dontrun{
 # downloading all attachments for a Parent record
-# if your attachment name doesn't include the extension, then you can use the 
+# if your attachment name doesn't include the extension, then you can use the
 # ContentType column to append it to the Name, if needed
-queried_attachments <- sf_query("SELECT Id, Body, Name, ContentType 
-                                 FROM Attachment 
+queried_attachments <- sf_query("SELECT Id, Body, Name, ContentType
+                                 FROM Attachment
                                  WHERE ParentId = '0016A0000035mJ5'")
 mapply(sf_download_attachment, queried_attachments$Body, queried_attachments$Name)
 
