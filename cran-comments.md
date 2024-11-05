@@ -6,11 +6,11 @@
 * Ubuntu 22.04 (ubuntu-latest on GitHub Actions), R-release 4.4.2
 * macOS 14 Arm64 (macos-latest on GitHub Actions) R-release 4.4.2
 * Windows Server 2022 (windows-latest on GitHub Actions) R-release 4.4.2
-* win-builder (R-release 4.4.2)
+* win-builder (Windows Server 2022 x64 (build 20348)), R-devel (2024-11-03 r87286 ucrt)
 
 ## R CMD check results
 
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... [17s] NOTE
 Maintainer: 'Steven M. Mortimer <mortimer.steven.m@gmail.com>'
 
 0 errors ✓ | 0 warnings ✓ | 1 notes ✖
