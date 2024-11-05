@@ -203,7 +203,7 @@ is not found based an an "External Id" field, then Salesforce will create the
 record instead of updating one. Below is an example where we create 2 records, 
 then upsert 3, where 2 are matched and updated and one is created. **NOTE**: You 
 will need to create a custom field on the target object and ensure it is labeled as 
-an "External Id" field. Read more at: <a rel="noopener noreferrer" target="_blank" href="https://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/">https://blog.jeffdouglas.com/2010/05/07/using-exernal-id-fields-in-salesforce/</a>.
+an "External Id" field.
 
 ```{r}
 n <- 2

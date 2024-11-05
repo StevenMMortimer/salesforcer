@@ -3,14 +3,14 @@
 ## Test environments
 
 * Local Mac OS install, R-release 4.4.1
-* Ubuntu 18.04 (on GitHub Actions), R-release, R 4.4.2
-* Mac OS 10.15.5 (on GitHub Actions) R-release, R 4.4.2
-* Microsoft Windows Server 2019 10.0.17763 (on GitHub Actions) R-release, R 4.4.2
-* win-builder (R-release 4.4.2)
+* Ubuntu 22.04 (ubuntu-latest on GitHub Actions), R-release 4.4.2
+* macOS 14 Arm64 (macos-latest on GitHub Actions) R-release 4.4.2
+* Windows Server 2022 (windows-latest on GitHub Actions) R-release 4.4.2
+* win-builder (Windows Server 2022 x64 (build 20348)), R-devel (2024-11-03 r87286 ucrt)
 
 ## R CMD check results
 
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... [17s] NOTE
 Maintainer: 'Steven M. Mortimer <mortimer.steven.m@gmail.com>'
 
 0 errors ✓ | 0 warnings ✓ | 1 notes ✖

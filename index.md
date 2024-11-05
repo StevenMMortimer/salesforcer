@@ -14,7 +14,7 @@ Status](https://codecov.io/gh/stevenmmortimer/salesforcer/branch/main/graph/badg
 <!-- badges: end -->
 
 <br>
-<img src="man/figures/salesforcer.png" width="120px" align="right" />
+<img src="man/figures/salesforcer.png" alt="salesforcer package logo" width="120px" align="right" />
 
 {salesforcer} is an R package that connects to Salesforce Platform APIs
 using tidy principles. The package implements actions from the REST,
@@ -70,7 +70,7 @@ Package features include:
 ## Installation
 
 ``` r
-# install the current CRAN version (1.0.1)
+# install the current CRAN version
 install.packages("salesforcer")
 
 # or get the development version on GitHub
