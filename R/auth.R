@@ -2,22 +2,22 @@
 
 # Modifications:
 #  - Changed the scopes and authentication endpoints
-#  - Renamed the function gs_auth to sf_auth to be consistent with package 
+#  - Renamed the function gs_auth to sf_auth to be consistent with package
 #    and added basic authentication handling
 #  - Added basic authentication session handling functions
 
 # Copyright (c) 2017 Jennifer Bryan, Joanna Zhao
-#   
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-#   
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,75 +30,82 @@
 .state <- new.env(parent = emptyenv())
 
 #' Log in to Salesforce
-#' 
+#'
 #' @description
 #' `r lifecycle::badge("stable")`
-#' 
+#'
 #' Log in using Basic (Username-Password) or OAuth 2.0 authentication. OAuth does
-#' not require sharing passwords, but will require authorizing \code{salesforcer} 
-#' as a connected app to view and manage your organization. You will be directed to 
-#' a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer} 
-#' permission to operate on your behalf. By default, these user credentials are 
+#' not require sharing passwords, but will require authorizing \code{salesforcer}
+#' as a connected app to view and manage your organization. You will be directed to
+#' a web browser, asked to sign in to your Salesforce account, and to grant \code{salesforcer}
+#' permission to operate on your behalf. By default, these user credentials are
 #' cached in a file named \code{.httr-oauth-salesforcer} in the current working directory.
-#' 
+#'
 #' @importFrom httr content oauth2.0_token oauth_app oauth_endpoint
 #' @importFrom xml2 xml_new_document xml_add_child xml_add_sibling xml_set_namespace xml_find_first xml_child
 #' @param username Salesforce username, typically an email address
 #' @param password Salesforce password
-#' @param security_token Salesforce security token. Note: A new security token is 
+#' @param security_token Salesforce security token. Note: A new security token is
 #' generated whenever your password is changed.
-#' @param login_url a custom login url; defaults to https://login.salesforce.com. If 
-#' needing to log into a sandbox or dev environment then provide its login URL (e.g. 
+#' @param login_url a custom login url; defaults to https://login.salesforce.com. If
+#' needing to log into a sandbox or dev environment then provide its login URL (e.g.
 #' https://test.salesforce.com)
 #' @param token optional; an actual token object or the path to a valid token
 #'   stored as an \code{.rds} file
-#' @param consumer_key,consumer_secret,callback_url the "Consumer Key","Consumer Secret", 
-#' and "Callback URL" when using a connected app; defaults to the \code{salesforcer} 
+#' @param consumer_key,consumer_secret,callback_url the "Consumer Key","Consumer Secret",
+#' and "Callback URL" when using a connected app; defaults to the \code{salesforcer}
 #' connected apps' consumer key, secret, and callback url
-#' @param cache \code{logical} or \code{character}; TRUE means to cache using 
-#' the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not 
+#' @param use_oob \code{logical}; if FALSE, use a local webserver for the OAuth dance.
+#' Otherwise, provide a URL to the user and prompt for a validation code.
+#' Defaults to the of the \code{"httr_oob_default"} default, or \code{TRUE} if
+#' \code{httpuv} is not installed
+#' @param oob_value \code{character}; if provided, specifies the value to use for the
+#' redirect_uri parameter when retrieving an authorization URL. Defaults to
+#' "urn:ietf:wg:oauth:2.0:oob". Requires \code{use_oob = TRUE}
+#' @param cache \code{logical} or \code{character}; TRUE means to cache using
+#' the default cache file \code{.httr-oauth-salesforcer}, FALSE means do not
 #' cache. A string means use the specified path as the cache file.
 #' @template verbose
-#' @return \code{list} invisibly that contains 4 elements detailing the authentication state     
-#' @note The \code{link{sf_auth}} function invisibly returns the following 
-#' 4 pieces of information which can be reused in other operations: 
+#' @return \code{list} invisibly that contains 4 elements detailing the authentication state
+#' @note The \code{link{sf_auth}} function invisibly returns the following
+#' 4 pieces of information which can be reused in other operations:
 #' \describe{
 #'  \item{auth_method}{
-#'  \code{character}; One of two options 'Basic' or 'OAuth'. If a username, 
-#'  password, and security token were supplied, then this would result in 
+#'  \code{character}; One of two options 'Basic' or 'OAuth'. If a username,
+#'  password, and security token were supplied, then this would result in
 #'  'Basic' authentication.
 #'  }
 #'  \item{token}{
-#'  \code{Token2.0}; The object returned by \code{\link[httr]{oauth2.0_token}}. 
+#'  \code{Token2.0}; The object returned by \code{\link[httr]{oauth2.0_token}}.
 #'  This value is \code{NULL} if \code{auth_method='Basic'}.
 #'  }
 #'  \item{session_id}{
-#'  \code{character}; A unique ID associated with this user session. The session 
-#'  ID is obtained from the X-SFDC-Session header fetched with SOAP API's login() 
+#'  \code{character}; A unique ID associated with this user session. The session
+#'  ID is obtained from the X-SFDC-Session header fetched with SOAP API's login()
 #'  call. This value is \code{NULL} if \code{auth_method='OAuth'}.
 #'  }
 #'  \item{instance_url}{
-#'  \code{character}; The domain address of the server that your Salesforce org 
-#'  is on and where subsequent API calls will be directed to. For example, 
-#'  \code{https://na21.salesforce.com} refers to an org located on the 'NA21' 
-#'  server instance located in Chicago, USA / Washington DC, USA per this 
+#'  \code{character}; The domain address of the server that your Salesforce org
+#'  is on and where subsequent API calls will be directed to. For example,
+#'  \code{https://na21.salesforce.com} refers to an org located on the 'NA21'
+#'  server instance located in Chicago, USA / Washington DC, USA per this
 #'  Knowledge Article: \url{https://help.salesforce.com/s/articleView?language=en_US&id=000314281}.
 #' }
 #' }
 #' @examples
 #' \dontrun{
 #' # log in using basic authentication (username-password)
-#' sf_auth(username = "test@gmail.com", 
-#'         password = "test_password", 
+#' sf_auth(username = "test@gmail.com",
+#'         password = "test_password",
 #'         security_token = "test_token")
-#' 
+#'
 #' # log in using OAuth 2.0 (via browser or cached .httr-oauth-salesforcer)
 #' sf_auth()
-#' 
+#'
 #' # log in to a Sandbox environment
 #' # Via brower or refresh of .httr-oauth-salesforcer
 #' sf_auth(login_url = "https://test.salesforce.com")
-#' 
+#'
 #' # Save token to disk and log in using it
 #' saveRDS(salesforcer_state()$token, "token.rds")
 #' sf_auth(token = "token.rds")
@@ -112,12 +119,14 @@ sf_auth <- function(username = NULL,
                     consumer_key = getOption("salesforcer.consumer_key"),
                     consumer_secret = getOption("salesforcer.consumer_secret"),
                     callback_url = getOption("salesforcer.callback_url"),
+                    use_oob = getOption("salesforcer.httr_oob_default"),
+                    oob_value = NULL,
                     cache = getOption("salesforcer.httr_oauth_cache"),
                     verbose = FALSE){
-  
+
   if(!is.null(username) & !is.null(password) & !is.null(security_token)){
-    
-    # deprecate_warn("1.0.1", 
+
+    # deprecate_warn("1.0.1",
     #                "salesforcer::sf_auth(security_token = )",
     #                "sf_auth(token = )",
     #                details = paste0("Beginning February 1st, 2022, Salesforce will be requiring customers ",
@@ -128,174 +137,178 @@ sf_auth <- function(username = NULL,
     #                                 "'INVALID_LOGIN: Invalid username, password, security token; or user locked out.'."
     #                                 )
     #                )
-    
+
     # basic authentication (username-password) ---------------------------------
     body <- xml_new_document()
-    
+
     # build the xml request for the SOAP API
     body %>%
       xml_add_child("Envelope",
-                    "xmlns:soapenv" = "http://schemas.xmlsoap.org/soap/envelope/", 
+                    "xmlns:soapenv" = "http://schemas.xmlsoap.org/soap/envelope/",
                     "xmlns:xsi" = "http://www.w3.org/2001/XMLSchema-instance",
                     "xmlns:urn" = "urn:partner.soap.sforce.com") %>%
       xml_set_namespace("soapenv") %>%
       xml_add_child("Body") %>%
       xml_set_namespace("soapenv") %>%
-      xml_add_child("login") %>% 
+      xml_add_child("login") %>%
       xml_set_namespace("urn") %>%
       {
-        xml_add_child(., "username", username) %>% 
-        xml_add_sibling("password", paste0(password, security_token))
-        if(getOption("salesforcer.proxy_url") != "" & 
-           !is.null(getOption("salesforcer.proxy_port"))){ 
+        xml_add_child(., "username", username) %>%
+          xml_add_sibling("password", paste0(password, security_token))
+        if(getOption("salesforcer.proxy_url") != "" &
+           !is.null(getOption("salesforcer.proxy_port"))){
           xml_add_child(., "proxy") %>%
-            xml_add_child("proxyhost", getOption("salesforcer.proxy_url")) %>% 
+            xml_add_child("proxyhost", getOption("salesforcer.proxy_url")) %>%
             xml_add_sibling("proxyport", getOption("salesforcer.proxy_port"))
         }
-        if(!is.null(getOption("salesforcer.proxy_username")) & 
-           !is.null(getOption("salesforcer.proxy_password"))){ 
-          xml_add_child(., "proxyusername", getOption("salesforcer.proxy_username")) %>% 
+        if(!is.null(getOption("salesforcer.proxy_username")) &
+           !is.null(getOption("salesforcer.proxy_password"))){
+          xml_add_child(., "proxyusername", getOption("salesforcer.proxy_username")) %>%
             xml_add_child("proxypassword", getOption("salesforcer.proxy_password"))
         }
       }
-    
+
     # POST the data using httr package and handle response
     httr_response <- rPOST(url = make_login_url(login_url),
-                           headers = c("SOAPAction"="login", "Content-Type"="text/xml"), 
+                           headers = c("SOAPAction"="login", "Content-Type"="text/xml"),
                            body = as.character(body))
     catch_errors(httr_response)
     response_parsed <- content(httr_response, encoding='UTF-8')
-    
+
     # parse the response information
     login_reponse <- response_parsed %>%
       xml_find_first('.//soapenv:Body') %>%
-      xml_child() %>% 
+      xml_child() %>%
       as_list()
-    
+
     # set the global .state variable
     .state$auth_method <- "Basic"
     .state$token = NULL
     .state$session_id <- login_reponse$result$sessionId[[1]][1]
     .state$instance_url <- gsub('(https://[^/]+)/.*', '\\1', login_reponse$result$serverUrl)
   } else {
-    
+
     # OAuth2.0 authentication
     if (is.null(token)) {
-      
+
       sf_oauth_app <- oauth_app("salesforce",
-                                key = consumer_key, 
+                                key = consumer_key,
                                 secret = consumer_secret,
                                 redirect_uri = callback_url)
-      
+
       sf_oauth_endpoints <- oauth_endpoint(request = NULL,
                                            base_url = sprintf("%s/services/oauth2", login_url),
-                                           authorize = "authorize", 
-                                           access = "token", 
+                                           authorize = "authorize",
+                                           access = "token",
                                            revoke = "revoke")
-      
+
       proxy <- build_proxy()
       if(!is.null(proxy)){
         sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
-                                   app = sf_oauth_app, 
-                                   cache = cache, 
+                                   app = sf_oauth_app,
+                                   use_oob = use_oob,
+                                   oob_value = oob_value,
+                                   cache = cache,
                                    config_init = proxy)
       } else {
         sf_token <- oauth2.0_token(endpoint = sf_oauth_endpoints,
-                                   app = sf_oauth_app, 
+                                   app = sf_oauth_app,
+                                   use_oob = use_oob,
+                                   oob_value = oob_value,
                                    cache = cache)
       }
-  
+
       stopifnot(is_legit_token(sf_token, verbose = TRUE))
-      
+
       # set the global .state variable
       .state$auth_method <- "OAuth"
       .state$token <- sf_token
       .state$session_id <- NULL
       .state$instance_url <- sf_token$credentials$instance_url
-      
+
     } else if (inherits(token, "Token2.0")) {
-      
+
       # accept token from environment ------------------------------------------------
       stopifnot(is_legit_token(token, verbose = TRUE))
-      
+
       # set the global .state variable
       .state$auth_method <- "OAuth"
       .state$token <- token
       .state$session_id <- NULL
       .state$instance_url <- token$credentials$instance_url
-      
+
     } else if (inherits(token, "character")) {
-      
+
       # accept token from file -------------------------------------------------------
       sf_token <- try(suppressWarnings(readRDS(token)), silent = TRUE)
-      
+
       if (inherits(sf_token, "try-error")) {
         stop(sprintf("Cannot read token from alleged .rds file:\n%s", token), call. = FALSE)
       } else if (!is_legit_token(sf_token, verbose = TRUE)) {
         stop(sprintf("File does not contain a proper token:\n%s", token), call. = FALSE)
       }
-      
+
       # set the global .state variable
       .state$auth_method <- "OAuth"
       .state$token <- sf_token
       .state$session_id <- NULL
       .state$instance_url <- sf_token$credentials$instance_url
-      
+
     } else {
       stop("Input provided via 'token' is neither a token",
            "\nnor a path to an .rds file containing a token.", call. = FALSE)
     }
   }
-  
-  invisible(list(auth_method=.state$auth_method, 
-                 token=.state$token, 
+
+  invisible(list(auth_method=.state$auth_method,
+                 token=.state$token,
                  session_id=.state$session_id,
                  instance_url=.state$instance_url))
 }
 
 #' Check that token appears to be legitimate
 #'
-#' @param x an object that is supposed to be an object of class \code{Token2.0} 
+#' @param x an object that is supposed to be an object of class \code{Token2.0}
 #' (an S3 class provided by \code{httr}). If so, the result will return \code{TRUE}.
 #' @template verbose
-#' @return \code{logical} 
+#' @return \code{logical}
 #' @keywords internal
 #' @export
 is_legit_token <- function(x, verbose = FALSE) {
-  
+
   if (!inherits(x, "Token2.0")) {
     if (verbose) message("Not a Token2.0 object.")
     return(FALSE)
   }
-  
+
   if ("invalid_client" %in% unlist(x$credentials)) {
     if (verbose) {
       message("Authorization error. Please check client_id and client_secret.")
     }
     return(FALSE)
   }
-  
+
   if ("invalid_request" %in% unlist(x$credentials)) {
     if (verbose) message("Authorization error. No access token obtained.")
     return(FALSE)
   }
-  
+
   TRUE
-  
+
 }
 
 #' Check that an Authorized Salesforce Session Exists
 #'
-#' Before the user makes any calls requiring an authorized session, check if an 
-#' OAuth token or session is not already available, call \code{\link{sf_auth}} to 
-#' by default initiate the OAuth 2.0 workflow that will load a token from cache or 
+#' Before the user makes any calls requiring an authorized session, check if an
+#' OAuth token or session is not already available, call \code{\link{sf_auth}} to
+#' by default initiate the OAuth 2.0 workflow that will load a token from cache or
 #' launch browser flow. Return the bare token. Use
 #' \code{access_token()} to reveal the actual access token, suitable for use
 #' with \code{curl}.
 #'
 #' @template verbose
-#' @return a \code{Token2.0} object (an S3 class provided by \code{httr}) or a 
-#' a character string of the sessionId element of the current authorized 
+#' @return a \code{Token2.0} object (an S3 class provided by \code{httr}) or a
+#' a character string of the sessionId element of the current authorized
 #' API session
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
@@ -328,13 +341,13 @@ sf_auth_check <- function(verbose = FALSE) {
 
 #' Refresh an existing Authorized Salesforce Token
 #'
-#' Force the current OAuth to refresh. This is only needed for times when you 
-#' load the token from outside the current working directory, it is expired, and 
+#' Force the current OAuth to refresh. This is only needed for times when you
+#' load the token from outside the current working directory, it is expired, and
 #' you're running in non-interactive mode.
 #'
 #' @template verbose
-#' @return a \code{Token2.0} object (an S3 class provided by \code{httr}) or a 
-#' a character string of the sessionId element of the current authorized 
+#' @return a \code{Token2.0} object (an S3 class provided by \code{httr}) or a
+#' a character string of the sessionId element of the current authorized
 #' API session
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
@@ -360,9 +373,9 @@ sf_auth_refresh <- function(verbose = FALSE) {
 session_id_available <- function(verbose = TRUE) {
   if (is.null(.state$session_id)) {
     if (verbose) {
-      message("The session_id is NULL in salesforcer's internal .state environment. ", 
-              "This can occur if the user is authorized using OAuth 2.0, which doesn't ", 
-              "require a session_id, or the user is not yet performed any authorization ", 
+      message("The session_id is NULL in salesforcer's internal .state environment. ",
+              "This can occur if the user is authorized using OAuth 2.0, which doesn't ",
+              "require a session_id, or the user is not yet performed any authorization ",
               "routine.\n",
               "When/if needed, 'salesforcer' will initiate authentication ",
               "and authorization.\nOr run sf_auth() to trigger this explicitly.")
@@ -385,14 +398,14 @@ token_available <- function(verbose = FALSE) {
   if (is.null(.state$token)) {
     if (verbose) {
       if (file.exists(".httr-oauth-salesforcer")) {
-        message(paste0("A '.httr-oauth-salesforcer' file exists in current ", 
-                       "working directory.\n\nWhen needed, the credentials ", 
-                       "cached in '.httr-oauth-salesforcer' can be used for ", 
-                       "this session.\n\nAlternatively, you can run sf_auth() ", 
+        message(paste0("A '.httr-oauth-salesforcer' file exists in current ",
+                       "working directory.\n\nWhen needed, the credentials ",
+                       "cached in '.httr-oauth-salesforcer' can be used for ",
+                       "this session.\n\nAlternatively, you can run sf_auth() ",
                        "for explicit authentication and authorization."))
       } else {
-        message(paste0("No '.httr-oauth-salesforcer' file exists in current ", 
-                       "working directory.\n\nWhen needed, salesforcer will ", 
+        message(paste0("No '.httr-oauth-salesforcer' file exists in current ",
+                       "working directory.\n\nWhen needed, salesforcer will ",
                        "initiate authentication and authorization.\n\nAlternatively, ",
                        "you can run sf_auth() to trigger this explicitly."))
       }
@@ -405,7 +418,7 @@ token_available <- function(verbose = FALSE) {
 #' Return access_token attribute of OAuth 2.0 Token
 #'
 #' @template verbose
-#' @return \code{character}; a string of the access_token element of the current token in 
+#' @return \code{character}; a string of the access_token element of the current token in
 #' force; otherwise NULL
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
@@ -418,7 +431,7 @@ sf_access_token <- function(verbose = FALSE) {
 #' Return session_id resulting from Basic auth routine
 #'
 #' @template verbose
-#' @return \code{character}; a string of the sessionId element of the current authorized 
+#' @return \code{character}; a string of the sessionId element of the current authorized
 #' API session; otherwise NULL
 #' @note This function is meant to be used internally. Only use when debugging.
 #' @keywords internal
