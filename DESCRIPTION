@@ -1,7 +1,7 @@
 Package: salesforcer
 Title: An Implementation of 'Salesforce' APIs Using Tidy Principles
-Version: 1.0.2
-Date: 2024-11-05
+Version: 1.0.2.9999
+Date: 2024-11-06
 Description: Functions connecting to the 'Salesforce' Platform APIs (REST, SOAP, 
     Bulk 1.0, Bulk 2.0, Metadata, Reports and Dashboards) 
     <https://trailhead.salesforce.com/content/learn/modules/api_basics/api_basics_overview>. 

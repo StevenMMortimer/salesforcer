@@ -1,4 +1,20 @@
-# salesforcer 1.0.2
+# salesforcer 1.0.2.9999
+
+## Dependencies
+
+  * None
+
+## Features
+  
+  * None
+
+## Bug fixes
+
+  * None
+
+---
+
+# salesforcer 1.0.2 [release](https://github.com/StevenMMortimer/salesforcer/releases/tag/v1.0.2)
 
 ## Dependencies
 
