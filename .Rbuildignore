@@ -33,3 +33,4 @@
 ^vignettes/.httr-oauth-salesforcer$
 ^package.zip$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
